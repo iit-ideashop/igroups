@@ -1,0 +1,61 @@
+body { 
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+}
+
+thead {
+	font-size:10pt;
+	font-weight:bold;
+	background-color:#CCCCCC;
+	text-align:center;
+}
+
+a:link, a:visited {
+	color:#CC0000;
+}
+
+h1 {
+	font-size:12pt;
+	color:#CC0000;
+	padding:0;
+	margin-bottom:5px;
+}
+
+#topbanner {
+	padding: .25em;
+	font-size:14pt;
+	border-bottom-style:solid;
+	border-bottom-color:#CC0000;
+	text-align:center;
+	margin-bottom:10px;
+}
+
+#columnbanner {
+	padding: .25em;
+	margin-bottom:0;
+	border-bottom: 1px solid #CC0000;
+	text-align:center;
+}
+
+.close-button {
+	background-image: url('img/close-button.gif');
+	position:absolute;
+	right:0;
+	top:0;
+	margin: 4px 4px 4px 4px;
+	border-width:0;
+	height: 15px;
+	width: 15px;
+}
+
+.shade {
+	background-color:#EEEEEE;
+}
+
+#messageBox {
+	background-color:#CCCCCC;
+	color:#000;
+	font-size:12pt;
+	padding:5px;
+	border-bottom:1px solid #000;
+}
