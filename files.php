@@ -149,13 +149,13 @@
 			background-color:#fff;
 		}
 		
-		#menubar {
+		.menubar {
 			background-color:#eeeeee;
 			margin-bottom:5px;
 			padding:3px;
 		}
 		
-		#menubar li {
+		.menubar li {
 			padding:5px;
 			display:inline;
 		}
@@ -527,7 +527,7 @@ require("sidebar.php");
 				Your Folders:
 			</div>
 			<div class="menubar">
-				<ul class="filesul"> <?php if (!$currentUser->isGroupGuest($currentGroup) && (!isset($_SESSION['selectedSpecial']) || $_SESSION['selectedSpecial'] == 'trash')) { ?>
+				<ul class="filesul"> <?php if (!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial'])) { ?>
 					<li><a href="#" onclick="newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Folder</a></li>
 					<?php
                                         if ( $currentUser->isGroupModerator($currentGroup) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0  ) {
@@ -751,7 +751,7 @@ require("sidebar.php");
 			</form>
 		</div>
 		<div class="window-content" id="editfolder" style="display: none">
-			<form method="post" action="email.php">
+			<form method="post" action="files.php">
 <?php
 				if ( $currentFolder ) {
 					print "Current Folder Name: ".$currentFolder->getName()."<br />";
