@@ -169,38 +169,15 @@
 		ul.filesul ul {
 			padding-left:20px;
 		}
-		
-		.window {
-			width:500px;
-			background-color:#FFF;
-			border: 1px solid #000;
-			visibility:hidden; 
-			position:absolute;
-			left:20px;
-			top:20px;
-		}
-		
-		.window-topbar {
-			padding-left:5px;
-			font-size:14pt;
-			color:#FFF;
-			background-color:#C00;
-		}
-		
-		.window-content {
-			padding:5px;
-		}
 	</style>
 
 <link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
-
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
 * This notice must stay intact for legal use.
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
-
 </script>
 
 	<script type="text/javascript">
@@ -380,6 +357,36 @@ require("sidebar.php");
 		}
         }
 
+	if(isset($_POST['editF']) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0 && $currentUser->isGroupModerator($currentFolder->getGroup()))
+	{
+		if (isset($_POST['foldername']) && !$currentFolder->isIPROFolder())
+			$currentFolder->setName( $_POST['foldername'] );
+		if (isset($_POST['folderdesc']) && !$currentFolder->isIPROFolder())
+			$currentFolder->setDesc( $_POST['folderdesc'] );
+		$currentFolder->updateDB();
+?>
+		<script type="text/javascript">
+			showMessage("Folder successfully edited");
+		</script>
+<?php
+	}
+	else if(isset($_POST['deleteF']) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0 && $currentUser->isGroupModerator($currentFolder->getGroup()))
+	{
+		$currentFolder->trash();
+?>
+		<script type="text/javascript">
+			showMessage("Folder successfully deleted");
+		</script>
+<?php
+	}
+	else if(isset($_POST['editF']) || isset($_POST['deleteF']))
+	{
+?>
+		<script type="text/javascript">
+			showMessage("Error: Folder operation failed");
+		</script>
+<?php
+	}
 	if ( isset( $_POST['move'] ) ) {
 		// Change form data into arrays instead of comma separated list
 		if ( $_POST['files'] != "" )
@@ -519,6 +526,17 @@ require("sidebar.php");
 			<div class="columnbanner">
 				Your Folders:
 			</div>
+			<div class="menubar">
+				<ul class="filesul"> <?php if (!$currentUser->isGroupGuest($currentGroup) && (!isset($_SESSION['selectedSpecial']) || $_SESSION['selectedSpecial'] == 'trash')) { ?>
+					<li><a href="#" onclick="newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Folder</a></li>
+					<?php
+                                        if ( $currentUser->isGroupModerator($currentGroup) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0  ) {
+					?>
+                                                <li><a href="#" onclick="editfolderwin=dhtmlwindow.open('editfolderbox', 'div', 'editfolder', 'Edit Folder', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Folder</a></li>
+					<?php } ?>
+				</ul>
+				<?php } ?>
+			</div>
 			<div id="folders">
 				<ul id='top' class="filesul">
 <?php
@@ -614,7 +632,6 @@ require("sidebar.php");
 						<?php if ($_SESSION['selectedSpecial'] != 'obsolete' && $_SESSION['selectedSpecial'] != 'ipro') { if ( $currentFolder == 0 || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
 						<li><a href="#" onclick="uploadwin=dhtmlwindow.open('uploadbox', 'div', 'upload', 'Upload File', 'width=350px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); return false">Upload File</a></li>
 						<li><a href="#" onclick="updatewin=dhtmlwindow.open('updatebox', 'div', 'update', 'Update File', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Update File</a></li>
-						<li><a href="#" onclick="newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Folder</a></li>
 						<li><a href="#" onclick="movewin=dhtmlwindow.open('movebox', 'div', 'move', 'Move', 'width=350px,height=100px,left=300px,top=100px,resize=0,scrolling=0'); return false">Move</a></li>
 						<?php } } if ( $currentFolder == 0 && $_SESSION['selectedSpecial'] != 'ipro' || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
 
@@ -633,7 +650,7 @@ require("sidebar.php");
                                                         print "<td align='left' colspan='5'><a href='files.php?selectFolder=".$currentFolder->getParentFolderID()."'>..</a></td>";
                                                         print "</tr>\n";
                                         }
-					if ($folderList) {//Prevents an error from PHP 4 to PHP 5 switch
+					/*if ($folderList) {//Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $folderList as $key => $folder ) {
 							printTR();
 							print "<td><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></td>";
@@ -643,7 +660,7 @@ require("sidebar.php");
 							print "<td><a href=\"#\" onclick=\"renamewin=dhtmlwindow.open('renamebox', 'ajax', 'renamefile.php?folderid=".$folder->getID()."', 'Rename Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Rename</a></td>";
 							print "</tr>\n";
 						}
-					}			
+					}*/			
 					if ( canViewFiles( $currentUser, $currentFolder ) ) {
 					if ($fileList) //Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $fileList as $key => $file ) {
@@ -733,6 +750,22 @@ require("sidebar.php");
 				<input type="submit" name="create" value="Create Folder" />
 			</form>
 		</div>
+		<div class="window-content" id="editfolder" style="display: none">
+			<form method="post" action="email.php">
+<?php
+				if ( $currentFolder ) {
+					print "Current Folder Name: ".$currentFolder->getName()."<br />";
+					print "New Folder Name: <input type='text' name='foldername' value='".$currentFolder->getName()."' /><br />";
+					print "New Folder Description: <input type='text' name='folderdesc' value='".$currentFolder->getDesc()."' /><br />";
+					print '<input type="submit" name="editF" value="Edit Folder" />';
+					print '<input type="submit" name="deleteF" value="Delete Folder" />';
+				}
+				else {
+					print "You cannot edit the current active category.";
+				}
+?>
+			</form>
+	</div>
 		<div class="window-content" id="move" style="display: none">
 			<form method="post" action="files.php">
 				Select Target Folder:

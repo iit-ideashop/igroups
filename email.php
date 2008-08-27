@@ -35,7 +35,7 @@
 	else if(isset($_GET['replyid']))
 	{
 ?>
-	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Log In</title>
@@ -145,27 +145,6 @@
 			list-style:none;
 			padding:0;
 			margin:0;
-		}
-
-		.window {
-			width:500px;
-			background-color:#FFF;
-			border: 1px solid #000;
-			visibility:hidden; 
-			position:absolute;
-			left:20px;
-			top:20px;
-		}
-		
-		.window-topbar {
-			padding-left:5px;
-			font-size:14pt;
-			color:#FFF;
-			background-color:#C00;
-		}
-		
-		.window-content {
-			padding:5px;
 		}
 	</style>
 
