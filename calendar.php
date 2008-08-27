@@ -109,7 +109,7 @@
 
 	<script type="text/javascript">
 	<!--
-		var viewid, viewname, viewdesc, viewdate;
+		var viewname, viewdesc, viewdate;
 		function showEvent( id, x, y ) {
 			document.getElementById(id).style.top=(y+20)+"px";
 			if ( x > window.innerWidth/2 )
@@ -130,8 +130,7 @@
 			document.getElementById('editdate').value=date;
 		}
 
-		function viewEvent( id, name, desc, date ) {
-			viewid=id;
+		function viewEvent( name, desc, date ) {
 			viewname=name;
 			viewdesc=desc;
 			viewdate=date;
@@ -564,7 +563,7 @@ function ds_onclick(d, m, y) {
 				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); editEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
 			}
 			else {
-				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); viewEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
+				print " onclick=\"viewEvent('".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."'); editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0');\"";
 			}
 			print ">".$event->getName()."</a><br />";
 			print "<div class='event' id='".$event->getID()."'>".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
