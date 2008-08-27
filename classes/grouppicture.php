@@ -59,7 +59,7 @@ if ( !class_exists( "GroupPicture" ) ) {
 	
 	function createGroupPicture( $fileName, $title, $group, $db ) {
 		$ext = explode( ".", $fileName );
-		$extension = $ext[count($ext)-1];
+		$extension = strtolower($ext[count($ext)-1]);
 		if ($extension != 'jpg' && $extension != 'jpeg' && $extension != 'gif' && $extension != 'bmp' && $extension != 'png')
 			die();
 		$date = date("Y-m-d");

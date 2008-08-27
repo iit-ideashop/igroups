@@ -50,19 +50,18 @@
 		die("Invalid Request");
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-<style type="text/css">
-        @import url("dboard.css");
-</style>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Discussion Board</title>
+<link rel="stylesheet" href="dboard.css" type="text/css" />
+<link rel="stylesheet" href="../default.css" type="text/css" />
 </head>
 <body>
-
-<div id="topbanner">
+<?php
+require("sidebar.php");
+?>
+<div id="content"><div id="topbanner">
 <?php
 	print "{$_SESSION['topicName']}";
 ?>        
@@ -74,17 +73,17 @@ if ($_GET['mode'] == 'thread') {
 
 ?>
 
-<table class='noborder' width='90%'><tr><td><a href='dboard.php'>iGroups Discussion Board</a> -> <a href='<?php print "{$_SESSION['topicLink']}"; ?>'><?php print "{$_SESSION['topicName']}"; ?></a></td></tr></table>
+<table class='noborder' width='85%'><tr><td><a href='dboard.php'>iGroups Discussion Board</a> -> <a href='<?php print "{$_SESSION['topicLink']}"; ?>'><?php print "{$_SESSION['topicName']}"; ?></a></td></tr></table>
 <form action='create.php' method='post' id='threadForm'>
-<table width='90%' border='1' align='center'>
+<table width='85%' border='1'>
 <tr><th colspan='2'>Create a New Thread</th></tr>
-<tr><td>Name</td><td><input type='text' size='60' maxlength='255' name='name'></td></tr>
-<tr><td valign='top'>Message Body</td><td><textarea cols='60' rows='20' name='body' maxlength='5000'></textarea></td></tr>
-<tr><td align='center' colspan='2'><input type='submit' name='newThread' value='Create Thread'></td></tr>
+<tr><td>Name</td><td><input type='text' size='60' name='name' /></td></tr>
+<tr><td valign='top'>Message Body</td><td><textarea cols='60' rows='20' name='body'></textarea></td></tr>
+<tr><td align='center' colspan='2'><input type='submit' name='newThread' value='Create Thread' /></td></tr>
 </table>
 </form>
 
-<script language="Javascript">document.getElementById('threadForm').name.focus(); </script>
+<script language="Javascript" type="text/javascript">document.getElementById('threadForm').name.focus(); </script>
 <?php
 }
 
@@ -93,21 +92,21 @@ else if ($_GET['mode'] == 'post') {
 $currentThread = new Thread($_SESSION['threadID'], $db);
 ?>
 
-<table class='noborder' width='90%'><tr><td><a href='dboard.php'>iGroups Discussion Board</a> -> <a href='<?php print "{$_SESSION['topicLink']}"; ?>'><?php print "{$_SESSION['topicName']}"; ?></a> -> <a href='viewThread.php?id=<?php print "{$currentThread->getID()}"; ?>'><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
+<table class='noborder' width='85%'><tr><td><a href='dboard.php'>iGroups Discussion Board</a> -> <a href='<?php print "{$_SESSION['topicLink']}"; ?>'><?php print "{$_SESSION['topicName']}"; ?></a> -> <a href='viewThread.php?id=<?php print "{$currentThread->getID()}"; ?>'><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
 <form action='create.php' method='post' id='postForm'>
-<table width='90%' border='1' align='center'>
+<table width='85%' border='1' align='center'>
 <tr><th colspan='2'>Post Reply</th></tr>
-<tr><td valign='top'>Message Body</td><td><textarea cols='60' rows='20' name='body' maxlength='5000'></textarea></td></tr>
-<tr><td align='center' colspan='2'><input type='submit' name='newPost' value='Post Reply'></td></tr>
+<tr><td valign='top'>Message Body</td><td><textarea cols='60' rows='20' name='body'></textarea></td></tr>
+<tr><td align='center' colspan='2'><input type='submit' name='newPost' value='Post Reply' /></td></tr>
 </table>
 </form>
 
-<script language="JavaScript"> document.getElementById('postForm').body.focus(); </script>
+<script language="JavaScript" type="text/javascript"> document.getElementById('postForm').body.focus(); </script>
 <?php
 
 }
 
 ?>
-
+</div>
 </body>
 </html>

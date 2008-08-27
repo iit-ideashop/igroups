@@ -113,9 +113,36 @@ if ( !class_exists( "GroupEmail" ) ) {
 		function updateDB() {
 			$this->db->igroupsQuery( "UPDATE GroupEmails SET sTo='".$this->getTo()."', sSubject='".$this->getSubjectDB()."', sBody='".$this->getBodyDB()."', iCategoryID=".$this->category." WHERE iID=".$this->id );
 		}
-	}
+
+		function getAttachments() {
+			$query = $this->db->igroupsQuery("SELECT * FROM GroupEmailFiles WHERE iEmailID={$this->getID()}");
+			$links = array();
+			$i=1;
+			while ($file = mysql_fetch_array($query)) {
+				$links[] = "<b>Attachment $i:</b> <a href='getattach.php?id={$file['iID']}&amp;email={$file['iEmailID']}'>{$file['sOrigName']}</a>";
+				$i++;
+			}
+			return $links;
+		}	
+
+		function getAttachmentInfo() {
+			$query = $this->db->igroupsQuery("SELECT * FROM GroupEmailFiles WHERE iEmailID={$this->getID()}");
+			$files = array();
+			while ($file = mysql_fetch_array($query)) 
+				$files[] = $file;
+			return $files;
+		}
+
+		function hasAttachments() {
+			$query = $this->db->igroupsQuery("SELECT * FROM GroupEmailFiles WHERE iEmailID={$this->getID()}");
+			if (mysql_num_rows($query) > 0) 
+				return true;
+			else
+				return false;
+		}
+	}	
 	
-	function createEmail( $to, $subject, $body, $sender, $semester, $db ) {
+	function createGroupEmail( $to, $subject, $body, $sender, $semester, $db ) {
 		$subj = new SuperString( $subject );
 		$bod = new SuperString( $body );
 		$db->igroupsQuery( "INSERT INTO GroupEmails( sTo, sSubject, sBody, dDate, iSenderID, iSemesterID ) VALUES ( '".$to."', '".$subj->getDBString()."', '".$bod->getDBString()."', '".date("Y-m-d")."', $sender, $semester )" );

@@ -140,7 +140,7 @@
 					$sql = "SELECT SUM(iUsed) FROM {$type} WHERE iSemesterID={$sem}";
 				$result = $db->igroupsQuery($sql);
 				$num = mysql_fetch_row($result);
-				return ((int)($num[0]/1000000));
+				return ((int)($num[0]/1048576));
 				break;
 		}
 	}
@@ -183,17 +183,12 @@
 		$currentSemester = 0;
 
 ?>		
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - IPRO Group Reporting</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - IPRO Group Reporting</title>
+<link rel="stylesheet" href="../default.css" type="text/css" />
 	<style type="text/css">
-		@import url("../default.css");
-		
 		#groupSelect {
 			margin-bottom:10px;
 		}
@@ -210,10 +205,11 @@
 </head>
 <body>
 <?php
+	require("sidebar.php");
 	if ( isset( $message ) )
 		print "<script type='text/javascript'>showMessage(\"$message\");</script>";
 ?>
-	<div id="topbanner">
+	<div id="content"><div id="topbanner">
 <?php
 		if ( $currentSemester )
 			print $currentSemester->getName();
@@ -229,17 +225,17 @@
 			while ( $row = mysql_fetch_row( $semesters ) ) {
 				$semester = new Semester( $row[0], $db );
 				if ( isset($_SESSION['selectedIPROSemester']) && $_SESSION['selectedIPROSemester'] != $semester->getID())
-				print "<option value=".$semester->getID().">".$semester->getName()."</option>";
+				print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
 				else
-				print "<option value=".$semester->getID()." selected>".$semester->getName()."</option>";
+				print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
 			}
 			if ( isset($_SESSION['selectedIPROSemester']) && $_SESSION['selectedIPROSemester'] == 0)
-				print "<option value=0 selected>All iGROUPS</option>";
+				print "<option value=\"0\" selected=\"selected\">All iGROUPS</option>";
 			else
-				print "<option value=0>All iGROUPS</option>";
+				print "<option value=\"0\">All iGROUPS</option>";
 ?>
 			</select>
-			<input type="submit" name="selectSemester" value="Select Semester">
+			<input type="submit" name="selectSemester" value="Select Semester" />
 		</form>
 	</div>
 <?php
@@ -263,14 +259,14 @@
 <?php
                         $groups = groupSort( $groups );
                         foreach ( $groups as $group ) {
-                                print "<option value=".$group->getID().">".$group->getName()."</option>";
+                                print "<option value=\"".$group->getID()."\">".$group->getName()."</option>";
                         }
 ?>
                         </select>
-                        <input type="submit" name="selectGroup" value="Jump to Group">
+                        <input type="submit" name="selectGroup" value="Jump to Group" />
                 </form>
         </div>
-	<br>
+	<br />
 <?php
 	$numUsers = getStats('People', -1, $db);
 	$numGroups = getStats('Projects', -1, $db);
@@ -280,14 +276,14 @@
 	$size = getStats('FileQuota', -1, $db);
 ?>
 	<center>
-	<big><b>System-wide Statistics:</b></big><br>
-	<hr width="40%">
+	<h3>System-wide Statistics:</h3><br />
+	<hr width="40%" />
 	<p><b>Tracking <?php echo "$numUsers"; ?> users in <?php echo "$numGroups" ?> groups.</b></p>
-	<p><b>Files: </b><?php echo "$numFiles"; ?> using <?php echo "$size"; ?>MB<br>
-	<p><b>Emails: </b><?php echo "$numEmails"; ?><br>
-	<p><b>Pictures: </b><?php echo "$numPictures"; ?><br>
+	<p><b>Files: </b><?php echo "$numFiles"; ?> using <?php echo "$size"; ?> MiB</p>
+	<p><b>Emails: </b><?php echo "$numEmails"; ?></p>
+	<p><b>Pictures: </b><?php echo "$numPictures"; ?></p>
 	</center>
-	<br>
+	<br />
 <?php
 	if ($currentSemester)
 		$sID = $currentSemester->getID();
@@ -304,34 +300,40 @@
         $size = getStats('FileQuota', $sID, $db);
 	$avgFiles = round($numFiles/$numGroups, 0);
 	$avgEmails = round($numEmails/$numGroups, 0);
+	$avgEmailsPerUser = round($numEmails/$numUsers, 0);
 ?>
 	<center>
-        <big><b>Semester Statistics:</b></big><br>
-        <hr width="40%">
+        <h3>Semester Statistics:</h3><br />
+        <hr width="40%" />
         <p><b><?php echo "$numUsers"; ?> users in <?php echo "$numGroups" ?> groups.</b></p>
-        <p><b>Files: </b><?php echo "$numFiles"; ?> using <?php echo "$size"; ?>MB<br>
-        <p><b>Emails: </b><?php echo "$numEmails"; ?><br>
-        <p><b>Pictures: </b><?php echo "$numPictures"; ?><br>
+        <p><b>Files: </b><?php echo "$numFiles"; ?> using <?php echo "$size"; ?> MiB</p>
+        <p><b>Emails: </b><?php echo "$numEmails"; ?></p>
+        <p><b>Pictures: </b><?php echo "$numPictures"; ?></p>
         </center>
-	<br>
+	<br />
 
-	<table align='center' width='75%' border='1' bordercolor='black' cellpadding'3'>
+	<table align='center' width='75%' border='1' cellpadding='3'>
 		<tr>
-			<td bgcolor="red" align="center" colspan="5"><big><b><font color="white">Usage Comparison</font></b></big></td>
+			<td bgcolor="red" align="center" colspan="7"><big><b><font color="white">Usage Comparison</font></b></big></td>
 		</tr>
 		<tr align='center' bgcolor='#DDDDDD'>
-			<td><b>IPRO</b></td><td><b>Files Uploaded</b></td><td><b>Percentage of Mean</b></td><td><b>Emails Sent</b></td><td><b>Percentage of Mean</b></td></tr>
-			<tr align='center'><td>Mean of All Groups</td><td><?php print "$avgFiles"; ?></td><td>100%</td><td><?php print "$avgEmails"; ?></td><td>100%</td>
+			<td><b>IPRO</b></td><td><b>Files Uploaded</b></td><td><b>Percentage of Mean</b></td><td><b>Emails Sent</b></td><td><b>Percentage of Mean</b></td><td><b>Emails per User</b></td><td><b>Percentage of Mean</b></td></tr>
+			<tr align='center'><td>Mean of All Groups</td><td><?php print "$avgFiles"; ?></td><td>100%</td><td><?php print "$avgEmails"; ?></td><td>100%</td><td><?php print "$avgEmailsPerUser"; ?></td><td>100%</td>
 		</tr>
 <?php
 		foreach($groups as $group) {
 			$emails = getDetails($group->getID(), 'Emails', 'all', $db);
+			$users = $group->getGroupMembers();
+			if(count($users) != 0) { $emailsPerUser = round($emails / count($users), 1); }
+			else { $emailsPerUser = 0; }
 			$files = getDetails($group->getID(), 'Files', 'all', $db);
 			if ($avgEmails != 0)
 				$emailsPer = (round($emails/$avgEmails, 2))*100;
 			if ($avgFiles != 0)
 				$filesPer = (round($files/$avgFiles, 2))*100;
-			print "<tr align='center'><td>{$group->getName()}</td><td>{$files}</td><td>$filesPer%</td><td>$emails</td><td>$emailsPer%</tr>";
+			if ($avgEmailsPerUser != 0)
+				$emailsPerUserPer = (round($emailsPerUser/$avgEmailsPerUser, 2))*100;
+			print "<tr align='center'><td>{$group->getName()}</td><td>{$files}</td><td>$filesPer%</td><td>$emails</td><td>$emailsPer%</td><td>$emailsPerUser</td><td>$emailsPerUserPer%</td></tr>";
 		}
 ?>
 	</table>
@@ -363,11 +365,11 @@
 		$eventsAvg = round($eventsAll / count($users), 1);
 		$picsAvg = round($picsAll / count($users), 1);
 ?>
-<br>
+<br />
 <a name="<?php echo "{$group->getID()}"; ?>"></a>
-	<table align="center" width="75%" border="1" bordercolor="black" cellpadding="3">
+	<table width="75%" border="1" cellpadding="3">
 		<tr>
-			<td bgcolor="red" align="center" colspan="5"><big><b><font color="white"><?php echo "{$group->getName()}"; ?></font></b></big></td>
+			<td colspan="5" style="font-size: bigger; font-weight: bold; background: red; color: white; text-align: center"><?php echo "{$group->getName()}"; ?></td>
 		</tr>
 		<tr align="center" bgcolor="#DDDDDD">
 			<td> </td> 
@@ -409,10 +411,10 @@
 		</tr>
 		<tr align="center">
 		<td colspan="5">
-		<table border=1 width="100%" cellpadding=3>
+		<table border="1" width="100%" cellpadding="3">
 		<tr bgcolor="#DDDDDD" align="center">
 			<td width="33%"><b>Name</b></td>
-			<td width="33%"><b>E-mails Sent (% of mean)</b></td>
+			<td width="33%"><b>E-mails Sent (% of group mean) (% of total mean)</b></td>
 			<td width="33%"><b>Files Uploaded (% of mean)</b></td>
 		</tr>
 <?php
@@ -423,9 +425,11 @@
 				$emailsPer = round($numEmails / $emailsAvg, 3) * 100 . '%';
 			if ($filesAvg != 0)
 				$filesPer = round($numFiles / $filesAvg, 3) * 100 . '%';
+			if ($avgEmailsPerUser != 0)
+				$emailsPerUser = round($numEmails / $avgEmailsPerUser, 3) * 100 . '%';
 			echo "<tr>";
 			echo "<td>{$user->getFullName()}</td>";
-			echo "<td align=\"center\">$numEmails ($emailsPer)</td>";
+			echo "<td align=\"center\">$numEmails ($emailsPer) ($emailsPerUser)</td>";
 			echo "<td align=\"center\">$numFiles ($filesPer)</td>";
 			echo "</tr>";
 		}		
@@ -435,13 +439,11 @@
 		</td>
 		</tr>
 </table>
-<br>
-<hr>
-		
-						
+<br />
+<hr />						
 <?php
 	}
 	}
 ?>
-</body>
+</div></body>
 </html>

@@ -18,7 +18,7 @@
 
         if (isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']) )
                 $currentGroup = new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db );
-        else if (isset($_GET['adminView'])) {
+        else if (isset($_SESSION['adminView']) || isset($_GET['adminView'])) {
 	}
 	else
                 die("You have not selected a valid group.");
@@ -35,8 +35,10 @@
 	}
 	else if (isset($_SESSION['adminSemester']))
 		$currentSemesterID = $_SESSION['adminSemester'];
-	else
+	else if (isset($currentGroup))
 		$currentSemesterID = $currentGroup->getSemester();
+	else
+		$currentSemesterID = 0;
 
 	// if superadmin, get all groups in semester
 	if (isset($_SESSION['adminView'])) {
@@ -50,30 +52,30 @@
 
 	$globalTopics = getGlobalTopics($db);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-<style type="text/css">
-	@import url("dboard.css");
-</style>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Discussion Board</title>
+<link rel="stylesheet" href="dboard.css" type="text/css" />
+<link rel="stylesheet" href="../default.css" type="text/css" />
 </head>
 <body>
-
-<div id="topbanner">
 <?php
+require("sidebar.php");
+?>
+<div id="content"><div id="topbanner">
+<?php
+	if (isset($currentGroup))
                 print $currentGroup->getName();
 ?>        
 </div>
 
 <h1>About Discussion Board</h1>
-<p>Welcome to the new iGroups Discussion Board. Listed below are the discussion board topics you have access to: one for every group you are a member of in the selected semester, and some additional global topics. In global topics, you can communicate with people outside of your IPRO, including IPRO support staff. Each topic is then organized into threads, which consist of a list of posts. You can contribute to an existing thread by posting a reply, or start a new thread.</p>
+<p>Welcome to the new iGroups Discussion Board. Listed below are the discussion board topics you have access to: one for every group you are a member of in the selected semester, and some additional global topics. In global topics, you can communicate with people outside of your IPRO, including IPRO support staff. Each topic is then organized into threads, which consist of a list of posts. You can contribute to an existing thread by posting a reply, or starting a new thread.</p>
 
 <p>The Discussion Board is currently in beta version, so please bear with us as we work out the bugs. We plan on expanding its features in the future, and we welcome your thoughts and suggestions.</p>
-<hr>
-<br>
+<hr />
+<br />
 
 <?php
 if (isset($_SESSION['adminView'])) {
@@ -92,15 +94,16 @@ if (isset($_SESSION['adminView'])) {
                         }
 ?>
                         </select>
-                        <input type="submit" name="selectSemester" value="Select Semester">
+                        <input type="submit" name="selectSemester" value="Select Semester" />
+			
 </form>
-<br>
+<br />
 
 <?php
 }
 ?>
 
-<table width='90%' align='center' cellspacing='0' cellpadding='5'>
+<table width='85%' cellspacing='0' cellpadding='5'>
 <tr><th width='65%'>Topics</th><th>Threads</th><th>Posts</th><th>Last Post</th></tr>
 
 <?php
@@ -112,11 +115,11 @@ foreach ($groups as $group) {
 	$lastPost = $topic->getLastPost();
 	if ($lastPost) {
 		$author = $lastPost->getAuthor();
-		$text = "{$lastPost->getDateTime()}<br>By: {$lastPost->getAuthorLink()}";
+		$text = "{$lastPost->getDateTime()}<br />By: {$lastPost->getAuthorLink()}";
 	}
 	else
 		$text = "<i>No Posts</i>";
-	print "<tr><td class='subtopic_heading' id='subtopic_heading'><a href='viewTopic.php?id={$group->getID()}&type={$group->getType()}&semester={$group->getSemester()}'>{$group->getName()} Discussion</a></td><td align='center'>{$topic->getThreadCount()}</td><td align='center'>{$topic->getPostCount()}</td><td align='center'>$text</td>";
+	print "<tr><td class='subtopic_heading'><a href='viewTopic.php?id={$group->getID()}&amp;type={$group->getType()}&amp;semester={$group->getSemester()}'>{$group->getName()} Discussion</a></td><td align='center'>{$topic->getThreadCount()}</td><td align='center'>{$topic->getPostCount()}</td><td align='center'>$text</td></tr>";
 }
 }
 print "<tr><td class='topic_heading' colspan='4'>Global Topic Discussion</td></tr>";
@@ -125,14 +128,14 @@ foreach ($globalTopics as $topic) {
 	$lastPost = $topic->getLastPost();
         if ($lastPost) {
                 $author = $lastPost->getAuthor();
-                $text = "{$lastPost->getDateTime()}<br>By: {$lastPost->getAuthorLink()}";
+                $text = "{$lastPost->getDateTime()}<br />By: {$lastPost->getAuthorLink()}";
         }
         else
                 $text = "<i>No Posts</i>";
 
-	print "<tr><td class='subtopic_heading' id='subtopic_heading'><a href='viewTopic.php?id={$topic->getID()}&global=true'>{$topic->getName()}</a></td><td align='center'>{$topic->getThreadCount()}</td><td align='center'>{$topic->getPostCount()}</td><td align='center'>{$text}</td></tr>";
+	print "<tr><td class='subtopic_heading'><a href='viewTopic.php?id={$topic->getID()}&amp;global=true'>{$topic->getName()}</a></td><td align='center'>{$topic->getThreadCount()}</td><td align='center'>{$topic->getPostCount()}</td><td align='center'>{$text}</td></tr>";
 }
 ?>
 </table>
-</body>
+</div></body>
 </html>

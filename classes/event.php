@@ -39,6 +39,10 @@ if ( !class_exists( "Event" ) ) {
 			return $this->name->getJavaString();
 		}
 		
+		function isIPROEvent() {
+			return !$this->group;
+		}
+
 		function setName( $string ) {
 			if ( $string != "" )
 				$this->name->setString( $string );

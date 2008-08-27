@@ -8,6 +8,7 @@
 	include_once( "../classes/category.php" );
 	include_once( "../classes/groupemail.php" );
 	include_once( "../classes/semester.php" );	
+	include_once( "../classes/email.php");
 
 	$db = new dbConnection();
 	
@@ -49,24 +50,19 @@
         }
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - Group Email</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Group Email</title>
+<link rel="stylesheet" href="../default.css" type="text/css" />
 	<style type="text/css">
-		@import url("../default.css");
-		
 		#container {
 			padding:0;
 		}
 		
 		#catbox {
 			float:left;
-			width:30%;
+			width:20%;
 			margin:5px;
 			padding:8px;
 			border:1px solid #000;
@@ -80,10 +76,10 @@
 		}
 		
 		#emailbox {
-			float:left;
+			float:right;
 			margin:5px;
 			padding:2px;
-			width:64%;
+			width:95%;
 			border:1px solid #000;
 		}
 		
@@ -104,7 +100,7 @@
 			display:inline;
 		}
 		
-		ul {
+		ul.ema {
 			list-style:none;
 			padding:0;
 			margin:0;
@@ -130,15 +126,25 @@
 		.window-content {
 			padding:5px;
 		}
-	</style>
-	<script language="javascript" type="text/javascript">
-		function showEmail(id, pagey, screeny ) {
-			document.getElementById('emailFrame').src='displayemail.php?id='+id;
-			document.getElementById('email-window').style.visibility = 'visible';
-			document.getElementById('email-window').style.top = (document.documentElement.scrollTop+20)+"px";
-			return false;
+
+		#emailboxheader {
+			font-weight: bold;
 		}
-		
+	</style>
+
+<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<script type="text/javascript" src="windowfiles/dhtmlwindow.js">
+
+/***********************************************
+* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+</script>
+
+	<script language="javascript" type="text/javascript">
+	<!--	
 		function showMessage( msg ) {
 			msgDiv = document.createElement("div");
 			msgDiv.id="messageBox";
@@ -152,23 +158,22 @@
                                         var div = document.createElement('div');
                                         div.className = "stdBoldText";
                                         div.id = "file"+(num*1+1)+"div";
-                                        div.innerHTML = "&nbsp;&nbsp;&nbsp;File "+(num*1+1)+": <input type='file' name='attachment"+(num*1+1)+"' onChange='fileAdd("+(num*1+1)+");'>";
+                                        div.innerHTML = "&nbsp;&nbsp;&nbsp;File "+(num*1+1)+": <input type='file' name='attachment"+(num*1+1)+"' onchange='fileAdd("+(num*1+1)+");' />";
                                         document.getElementById('files').appendChild(div);
                                 }
                         }
-
+	//-->
 	</script>
 	<script language="javascript" type="text/javascript" src="../speller/spellChecker.js">
         </script>
 
         <!-- Call a function like this to handle the spell check command -->
         <script language="javascript" type="text/javascript">
+	<!--
         function openSpellChecker() {
                 var speller = new spellChecker();
                 speller.spellCheckAll();
         }
-        </script>
-        <script>
                 function toggleToDisplay() {
                         tobox = document.getElementById('to-table');
                         switch (tobox.style.display) {
@@ -187,10 +192,14 @@
                                 el.elements[i].checked = checked;
                         }
                 }
+	//-->
         </script>
 </head>
 <body>
-	<div id="topbanner">
+<?php
+require("sidebar.php");
+?>
+	<div id="content"><div id="topbanner">
 <?php
 		print "E-mail Groups";
 ?>
@@ -234,6 +243,7 @@
                 $headers .= "Content-Type: multipart/mixed; boundary=".$mime_boundary."\n";
                 $filename = str_replace(' ', '_', $_FILES['attachment']['name']);
                 $msg = "";
+		$diskname = array();
                 for ($i=1; $i<=(count($_FILES)); $i++) {
                 if ( $_FILES["attachment$i"]['size'] != 0 ) {
                         $handle=fopen($_FILES["attachment$i"]['tmp_name'], 'rb');
@@ -246,10 +256,19 @@
                         $msg .= "Content-Transfer-Encoding: base64"."\n";
                         $msg .= "Content-Disposition: attachment; filename=".$filename."\n"."\n";
                         $msg .= $f_contents."\n"."\n";
+			$db->igroupsQuery("INSERT INTO GroupEmailFiles (iEmailID, sOrigName, sMimeType) VALUES (0, '$filename', '{$_FILES["attachment$i"]['type']}')");
+			$id = $db->igroupsInsertID();
+			$diskname[$i] = "G$id.att";
+			$db->igroupsQuery("UPDATE GroupEmailFiles SET sDiskName='".$diskname[$i]."' WHERE iID=$id");
+			move_uploaded_file($_FILES["attachment$i"]['tmp_name'], "/files/igroups/emails/G$id.att");
                 }
                 }
                 $tmpstr = wordwrap($_POST['body'], 100);
-                $subj = new SuperString( $_POST['subject'] );
+		if ($_POST['subject'] == '')
+			$subject = '(no subject)';
+		else
+			$subject = $_POST['subject'];
+                $subj = new SuperString( $subject );
                 $body = new SuperString( $tmpstr );
                 $msg .= "--".$mime_boundary."\n";
                 $msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
@@ -262,7 +281,18 @@
                 print "<p>Your email was successfully sent.</p>";
                 else
                 print "<p>There was a problem with your e-mail. Please contact iproadmin.</p>";
-		createEmail($toString, $subj->getString(), $body->getString(), $currentUser->getID(), $currentSemester->getID(), $db);
+		$newEmail = createGroupEmail($toString, $subj->getString(), $body->getString(), $currentUser->getID(), $currentSemester->getID(), $db);
+		$query = $db->igroupsQuery("UPDATE GroupEmailFiles SET iEmailID={$newEmail->getID()} WHERE iEmailID=0");
+		foreach($_POST['sendto'] as $id => $val) {
+			$group = new Group($id, 0, $currentSemester->getID(), $db );
+			$copyEmail = createEmail($group->getName(), $subj->getString(), $body->getString(), $currentUser->getID(), 0, 0, $group->getID(), $group->getType(), $group->getSemester(), $db);
+			for ($i=1; $i<=(count($_FILES)); $i++) {
+				if ( $_FILES["attachment$i"]['size'] != 0 ) {
+        	                $filename = str_replace(' ', '_', $_FILES["attachment$i"]['name']);
+				$db->igroupsQuery("INSERT INTO EmailFiles (iEmailID, sOrigName, sMimeType, sDiskName) VALUES ({$copyEmail->getID()}, '$filename', '{$_FILES["attachment$i"]['type']}', '$diskname[$i]')");
+				}
+			}
+		}
         }
 
 	$emails = array();
@@ -274,70 +304,57 @@
 ?>
 	<form method="post" action="email.php">
 	<div id="container">
-		<div id="catbox">
-			<div id="columnbanner">
-				Select Semester:
-			</div>
-			<div id="semesters" align='center'>
-			<br>
+		<div id="emailbox">
+			<div id="emailboxheader">Mass Emails for semester:
+			<span id="semesters">
                         <select name="semester">
 <?php
                         $semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
                         while ( $row = mysql_fetch_row( $semesters ) ) {
                                 $semester = new Semester( $row[0], $db );
                                 if (isset($currentSemester) && $semester->getID() == $currentSemester->getID())
-                                        print "<option value=".$semester->getID()." selected>".$semester->getName()."</option>";
+                                        print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
                                 else
-                                        print "<option value=".$semester->getID().">".$semester->getName()."</option>";
+                                        print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
                         }
 ?>
                         </select>
-                        <input type="submit" name="selectSemester" value="Select Semester">
-			</div>
-		</div>
-		<div id="emailbox">
-<?php			
-			print "<div id='columnbanner'>Mass Emails:</div>";
-?>
+                        <input type="submit" name="selectSemester" value="Select Semester" />
+			</span></div>
 			<div id="menubar">
-				<ul>
-					<li><a href="#" onClick="document.getElementById('send-window').style.visibility='visible';">Send Email</a></li>
-					<li><a href="#" onClick="window.location.href='searchemail.php';">Search Email</a></li>
-						<li><a href="#" onClick="document.getElementById('delete').value='1'; document.getElementById('delete').form.submit()">Delete Selected</a>
-						<input type='hidden' id='delete' name='delete' value='0'></li>
+				<ul class="ema">
+					<li><a href="#" onclick="sendwin=dhtmlwindow.open('sendbox', 'div', 'send-window', 'Send Email', 'width=550px,height=800px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
+					<li><a href="#" onclick="window.location.href='searchemail.php';">Search Email</a></li>
+						<li><a href="#" onclick="document.getElementById('delete').value='1'; document.getElementById('delete').form.submit()">Delete Selected</a>
+						<input type='hidden' id='delete' name='delete' value='0' /></li>
 				</ul>
 			</div>
 			<div id="emails">
-				<table width='100%'>
-<?php				
+<?php
+			if(count($emails) > 0) {
+				print "<table width='85%'>";
+				
 				foreach ( $emails as $email ) {
 					$author = $email->getSender();
 					printTR();
-					print "<td colspan=2><a href='displayemail.php?id=".$email->getID()."' onClick='showEmail(".$email->getID()."); return false;'>".$email->getShortSubject()."</a></td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type='checkbox' name='email[".$email->getID()."]'></td></tr>";
+					if ($email->hasAttachments()) 
+						$img = '&nbsp;<img src="../img/attach.png" alt="(Attachments)" title="Paper clip" />';
+					else
+						$img = '';
+					print "<td colspan='2'><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'View Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".$email->getShortSubject()."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type='checkbox' name='email[".$email->getID()."]' /></td></tr>";
 				}
+				print "</table>";
+			}
 ?>
-				</table>
 			</div>
 		</div>
 	</div>
 	</form>
-	<div id="email-window" class="window">
-		<div class="window-topbar">
-			View Email
-			<input class="close-button" type="button" onClick="document.getElementById('email-window').style.visibility='hidden';">
-		</div>
-		<iframe id="emailFrame" width=100% height="500" frameborder="0">
-		</iframe>
-	</div>
 	<div id="send-window" class="window">
-		<div class="window-topbar">
-			Send Email
-			<input class="close-button" type="button" onClick="document.getElementById('send-window').style.visibility='hidden';">
-		</div>
 		<form method="post" action="email.php" enctype="multipart/form-data" id="email">
                 <div id="to">
-                        <a href="#" onClick="toggleToDisplay()">+</a> To:
-                        <table id="to-table" width='100%'>
+                        <a href="#" onclick="toggleToDisplay()">+</a> To:
+                        <table id="to-table" width='85%'>
 <?php
                                 $groups = $currentSemester->getGroups();
                                 $groups = groupSort( $groups );
@@ -345,7 +362,7 @@
                                 foreach ( $groups as $group ) {
                                         if ( $i == 0 )
                                                 print "<tr>";
-                                        print "<td><input type='checkbox' name='sendto[".$group->getID()."]' checked>";
+                                        print "<td><input type='checkbox' name='sendto[".$group->getID()."]' checked='checked' />";
                                         print "&nbsp;".$group->getName()."</td>";
                                         if ( $i == 2 ) {
                                                 print "</tr>";
@@ -354,26 +371,24 @@
 					else
 						$i++;
                                 }
+				if($i != 0) { print "</tr>"; }
 ?>
-                        <tr><td colspan=4><a href="javascript:checkedAll('email', true)">Check All</a> / <a href="javascript:checkedAll('email', false)">Uncheck All</a>
+                        <tr><td colspan="4"><a href="javascript:checkedAll('email', true)">Check All</a> / <a href="javascript:checkedAll('email', false)">Uncheck All</a>
                         </td></tr></table>
                 </div><br />
                 <table>
-                        <tr><td>CC:</td><td><input type="text" size=50 name="cc" /></td></tr>
-                        <tr><td>Subject:</td><td><input type="text" size=50 name="subject" /></td></tr>
+                        <tr><td>CC:</td><td><input type="text" size="50" name="cc" /></td></tr>
+                        <tr><td>Subject:</td><td><input type="text" size="50" name="subject" /></td></tr>
                         <tr><td>Attachments:</td></tr>
                         <tr><td colspan='2'>
-                        <div id='files'><?php
-                        //$a = 1;
-                        ?><div class="stdBoldText" id='file1div'>&nbsp;&nbsp;&nbsp;File 1: <input type="file" name="attachment1" onChange='fileAdd(1);'></div><?php
-                ?></div></div>
-                <span onclick='fileAdd(document.getElementById("files").childNodes.length);' style='color:#00F;text-decoration:underline;cursor:pointer;'>Click here to add another file.</span>
+                        <div id='files'><div class="stdBoldText" id='file1div'>&nbsp;&nbsp;&nbsp;File 1: <input type="file" name="attachment1" onchange='fileAdd(1);' /></div></div>
+                <span onclick='fileAdd(document.getElementById("files").childNodes.length);' style='color:#00F;text-decoration:underline;cursor:pointer;'>Add another file.</span>
                         </td></tr>
-                        <tr><td colspan=2>Body:</td></tr>
-                        <tr><td colspan=2><textarea name="body" cols="54" rows="10"></textarea></td></tr>
-                        <tr><td colspan=2 align="center"><input type='button' value='Spell Check' onClick="openSpellChecker();">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
+                        <tr><td colspan="2">Body:</td></tr>
+                        <tr><td colspan="2"><textarea name="body" cols="54" rows="10"></textarea></td></tr>
+                        <tr><td colspan="2" align="center"><input type='button' value='Spell Check' onclick="openSpellChecker();" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
                 </table>
         </form>
-	</div>
+	</div></div>
 </body>
 </html>

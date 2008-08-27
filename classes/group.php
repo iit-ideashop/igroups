@@ -173,7 +173,13 @@ if ( !class_exists( "Group" ) ) {
 			while ( $row = mysql_fetch_row( $files ) ) {
 				$returnArray[] = new File( $row[0], $this->db );
 			}
-			return $returnArray;
+			$finalArray = array();
+                        foreach($returnArray as $item){
+                                if(!$item->isNuggetFile()){
+                                        $finalArray[] = $item;
+                                }
+                        }
+                       return $finalArray;
 		}
 		
 		function getIPROOfficeFolders() {
@@ -446,6 +452,51 @@ if ( !class_exists( "Group" ) ) {
 			else
 				return false;
 		}
+
+		function getActiveNuggets(){
+			$returnArray = array();
+			$nuggets = $this->db->igroupsQuery("SELECT iNuggetID FROM iGroupsNuggets WHERE iGroupID =".$this->getID()." AND iSemesterID =".$this->getSemester());
+                        while($row = mysql_fetch_array($nuggets)){
+				$returnArray[] = new Nugget( $row[0], $this->db,0);
+			}
+			return $returnArray;
+		}
+
+		function getInactiveNuggets(){
+			$returnArray = array();
+
+		        $nuggets = $this->db->igroupsQuery("SELECT iNuggetID FROM iGroupsNuggets WHERE iGroupID =".$this->getID()." AND iSemesterID !=".$this->getSemester());
+		        while($row = mysql_fetch_row($nuggets)){
+		               $returnArray[] = new Nugget( $row[0], $this->db, 1);
+		        }
+	               return $returnArray;
+
+	        }
+	        function getNuggets(){
+                       $returnArray = array();
+
+                       $nuggets = $this->db->igroupsQuery("SELECT iNuggetID FROM iGroupsNuggets WHERE iGroupID =".$this->getID());
+                       while($row = mysql_fetch_row($nuggets)){
+                               $returnArray[] = new Nugget( $row[0], $this->db, 0);
+                       }
+                       return $returnArray;
+		}
+
+		function getNuggetFiles(){
+			$returnArray = array();
+
+                        $nuggets = $this->getNuggets();
+                        foreach($nuggets as $nugget){
+                                $nuggetID = $nugget->getID();
+                                $query = "SELECT distinct iFileID FROM nuggetFileMap WHERE iNuggetID = $nuggetID";
+                                $results = $this->db->igroupsQuery($query);
+                                while($row = mysql_fetch_row($results)){
+                                       $returnArray[] = new File($row[0], $this->db);
+                               }
+                       }
+                       return $returnArray;
+                }
+
 	}
 }
 ?>

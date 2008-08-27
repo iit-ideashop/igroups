@@ -186,7 +186,7 @@
 			$msg .= "Content-Disposition: attachment; filename=".$filename."\n"."\n";
 			$msg .= $f_contents."\n"."\n";
 			if (!isset($_POST['confidential'])) {
-				$db->igroupsQuery("INSERT INTO EmailFiles (iEmailID, sOrigName, sMimeType) VALUES (0, '$filename', '{$_FILES["attachment$i"]['type']}')");
+			$db->igroupsQuery("INSERT INTO EmailFiles (iEmailID, sOrigName, sMimeType) VALUES (0, '$filename', '{$_FILES["attachment$i"]['type']}')");
 				$id = $db->igroupsInsertID();
 				$db->igroupsQuery("UPDATE EmailFiles SET sDiskName='$id.att' WHERE iID=$id");
 				move_uploaded_file($_FILES["attachment$i"]['tmp_name'], "/files/igroups/emails/$id.att");

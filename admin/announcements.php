@@ -36,85 +36,14 @@
 	}
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<head>
-<title>iGROUPS 2.0 - Announcement Editor</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Announcement Editor</title>
+<link rel="stylesheet" href="../default.css" type="text/css" />
 <style type="text/css">
-@import url("../default.css");	
-
-#editor-container {
-	width:80%;
-	margin:0 auto;
-	background-color: #EEEEEE;	
-	background-image: url('../img/menu-right-border.gif');
-	background-repeat: repeat-y;	
-	background-position: right;
-}
-
-#box-top {
-	height:12px;
-}
-			
-#box-topleft {
-	height:12px;
-	width:9px;
-	float:left;
-	background-image: url('../img/top-left.gif');
-	background-repeat: no-repeat;
-}
-
-*html #box-topleft {
-	position: relative;
-	margin-left: -3px;
-}
-
-#box-topright {
-	height:12px;
-	width:16px;
-	float:right;
-	background-image: url('../img/top-right.gif');
-	background-repeat: no-repeat;
-}
-
-#box-bottom {
-	height:33px;
-	background-repeat: repeat-x;	
-	background-position: bottom;
-	background-image: url('../img/bottom-slice.gif');
-}
-
-#box-bottomleft {
-	height:33px;
-	width:11px;
-	float:left;
-	background-image: url('../img/bottom-left.gif') ;
-}
-
-*html #box-bottomleft {
-	position: absolute;
-	margin-left: -3px;
-}
-
-#box-bottomright {
-	height:33px;
-	width:24px;
-	float:right;
-	background-image: url('../img/bottom-right.gif');
-}
-
-#box-content {
-	text-align:left;
-	margin-right:20px;
-	margin-left:10px;
-	position:relative;
-}
-
-#editor {
-	width:60%;
+.box {
+	width:40%;
 }
 
 #announcement-list {
@@ -189,48 +118,24 @@ function clearEditor() {
 </head>
 
 <body>
-	<div id="editor-container">
-		<div id="box-top">
-			<div id="box-topleft">
-			</div>					
-			<div id="box-topright">
-			</div>
-		</div>
-		<div id="box-content">
-			<div id="editor">
-				<h1>Announcement Editor</h1>
-				<i>(Delete Annoucements 14 mo. after expiration)</i><br>
-				<form method="post" action="announcements.php">
-					<input type="hidden" id="id" name="id" value="new" />
-					Expiration Date (MM/DD/YY):<input type="text" id="date" name="date" size=15><input type="button" onClick="showCalendar(event);" value="Select Date"><br>
-					Heading: <input type="text" id="heading" name="heading" size=50><br>
-					Body:<br><textarea name="body" id="body" cols=45 rows=8></textarea><br>
-					<input type="submit" id="add" name="addannouncement" value="Add Announcement">
-					<input type="submit" id="edit1" name="editannouncement" value="Edit Announcement">
-					<input type="submit" id="edit2" name="deleteannouncement" value="Delete Announcement">
-					<input type="button" onClick="clearEditor()" value="Reset Editor">
-				</form>
-			</div>
-			<div id="announcement-list">
-				<h2>Current Announcements</h2>
 <?php
-				$announcementResults = $db->igroupsQuery( "SELECT iID FROM News ORDER BY iID DESC" );
-				while ( $row = mysql_fetch_row( $announcementResults ) ) {
-					$announcement = new Announcement( $row[0], $db );
-					print "<li>";
-					print "<a href='#' onClick=\"loadEditor( ".$announcement->getID().", '".$announcement->getHeadingJava()."', '".$announcement->getBodyJava()."', '".$announcement->getExpirationDate()."' );\">";
-					print $announcement->getHeadingHTML()."</a></li>";
-				}
+	require("sidebar.php");
+	print "<div id=\"content\"><div id=\"topbanner\">Announcements</div>";
 ?>
-			</div>
-		</div>	
-		<div id="box-bottom">
-			<div id="box-bottomleft">
-			</div>					
-			<div id="box-bottomright">
-			</div>
-		</div>
-	</div>
+	<div class="box">
+		<span class="box-header">Announcement Editor</span>
+		<i>(Delete Annoucements 14 mo. after expiration)</i><br />
+		<form method="post" action="announcements.php">
+			<input type="hidden" id="id" name="id" value="new" />
+			Expiration Date (MM/DD/YY):<input type="text" id="date" name="date" size="15" /><input type="button" onclick="showCalendar(event);" value="Select Date" /><br />
+			Heading: <input type="text" id="heading" name="heading" size="50" /><br />
+			Body:<br /><textarea name="body" id="body" cols="45" rows="8"></textarea><br />
+			<input type="submit" id="add" name="addannouncement" value="Add Announcement" />
+			<input type="submit" id="edit1" name="editannouncement" value="Edit Announcement" />
+			<input type="submit" id="edit2" name="deleteannouncement" value="Delete Announcement" />
+			<input type="button" onclick="clearEditor()" value="Reset Editor" />
+		</form>
+	</div>	
 	<div id="calendarmenu">
 		<table>
 			<tr>
@@ -240,17 +145,17 @@ function clearEditor() {
 				for ( $i=$currentMonth; $i<$currentMonth+4; $i++ ) {
 					print "<td valign='top'>";
 					print "<table>";
-					print "<tr><td colspan=7>".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
+					print "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
 					print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
 					$startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
 					$endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
 					if ( $startDay != 0 )
-						print "<tr><td colspan=$startDay></td>";
+						print "<tr><td colspan=\"$startDay\"></td>";
 					$weekDay = $startDay;
 					for ( $j=1; $j<=$endDay; $j++ ) {
 						if ( $weekDay == 0 )
 							print "<tr>";
-						print "<td><a href='#' onClick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
+						print "<td><a href='#' onclick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
 						$weekDay++;
 						if ( $weekDay == 7 ) {
 							print "</tr>";
@@ -258,7 +163,7 @@ function clearEditor() {
 						}
 					}
 					if ( $weekDay != 0 ) 
-						print "<td colspan=".(7-$weekDay)."></td></tr>";
+						print "<td colspan=\"".(7-$weekDay)."\"></td></tr>";
 					print "</table>";
 					print "</td>";
 				}
@@ -266,5 +171,20 @@ function clearEditor() {
 			</tr>
 		</table>
 	</div>
+<div id="announcement-list">
+				<h2>Current Announcements</h2>
+<ul>
+<?php
+				$announcementResults = $db->igroupsQuery( "SELECT iID FROM News ORDER BY iID DESC" );
+				while ( $row = mysql_fetch_row( $announcementResults ) ) {
+					$announcement = new Announcement( $row[0], $db );
+					print "<li>";
+					print "<a href='#' onclick=\"loadEditor( ".$announcement->getID().", '".str_replace("&", "&amp;", $announcement->getHeadingJava())."', '".str_replace("&", "&amp;", $announcement->getBodyJava())."', '".$announcement->getExpirationDate()."' );\">";
+					print $announcement->getHeadingHTML()."</a></li>";
+				}
+?>
+</ul>
+			</div>
+</div>
 </body>
 </html>

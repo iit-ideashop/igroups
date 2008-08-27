@@ -14,15 +14,23 @@
 		die("You are not logged in.");
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - Display Email</title>
-	<link href="default.css" rel="stylesheet" type="text/css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Display Email</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+	<style type='text/css'>
+        pre {
+         font-family: verdana, arial, sans-serif;
+         font-size:100%;
+         white-space: pre-wrap; /* css-3 */
+        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
+        white-space: -pre-wrap; /* Opera 4-6 */
+        white-space: -o-pre-wrap; /* Opera 7 */
+        word-wrap: break-word; /* Internet Explorer 5.5+ */
+        _white-space: pre; /* IE only hack to re-specify in addition to word-wrap */
+}
+        </style>
 </head>
 
 <body>
@@ -37,7 +45,7 @@
 			die("You are not a member of this group");
 		$author = $email->getSender();
 		if ($email->prev || $email->next) 
-			print "<table width='100%' border=0 cellspacing=0><tr><td align='center' bgcolor='lightgray'>";
+			print "<table width='100%' border=0 cellspacing=0><tr><td align='center' bgcolor='#AAAAAA'>";
 		if ($email->prev) {
                         print "<a href='displayemail.php?id={$email->prev}'>Previous in Thread</a>";
                         if ($email->next)
@@ -49,20 +57,19 @@
                         if ($email->next)
                                 print "<a href='displayemail.php?id={$email->next}'>Next in Thread</a></td></tr></table>";
                 }
-		print "<b>Subject:</b> ".$email->getSubjectHTML()."<br>";
-		print "<b>From:</b> ".$author->getFullName()."<br>";
-		print "<b>Date:</b> ".$email->getDateTime()."<br>";
-		print "<b>To:</b> ".$email->getTo()."<br>";
-
+		print "<p><b>Subject:</b> ".$email->getSubjectHTML()."<br />";
+		print "<b>From:</b> ".$author->getFullName()."<br />";
+		print "<b>Date:</b> ".$email->getDateTime()."<br />";
+		print "<b>To:</b> ".$email->getTo()."<br />";
+		print "<a href='email.php?replyid=".$email->getID()."'>Reply to this email</a>";
+                print "&nbsp;|&nbsp;<a href='email.php?forward=".$email->getID()."'>Forward this email</a><br /><br />";
 		$files = $email->getAttachments();
 		foreach($files as $file) {
-			print "$file<br>";
+			print "$file<br />";
 		}
+		print "</p>";
 		$body = htmlspecialchars($email->getBody());
-		print "<p>".$email->getBodyHTML()."</p>";
-		//print "<pre>$body</pre>";
-		print "<p><a href='sendemail.php?replyid=".$email->getID()."'>Reply to this email</a>";
-		print "&nbsp;|&nbsp;<a href='forward.php?forward=".$email->getID()."'>Forward this email</a></p>";
+		print "<pre>$body</pre>";
 	}
 ?>
 </body>

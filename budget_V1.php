@@ -81,7 +81,7 @@ if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']
 
 <html>
 <head>
-	<title>iGROUPS - View Timesheet Reports</title>
+	<title>iGROUPS - Budget</title>
 	<style type="text/css">
 		@import url("default.css");
 
@@ -105,7 +105,7 @@ if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']
 			background-color:#fff;
 			position:absolute;
 			visibility:hidden;
-			width:400px;
+			width:300px;
 			padding:5px;
 			top:0;
 			left:0;
@@ -166,23 +166,6 @@ if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']
 			width: 300px;
 		}
 		
-		.edit_desc {
-			background: #ffffcc;
-			border: 1px solid #ccc;
-			padding: 3px;
-		}
-		
-		pre {
-			font-family: verdana, arial, sans-serif;
-			font-size:100%;
-			white-space: pre-wrap; /* css-3 */
-			white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-			white-space: -pre-wrap; /* Opera 4-6 */
-			white-space: -o-pre-wrap; /* Opera 7 */
-			word-wrap: break-word; /* Internet Explorer 5.5+ */
-			_white-space: pre; /* IE only hack to re-specify in addition to word-wrap */
-		}
-		
 	</style>
 
 <script type="text/javascript">
@@ -233,11 +216,15 @@ $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID=$s_selectedGroup AN
 ?>
 	<h4>Guidelines: </h4>
 	<ul>
-	<li>Please <b>only submit one budget</b> form per IPRO per semester. Before submitting, please consult with your teammates and instructor to make sure that you are responsible for filling out this form.</li>
+	<li>Please <b>only submit one budget</b> form per IPRO per semester. Before submitting, please consult with your teammates and instructor to make sure that you are responsible for filling ou this form.</li>
 	<li>Fill in the dollar amount for each of the pre-defined categories; for those categories that you are not requesting any funds, please leave the dollar amount blank.</li>
 	<li>You have up to five budget categories you can define yourself if some expenses are not fitting the IPRO categories. Use these extra categories for subteam budgets</li>
 	<li>Use the "Explain" textboxes to briefly describe the requested amount for each category.</li>
 	</ul>
+	
+	<p>
+	<a href="javascript:void(0)" onclick="window.open('reimbursements.php','reimbursements','width=500,height=700')"><strong>Reimbursement Instructions</strong></a>
+	</p>
 	<hr>
 	
 	<h2 style="color: #cc0000;">Submit a Budget</h2>
@@ -407,15 +394,15 @@ while ($row = mysql_fetch_assoc($query))
 	echo "<td>$ $row[bRequested]</td>";
 	echo "<td>$ $row[bApproved]</td>";
 	echo "<td>$ $row[bSpent]</td>";
-	echo "<td><a href='#' onMouseOver='showEvent(".$row[bOrder].",event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onMouseOut='hideEvent(".$row[bOrder].");'>".$desc."</a> <span class='edit_desc'><a href='edit_budget.php?bOrder=$row[bOrder]&bDesc=$row[bDesc]'>Edit</a></span></td>";
+	echo "<td><a href='#' onMouseOver='showEvent(".$row[bOrder].",event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onMouseOut='hideEvent(".$row[bOrder].");'>".$desc."</a></td>";
 	echo "<td>$row[bStatus]</td>";
-	echo "<div class='description' id='".$row[bOrder]."'><pre>".$row[bDesc]."</pre></div>";
+	echo "<div class='description' id='".$row[bOrder]."'>".$row[bDesc]."</div>";
 	}
 	echo "</tr>";
 	
 
 	
-//Total Amount
+//Total amount Requested
 $total_amt = $db->igroupsQuery("SELECT sum(bRequested), sum(bApproved), sum(bSpent) from Budgets WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} GROUP by iProjectID");
 $total = mysql_fetch_row($total_amt);
 
@@ -424,6 +411,10 @@ $total = mysql_fetch_row($total_amt);
 
 ?>
 
+<!--Reimbursement Instructions-->
+<p>
+<a href="javascript:void(0)" onclick="window.open('reimbursements.php','reimbursements','width=500,height=700')"><strong>Reimbursement Instructions</strong></a>
+</p>
 
 <!--Form for Submitting Actual/Forecast Expenditures-->
 
@@ -444,7 +435,7 @@ $category_list = $db->igroupsQuery( "SELECT bOrder, bCategory from Budgets WHERE
 echo "<label for='actual_category'>Amount:</label> $ <input type='text' name='actual_amount' size=5> ";
 ?>
 <input type="submit" name="actual_budget_submit" value="Submit"> <br />
-<div style="margin-top: 5px; color: #666; font-size: 85%;">* If the actual amount is $0, you have to type it in the format of $0.00</div>
+<div style="margin-top: 5px; color: #666; font-size: 85%;">* If the actual amount is $0, you have to type ii in the format of $0.00</div>
 </form>
 
 

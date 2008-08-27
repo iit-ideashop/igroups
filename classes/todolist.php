@@ -28,6 +28,14 @@ if ( !class_exists( "TodoList" ) ) {
 			return $this->todolist;
 		}
 
+		function getSortedList($sort) {
+			$query = $this->db->igroupsQuery("SELECT iID FROM TodoList WHERE iGroupID={$this->id} AND iSemesterID={$this->semester} ORDER BY $sort");
+			$sortedTodo = array();
+			while ($row = mysql_fetch_array($query))
+				$sortedTodo[] = new Todo($row['iID'], $this->db);
+			return $sortedTodo;
+		}
+
         function getTask($num){
             return $this->todolist[$num-1];
         }

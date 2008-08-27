@@ -11,6 +11,52 @@
 	
 	if ( isset( $_SESSION['userID'] ) ) 
 		$currentUser = new Person( $_SESSION['userID'], $db );
+	else if ( isset($_POST['login'] ) && isset($_GET['replyid']) ) {
+		
+		if ( strpos( $_POST['username'], "@" ) === FALSE ) 
+			$_POST['username'] .= "@iit.edu";
+			
+		$user = $db->iknowQuery( "SELECT iID,sPassword FROM People WHERE sEmail='".$_POST['username']."'" );
+		
+		if ( ( $row = mysql_fetch_row( $user ) ) && ( md5($_POST['password']) == $row[1] ) ) {
+			$_SESSION['userID'] = $row[0];
+			$email = new Email($_GET['replyid'], $db);
+			$_SESSION['selectedGroup'] = $email->getGroupID();
+			$_SESSION['selectedGroupType'] = $email->getGroupType();
+			$_SESSION['selectedSemester'] = $email->getSemester();
+			if ( isset( $_POST["remember"] ) ) {
+				setcookie( "iUserID", $_SESSION['userID'], time()+1209600 );
+			}
+		}
+		else {
+			$errorMsg = "Invalid username or password";
+		}
+	}
+	else if(isset($_GET['replyid']))
+	{
+?>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Log In</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+</head><body>
+<h1>Login</h1>
+<?php
+		if ( isset( $errorMsg ) ) {
+			print $errorMsg."<br />";
+		}
+		print "<form method=\"post\" action=\"email.php?replyid=".$_GET['replyid']."\">";
+?>
+			User name: <input name="username" type="text" /><br />
+			Password: <input name="password" type="password" /><br />
+			<input type='checkbox' name='remember' /> Remember me?<br />
+			<input type="submit" name="login" value="Login" />
+		</form>
+</body></html>
+<?php
+	die();
+	}
 	else
 		die("You are not logged in.");
 		 
@@ -45,24 +91,19 @@
 		$i=!$i;
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - Group Email</title>
-	<style type="text/css">
-		@import url("default.css");
-		
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Group Email</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
+	<style type="text/css">		
 		#container {
 			padding:0;
 		}
 		
 		#catbox {
 			float:left;
-			width:30%;
+			width:25%;
 			margin:5px;
 			padding:2px;
 			border:1px solid #000;
@@ -79,7 +120,7 @@
 			float:left;
 			margin:5px;
 			padding:2px;
-			width:64%;
+			width:55%;
 			border:1px solid #000;
 		}
 		
@@ -89,18 +130,18 @@
 			background-color:#fff;
 		}
 		
-		#menubar {
+		.menubar {
 			background-color:#eeeeee;
 			margin-bottom:5px;
 			padding:3px;
 		}
 		
-		#menubar li {
+		.menubar li {
 			padding:5px;
 			display:inline;
 		}
 		
-		ul {
+		ul.emailul {
 			list-style:none;
 			padding:0;
 			margin:0;
@@ -127,26 +168,122 @@
 			padding:5px;
 		}
 	</style>
-	<script language="javascript" type="text/javascript">
-		function showEmail(id, pagey, screeny ) {
-			document.getElementById('emailFrame').src='displayemail.php?id='+id;
-			document.getElementById('email-window').style.visibility = 'visible';
-			document.getElementById('email-window').style.top = (document.documentElement.scrollTop+20)+"px";
-			return false;
-		}
-		
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
 
-	</script>
+<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<script type="text/javascript" src="windowfiles/dhtmlwindow.js">
+
+/***********************************************
+* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+</script>
 </head>
 <body>
-	<div id="topbanner">
+<?php
+require("sidebar.php");
+	if ( isset( $_POST['send'] ) ) {
+		if ( isset( $_POST['sendto'] )) {
+		foreach ( $_POST['sendto'] as $id => $val ) {
+			$person = new Person( $id, $db );
+			$to[] = $person->getEmail();
+			$names[] = $person->getFullName();
+		}
+		
+		$tolist = join( ",", $to );
+		$toNames = join( ", ", $names );
+		}
+
+		if (isset($_POST['sendtosubgroup'])) {
+		foreach ($_POST['sendtosubgroup'] as $key => $val) {
+			$subgroup = new SubGroup($key, $db);
+			$people = $subgroup->getSubGroupMembers();
+			foreach($people as $person) {
+				$to[] = $person->getEmail();
+			}
+			$names[] = $subgroup->getName();
+		}
+		$tolist = join(",", $to);
+		$toNames = join(", ", $names);
+		}
+
+		if (isset($_POST['sendtoguest'] )) {
+                foreach ($_POST['sendtoguest'] as $id => $val) {
+                        $person = new Person($id, $db);
+                        $to[] = $person->getEmail();
+			$names[] = $person->getFullName();
+                }
+                $tolist = join(",", $to);
+		$toNames = join(", ", $names);
+                }
+		
+		$headers = "From: ".$currentUser->getFullName()." <".$currentUser->getEmail().">\n";
+		if ( isset($_POST['cc']) && ($_POST['cc'] != ''))
+			$headers .= "Cc:".$_POST['cc']."\n";
+		$mime_boundary=md5(time());
+		$headers .= 'MIME-Version: 1.0'."\n";
+		$headers .= 'Content-Type: multipart/mixed; boundary="'.$mime_boundary.'"'."\n";
+		$headers .= 'Content-Transfer-Encoding: 8bit'."\n";
+		$msg = "";
+		for ($i=1; $i<=(count($_FILES)); $i++) {
+		if ( $_FILES["attachment$i"]['size'] != 0 ) {
+			$handle=fopen($_FILES["attachment$i"]['tmp_name'], 'rb');
+			$f_contents=fread($handle, $_FILES["attachment$i"]['size']);
+			$f_contents=chunk_split(base64_encode($f_contents));
+			fclose($handle); 
+			$filename = str_replace(' ', '_', $_FILES["attachment$i"]['name']);
+			$msg .= "--".$mime_boundary."\n";
+			$msg .= "Content-Type: {$_FILES["attachment$i"]['type']};\n name={$filename}\n";
+			$msg .= "Content-Transfer-Encoding: base64"."\n";
+			$msg .= "Content-Disposition: attachment; filename=".$filename."\n"."\n";
+			$msg .= $f_contents."\n"."\n";
+			if (!isset($_POST['confidential'])) {
+				$db->igroupsQuery("INSERT INTO EmailFiles (iEmailID, sOrigName, sMimeType) VALUES (0, '$filename', '{$_FILES["attachment$i"]['type']}')");
+				$id = $db->igroupsInsertID();
+				$db->igroupsQuery("UPDATE EmailFiles SET sDiskName='$id.att' WHERE iID=$id");
+				move_uploaded_file($_FILES["attachment$i"]['tmp_name'], "/files/igroups/emails/$id.att");
+			}
+		}
+		}
+		$tmpstr = wordwrap($_POST['body'], 110);
+		$body = new SuperString($tmpstr);
+		$msg .= "--".$mime_boundary."\n";
+		$msg .= "Content-Type: text/plain; charset=iso-8859-1"."\n";
+		$msg .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
+		$msg .= $body->getString()."\n"."\n"; 
+		if ( !isset( $_POST['confidential'] ) ) {
+			$msg .= "--".$mime_boundary."\n";
+			$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
+	                $msg .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
+			$msg .= '<p><a href="http://igroups.iit.edu/email.php?replyid=abxyqzta10">Click here to reply to this email.</a></p>'."\n"."\n";
+		}
+		$msg .= "--".$mime_boundary.'--'."\n";
+		if ( isset( $_POST['confidential'] ) ) {
+			$subj = new SuperString( $_POST['subject'] );
+			mail( $tolist, "[".$currentGroup->getName()."] ".stripslashes($_POST['subject']), $msg, $headers );
+		}
+		else {
+			if ($_POST['subject'] == "")
+				$_POST['subject'] = "(no subject)";
+			$newEmail = createEmail( $toNames, $_POST['subject'], $_POST['body'], $currentUser->getID(), $_POST['category'], $_POST['replyid'], $currentGroup->getID(), $currentGroup->getType(), $currentGroup->getSemester(), $db );
+			$query = $db->igroupsQuery("UPDATE EmailFiles SET iEmailID={$newEmail->getID()} WHERE iEmailID=0");
+			$msg = str_replace( "abxyqzta10", $newEmail->getID(), $msg );
+			mail( $tolist, "[".$currentGroup->getName()."] ".stripslashes($_POST['subject']), $msg, $headers );
+		}
+		print "<script type=\"text/javascript\">var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Your email was sent successfully.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal')</script>";
+	}
+	else if (isset($_GET['replyid'])) {
+		print "<script type=\"text/javascript\">var sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php?replyid=".$_GET['replyid']."', 'Send Reply', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1', 'recal')</script>";
+	}
+	else if (isset($_GET['forward'])) {
+		print "<script type=\"text/javascript\">var sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php?forward=".$_GET['forward']."', 'Forward Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1', 'recal')</script>";
+	}
+	else if(isset($_GET['display'])) {
+		print "<script type=\"text/javascript\">var viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$_GET['display']."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1', 'recal')</script>";
+	}
+?>
+	<div id="content"><div id="topbanner">
 <?php
 		print $currentGroup->getName();
 ?>
@@ -157,7 +294,7 @@
 		createCategory( $_POST['catname'], $_POST['catdesc'], $currentGroup->getID(), $currentGroup->getType(), $currentGroup->getSemester(), $db );
 ?>
 		<script type="text/javascript">
-			showMessage("Category created");
+			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Category created.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
 		</script>
 <?php
 	}
@@ -193,39 +330,36 @@
 		}
 ?>
 		<script type="text/javascript">
-			showMessage("Selected items successfully deleted");
+			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Selected items successfully deleted.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
 		</script>
 <?php
 	}
 	
 	if ( isset( $_POST['move'] ) ) {
-		foreach( $_POST['email'] as $emailid => $val ) {
-			$email = new Email( $emailid, $db );
-			if ( $currentUser->isGroupModerator( $email->getGroup() ) ) {
-				$email->setCategory($_POST['targetcategory']);
-				$email->updateDB();
-			}
+		$email = new Email( $_POST['email'], $db );
+		if ( $currentUser->isGroupModerator( $email->getGroup() ) ) {
+			$email->setCategory($_POST['targetcategory']);
+			$email->updateDB();
 		}
 ?>
 		<script type="text/javascript">
-			showMessage("Selected items successfully moved");
+			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Selected item successfully moved.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
 		</script>
 <?php
 	}	
 ?>
-	<form method="post" action="email.php">
 	<div id="container">
 		<div id="catbox">
-			<div id="columnbanner">
+			<div class="columnbanner">
 				Your categories:
 			</div>
-			<div id="menubar">
-				<ul> <?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
-					<li><a href="#" onClick="document.getElementById('create-category').style.visibility='visible';">Create Category</a></li>
+			<div class="menubar">
+				<ul class="emailul"> <?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
+					<li><a href="#" onclick="ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Category</a></li>
 					<?php
                                         if ( $currentUser->isGroupModerator( $currentGroup ) ) {
 					?>
-                                                <li><a href="#" onClick="document.getElementById('edit-category').style.visibility='visible';">Edit/Delete Category</a></li>
+                                                <li><a href="#" onclick="ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Category</a></li>
 					<?php } ?>
 				</ul>
 				<?php } ?>
@@ -234,14 +368,14 @@
 <?php
 				$categories = $currentGroup->getGroupCategories();
 				if ( $currentCat )
-					print "<a href='email.php?selectCategory=0'><img src='img/folder.gif' border=0></a>&nbsp;<a href='email.php?selectCategory=0'>Uncategorized</a><br>";
+					print "<a href='email.php?selectCategory=0'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='email.php?selectCategory=0'>Uncategorized</a><br />";
 				else
-					print "<a href='email.php?selectCategory=0'><img src='img/folder-expanded.gif' border=0></a>&nbsp;<a href='email.php?selectCategory=0'><strong>Uncategorized</strong></a><br>";
+					print "<a href='email.php?selectCategory=0'><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href='email.php?selectCategory=0'><strong>Uncategorized</strong></a><br />";
 				foreach ( $categories as $category ) {
 					if ( $currentCat && $currentCat->getID() == $category->getID() )
-						print "<a href='email.php?selectCategory=".$category->getID()."'><img src='img/folder-expanded.gif' border=0></a>&nbsp;<a href='email.php?selectCategory=".$category->getID()."'><strong>".$category->getName()."</strong></a><br>";
+						print "<a href='email.php?selectCategory=".$category->getID()."'><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href='email.php?selectCategory=".$category->getID()."'><strong>".$category->getName()."</strong></a><br />";
 					else
-						print "<a href='email.php?selectCategory=".$category->getID()."'><img src='img/folder.gif' border=0></a>&nbsp;<a href='email.php?selectCategory=".$category->getID()."'>".$category->getName()."</a><br>";
+						print "<a href='email.php?selectCategory=".$category->getID()."'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='email.php?selectCategory=".$category->getID()."'>".$category->getName()."</a><br />";
 				}
 ?>
 			</div>
@@ -257,19 +391,18 @@
 				$name = "Uncategorized";
 			}
 			
-			print "<div id='columnbanner'>Contents of $name:</div>";
+			print "<div class='columnbanner'>Contents of $name:</div>";
 ?>
-			<div id="menubar">
+			<form method="post" action="email.php"><div class="menubar">
 			<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
-				<ul>
-					<li><a href="#" onClick="document.getElementById('send-window').style.visibility='visible';">Send Email</a></li>
-					<li><a href="#" onClick="window.location.href='searchemail.php';">Search Email</a></li>
+				<ul class="emailul">
+					<li><a href="#" onclick="sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
+					<li><a href="#" onclick="window.location.href='searchemail.php';">Search Email</a></li>
 <?php
 					if ( $currentUser->isGroupModerator( $currentGroup ) ) {
 ?>
-						<li><a href="#" onClick="document.getElementById('move-emails').style.visibility='visible';">Move Selected</a></li>
-						<li><a href="#" onClick="document.getElementById('delete').value='1'; document.getElementById('delete').form.submit()">Delete Selected</a>
-						<input type='hidden' id='delete' name='delete' value='0'></li>
+						<li><a href="#" onclick="document.getElementById('delete').value='1'; document.getElementById('delete').form.submit()">Delete Selected</a>
+						<input type='hidden' id='delete' name='delete' value='0' /></li>
 <?php
 					}
 ?>
@@ -283,85 +416,39 @@
 					$author = $email->getSender();
 					printTR();
 					if ($email->hasAttachments()) 
-						$img = '&nbsp;<img src="img/attach.gif">';
+						$img = '&nbsp;<img src="img/attach.png" alt="(Attachments)" border="0" title="Paper clip" />';
 					else
 						$img = '';
-					print "<td colspan=2><a href='displayemail.php?id=".$email->getID()."' onClick='showEmail(".$email->getID()."); return false;'>".$email->getShortSubject()."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type='checkbox' name='email[".$email->getID()."]'></td></tr>";
+					print "<td colspan='2'><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".str_replace("&", "&amp;", $email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type='checkbox' name='email[".$email->getID()."]' /></td><td><a href=\"#\" onclick=\"movewin=dhtmlwindow.open('movebox', 'ajax', 'move.php?id=".$email->getID()."', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false\">Move</a></td></tr>";
 				}
 ?>
 				</table>
-			</div>
+			</div></form>
 		</div>
 	</div>
-	<div id="move-emails" class="window">
-		<div class="window-topbar">
-			Move Emails
-			<input class="close-button" type="button" onClick="document.getElementById('move-emails').style.visibility='hidden';">
-		</div>
-		<div class="window-content">
-			Move emails to category:
-			<select name="targetcategory"><option value="0">No Category</option>
-<?php
-			$categories = $currentGroup->getGroupCategories();
-			foreach ( $categories as $category ) {
-				print "<option value=".$category->getID().">".$category->getName()."</option>";
-			}
-?>
-			</select><br>
-			<input type="submit" name="move" value="Move Selected Emails">
-		</div>
-	</div>
-	</form>
-	<div id="email-window" class="window">
-		<div class="window-topbar">
-			View Email
-			<input class="close-button" type="button" onClick="document.getElementById('email-window').style.visibility='hidden';">
-		</div>
-		<iframe id="emailFrame" width=100% height="500" frameborder="0">
-		</iframe>
-	</div>
-	<div id="send-window" class="window">
-		<div class="window-topbar">
-			Send Email
-			<input class="close-button" type="button" onClick="document.getElementById('send-window').style.visibility='hidden';">
-		</div>
-		<iframe src="sendemail.php" width=100% height="500" frameborder="0">
-		</iframe>
-	</div>
-	<div id="create-category" class="window">
-		<div class="window-topbar">
-			Create Category
-			<input class="close-button" type="button" onClick="document.getElementById('create-category').style.visibility='hidden';">
-		</div>
-		<div class="window-content">
+		
+		<div class="window-content" id="createCat" style="display: none">
 			<form method="post" action="email.php">
-				Category Name: <input type="text" name="catname"><br>
-				Category Description:<input type="text" name="catdesc"><br>
-				<input type="submit" name="createcat" value="Create Category">
+				Category Name: <input type="text" name="catname" /><br />
+				Category Description:<input type="text" name="catdesc" /><br />
+				<input type="submit" name="createcat" value="Create Category" />
 			</form>
 		</div>
-	</div>
-	<div id="edit-category" class="window">
-		<div class="window-topbar">
-			Edit Category
-			<input class="close-button" type="button" onClick="document.getElementById('edit-category').style.visibility='hidden';">
-		</div>
-		<div class="window-content">
+		<div class="window-content" id="editCat" style="display: none">
 			<form method="post" action="email.php">
 <?php
 				if ( $currentCat ) {
-					print "Current Category Name: ".$currentCat->getName()."<br>";
-					print "New Category Name: <input type='text' name='newcatname' value='".$currentCat->getName()."'><br>";
-					print "New Category Description: <input type='text' name='newcatdesc' value='".$currentCat->getDesc()."'><br>";
-					print '<input type="submit" name="editcat" value="Edit Category">';
-					print '<input type="submit" name="delcat" value="Delete Category">';
+					print "Current Category Name: ".$currentCat->getName()."<br />";
+					print "New Category Name: <input type='text' name='newcatname' value='".$currentCat->getName()."' /><br />";
+					print "New Category Description: <input type='text' name='newcatdesc' value='".$currentCat->getDesc()."' /><br />";
+					print '<input type="submit" name="editcat" value="Edit Category" />';
+					print '<input type="submit" name="delcat" value="Delete Category" />';
 				}
 				else {
 					print "You cannot edit the current active category.";
 				}
 ?>
 			</form>
-		</div>
-	</div>
+	</div></div>
 </body>
 </html>

@@ -107,7 +107,7 @@ if ( !class_exists( "Email" ) ) {
 			$links = array();
 			$i=1;
 			while ($file = mysql_fetch_array($query)) {
-				$links[] = "<b>Attachment $i:</b> <a href='getattach.php?id={$file['iID']}&email={$file['iEmailID']}'>{$file['sOrigName']}</a>";
+				$links[] = "<b>Attachment $i:</b> <a href='getattach.php?id={$file['iID']}&amp;email={$file['iEmailID']}'>{$file['sOrigName']}</a>";
 				$i++;
 			}
 			return $links;
@@ -229,7 +229,7 @@ if ( !class_exists( "Email" ) ) {
 			$this->db->igroupsQuery( "DELETE FROM Emails WHERE iID=".$this->getID() );
 			$query = $this->db->igroupsQuery( "SELECT * FROM EmailFiles WHERE iEmailID={$this->getID()}" );
 			while ($file = mysql_fetch_array($query)) {
-				if (file_exists("/files/igroups/emails/{$file['sDiskName']}"))
+				if ($file['sDiskName'][0] != 'G' && file_exists("/files/igroups/emails/{$file['sDiskName']}"))
 					unlink("/files/igroups/emails/{$file['sDiskName']}");
 			}
 			$this->db->igroupsQuery("DELETE FROM EmailFiles WHERE iEmailID={$this->getID()}" );
@@ -251,7 +251,8 @@ if ( !class_exists( "Email" ) ) {
 	function createEmail( $to, $subject, $body, $sender, $category, $reply, $group, $type, $semester, $db ) {
 		$subj = new SuperString( $subject );
 		$bod = new SuperString( $body );
-		$db->igroupsQuery( "INSERT INTO Emails( sTo, sSubject, sBody, dDate, iSenderID, iCategoryID, iReplyID, iGroupID, iGroupType, iSemesterID ) VALUES ( '".$to."', '".$subj->getDBString()."', '".$bod->getDBString()."', '".date("Y-m-d H-i-s")."', $sender, $category, $reply, $group, $type, $semester )" );
+		$tto = new SuperString( $to );
+		$db->igroupsQuery( "INSERT INTO Emails( sTo, sSubject, sBody, dDate, iSenderID, iCategoryID, iReplyID, iGroupID, iGroupType, iSemesterID ) VALUES ( '".$tto->getDBString()."', '".$subj->getDBString()."', '".$bod->getDBString()."', '".date("Y-m-d H-i-s")."', ".$sender.", $category, $reply, $group, $type, $semester )" );
 		$email = new Email($db->igroupsInsertID(), $db);
 		if ($reply != 0) {
 			$id = $email->getID();

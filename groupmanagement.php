@@ -19,7 +19,8 @@
 	
 	if ( !$currentUser->isGroupModerator( $currentGroup ) )
 		die("You must be a group moderator to access this page.");
-		
+	
+	/*	
 	function peopleSort( $array ) {
 		$newArray = array();
 		foreach ( $array as $person ) {
@@ -27,8 +28,17 @@
 		}
 		ksort( $newArray );
 		return $newArray;
-	}
+	}*/
 	
+	function alpha($person1, $person2) {
+		if ($person1->getLastName() < $person2->getLastName())
+			return -1;
+		else if ($person2->getLastName() < $person1->getLastName())
+			return 1;
+		else
+			return 0;
+	}
+
 	function printTR() {
 		static $i=0;
 		if ( $i )
@@ -69,16 +79,13 @@
 	
 	//------End Form Processing Code---------------------------------//
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - Group Management</title>
-	<link href="default.css" rel="stylesheet" type="text/css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Group Management</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
 	<script type="text/javascript">
+	<!--
 		function showMessage( msg ) {
 			msgDiv = document.createElement("div");
 			msgDiv.id="messageBox";
@@ -86,14 +93,16 @@
 			document.body.insertBefore( msgDiv, null );
 			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
 		}
+	//-->
 	</script>
 </head>
 <body>
 <?php
+require("sidebar.php");
 	if ( isset( $message ) )
 		print "<script type='text/javascript'>showMessage(\"$message\");</script>";
 ?>	
-	<div id="topbanner">
+	<div id="content"><div id="topbanner">
 <?php
 		print $currentGroup->getName();
 ?>
@@ -152,7 +161,7 @@
                 $email = str_replace('<', '', $email);
                 $email = str_replace('"', '', $email);
                 $email = str_replace("'", '', $email);
-		$user = $db->iknowQuery( "SELECT iID FROM iknow.People WHERE sEmail='".$email."'" );
+		$user = $db->iknowQuery( "SELECT iID FROM igroups.People WHERE sEmail='".$email."'" );
 		if ( $row = mysql_fetch_row( $user ) ) {
 			$user = new Person( $row[0], $db );
 			$user->addToGroup( $currentGroup );
@@ -165,15 +174,15 @@
 		else {
 ?>
 			<div id="newuser">
-				No one with e-mail address <b><?php print "$email"; ?></b> currently exists in our system.<br>
-				Please enter additional data so that they may be added.<br>
+				No one with e-mail address <b><?php print "$email"; ?></b> currently exists in our system.<br />
+				Please enter additional data so that they may be added.<br />
 				<form method="post" action="groupmanagement.php">
-					First Name: <input type='text' name='fname'><br>
-					Last Name: <input type='text' name='lname'><br>
+					First Name: <input type='text' name='fname' /><br />
+					Last Name: <input type='text' name='lname' /><br />
 <?php
-					print "<input type='hidden' name='email' value='".$_POST['email']."'>";
+					print "<input type='hidden' name='email' value='".$_POST['email']."' />";
 ?>
-					<input type='submit' name='newuser' value="Create New User">
+					<input type='submit' name='newuser' value="Create New User" />
 				</form>
 			</div>
 <?php
@@ -208,16 +217,16 @@
 		<h1>Current Users</h1>
 		<table>
 			<thead>
-				<tr><td rowspan=2>User</td><td rowspan=2>Delete?</td>
+				<tr><td rowspan="2">User</td><td rowspan="2">Delete?</td>
 <?php
 			$admin = $currentUser->isGroupAdministrator( $currentGroup );
 			$subgroups = $currentGroup->getSubGroups();
                         $numSubgroups = count($subgroups);
 
 			//if ( $admin )
-				//print "<td colspan=4>Access Level</td>";
+				//print "<td colspan='4'>Access Level</td>";
 			if ( $currentUser->isGroupModerator($currentGroup) && count($subgroups) > 0)
-                                print "<td colspan=4>Access Level</td><td colspan=$numSubgroups>Subgroup Membership</td>";
+                                print "<td colspan='4'>Access Level</td><td colspan='$numSubgroups'>Subgroup Membership</td>";
 			print "</tr><tr>";
 
 			if ($admin || $currentUser->isGroupModerator($currentGroup))
@@ -230,66 +239,67 @@
 			print "</tr></thead>";
 			
 			$members = $currentGroup->getAllGroupMembers();
-			$members = peopleSort( $members );
+			//$members = peopleSort( $members );
+			usort($members, "alpha");
 			foreach ( $members as $person ) {
 				printTR();
 				print "<td>".$person->getCommaName()." &lt;".$person->getEmail()."&gt;</td>";
-				print "<td align='center'><input type='checkbox' name='delete[".$person->getID()."]'></td>";
+				print "<td align='center'><input type='checkbox' name='delete[".$person->getID()."]' /></td>";
 					if ( $person->isGroupAdministrator( $currentGroup ) ) {
 						if ($admin || $currentUser->isGroupModerator($currentGroup))
 						print "<td></td><td></td><td></td><td align='center'>*</td>";
 						foreach ($subgroups as $subgroup) {
                                                         if ($subgroup->isSubGroupMember($person))
-                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' checked></td>";
+                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' checked='checked' /></td>";
                                                         else
-                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}'></td>";
+                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' /></td>";
                                                 }
 					}
 					else if ( $person->isGroupModerator( $currentGroup ) ) {
 						if ($currentUser->isGroupModerator($currentGroup) && !$admin)
 							print "<td></td><td></td><td align='center'>*</td><td></td>";
 						if ($admin) {
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1'></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=0></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=1 checked></td><td></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='0' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='1' checked='checked' /></td><td></td>";
 						}
 						foreach ($subgroups as $subgroup) {
                                                         if ($subgroup->isSubGroupMember($person))
-                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' checked></td>";
+                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' checked='checked' /></td>";
                                                         else
-                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}'></td>";
+                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' /></td>";
                                                 }
 					}
 					else if (!$person->isGroupGuest($currentGroup)) {
 						if ($admin || $currentUser->isGroupModerator($currentGroup)) {
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1'></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=0 checked></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='0' checked='checked' /></td>";
 						if ($admin)
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=1></td><td></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='1' /></td><td></td>";
 						else
 						print "<td></td><td></td>";
 						}
 						foreach ($subgroups as $subgroup) {
                                                         if ($subgroup->isSubGroupMember($person))
-                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' checked></td>";
+                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' checked='checked' /></td>";
                                                         else
-                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}'></td>";
+                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' /></td>";
                                                 }
 					}
 					else {
 						if ($admin || $currentUser->isGroupModerator($currentGroup)) {
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1' checked></td>";
-                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=0></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1' checked='checked' /></td>";
+                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='0' /></td>";
 						if ($admin)
-                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=1></td><td></td>";
+                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='1' /></td><td></td>";
 						else
 						print "<td></td><td></td>";
 						}
 						foreach ($subgroups as $subgroup) {
                                                         if ($subgroup->isSubGroupMember($person))
-                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' checked></td>";
+                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' checked='checked' /></td>";
                                                         else
-                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}'></td>";
+                                                                print "<td align='center'><input type='checkbox' name='sub_{$subgroup->getID()}[]' value='{$person->getID()}' /></td>";
                                                 }
 					}
 				
@@ -297,30 +307,30 @@
 			}
 ?>
 		</table>
-		<input type="submit" value="Update" name="updategroup">
+		<input type="submit" value="Update" name="updategroup" />
 	</form>
-	<br>
+	<br />
 	<div id="adduser">
 		<form method="post" action="groupmanagement.php">
 			<h1>Add User to Group</h1>
-			Email address:<input type="text" name="email"><br>
-			<input type="submit" value="Add User" name="adduser">
+			Email address:<input type="text" name="email" /><br />
+			<input type="submit" value="Add User" name="adduser" />
 		</form>
 	</div>
-	<br>
+	<br />
 	<div id="subgroups">
 		<h1>Manage Subgroups</h1>
 		<form method='post' action='groupmanagement.php'>
-		Create New Subgroup: <input type='text' name='subGroupName'>&nbsp;<input type='submit' name='createSubGroup' value='Create Subgroup'><br>
+		Create New Subgroup: <input type='text' name='subGroupName' />&nbsp;<input type='submit' name='createSubGroup' value='Create Subgroup' /><br />
 <?php
 	$subgroups = $currentGroup->getSubGroups();
 	foreach ($subgroups as $subgroup) {
-		print "<input type='radio' name='delete' value='{$subgroup->getID()}'>&nbsp;{$subgroup->getName()}<br>";
+		print "<input type='radio' name='delete' value='{$subgroup->getID()}' />&nbsp;".str_replace("&", "&amp;", $subgroup->getName())."<br />";
 	}
 	if (count($subgroups) > 0)
-		print "<input type='submit' name='deleteSubGroup' value='Delete Subgroup'>";
+		print "<input type='submit' name='deleteSubGroup' value='Delete Subgroup' />";
 ?>
-	<br><br>
+	<br /><br /></form>
 	</div>
 <?php
 $pastGroups = $currentGroup->findPastIPROs();
@@ -334,7 +344,7 @@ if ($pastGroups) {
 			<tr><td valign='top'>
 <?php
 	foreach($currentGroup->getAllGroupMembers() as $member) {
-		print "<input type='checkbox' name='addUsers[]' value='{$member->getID()}'>&nbsp;{$member->getFullName()}<br>";
+		print "<input type='checkbox' name='addUsers[]' value='{$member->getID()}' />&nbsp;{$member->getFullName()}<br />";
 	}
 ?>
 			</td><td valign='top'>
@@ -342,10 +352,10 @@ if ($pastGroups) {
 	foreach($pastGroups as $group) {
 		$query = $db->iknowQuery("SELECT sSemester FROM Semesters where iID={$group->getSemester()}");
 		$row = mysql_fetch_row($query);
-		print "<input type='checkbox' name='addGroups[]' value='{$group->getID()}-{$group->getSemester()}'>&nbsp;{$row[0]} -> {$group->getName()}: {$group->getDesc()}<br>";
+		print "<input type='checkbox' name='addGroups[]' value='{$group->getID()}-{$group->getSemester()}' />&nbsp;{$row[0]} -> {$group->getName()}: ".str_replace("&", "&amp;", $group->getDesc())."<br />";
 	}
 ?>
-			<br><input type='submit' name='retroadd' value='Make Guests'>
+			<br /><input type='submit' name='retroadd' value='Make Guests' />
 			</td></tr>
 			</table>
 		</form>
@@ -353,5 +363,6 @@ if ($pastGroups) {
 <?php
 }
 ?>
+</div>
 </body>
 </html>

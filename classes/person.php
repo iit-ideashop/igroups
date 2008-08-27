@@ -141,7 +141,7 @@ if ( !class_exists( "Person" ) ) {
 					        $msg .= "Username: {$username}\n";
 					        $msg .= "Password: If you are a new iGROUPS user, your initial password is the 
 same as your username (or the first part of your e-mail address for non-IIT e-mails). Please change your password the first time you log the system.\n\n";
-					        $msg .= "You can access the iGROUPS system at igroups.iit.edu and the iKNOW system at iknow.iit.edu\nUse the same login information for either system.\nContact iproadmin@iit.edu with any problems or questions.\n\n";
+					        $msg .= "You can access the iGROUPS system at igroups.iit.edu\nContact iproadmin@iit.edu with any problems or questions.\n\n";
 					        $msg .= "--- The IPRO Office Team";
 					        $headers = "From: \"IPRO Office\" <iproadmin@iit.edu>\n";
 					        $headers .= "To: \"{$this->getFullName()}\" <{$this->getEmail()}>\n";
@@ -161,7 +161,7 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
                                                 $msg .= "Username: {$username}\n";
                                                 $msg .= "Password: If you are a new iGROUPS user, your initial password is the 
 same as your username (or the first part of your e-mail address for non-IIT e-mails). Please change your password the first time you log the system.\n\n";
-                                                $msg .= "You can access the iGROUPS system at igroups.iit.edu and the iKNOW system at iknow.iit.edu\nUse the same login information for either system.\nContact iproadmin@iit.edu with any problems or questions.\n\n";
+                                                $msg .= "You can access the iGROUPS system at igroups.iit.edu\nContact iproadmin@iit.edu with any problems or questions.\n\n";
                                                 $msg .= "--- The IPRO Office Team";
                                                 $headers = "From: \"IPRO Office\" <iproadmin@iit.edu>\n";
                                                 $headers .= "To: \"{$this->getFullName()}\" <{$this->getEmail()}>\n";
@@ -273,20 +273,36 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
                         while ( $row = mysql_fetch_row( $ipros ) ) {
                                 $returnArray[] = new Group( $row[0], 0, $semester, $this->db );
                         }
-			/*$igroups = $this->db->igroupsQuery( "SELECT iGroupID FROM PeopleGroupMap WHERE iPersonID=".$this->getID() );
+                        /*$igroups = $this->db->igroupsQuery( "SELECT iGroupID FROM PeopleGroupMap WHERE iPersonID=".$this->getID() );
                         while ( $row = mysql_fetch_row( $igroups ) ) {
                                 $returnArray[] = new Group( $row[0], 1, 0, $this->db );
                         }*/
-
                         return $returnArray;
 		}
 
 		function isAdministrator() {
 			return ( $this->usertype == 1 );
 		}
+
+		function getNuggets(){
+			//get nuggets from old and new system
+			$db = new dbConnection();
+			$query = "SELECT iNuggetID FROM PeopleNuggetMap WHERE iPersonID = $this->id ";
+			$results = $db->igroupsQuery($query);
+			$nuggets = array();
+			while($row = mysql_fetch_array($results)){
+				$nuggets[] = new Nugget($row[0],$this->db,1);
+			}
+			$query = "SELECT iNuggetID FROM nuggetAuthorMap WHERE iAuthorID = $this->id ";
+			$results = $this->db->igroupsQuery($query);
+			while($row = mysql_fetch_array($results)){
+				$nuggets[] = new Nugget($row[0], $this->db,0);
+			}
+			return $nuggets;
+		}
 		
 		function updateDB() {
-			$this->db->iknowQuery( "UPDATE People SET sFName='".quickDBString($this->getFirstName())."', sLName='".quickDBString($this->getLastName())."', sPhone='".quickDBString($this->getPhone())."', sAddress='".quickDBString($this->getAddress())."', sPassword='".$this->password."' WHERE iID=".$this->id );
+			$this->db->igroupsQuery( "UPDATE People SET sFName='".quickDBString($this->getFirstName())."', sLName='".quickDBString($this->getLastName())."', sPhone='".quickDBString($this->getPhone())."', sAddress='".quickDBString($this->getAddress())."', sPassword='".$this->password."' WHERE iID=".$this->id );
 			$this->db->ireviewQuery("UPDATE peer_review.People SET password='{$this->password}' where email='{$this->email}'");
 		}
 	}

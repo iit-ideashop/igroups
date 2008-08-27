@@ -71,16 +71,12 @@
 		$message = "Quotas successfully updated";
 	}
 ?>		
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - IPRO Quota Management</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - IPRO Quota Management</title>
+<link rel="stylesheet" href="../default.css" type="text/css" />
 	<style type="text/css">
-		@import url("../default.css");
 		.fullness-bar {
 			text-align:left;
 			width:500px;
@@ -110,10 +106,11 @@
 </head>
 <body>
 <?php
+	require("sidebar.php");
 	if ( isset( $message ) )
 		print "<script type='text/javascript'>showMessage(\"$message\");</script>";
 ?>	
-	<div id="topbanner">
+	<div id="content"><div id="topbanner">
 <?php
 		if ( $currentSemester )
 			print $currentSemester->getName();
@@ -129,21 +126,21 @@
 			while ( $row = mysql_fetch_row( $semesters ) ) {
 				$semester = new Semester( $row[0], $db );
 				if ($currentSemester && $currentSemester->getID() == $semester->getID())
-					print "<option value=".$semester->getID()." selected>".$semester->getName()."</option>";
+					print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
 				else
-					print "<option value=".$semester->getID().">".$semester->getName()."</option>";
+					print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
 			}
 			if (!$currentSemester)
-				print "<option value=0 selected>All iGROUPS</option>";
+				print "<option value=\"0\" selected=\"selected\">All iGROUPS</option>";
 			else
-				print "<option value=0>All iGROUPS</option>";
+				print "<option value=\"0\">All iGROUPS</option>";
 		
 ?>
 			</select>
-			<input type="submit" name="selectSemester" value="Select Semester">
+			<input type="submit" name="selectSemester" value="Select Semester" />
 		</form>
 	</div>
-	<form method="POST" action="quotas.php">
+	<form method="post" action="quotas.php">
 	<table>
 		<thead>
 			<tr><td>Group</td><td>Space Used</td><td>Limit</td><td>New Limit</td></tr>
@@ -169,14 +166,14 @@
 			printTR();
 			print "<td>".$group->getName()."</td>";
 			print "<td><div class='fullness-bar' style='width:102px; height:15px;'><div class='fullness-indicator' style='height:13px;width:".$quota->getPercentUsed()."px;'></div></div></td>";
-			print "<td>".$quota->getLimit()."</td>";
-			print "<td><input type='text' name='quota[".$group->getID()."]' style='height:16px;font-size:8pt;'></td>";
+			print "<td>".round($quota->getLimit()/1048576, 2)." MiB</td>";
+			print "<td><input type='text' name='quota[".$group->getID()."]' style='height:16px;font-size:8pt;' /> bytes</td>";
 			print "</tr>";
 		}
 		
 	?>
 	</table>
-	<input type='submit' value="Update Limits" name='updatelimit'>
-	</form>
+	<input type='submit' value="Update Limits" name='updatelimit' />
+	</form></div>
 </body>
 </html>

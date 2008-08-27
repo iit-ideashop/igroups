@@ -45,7 +45,7 @@ if 	( isset( $_POST['submit_edit_budget'] ) ) {
 	$msg .= "--- iGroups System Auto-Generated Massage";
 	$headers = "From: \"IPRO Office\" <igroups@iit.edu>\n";
 					
-	$headers .= "To: jovaani@iit.edu";
+	$headers .= "To: jacobius@iit.edu";
 	$headers .= "\nContent-Type: text/plain;\n";
 	$headers .= "Content-Transfer-Encoding: 7bit;\n";
 	mail('', $currentGroup->getName() .' revised the budget category ' .$s_selectedCategoryName.'', $msg, $headers);
@@ -54,19 +54,12 @@ if 	( isset( $_POST['submit_edit_budget'] ) ) {
 	header('Location: budget.php');
 }
 ?>
-
-	
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - View Timesheet Reports</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Budget</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
-		@import url("default.css");
-
 	pre {
 		font-family: verdana, arial, sans-serif;
 		font-size:100%;
@@ -82,9 +75,10 @@ if 	( isset( $_POST['submit_edit_budget'] ) ) {
 </head>
 
 <body>
-	<div id="topbanner">
 <?php
-		print $currentGroup->getName();
+	require("sidebar.php");
+	print "<div id=\"content\"><div id=\"topbanner\">";
+	print $currentGroup->getName();
 ?>
 	</div>
 
@@ -97,16 +91,12 @@ if 	( isset( $_POST['submit_edit_budget'] ) ) {
 ?>
 
 	<form method='post' name='edit_budget_desc' id='edit_budget_desc' action='edit_budget.php'>
-	<p>
-	<label for="budget_revised_amt"><h3>Amount:</h3></label>
+	<h3><label for="budget_revised_amt">Amount:</label></h3>
 	$ <input type="text" id="budget_revised_amt" name="budget_revised_amt" value="<?php echo $result[2] ?>" size="5" />
-	</p>
-	<p>
 	<h3>Description:</h3>
 	<pre><textarea id="edit_budget" name="edit_budget" cols="50" rows="20"><?php echo $result[0] ?></textarea></pre>
-	</p>
 	<input type="hidden" id="budget_category" name="budget_category" value="<?php echo $s_selectedCategory ?>" />
 	<input type="hidden" id="budget_category_name" name="budget_category_name" value="<?php echo $result[1] ?>" />
 		<input type="submit" id="submit_edit_budget" value="Edit" name="submit_edit_budget" />
 	</form>
-	
+</div></body></html>

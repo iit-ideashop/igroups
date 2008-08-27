@@ -12,8 +12,10 @@
 			if (is_numeric($_GET['uID'])) {
 				$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$_GET['uID']}");
 				$profile = mysql_fetch_array($query);
+				if ($profile) {
 				foreach ($profile as $key => $val)
 					$profile[$key] = htmlspecialchars($profile[$key]);
+				}
 				$query = $db->iknowQuery("SELECT * FROM People WHERE iID={$_GET['uID']}");
 				$contactInfo = mysql_fetch_array($query);
 			}
@@ -25,14 +27,11 @@
 		die("You are not logged in.");
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<link href="default.css" rel="stylesheet" type="text/css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - View Profile</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
 	<style type='text/css'>
 	pre {
 	 font-family: verdana, arial, sans-serif;
@@ -47,12 +46,14 @@
 	</style>
 </head>
 <body>
-
-<h1>View User Profile</h1>
+<?php
+require("sidebar.php");
+?>
+<div id="content"><h1>View User Profile</h1>
 <h2><?php print "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
 <?php
 if ($profile['sPicture']) {
-	print "<img src='profile-pics/{$profile['sPicture']}' width='200'><br>";
+	print "<img src='profile-pics/{$profile['sPicture']}' width='200' /><br />";
 }
 ?>
 
@@ -94,7 +95,7 @@ if ($profile['sSkills']) {
 }
 ?>
 </table>
-<br>
-<a href='contactlist.php'><<< Back</a>
-</body>
+<br />
+<a href='contactlist.php'>&lt;&lt;&lt; Back</a>
+</div></body>
 </html>

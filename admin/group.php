@@ -27,15 +27,15 @@
 		return $newArray;
 	}
 	
-	function peopleSort( $array ) {
-		$newArray = array();
-		foreach ( $array as $person ) {
-			$newArray[$person->getCommaName()] = $person;
-		}
-		ksort( $newArray );
-		return $newArray;
-	}
-	
+	function alpha($person1, $person2) {
+                if ($person1->getLastName() < $person2->getLastName())
+                        return -1;
+                else if ($person2->getLastName() < $person1->getLastName())
+                        return 1;
+                else
+                        return 0;
+        }
+
 	function printTR() {
 		static $i=0;
 		if ( $i )
@@ -53,6 +53,17 @@
 	if ( isset( $_GET['selectGroup'] ) && $_GET['selectGroup'] != '') {
 		$_SESSION['selectedIPROGroup'] = $_GET['group'];
 	}
+
+	if ( isset($_POST['createIPRO'])) {
+                if (isset($_POST['sIITID'])) {
+                        $db->iknowQuery("INSERT INTO Projects VALUES (NULL, '{$_POST['sName']}', NULL, '{$_POST['sIITID']}')");
+                        $id = $db->iknowInsertID();
+                        $db->iknowQuery("INSERT INTO ProjectSemesterMap VALUES ($id, {$_POST['semester']}, NULL)");
+                        $message = 'Group Created';
+                }
+                else
+                        $message = 'Could not create group: no ID given';
+        }	
 
 	if ( isset( $_POST['createGroup'] ) ) {
 		$db->igroupsQuery("INSERT INTO Groups (sName) VALUES (\"{$_POST['newGroup']}\")");
@@ -92,18 +103,14 @@
 		}
 		$message = "Group successfully updated.";
 	}
+
 ?>		
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - IPRO Group Management</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - IPRO Group Management</title>
+<link rel="stylesheet" href="../default.css" type="text/css" />
 	<style type="text/css">
-		@import url("../default.css");
-		
 		#groupSelect {
 			margin-bottom:10px;
 		}
@@ -120,10 +127,11 @@
 </head>
 <body>
 <?php
+	require("sidebar.php");
 	if ( isset( $message ) )
 		print "<script type='text/javascript'>showMessage(\"$message\");</script>";
 ?>
-	<div id="topbanner">
+	<div id="content"><div id="topbanner">
 <?php
 		if ( $currentSemester )
 			print $currentSemester->getName();
@@ -134,31 +142,51 @@
 			print " - ".$currentGroup->getName();
 ?>
 	</div>
-	<table width="100%">
+	<table width="85%">
 	<tr>
-	<td width="40%" valign="top">
+	<td width="40%">
 	<div id="semesterSelect">
+	<h1>Create New IPRO</h1>
+                <form method="post" action="group.php">
+                <b>Semester</b><br />
+                <select name="semester">
+<?php
+                $semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
+                        while ( $row = mysql_fetch_row( $semesters ) ) {
+                                $semester = new Semester( $row[0], $db );
+                                print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
+
+                        }
+?>
+                </select><br /><br />
+                <b>ID: </b>(e.g. IPRO 101)<br />
+                <input type='text' name='sIITID' size='10' /><br /><br />
+                <b>Name: </b>(e.g. Developing New Products)<br />
+                <input type='text' name='sName' size='25' />&nbsp;&nbsp;
+                <input type='submit' name='createIPRO' value='Create IPRO' /><br />
+                </form>
+                <br />
 		<h1>Manage Groups</h1>
-		<form method="get" action="group.php" valign="top">
+		<form method="get" action="group.php">
 			<select name="semester">
 <?php
 			$semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
 			while ( $row = mysql_fetch_row( $semesters ) ) {
 				$semester = new Semester( $row[0], $db );
 				if (isset($_SESSION['selectedIPROSemester']) && ($_SESSION['selectedIPROSemester'] == $semester->getID()))
-					print "<option value=".$semester->getID()." selected>".$semester->getName()."</option>";
+					print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
 				else
-					print "<option value=".$semester->getID().">".$semester->getName()."</option>";
+					print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
 
 			}
 			if (!$currentSemester)
-				print "<option value=0 selected>All iGROUPS</option>";
+				print "<option value=\"0\" selected=\"selected\">All iGROUPS</option>";
 			else 
-				print "<option value=0>All iGROUPS</option>";
+				print "<option value=\"0\">All iGROUPS</option>";
 
 ?>
 			</select>
-			<input type="submit" name="selectSemester" value="Select Semester">
+			<input type="submit" name="selectSemester" value="Select Semester" />
 		</form>
 	</div>
 
@@ -182,22 +210,22 @@
 			$groups = groupSort( $groups );
 			foreach ( $groups as $group ) {
 				if ($currentGroup && $group->getID() == $currentGroup->getID())
-					print "<option value=".$group->getID()." selected>".$group->getName()."</option>";
+					print "<option value=\"".$group->getID()."\" selected=\"selected\">".$group->getName()."</option>";
 				else
-					print "<option value=".$group->getID().">".$group->getName()."</option>";
+					print "<option value=\"".$group->getID()."\">".$group->getName()."</option>";
 			}
 ?>
 			</select>
-			<input type="submit" name="selectGroup" value="Select Group">
+			<input type="submit" name="selectGroup" value="Select Group" />
 		</form>
 	</div>
 	</td>
-	<td width="60%" valign="top">
-	<div id="createCroup" valign="top"> 
+	<td width="60%">
+	<div id="createCroup"> 
 		<h1>Create non-IPRO Group</h1>
 		<form method="post" action="group.php">
-			Name: <input type="text" name="newGroup">
-			<input type="submit" name="createGroup" value="Create Group">
+			Name: <input type="text" name="newGroup" />
+			<input type="submit" name="createGroup" value="Create Group" />
 		</form>
 	</div>
 	</td>
@@ -217,7 +245,9 @@
 			$user->updateDB();
 ?>
 			<script type="text/javascript">
+			<!--
 				showMessage("User was successfully created");
+			//-->
 			</script>
 <?php
 		}
@@ -235,91 +265,97 @@
 				$user->addToGroup( $currentGroup );
 ?>
 				<script type="text/javascript">
+				<!--
 					showMessage("User successfully added");
+				//-->
 				</script>
 <?php
 			}
 			else {
 ?>
 				<div id="newuser">
-					No one with e-mail address <b><?php print "$email"; ?></b> currently exists in our system.<br>
-					Please enter additional data so that they may be added.<br>
+					No one with e-mail address <b><?php print "$email"; ?></b> currently exists in our system.<br />
+					Please enter additional data so that they may be added.<br />
 					<form method="post" action="group.php">
-						First Name: <input type='text' name='fname'><br>
-						Last Name: <input type='text' name='lname'><br>
-						<input type='hidden' name='email' value='<?php print "{$_POST['email']}"; ?>'>
-						<input type='submit' name='newuser' value="Create New User">
+						First Name: <input type='text' name='fname' /><br />
+						Last Name: <input type='text' name='lname' /><br />
+						<input type='hidden' name='email' value='<?php print "{$_POST['email']}"; ?>' />
+						<input type='submit' name='newuser' value="Create New User" />
 					</form>
 				</div>
 <?php
 			}	
 		}
+
+		$members = $currentGroup->getAllGroupMembers();
+		if(count($members) > 0) {
 ?>
-		<form method="post" action="group.php">
-			<table>
-				<thead>
-					<tr>
-						<td rowspan=2>User</td>
-						<td rowspan=2>Phone</td>
-						<td rowspan=2>Delete?</td>
-						<td colspan=4>Access Level</td>
-					</tr>
-					<tr>
-						<td>Guest</td>
-						<td>User</td>
-						<td>Moderator</td>
-						<td>Administrator</td>
-					</tr></thead>
+			<form method="post" action="group.php">
+				<table>
+					<thead>
+						<tr>
+							<td rowspan="2">User</td>
+							<td rowspan="2">Phone</td>
+							<td rowspan="2">Delete?</td>
+							<td colspan="4">Access Level</td>
+						</tr>
+						<tr>
+							<td>Guest</td>
+							<td>User</td>
+							<td>Moderator</td>
+							<td>Administrator</td>
+						</tr></thead>
 <?php
-	
-				$members = $currentGroup->getAllGroupMembers();
-				$members = peopleSort( $members );
+				usort($members, "alpha");
 				foreach ( $members as $person ) {
 					
 					printTR();
 					print "<td>".$person->getCommaName()." &lt;".$person->getEmail()."&gt;</td>";
 					print "<td>{$person->getPhone()}</td>";
-					print "<td align='center'><input type='checkbox' name='delete[".$person->getID()."]'></td>";
+					print "<td align='center'><input type='checkbox' name='delete[".$person->getID()."]' /></td>";
 					if ( $person->isGroupAdministrator( $currentGroup ) ) {
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1'></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=0></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=1></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=2 checked></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='0' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='1' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='2' checked='checked' /></td>";
 					}
 					else
 					if ( $person->isGroupModerator( $currentGroup ) ) {
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1'></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=0></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=1 checked></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=2></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='0' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='1' checked='checked' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='2' /></td>";
 					}
 					else if (!$person->isGroupGuest($currentGroup)) {
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1'></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=0 checked></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=1></td>";
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=2></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='0' checked='checked' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='1' /></td>";
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='2' /></td>";
 					}
 					else {
-						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1' checked></td>";
-                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=0></td>";
-                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=1></td>";
-                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value=2></td>";					
+						print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='-1' checked='checked'></td>";
+                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='0' /></td>";
+                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='1' /></td>";
+                                                print "<td align='center'><input type='radio' name='access[".$person->getID()."]' value='2' /></td>";					
 					}
 					print "</tr>";
 				}
 ?>
 			</table>
-			<input type="submit" value="Update" name="updategroup">
+			<input type="submit" value="Update" name="updategroup" />&nbsp;
 		</form>
+<?php
+		}
+?>
 		<div id="adduser">
 			<form method="post" action="group.php">
 				<h1>Add User</h1>
-				Email address:<input type="text" name="email"><br>
-				<input type="submit" value="Add User" name="adduser">
+				Email address:<input type="text" name="email" /><br />
+				<input type="submit" value="Add User" name="adduser" />
 			</form>
 		</div>
 <?php
 	}
 ?>
-</body>
+</div></body>
 </html>

@@ -24,7 +24,7 @@
 			$currentTopic = new GlobalTopic($_GET['id'], $db);
 			if (!$currentTopic)
 	                        die("No such topic");
-			$link = "viewTopic.php?id={$currentTopic->getID()}&global=true";
+			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;global=true";
 			$_SESSION['global'] = 1;
 		}
 		else {
@@ -34,7 +34,7 @@
 			$currentGroup = new Group($currentTopic->getID(), $_GET['type'], $_GET['semester'], $db);
 			if (!$currentGroup)
 				die("No such topic");
-			$link = "viewTopic.php?id={$currentTopic->getID()}&type={$currentGroup->getType()}&semester={$currentGroup->getSemester()}";
+			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;type={$currentGroup->getType()}&amp;semester={$currentGroup->getSemester()}";
 			$_SESSION['global'] = 0;
 		}
 	}
@@ -82,22 +82,22 @@
 		if ($currentPage == $lastPage && ($lastPage-2 > 0)) {
 			$lastPage2 = $lastPage-2;
 			$lastStart2 = $lastStart-2*$THREADS_PER_PAGE;
-			$pages[] = "<a href='{$link}&start={$lastStart2}'>$lastPage2</a>";
+			$pages[] = "<a href='{$link}&amp;start={$lastStart2}'>$lastPage2</a>";
 		}
 
-		$pages[] = "<a href='{$link}&start={$prevStart1}'>{$prevPage1}</a>";
+		$pages[] = "<a href='{$link}&amp;start={$prevStart1}'>{$prevPage1}</a>";
 
 		$pages[] = "{$currentPage}";
 
 		if ((count($allThreads)-$_GET['start']) > $THREADS_PER_PAGE) {
 			$nextStart1 = $_GET['start'] + $THREADS_PER_PAGE;
 			$nextPage1 = $currentPage+1;
-			$pages[] = "<a href='{$link}&start={$nextStart1}'>$nextPage1</a>";
+			$pages[] = "<a href='{$link}&amp;start={$nextStart1}'>$nextPage1</a>";
 			if ((count($allThreads)-$_GET['start']) > 2*$THREADS_PER_PAGE) {
 				$pages[] = "...";
-                                $pages[] = "<a href='{$link}&start={$lastStart}'>$lastPage</a>";
+                                $pages[] = "<a href='{$link}&amp;start={$lastStart}'>$lastPage</a>";
 			}
-			$pages[] = "<a href='{$link}&start={$nextStart1}'>Next</a>";
+			$pages[] = "<a href='{$link}&amp;start={$nextStart1}'>Next</a>";
 		}
 		// get thread range
 		for ($i=$_GET['start']; $i<($_GET['start']+$THREADS_PER_PAGE); $i++) {
@@ -109,18 +109,18 @@
 		$currentPage = 1;	
 		$pages[] = "1";
 		if (count($allThreads) > $THREADS_PER_PAGE) {
-			$pages[] = "<a href='{$link}&start={$THREADS_PER_PAGE}'>2</a>";
+			$pages[] = "<a href='{$link}&amp;start={$THREADS_PER_PAGE}'>2</a>";
 			if (count($allThreads) > 2*$THREADS_PER_PAGE) {
 				$newStart = 2*$THREADS_PER_PAGE;
-				$pages[] = "<a href='{$link}&start={$newStart}'>3</a>";
+				$pages[] = "<a href='{$link}&amp;start={$newStart}'>3</a>";
 			}
 			if (count($allThreads) > 3*$THREADS_PER_PAGE) {
 				$pages[] = "...";
 				$lastPage = ceil(count($allThreads)/$THREADS_PER_PAGE);
 				$lastStart = floor(count($allThreads)/$THREADS_PER_PAGE)*$THREADS_PER_PAGE;
-				$pages[] = "<a href='{$link}&start={$lastStart}'>$lastPage</a>";
+				$pages[] = "<a href='{$link}&amp;start={$lastStart}'>$lastPage</a>";
 			}
-			$pages[] = "<a href='{$link}&start={$THREADS_PER_PAGE}'>Next</a>";
+			$pages[] = "<a href='{$link}&amp;start={$THREADS_PER_PAGE}'>Next</a>";
 		}
 		// first 20 threads
 		for ($i=0; $i<$THREADS_PER_PAGE; $i++) {
@@ -130,19 +130,18 @@
 	}
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-<style type="text/css">
-        @import url("dboard.css");
-</style>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Discussion Board - View Topic</title>
+<link rel="stylesheet" href="dboard.css" type="text/css" />
+<link rel="stylesheet" href="../default.css" type="text/css" />
 </head>
 <body>
-
-<div id="topbanner">
+<?php
+require("sidebar.php");
+?>
+<div id="content"><div id="topbanner">
 <?php
 	if (!isset($currentGroup)) {
 		$topicName = $currentTopic->getName();
@@ -157,16 +156,16 @@
 ?>        
 </div>
 
-<table class='noborder' width='90%' align='center'>
-<tr><td align='left'><font size='-1'><b>Goto Page: 
+<table class='noborder' width='85%'>
+<tr><td style="text-align: left; font-size: smaller; font-weight: bold">Goto Page: 
 <?php
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</b></td>
-<td align='center'><?php print "<font size='-1' style='bold'><b><a href='dboard.php'>iGroups Discussion Board</a> -> <a href='$link'>$topicName</a></b></font>"; ?></td><td align='right' class='post_options'><b><a href='create.php?mode=thread'><img src='img/newthread.gif' border='0'></a></b></font></td></tr></table>
+</td>
+<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href='dboard.php'>iGroups Discussion Board</a> -&gt; <a href='$link'>$topicName</a>"; ?></td><td style="text-align: right; font-weight:bold" class='post_options'><a href='create.php?mode=thread'><img src="../img/newthread.png" border="0" alt="New Thread" title="New Thread" /></a></td></tr></table>
 
-<table width='90%' cellspacing='0' cellpadding='5' border='0' align='center'>
+<table width='85%' cellspacing='0' cellpadding='5' border='0' align='center'>
 <tr><th width="45%" colspan='2'>Threads</th><th>Replies</th><th>Author</th><th>Views</th><th>Last Post</th></tr>
 <?php
 
@@ -174,28 +173,28 @@ if (count($threads) > 0) {
 foreach ($threads as $thread) {
 	$lastPost = $thread->getLastPost();
 	if ($lastPost) 
-		$text = "{$lastPost->getDateTime()}<br>{$lastPost->getAuthorLink()}";
+		$text = "{$lastPost->getDateTime()}<br />{$lastPost->getAuthorLink()}";
 	else
 		$text = "<i>No Posts</i>";
 	if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView'])) {
-		$delete = "&nbsp;&nbsp;[<a href='{$_SESSION['topicLink']}&delete={$thread->getID()}'>Delete</a>]";
+		$delete = "&nbsp;&nbsp;[<a href='{$_SESSION['topicLink']}&amp;delete={$thread->getID()}'>Delete</a>]";
 	}
 	else
 		$delete = "";
-	print "<tr><td width='1%'><img src='img/thread.gif'></td><td><b><a href='viewThread.php?id={$thread->getID()}'><font size='-1'>{$thread->getName()}</font></a></b>$delete</td><td align='center'>{$thread->getPostCount()}</td><td align='center'>{$thread->getAuthorLink()}</td><td align='center'>{$thread->getViews()}</td><td align='center'>$text</td></tr>";
+	print "<tr><td width='1%'><img src='../img/thread.png' alt='*' title=\"Thread #".$thread->getID()."\" /></td><td style=\"font-weight: bold; font-size: smaller\"><a href='viewThread.php?id={$thread->getID()}'>{$thread->getName()}</a>$delete</td><td align='center'>{$thread->getPostCount()}</td><td align='center'>{$thread->getAuthorLink()}</td><td align='center'>{$thread->getViews()}</td><td align='center'>$text</td></tr>";
 }
 }
 else
-	print "<tr><td colspan='6' align='center'><i>There are currently no threads for this topic.</i></td></tr>";
+	print "<tr><td colspan=\"6\" style=\"text-align: center; font-style: italic\">There are currently no threads for this topic.</td></tr>";
 
 ?>
 </table>
-<table class='noborder' width='90%' align='center'><tr><td align='left'><font size='-1'><b>Goto Page: 
+<table class='noborder' width='85%' align='center'><tr style="font-size: smaller; font-weight: bold"><td style="text-align: left">Goto Page: 
 <?php
 foreach($pages as $page)
         print "$page&nbsp;";
 ?>
-</b></td><td align='center'><?php print "<font size='-1' style='bold'><b><a href='dboard.php'>iGroups Discussion Board</a> -> <a href='$link'>$topicName</a></b></font>"; ?></td><td align='right' class='post_options'><b><a href='create.php?mode=thread'><img src='img/newthread.gif' border='0'></a></b></font></td></tr><tr><td><font size='-1'><b>Page # <?php print "$currentPage"; ?></b></font></td></tr></table>
-
+</td><td style="text-align: center"><?php print "<a href='dboard.php'>iGroups Discussion Board</a> -&gt; <a href='$link'>$topicName</a>"; ?></td><td style="text-align: right" class="post_options"><a href='create.php?mode=thread'><img src="../img/newthread.png" border="0" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
+</div>
 </body>
 </html>

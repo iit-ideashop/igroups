@@ -105,36 +105,43 @@
 	}
 	
 ?>		
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - IPRO Event Management</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - IPRO Event Management</title>
+<link rel="stylesheet" href="../default.css" type="text/css" />
 	<style type="text/css">
-		@import url("../default.css");
-		
-		li {
+		li.ev {
 			display:inline;
 			padding:5px;
 			border:solid 1px #000;
 		}
 		
 		li.size3 {
+			display:inline;
+			padding:5px;
+			border:solid 1px #000;
 			font-size:8pt;
 		}
 		
 		li.size2 {
+			display:inline;
+			padding:5px;
+			border:solid 1px #000;
 			font-size:11pt;
 		}
 		
 		li.size1 {
+			display:inline;
+			padding:5px;
+			border:solid 1px #000;
 			font-size:14pt;
 		}
 		
 		li.size0 {
+			display:inline;
+			padding:5px;
+			border:solid 1px #000;
 			font-size:20pt;
 		}
 		
@@ -195,52 +202,6 @@
 		#groupSelect {
 			margin-bottom:10px;
 		}
-	</style>
-	<script type="text/javascript">
-		function setCalendarTarget( name ) {
-			document.getElementById('calTarget').value=name;
-		}
-	
-		function showCalendar( event ) {
-			document.getElementById('calendar').style.top=(event.clientY+document.documentElement.scrollTop+25)+"px";
-			document.getElementById('calendar').style.visibility='visible';
-		}
-		
-		function selectDate( date ) {
-			document.getElementById(document.getElementById('calTarget').value).value=date;
-			document.getElementById('calendar').style.visibility='hidden';
-		}
-		
-		function showEvent( id, x, y ) {
-			document.getElementById(id).style.top=(y+20)+"px";
-			if ( x > window.innerWidth/2 )
-				document.getElementById(id).style.left=(x-200)+"px";
-			else
-				document.getElementById(id).style.left=x+"px";
-			document.getElementById(id).style.visibility='visible';
-		}
-		
-		function hideEvent( id ) {
-			document.getElementById(id).style.visibility='hidden';
-		}
-		
-		function editEvent( id, name, desc, date ) {
-			document.getElementById('editid').value=id;
-			document.getElementById('editname').value=name;
-			document.getElementById('editdesc').value=desc;
-			document.getElementById('editdate').value=date;
-			document.getElementById('event-edit').style.visibility='visible';		
-		}
-		
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-	</script>
-	<style type="text/css">
 
 .ds_box {
 	background-color: #FFF;
@@ -286,11 +247,68 @@
 .ds_cell:hover {
 	background-color: #F3F3F3;
 } /* This hover code won't work for IE */
+	</style>
 
-</style>
+<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<script type="text/javascript" src="windowfiles/dhtmlwindow.js">
+
+/***********************************************
+* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+</script>
+
+	<script type="text/javascript">
+		function setCalendarTarget( name ) {
+			document.getElementById('calTarget').value=name;
+		}
+	
+		function showCalendar( event ) {
+			document.getElementById('calendar').style.top=(event.clientY+document.documentElement.scrollTop+25)+"px";
+			document.getElementById('calendar').style.visibility='visible';
+		}
+		
+		function selectDate( date ) {
+			document.getElementById(document.getElementById('calTarget').value).value=date;
+			document.getElementById('calendar').style.visibility='hidden';
+		}
+		
+		function showEvent( id, x, y ) {
+			document.getElementById(id).style.top=(y+20)+"px";
+			if ( x > window.innerWidth/2 )
+				document.getElementById(id).style.left=(x-200)+"px";
+			else
+				document.getElementById(id).style.left=x+"px";
+			document.getElementById(id).style.visibility='visible';
+		}
+		
+		function hideEvent( id ) {
+			document.getElementById(id).style.visibility='hidden';
+		}
+		
+		function editEvent( id, name, desc, date ) {
+			document.getElementById('editid').value=id;
+			document.getElementById('editname').value=name;
+			document.getElementById('editdesc').value=desc;
+			document.getElementById('editdate').value=date;
+		}
+		
+		function showMessage( msg ) {
+			msgDiv = document.createElement("div");
+			msgDiv.id="messageBox";
+			msgDiv.innerHTML=msg;
+			document.body.insertBefore( msgDiv, null );
+			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
+		}
+	</script>
 </head>
 <body>
-
+<?php
+require("sidebar.php");
+?>
+<div id="content">
 <table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
 <tr><td id="ds_calclass">
 </td></tr>
@@ -559,8 +577,6 @@ function ds_onclick(d, m, y) {
 // ]]> -->
 </script>
 
-</head>
-<body>
 <?php
 	if ( isset( $message ) )
 		print "<script type='text/javascript'>showMessage(\"$message\");</script>";
@@ -584,19 +600,19 @@ function ds_onclick(d, m, y) {
 			while ( $row = mysql_fetch_row( $semesters ) ) {
 				$semester = new Semester( $row[0], $db );
 				if ($currentSemester && $semester->getID() == $currentSemester->getID())
-					print "<option value=".$semester->getID()." selected>".$semester->getName()."</option>";
+					print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
 				else
-					print "<option value=".$semester->getID().">".$semester->getName()."</option>";
+					print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
 
 			}
 			
 			if (!$currentSemester)
-				print "<option value=0 selected>All iGROUPS</option>";
+				print "<option value='0' selected='selected'>All iGROUPS</option>";
 			else
-				print "<option value=0>All iGROUPS</option>";
+				print "<option value='0'>All iGROUPS</option>";
 ?>
 			</select>
-			<input type="submit" name="selectSemester" value="Select Semester">
+			<input type="submit" name="selectSemester" value="Select Semester" />
 		</form>
 	</div>
 <?php
@@ -619,13 +635,13 @@ function ds_onclick(d, m, y) {
 			$groups = groupSort( $groups );
 			foreach ( $groups as $group ) {
 				if ($currentGroup && $currentGroup->getID() == $group->getID())
-					print "<option value=".$group->getID()." selected>".$group->getName()."</option>";
+					print "<option value=\"".$group->getID()."\" selected=\"selected\">".$group->getName()."</option>";
 				else
-					print "<option value=".$group->getID().">".$group->getName()."</option>";
+					print "<option value=\"".$group->getID()."\">".$group->getName()."</option>";
 			}
 ?>
 			</select>
-			<input type="submit" name="selectGroup" value="Select Group">
+			<input type="submit" name="selectGroup" value="Select Group" />
 		</form>
 	</div>
 <?php
@@ -653,24 +669,24 @@ function ds_onclick(d, m, y) {
 		}
 		print "</ul>";*/
 		
-		print "<table border=1 width='100%'>" ;
-		print "<tr><td id='columnbanner' align='center' colspan=7><a href='event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."'>&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href='event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."'>&raquo;</a></td></tr>";
-		print "<tr><td width='14%'>Sunday</td><td width='14%'>Monday</td><td width='14%'>Tuesday</td><td width='14%'>Wednesday</td><td width='14%'>Thursday</td><td width='14%'>Friday</td><td width='14%'>Saturday</td></tr>";
+		print "<table width='100%' style=\"border-collapse: collapse\">" ;
+		print "<tr><td id='columnbanner' align='center' colspan='7' class='calbord'><a href='event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."'>&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href='event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."'>&raquo;</a></td></tr>";
+		print "<tr><td width='14%' class='calbord'>Sunday</td><td width='14%' class='calbord'>Monday</td><td width='14%' class='calbord'>Tuesday</td><td width='14%' class='calbord'>Wednesday</td><td width='14%' class='calbord'>Thursday</td><td width='14%' class='calbord'>Friday</td><td width='14%' class='calbord'>Saturday</td></tr>";
 		if ( $startDay != 0 )
-			print "<tr><td colspan=$startDay></td>";
+			print "<tr><td colspan=\"$startDay\" class='calbord'></td>";
 		
 		$weekDay = $startDay;
 		
 		for ( $i=1; $i<=$endDay; $i++ ) {
 			if ( $weekDay == 0 )
 				print "<tr>";
-			print "<td valign='top'><div class='prop'>&nbsp;</div>$i<br>";
+			print "<td valign='top' class='calbord'><div class='prop'>&nbsp;</div>$i<br />";
 			if ( isset( $eventArray[$i] ) )
 			foreach ( $eventArray[$i] as $event ) {
 				print "<a href='#' class='eventlink' onMouseOver='showEvent(".$event->getID().",event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onMouseOut='hideEvent(".$event->getID().");'";
-				print " onClick=\"editEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."' )\"";
-				print ">".$event->getName()."</a><br>";
-				print "<div class='event' id='".$event->getID()."'>".$event->getName()."<br>".$event->getDate()."<br>".$event->getDescHTML()."</div>";
+				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=500px,height=300px,left=300px,top=100px,resize=1,scrolling=1'); editEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
+				print ">".$event->getName()."</a><br />";
+				print "<div class='event' id='".$event->getID()."'>".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
 			}
 			print "</td>";
 			$weekDay++;
@@ -681,48 +697,48 @@ function ds_onclick(d, m, y) {
 		}
 		
 		if ( $weekDay != 0 ) 
-			print "<td colspan=".(7-$weekDay)."></td></tr>";
+			print "<td colspan=\"".(7-$weekDay)."\" class='calbord'></td></tr>";
 		
 		print "</table>";
 		
 	?>
 		<div id="addevent">
-		<table width="100%">
+		<table width="85%">
 		<tr>
 		<td width="40%">
 			<h1>Add Event</h1>
 			<form method="post" action="event.php">
-				Date (MM/DD/YYYY): <input type="text" id="date" name="date" onclick="ds_sh(this);" style="cursor: text"><br>
-				Event name: <input type="text" name="name"><br>
-				<input type='checkbox' name='global'> Global event? (If checked, will be added to all IPRO teams.) <br>
-				Event description:<br>
-				<textarea name="description" cols=50 rows=5></textarea><br>
-				<input type="submit" name="addevent" value="Add Event">
+				Date (MM/DD/YYYY): <input type="text" id="date" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
+				Event name: <input type="text" name="name" /><br />
+				<input type='checkbox' name='global' /> Global event? (If checked, will be added to all IPRO teams.) <br />
+				Event description:<br />
+				<textarea name="description" cols="50" rows="5"></textarea><br />
+				<input type="submit" name="addevent" value="Add Event" />
 			</form>
 		</td>
-		<td width="60%" valign="top"> 
-		<h1>Edit Event</h1>
-	        <form method="post" action="event.php">
-                <select name="id">
+		<td width="60%" valign="top">
 <?php
+		if(count($currentGroup->getMonthIPROEvents($currentMonth, $currentYear)) > 0) {
+			print "<h1>Edit Event</h1>";
+		        print "<form method=\"post\" action=\"event.php\">";
+	                print "<select name=\"id\">";
                         foreach ($currentGroup->getMonthIPROEvents($currentMonth, $currentYear) as $event) {
                                 echo "<option value='{$event->getID()}'>{$event->getDate()} - {$event->getName()}</option>";
                         }
-?>
-                </select>
-                <input type="submit" name="edit" value="Edit">
-                <input type="submit" name="deleteevent" value="Delete">
-                </form>
-<?php
+        	        print "</select>";
+
+        	        print "<input type=\"submit\" name=\"edit\" value=\"Edit\" />";
+	                print "<input type=\"submit\" name=\"deleteevent\" value=\"Delete\" /></form>";
+		}
         if (isset($_POST['edit']) && isset($_POST['id'])) {
                 $editevent = new Event( $_POST['id'], $db);
 ?>
         <form method="post" action="event.php">
-                Date (MM/DD/YYYY): <input type="text" name="date" value="<?php echo "{$editevent->getDate()}"; ?>" onclick="ds_sh(this);" style="cursor: text"><br>
-                Event name: <input type="text" name="name" value="<?php echo "{$editevent->getName()}"; ?>"><br>
-                Event description: <br><textarea name="description" cols=50 rows=5><?php echo "{$editevent->getDesc()}"; ?></textarea><br>
-                <input type="hidden" name="id" value="<?php echo "{$_POST['id']}"; ?>">
-                <input type="submit" name="editevent" value="Edit this Event">
+                Date (MM/DD/YYYY): <input type="text" name="date" value="<?php echo "{$editevent->getDate()}"; ?>" onclick="ds_sh(this);" style="cursor: text" /><br />
+                Event name: <input type="text" name="name" value="<?php echo "{$editevent->getName()}"; ?>" /><br />
+                Event description: <br /><textarea name="description" cols="50" rows="5"><?php echo "{$editevent->getDesc()}"; ?></textarea><br />
+                <input type="hidden" name="id" value="<?php echo "{$_POST['id']}"; ?>" />
+                <input type="submit" name="editevent" value="Edit this Event" />
         </form>
 <?php
 }
@@ -738,17 +754,17 @@ function ds_onclick(d, m, y) {
 					for ( $i=$currentMonth; $i<$currentMonth+4; $i++ ) {
 						print "<td>";
 						print "<table>";
-						print "<tr><td colspan=7>".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
+						print "<tr><td colspan='7'>".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
 						print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
 						$startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
 						$endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
 						if ( $startDay != 0 )
-							print "<tr><td colspan=$startDay></td>";
+							print "<tr><td colspan=\"$startDay\"></td>";
 						$weekDay = $startDay;
 						for ( $j=1; $j<=$endDay; $j++ ) {
 							if ( $weekDay == 0 )
 								print "<tr>";
-							print "<td><a href='#' onClick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
+							print "<td><a href='#' onclick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
 							$weekDay++;
 							if ( $weekDay == 7 ) {
 								print "</tr>";
@@ -756,7 +772,7 @@ function ds_onclick(d, m, y) {
 							}
 						}
 						if ( $weekDay != 0 ) 
-							print "<td colspan=".(7-$weekDay)."></td></tr>";
+							print "<td colspan=\"".(7-$weekDay)."\"></td></tr>";
 						print "</table>";
 						print "</td>";
 					}
@@ -764,26 +780,20 @@ function ds_onclick(d, m, y) {
 				</tr>
 			</table>
 		</div>
-		<div id="event-edit" class="window">
-			<div class="window-topbar">
-				Edit Event
-				<input class="close-button" type="button" onClick="document.getElementById('event-edit').style.visibility='hidden';">
-			</div>
-			<div class="window-content">
+			<div class="window-content" id="event-edit" style="display: none">
 				<form method="post" action="event.php">
-					Date (MM/DD/YYYY): <input type="text" id="editdate" name="date" onclick="ds_sh(this);" style="cursor: text"><br>
-					Event name: <input type="text" id="editname" name="name"><br>
-					Event description:<br>
-					<textarea name="description" id="editdesc" cols=50 rows=5></textarea><br>
-					<input type="hidden" name="id" id="editid">
-					<input type="submit" name="editevent" value="Edit Event">
-					<input type="submit" name="deleteevent" value="Delete Event">
+					Date (MM/DD/YYYY): <input type="text" id="editdate" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
+					Event name: <input type="text" id="editname" name="name" /><br />
+					Event description:<br />
+					<textarea name="description" id="editdesc" cols="50" rows="5"></textarea><br />
+					<input type="hidden" name="id" id="editid" />
+					<input type="submit" name="editevent" value="Edit Event" />
+					<input type="submit" name="deleteevent" value="Delete Event" />
 				</form>
 			</div>
-		</div>
 <?php
 	}
 ?>
-<input id='calTarget' type='hidden'>
+<input id='calTarget' type='hidden' /></div>
 </body>
 </html>

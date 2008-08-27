@@ -26,9 +26,9 @@
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
 		if ( $_SESSION['selectedFolder'] == $folder->getID() )
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src='img/folder-expanded.gif' border=0></a>&nbsp;<strong><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></strong>\n";
+			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder-expanded.gif\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></strong>\n";
 		else
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src='img/folder.gif' border=0></a>&nbsp;<a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
+			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder.gif\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
 		if ( in_array( $folder->getID(), $_SESSION['expandFolders'] ) ) {
 			print "<ul>\n";
@@ -43,7 +43,7 @@
 	function printOptions( $group ) {
 		$folders = $group->getGroupFolders();
 		foreach ( $folders as $key => $subfolder ) {
-			print "<option value=".$subfolder->getID().">+ ".$subfolder->getName()."</option>\n";
+			print "<option value=\"".$subfolder->getID()."\">+ ".$subfolder->getName()."</option>\n";
 			printOptionsRecurse( $subfolder, "&nbsp;&nbsp;&nbsp;+ " );
 		}
 	}
@@ -51,7 +51,7 @@
 	function printOptionsRecurse( $folder, $indent ) {
 		$folders = $folder->getFolders();
 		foreach ( $folders as $key => $subfolder ) {
-			print "<option value=".$subfolder->getID().">".$indent.$subfolder->getName()."</option>\n";
+			print "<option value=\"".$subfolder->getID()."\">".$indent.$subfolder->getName()."</option>\n";
 			printOptionsRecurse( $subfolder, "&nbsp;&nbsp;&nbsp;".$indent );
 		}
 	}
@@ -80,14 +80,12 @@
 	//----End Display Functions-------------------------------------//
 	
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-	<title>iGROUPS - Group Files</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Group Files</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
-		@import url("default.css");	
-
 		#container {
 			margin:auto;
 			padding:0;
@@ -133,13 +131,13 @@
 			display:inline;
 		}
 		
-		ul {
+		ul.dropul {
 			list-style:none;
 			padding:0;
 			margin:0;
 		}
 			
-		ul ul {
+		ul.dropul ul {
 			padding-left:20px;
 		}
 		
@@ -165,6 +163,7 @@
 		}
 	</style>
 	<script language="javascript" type="text/javascript">
+	<!--
 		function copyCheckBoxes() {
 			var folders = new Array();
 			var files = new Array();
@@ -193,11 +192,12 @@
 			document.body.insertBefore( msgDiv, null );
 			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
 		}
+	//-->
 	</script>
 </head>
 <body>
 <?php
-
+require("sidebar.php");
 	//------Start of Code for Form Processing-------------------------//
 
 if (isset($_POST['upload'])) {
@@ -252,32 +252,32 @@ if ( isset( $_POST['delete'] ) ) {
 	//------End Form Processing Code---------------------------------//
 	
 ?>
-	<div id="topbanner">
+	<div id="content"><div id="topbanner">
 <?php
 		print $currentGroup->getName();
 ?>
 	</div>
 	<div id="container">
 		<div id="folderbox">
-                        <div id="columnbanner">
+                        <div class="columnbanner">
                                 Your Folders:
                         </div>
                         <div id="folders">
-                                <ul id='top'>
+                                <ul id="top" class="dropul">
 <?php
-                                                print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder.gif" border=0></a>&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
-                                                print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.gif" border=0></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
-                                                print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.gif" border=0></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
-                                                print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.gif" border=0></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a>';
+                                                print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder.gif" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
+                                                print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.gif" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
+                                                print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.gif" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
+                                                print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.gif" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a></li>';
 
 ?>
-                                <li><img src="img/folder-expanded.gif" border=0>&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
+                                <li><img src="img/folder-expanded.gif" border="0" alt="-" title="Open folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
                                 </ul>
                         </div>
                 </div>
 
 		<div id="filebox">
-			<div id="columnbanner">
+			<div class="columnbanner">
 <?php
 				print "My Secure Dropbox";
 ?>			
@@ -285,15 +285,13 @@ if ( isset( $_POST['delete'] ) ) {
 			<form method="post" action="dropbox.php">
 				<div id="menubar">
 					<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
-					<ul>
-						<li><a href="#" onClick="document.getElementById('upload').style.visibility='visible';">Add File</a></li>
-						<li><a href="#" onClick="document.getElementById('delete').form.submit()">Delete File</a>
-						<input type='hidden' id='delete' name='delete' value='delete'></li>
+					<ul class="dropul">
+						<li><a href="#" onclick="document.getElementById('upload').style.visibility='visible';">Add File</a></li>
+						<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete File</a>
+						<input type='hidden' id='delete' name='delete' value='delete' /></li>
 					</ul>
 					<?php } ?>
 				</div>
-				<div id="files">
-					<table width="100%">
 <?php
 					if ($currentUser->isGroupAdministrator($currentGroup))
 						$query = $db->igroupsQuery("SELECT * FROM Files WHERE iGroupID={$currentGroup->getID()} AND iSemesterID={$_SESSION['selectedSemester']} AND bPrivate=1 ORDER BY iAuthorID");
@@ -303,9 +301,11 @@ if ( isset( $_POST['delete'] ) ) {
 					while ($result = mysql_fetch_array($query))
 						$files[] = new File($result['iID'], $db);
 
+				if(count($files) > 0) {
+					print '<div id="files"><table width="100%">';
 					foreach ($files as $file) {
 						printTR();
-                                                print "<td><img src='img/file.gif'></td>";
+                                                print "<td><img src=\"img/file.gif\" alt=\"File\" title=\"File\" /></td>";
                                                 print "<td><a href='download.php?id=".$file->getID()."'>".$file->getName()."</a></td>";
                                                 print "<td>".$file->getDesc()."</td>";
                                                 $author = $file->getAuthor();
@@ -314,27 +314,27 @@ if ( isset( $_POST['delete'] ) ) {
                                                 else
                                                         print "<td></td>";
                                                 print "<td>".$file->getDateTime()."</td>";
-                                                print "<td align='right'><input type='checkbox' name='file[".$file->getID()."]'></td>";
+                                                print "<td align='right'><input type='checkbox' name='file[".$file->getID()."]' /></td>";
                                                 print "</tr>\n";
-					}					
+					}
+					print '</table></div>';
+				}
 ?>
-					</table>
-				</div>
 			</form>
 		</div>
 	</div>
 	<div class="window" id="upload">
 		<div class="window-topbar">
-			File Upload <input class="close-button" type="button" onClick="document.getElementById('upload').style.visibility='hidden';">
+			File Upload <input class="close-button" type="button" onclick="document.getElementById('upload').style.visibility='hidden';" />
 		</div>
 		<div class="window-content">
 			<form method="post" action="dropbox.php" enctype="multipart/form-data">
-				File: <input type="file" name="thefile"><br>
-				File Name: <input type="text" name="filename"><br>
-				Description: <input type="text" name="filedescription"><br>
-				<input type="submit" name="upload" value="Upload File">
+				File: <input type="file" name="thefile" /><br />
+				File Name: <input type="text" name="filename" /><br />
+				Description: <input type="text" name="filedescription" /><br />
+				<input type="submit" name="upload" value="Upload File" />
 			</form>
 		</div>
-	</div>
+	</div></div>
 </body>
 </html>

@@ -33,9 +33,9 @@
 			
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
-		print "<li><a href='iprofiles.php?selectFolder=".$folder->getID()."'><img src='../img/folder.gif'>".$folder->getName()."</a>\n";
+		print "<li><a href='iprofiles.php?selectFolder=".$folder->getID()."'><img src='../img/folder.gif' alt='' />".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
-		print "<ul>\n";
+		print "<ul class=\"prof\">\n";
 		foreach ( $subfolder as $key => $val ) {
 			printFolder( $val );
 		}
@@ -64,17 +64,12 @@
 	
 	//----End Display Functions-------------------------------------//
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - IPRO Office Files</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - IPRO Office Files</title>
+<link rel="stylesheet" href="../default.css" type="text/css" />
 	<style type="text/css">
-		@import url("../default.css");	
-		
 		#folderbox {
 			float:left;
 			width:30%;
@@ -116,13 +111,13 @@
 			display:inline;
 		}
 		
-		ul {
+		ul.prof {
 			list-style:none;
 			padding:0;
 			margin:0;
 		}
 			
-		ul ul {
+		ul.prof ul {
 			padding-left:20px;
 		}
 			
@@ -148,6 +143,7 @@
 		}
 	</style>
 	<script type="text/javascript">
+	<!--
 		function showMessage( msg ) {
 			msgDiv = document.createElement("div");
 			msgDiv.id="messageBox";
@@ -166,11 +162,13 @@
 				}
 			}
 		}
+	//-->
 	</script>
 </head>
 <body>
 <?php
-	
+	require("sidebar.php");
+	print "<div id=\"content\"><div id=\"topbanner\">IPRO Office Files</div>";
 	//------Start of Code for Form Processing-------------------------//
 	
 	if ( isset( $_POST['createlist'] ) ) {
@@ -271,24 +269,24 @@
 	
 	//------End Form Processing Code---------------------------------//
 	
-	print "<form method='post' action='iprofiles.php'><ul>";
+	print "<form method='post' action='iprofiles.php'><ul class=\"prof\">";
 	$lists = $db->igroupsQuery( "SELECT iID FROM FileLists" );
 	while ( $row = mysql_fetch_row( $lists ) ) {
 		$list = new FileList( $row[0], $db );
-		print "<li><input type='checkbox' name='list[".$list->getID()."]'><a href='iprofiles.php?selectList=".$list->getID()."'>".$list->getName()."</a></li>";
+		print "<li><input type='checkbox' name='list[".$list->getID()."]' /><a href='iprofiles.php?selectList=".$list->getID()."'>".$list->getName()."</a></li>";
 	}
 	print "</ul>";
-	print "<input type='button' onClick=\"document.getElementById('newlist').style.visibility='visible';\" value='Add a new list'>";
-	print "<input type='submit' name='dellist' value='Delete selected lists'></form>";
+	print "<input type='button' onclick=\"document.getElementById('newlist').style.visibility='visible';\" value='Add a new list' />";
+	print "<input type='submit' name='dellist' value='Delete selected lists' /></form>";
 ?>
 <div class="window" id="newlist">
 	<div class="window-topbar">
-		Create a File List <input class="close-button" type="button" onClick="document.getElementById('newlist').style.visibility='hidden';">
+		Create a File List <input class="close-button" type="button" onclick="document.getElementById('newlist').style.visibility='hidden';" />
 	</div>
 	<div class="window-content">
 		<form method="post" action="iprofiles.php">
-			List Name: <input type="text" name="listname"><br>
-			<input type="submit" name="createlist" value="Create List">
+			List Name: <input type="text" name="listname" /><br />
+			<input type="submit" name="createlist" value="Create List" />
 		</form>
 	</div>
 </div>
@@ -301,7 +299,7 @@
 				print "Folders in ".$currentList->getName().":";
 ?>
 			</div>
-			<ul>
+			<ul class="prof">
 <?php
 				printFolder( $currentList->getBaseFolder() );
 ?>
@@ -322,11 +320,11 @@
 			<form method="post" action="iprofiles.php">
 
 			<div id="menubar">
-				<ul>
-					<li><a href="#" onClick="document.getElementById('upload').style.visibility='visible';">Upload File</a></li>
-					<li><a href="#" onClick="document.getElementById('newfolder').style.visibility='visible';">Create Folder</a></li>
-					<li><a href="#" onClick="document.getElementById('delete').form.submit()">Delete</a>
-					<input type='hidden' id='delete' name='delete' value='delete'></li>
+				<ul class="prof">
+					<li><a href="#" onclick="document.getElementById('upload').style.visibility='visible';">Upload File</a></li>
+					<li><a href="#" onclick="document.getElementById('newfolder').style.visibility='visible';">Create Folder</a></li>
+					<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete</a>
+					<input type='hidden' id='delete' name='delete' value='delete' /></li>
 				</ul>
 			</div>
 			
@@ -337,19 +335,19 @@
 			
 			foreach ( $folderList as $key => $folder ) {
 				printTR();
-				print "<td><img src='../img/folder.gif'></td>";
+				print "<td><img src='../img/folder.gif' alt='' /></td>";
 				print "<td><a href='iprofiles.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></td>";
 				print "<td>".$folder->getDesc()."</td>";
-				print "<td align='right'><input type='checkbox' name='folder[".$folder->getID()."]'></td>";
+				print "<td align='right'><input type='checkbox' name='folder[".$folder->getID()."]' /></td>";
 				print "</tr>\n";
 			}
 			
 			foreach ( $fileList as $key => $file ) {
 				printTR();
-				print "<td><img src='../img/file.gif'></td>";
+				print "<td><img src='../img/file.gif' alt='' /></td>";
 				print "<td><a href='../download.php?id=".$file->getID()."'>".$file->getName()."</a></td>";
 				print "<td>".$file->getDesc()."</td>";
-				print "<td align='right'><input type='checkbox' name='file[".$file->getID()."]'></td>";
+				print "<td align='right'><input type='checkbox' name='file[".$file->getID()."]' /></td>";
 				print "</tr>\n";
 			}
 		
@@ -370,11 +368,11 @@
 			foreach ( $groups as $group ) {
 				print "<input type='checkbox' name='uselist[".$group->getID()."]'";
 				if ( $group->usesFileList( $_SESSION['selectedList'] ) )
-					print " checked";
-				print "> ".$group->getName()."<br>";
+					print " checked='checked'";
+				print " /> ".$group->getName()."<br />";
 			}
 ?>
-				<input type="button" value="Select All" onClick="selectAll('uselist')"><input type="submit" name="updategroups" value="Update Selected Groups">
+				<input type="button" value="Select All" onclick="selectAll('uselist')" /><input type="submit" name="updategroups" value="Update Selected Groups" />
 			</form>
 		</div>
 		<div id="semesterSelect">
@@ -384,48 +382,48 @@
 					$semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
 					while ( $row = mysql_fetch_row( $semesters ) ) {
 						$semester = new Semester( $row[0], $db );
-						print "<option value=".$semester->getID().">".$semester->getName()."</option>";
+						print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
 					}
 ?>
 					</select>
-					<input type="submit" name="selectSemester" value="Select Semester">
+					<input type="submit" name="selectSemester" value="Select Semester" />
 				</form>
 		</div>
 		<div class="window" id="upload">
 			<div class="window-topbar">
-				File Upload <input class="close-button" type="button" onClick="document.getElementById('upload').style.visibility='hidden';">
+				File Upload <input class="close-button" type="button" onclick="document.getElementById('upload').style.visibility='hidden';" />
 			</div>
 			<div class="window-content">
 				<form method="post" action="iprofiles.php" enctype="multipart/form-data">
-					File: <input type="file" name="thefile"><br>
-					File Name: <input type="text" name="filename"><br>
-					Description: <input type="text" name="filedescription"><br>
+					File: <input type="file" name="thefile" /><br />
+					File Name: <input type="text" name="filename" /><br />
+					Description: <input type="text" name="filedescription" /><br />
 					This file will be placed in the
 	<?php
 					print $folder->getName();
 	?>
-					folder.<br>
-					<input type="submit" name="upload" value="Upload File">
+					folder.<br />
+					<input type="submit" name="upload" value="Upload File" />
 				</form>
 			</div>
 		</div>
 		<div class="window" id="newfolder">
 			<div class="window-topbar">
-				Create a Folder <input class="close-button" type="button" onClick="document.getElementById('newfolder').style.visibility='hidden';">
+				Create a Folder <input class="close-button" type="button" onclick="document.getElementById('newfolder').style.visibility='hidden';" />
 			</div>
 			<div class="window-content">
 				<form method="post" action="iprofiles.php">
-					Folder Name: <input type="text" name="foldername"><br>
-					Description: <input type="text" name="folderdescription"><br>
+					Folder Name: <input type="text" name="foldername" /><br />
+					Description: <input type="text" name="folderdescription" /><br />
 					This folder will be placed in the
 <?php					
 					print $folder->getName();
 ?>
-					folder.<br>
-					<input type="submit" name="create" value="Create Folder">
+					folder.<br />
+					<input type="submit" name="create" value="Create Folder" />
 				</form>
 			</div>
 		</div>
 <?php
 	}
-?>
+?></div></body></html>

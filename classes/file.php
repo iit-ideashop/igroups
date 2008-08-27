@@ -199,7 +199,6 @@ if ( !class_exists( "File" ) ) {
 		}
 		
 		function getDiskName() {
-//			return "/home/igroups/igroups-files/".$this->id.".igroup";
 			return "/files/igroups/".$this->id.".igroup";
 		}
 
@@ -211,14 +210,35 @@ if ( !class_exists( "File" ) ) {
 		function getMimeType() {
 			return $this->mimeType;
 		}
-		
+
+		function isNuggetFile() {
+                        $count = 0;
+                        $results = $this->db->igroupsQuery("SELECT * FROM nuggetFileMap WHERE iFileID = $this->id");
+                        while($row = mysql_fetch_array($results)){
+                               $count ++;
+                        }
+                        if($count != 0){
+                                return true;
+                       }
+                        else return false;
+                }
+
+               function getNugget(){
+                        if($this->isNuggetFile()){
+                                $results = $this->db->igroupsQuery("SELECT iNuggetID FROM nuggetFileMap WHERE iFileID = $this->id");
+                               $row = mysql_fetch_array($results);
+                                $nugget = new Nugget($row['iNuggetID'], $this->db, 0);
+                                return $nugget;
+                       }
+                }
+
 		function updateDB() {
 			$this->db->igroupsQuery( "UPDATE Files SET sTitle='".$this->getNameDB()."', sDescription='".$this->getDescDB()."', sOriginalName='".quickDBString( $this->origname )."', bObsolete=".$this->obsolete.", iFolderID=".$this->folder.", iVersion=".$this->version.", bDeletedFlag=".intval($this->deleted).", bPrivate=".$this->private." WHERE iID=".$this->id );
 		}
 	}
 	
 	function createFile( $name, $desc, $folder, $author, $origname, $group, $db ) {
-		if ( $name == "" )
+		if ($name == '')
 			$name = $origname;
 		$namess = new SuperString( $name );
 		$descss = new SuperString( $desc );

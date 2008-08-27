@@ -38,21 +38,13 @@
 	}
 		
 ?>
-
-
-	
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - Manage Budgets</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Manage Budgets</title>
+<link rel="stylesheet" href="../default.css" type="text/css" />
 	<style type="text/css">
-		@import url("../default.css");
-	.submit_budget tr td {
+		.submit_budget tr td {
 			border-top: 1px solid #cc0000;
 			background: #eee;
 			vertical-align:top;
@@ -127,12 +119,10 @@
 	</style>
 </head>
 <body>
-	<div id="topbanner">
 <?php
-		print "Manage Budgets";
+	require("sidebar.php");
 ?>
-	</div>
-
+	<div id="content"><div id="topbanner">Manage Budgets</div>
 	<h2>Select Semester:</h2>
 	<form method="post" action="budget.php">
                         <select name="semester">
@@ -141,14 +131,14 @@
                         while ( $row = mysql_fetch_row( $semesters ) ) {
                                 $semester = new Semester( $row[0], $db );
                                 if (isset($currentSemester) && $semester->getID() == $currentSemester->getID())
-                                        print "<option value=".$semester->getID()." selected>".$semester->getName()."</option>";
+                                        print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
                                 else
-                                        print "<option value=".$semester->getID().">".$semester->getName()."</option>";
+                                        print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
                         }
 ?>
                         </select>
-                        <input type="submit" name="selectSemester" value="Select Semester">
-			</div>
+                        <input type="submit" name="selectSemester" value="Select Semester" />
+			</form>
 	
 	<h2>Submitted Budgets</h2>
 <?php	
@@ -161,17 +151,17 @@
 	$num_rows = mysql_num_rows($query);
 	
 	if ($num_rows ==0) {
-		echo "There were no budgets submitted for this semester";
+		echo "<p>There were no budgets submitted for this semester</p>";
 	}
 		
 	else {
-		echo "<table id='budget' cellpadding=7 cellspacing=0 border=0>";
+		echo "<table id='budget' cellpadding='7' cellspacing='0' border='0'>";
 		echo "<tr><th>IPRO Name</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Balance</th><th>Waiting Approval?</th></tr>";
 		while ($row = mysql_fetch_assoc($query))
 		{	
 		$get_ipro_name = $db->iknowQuery("SELECT sIITID, sName FROM Projects WHERE iID={$row[iProjectID]}");
 		$result = mysql_fetch_row($get_ipro_name);
-		echo "<tr><td><a href=\"budget_details.php?iProjectID=$row[iProjectID]&iSemesterID=$this_semester&iproNum=$result[0]&iproName=$result[1]\"><strong>$result[0]:</strong> $result[1]</a></td><td>$row[requested]</td><td>$row[approved]</td><td>$row[reimbursed]</td><td>$row[difference]</td>";
+		echo "<tr><td><a href=\"budget_details.php?iProjectID=$row[iProjectID]&amp;iSemesterID=$this_semester&amp;iproNum=$result[0]&amp;iproName=$result[1]\"><strong>$result[0]:</strong> $result[1]</a></td><td>$".round($row[requested], 2)."</td><td>$".round($row[approved], 2)."</td><td>$".round($row[reimbursed], 2)."</td><td>$".round($row[difference], 2)."</td>";
 		
 			//Check for Pending Requests
 			$query_pending = mysql_query("SELECT bStatus FROM Budgets WHERE iSemesterID={$this_semester} AND iProjectID={$row[iProjectID]} AND bStatus='Pending'");
@@ -187,8 +177,10 @@
 		
 		$semester_total = $db->igroupsQuery("SELECT sum(bRequested) as requested_total, sum(bApproved) as approved_total, sum(bReimbursed) as reimbursed_total, sum(bRevised)-sum(bApproved) as difference_total  FROM Budgets WHERE iSemesterID={$currentSemester->getID()}");
 		$row = mysql_fetch_row($semester_total);
-		echo "<tr><td class='budget_col_total'><strong>SEMESTER TOTALS</strong></td><td class='req_budget_total'>$row[0]</td><td class='app_budget_total'>$row[1]</td><td>$row[2]</td><td>$row[3]</td></tr>";	
-		echo "</table>";
+		?>
+		<tr><td class='budget_col_total' style="font-weight: bold">SEMESTER TOTALS</td><td class='req_budget_total'><?php echo "$".round($row[0], 2)?></td><td class='app_budget_total'><?php echo "$".round($row[1], 2)?></td><td><?php echo "$".round($row[2], 2)?></td><td><?php echo "$".round($row[3], 2)?></td></tr>	
+		</table>
+<?php
 	}
 ?>	
-
+</div></body></html>

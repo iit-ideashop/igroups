@@ -7,18 +7,15 @@
 
 	$db = new dbConnection();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-
-
-<html>
-<head>
-<link href="default.css" rel="stylesheet" type="text/css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Help</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
 </head>
 <body>
 <?php
+require("sidebar.php");
 if ( isset( $_POST['help'] ) ) {
 	mail( $_POST['email'], "Your iGROUPS Help Request", "We have received your inquiry and will respond to it as soon as possible.\n\nThank you for contacting us.\n\n-The IPRO Office Team", "From:igroups@iit.edu" );
 	$user = $db->iknowQuery( "SELECT iID FROM People WHERE sEmail='".$_POST['email']."'" );
@@ -41,26 +38,26 @@ if ( isset( $_SESSION['iUserID'] ) ) {
 	}
 }
 ?>
-<h1>Need help?</h1>
+<div id="content"><h1>Need help?</h1>
 <?php
 if ( isset( $_POST['help'] ) ) {
 	print("Your request for help has been sent and we will respond to it as soon as possible.<br>");
 }
 ?>
-If you are having trouble logging in, try <a href="http://igroups.iit.edu/forgotpassword.php" target="mainFrame">resetting your password</a>.
-<br><br>If this fails to correct your problem, complete the form below including your login e-mail address and your IPRO number.<p>
-<form method="POST" action="needhelp.php">
+<p>If you are having trouble logging in, try <a href="http://igroups.iit.edu/forgotpassword.php" target="mainFrame">resetting your password</a>.</p>
+<p>If this fails to correct your problem, complete the form below including your login e-mail address and your IPRO number.</p>
+<form method="post" action="needhelp.php">
 <?php
 	if ( isset( $email ) ) {
-		print("<input type='hidden' name='email' value='$email'><p>");
+		print("<input type=\"hidden\" name=\"email\" value=\"$email\" />");
 	}
 	else {
-		print("E-mail address: <input type='text' name='email'><p>");
+		print("E-mail address: <input type=\"text\" name=\"email\" />");
 	}
 ?>
-Please describe the problem you are having in as much detail as possible:<br>
-<textarea name="problem" rows="10" cols="50"></textarea><p>
-<input type="submit" name="help" value="Report Problem">
-</form>
+Please describe the problem you are having in as much detail as possible:<br />
+<textarea name="problem" rows="10" cols="50"></textarea><br /><br />
+<input type="submit" name="help" value="Report Problem" />
+</form></div>
 </body>
 </html>

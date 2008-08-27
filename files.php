@@ -55,12 +55,12 @@
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
 		if ( $_SESSION['selectedFolder'] == $folder->getID() )
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src='img/folder-expanded.gif' border=0></a>&nbsp;<strong><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></strong>\n";
+			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></strong>\n";
 		else
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src='img/folder.gif' border=0></a>&nbsp;<a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
+			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
-		if ( in_array( $folder->getID(), $_SESSION['expandFolders'] ) ) {
-			print "<ul>\n";
+		if ( count($subfolder) > 0 && in_array( $folder->getID(), $_SESSION['expandFolders'] ) ) {
+			print "<ul class=\"filesul\">\n";
 			foreach ( $subfolder as $key => $val ) {
 				printFolder( $val );
 			}
@@ -72,7 +72,7 @@
 	function printOptions( $group ) {
 		$folders = $group->getGroupFolders();
 		foreach ( $folders as $key => $subfolder ) {
-			print "<option value=".$subfolder->getID().">+ ".$subfolder->getName()."</option>\n";
+			print "<option value=\"".$subfolder->getID()."\">+ ".$subfolder->getName()."</option>\n";
 			printOptionsRecurse( $subfolder, "&nbsp;&nbsp;&nbsp;+ " );
 		}
 	}
@@ -80,7 +80,7 @@
 	function printOptionsRecurse( $folder, $indent ) {
 		$folders = $folder->getFolders();
 		foreach ( $folders as $key => $subfolder ) {
-			print "<option value=".$subfolder->getID().">".$indent.$subfolder->getName()."</option>\n";
+			print "<option value=\"".$subfolder->getID()."\">".$indent.$subfolder->getName()."</option>\n";
 			printOptionsRecurse( $subfolder, "&nbsp;&nbsp;&nbsp;".$indent );
 		}
 	}
@@ -109,17 +109,12 @@
 	//----End Display Functions-------------------------------------//
 	
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - Group Files</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Group Files</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
-		@import url("default.css");	
-
 		#container {
 			margin:auto;
 			padding:0;
@@ -144,7 +139,7 @@
 			float:left;
 			margin:5px;
 			padding:2px;
-			width:64%;
+			width:65%;
 			border:1px solid #000;
 		}
 		
@@ -165,13 +160,13 @@
 			display:inline;
 		}
 		
-		ul {
+		ul.filesul {
 			list-style:none;
 			padding:0;
 			margin:0;
 		}
 			
-		ul ul {
+		ul.filesul ul {
 			padding-left:20px;
 		}
 		
@@ -196,7 +191,20 @@
 			padding:5px;
 		}
 	</style>
-	<script language="javascript" type="text/javascript">
+
+<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<script type="text/javascript" src="windowfiles/dhtmlwindow.js">
+
+/***********************************************
+* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+
+</script>
+
+	<script type="text/javascript">
+	<!--
 		function copyCheckBoxes() {
 			var folders = new Array();
 			var files = new Array();
@@ -225,11 +233,12 @@
 			document.body.insertBefore( msgDiv, null );
 			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
 		}
+	//-->
 	</script>
 </head>
 <body>
 <?php
-
+require("sidebar.php");
 	//------Start of Code for Form Processing-------------------------//
 	
 	if ( isset( $_POST['create'] ) ) {
@@ -302,7 +311,7 @@
 		}
 	}
 	
-	if ( isset( $_POST['update'] ) ) {
+	if ( isset( $_POST['fupdate'] ) ) {
 		if ( ($_POST['files'] != "") && (count($_POST['files']) == 1))
                         $update = true;
                 else
@@ -363,7 +372,11 @@
                 }
 		}
 		else {
-			print "<script type=\"text/javascript\">showMessage(\"ERROR: Could not update file. Make sure you selected a file to update.\");</script>";
+?>
+			<script type="text/javascript">
+				showMessage("ERROR: Could not update file. Make sure you selected a file to update.");
+			</script>
+<?php
 		}
         }
 
@@ -421,58 +434,28 @@
 		}
 	}
 
-        if ( isset( $_POST['rename'] ) && (($_POST['files'] == "") XOR ($_POST['folders'] == "")) ) {
-                 // Change form data into arrays instead of comma separated list
-                 if ( $_POST['files'] != "" )
-                         $_POST['files'] = explode( ",", $_POST['files'] );
-                 if ( $_POST['folders'] != "" )
-                         $_POST['folders'] = explode( ",", $_POST['folders'] );
-                 else
-                         $_POST['folders'] = array();
-
-		 // Check to see if only one file or folder is selected
-		 if ( ($_POST['files'] != "") && (count($_POST['files']) == 1)) 
-		 	$rename = true;
-		 else if ( ($_POST['folders'] != "") && (count($_POST['folders']) == 1))
-			$rename = true;
-		 else
-			$rename = false;
-               
-                 if ( $rename ) {
-			if ( $_POST['files'] != "") {
-                        foreach( $_POST['files'] as $key => $val ) {
-		 		$file = new File($val, $db);
-				if (isset($_POST['newname']) && !$file->isIPROFile())
+        if ( isset( $_POST['rename'] ) && (isset($_POST['file']) XOR isset($_POST['folder'])) ) {         
+		if (isset($_POST['file'])) {
+		 	$file = new File($_POST['file'], $db);
+			if (isset($_POST['newname']) && !$file->isIPROFile())
 				$file->setName( $_POST['newname'] );
-				if (isset($_POST['newdesc']) && !$file->isIPROFile())
+			if (isset($_POST['newdesc']) && !$file->isIPROFile())
 				$file->setDesc( $_POST['newdesc'] );
-				$file->updateDB();
-			}
-			}
-			else {
-			foreach( $_POST['folders'] as $key => $val ) {
-				$folder = new Folder($val, $db);
-				if (isset($_POST['newname']) && !$folder->isIPROFolder())
+			$file->updateDB();
+		}
+		else {
+			$folder = new Folder($_POST['folder'], $db);
+			if (isset($_POST['newname']) && !$folder->isIPROFolder())
 				$folder->setName( $_POST['newname'] );
-				if (isset($_POST['newdesc']) && !$folder->isIPROFolder())
+			if (isset($_POST['newdesc']) && !$folder->isIPROFolder())
 				$folder->setDesc( $_POST['newdesc'] );
-				$folder->updateDB();
-			}
-			}
-		 
+			$folder->updateDB();
+		}		 
  ?>
                  <script type="text/javascript">
                          showMessage("File or folder renamed");
                  </script>
  <?php
-                 }
-                 else {
- ?>
-                 <script type="text/javascript">
-                         showMessage("Unable to rename. Make sure only one file or folder is selected.");
-                 </script>
-<?php
-                 }
         }
         else if( isset( $_POST['rename'] )) {
 ?>
@@ -526,53 +509,54 @@
 	//------End Form Processing Code---------------------------------//
 	
 ?>
-	<div id="topbanner">
+	<div id="content"><div id="topbanner">
 <?php
 		print $currentGroup->getName();
 ?>
 	</div>
 	<div id="container">
 		<div id="folderbox">
-			<div id="columnbanner">
+			<div class="columnbanner">
 				Your Folders:
 			</div>
 			<div id="folders">
-				<ul id='top'>
+				<ul id='top' class="filesul">
 <?php
 					if ( !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']==0 )
-						print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder-expanded.gif" border=0></a>&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
+						print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
 					else
-						print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder.gif" border=0></a>&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
-?>					
-						<ul>
-<?php
-							$topFolders = $currentGroup->getGroupFolders();
+						print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
+					
+						$topFolders = $currentGroup->getGroupFolders();
+						if(count($topFolders) > 0) {
+							print "<ul class=\"filesul\">";
+							
 							foreach ( $topFolders as $key => $val ) {
 								printFolder( $val );
 							}
-?>
-						</ul>
-					</li>
-<?php
+						print "</ul>";
+						}
+					print "</li>";
+
 					if ( $_SESSION['selectedSpecial'] == 'obsolete' )
-							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder-expanded.gif" border=0></a>&nbsp;<strong><a href="files.php?selectSpecial=obsolete">Past Versions</a></strong></li>';
+							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=obsolete">Past Versions</a></strong></li>';
 						else
-							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.gif" border=0></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
+							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
 					if ( $_SESSION['selectedSpecial'] == 'trash' )
-							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder-expanded.gif" border=0></a>&nbsp;<strong><a href="files.php?selectSpecial=trash">Trash Bin</a></strong</li>';
+							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=trash">Trash Bin</a></strong</li>';
 						else
-							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.gif" border=0></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
+							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
 					
 
 					if ( $currentGroup->getType() == 0 ) {
 						if ( $_SESSION['selectedSpecial'] == 'ipro' )
-							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder-expanded.gif" border=0></a>&nbsp;<strong><a href="files.php?selectSpecial=ipro">IPRO Office Files</a></strong>';
+							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=ipro">IPRO Office Files</a></strong>';
 						else
-							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.gif" border=0></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a>';
+							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a>';
 
 						if ( in_array( "iprofiles", $_SESSION['expandFolders'] ) ) {
 ?>
-							<ul>
+							<ul class="filesul">
 <?php
 								$topFolders = $currentGroup->getIPROOfficeFolders();
 								foreach ( $topFolders as $key => $val ) {
@@ -587,12 +571,12 @@
 <?php
 					}
 ?>
-				<li><img src="img/folder.gif" border=0>&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
+				<li><img src="img/folder.png" border="0" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
 				</ul>
 			</div>
 		</div>
 		<div id="filebox">
-			<div id="columnbanner">
+			<div class="columnbanner">
 <?php
 				if ( $currentFolder ) {
 					$folderList = $currentFolder->getFolders();
@@ -626,18 +610,17 @@
 			<form method="post" action="files.php">
 				<div id="menubar">
 					<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
-					<ul>
+					<ul class="filesul">
 						<?php if ($_SESSION['selectedSpecial'] != 'obsolete' && $_SESSION['selectedSpecial'] != 'ipro') { if ( $currentFolder == 0 || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
-						<li><a href="#" onClick="document.getElementById('upload').style.visibility='visible';">Upload File</a></li>
-						<li><a href="#" onClick="document.getElementById('update').style.visibility='visible';">Update File</a></li>
-						<li><a href="#" onClick="document.getElementById('newfolder').style.visibility='visible';">Create Folder</a></li>
-						<li><a href="#" onClick="document.getElementById('move').style.visibility='visible';">Move</a></li>
+						<li><a href="#" onclick="uploadwin=dhtmlwindow.open('uploadbox', 'div', 'upload', 'Upload File', 'width=350px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); return false">Upload File</a></li>
+						<li><a href="#" onclick="updatewin=dhtmlwindow.open('updatebox', 'div', 'update', 'Update File', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Update File</a></li>
+						<li><a href="#" onclick="newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Folder</a></li>
+						<li><a href="#" onclick="movewin=dhtmlwindow.open('movebox', 'div', 'move', 'Move', 'width=350px,height=100px,left=300px,top=100px,resize=0,scrolling=0'); return false">Move</a></li>
 						<?php } } if ( $currentFolder == 0 && $_SESSION['selectedSpecial'] != 'ipro' || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
-						<li><a href="#" onClick="document.getElementById('rename').style.visibility='visible';">Rename</a></li>
 
-						<li><a href="#" onClick="document.getElementById('delete').form.submit()">Delete</a>
+						<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete</a>
 						<?php } ?>
-						<input type='hidden' id='delete' name='delete' value='delete'></li>
+						<input type='hidden' id='delete' name='delete' value='delete' /></li>
 					</ul>
 					<?php } ?>
 				</div>
@@ -646,17 +629,18 @@
 <?php
 					if ($currentFolder && !$currentFolder->isIPROFolder()) {
                                                         printTR();
-                                                        print "<td width=24><img src='img/folder.gif'></td>";
-                                                        print "<td align='left' colspan=5><a href='files.php?selectFolder=".$currentFolder->getParentFolderID()."'>..</a></td>";
+                                                        print "<td width='24'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></td>";
+                                                        print "<td align='left' colspan='5'><a href='files.php?selectFolder=".$currentFolder->getParentFolderID()."'>..</a></td>";
                                                         print "</tr>\n";
                                         }
 					if ($folderList) {//Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $folderList as $key => $folder ) {
 							printTR();
-							print "<td><img src='img/folder.gif'></td>";
+							print "<td><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></td>";
 							print "<td><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></td>";
-							print "<td colspan=3>".$folder->getDesc()."</td>";
-							print "<td align='right'><input type='checkbox' name='folder[".$folder->getID()."]'></td>";
+							print "<td colspan='3'>".$folder->getDesc()."</td>";
+							print "<td><input type='checkbox' name='folder[".$folder->getID()."]' /></td>";
+							print "<td><a href=\"#\" onclick=\"renamewin=dhtmlwindow.open('renamebox', 'ajax', 'renamefile.php?folderid=".$folder->getID()."', 'Rename Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Rename</a></td>";
 							print "</tr>\n";
 						}
 					}			
@@ -664,7 +648,7 @@
 					if ($fileList) //Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $fileList as $key => $file ) {
 							printTR();
-							print "<td><img src='img/file.gif'></td>";
+							print "<td><img src=\"img/file.png\" alt=\"File\" title=\"File\" /></td>";
 							print "<td><a href='download.php?id=".$file->getID()."'>".$file->getName()."</a></td>";
 							print "<td>".$file->getDesc()."</td>";
 							$author = $file->getAuthor();
@@ -673,30 +657,27 @@
 							else
 								print "<td></td>";
 							print "<td>".$file->getDate()."</td>";
-							print "<td align='right'><input type='checkbox' name='file[".$file->getID()."]'></td>";
+							print "<td><input type='checkbox' name='file[".$file->getID()."]' /></td>";
+							print "<td><a href=\"#\" onclick=\"renamewin=dhtmlwindow.open('renamebox', 'ajax', 'renamefile.php?fileid=".$file->getID()."', 'Rename File', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Rename</a></td>";
 							print "</tr>\n";
 						}
 							
 						if ( count( $folderList ) + count( $fileList ) == 0 )
-							print "<tr>There are no files or folders in the selected folder</tr>\n";
+							print "<tr><td colspan='6'>There are no files or folders in the selected folder</td></tr>\n";
 					}
 					else
-						print "<tr>You do not have access to view the files in this folder</tr>\n";
+						print "<tr><td>You do not have access to view the files in this folder</td></tr>\n";
 ?>
 					</table>
 				</div>
 			</form>
 		</div>
 	</div>
-	<div class="window" id="upload">
-		<div class="window-topbar">
-			File Upload <input class="close-button" type="button" onClick="document.getElementById('upload').style.visibility='hidden';">
-		</div>
-		<div class="window-content">
+		<div class="window-content" id="upload" style="display: none">
 			<form method="post" action="files.php" enctype="multipart/form-data">
-				File: <input type="file" name="thefile"><br>
-				File Name: <input type="text" name="filename"><br>
-				Description: <input type="text" name="filedescription"><br>
+				File: <input type="file" name="thefile" /><br />
+				File Name: <input type="text" name="filename" /><br />
+				Description: <input type="text" name="filedescription" /><br />
 				This file will be placed in the
 <?php
 				if ( $currentFolder )
@@ -704,20 +685,15 @@
 				else
 					print "Your Files"
 ?>
-				folder.<br>- or -<br>
-				<input type='checkbox' name='private'>&nbsp;Send to Dropbox (viewable only by instructor)<br>
-				<input type="submit" name="upload" value="Upload File">
+				folder.<br />- or -<br />
+				<input type='checkbox' name='private' />&nbsp;Send to Dropbox (viewable only by instructor)<br />
+				<input type="submit" name="upload" value="Upload File" />
 			</form>
 		</div>
-	</div>
-	<div class="window" id="update">
-                <div class="window-topbar">
-                        Update a File <input class="close-button" type="button" onClick="document.getElementById('update').style.visibility='hidden';">
-                </div>
-                <div class="window-content">
+                <div class="window-content" id="update" style="display: none">
                         <form method="post" action="files.php" enctype="multipart/form-data">
-                                File: <input type="file" name="thefile"><br>
-       				Description: <input type="text" name="filedescription"><br>
+                                File: <input type="file" name="thefile" /><br />
+       				Description: <input type="text" name="filedescription" /><br />
                                 This file will be placed in the
 <?php
                                 if ( $currentFolder )
@@ -725,22 +701,18 @@
                                 else
                                         print "Your Files"
 ?>
-                                folder.<br>
+                                folder.<br />
 
-				<input type="hidden" name="folders">
-                                <input type="hidden" name="files">
-                                <input type="submit" name="update" value="Upload File" onClick="copyCheckBoxes();this.form.submit()">
+				<input type="hidden" name="folders" />
+                                <input type="hidden" name="files" />
+				<input type="hidden" name="fupdate" value="fupdate" />
+                                <input type="submit" value="Upload File" onclick="copyCheckBoxes();this.form.submit()" />
                         </form>
                 </div>
-        </div>
-	<div class="window" id="newfolder">
-		<div class="window-topbar">
-			Create a Folder <input class="close-button" type="button" onClick="document.getElementById('newfolder').style.visibility='hidden';">
-		</div>
-		<div class="window-content">
+		<div class="window-content" id="newfolder" style="display: none">
 			<form method="post" action="files.php">
-				Folder Name: <input type="text" name="foldername"><br>
-				Description: <input type="text" name="folderdescription"><br>
+				Folder Name: <input type="text" name="foldername" /><br />
+				Description: <input type="text" name="folderdescription" /><br />
 				This folder will be placed in the
 <?php
 				if ( $currentFolder )
@@ -748,25 +720,20 @@
 				else
 					print "Your Files"
 ?>
-				folder.<br>
+				folder.<br />
 <?php
 				if ( $currentUser->isGroupAdministrator( $currentGroup ) ) {
 ?>
-					<input type="radio" name="status" value="0" checked="checked">Normal Folder  <input type="radio" name="status" value="1">Write Only<br>
+					<input type="radio" name="status" value="0" checked="checked" />Normal Folder  <input type="radio" name="status" value="1" />Write Only<br />
 <?php
 				}
 				else
-					print "<input type='hidden' name='status' value='0'>";
+					print "<input type='hidden' name='status' value='0' />";
 ?>
-				<input type="submit" name="create" value="Create Folder">
+				<input type="submit" name="create" value="Create Folder" />
 			</form>
 		</div>
-	</div>
-	<div class="window" id="move">
-		<div class="window-topbar">
-			Move Selected Files and Folders<input class="close-button" type="button" onClick="document.getElementById('move').style.visibility='hidden';">
-		</div>
-		<div class="window-content">
+		<div class="window-content" id="move" style="display: none">
 			<form method="post" action="files.php">
 				Select Target Folder:
 				<select name="target">
@@ -775,31 +742,12 @@
 					printOptions( $currentGroup );
 ?>
 				</select>
-				<input type="hidden" name="folders">
-				<input type="hidden" name="files">
-				<input type="hidden" name="move" value="move"><br>
-				<input type="button" value="Move Files and Folders" onClick="copyCheckBoxes();this.form.submit()">
+				<input type="hidden" name="folders" />
+				<input type="hidden" name="files" />
+				<input type="hidden" name="move" value="move" /><br />
+				<input type="button" value="Move Files and Folders" onclick="copyCheckBoxes();this.form.submit()" />
 			</form>
 		</div>
-	</div>
-	<div class="window" id="rename">
-                <div class="window-topbar">
-                        Rename File or Folder<input class="close-button" type="button" onClick="document.getElementById('rename').style.visibility='hidden';">
-                </div>
-                <div class="window-content">
-                        <form method="post" action="files.php">
-                                Enter new name:
-                                <input type="text" name="newname" size="30"><br>
-				Enter new description:
-				<input type="text" name="newdesc" size="30">
-                                
-                                <input type="hidden" name="folders">
-                                <input type="hidden" name="files">
-                                <input type="hidden" name="rename" value="rename"><br>
-				<input type="submit" value="Rename" onClick="copyCheckBoxes();this.form.submit()">
-                                <!--<input type="button" value="Rename" onClick="copyCheckBoxes();this.form.submit()">-->
-                         </form>
-                 </div>
          </div>
 </body>
 </html>

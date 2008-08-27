@@ -52,7 +52,7 @@ th {
 	background-position: center;
 }
 
-td#subtopic_heading a:link {color: #000;}
+td.subtopic_heading a:link {color: #000;}
 
 td {
 	border: 1px solid #ccc;

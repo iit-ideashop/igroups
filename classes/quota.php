@@ -65,17 +65,17 @@ if ( !class_exists( "Quota" ) ) {
 	
 		function increaseUsed( $amount ) {
 			$this->used += $amount;
-			if (($this->limit) - ($this->used) <= 20000000) {
-				$this->limit += 50000000;
+			if (($this->limit) - ($this->used) <= 20) {
+				$this->limit += 50;
 			} 
 		}
 		
 		function decreaseUsed( $amount ) {
-			$this->used -= $amount;
+			$this->used -= ($amount);
 		}
 		
 		function checkSpace( $amount ) {
-			return ( ( $this->limit - $this->used ) > $amount );
+			return ( ( $this->limit - $this->used ) > ($amount) );
 		}
 		
 		function getGroupID() {
@@ -91,7 +91,7 @@ if ( !class_exists( "Quota" ) ) {
 		}
 		
 		function updateDB() {
-			$query = "UPDATE FileQuota SET iUsed=".$this->getUsed().", iLimit=".$this->getLimit()." WHERE  iGroupID=".$this->group." AND iGroupType=".$this->type;
+			$query = "UPDATE FileQuota SET iUsed=".$this->getUsed().", iLimit=".$this->getLimit()." WHERE iGroupID=".$this->group." AND iGroupType=".$this->type;
 			if ( $this->type == 0 )
 				$query .= " AND iSemesterID=".$this->semester;
 			$this->db->igroupsQuery( $query );

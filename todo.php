@@ -26,14 +26,12 @@
 
 ?>
 
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - Group TODO List</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Group Todo List</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
-		@import url("default.css");
-
                 #calendar {
                         border:solid 1px #000;
                         background-color:#fff;
@@ -61,6 +59,10 @@
 
 		table.todoList td.todoTop {
 			border-bottom: 1px solid #cc0000;
+		}
+
+		a.todoSort {
+			color: #000;
 		}
 
 		table.todoList td.taskNum {
@@ -139,55 +141,8 @@
             margin-left: -3px;
         }
 
-        div#newItemBox {
-            background: #EEE;
-            border: 1px solid black;
-            width: 450px;
-            margin-left: 330px;
-            padding-left: 5px;
-        }
-
-        div#newItemBox div.header{
-            margin-left: -5px;
-            padding-left: 5px;
-            background: #CC0000;
-            color: white;
-            font-size: 18px;
-            border-bottom: 1px solid black;
+        div.newItem{
             margin-bottom: 5px;
-        }
-
-        div#newItemBox div.newItem{
-            margin-bottom: 5px;
-        }
-	</style>
-	<script>
-	function mysubmit(id){
-		obj = document.getElementById('taskFoo');
-		obj.innerHTML = '<input type="hidden" name="taskNum[]" value="-'+id+'">';
-		document.myform.submit();
-	}
-
-	function editChk(){
-		var obj = document.myform.getElementsByTagName('input');
-		for (i = 0; i < obj.length; i++){
-			var regex = new RegExp('taskEdit', "i");
-			if (regex.test(obj[i].getAttribute('name')))
-				obj[i].checked = true;
-		}
-	}
-
-	function editUnChk(){
-		var obj = document.myform.getElementsByTagName('input');
-		for (i = 0; i < obj.length; i++){
-			var regex = new RegExp('taskEdit', "i");
-			if (regex.test(obj[i].getAttribute('name')))
-				obj[i].checked = false;
-		}
-	}
-	</script>
-
-	<style type="text/css">
 
 .ds_box {
 	background-color: #FFF;
@@ -233,12 +188,41 @@
 .ds_cell:hover {
 	background-color: #F3F3F3;
 } /* This hover code won't work for IE */
+        }
+	</style>
+	<script type="text/Javascript">
+	<!--
+	function mysubmit(id){
+		obj = document.getElementById('taskFoo');
+		obj.innerHTML = '<input type="hidden" name="taskNum[]" value="-'+id+'" />';
+		document.myform.submit();
+	}
 
-</style>
+	function editChk(){
+		var obj = document.myform.getElementsByTagName('input');
+		for (i = 0; i < obj.length; i++){
+			var regex = new RegExp('taskEdit', "i");
+			if (regex.test(obj[i].getAttribute('name')))
+				obj[i].checked = true;
+		}
+	}
+
+	function editUnChk(){
+		var obj = document.myform.getElementsByTagName('input');
+		for (i = 0; i < obj.length; i++){
+			var regex = new RegExp('taskEdit', "i");
+			if (regex.test(obj[i].getAttribute('name')))
+				obj[i].checked = false;
+		}
+	}
+	//-->
+	</script>
 </head>
 <body>
-
-<table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
+<?php
+require("sidebar.php");
+?>
+<div id="content"><table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
 <tr><td id="ds_calclass">
 </td></tr>
 </table>
@@ -505,8 +489,6 @@ function ds_onclick(d, m, y) {
 
 // ]]> -->
 </script>
-</head>
-<body>
 <div id="topbanner">
 <?php
                 print $currentGroup->getName();
@@ -514,13 +496,12 @@ function ds_onclick(d, m, y) {
 </div>
 <h3>About Todo List</h3>
 <p>To add a new task, fill in the task description and complete-by date in the 'Add a new task' box and click 'Add'. To edit a task, click the checkbox associated with that task and click 'Edit'. To mark a task as complete, click the 'Done' checkbox. To delete a task, click the red X under 'Delete'.</p>
-<hr><br>
-<form action="" method="POST" name="myform">
+<hr /><br />
+<form action="" method="post" name="myform">
 <?php
 
 	$bar = new TodoList($currentGroup->getID(),$currentGroup->getSemester(),$db);
 
-        //echo "<i>Under Construction.  Please do not use.</i>";
 
 	/* Start of error checking. Here we will test for any bad input
 	** and if there is set error flags and do NOT populate DB 
@@ -552,7 +533,7 @@ function ds_onclick(d, m, y) {
             $tmp = $bar->getTask($task);
             print("<span class=\"taskNumDisplay\">#".$tmp->getTaskNum()."</span>\n<br />");
             print("<div class=\"taskEdit\">");
-            print("<div class=\"description\">Task Description: <input style=\"width: 454px;\" type=\"text\" value=\"".$tmp->getTask()."\" name=\"taskEditDesc[]\"></div>");
+            print("<div class=\"description\">Task Description: <input style=\"width: 454px;\" type=\"text\" value=\"".$tmp->getTask()."\" name=\"taskEditDesc[]\" /></div>");
             print("<div class=\"description\">Who is assigned to the task: ");
             print("<select class=\"assign\" name=\"assigned".$count."\">");
             print("<option value=\"-1\">No one</option>");
@@ -564,15 +545,15 @@ function ds_onclick(d, m, y) {
             }
             print("</select>");
             print("</div>");
-            print("<div class=\"description\">Complete By (mm/dd/yyyy): <input type=\"text\" name=\"editdate[]\" style=\"border: 1px solid black; text-align: right; width: 80px;\" onclick=\"ds_sh(this);\" style=\"cursor: text\" value=\"".$tmp->getDueDate()."\"><br/>");
+            print("<div class=\"description\">Complete By (mm/dd/yyyy): <input type=\"text\" name=\"editdate[]\" style=\"border: 1px solid black; text-align: right; width: 80px; cursor: text\" onclick=\"ds_sh(this);\" value=\"".$tmp->getDueDate()."\" /><br/>");
             print("</div>");
-            print("<input type=\"hidden\" name=\"taskEditID[]\" value=\"".$tmp->getID()."\">");
-            print("<input type=\"hidden\" name=\"taskEditTID[]\" value=\"".$tmp->getTaskNum()."\">");
+            print("<input type=\"hidden\" name=\"taskEditID[]\" value=\"".$tmp->getID()."\" />");
+            print("<input type=\"hidden\" name=\"taskEditTID[]\" value=\"".$tmp->getTaskNum()."\" />");
             print("</div>");
             $count++;
         }
-        print("<input type=\"submit\" name=\"doe\" value=\"Save\">");
-        print("<input type=\"submit\" name=\"cancel\" value=\"Cancel\">");
+        print("<input type=\"submit\" name=\"doe\" value=\"Save\" />");
+        print("<input type=\"submit\" name=\"cancel\" value=\"Cancel\" />");
     }
 
     if(isset($_POST['doe']) && $_POST['doe']=='Save' && !(isset($_POST['cancel']))){
@@ -635,9 +616,59 @@ function ds_onclick(d, m, y) {
 	if($bar->getLength() > 0){
 		$highestItem = $bar->getTaskNum();
 
-		$todoList = $bar->getList();
+		//figure out what to sort by
+		if (isset($_GET['sort'])) {
+			if ($_GET['sort'] == 'num') {
+				$sort = 'iTaskNum';
+				if (isset($_SESSION['sort']) && $_SESSION['sort'] == 'iTaskNum') {
+					$sort = $sort . ' DESC';
+					unset($_SESSION['sort']);
+				}
+				else
+					$_SESSION['sort'] = 'iTaskNum';
+			}
+			else if ($_GET['sort'] == 'date') {
+				$sort = 'dDueDate';
+				if (isset($_SESSION['sort']) && $_SESSION['sort'] == 'dDueDate') {
+                                        $sort = 'dDueDate DESC';
+                                        unset($_SESSION['sort']);
+				}
+                                else
+					$_SESSION['sort'] = 'dDueDate';
+			}
+			else if ($_GET['sort'] == 'task') {
+				$sort = 'sTask';
+				if (isset($_SESSION["sort"]) && $_SESSION["sort"] == 'sTask') {
+                                        $sort = 'sTask DESC';
+                                        unset($_SESSION["sort"]);
+				}
+                                else
+					$_SESSION['sort'] = 'sTask';
+			}
+			else {
+				$sort = 'iTaskNum';
+				if (isset($_SESSION['sort']) && $_SESSION['sort'] == 'iTaskNum') {
+                                        $sort = $sort . ' DESC';
+                                        unset($_SESSION['sort']);
+				}
+                                else
+					$_SESSION['sort'] = 'iTaskNum';
+			}
+		}
+		else {
+			$sort = 'iTaskNum';
+			if (isset($_SESSION['sort']) && $_SESSION['sort'] == 'iTaskNum') {
+                                        $sort = $sort . ' DESC';
+                                        unset($_SESSION['sort']);
+			}
+                        else
+				$_SESSION['sort'] = 'iTaskNum';
+		}
+
+		//$todoList = $bar->getList();
+		$todoList = $bar->getSortedList($sort);
 		print("<table class=\"todoList\">");
-		print("<tr class=\"todoHeaders\"><td class=\"todoTop\">&nbsp;</td><td class=\"todoTop\">Task #</td><td class=\"todoTop\">Task</td><td class=\"todoTop\">Assigned</td><td class=\"todoTop\">Due Date</td><td class=\"todoTop\">Done</td><td class=\"todoTop\">Delete</td></tr>");
+		print("<tr class=\"todoHeaders\"><td class=\"todoTop\">&nbsp;</td><td class=\"todoTop\"><a href='todo.php?sort=num' class='todoSort'>Task #</a></td><td class=\"todoTop\"><a href='todo.php?sort=task' class='todoSort'>Task</a></td><td class=\"todoTop\">Assigned</td><td class=\"todoTop\"><a href='todo.php?sort=date' class='todoSort'>Due Date</a></td><td class=\"todoTop\">Done</td><td class=\"todoTop\">Delete</td></tr>");
 		foreach($todoList as $foo){
 			#update complete status
 			# Set to complete
@@ -659,7 +690,7 @@ function ds_onclick(d, m, y) {
 			else{
 				$count = 1;
                 if($foo->getCompleted())
-                    print("<tr style=\"color: gray\"". $foo->getCompleted(). "ll");
+                    print("<tr style=\"color: gray\"");
                 else
                     print("<tr");
 				print(" onmouseover=\"this.style.background='#CDCDD4'\" onmouseout=\"this.style.background=''\">");
@@ -670,24 +701,24 @@ function ds_onclick(d, m, y) {
                 $person_name = "";
 			if ($currentUser->isGroupGuest($currentGroup)) 
 				$disabled = "disabled";
-			print("<td class=\"taskSel\"><input type=\"checkbox\" name=\"taskEdit[]\" value=\"".$foo->getTaskNum()."\"></td><td class=\"taskNum\">&nbsp;#". $foo->getTaskNum()."</td><td class=\"taskDesc\">". $foo->getTask()." </td><td class=\"taskAssigned\">".$person_name."</td> <td class=\"taskDate\">".$foo->getDueDate()."</td> <td class=\"taskDone\"><input type=\"checkbox\" name=\"taskNum[]\"  value=\"".$foo->getTaskNum()."\" $disabled");
+			print("<td class=\"taskSel\"><input type=\"checkbox\" name=\"taskEdit[]\" value=\"".$foo->getTaskNum()."\" /></td><td class=\"taskNum\">&nbsp;#". $foo->getTaskNum()."</td><td class=\"taskDesc\">". $foo->getTask()." </td><td class=\"taskAssigned\">".$person_name."</td> <td class=\"taskDate\">".$foo->getDueDate()."</td> <td class=\"taskDone\"><input type=\"checkbox\" name=\"taskNum[]\"  value=\"".$foo->getTaskNum()."\" $disabled");
 			if($foo->getCompleted() == '1'){
-				print(" onclick=\"mysubmit(".$foo->getTaskNum().")\" checked");
+				print(" onclick=\"mysubmit(".$foo->getTaskNum().")\" checked=\"checked\"");
 			}
 			else {
 				print(" onclick=\"document.myform.submit()\"");
 			}
-				print "></td><td class=\"taskDel\">";
+				print " /></td><td class=\"taskDel\">";
 			if (!$currentUser->isGroupGuest($currentGroup))
-			print "<a href=\"?d=t&di=".$foo->getID()."&dt=".$foo->getTaskNum()."\"><img src=\"img/delete.gif\" border=\"0\"></a>";
+			print "<a href=\"?d=t&amp;di=".$foo->getID()."&amp;dt=".$foo->getTaskNum()."\"><img src=\"img/delete.png\" border=\"0\" alt=\"X\" title=\"Delete Task ".$foo->getTaskNum()."\" /></a>";
 			print "</td></tr>\n";
 		}
-		print("<div id=\"taskFoo\"></div>");
-		print('<input type="hidden" name="c" value="t">');
 		print("</table>");
-		print("<div id=\"task_table_footer\"><image src=\"img/arrow_ltr.png\" style=\"margin-left: 5px;\"><span class=\"text\">Task Selection: <a href=\"\" onclick=\"javascript: editChk();return false\">Check All</a> / <a href=\"\" onclick=\"javascript: editUnChk();return false\";>Uncheck All</a>");
+		print("<div id=\"taskFoo\"></div>");
+		print('<input type="hidden" name="c" value="t" />');
+		print("<div id=\"task_table_footer\"><img src=\"img/arrow_ltr.png\" style=\"margin-left: 5px;\" alt=\"^\" title=\"Arrow\" /><span class=\"text\">Task Selection: <a href=\"\" onclick=\"javascript: editChk();return false\">Check All</a> / <a href=\"\" onclick=\"javascript: editUnChk();return false;\">Uncheck All</a>");
 		if (!$currentUser->isGroupGuest($currentGroup))
-			print(" / <input type=\"submit\" name=\"e\" value=\"Edit\" id=\"editButton\">");
+			print(" / <input type=\"submit\" name=\"e\" value=\"Edit\" id=\"editButton\" />");
 		print("  </span></div>");
 	}
     else{
@@ -699,20 +730,20 @@ function ds_onclick(d, m, y) {
 if (!$currentUser->isGroupGuest($currentGroup)) {
 ?>
 <br />
-<div id="newItemBox">
-    <div class="header">
-        Add a new task.
-    </div>
+<div class="box" style="width: 500px">
+    <p class="box-header">
+        Add a new task
+    </p>
 	<?php
 		if($ERROR_task)
 			echo "enter a task name<br />";
 	?>
-    <div class="newItem">Task <span style="color: gray">[required]</span>: <input type="text" name="task" width="300px" style="border: 1px solid black;width: 350px;"></div>
+    <div class="newItem">Task <span style="color: gray">[required]</span>: <input type="text" name="task" style="border: 1px solid black;width: 350px;" /></div>
 	<?php
 		if($ERROR_date)
 			echo "correct the date please<br />";
 	?>
-	<div class="newItem">Complete By (mm/dd/yyyy) <span style="color: gray">[optional]</span>: <input type="text" id="date" name="date" style="border: 1px solid black; text-align: left; width: 100px;" onclick="ds_sh(this);" style="cursor: text"></div>
+	<div class="newItem">Complete By (mm/dd/yyyy) <span style="color: gray">[optional]</span>: <input type="text" id="date" name="date" style="border: 1px solid black; text-align: left; width: 100px; cursor: text" onclick="ds_sh(this);" /></div>
 	<div class="newItem">Who is assigned to complete this task <span style="color: gray">[optional]</span>: <select id="assinged" name="assigned">
 	<?php
 		$people = $currentGroup->getGroupMembers();
@@ -723,8 +754,8 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
 	?>
 	</select></div>
     <div class="newItem">
-	<input type="submit" name="add" value="Add">
-	<!-- <input type="submit" name="update" value="Update"> -->
+	<input type="submit" name="add" value="Add" />
+	<!-- <input type="submit" name="update" value="Update" /> -->
     </div>
 </div>
 <?php } ?>
@@ -738,17 +769,17 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
                         for ( $i=$currentMonth; $i<$currentMonth+4; $i++ ) {
                                 print "<td valign='top'>";
                                 print "<table>";
-                                print "<tr><td colspan=7>".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
+                                print "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
                                 print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
                                 $startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
                                 $endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
                                 if ( $startDay != 0 )
-                                        print "<tr><td colspan=$startDay></td>";
+                                        print "<tr><td colspan='$startDay'></td>";
                                 $weekDay = $startDay;
                                 for ( $j=1; $j<=$endDay; $j++ ) {
                                         if ( $weekDay == 0 )
                                                 print "<tr>";
-                                        print "<td><a href='#' onClick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
+                                        print "<td><a href='#' onclick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
                                         $weekDay++;
                                         if ( $weekDay == 7 ) {
                                                 print "</tr>";
@@ -756,7 +787,7 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
                                         }
                                 }
                                 if ( $weekDay != 0 )
-                                        print "<td colspan=".(7-$weekDay)."></td></tr>";
+                                        print "<td colspan=\"".(7-$weekDay)."\"></td></tr>";
                                 print "</table>";
                                 print "</td>";
                         }
@@ -764,5 +795,5 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
                 </tr>
         </table>
 </div>
-<input id='calTarget' type='hidden' value='date'>
-</body></html>
+<input id='calTarget' type='hidden' value='date' />
+</div></body></html>

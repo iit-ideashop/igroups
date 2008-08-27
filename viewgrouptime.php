@@ -52,22 +52,21 @@
                 $allWeeks[] = $row;
 	
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - View Timesheet Reports</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - View Timesheet Reports</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
-		@import url("default.css");
-		
 		table {
 			text-align:left;
 		}
 		
 		thead {
+			background-color:#DDD;
+		}
+
+		tfoot {
 			background-color:#DDD;
 		}
 	</style>
@@ -82,7 +81,10 @@
 
 </head>
 <body>
-	<div id="topbanner">
+<?php
+require("sidebar.php");
+?>
+	<div id="content"><div id="topbanner">
 <?php
 		print $currentGroup->getName();
 ?>
@@ -101,8 +103,8 @@
 
 ?>
 	<h1>Semester Hours Summary</h1>
-	[<a href="#" onclick="init()">Click to Print</a>]<br>
-	<table cellpadding=4 cellspacing=0 width='100%' border='1'>
+	[<a href="#" onclick="init()">Click to Print</a>]<br />
+	<table cellpadding="4" cellspacing="0" width='100%' border='1'>
 		<thead>
 		<tr><td>User</td>
 <?php
@@ -115,7 +117,7 @@
 	}
 ?>
 		<td>Semester Total</td>
-		</tr></thead>
+		</tr></thead><tbody>
 <?php
 	foreach ($usersWithTime as $user) {
 		print "<tr><td>{$user->getFullName()}</td>";
@@ -124,7 +126,7 @@
 		print "<td align='center' bgcolor='#DDDDDD'>{$log->getHoursSpentByUser($user->getID())}</td>";
 		print "</tr>";
 	}
-	print "<thead><tr><td>Week Average</td>";
+	print "</tbody><tfoot><tr><td>Week Average</td>";
 	foreach($allWeeks as $week)
 		print "<td>{$log->getAvgHoursSpentByWeek($week['iWeekID'])}</td>";
 	print "<td>&nbsp;</td>";
@@ -133,11 +135,9 @@
         foreach($allWeeks as $week)
                 print "<td>{$log->getHoursSpentByWeek($week['iWeekID'])}</td>";
         print "<td>{$log->getTotalHoursSpent()}</td>";
-        print "</tr></thead>";
+        print "</tr></tfoot>";
 
 ?>
-	</table><br>
-
-
-</body>
+	</table><br />
+</div></body>
 </html>

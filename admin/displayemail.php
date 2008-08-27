@@ -12,28 +12,30 @@
 		$currentUser = new Person( $_SESSION['userID'], $db );
 	else
 		die("You are not logged in.");
+
+	if ( !$currentUser->isAdministrator() )
+               die("You must be an administrator to access this page.");
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - Display Email</title>
-	<link href="default.css" rel="stylesheet" type="text/css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Display Email</title>
+<link rel="stylesheet" href="default.css" type="text/css" />
 </head>
-
 <body>
 <?php
 	if ( $email = new GroupEmail( $_GET['id'], $db ) ) {
 		$author = $email->getSender();
-		print "From: ".$author->getFullName()."<br>";
-		print "To: ".$email->getTo()."<br>";
-		print "Subject: ".$email->getSubjectHTML()."<br>";
-		print "<p>".$email->getBodyHTML()."</p>";
-		//print "<a href='sendemail.php?replyid=".$email->getID()."'>Reply to this email</a>";
+		print "<p><b>Subject:</b> ".$email->getSubjectHTML()."<br />";
+		print "<b>From:</b> ".$author->getFullName()."<br />";
+		print "<b>Date:</b> ".$email->getDate()."<br />";
+		print "<b>To:</b> ".$email->getTo()."<br />";
+		$files = $email->getAttachments();
+		foreach($files as $file) {
+			print "$file<br />";
+		}
+		print "</p><p>".$email->getBodyHTML()."</p>";
 	}
 ?>
 </body>

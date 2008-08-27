@@ -95,7 +95,7 @@ if (isset($_POST['decline_all']))
 	$project=$_GET['iProjectID'];
 	$ipro_num = $_GET['iproNum'];
 	$ipro_name = $_GET['iproName'];	
-	$query_approve = $db->igroupsQuery("UPDATE Budgets bStatus='Completed', bApprovedDate=now() WHERE iSemesterID=$semester AND iProjectID=$project") or die('There was a problem with your submission, please go back and try again');
+	$query_decline = $db->igroupsQuery("UPDATE Budgets set bApproved=0, bStatus='Completed', bApprovedDate=now() WHERE iSemesterID=$semester AND iProjectID=$project") or die('There was a problem with your submission, please go back and try again');
 	}
 	
 	
@@ -145,20 +145,12 @@ if (isset($_POST['notify_team']))
 		echo "<div id='info_msg'>Reimbursement has been added/updated.</div>";
 	}
 ?>
-
-
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-<!-- This web-based application is Copyrighted &copy; 2007 Interprofessional Projects Program, Illinois Institute of Technology -->
-
-<html>
-<head>
-	<title>iGROUPS - Manage Budgets</title>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
+<title>iGroups - Manage Budgets</title>
+<link rel="stylesheet" href="../default.css" type="text/css" />
 	<style type="text/css">
-		@import url("../default.css");
-	
 		.submit_budget tr td {
 			border-top: 1px solid #cc0000;
 			background: #eee;
@@ -186,15 +178,15 @@ if (isset($_POST['notify_team']))
 			overflow:hidden;
 		}
 		
-		#budget {
+		.budget {
 			background: #eee;
 		}
 		
-		#budget tr td {
+		.budget tr td {
 			border: 1px solid #ccc;
 		}
 		
-		#budget tr th {
+		.budget tr th {
 			border: 1px solid #ccc;
 			background: #ccc;
 		}
@@ -328,14 +320,12 @@ function hideEvent( id ) {
 </head>
 
 <body>
-
-	<div id="topbanner">
 <?php
-		print "Manage Budgets";
+	require("sidebar.php");
 ?>
-	</div>
+	<div id="content"><div id="topbanner">Manage Budgets</div>
 	
-	<h3><a href="budget.php?">&laquo Back to Budgets List</a></h3>
+	<h3><a href="budget.php?">&laquo; Back to Budgets List</a></h3>
 	
 <?php
 
@@ -344,11 +334,12 @@ function hideEvent( id ) {
 echo "<h2>$ipro_num: $ipro_name</h2>";
 
 //Show details for each individual category	
-	echo "<table id='budget' cellpadding=10 cellspacing=0 border=0><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Explanation</th><th>Status</th><th>Actions</th></tr>";	
+	echo "<table class='budget' cellpadding='10' cellspacing='0' border='0'><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Explanation</th><th>Status</th><th>Actions</th></tr>";	
 
 $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} ORDER by bOrder");
 
 $i=0;
+$divs = array();
 while ($row = mysql_fetch_assoc($query))
 	{	
 	//truncate the description to 50 characters
@@ -362,7 +353,7 @@ else {
 }
 	echo "<td>$row[bCategory]</td>";
 if ($row[bStatus]=='Pending') {
-	echo "<td class='highlight'>$ $row[bRequested]</td>";
+	echo "<td class='highlight'>$ $row[bRequested]<div class='b_date'>$row[bRequestedDate]</div></td>";
 }
 else {
 	echo "<td>$ $row[bRequested]<div class='b_date'>$row[bRequestedDate]</div></td>";
@@ -379,35 +370,32 @@ if ($row[bReimbursed]==NULL) {
 else {
 	echo "<td>$ $row[bReimbursed]<div class='b_date'>$row[bReimbursedDate]</div></td>";
 }
-	echo "<td><a href='#' onMouseOver='showEvent(".$row[bOrder].",event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onMouseOut='hideEvent(".$row[bOrder].");'>".$desc."</a></td>";
+	echo "<td><a href=\"#\" onmouseover=\"showEvent('R".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('R".$row[bOrder]."');\">".$desc."</a></td>";
 	if ($row[bStatus]=='Pending') {
-	echo "<td  class='highlight'>$row[bStatus]</td>";
+	echo "<td  class='highlight'>$row[bStatus]<div class='b_date'>$row[bRequestedDate]</div></td>";
 	}
 	else {
-	echo "<td><strong>$row[bStatus]</strong>";
+	echo "<td style=\"font-weight: bold\">$row[bStatus]</td>";
 	}
-	echo "<td class='actions' nowrap>
-		 <form method='post' name='budget_manage_form' id='budget_manage_form' action='budget_details.php?bOrder=$row[bOrder]&iSemesterID=$row[iSemesterID]&iProjectID=$row[iProjectID]&iproNum=$_GET[iproNum]&iproName=$_GET[iproName]'>
-		 <input type='submit' id='approve_budget' name='approve_budget' value='Approve' class='approve_btn' />
+	echo "<td class='actions' nowrap='nowrap'>
+		 <form method='post' name='budget_manage_form' id='budget_manage_form".$row[bOrder]."' action='budget_details.php?bOrder=$row[bOrder]&amp;iSemesterID=$row[iSemesterID]&amp;iProjectID=$row[iProjectID]&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]'>
+		 <input type='submit' id='approve_budget".$row[bOrder]."' name='approve_budget' value='Approve' class='approve_btn' />
 		 or
-		 <input type='submit' id='decline_budget' name='decline_budget' value='Decline' class='decline_btn' />
+		 <input type='submit' id='decline_budget".$row[bOrder]."' name='decline_budget' value='Decline' class='decline_btn' />
 		 or
-		 <strong>$</strong> <input type='text' id='revise_budget_amt' name='revise_budget_amt' size=5 />
-		 <input type='submit' id='revise_budget' name='revise_budget' value='Revise' class='revise_btn' />
-		 </form>
-		  </td>";
-	echo "<div class='description' id='".$row[bOrder]."'><pre>".$row[bDesc]."</pre></div>";
+		 <strong>$</strong> <input type='text' id='revise_budget_amt".$row[bOrder]."' name='revise_budget_amt' size='5' />
+		 <input type='submit' id='revise_budget".$row[bOrder]."' name='revise_budget' value='Revise' class='revise_btn' />
+		 </form></td></tr>";
+	$divs[$row[bOrder]] = "<div class='description' id='R".$row[bOrder]."'><pre>".$row[bDesc]."</pre></div>";
 	}
-	echo "</tr>";
-	
-		
+
 //Totals
 $total_amt = $db->igroupsQuery("SELECT sum(bRequested), sum(bApproved), sum(bReimbursed) from Budgets WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} GROUP by iProjectID");
 $total = mysql_fetch_row($total_amt);
 
-	echo "<tr class='budget_col_totals'><td><strong>TOTAL</strong></td><td class='req_budget_total'>$ $total[0]</td><td class='app_budget_total'>$ $total[1]</td><td>$ $total[2]</td><td colspan='2'>&nbsp;</td>
+	echo "<tr class='budget_col_totals'><td style=\"font-weight: bold\">TOTAL</td><td class='req_budget_total'>$".round($total[0], 2)."</td><td class='app_budget_total'>$".round($total[1], 2)."</td><td>$".round($total[2], 2)."</td><td colspan='2'>&nbsp;</td>
 		  <td align='center'>
-		  <form method='post' name='budget_manage_form' id='budget_manage_form' action='budget_details.php?iSemesterID=$s_selectedSemester&iProjectID=$s_selectedGroup&iproNum=$_GET[iproNum]&iproName=$_GET[iproName]'>
+		  <form method='post' name='budget_manage_form' id='budget_manage_form".(count($divs)+1)."' action='budget_details.php?iSemesterID=$s_selectedSemester&amp;iProjectID=$s_selectedGroup&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]'>
 		  <input type='submit' id='approve_all' name='approve_all' value='Approve All' class='approve_btn' />
 		  OR
 		  <input type='submit' id='decline_all' name='decline_all' value='Decline All' class='decline_btn' />
@@ -415,6 +403,8 @@ $total = mysql_fetch_row($total_amt);
 		  </td></tr>";
 
 	echo "</table>";
+	foreach($divs as $div)
+		echo $div;
 ?>
 	
 
@@ -422,9 +412,9 @@ $total = mysql_fetch_row($total_amt);
 <div class="notice_msg">
 		  <h3>Notify the Team (Send Email)</h3>
 		  Change the contents of this email if needed:
-		  <form method='post' name='notify_team_form' id='notify_team_form' action='budget_details.php?iSemesterID=<?php echo $s_selectedSemester?>&iProjectID=<?php echo $s_selectedGroup?>&iproNum=<?php echo $_GET[iproNum]?>&iproName=<?php echo $_GET[iproName]?>'>
-		  <textarea cols='35' rows='8' id='msg' name='msg'>The admin has taken action on your submitted budget for <?php echo $_GET[iproNum]?>:<?php echo $_GET[iproName]?>.</textarea></p>
-		  <input type='submit' id='notify_team' name='notify_team' value='Send Email' /></p></center>
+		  <form method='post' name='notify_team_form' id='notify_team_form' action='budget_details.php?iSemesterID=<?php echo $s_selectedSemester?>&amp;iProjectID=<?php echo $s_selectedGroup?>&amp;iproNum=<?php echo $_GET[iproNum]?>&amp;iproName=<?php echo $_GET[iproName]?>'>
+		  <textarea cols='35' rows='8' id='msg' name='msg'>The admin has taken action on your submitted budget for <?php echo $_GET[iproNum]?>:<?php echo $_GET[iproName]?>.</textarea>
+		  <input type="submit" id="notify_team" name="notify_team" value="Send Email" />
 		  </form>
 </div>
 		  
@@ -442,21 +432,17 @@ while ($row = mysql_fetch_assoc($sent_msgs))
 	}
 ?>
 </div>
-
-
-<p>
 <h3>History of Previously Requested Items:</h3>
-
 <?php
 $query = mysql_query("SELECT * FROM BudgetsHistory WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} ORDER by bApprovedDate");
 
 if (mysql_num_rows($query)==0) {
-echo "There is no history yet.";
+echo "<p>There is no history yet.</p>";
 }
 else {
 //Show details for each individual category	
-	echo "<table id='budget' cellpadding=10 cellspacing=0 border=0><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Explanation</th><th>Status</th></tr>";	
-
+	echo "<table class='budget' cellpadding='10' cellspacing='0' border='0'><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Explanation</th><th>Status</th></tr>";	
+	$divs = array();
 
 while ($row = mysql_fetch_assoc($query))
 	{	
@@ -468,38 +454,33 @@ while ($row = mysql_fetch_assoc($query))
 	echo "<td>$row[bCategory]</td>";
 	echo "<td>$ $row[bRequested]<div class='b_date'>$row[bRequestedDate]</div></td>";
 	echo "<td>$ $row[bApproved]<div class='b_date'>$row[bApprovedDate]</div></td>";
-	echo "<td><a href='#' onMouseOver='showEvent(".$row[bOrder].",event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onMouseOut='hideEvent(".$row[bOrder].");'>".$desc."</a></td>";
+	echo "<td><a href=\"#\" onmouseover=\"showEvent('RR".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('RR".$row[bOrder]."');\">".$desc."</a></td>";
 	echo "<td>$row[bStatus]</td>";
-	echo "<div class='description' id='".$row[bOrder]."'><pre>".$row[bDesc]."</pre></div>";
+	$divs[$row[bOrder]] = "<div class='description' id='RR".$row[bOrder]."'><pre>".$row[bDesc]."</pre></div>";
 	}
 	echo "</tr></table>";
+	foreach($divs as $div)
+		echo $div;
 }	
 ?>
-
-
-
-
-<p><br />
+<br />
 <h2>Submit a Reimbursement</h2>
-
-<form method='post' name='actual_budget_form' id='budget_form'  action='budget_details.php?iSemesterID=<?php echo $s_selectedSemester?>&iProjectID=<?php echo $s_selectedGroup?>&iproNum=<?php echo $_GET[iproNum]?>&iproName=<?php echo $_GET[iproName]?>'>
+<form method='post' name='actual_budget_form' id='budget_form' action='budget_details.php?iSemesterID=<?php echo $s_selectedSemester?>&amp;iProjectID=<?php echo $s_selectedGroup?>&amp;iproNum=<?php echo $_GET[iproNum]?>&amp;iproName=<?php echo $_GET[iproName]?>'>
 <label for="actual_category">Category:</label>
-<select name="actual_category">
+<select name="actual_category" id="actual_category">
 <?php
 $category_list = $db->igroupsQuery( "SELECT bOrder, bCategory from Budgets WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} ORDER BY bOrder" );
     while ( $row = mysql_fetch_array( $category_list ) ) {
-    echo "<option value=".$row[0].">".$row[1]."</option>";
+    echo "<option value=\"".$row[0]."\">".$row[1]."</option>";
     }
 ?>
 </select>
 <?php
-echo "<label for='actual_category'>Amount:</label> $ <input type='text' name='actual_amount' size=5> ";
+echo "<label for='actual_category'>Amount:</label> $ <input type='text' name='actual_amount' size='5' /> ";
 ?>
-<input type="submit" name="actual_budget_submit" value="Submit"> <br />
-<div style="margin-top: 5px; color: #666; font-size: 85%;">* If the actual amount is $0, you have to type ii in the format of $0.00</div>
+<input type="submit" name="actual_budget_submit" value="Submit" /> <br />
+<div style="margin-top: 5px; color: #666; font-size: 85%;">* If the actual amount is $0, you have to type it in the format of $0.00</div>
 </form>
-
-
 <?php	
 //Function for truncating text
 function shorten( $str, $num = 100 ) {
@@ -508,7 +489,5 @@ function shorten( $str, $num = 100 ) {
 }
 ?>
 </div>
-
 </body>
-
 </html>
