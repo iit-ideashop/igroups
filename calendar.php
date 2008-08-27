@@ -109,6 +109,7 @@
 
 	<script type="text/javascript">
 	<!--
+		var viewid, viewname, viewdesc, viewdate;
 		function showEvent( id, x, y ) {
 			document.getElementById(id).style.top=(y+20)+"px";
 			if ( x > window.innerWidth/2 )
@@ -127,6 +128,13 @@
 			document.getElementById('editname').value=name;
 			document.getElementById('editdesc').value=desc;
 			document.getElementById('editdate').value=date;
+		}
+
+		function viewEvent( id, name, desc, date ) {
+			viewid=id;
+			viewname=name;
+			viewdesc=desc;
+			viewdate=date;
 		}
 		
 		function showMessage( msg ) {
@@ -551,9 +559,12 @@ function ds_onclick(d, m, y) {
 				$class = 'iproeventlink';
 			else
 				$class = 'eventlink';
-			print "<a href='#' class='$class' onMouseOver='showEvent(".$event->getID().",event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onMouseOut='hideEvent(".$event->getID().");'";
+			print "<a href='#' class='$class' onmouseover='showEvent(".$event->getID().",event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onmouseout='hideEvent(".$event->getID().");'";
 			if ( $currentUser->isGroupModerator( $event->getGroup() ) ) {
 				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); editEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
+			}
+			else {
+				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); viewEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
 			}
 			print ">".$event->getName()."</a><br />";
 			print "<div class='event' id='".$event->getID()."'>".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
@@ -610,7 +621,7 @@ function ds_onclick(d, m, y) {
 	<form method="post" action="calendar.php">
 		Date (MM/DD/YYYY): <input type="text" name="date" value="<?php echo "{$editevent->getDate()}"; ?>" onclick="ds_sh(this);" style="cursor: text" /><br />
 		Event name: <input type="text" name="name" value="<?php echo "{$editevent->getName()}"; ?>" /><br />
-		Event description: <br /><textarea name="description" cols=50 rows=5><?php echo "{$editevent->getDesc()}"; ?></textarea><br />
+		Event description: <br /><textarea name="description" cols="50" rows="5"><?php echo "{$editevent->getDesc()}"; ?></textarea><br />
 		<input type="hidden" name="id" value="<?php echo "{$_POST['id']}"; ?>" />
 		<input type="submit" name="editevent" value="Edit this Event" />
         </form>
@@ -636,6 +647,14 @@ function ds_onclick(d, m, y) {
 			<input type="submit" name="editevent" value="Edit Event" />
 			<input type="submit" name="deleteevent" value="Delete Event" />
 		</form>
+	</div>
+
+<div class="window-content" id="event-view" style="display: none">
+<script type="text/javascript">
+			document.write('<b>Date</b>: ' + + '<br />') + viewdate;
+			document.write('<b>Event name</b>: ' + + '<br />' + viewname);
+			document.write('<b>Event description</b>:<br />' + viewdesc);
+</script>
 	</div>
 
 <div id="calendarmenu" style="display: none">
