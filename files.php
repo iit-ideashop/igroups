@@ -626,7 +626,7 @@ require("sidebar.php");
 ?>			
 			</div>
 			<form method="post" action="files.php">
-				<div id="menubar">
+				<div class="menubar">
 					<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<ul class="filesul">
 						<?php if ($_SESSION['selectedSpecial'] != 'obsolete' && $_SESSION['selectedSpecial'] != 'ipro') { if ( $currentFolder == 0 || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
