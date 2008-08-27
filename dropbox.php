@@ -26,9 +26,9 @@
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
 		if ( $_SESSION['selectedFolder'] == $folder->getID() )
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder-expanded.gif\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></strong>\n";
+			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></strong>\n";
 		else
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder.gif\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
+			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
 		if ( in_array( $folder->getID(), $_SESSION['expandFolders'] ) ) {
 			print "<ul>\n";
@@ -140,28 +140,15 @@
 		ul.dropul ul {
 			padding-left:20px;
 		}
-		
-		.window {
-			width:500px;
-			background-color:#FFF;
-			border: 1px solid #000;
-			visibility:hidden; 
-			position:absolute;
-			left:20px;
-			top:20px;
-		}
-		
-		.window-topbar {
-			padding-left:5px;
-			font-size:14pt;
-			color:#FFF;
-			background-color:#C00;
-		}
-		
-		.window-content {
-			padding:5px;
-		}
 	</style>
+<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<script type="text/javascript" src="windowfiles/dhtmlwindow.js">
+/***********************************************
+* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+</script>
 	<script language="javascript" type="text/javascript">
 	<!--
 		function copyCheckBoxes() {
@@ -265,13 +252,13 @@ if ( isset( $_POST['delete'] ) ) {
                         <div id="folders">
                                 <ul id="top" class="dropul">
 <?php
-                                                print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder.gif" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
-                                                print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.gif" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
-                                                print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.gif" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
-                                                print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.gif" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a></li>';
+                                                print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
+                                                print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
+                                                print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
+                                                print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a></li>';
 
 ?>
-                                <li><img src="img/folder-expanded.gif" border="0" alt="-" title="Open folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
+                                <li><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
                                 </ul>
                         </div>
                 </div>
@@ -286,7 +273,7 @@ if ( isset( $_POST['delete'] ) ) {
 				<div id="menubar">
 					<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<ul class="dropul">
-						<li><a href="#" onclick="document.getElementById('upload').style.visibility='visible';">Add File</a></li>
+						<li><a href="#" onclick="uploadwin=dhtmlwindow.open('uploadbox', 'div', 'upload', 'Upload File', 'width=350px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); return false">Add File</a></li>
 						<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete File</a>
 						<input type='hidden' id='delete' name='delete' value='delete' /></li>
 					</ul>
@@ -305,7 +292,7 @@ if ( isset( $_POST['delete'] ) ) {
 					print '<div id="files"><table width="100%">';
 					foreach ($files as $file) {
 						printTR();
-                                                print "<td><img src=\"img/file.gif\" alt=\"File\" title=\"File\" /></td>";
+                                                print "<td><img src=\"img/file.png\" alt=\"File\" title=\"File\" /></td>";
                                                 print "<td><a href='download.php?id=".$file->getID()."'>".$file->getName()."</a></td>";
                                                 print "<td>".$file->getDesc()."</td>";
                                                 $author = $file->getAuthor();
@@ -323,11 +310,7 @@ if ( isset( $_POST['delete'] ) ) {
 			</form>
 		</div>
 	</div>
-	<div class="window" id="upload">
-		<div class="window-topbar">
-			File Upload <input class="close-button" type="button" onclick="document.getElementById('upload').style.visibility='hidden';" />
-		</div>
-		<div class="window-content">
+		<div class="window-content" id="upload" style="display:none">
 			<form method="post" action="dropbox.php" enctype="multipart/form-data">
 				File: <input type="file" name="thefile" /><br />
 				File Name: <input type="text" name="filename" /><br />
@@ -335,6 +318,6 @@ if ( isset( $_POST['delete'] ) ) {
 				<input type="submit" name="upload" value="Upload File" />
 			</form>
 		</div>
-	</div></div>
+	</div>
 </body>
 </html>
