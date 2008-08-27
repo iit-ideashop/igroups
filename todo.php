@@ -35,8 +35,8 @@
                 #calendar {
                         border:solid 1px #000;
                         background-color:#fff;
-                        visibility:hidden;
                         position:absolute;
+			visibility:hidden;
                         left:50px;
                         z-index:500;
                 }
@@ -143,6 +143,7 @@
 
         div.newItem{
             margin-bottom: 5px;
+        }
 
 .ds_box {
 	background-color: #FFF;
@@ -188,8 +189,15 @@
 .ds_cell:hover {
 	background-color: #F3F3F3;
 } /* This hover code won't work for IE */
-        }
 	</style>
+<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<script type="text/javascript" src="windowfiles/dhtmlwindow.js">
+/***********************************************
+* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+</script>
 	<script type="text/Javascript">
 	<!--
 	function mysubmit(id){
@@ -222,7 +230,8 @@
 <?php
 require("sidebar.php");
 ?>
-<div id="content"><table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
+<div id="content">
+<table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
 <tr><td id="ds_calclass">
 </td></tr>
 </table>
@@ -743,7 +752,7 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
 		if($ERROR_date)
 			echo "correct the date please<br />";
 	?>
-	<div class="newItem">Complete By (mm/dd/yyyy) <span style="color: gray">[optional]</span>: <input type="text" id="date" name="date" style="border: 1px solid black; text-align: left; width: 100px; cursor: text" onclick="ds_sh(this);" /></div>
+	<div class="newItem">Complete By (mm/dd/yyyy) <span style="color: gray">[optional]</span>: <input type="text" id="date" name="date" style="border: 1px solid black; text-align: left; width: 100px; cursor: text" onclick="calwind=dhtmlwindow.open('calboxd', 'div', 'calendarmenud', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" /></div>
 	<div class="newItem">Who is assigned to complete this task <span style="color: gray">[optional]</span>: <select id="assinged" name="assigned">
 	<?php
 		$people = $currentGroup->getGroupMembers();
@@ -760,40 +769,40 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
 </div>
 <?php } ?>
 </form>
-<div id="calendar">
-        <table>
-                <tr>
+<div id="calendarmenud" style="display: none">
+	<table>
+		<tr>
 <?php
-                        $currentMonth = date( "n" );
-                        $currentYear = date( "Y" );
-                        for ( $i=$currentMonth; $i<$currentMonth+4; $i++ ) {
-                                print "<td valign='top'>";
-                                print "<table>";
-                                print "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
-                                print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
-                                $startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
-                                $endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
-                                if ( $startDay != 0 )
-                                        print "<tr><td colspan='$startDay'></td>";
-                                $weekDay = $startDay;
-                                for ( $j=1; $j<=$endDay; $j++ ) {
-                                        if ( $weekDay == 0 )
-                                                print "<tr>";
-                                        print "<td><a href='#' onclick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
-                                        $weekDay++;
-                                        if ( $weekDay == 7 ) {
-                                                print "</tr>";
-                                                $weekDay = 0;
-                                        }
-                                }
-                                if ( $weekDay != 0 )
-                                        print "<td colspan=\"".(7-$weekDay)."\"></td></tr>";
-                                print "</table>";
-                                print "</td>";
-                        }
+			$currentMonth = date( "n" );
+			$currentYear = date( "Y" );
+			for ( $i=$currentMonth; $i<$currentMonth+4; $i++ ) {
+				print "<td valign='top'>";
+				print "<table>";
+				print "<tr><td colspan='7'>".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
+				print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
+				$startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
+				$endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
+				if ( $startDay != 0 )
+					print "<tr><td colspan='$startDay'></td>";
+				$weekDay = $startDay;
+				for ( $j=1; $j<=$endDay; $j++ ) {
+					if ( $weekDay == 0 )
+						print "<tr>";
+					print "<td><a href='#' onclick=\"document.getElementById('date').value='".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'; calwind.close();\">$j</a></td>";
+					$weekDay++;
+					if ( $weekDay == 7 ) {
+						print "</tr>";
+						$weekDay = 0;
+					}
+				}
+				if ( $weekDay != 0 ) 
+					print "<td colspan='".(7-$weekDay)."'></td></tr>";
+				print "</table>";
+				print "</td>";
+			}
 ?>
-                </tr>
-        </table>
+		</tr>
+	</table>
 </div>
 <input id='calTarget' type='hidden' value='date' />
 </div></body></html>

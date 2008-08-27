@@ -68,7 +68,7 @@ require("sidebar.php");
 		if (isset($_POST['skills']))
                         $db->igroupsQuery("UPDATE Profiles SET sSkills='{$_POST['skills']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_FILES['picture'])) {
-			if ( $_FILES['picture']['error'] == UPLOAD_ERR_OK && @getimagesize($_FILES['picture']['tmp_name']) && @is_uploaded_file($_FILES['picture']['tmp_name']) && ($_FILES['picture']['type'] == 'image/gif' || $_FILES['picture']['type'] == 'image/jpeg' || $_FILES['picture']['type'] == 'image/bmp' || $_FILES['picture']['type'] == 'image/x-windows-bmp' || $_FILES['picture']['type'] == 'image/png')) {
+			if ( $_FILES['picture']['error'] == UPLOAD_ERR_OK && @getimagesize($_FILES['picture']['tmp_name']) && @is_uploaded_file($_FILES['picture']['tmp_name']) && ($_FILES['picture']['type'] == 'image/gif' || $_FILES['picture']['type'] == 'image/jpeg' || $_FILES['picture']['type'] == 'image/bmp' || $_FILES['picture']['type'] == 'image/x-windows-bmp' || $_FILES['picture']['type'] == 'image/png' || $_FILES['picture']['type'] == 'image/pjpeg')) {
 			    $newName = $currentUser->getID() . substr($_FILES['picture']['name'],strlen($_FILES['picture']['name'])-4);
                             move_uploaded_file($_FILES['picture']['tmp_name'], "profile-pics/$newName");
 			    $db->igroupsQuery("UPDATE Profiles SET sPicture='$newName' WHERE iPersonID={$currentUser->getID()}");

@@ -38,88 +38,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Send Email</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
-	<script language="javascript" type="text/javascript" src="speller/spellChecker.js">
-	</script>
-	<script language="javascript" type="text/javascript">
-	<!--
-		function openSpellChecker() {
-		var speller = new spellChecker();
-		speller.spellCheckAll();
-		}
-		function toggleToDisplay() {
-			tobox = document.getElementById('to-table');
-			switch (tobox.style.display) {
-				case 'none':
-					tobox.style.display='block';
-					break;
-				default:
-					tobox.style.display='none';
-					break;
-			}
-		}
-
-		function toggleSGDisplay() {
-                        box = document.getElementById('subgroups-table');
-                        switch (box.style.display) {
-                                case 'none':
-                                        box.style.display='block';
-                                        break;
-                                default:
-                                        box.style.display='none';
-                                        break;
-                        }
-                }
-
-		function toggleGuestDisplay() {
-                        guestbox = document.getElementById('guest-table');
-                        switch (guestbox.style.display) {
-                                case 'none':
-                                        guestbox.style.display='block';
-                                        break;
-                                default:
-                                        guestbox.style.display='none';
-                                        break;
-                        }
-                }
-
-
-                function checkedAll (id, checked) {
-			var el = document.getElementById(id);
-			for (var i = 0; i < el.elements.length; i++) {
-	  		if (el.elements[i].name != 'confidential') {
-			if (el.elements[i].id != 'guest' && el.elements[i].id != 'subgroup') {
-			el.elements[i].checked = checked;
-			}
-			}
-			}
-      		}
-
-		function checkedAllGuest (id, checked) {
-			var el = document.getElementById(id);
-                        for (var i = 0; i < el.elements.length; i++) {
-                        if (el.elements[i].id == 'guest') {
-                        el.elements[i].checked = checked;
-                        }
-                        }
-		}
-
-		function init() {
-			guestbox = document.getElementById('guest-table');
-			guestbox.style.display='none';
-		}
-                        function fileAdd(num) {
-                                if (document.getElementById('files').childNodes.length == num) {
-                                        var div = document.createElement('div');
-                                        div.className = "stdBoldText";
-                                        div.id = "file"+(num*1+1)+"div";
-                                        div.innerHTML = "&nbsp;&nbsp;&nbsp;File "+(num*1+1)+": <input type='file' name='attachment"+(num*1+1)+"' onchange='fileAdd("+(num*1+1)+");' />";
-                                        document.getElementById('files').appendChild(div);
-                                }
-                        }
-	//-->
-        </script>
+	
 </head>
-<body onload="init()">
+<body onload="sendinit()">
 <?php
 	if (isset($_GET['replyid'])) {
 		$replyEmail = new Email($_GET['replyid'], $db);
@@ -140,9 +61,9 @@
 					if ( $i == 1 ) 
 						print "<tr>";
 					if(isset($_GET['replyid']) && $person->getID() == $replyEmail->getSenderID())
-						print "<td><input type='checkbox' name='sendto[".$person->getID()."]' checked='checked' /></td>";
+						print "<td><input type='checkbox' name='sendto[".$person->getID()."]' id='sendto[".$person->getID()."]' checked='checked' /></td>";
 					else
-						print "<td><input type='checkbox' name='sendto[".$person->getID()."]' /></td>";
+						print "<td><input type='checkbox' name='sendto[".$person->getID()."]' id='sendto[".$person->getID()."]' /></td>";
 					
 print "<td>".$person->getFullName()."</td>";
 					if ( $i == 3) {

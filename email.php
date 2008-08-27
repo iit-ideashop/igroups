@@ -171,14 +171,91 @@
 
 <link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
-
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
 * This notice must stay intact for legal use.
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
-
 </script>
+
+<script language="javascript" type="text/javascript" src="speller/spellChecker.js">
+	</script>
+	<script language="javascript" type="text/javascript">
+	<!--
+		function openSpellChecker() {
+		var speller = new spellChecker();
+		speller.spellCheckAll();
+		}
+		function toggleToDisplay() {
+			tobox = document.getElementById('to-table');
+			switch (tobox.style.display) {
+				case 'none':
+					tobox.style.display='block';
+					break;
+				default:
+					tobox.style.display='none';
+					break;
+			}
+		}
+
+		function toggleSGDisplay() {
+                        box = document.getElementById('subgroups-table');
+                        switch (box.style.display) {
+                                case 'none':
+                                        box.style.display='block';
+                                        break;
+                                default:
+                                        box.style.display='none';
+                                        break;
+                        }
+                }
+
+		function toggleGuestDisplay() {
+                        guestbox = document.getElementById('guest-table');
+                        switch (guestbox.style.display) {
+                                case 'none':
+                                        guestbox.style.display='block';
+                                        break;
+                                default:
+                                        guestbox.style.display='none';
+                                        break;
+                        }
+                }
+
+
+                function checkedAll (id, checked) {
+			var el = document.getElementById(id);
+			for (var i = 0; i < el.elements.length; i++) {
+	  			if (el.elements[i].name != 'confidential' && el.elements[i].id != 'guest' && el.elements[i].id != 'subgroup') {
+					el.elements[i].checked = checked;
+				}
+			}
+      		}
+
+		function checkedAllGuest (id, checked) {
+			var el = document.getElementById(id);
+                        for (var i = 0; i < el.elements.length; i++) {
+                        if (el.elements[i].id == 'guest') {
+                        el.elements[i].checked = checked;
+                        }
+                        }
+		}
+
+		function sendinit() {
+			guestbox = document.getElementById('guest-table');
+			guestbox.style.display='none';
+		}
+                        function fileAdd(num) {
+                                if (document.getElementById('files').childNodes.length == num) {
+                                        var div = document.createElement('div');
+                                        div.className = "stdBoldText";
+                                        div.id = "file"+(num*1+1)+"div";
+                                        div.innerHTML = "&nbsp;&nbsp;&nbsp;File "+(num*1+1)+": <input type='file' name='attachment"+(num*1+1)+"' onchange='fileAdd("+(num*1+1)+");' />";
+                                        document.getElementById('files').appendChild(div);
+                                }
+                        }
+	//-->
+        </script>
 </head>
 <body>
 <?php

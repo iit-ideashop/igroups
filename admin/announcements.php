@@ -74,6 +74,14 @@ h2 {
 	margin-bottom:5px;
 }
 </style>
+<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<script type="text/javascript" src="windowfiles/dhtmlwindow.js">
+/***********************************************
+* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+</script>
 <script language="javascript" type="text/javascript" src="speller/spellChecker.js">
 </script>
 
@@ -127,7 +135,7 @@ function clearEditor() {
 		<i>(Delete Annoucements 14 mo. after expiration)</i><br />
 		<form method="post" action="announcements.php">
 			<input type="hidden" id="id" name="id" value="new" />
-			Expiration Date (MM/DD/YY):<input type="text" id="date" name="date" size="15" /><input type="button" onclick="showCalendar(event);" value="Select Date" /><br />
+			Expiration Date (MM/DD/YY):<input type="text" id="date" name="date" size="15" /><input type="button" onclick="calwin=dhtmlwindow.open('calbox', 'div', 'calendarmenu', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" value="Select Date" /><br />
 			Heading: <input type="text" id="heading" name="heading" size="50" /><br />
 			Body:<br /><textarea name="body" id="body" cols="45" rows="8"></textarea><br />
 			<input type="submit" id="add" name="addannouncement" value="Add Announcement" />
@@ -155,7 +163,7 @@ function clearEditor() {
 					for ( $j=1; $j<=$endDay; $j++ ) {
 						if ( $weekDay == 0 )
 							print "<tr>";
-						print "<td><a href='#' onclick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
+						print "<td><a href='#' onclick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'); calwin.close();\">$j</a></td>";
 						$weekDay++;
 						if ( $weekDay == 7 ) {
 							print "</tr>";
