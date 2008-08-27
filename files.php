@@ -59,7 +59,7 @@
 		else
 			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
-		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || $_SESSION['selectedFolder'] == $folder->getID() )) {
+		if ( count($subfolder) > 0) {
 			print "<ul class=\"filesul\">\n";
 			foreach ( $subfolder as $key => $val ) {
 				printFolder( $val );
