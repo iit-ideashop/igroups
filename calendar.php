@@ -109,7 +109,6 @@
 
 	<script type="text/javascript">
 	<!--
-		var viewname, viewdesc, viewdate;
 		function showEvent( id, x, y ) {
 			document.getElementById(id).style.top=(y+20)+"px";
 			if ( x > window.innerWidth/2 )
@@ -131,9 +130,9 @@
 		}
 
 		function viewEvent( name, desc, date ) {
-			viewname=name;
-			viewdesc=desc;
-			viewdate=date;
+			document.getElementById('viewname')=name;
+			document.getElementById('viewdesc')=desc;
+			document.getElementById('viewdate')=date;
 		}
 		
 		function showMessage( msg ) {
@@ -649,11 +648,9 @@ function ds_onclick(d, m, y) {
 	</div>
 
 <div class="window-content" id="event-view" style="display: none">
-<script type="text/javascript">
-			document.write('<b>Date</b>: ' + + '<br />') + viewdate;
-			document.write('<b>Event name</b>: ' + + '<br />' + viewname);
-			document.write('<b>Event description</b>:<br />' + viewdesc);
-</script>
+			<b>Date</b>: <span id="viewdate"></span><br />
+			<b>Event name</b>: <span id="viewname"></span><br />
+			<b>Event description</b>: <span id="viewdesc"></span><br />
 	</div>
 
 <div id="calendarmenu" style="display: none">
