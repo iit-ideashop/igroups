@@ -538,7 +538,7 @@ require("sidebar.php");
 			print "</select><input type=\"hidden\" name=\"email\" />";
 ?>
 			<br />
-			<input type="submit" name="move" value="Move Emails" /></form>
+			<input type="button" name="move" value="Move Emails" onclick="copyCheckBoxes();this.form.submit()" /></form>
 </div>
 </body>
 </html>
