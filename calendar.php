@@ -131,7 +131,15 @@
 
 		function viewEvent( name, desc, date ) {
 			document.getElementById('viewname').innerHTML=name;
-			document.getElementById('viewdesc').innerHTML=desc;
+			var arr = desc.split(" "), desc2 = "";
+			for(var i=0; i < arr.length; i++)
+			{
+				if(arr[i].substring(0, 6) == 'http://')
+					desc2 += '<a href="' + arr[i] + '">' + arr[i] + '</a> ';
+				else
+					desc2 += arr[i] + ' ';
+			}
+			document.getElementById('viewdesc').innerHTML=desc2;
 			document.getElementById('viewdate').innerHTML=date;
 		}
 		
