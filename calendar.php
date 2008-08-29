@@ -567,7 +567,7 @@ function ds_onclick(d, m, y) {
 				$class = 'eventlink';
 			print "<a href='#' class='$class' onmouseover='showEvent(".$event->getID().",event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onmouseout='hideEvent(".$event->getID().");'";
 			if ( $currentUser->isGroupModerator( $event->getGroup() ) ) {
-				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); editEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
+				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); editEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
 			}
 			else {
 				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); viewEvent('".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."');\"";
@@ -658,7 +658,7 @@ function ds_onclick(d, m, y) {
 <div class="window-content" id="event-view" style="display: none">
 			<b>Date</b>: <span id="viewdate"></span><br />
 			<b>Event name</b>: <span id="viewname"></span><br />
-			<b>Event description</b>: <span id="viewdesc"></span><br />
+			<b>Event description</b>:<br /><span id="viewdesc"></span>
 	</div>
 
 <div id="calendarmenu" style="display: none">
