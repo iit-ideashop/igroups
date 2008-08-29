@@ -539,17 +539,9 @@ function ds_onclick(d, m, y) {
 		$temp = explode( "/", $event->getDate() );
 		$eventArray[ intval( $temp[1] ) ][]=$event;
 	}
-/*	
-	Removed in favor of much more boring way of displaying months
-	print "<ul id='monthlist'>";
-	for ( $i = $currentMonth-3; $i <= $currentMonth+3; $i++ ) {
-		print "<li class='size".abs($currentMonth-$i)."'><a href='calendar.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."'>".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</a></li>";
-	}
-	print "</ul>";
-*/	
 	print "<table width=\"100%\" style=\"border-collapse: collapse\">" ;
-	print "<tr><td id='columnbanner' align='center' colspan='7' class=\"calbord\"><a href='calendar.php?month=".date( "n", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."&amp;year=".date( "Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."'>&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href='calendar.php?month=".date( "n", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."&amp;year=".date( "Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."'>&raquo;</a></td></tr>";
-	print "<tr><td width='14%' class=\"calbord\">Sunday</td><td width='14%' class=\"calbord\">Monday</td><td width='14%' class=\"calbord\">Tuesday</td><td width='14%' class=\"calbord\">Wednesday</td><td width='14%' class=\"calbord\">Thursday</td><td width='14%' class=\"calbord\">Friday</td><td width='14%' class=\"calbord\">Saturday</td></tr>";
+	print "<tr><td id=\"columnbanner\" align=\"center\" colspan=\"7\" class=\"calbord\"><a href=\"calendar.php?month=".date( "n", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."&amp;year=".date( "Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."\">&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href=\"calendar.php?month=".date( "n", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."&amp;year=".date( "Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."\">&raquo;</a></td></tr>";
+	print "<tr><td width=\"14%\" class=\"calbord\">Sunday</td><td width=\"14%\" class=\"calbord\">Monday</td><td width=\"14%\" class=\"calbord\">Tuesday</td><td width=\"14%\" class=\"calbord\">Wednesday</td><td width=\"14%\" class=\"calbord\">Thursday</td><td width=\"14%\" class=\"calbord\">Friday</td><td width=\"14%\" class=\"calbord\">Saturday</td></tr>";
 	if ( $startDay != 0 )
 		print "<tr><td colspan=\"$startDay\" class=\"calbord\"></td>";
 	
@@ -558,14 +550,14 @@ function ds_onclick(d, m, y) {
 	for ( $i=1; $i<=$endDay; $i++ ) {
 		if ( $weekDay == 0 )
 			print "<tr>";
-		print "<td valign='top' class=\"calbord\"><div class='prop'>&nbsp;</div>$i<br />";
+		print "<td valign=\"top\" class=\"calbord\"><div class=\"prop\">&nbsp;</div>$i<br />";
 		if ( isset( $eventArray[$i] ) )
 		foreach ( $eventArray[$i] as $event ) {
 			if ($event->isIPROEvent())
 				$class = 'iproeventlink';
 			else
 				$class = 'eventlink';
-			print "<a href='#' class='$class' onmouseover='showEvent(E".$event->getID().",event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onmouseout='hideEvent(E".$event->getID().");'";
+			print "<a href\"#\" class=\"$class\" onmouseover=\"showEvent('E".$event->getID()."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('E".$event->getID()."')\";";
 			if ( $currentUser->isGroupModerator( $event->getGroup() ) ) {
 				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); editEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
 			}
@@ -573,7 +565,7 @@ function ds_onclick(d, m, y) {
 				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."');\"";
 			}
 			print ">".$event->getName()."</a><br />";
-			print "<div class='event' id='E".$event->getID()."'>".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
+			print "<div class=\"event\" id=\"E".$event->getID()."\">".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
 		}
 		print "</td>";
 		$weekDay++;
@@ -612,7 +604,7 @@ function ds_onclick(d, m, y) {
 		<select name="id">
 <?php		
 			foreach ($currentGroup->getMonthEvents($currentMonth, $currentYear) as $event) {
-				echo "<option value='{$event->getID()}'>{$event->getDate()} - {$event->getName()}</option>";
+				echo "<option value=\"{$event->getID()}\">{$event->getDate()} - {$event->getName()}</option>";
 			}
 		
 ?>
@@ -666,19 +658,19 @@ function ds_onclick(d, m, y) {
 		<tr>
 <?php
 			for ( $i=$currentMonth; $i<$currentMonth+4; $i++ ) {
-				print "<td valign='top'>";
+				print "<td valign=\"top\">";
 				print "<table>";
-				print "<tr><td colspan='7'>".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
+				print "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
 				print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
 				$startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
 				$endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
 				if ( $startDay != 0 )
-					print "<tr><td colspan='$startDay'></td>";
+					print "<tr><td colspan=\"$startDay\"></td>";
 				$weekDay = $startDay;
 				for ( $j=1; $j<=$endDay; $j++ ) {
 					if ( $weekDay == 0 )
 						print "<tr>";
-					print "<td><a href='#' onclick=\"document.getElementById('editdate').value='".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'; calwin.close();\">$j</a></td>";
+					print "<td><a href=\"#\" onclick=\"document.getElementById('editdate').value='".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'; calwin.close();\">$j</a></td>";
 					$weekDay++;
 					if ( $weekDay == 7 ) {
 						print "</tr>";
@@ -686,7 +678,7 @@ function ds_onclick(d, m, y) {
 					}
 				}
 				if ( $weekDay != 0 ) 
-					print "<td colspan='".(7-$weekDay)."'></td></tr>";
+					print "<td colspan=\"".(7-$weekDay)."\"></td></tr>";
 				print "</table>";
 				print "</td>";
 			}
@@ -694,7 +686,7 @@ function ds_onclick(d, m, y) {
 		</tr>
 	</table>
 </div>
-<input id='calTarget' type='hidden' />
+<input id="calTarget" type="hidden" />
 </div>
 </body>
 </html>
