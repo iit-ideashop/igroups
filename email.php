@@ -404,7 +404,7 @@ require("sidebar.php");
 <?php
 	}
 	
-	if ( isset( $_POST['emailMove'] ) ) {
+	if ( isset( $_POST['emailMove'] ) && $_POST['emailMove'] != "") {
 		$_POST['emailMove'] = explode( ",", $_POST['emailMove'] );
 		foreach( $_POST['emailMove'] as $key => $val ) {
 			$email = new Email( $val, $db );
