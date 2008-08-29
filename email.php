@@ -472,7 +472,7 @@ require("sidebar.php");
 <?php
 					if ( $currentUser->isGroupModerator( $currentGroup ) ) {
 ?>
-						<li><a href=\"#\" onclick=\"movewin=dhtmlwindow.open('movebox', 'div', 'moveFrame', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false\">Move Selected</a></li>
+						<li><a href="#" onclick="movewin=dhtmlwindow.open('movebox', 'div', 'moveFrame', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false">Move Selected</a></li>
 						<li><a href="#" onclick="document.getElementById('delete').value='1'; document.getElementById('delete').form.submit()">Delete Selected</a>
 						<input type="hidden" id="delete" name="delete" value="0" /></li>
 <?php
