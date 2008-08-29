@@ -55,9 +55,9 @@
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
 		if ( $_SESSION['selectedFolder'] == $folder->getID() )
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></strong>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></strong>\n";
 		else
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
 		if ( count($subfolder) > 0) {
 			print "<ul class=\"filesul\">\n";
@@ -538,7 +538,7 @@ require("sidebar.php");
 				<?php } ?>
 			</div>
 			<div id="folders">
-				<ul id='top' class="filesul">
+				<ul id="top" class="filesul">
 <?php
 					if ( !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']==0 )
 						print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
@@ -637,7 +637,7 @@ require("sidebar.php");
 
 						<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete</a>
 						<?php } ?>
-						<input type='hidden' id='delete' name='delete' value='delete' /></li>
+						<input type="hidden" id="delete" name="delete" value="delete" /></li>
 					</ul>
 					<?php } ?>
 				</div>
@@ -646,8 +646,8 @@ require("sidebar.php");
 <?php
 					if ($currentFolder && !$currentFolder->isIPROFolder()) {
                                                         printTR();
-                                                        print "<td width='24'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></td>";
-                                                        print "<td align='left' colspan='5'><a href='files.php?selectFolder=".$currentFolder->getParentFolderID()."'>..</a></td>";
+                                                        print "<td width=\"24\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></td>";
+                                                        print "<td align=\"left\" colspan=\"5\"><a href=\"files.php?selectFolder=".$currentFolder->getParentFolderID()."\">..</a></td>";
                                                         print "</tr>\n";
                                         }
 					/*if ($folderList) {//Prevents an error from PHP 4 to PHP 5 switch
@@ -666,7 +666,7 @@ require("sidebar.php");
 						foreach ( $fileList as $key => $file ) {
 							printTR();
 							print "<td><img src=\"img/file.png\" alt=\"File\" title=\"File\" /></td>";
-							print "<td><a href='download.php?id=".$file->getID()."'>".$file->getName()."</a></td>";
+							print "<td><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a></td>";
 							print "<td>".$file->getDesc()."</td>";
 							$author = $file->getAuthor();
 							if ( $author )
@@ -674,15 +674,15 @@ require("sidebar.php");
 							else
 								print "<td></td>";
 							print "<td>".$file->getDate()."</td>";
-							print "<td><input type='checkbox' name='file[".$file->getID()."]' /></td>";
+							print "<td><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";
 							print "<td><a href=\"#\" onclick=\"renamewin=dhtmlwindow.open('renamebox', 'ajax', 'renamefile.php?fileid=".$file->getID()."', 'Rename File', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Rename</a></td>";
 							print "</tr>\n";
 						}
 							
 						if ( count( $folderList ) + count( $fileList ) == 0 )
-							print "<tr><td colspan='6'>There are no files or folders in the selected folder</td></tr>\n";
+							print "<tr><td colspan=\"6\">There are no files or folders in the selected folder</td></tr>\n";
 						else if(count($fileList) == 0)
-							print "<tr><td colspan='6'>There are no files in the selected folder</td></tr>\n";
+							print "<tr><td colspan=\"6\">There are no files in the selected folder</td></tr>\n";
 					}
 					else
 						print "<tr><td>You do not have access to view the files in this folder</td></tr>\n";
@@ -705,7 +705,7 @@ require("sidebar.php");
 					print "Your Files"
 ?>
 				folder.<br />- or -<br />
-				<input type='checkbox' name='private' />&nbsp;Send to Dropbox (viewable only by instructor)<br />
+				<input type="checkbox" name="private" />&nbsp;Send to Dropbox (viewable only by instructor)<br />
 				<input type="submit" name="upload" value="Upload File" />
 			</form>
 		</div>
@@ -747,7 +747,7 @@ require("sidebar.php");
 <?php
 				}
 				else
-					print "<input type='hidden' name='status' value='0' />";
+					print "<input type=\"hidden\" name=\"status\" value=\"0\" />";
 ?>
 				<input type="submit" name="create" value="Create Folder" />
 			</form>
@@ -757,8 +757,8 @@ require("sidebar.php");
 <?php
 				if ( $currentFolder ) {
 					print "Current Folder Name: ".$currentFolder->getName()."<br />";
-					print "New Folder Name: <input type='text' name='foldername' value='".$currentFolder->getName()."' /><br />";
-					print "New Folder Description: <input type='text' name='folderdesc' value='".$currentFolder->getDesc()."' /><br />";
+					print "New Folder Name: <input type=\"text\" name=\"foldername\" value=\"".$currentFolder->getName()."\" /><br />";
+					print "New Folder Description: <input type=\"text\" name=\"folderdesc\" value=\"".$currentFolder->getDesc()."\" /><br />";
 					print '<input type="submit" name="editF" value="Edit Folder" />';
 					print '<input type="submit" name="deleteF" value="Delete Folder" />';
 				}

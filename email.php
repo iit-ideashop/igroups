@@ -85,7 +85,7 @@
 	function printTR() {
 		static $i=0;
 		if ( $i )
-			print "<tr class='shade'>";
+			print "<tr class=\"shade\">";
 		else
 			print "<tr>";
 		$i=!$i;
@@ -233,6 +233,19 @@
                                         document.getElementById('files').appendChild(div);
                                 }
                         }
+		function copyCheckBoxes() {
+			var emails = new Array();
+			var inputs = document.getElementsByTagName('input');
+			for ( var i=0; i < inputs.length; i++ ) {
+				if ( inputs[i].type == "checkbox" && inputs[i].checked ) {
+					values = inputs[i].name.split( /\x5b|\x5d/ );
+					emails.push( values[1] );
+				}
+			}
+			var emailInputs = document.getElementsByName( "email" );
+			for ( var i=0; i < emailInputs.length; i++ )
+				emailInputs[i].value=emails;
+		}
 	//-->
         </script>
 </head>
@@ -392,14 +405,16 @@ require("sidebar.php");
 	}
 	
 	if ( isset( $_POST['move'] ) ) {
-		$email = new Email( $_POST['email'], $db );
-		if ( $currentUser->isGroupModerator( $email->getGroup() ) ) {
-			$email->setCategory($_POST['targetcategory']);
-			$email->updateDB();
+		foreach( $_POST['email'] as $emailid => $val ) {
+			$email = new Email( $emailid, $db );
+			if ( $currentUser->isGroupModerator( $email->getGroup() ) ) {
+				$email->setCategory($_POST['targetcategory']);
+				$email->updateDB();
+			}
 		}
 ?>
 		<script type="text/javascript">
-			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Selected item successfully moved.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
+			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Selected emails successfully moved.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
 		</script>
 <?php
 	}	
@@ -424,14 +439,14 @@ require("sidebar.php");
 <?php
 				$categories = $currentGroup->getGroupCategories();
 				if ( $currentCat )
-					print "<a href='email.php?selectCategory=0'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='email.php?selectCategory=0'>Uncategorized</a><br />";
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br />";
 				else
-					print "<a href='email.php?selectCategory=0'><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href='email.php?selectCategory=0'><strong>Uncategorized</strong></a><br />";
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br />";
 				foreach ( $categories as $category ) {
 					if ( $currentCat && $currentCat->getID() == $category->getID() )
-						print "<a href='email.php?selectCategory=".$category->getID()."'><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href='email.php?selectCategory=".$category->getID()."'><strong>".$category->getName()."</strong></a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".$category->getName()."</strong></a><br />";
 					else
-						print "<a href='email.php?selectCategory=".$category->getID()."'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='email.php?selectCategory=".$category->getID()."'>".$category->getName()."</a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\">".$category->getName()."</a><br />";
 				}
 ?>
 			</div>
@@ -447,7 +462,7 @@ require("sidebar.php");
 				$name = "Uncategorized";
 			}
 			
-			print "<div class='columnbanner'>Contents of $name:</div>";
+			print "<div class=\"columnbanner\">Contents of $name:</div>";
 ?>
 			<form method="post" action="email.php"><div class="menubar">
 			<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
@@ -457,8 +472,9 @@ require("sidebar.php");
 <?php
 					if ( $currentUser->isGroupModerator( $currentGroup ) ) {
 ?>
+						<li><a href=\"#\" onclick=\"movewin=dhtmlwindow.open('movebox', 'div', 'moveFrame', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false\">Move Selected</a></li>";
 						<li><a href="#" onclick="document.getElementById('delete').value='1'; document.getElementById('delete').form.submit()">Delete Selected</a>
-						<input type='hidden' id='delete' name='delete' value='0' /></li>
+						<input type="hidden" id="delete" name="delete" value="0" /></li>
 <?php
 					}
 ?>
@@ -466,7 +482,7 @@ require("sidebar.php");
 			<?php } ?>
 			</div>
 			<div id="emails">
-				<table width='100%'>
+				<table width="100%">
 <?php				
 				foreach ( $emails as $email ) {
 					$author = $email->getSender();
@@ -475,9 +491,7 @@ require("sidebar.php");
 						$img = '&nbsp;<img src="img/attach.png" alt="(Attachments)" border="0" title="Paper clip" />';
 					else
 						$img = '';
-					print "<td colspan='2'><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".str_replace("&", "&amp;", $email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type='checkbox' name='email[".$email->getID()."]' /></td>";
-					if ( $currentUser->isGroupModerator( $currentGroup ) )
-						print "<td><a href=\"#\" onclick=\"movewin=dhtmlwindow.open('movebox', 'ajax', 'move.php?id=".$email->getID()."', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false\">Move</a></td>";
+					print "<td colspan='2'><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".str_replace("&", "&amp;", $email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type=\"checkbox\" name=\"email[".$email->getID()."]\" /></td>";
 					print "</tr>";
 				}
 ?>
@@ -498,8 +512,8 @@ require("sidebar.php");
 <?php
 				if ( $currentCat ) {
 					print "Current Category Name: ".$currentCat->getName()."<br />";
-					print "New Category Name: <input type='text' name='newcatname' value='".$currentCat->getName()."' /><br />";
-					print "New Category Description: <input type='text' name='newcatdesc' value='".$currentCat->getDesc()."' /><br />";
+					print "New Category Name: <input type=\"text\" name=\"newcatname\" value=\"".$currentCat->getName()."\" /><br />";
+					print "New Category Description: <input type=\"text\" name=\"newcatdesc\" value=\"".$currentCat->getDesc()."\" /><br />";
 					print '<input type="submit" name="editcat" value="Edit Category" />';
 					print '<input type="submit" name="delcat" value="Delete Category" />';
 				}
@@ -508,6 +522,23 @@ require("sidebar.php");
 				}
 ?>
 			</form>
-	</div></div>
+	</div>
+<div class="window-content" id="moveFrame">
+<?php
+		$categories = $currentGroup->getGroupCategories();
+?>
+			<form method="post" action="email.php">
+			Move email to category:
+			<select name="targetcategory"><option value="0">No Category</option>
+<?php
+			$categories = $currentGroup->getGroupCategories();
+			foreach ( $categories as $category ) {
+				print "<option value=\"".$category->getID()."\">".$category->getName()."</option>";
+			}
+			print "</select><input type=\"hidden\" name=\"email\" />";
+?>
+			<br />
+			<input type="submit" name="move" value="Move Emails" /></form>
+</div>
 </body>
 </html>
