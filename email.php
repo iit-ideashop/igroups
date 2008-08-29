@@ -475,7 +475,10 @@ require("sidebar.php");
 						$img = '&nbsp;<img src="img/attach.png" alt="(Attachments)" border="0" title="Paper clip" />';
 					else
 						$img = '';
-					print "<td colspan='2'><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".str_replace("&", "&amp;", $email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type='checkbox' name='email[".$email->getID()."]' /></td><td><a href=\"#\" onclick=\"movewin=dhtmlwindow.open('movebox', 'ajax', 'move.php?id=".$email->getID()."', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false\">Move</a></td></tr>";
+					print "<td colspan='2'><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".str_replace("&", "&amp;", $email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type='checkbox' name='email[".$email->getID()."]' /></td>";
+					if ( $currentUser->isGroupModerator( $currentGroup ) )
+						print "<td><a href=\"#\" onclick=\"movewin=dhtmlwindow.open('movebox', 'ajax', 'move.php?id=".$email->getID()."', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false\">Move</a></td>";
+					print "</tr>";
 				}
 ?>
 				</table>
