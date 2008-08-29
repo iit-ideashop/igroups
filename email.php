@@ -404,7 +404,7 @@ require("sidebar.php");
 <?php
 	}
 	
-	if ( isset( $_POST['move'] ) ) {
+	if ( isset( $_POST['email'] ) ) {
 		foreach( $_POST['email'] as $emailid => $val ) {
 			$email = new Email( $emailid, $db );
 			if ( $currentUser->isGroupModerator( $email->getGroup() ) ) {
