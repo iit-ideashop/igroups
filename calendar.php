@@ -557,7 +557,7 @@ function ds_onclick(d, m, y) {
 				$class = 'iproeventlink';
 			else
 				$class = 'eventlink';
-			print "<a href\"#\" class=\"$class\" onmouseover=\"showEvent('E".$event->getID()."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('E".$event->getID()."')\";";
+			print "<a href=\"#\" class=\"$class\" onmouseover=\"showEvent('E".$event->getID()."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('E".$event->getID()."')\";";
 			if ( $currentUser->isGroupModerator( $event->getGroup() ) ) {
 				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); editEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
 			}
