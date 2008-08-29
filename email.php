@@ -242,7 +242,7 @@
 					emails.push( values[1] );
 				}
 			}
-			var emailInputs = document.getElementsByName( "email" );
+			var emailInputs = document.getElementsByName( "emailMove" );
 			for ( var i=0; i < emailInputs.length; i++ )
 				emailInputs[i].value=emails;
 		}
@@ -404,8 +404,8 @@ require("sidebar.php");
 <?php
 	}
 	
-	if ( isset( $_POST['email'] ) ) {
-		foreach( $_POST['email'] as $emailid => $val ) {
+	if ( isset( $_POST['emailMove'] ) ) {
+		foreach( $_POST['emailMove'] as $emailid => $val ) {
 			$email = new Email( $emailid, $db );
 			if ( $currentUser->isGroupModerator( $email->getGroup() ) ) {
 				$email->setCategory($_POST['targetcategory']);
@@ -535,7 +535,7 @@ require("sidebar.php");
 			foreach ( $categories as $category ) {
 				print "<option value=\"".$category->getID()."\">".$category->getName()."</option>";
 			}
-			print "</select><input type=\"hidden\" name=\"email\" />";
+			print "</select><input type=\"hidden\" name=\"emailMove\" />";
 ?>
 			<br />
 			<input type="button" name="move" value="Move Emails" onclick="copyCheckBoxes();this.form.submit()" /></form></div>
