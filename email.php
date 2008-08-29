@@ -157,9 +157,9 @@
 ***********************************************/
 </script>
 
-<script language="javascript" type="text/javascript" src="speller/spellChecker.js">
+<script type="text/javascript" src="speller/spellChecker.js">
 	</script>
-	<script language="javascript" type="text/javascript">
+	<script type="text/javascript">
 	<!--
 		function openSpellChecker() {
 		var speller = new spellChecker();
