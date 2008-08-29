@@ -135,7 +135,7 @@
 			for(var i=0; i < arr.length; i++)
 			{
 				if(arr[i].substring(0, 7) == 'http://')
-					desc2 += '<a href="' + arr[i] + '">' + arr[i] + '</a> ';
+					desc2 += '<a href="' + arr[i] + '" target="_blank">' + arr[i] + '</a> ';
 				else
 					desc2 += arr[i] + ' ';
 			}
