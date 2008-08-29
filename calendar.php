@@ -134,7 +134,7 @@
 			var arr = desc.split(" "), desc2 = "";
 			for(var i=0; i < arr.length; i++)
 			{
-				if(arr[i].substring(0, 6) == 'http://')
+				if(arr[i].substring(0, 7) == 'http://')
 					desc2 += '<a href="' + arr[i] + '">' + arr[i] + '</a> ';
 				else
 					desc2 += arr[i] + ' ';
