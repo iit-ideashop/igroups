@@ -230,9 +230,9 @@ if ( !class_exists( "Group" ) ) {
 			$returnArray = array();
 			
 			if ( $this->getType() == 0 ) 
-				$categories = $this->db->igroupsQuery( "SELECT iID FROM Categories WHERE iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester() );
+				$categories = $this->db->igroupsQuery( "SELECT iID FROM Categories WHERE iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." ORDER BY sName" );
 			else 
-				$categories = $this->db->igroupsQuery( "SELECT iID FROM Categories WHERE iGroupID=".$this->getID()." AND iGroupType=".$this->getType() );
+				$categories = $this->db->igroupsQuery( "SELECT iID FROM Categories WHERE iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." ORDER BY sName" );
 			
 			while ( $row = mysql_fetch_row( $categories ) ) {
 				$returnArray[] = new Category( $row[0], $this->db );
