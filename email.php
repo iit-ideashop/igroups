@@ -372,10 +372,27 @@ require("sidebar.php");
 		$currentCat->setName( $_POST['newcatname'] );
 		$currentCat->setDesc( $_POST['newcatdesc'] );
 		$currentCat->updateDB();
+?>
+		<script type="text/javascript">
+			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Category edited.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
+		</script>
+<?php
 	}
 	
-	if ( isset( $_POST['delcat'] ) ) {
+	if ( isset( $_POST['delcat'] ) && $currentCat->getID() != 0 ) {
 		$currentCat->delete();
+?>
+		<script type="text/javascript">
+			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Category deleted.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
+		</script>
+<?php
+	}
+	else if(isset($POST['delcat'])) {
+?>
+		<script type="text/javascript">
+			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>You cannot delete this category.</p>', 'Error', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
+		</script>
+<?php
 	}
 	
 	if ( isset( $_POST['delete'] ) && $_POST['delete']==1 && isset($_POST['email'])) {
