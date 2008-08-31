@@ -135,6 +135,21 @@ if ( !class_exists( "Folder" ) ) {
 			return $returnArray;
 		}
 		
+		function getAllFolderIDs()
+		{
+			$topLevel = $this->getFolders();
+			$allFolders = array();
+			if(count($topLevel) > 0)
+			{
+				foreach($topLevel as $key => $val)
+				{
+					$allFolders[] = $key;
+					$allFolders += $curr->getAllFolderIDs();
+				}
+			}
+			return $allFolders;
+		}
+		
 		function getFiles() {
 			$returnArray = array();
 			
