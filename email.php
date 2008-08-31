@@ -387,7 +387,7 @@ require("sidebar.php");
 		</script>
 <?php
 	}
-	else if(isset($POST['delcat'])) {
+	else if(isset($_POST['delcat'])) {
 ?>
 		<script type="text/javascript">
 			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>You cannot delete this category.</p>', 'Error', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
