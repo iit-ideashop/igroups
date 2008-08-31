@@ -144,7 +144,7 @@ if ( !class_exists( "Folder" ) ) {
 				foreach($topLevel as $key => $val)
 				{
 					$allFolders[] = $val->getID();
-					$allFolders += $val->getAllFolderIDs();
+					$allFolders = $allFolders + $val->getAllFolderIDs();
 				}
 			}
 			return $allFolders;
