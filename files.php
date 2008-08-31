@@ -638,7 +638,7 @@ require("sidebar.php");
 					if(count($fileList) > 0 && (($currentFolder == 0 && count($group->getGroupFolders()) > 0) || ($_SESSION['selectedSpecial'] != 'obsolete' && $_SESSION['selectedSpecial'] != 'ipro' )) ) {
 ?>
 						<li><a href="#" onclick="movewin=dhtmlwindow.open('movebox', 'div', 'move', 'Move', 'width=350px,height=100px,left=300px,top=100px,resize=0,scrolling=0'); return false">Move Selected</a></li>
-						<?php } } } if ( count($fileList) > 0 && $currentFolder == 0 && $_SESSION['selectedSpecial'] != 'ipro' || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
+						<?php } } } if ( count($fileList) > 0 && ($currentFolder == 0 && $_SESSION['selectedSpecial'] != 'ipro' || (is_object($currentFolder) && !$currentFolder->isIPROFolder()))) { ?>
 
 						<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete Selected</a>
 						<?php } ?>
