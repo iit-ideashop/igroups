@@ -66,7 +66,7 @@
 	else
 		die("You have not selected a valid group.");
 		
-	if ( isset( $_GET['selectCategory'] ) ) {
+	if ( isset( $_GET['selectCategory'] ) && $_GET['selectedCategory'] != 0 ) {
 		$_SESSION['selectedCategory'] = $_GET['selectCategory'];
 	}
 	
