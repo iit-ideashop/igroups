@@ -381,8 +381,8 @@ require("sidebar.php");
 	
 	if ( isset( $_POST['delcat'] ) && $currentCat->getID() != 0 ) {
 		$currentCat->delete();
-		$_SESSION['selectedCategory'] = 0;
-		$currentCat = new Category( 0, $db );
+		unset($_SESSION['selectedCategory']);
+		$currentCat = false;
 ?>
 		<script type="text/javascript">
 			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Category deleted.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
@@ -448,7 +448,7 @@ require("sidebar.php");
 				<ul class="emailul"> <?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<li><a href="#" onclick="ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Category</a></li>
 					<?php
-                                        if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat->getID() != 0) {
+                                        if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat) {
 					?>
                                                 <li><a href="#" onclick="ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Category</a></li>
 					<?php } ?>
@@ -458,7 +458,7 @@ require("sidebar.php");
 			<div id="cats">
 <?php
 				$categories = $currentGroup->getGroupCategories();
-				if ( $currentCat->getID() != 0 )
+				if ( $currentCat )
 					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br />";
 				else
 					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br />";
