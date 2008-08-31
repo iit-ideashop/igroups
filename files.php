@@ -56,9 +56,9 @@
 	// Prints tree structure of folders
 		$subfolder = $folder->getFolders();
 		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
-			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></strong>\n";
+			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></strong>\n";
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
-			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
 		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
 			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
 		else
@@ -547,9 +547,9 @@ require("sidebar.php");
 				<ul id="top" class="filesul">
 <?php
 					if ( !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']==0 )
-						print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
+						print '<li><img src="img/folder-expanded.png" border="0" alt="=" title="Open folder" />&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
 					else
-						print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
+						print '<li><img src="img/folder-expanded.png" border="0" alt="=" title="Open folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
 					
 						$topFolders = $currentGroup->getGroupFolders();
 						if(count($topFolders) > 0) {
