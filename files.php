@@ -373,6 +373,8 @@ require("sidebar.php");
 	else if(isset($_POST['deleteF']) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0 && $currentUser->isGroupModerator($currentFolder->getGroup()))
 	{
 		$currentFolder->trash();
+		$_SESSION['selectedFolder'] = 0;
+		$currentFolder = false;
 ?>
 		<script type="text/javascript">
 			showMessage("Folder successfully deleted");
