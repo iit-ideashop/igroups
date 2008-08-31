@@ -381,6 +381,8 @@ require("sidebar.php");
 	
 	if ( isset( $_POST['delcat'] ) && $currentCat->getID() != 0 ) {
 		$currentCat->delete();
+		$_SESSION['selectedCategory'] = 0;
+		$currentCat = new Category( 0, $db );
 ?>
 		<script type="text/javascript">
 			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Category deleted.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
@@ -446,7 +448,7 @@ require("sidebar.php");
 				<ul class="emailul"> <?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<li><a href="#" onclick="ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Category</a></li>
 					<?php
-                                        if ( $currentUser->isGroupModerator( $currentGroup ) ) {
+                                        if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat->getID() != 0) {
 					?>
                                                 <li><a href="#" onclick="ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Category</a></li>
 					<?php } ?>
@@ -456,7 +458,7 @@ require("sidebar.php");
 			<div id="cats">
 <?php
 				$categories = $currentGroup->getGroupCategories();
-				if ( $currentCat )
+				if ( $currentCat->getID() != 0 )
 					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br />";
 				else
 					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br />";
@@ -488,9 +490,13 @@ require("sidebar.php");
 					<li><a href="#" onclick="sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
 					<li><a href="#" onclick="window.location.href='searchemail.php';">Search Email</a></li>
 <?php
-					if ( $currentUser->isGroupModerator( $currentGroup ) ) {
+					if ( $currentUser->isGroupModerator( $currentGroup ) && count($emails) > 0) {
+						if(count($currentGroup->getGroupCategories()) > 0) {
 ?>
 						<li><a href="#" onclick="movewin=dhtmlwindow.open('movebox', 'div', 'moveFrame', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false">Move Selected</a></li>
+<?php
+						}
+?>
 						<li><a href="#" onclick="document.getElementById('delete').value='1'; document.getElementById('delete').form.submit()">Delete Selected</a>
 						<input type="hidden" id="delete" name="delete" value="0" /></li>
 <?php
