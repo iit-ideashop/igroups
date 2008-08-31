@@ -66,11 +66,16 @@
 	else
 		die("You have not selected a valid group.");
 		
-	if ( isset( $_GET['selectCategory'] ) && $_GET['selectCategory'] != 0 ) {
+	if ( isset( $_GET['selectCategory'] ) ) {
 		$_SESSION['selectedCategory'] = $_GET['selectCategory'];
 	}
 	
-	if ( isset( $_SESSION['selectedCategory'] ) ){
+	if(isset($_SESSION['selectedCategory']) && $_SESSION['selectedCategory'] == 0)
+	{
+		unset($_SESSION['selectedCategory']);
+		$currentCat = false;
+	}
+	else if ( isset( $_SESSION['selectedCategory'] ) ){
 		$currentCat = new Category( $_SESSION['selectedCategory'], $db );
 		if(!$currentCat->getGroupID())
 			$currentCat->setGroup($currentGroup->getID());
