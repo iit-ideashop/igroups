@@ -632,10 +632,13 @@ require("sidebar.php");
 						<?php if ($_SESSION['selectedSpecial'] != 'obsolete' && $_SESSION['selectedSpecial'] != 'ipro') { if ( $currentFolder == 0 || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
 						<li><a href="#" onclick="uploadwin=dhtmlwindow.open('uploadbox', 'div', 'upload', 'Upload File', 'width=350px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); return false">Upload File</a></li>
 						<li><a href="#" onclick="updatewin=dhtmlwindow.open('updatebox', 'div', 'update', 'Update File', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Update File</a></li>
-						<li><a href="#" onclick="movewin=dhtmlwindow.open('movebox', 'div', 'move', 'Move', 'width=350px,height=100px,left=300px,top=100px,resize=0,scrolling=0'); return false">Move</a></li>
-						<?php } } if ( $currentFolder == 0 && $_SESSION['selectedSpecial'] != 'ipro' || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
+<?php
+					if(count($fileList) > 0) {
+?>
+						<li><a href="#" onclick="movewin=dhtmlwindow.open('movebox', 'div', 'move', 'Move', 'width=350px,height=100px,left=300px,top=100px,resize=0,scrolling=0'); return false">Move Selected</a></li>
+						<?php } } } if ( count($fileList) > 0 && $currentFolder == 0 && $_SESSION['selectedSpecial'] != 'ipro' || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
 
-						<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete</a>
+						<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete Selected</a>
 						<?php } ?>
 						<input type="hidden" id="delete" name="delete" value="delete" /></li>
 					</ul>
