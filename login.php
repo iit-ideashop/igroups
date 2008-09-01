@@ -7,6 +7,7 @@
         //-----Process Login------------------------//
 
 ob_start();
+?>
 
 <div id="sidebar">
 	<div id="iprologo">
@@ -18,6 +19,19 @@ ob_start();
 	
 	<div id="loginform">
 <?php
+		if ( isset( $_GET['logout'] ) ) {
+			session_destroy();
+			setcookie('username', '', time()-60);
+			setcookie('password', '', time()-60);
+?>
+			<script type="text/javascript">
+			<!--
+					window.location.href="index.php";
+			//-->
+			</script>
+<?php
+ob_end_flush();
+		}
 	
 		if ( isset ( $_SESSION['loginError'] ) )
 			print "<strong>Invalid username or password.</strong><br />";
