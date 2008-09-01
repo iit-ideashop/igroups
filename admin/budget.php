@@ -34,11 +34,11 @@
 		$target_category=$_POST['actual_category'];
 		$query_actual = $db->igroupsQuery("UPDATE Budgets SET bReimbursed=$actual, bReimbursedDate=now() WHERE iSemesterID=$s_selectedSemester AND iProjectID=$s_selectedGroup AND bOrder='$target_category'") or die('There was a problem with your submission, please go back and try again');
 
-		echo "<div id='info_msg'>Reimbursement has been added/updated.</div>";
+		echo "<div id=\"info_msg\">Reimbursement has been added/updated.</div>";
 	}
 		
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Manage Budgets</title>
@@ -73,6 +73,7 @@
 		
 		#budget {
 			background: #eee;
+			border-style: none;
 		}
 		
 		#budget tr td {
@@ -123,8 +124,7 @@
 	require("sidebar.php");
 ?>
 	<div id="content"><div id="topbanner">Manage Budgets</div>
-	<h2>Select Semester:</h2>
-	<form method="post" action="budget.php">
+	<form method="post" action="budget.php"><fieldset><legend>Select Semester:</legend>
                         <select name="semester">
 <?php
                         $semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
@@ -138,7 +138,7 @@
 ?>
                         </select>
                         <input type="submit" name="selectSemester" value="Select Semester" />
-			</form>
+			</fieldset></form>
 	
 	<h2>Submitted Budgets</h2>
 <?php	
@@ -150,12 +150,12 @@
 	//Get the number of rows in order to display a message if there are no budgets in a 
 	$num_rows = mysql_num_rows($query);
 	
-	if ($num_rows ==0) {
-		echo "<p>There were no budgets submitted for this semester</p>";
+	if ($num_rows == 0) {
+		echo "<p>There were no budgets submitted for this semester.</p>";
 	}
 		
 	else {
-		echo "<table id='budget' cellpadding='7' cellspacing='0' border='0'>";
+		echo "<table id=\"budget\" cellpadding=\"7\" cellspacing=\"0\">";
 		echo "<tr><th>IPRO Name</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Balance</th><th>Waiting Approval?</th></tr>";
 		while ($row = mysql_fetch_assoc($query))
 		{	
@@ -170,7 +170,7 @@
 			echo "<td>No</td></tr>";
 			}
 			else {
-			echo "<td style='background: yellow;'>Yes</td></tr>";
+			echo "<td style=\"background: yellow;\">Yes</td></tr>";
 			}					
 		}	
 			
@@ -178,7 +178,7 @@
 		$semester_total = $db->igroupsQuery("SELECT sum(bRequested) as requested_total, sum(bApproved) as approved_total, sum(bReimbursed) as reimbursed_total, sum(bRevised)-sum(bApproved) as difference_total  FROM Budgets WHERE iSemesterID={$currentSemester->getID()}");
 		$row = mysql_fetch_row($semester_total);
 		?>
-		<tr><td class='budget_col_total' style="font-weight: bold">SEMESTER TOTALS</td><td class='req_budget_total'><?php echo "$".round($row[0], 2)?></td><td class='app_budget_total'><?php echo "$".round($row[1], 2)?></td><td><?php echo "$".round($row[2], 2)?></td><td><?php echo "$".round($row[3], 2)?></td></tr>	
+		<tr><td class="budget_col_total" style="font-weight: bold">SEMESTER TOTALS</td><td class="req_budget_total"><?php echo "$".round($row[0], 2)?></td><td class="app_budget_total"><?php echo "$".round($row[1], 2)?></td><td><?php echo "$".round($row[2], 2)?></td><td><?php echo "$".round($row[3], 2)?></td></tr>	
 		</table>
 <?php
 	}

@@ -52,7 +52,7 @@
 
 	$globalTopics = getGlobalTopics($db);
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Discussion Board</title>
@@ -72,7 +72,6 @@ require("sidebar.php");
 
 <h1>About Discussion Board</h1>
 <p>Welcome to the new iGroups Discussion Board. Listed below are the discussion board topics you have access to: one for every group you are a member of in the selected semester, and some additional global topics. In global topics, you can communicate with people outside of your IPRO, including IPRO support staff. Each topic is then organized into threads, which consist of a list of posts. You can contribute to an existing thread by posting a reply, or starting a new thread.</p>
-
 <p>The Discussion Board is currently in beta version, so please bear with us as we work out the bugs. We plan on expanding its features in the future, and we welcome your thoughts and suggestions.</p>
 <hr />
 <br />
@@ -81,34 +80,34 @@ require("sidebar.php");
 if (isset($_SESSION['adminView'])) {
 ?>
 
-<form method="get" action="dboard.php">
+<form method="get" action="dboard.php"><fieldset>
                         <select name="semester">
 <?php
                         $semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
                         while ( $row = mysql_fetch_row( $semesters ) ) {
                                 $semester = new Semester( $row[0], $db );
                                 if ($currentSemesterID == $semester->getID())
-                                        print "<option value=".$semester->getID()." selected>".$semester->getName()."</option>";
+                                        print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
                                 else
-                                        print "<option value=".$semester->getID().">".$semester->getName()."</option>";
+                                        print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
                         }
 ?>
                         </select>
                         <input type="submit" name="selectSemester" value="Select Semester" />
 			
-</form>
+</fieldset></form>
 <br />
 
 <?php
 }
 ?>
 
-<table width='85%' cellspacing='0' cellpadding='5'>
-<tr><th width='65%'>Topics</th><th>Threads</th><th>Posts</th><th>Last Post</th></tr>
+<table width="85%" cellspacing="0" cellpadding="5">
+<tr><th width="65%">Topics</th><th>Threads</th><th>Posts</th><th>Last Post</th></tr>
 
 <?php
 if (count($groups) > 0) {
-	print "<tr><td class='topic_heading' colspan='4'>IPRO Project Discussion</td></tr>";
+	print "<tr><td class=\"topic_heading\" colspan=\"4\">IPRO Project Discussion</td></tr>";
 
 foreach ($groups as $group) {
 	$topic = new Topic($group->getID(), $db);
@@ -119,10 +118,10 @@ foreach ($groups as $group) {
 	}
 	else
 		$text = "<i>No Posts</i>";
-	print "<tr><td class='subtopic_heading'><a href='viewTopic.php?id={$group->getID()}&amp;type={$group->getType()}&amp;semester={$group->getSemester()}'>{$group->getName()} Discussion</a></td><td align='center'>{$topic->getThreadCount()}</td><td align='center'>{$topic->getPostCount()}</td><td align='center'>$text</td></tr>";
+	print "<tr><td class=\"subtopic_heading\"><a href=\"viewTopic.php?id={$group->getID()}&amp;type={$group->getType()}&amp;semester={$group->getSemester()}\">{$group->getName()} Discussion</a></td><td align=\"center\">{$topic->getThreadCount()}</td><td align=\"center\">{$topic->getPostCount()}</td><td align=\"center\">$text</td></tr>";
 }
 }
-print "<tr><td class='topic_heading' colspan='4'>Global Topic Discussion</td></tr>";
+print "<tr><td class=\"topic_heading\" colspan=\"4\">Global Topic Discussion</td></tr>";
 
 foreach ($globalTopics as $topic) {
 	$lastPost = $topic->getLastPost();
@@ -133,7 +132,7 @@ foreach ($globalTopics as $topic) {
         else
                 $text = "<i>No Posts</i>";
 
-	print "<tr><td class='subtopic_heading'><a href='viewTopic.php?id={$topic->getID()}&amp;global=true'>{$topic->getName()}</a></td><td align='center'>{$topic->getThreadCount()}</td><td align='center'>{$topic->getPostCount()}</td><td align='center'>{$text}</td></tr>";
+	print "<tr><td class=\"subtopic_heading\"><a href=\"viewTopic.php?id={$topic->getID()}&amp;global=true\">{$topic->getName()}</a></td><td align=\"center\">{$topic->getThreadCount()}</td><td align=\"center\">{$topic->getPostCount()}</td><td align=\"center\">{$text}</td></tr>";
 }
 ?>
 </table>

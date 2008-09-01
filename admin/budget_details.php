@@ -128,7 +128,7 @@ if (isset($_POST['notify_team']))
 	$query_savemessages = $db->igroupsQuery("INSERT INTO BudgetEmails(iProjectID, iSemesterID, bEmail, bEmailDate) VALUES($project, $semester, '$msg', now())");
 
 //Show a Message on Top
-	echo "<div id='info_msg'>Email has been sent to notify the team that changes have been made to their budget.</div>";
+	echo "<div id=\"info_msg\">Email has been sent to notify the team that changes have been made to their budget.</div>";
 }
 
 		
@@ -142,10 +142,10 @@ if (isset($_POST['notify_team']))
 		$target_category=$_POST['actual_category'];
 		$query_actual = $db->igroupsQuery("UPDATE Budgets SET bReimbursed=bReimbursed+$actual, bReimbursedDate=now() WHERE iSemesterID=$semester AND iProjectID=$project AND bOrder='$target_category'") or die('There was a problem with your submission, please go back and try again');
 
-		echo "<div id='info_msg'>Reimbursement has been added/updated.</div>";
+		echo "<div id=\"info_msg\">Reimbursement has been added/updated.</div>";
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Manage Budgets</title>
@@ -180,6 +180,7 @@ if (isset($_POST['notify_team']))
 		
 		.budget {
 			background: #eee;
+			border-style: none;
 		}
 		
 		.budget tr td {
@@ -334,7 +335,7 @@ function hideEvent( id ) {
 echo "<h2>$ipro_num: $ipro_name</h2>";
 
 //Show details for each individual category	
-	echo "<table class='budget' cellpadding='10' cellspacing='0' border='0'><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Explanation</th><th>Status</th><th>Actions</th></tr>";	
+	echo "<table class=\"budget\" cellpadding=\"10\" cellspacing=\"0\"><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Explanation</th><th>Status</th><th>Actions</th></tr>";	
 
 $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} ORDER by bOrder");
 
@@ -346,60 +347,60 @@ while ($row = mysql_fetch_assoc($query))
 	$desc = shorten( $row[bDesc], $num = 50 );
 	$i++;
 if ( $i&1 ) {
-	echo "<tr style='background-color: #f8f8f8;'>";
+	echo "<tr style=\"background-color: #f8f8f8;\">";
 }
 else {
 	echo "<tr>";
 }
 	echo "<td>$row[bCategory]</td>";
 if ($row[bStatus]=='Pending') {
-	echo "<td class='highlight'>$ $row[bRequested]<div class='b_date'>$row[bRequestedDate]</div></td>";
+	echo "<td class=\"highlight\">$ $row[bRequested]<div class=\"b_date\">$row[bRequestedDate]</div></td>";
 }
 else {
-	echo "<td>$ $row[bRequested]<div class='b_date'>$row[bRequestedDate]</div></td>";
+	echo "<td>$ $row[bRequested]<div class=\"b_date\">$row[bRequestedDate]</div></td>";
 }
 if ($row[bApprovedDate]==NULL) {
-	echo "<td><div class='b_date'><strong>Awaiting<br />Approval</strong></div></td>";
+	echo "<td><div class=\"b_date\"><strong>Awaiting<br />Approval</strong></div></td>";
 }
 else {
-	echo "<td>$ $row[bApproved]<div class='b_date'>$row[bApprovedDate]</div></td>";
+	echo "<td>$ $row[bApproved]<div class=\"b_date\">$row[bApprovedDate]</div></td>";
 }
 if ($row[bReimbursed]==NULL) {
-	echo "<td><div class='b_date'><strong>None</strong></div></td>";
+	echo "<td><div class=\"b_date\"><strong>None</strong></div></td>";
 }
 else {
-	echo "<td>$ $row[bReimbursed]<div class='b_date'>$row[bReimbursedDate]</div></td>";
+	echo "<td>$ $row[bReimbursed]<div class=\"b_date\">$row[bReimbursedDate]</div></td>";
 }
 	echo "<td><a href=\"#\" onmouseover=\"showEvent('R".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('R".$row[bOrder]."');\">".$desc."</a></td>";
 	if ($row[bStatus]=='Pending') {
-	echo "<td  class='highlight'>$row[bStatus]<div class='b_date'>$row[bRequestedDate]</div></td>";
+	echo "<td class=\"highlight\">$row[bStatus]<div class=\"b_date\">$row[bRequestedDate]</div></td>";
 	}
 	else {
 	echo "<td style=\"font-weight: bold\">$row[bStatus]</td>";
 	}
-	echo "<td class='actions' nowrap='nowrap'>
-		 <form method='post' name='budget_manage_form' id='budget_manage_form".$row[bOrder]."' action='budget_details.php?bOrder=$row[bOrder]&amp;iSemesterID=$row[iSemesterID]&amp;iProjectID=$row[iProjectID]&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]'>
-		 <input type='submit' id='approve_budget".$row[bOrder]."' name='approve_budget' value='Approve' class='approve_btn' />
+	echo "<td class=\"actions\" nowrap=\"nowrap\">
+		 <form method=\"post\" name=\"budget_manage_form\" id=\"budget_manage_form".$row[bOrder]."\" action=\"budget_details.php?bOrder=$row[bOrder]&amp;iSemesterID=$row[iSemesterID]&amp;iProjectID=$row[iProjectID]&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]\"><fieldset>
+		 <input type=\"submit\" id=\"approve_budget".$row[bOrder]."\" name=\"approve_budget\" value=\"Approve\" class=\"approve_btn\" />
 		 or
-		 <input type='submit' id='decline_budget".$row[bOrder]."' name='decline_budget' value='Decline' class='decline_btn' />
+		 <input type=\"submit\" id=\"decline_budget".$row[bOrder]."\" name=\"decline_budget\" value=\"Decline\" class=\"decline_btn\" />
 		 or
-		 <strong>$</strong> <input type='text' id='revise_budget_amt".$row[bOrder]."' name='revise_budget_amt' size='5' />
-		 <input type='submit' id='revise_budget".$row[bOrder]."' name='revise_budget' value='Revise' class='revise_btn' />
-		 </form></td></tr>";
-	$divs[$row[bOrder]] = "<div class='description' id='R".$row[bOrder]."'><pre>".$row[bDesc]."</pre></div>";
+		 <strong>$</strong> <input type=\"text\" id=\"revise_budget_amt".$row[bOrder]."\" name=\"revise_budget_amt\" size=\"5\" />
+		 <input type=\"submit\" id=\"revise_budget".$row[bOrder]."\" name=\"revise_budget\" value=\"Revise\" class=\"revise_btn\" />
+		 </fieldset></form></td></tr>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\"><pre>".$row[bDesc]."</pre></div>";
 	}
 
 //Totals
 $total_amt = $db->igroupsQuery("SELECT sum(bRequested), sum(bApproved), sum(bReimbursed) from Budgets WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} GROUP by iProjectID");
 $total = mysql_fetch_row($total_amt);
 
-	echo "<tr class='budget_col_totals'><td style=\"font-weight: bold\">TOTAL</td><td class='req_budget_total'>$".round($total[0], 2)."</td><td class='app_budget_total'>$".round($total[1], 2)."</td><td>$".round($total[2], 2)."</td><td colspan='2'>&nbsp;</td>
-		  <td align='center'>
-		  <form method='post' name='budget_manage_form' id='budget_manage_form".(count($divs)+1)."' action='budget_details.php?iSemesterID=$s_selectedSemester&amp;iProjectID=$s_selectedGroup&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]'>
-		  <input type='submit' id='approve_all' name='approve_all' value='Approve All' class='approve_btn' />
+	echo "<tr class=\"budget_col_totals\"><td style=\"font-weight: bold\">TOTAL</td><td class=\"req_budget_total\">$".round($total[0], 2)."</td><td class=\"app_budget_total\">$".round($total[1], 2)."</td><td>$".round($total[2], 2)."</td><td colspan=\"2\">&nbsp;</td>
+		  <td align=\"center\">
+		  <form method=\"post\" name=\"budget_manage_form\" id=\"budget_manage_form".(count($divs)+1)."\" action=\"budget_details.php?iSemesterID=$s_selectedSemester&amp;iProjectID=$s_selectedGroup&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]\"><fieldset>
+		  <input type=\"submit\" id=\"approve_all\" name=\"approve_all\" value=\"Approve All\" class=\"approve_btn\" />
 		  OR
-		  <input type='submit' id='decline_all' name='decline_all' value='Decline All' class='decline_btn' />
-		  </form>
+		  <input type=\"submit\" id=\"decline_all\" name=\"decline_all\" value=\"Decline All\" class=\"decline_btn\" />
+		  </fieldset></form>
 		  </td></tr>";
 
 	echo "</table>";
@@ -412,10 +413,10 @@ $total = mysql_fetch_row($total_amt);
 <div class="notice_msg">
 		  <h3>Notify the Team (Send Email)</h3>
 		  Change the contents of this email if needed:
-		  <form method='post' name='notify_team_form' id='notify_team_form' action='budget_details.php?iSemesterID=<?php echo $s_selectedSemester?>&amp;iProjectID=<?php echo $s_selectedGroup?>&amp;iproNum=<?php echo $_GET[iproNum]?>&amp;iproName=<?php echo $_GET[iproName]?>'>
-		  <textarea cols='35' rows='8' id='msg' name='msg'>The admin has taken action on your submitted budget for <?php echo $_GET[iproNum]?>:<?php echo $_GET[iproName]?>.</textarea>
+		  <form method="post" name="notify_team_form" id="notify_team_form" action="budget_details.php?iSemesterID=<?php echo $s_selectedSemester?>&amp;iProjectID=<?php echo $s_selectedGroup?>&amp;iproNum=<?php echo $_GET[iproNum]?>&amp;iproName=<?php echo $_GET[iproName]?>"><fieldset>
+		  <textarea cols="35" rows="8" id="msg" name="msg">The admin has taken action on your submitted budget for <?php echo $_GET[iproNum]?>:<?php echo $_GET[iproName]?>.</textarea>
 		  <input type="submit" id="notify_team" name="notify_team" value="Send Email" />
-		  </form>
+		  </fieldset></form>
 </div>
 		  
 <h2>Responses Sent to this Team</h2>
@@ -441,7 +442,7 @@ echo "<p>There is no history yet.</p>";
 }
 else {
 //Show details for each individual category	
-	echo "<table class='budget' cellpadding='10' cellspacing='0' border='0'><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Explanation</th><th>Status</th></tr>";	
+	echo "<table class=\"budget\" cellpadding=\"10\" cellspacing=\"0\"><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Explanation</th><th>Status</th></tr>";	
 	$divs = array();
 
 while ($row = mysql_fetch_assoc($query))
@@ -452,11 +453,11 @@ while ($row = mysql_fetch_assoc($query))
 	//spit out results in the table
 	echo "<tr>";
 	echo "<td>$row[bCategory]</td>";
-	echo "<td>$ $row[bRequested]<div class='b_date'>$row[bRequestedDate]</div></td>";
-	echo "<td>$ $row[bApproved]<div class='b_date'>$row[bApprovedDate]</div></td>";
+	echo "<td>$ $row[bRequested]<div class=\"b_date\">$row[bRequestedDate]</div></td>";
+	echo "<td>$ $row[bApproved]<div class=\"b_date\">$row[bApprovedDate]</div></td>";
 	echo "<td><a href=\"#\" onmouseover=\"showEvent('RR".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('RR".$row[bOrder]."');\">".$desc."</a></td>";
 	echo "<td>$row[bStatus]</td>";
-	$divs[$row[bOrder]] = "<div class='description' id='RR".$row[bOrder]."'><pre>".$row[bDesc]."</pre></div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\"><pre>".$row[bDesc]."</pre></div>";
 	}
 	echo "</tr></table>";
 	foreach($divs as $div)
@@ -465,7 +466,7 @@ while ($row = mysql_fetch_assoc($query))
 ?>
 <br />
 <h2>Submit a Reimbursement</h2>
-<form method='post' name='actual_budget_form' id='budget_form' action='budget_details.php?iSemesterID=<?php echo $s_selectedSemester?>&amp;iProjectID=<?php echo $s_selectedGroup?>&amp;iproNum=<?php echo $_GET[iproNum]?>&amp;iproName=<?php echo $_GET[iproName]?>'>
+<form method="post" name="actual_budget_form" id="budget_form" action="budget_details.php?iSemesterID=<?php echo $s_selectedSemester?>&amp;iProjectID=<?php echo $s_selectedGroup?>&amp;iproNum=<?php echo $_GET[iproNum]?>&amp;iproName=<?php echo $_GET[iproName]?>"><fieldset>
 <label for="actual_category">Category:</label>
 <select name="actual_category" id="actual_category">
 <?php
@@ -476,11 +477,11 @@ $category_list = $db->igroupsQuery( "SELECT bOrder, bCategory from Budgets WHERE
 ?>
 </select>
 <?php
-echo "<label for='actual_category'>Amount:</label> $ <input type='text' name='actual_amount' size='5' /> ";
+echo "<label for=\"actual_category\">Amount:</label> $ <input type=\"text\" name=\"actual_amount\" size=\"5\" /> ";
 ?>
 <input type="submit" name="actual_budget_submit" value="Submit" /> <br />
 <div style="margin-top: 5px; color: #666; font-size: 85%;">* If the actual amount is $0, you have to type it in the format of $0.00</div>
-</form>
+</fieldset></form>
 <?php	
 //Function for truncating text
 function shorten( $str, $num = 100 ) {

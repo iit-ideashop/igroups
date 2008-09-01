@@ -19,12 +19,13 @@
 	else if (isset($_SESSION['postdata']))
 		$_POST = $_SESSION['postdata'];
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Nugget Library</title>
 <link rel="stylesheet" href="../default.css" type="text/css" />
-<script language="JavaScript" type="text/Javascript">
+<script type="text/javascript">
+//<![CDATA[
 	function refreshSemester(object)
                 {
                         if ( object.value )
@@ -64,7 +65,7 @@
 ?>
 		form.submit();
 	}
-	
+//]]>
 </script>
 </head>
 <body>
@@ -75,29 +76,29 @@ require("sidebar.php");
 <hr />
 <h2>iKnow/iGroups Nugget Library</h2>
 <p>Welcome to the iGroups Knowledge Management System. Here you can browse the deliverables of IIT's IPRO teams of the past and present. All deliverables and non-deliverables are organized into "nuggets". Nuggets contain downloadable files that make up the deliverable, plus metadata that contains information about the files' author(s) and their description. If you know the name of the team you wish to browse, use the "Browse IPROs" feature to locate it. If you don't know the name of the team, you can search through all of the nuggets by name, author or description.</p>
-<form id='searchForm' method = 'post' action='main.php'>
-	<div id='searchBar'>
-	<table border="1" cellspacing="0" cellpadding='6'><tr><td bgcolor='#EEEEEE'>
+<form id="searchForm" method = "post" action="main.php"><fieldset>
+	<div id="searchBar">
+	<table cellspacing="0" cellpadding="6" style="border: thin solid black"><tr><td bgcolor="#EEEEEE">
 	<b>Search Nuggets</b><br />
-		<input type='text' name='search' />
-		Search Within: <select name='criteria'>
+		<input type="text" name="search" />
+		Search Within: <select name="criteria">
 		<option selected="selected" value = "all">All</option>
 		<option value="name">Nugget Name/Type</option>
 		<option value="author">Nugget Author</option>
 		<option value="description">Nugget Description</option>
 		</select>
 <?php
-		print "<input type='hidden' name='multiplier' value='0' />";
+		print "<input type=\"hidden\" name=\"multiplier\" value=\"0\" />";
 ?>
-		<input type='button' onclick="JavaScript:nuggetSearch()" value="Search" />
+		<input type="button" onclick="javascript:nuggetSearch()" value="Search" />
 	</td></tr></table>
 	</div>
-</form>
-<form method = 'get' action='viewIproNuggets.php'>
-	<div id='sortBar'>
+</fieldset></form>
+<form method="get" action="viewIproNuggets.php"><fieldset>
+	<div id="sortBar">
 	<br />
-	<table border='1' cellspacing='0' cellpadding='6'><tr><td bgcolor='#EEEEEE'><b>Browse IPROs</b><br />
-		<table border="0" cellspacing="4" cellpadding="0">
+	<table cellspacing="0" cellpadding="6" style="border: thin solid black"><tr><td bgcolor="#EEEEEE"><b>Browse IPROs</b><br />
+		<table cellspacing="4" cellpadding="0" style="border-style: none">
                                 <tr>
                                         <td>
                                                 <select onchange="refreshSemester(this);">
@@ -133,7 +134,7 @@ require("sidebar.php");
 ?>
                                         <td id="jumpTpBox">
 
-                                        <select name='id'>
+                                        <select name="id">
                                         <option>Select an IPRO</option>
 
                                                 <?php
@@ -142,18 +143,18 @@ require("sidebar.php");
 
                                                 while($row = mysql_fetch_array($result))
                                                 {
-                                                        echo "<option value='{$row['iID']}'>{$row['sIITID']}</option>";
+                                                        echo "<option value=\"{$row['iID']}\">{$row['sIITID']}</option>";
                                                 }
                                                 ?>
                                         </select>
-					<input type='hidden' name='semester' value='<?php print $_SESSION['iSemesterID'];?>' />
-					<input type='submit' value="Browse" />
+					<input type="hidden" name="semester" value="<?php print $_SESSION['iSemesterID'];?>" />
+					<input type="submit" value="Browse" />
                                         </td>
                                         <?php } ?>
                                 </tr></table>
                                 </td></tr></table>
 	</div>
-</form>
+</fieldset></form>
 <br />
 <br />
 <?php
@@ -450,7 +451,7 @@ require("sidebar.php");
 			</tr>
 <?php
 			foreach($authors as $author){
-				print "<tr><th colspan='3'>".$author->getFullName()."</td></tr>";
+				print "<tr><th colspan=\"3\">".$author->getFullName()."</td></tr>";
 				//generate nuggetList per author
 				$tempNugs = $author->getNuggets();
 				foreach($tempNugs as $nug){
@@ -542,11 +543,11 @@ require("sidebar.php");
 		//nugget display view
 	}
 ?>
-<form id='navigate' method = 'post' action='main.php'>
-	<div id='navigatePart'>
+<form id="navigate" method="post" action="main.php"><fieldset>
+	<div id="navigatePart">
 <?php
 		if(isset($_POST['search']) && ($_MULTIPLIER > 0))
-				print "<input type='button' onclick='JavaScript:prevResults()' value='&lt;' />";
+				print "<input type=\"button\" onclick=\"javascript:prevResults()\" value=\"&lt;\" />";
 		print "&nbsp;";
 		if($_COUNT > 0) {
 			if(($_MULTIPLIER*$_NUGPERPAGE+$_NUGPERPAGE) < $_COUNT)
@@ -556,16 +557,16 @@ require("sidebar.php");
 			print " Showing results ".($_MULTIPLIER*$_NUGPERPAGE+1)." through ".($upBound)." of $_COUNT.&nbsp";
 		}
 		if(isset($_POST['search']) && ($_MULTIPLIER * $_NUGPERPAGE+$_NUGPERPAGE < $_COUNT))
-			print "<input type='button' onclick='JavaScript:nextResults()' value='&gt;' />";
-		print "<input type='hidden' name='multiplier' />";
-		print "<input type='hidden' name='direction' />";
+			print "<input type=\"button\" onclick=\"javascript:nextResults()\" value=\"&gt;\" />";
+		print "<input type=\"hidden\" name=\"multiplier\" />";
+		print "<input type=\"hidden\" name=\"direction\" />";
 		$search = $_SESSION['search'];
 		$criteria = $_SESSION['criteria'];
-		print "<input type='hidden' name='search' value='$search' />";
-		print "<input type='hidden' name='criteria' value='$criteria' />";
+		print "<input type=\"hidden\" name=\"search\" value=\"$search\" />";
+		print "<input type=\"hidden\" name=\"criteria\" value=\"$criteria\" />";
 ?>
 	</div>
-</form></div>
+</fieldset></form></div>
 </body>
 </html>
 	

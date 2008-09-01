@@ -78,17 +78,21 @@
 			
 	}
 
-	function printFolder($folder){
-		if($_SESSION['selectedFolder'] == $folder->getID()){
-			print "<li><a href='addFilesToNugget.php?nugget={$_GET['nugget']}&amp;toggleExpand=".$folder->getID()."'><img src='img/folder-expanded.gif' border='0' alt='' /></a>&nbsp;<strong><a href='addFilesToNugget.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></strong>\n";
-		}else{
-			print "<li><a href='addFilesToNugget.php?nugget={$_GET['nugget']}&amp;toggleExpand=".$folder->getID()."'><img src='img/folder.gif' border='0' alt='' /></a>&nbsp;<a href='addFilesToNugget.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
-		}
+	function printFolder( $folder ) {
+	// Prints tree structure of folders
 		$subfolder = $folder->getFolders();
-		if(in_array($folder->getID(), $_SESSION['expandFolders'])){
-			print "<ul>\n";
-			foreach($subfoler as $key=> $val){
-				printFolder($val);
+		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
+			print "<li><img src=\"img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<strong><a href=\"addFilesToNugget.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a></strong>\n";
+		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
+			print "<li><img src=\"img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<a href=\"addFilesToNugget.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
+		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
+			print "<li><a href=\"addFilesToNugget.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
+		else
+			print "<li><a href=\"addFilesToNugget.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" alt=\"+\" title=\"Folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
+		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
+			print "<ul class=\"folderlist\">\n";
+			foreach ( $subfolder as $key => $val ) {
+				printFolder( $val );
 			}
 			print "</ul>\n";
 		}
@@ -114,7 +118,7 @@
 	function printTR(){
 		static $i = 0;
 		if($i){
-			print "<tr class='shade'>";
+			print "<tr class=\"shade\">";
 		}else{
 			print "<tr>";
 		}
@@ -135,10 +139,10 @@
 	}
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups 2.1 - Nugget File Transfer</title>
+<title>iGroups - Nugget File Transfer</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
 		#container{
@@ -180,47 +184,18 @@
 			margin-bottom:5px;
 			padding:3px;
 		}
-
-		ul.addul {
-			list-style:none;
-			padding:0;
-			margin:0;
-		}
-
-		ul.addul ul {
-			padding-left:20px;
-		}
-
-		.window{
-			width:500px;
-			background-color:#FFF;
-			border:1px solid #000;
-			visibility:hidden;
-			position:absolute;
-			left:20px;
-			top:20px;
-		}
-		
-		.window-topbar{
-			padding-left:5px;
-			font-size:14pt;
-			color:#FFF;
-			background-color:#C00;
-		}
 	</style>
 
 <link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
-
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
 * This notice must stay intact for legal use.
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
-
 </script>
 
-	<script language="javascript" type= "text/javascript">
+	<script type= "text/javascript">
 	<!--
 		function copyCheckBoxes(){
 			var folders = new Array();
@@ -266,10 +241,10 @@ require("sidebar.php");
 				Your Folders:
 			</div>
 			<div id="folders">
-				<ul id="top" class="addul">
+				<ul id="top" class="folderlist">
 <?php
 					if( !isset( $_SESSION['selectedSpecial']) && $_SESSION['selectedFolder']==0){
-						print "<li><a href='addFilesToNugget.php?nugget={$_GET['nugget']}&amp;toggleExpand=yourfiles'><img src='img/folder-expanded.gif' border='0' alt='' /></a>&nbsp;<strong><a href='addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0'>Your Files</a></strong>";
+						print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0\">Your Files</a></strong>";
 						$topFolders=$currentGroup->getGroupFolders();
 						if(count($topFolders) > 0) {
 							print "<ul>";
@@ -284,7 +259,7 @@ require("sidebar.php");
 						</li>
 <?php
 					}else
-						print "<li><a href='addFilesToNugget.php?nugget={$_GET['nugget']}&amp;toggleExpand=yourfiles'><img src='img/folder.gif' border='0' alt='' /></a>&nbsp;<a href='addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0'>Your Files</a>";
+						print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0\">Your Files</a>";
 ?>
 				</ul>
 			</div>
@@ -295,26 +270,26 @@ require("sidebar.php");
 				if($currentFolder){
 					$folderList = $currentFolder->getFolders();
 					$fileList = $currentFolder->getFiles();
-					print "Contents of ".$currentFolder->getName();
+					print "<span id=\"boxtitle\">".stripTags($currentFolder->getName())."</span><br /><span id=\"boxdesc\">".stripTags($currentFolder->getDesc())."</span>";
 				}else{
 					if(isset($_SESSION['selectedSpecial'])){
 						if($_SESSION['selectedSpecial'] == 'ipro'){
 							$folderList = $currentGroup->getIPROOfficeFolders();
-							print "Contents of IPRO Office Files:";
+							print "<span id=\"boxtitle\">IPRO Office Files</span><br /><span id=\"boxdesc\">Files from the IPRO Office</span>";
 						}
 					}else if($_SESSION['selectedFolder']==0){
 						$folderList = $currentGroup->getGroupFolders();
 						$fileList = $currentGroup->getGroupFiles();
-						print "Contents of Your files:";
+						print "<span id=\"boxtitle\">Your Files</span><br /><span id=\"boxdesc\">Files uploaded by your group</span>";
 					}else if($_SESSION['selectedFolder'] == 1){
 						$fileList = $currentGroup->getNuggetFiles();
-						print "Your nugget Files:";
+						print "<span id=\"boxtitle\"Your Nugget Files</span><br /><span id=\"boxdesc\">Files in your group's nuggets</span>";
 					}
 				}
 ?>
 			</div>
 			<form method="post" action = "addFilesToNugget.php">
-				<div id = "menubar">
+				<div id="menubar">
 					<?php if (!$currentUser->isGroupGuest($currentGroup)){?>
 					<ul class="addul">
 						<li><a href="#" onclick="addwin=dhtmlwindow.open('addbox', 'div', 'update', 'Add Files to Nugget', 'width=500px,height=300px,left=300px,top=100px,resize=1,scrolling=1')">Add to Nugget</a></li>
@@ -325,21 +300,13 @@ require("sidebar.php");
 				<div id="files">
 					<table width="100%">
 <?php
-					if($folderList)
-						foreach($folderList as $key=> $folder){
-							printTR();
-							print "<td><img src='img/folder.gif' alt='' /></td>";
-							print "<td><a href='addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."'>".$folder->getName()."</a></td>";
-							print "<td colspan='3'>".$folder->getDesc()."</td>";
-							print "<td align='right'><input type='checkbox' name='folder[".$folder->getID()."]' /></td>";
-							print "</tr>\n";
-						}
 					if(canViewFiles($currentUser, $currentFolder)){
-						if($fileList)
+						if($fileList) {
+							print "<fieldset>";
 							foreach($fileList as $key=>$file){
 								printTR();
-								print "<td><img src='img/file.gif' alt='' /></td>";
-								print "<td><a href='download.php?id=".$file->getID()."'>".$file->getName()."</a></td>";
+								print "<td><img src=\"img/file.png\" alt=\"\" /></td>";
+								print "<td><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a></td>";
 								if($_SESSION['selectedFolder']==1){
 									$nuggetName=$file->getNugget()->getType();
 									print "<td>$nuggetName nugget file</td>";
@@ -351,9 +318,11 @@ require("sidebar.php");
 								else
 									print "<td></td>";
 								print "<td>".$file->getDate()."</td>";
-								print "<td align='right'><input type='checkbox' name='file[".$file->getID()."]' /></td>";
+								print "<td><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";
 								print "</tr>\n";
 							}
+							print "</fieldset>";
+						}
 						if(count($folderList)+count($fileList)==0)
 							print "<tr><td>There are no files or folders in the selected folder</td></tr>\n";
 					}else
@@ -365,16 +334,16 @@ require("sidebar.php");
 		</div>
 	</div>
 		<div class="window-content" id="update" style="display: none">
-			<form method="post" action="addFilesToNugget.php" id="moveFile">
+			<form method="post" action="addFilesToNugget.php" id="moveFile"><fieldset>
 				Are you sure you wish to add the selected files to the nugget?
 				<input type="hidden" name="folders" />
 				<input type="hidden" name="files" />
 <?php
 				$nugget = $_GET['nugget'];
-				print "<input type ='hidden' name='nugget' value='$nugget' />";
+				print "<input type =\"hidden\" name=\"nugget\" value=\"$nugget\" />";
 ?>
 				<input type="submit" value="Yes" onclick="copyCheckBoxes();this.form.submit()" />
-			</form>
+			</fieldset></form>
 		</div>
 	</div>
 </body>

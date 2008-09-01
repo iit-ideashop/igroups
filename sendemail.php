@@ -33,7 +33,7 @@
 		return $newArray;
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Send Email</title>
@@ -51,8 +51,8 @@
 ?>
 	<form method="post" action="email.php" enctype="multipart/form-data" id="mailform">
 		<div id="to">		
-			<a href="#" onclick="toggleToDisplay()">+</a> To:
-			<table id="to-table" width='100%'>
+			<a href="#" onclick="toggleToDisplay()">+</a><fieldset><legend>To:</legend>
+			<table id="to-table" width="100%">
 <?php
 				$members = $currentGroup->getGroupMembers();
 				$members = peopleSort( $members );
@@ -61,11 +61,11 @@
 					if ( $i == 1 ) 
 						print "<tr>";
 					if(isset($_GET['replyid']) && $person->getID() == $replyEmail->getSenderID())
-						print "<td><input type='checkbox' name='sendto[".$person->getID()."]' id='sendto[".$person->getID()."]' checked='checked' /></td>";
+						print "<td><input type=\"checkbox\" name=\"sendto[".$person->getID()."]\" id=\"sendto[".$person->getID()."]\" checked=\"checked\" /></td>";
 					else
-						print "<td><input type='checkbox' name='sendto[".$person->getID()."]' id='sendto[".$person->getID()."]' /></td>";
+						print "<td><input type=\"checkbox\" name=\"sendto[".$person->getID()."]\" id=\"sendto[".$person->getID()."]\" /></td>";
 					
-print "<td>".$person->getFullName()."</td>";
+					print "<td><label for=\"sendto[".$person->getID()."]\">".$person->getFullName()."</label></td>";
 					if ( $i == 3) {
 						print "</tr>";
 						$i = 1;
@@ -76,22 +76,22 @@ print "<td>".$person->getFullName()."</td>";
 				
 ?>			
 			<tr><td colspan="2"><a href="javascript:checkedAll('mailform', true)">Check All</a> / <a href="javascript:checkedAll('mailform', false)">Uncheck All</a></td></tr>
-			</table>
+			</table></fieldset>
 		</div><br />
 <?php
 		$subgroups = $currentGroup->getSubGroups();
 		if ($subgroups) {
 ?>
 		<div id="subgroups">
-			<a href='#' onclick="toggleSGDisplay()">+</a> Subgroups:
-			<table id="subgroups-table" width='100%'>
+			<a href="#" onclick="toggleSGDisplay()">+</a><fieldset><legend>Subgroups:</legend>
+			<table id="subgroups-table" width="100%">
 <?php
 			$i=1;
 			foreach ($subgroups as $subgroup) {
 				if ($i == 1)
 					print "<tr>";
-				print "<td><input type='checkbox' id='subgroup' name='sendtosubgroup[".$subgroup->getID()."]' />&nbsp;";
-				print $subgroup->getName()."</td>";
+				print "<td><input type=\"checkbox\" id=\"subgroup".$subgroup->getID()."\" name=\"sendtosubgroup[".$subgroup->getID()."]\" />&nbsp;";
+				print "<label for=\"subgroup".$subgroup->getID()."\">".$subgroup->getName()."</label></td>";
 				if ($i == 3) {
 					print "</tr>";
 					$i=1;
@@ -100,7 +100,7 @@ print "<td>".$person->getFullName()."</td>";
 					$i++;
 			}
 ?>
-			</table>
+			</table></fieldset>
 		</div>
 <?php 	
 		}
@@ -110,16 +110,16 @@ print "<td>".$person->getFullName()."</td>";
 	$members = $currentGroup->getGroupGuests();
 	if (count($members) > 0) {
 ?>
-                        <br /><a href="#" onclick="toggleGuestDisplay()">+</a> Guests:
-                        <table id="guest-table" width='100%'>
+                        <br /><a href="#" onclick="toggleGuestDisplay()">+</a><fieldset><legend>Guests:</legend>
+                        <table id="guest-table" width="100%">
 <?php
                                 $members = peopleSort( $members );
                                 $i=1;
                                 foreach ( $members as $person ) {
                                         if ( $i == 1 )
                                                 print "<tr>";
-                                        print "<td><input type='checkbox' id='guest' name='sendtoguest[".$person->getID()."]' /></td>";
-                                        print "<td>".$person->getFullName()."</td>";
+                                        print "<td><input type=\"checkbox\" id=\"guest".$person->getID()."\" name=\"sendtoguest[".$person->getID()."]\" /></td>";
+                                        print "<td><label for=\"guest".$person->getID()."\">".$person->getFullName()."</label></td>";
                                         if ( $i == 3) {
                                                 print "</tr>";
                                                 $i = 1;
@@ -130,22 +130,22 @@ print "<td>".$person->getFullName()."</td>";
 
 ?>
 			<tr><td colspan=2><a href="javascript:checkedAllGuest('mailform', true)">Check All</a> / <a href="javascript:checkedAllGuest('mailform', false)">Uncheck All</a></td></tr>
-                        </table>
+                        </table></fieldset>
                 </div>
 <?php } ?>		
 		<br />
 		<table>
-			<tr><td>CC:</td><td><input type="text" size="50" name="cc" /></td></tr>
+			<tr><td><label for="cc">CC:</label></td><td><input type="text" size="50" name="cc" id="cc" /></td></tr>
 <?php
 		if (isset($replyEmail)) 
-			print "<tr><td>Subject:</td><td><input type='text' size='50' name='subject' value='RE: {$replyEmail->getSubjectHTML()}' /></td></tr>";
+			print "<tr><td>Subject:</td><td><input type=\"text\" size=\"50\" name=\"subject\" value=\"RE: {$replyEmail->getSubjectHTML()}\" /></td></tr>";
 		else if (isset($forwardEmail)) 
-			print "<tr><td>Subject:</td><td><input type='text' size='50' name='subject' value='FW: {$forwardEmail->getSubjectHTML()}' /></td></tr>";
+			print "<tr><td>Subject:</td><td><input type=\"text\" size=\"50\" name=\"subject\" value=\"FW: {$forwardEmail->getSubjectHTML()}\" /></td></tr>";
 		else
-			print "<tr><td>Subject:</td><td><input type='text' size='50' name='subject' /></td></tr>";
+			print "<tr><td>Subject:</td><td><input type=\"text\" size=\"50\" name=\"subject\" /></td></tr>";
 ?>
-			<tr><td><input type="checkbox" name="confidential" /></td><td>Keep confidential? (if checked, will not be stored in iGROUPS)</td></tr>
-			<tr><td>Category</td><td><select name="category"><option value="0">No Category</option>
+			<tr><td><input type="checkbox" name="confidential" id="confidential" /></td><td><label for="confidential">Keep confidential? (if checked, will not be stored in iGROUPS)</label></td></tr>
+			<tr><td><label for="category">Category</label></td><td><select name="category" id="category"><option value="0">No Category</option>
 <?php
 			$categories = $currentGroup->getGroupCategories();
 			foreach ( $categories as $category ) {
@@ -154,31 +154,31 @@ print "<td>".$person->getFullName()."</td>";
 ?>
 			</select></td></tr>
 			<tr><td>Attachments:</td></tr>
-			<tr><td colspan='2'>
-			<div id='files'><div class="stdBoldText" id='file1div'>&nbsp;&nbsp;&nbsp;File 1: <input type="file" name="attachment1" onChange='fileAdd(1);' /></div></div></div>
-                <span onclick='fileAdd(document.getElementById("files").childNodes.length);' style='color:#00F;text-decoration:underline;cursor:pointer;'>Click here to add another file.</span>
+			<tr><td colspan="2">
+			<div id="files"><div class="stdBoldText" id="file1div">&nbsp;&nbsp;&nbsp;<label for="attachment1">File 1:</label> <input type="file" name="attachment1" id="attachment1" onchange="fileAdd(1);" /></div></div></div>
+                <span onclick="fileAdd(document.getElementById('files').childNodes.length);" style="color:#00F;text-decoration:underline;cursor:pointer;">Click here to add another file.</span>
 			</td></tr>
-			<tr><td colspan="2">Body:</td></tr>
+			<tr><td colspan="2"><label for="body">Body:</label></td></tr>
 <?php
 		if (isset($replyEmail)) 
-			print "<tr><td colspan=\"2\"><textarea name='body' cols='54' rows='10'>\n\n\n----Original E-mail Follows----\n{$replyEmail->getReplyBody()}</textarea></td></tr>";
+			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\">\n\n\n----Original E-mail Follows----\n{$replyEmail->getReplyBody()}</textarea></td></tr>";
 		else if (isset($forwardEmail)) 
-			print "<tr><td colspan=\"2\"><textarea name='body' cols='54' rows='10'>\n\n\n----Original E-mail Follows----\n{$forwardEmail->getReplyBody()}</textarea></td></tr>";
+			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\">\n\n\n----Original E-mail Follows----\n{$forwardEmail->getReplyBody()}</textarea></td></tr>";
 		else
-			print "<tr><td colspan=\"2\"><textarea name='body' cols='54' rows='10'></textarea></td></tr>";
+			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\"></textarea></td></tr>";
 ?>
-			<tr><td colspan="2" align="center"><input type='button' value='Spell Check' onclick="openSpellChecker();" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
+			<tr><td colspan="2" align="center"><input type="button" value="Spell Check" onclick="openSpellChecker();" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
 		</table>
 <?php
 		if ( isset( $_GET['replyid'] ) )
-			print "<input type='hidden' name='replyid' value=".intval($_GET['replyid'])." />";
+			print "<input type=\"hidden\" name=\"replyid\" value=\"".intval($_GET['replyid'])."\" />";
 		else
-			print "<input type='hidden' name='replyid' value='0' />";
+			print "<input type=\"hidden\" name=\"replyid\" value=\"0\" />";
 		if ( isset( $_GET['forward'] ) )
-			print "<input type='hidden' name='forwardid' value=".intval($_GET['forward'])." />";
+			print "<input type=\"hidden\" name=\"forwardid\" value=\"".intval($_GET['forward'])."\" />";
 		else
-			print "<input type='hidden' name='forwardid' value='0' />";
+			print "<input type=\"hidden\" name=\"forwardid\" value=\"0\" />";
 ?>
-	</form>
+	</fieldset></form>
 </body>
 </html>

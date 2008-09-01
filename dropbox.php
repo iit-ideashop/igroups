@@ -27,15 +27,15 @@
 	// Prints tree structure of folders
 		$subfolder = $folder->getFolders();
 		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
-			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></strong>\n";
+			print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></strong>\n";
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
-			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+			print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
 		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
 		else
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
 		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
-			print "<ul class=\"filesul\">\n";
+			print "<ul class=\"folderlist\">\n";
 			foreach ( $subfolder as $key => $val ) {
 				printFolder( $val );
 			}
@@ -63,7 +63,7 @@
 	function printTR() {
 		static $i=0;
 		if ( $i )
-			print "<tr class='shade'>";
+			print "<tr class=\"shade\">";
 		else
 			print "<tr>";
 		$i=!$i;
@@ -84,7 +84,7 @@
 	//----End Display Functions-------------------------------------//
 	
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Files</title>
@@ -134,16 +134,6 @@
 			padding:5px;
 			display:inline;
 		}
-		
-		ul.dropul {
-			list-style:none;
-			padding:0;
-			margin:0;
-		}
-			
-		ul.dropul ul {
-			padding-left:20px;
-		}
 	</style>
 <link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
@@ -153,7 +143,7 @@
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
 </script>
-	<script language="javascript" type="text/javascript">
+	<script type="text/javascript">
 	<!--
 		function copyCheckBoxes() {
 			var folders = new Array();
@@ -254,15 +244,15 @@ if ( isset( $_POST['delete'] ) ) {
                                 Your Folders:
                         </div>
                         <div id="folders">
-                                <ul id="top" class="dropul">
+                                <ul id="top" class="folderlist">
 <?php
-                                                print '<li><img src="img/folder.png" border="0" alt="=" title="Folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
-                                                print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
-                                                print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
-                                                print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a></li>';
+                                                print '<li><img src="img/folder.png" style="border-style: none" alt="=" title="Folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
+                                                print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
+                                                print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
+                                                print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a></li>';
 
 ?>
-                                <li><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" />&nbsp;<strong><a href="dropbox.php">Secure Dropbox</a></strong></li>
+                                <li><img src="img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" />&nbsp;<strong><a href="dropbox.php">Secure Dropbox</a></strong></li>
                                 </ul>
                         </div>
                 </div>
@@ -276,10 +266,10 @@ if ( isset( $_POST['delete'] ) ) {
 			<form method="post" action="dropbox.php">
 				<div id="menubar">
 					<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
-					<ul class="dropul">
+					<ul class="folderlist">
 						<li><a href="#" onclick="uploadwin=dhtmlwindow.open('uploadbox', 'div', 'upload', 'Upload File', 'width=350px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); return false">Add File</a></li>
 						<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete File</a>
-						<input type='hidden' id='delete' name='delete' value='delete' /></li>
+						<input type="hidden" id="delete" name="delete" value="delete" /></li>
 					</ul>
 					<?php } ?>
 				</div>
@@ -296,7 +286,7 @@ if ( isset( $_POST['delete'] ) ) {
 					foreach ($files as $file) {
 						printTR();
                                                 print "<td><img src=\"img/file.png\" alt=\"File\" title=\"File\" /></td>";
-                                                print "<td><a href='download.php?id=".$file->getID()."'>".$file->getName()."</a></td>";
+                                                print "<td><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a></td>";
                                                 print "<td>".$file->getDesc()."</td>";
                                                 $author = $file->getAuthor();
                                                 if ( $author )
@@ -304,7 +294,7 @@ if ( isset( $_POST['delete'] ) ) {
                                                 else
                                                         print "<td></td>";
                                                 print "<td>".$file->getDateTime()."</td>";
-                                                print "<td align='right'><input type='checkbox' name='file[".$file->getID()."]' /></td>";
+                                                print "<td align=\"right\"><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";
                                                 print "</tr>\n";
 					}
 					if(count($files) == 0)
@@ -315,12 +305,12 @@ if ( isset( $_POST['delete'] ) ) {
 		</div>
 	</div>
 		<div class="window-content" id="upload" style="display:none">
-			<form method="post" action="dropbox.php" enctype="multipart/form-data">
-				File: <input type="file" name="thefile" /><br />
-				File Name: <input type="text" name="filename" /><br />
-				Description: <input type="text" name="filedescription" /><br />
+			<form method="post" action="dropbox.php" enctype="multipart/form-data"><fieldset>
+				<label for="thefile">File:</label><input type="file" name="thefile" id="thefile" /><br />
+				<label for="filename">File Name:</label><input type="text" name="filename" id="filename" /><br />
+				<label for="filedescription">Description:</label><input type="text" name="filedescription" id="filedescription" /><br />
 				<input type="submit" name="upload" value="Upload File" />
-			</form>
+			</fieldset></form>
 		</div>
 	</div>
 </body>

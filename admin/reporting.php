@@ -183,7 +183,7 @@
 		$currentSemester = 0;
 
 ?>		
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - IPRO Group Reporting</title>
@@ -218,7 +218,7 @@
 ?>
 	</div>
 	<div id="semesterSelect">
-		<form method="get" action="reporting.php">
+		<form method="get" action="reporting.php"><fieldset>
 			<select name="semester">
 <?php
 			$semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
@@ -236,7 +236,7 @@
 ?>
 			</select>
 			<input type="submit" name="selectSemester" value="Select Semester" />
-		</form>
+		</fieldset></form>
 	</div>
 <?php
 	if ( $currentSemester ) {
@@ -254,7 +254,7 @@
 	
 ?>
 <div id="groupSelect">
-                <form method="get" action="reporting.php">
+                <form method="get" action="reporting.php"><fieldset>
                         <select name="group">
 <?php
                         $groups = groupSort( $groups );
@@ -264,7 +264,7 @@
 ?>
                         </select>
                         <input type="submit" name="selectGroup" value="Jump to Group" />
-                </form>
+                </fieldset></form>
         </div>
 	<br />
 <?php
@@ -312,13 +312,13 @@
         </center>
 	<br />
 
-	<table align='center' width='75%' border='1' cellpadding='3'>
+	<table align="center" width="75%" cellpadding="3" style="border: thin solid black">
 		<tr>
 			<td bgcolor="red" align="center" colspan="7"><big><b><font color="white">Usage Comparison</font></b></big></td>
 		</tr>
-		<tr align='center' bgcolor='#DDDDDD'>
+		<tr align="center" bgcolor="#DDDDDD">
 			<td><b>IPRO</b></td><td><b>Files Uploaded</b></td><td><b>Percentage of Mean</b></td><td><b>Emails Sent</b></td><td><b>Percentage of Mean</b></td><td><b>Emails per User</b></td><td><b>Percentage of Mean</b></td></tr>
-			<tr align='center'><td>Mean of All Groups</td><td><?php print "$avgFiles"; ?></td><td>100%</td><td><?php print "$avgEmails"; ?></td><td>100%</td><td><?php print "$avgEmailsPerUser"; ?></td><td>100%</td>
+			<tr align="center"><td>Mean of All Groups</td><td><?php print "$avgFiles"; ?></td><td>100%</td><td><?php print "$avgEmails"; ?></td><td>100%</td><td><?php print "$avgEmailsPerUser"; ?></td><td>100%</td>
 		</tr>
 <?php
 		foreach($groups as $group) {
@@ -333,7 +333,7 @@
 				$filesPer = (round($files/$avgFiles, 2))*100;
 			if ($avgEmailsPerUser != 0)
 				$emailsPerUserPer = (round($emailsPerUser/$avgEmailsPerUser, 2))*100;
-			print "<tr align='center'><td>{$group->getName()}</td><td>{$files}</td><td>$filesPer%</td><td>$emails</td><td>$emailsPer%</td><td>$emailsPerUser</td><td>$emailsPerUserPer%</td></tr>";
+			print "<tr align=\"center\"><td>{$group->getName()}</td><td>{$files}</td><td>$filesPer%</td><td>$emails</td><td>$emailsPer%</td><td>$emailsPerUser</td><td>$emailsPerUserPer%</td></tr>";
 		}
 ?>
 	</table>
@@ -367,7 +367,7 @@
 ?>
 <br />
 <a name="<?php echo "{$group->getID()}"; ?>"></a>
-	<table width="75%" border="1" cellpadding="3">
+	<table width="75%" style="border: thin solid black" cellpadding="3">
 		<tr>
 			<td colspan="5" style="font-size: bigger; font-weight: bold; background: red; color: white; text-align: center"><?php echo "{$group->getName()}"; ?></td>
 		</tr>
@@ -411,7 +411,7 @@
 		</tr>
 		<tr align="center">
 		<td colspan="5">
-		<table border="1" width="100%" cellpadding="3">
+		<table width="100%" cellpadding="3" style="border: thin solid black">
 		<tr bgcolor="#DDDDDD" align="center">
 			<td width="33%"><b>Name</b></td>
 			<td width="33%"><b>E-mails Sent (% of group mean) (% of total mean)</b></td>

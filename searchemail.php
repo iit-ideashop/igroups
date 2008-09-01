@@ -19,7 +19,7 @@
 		die("You have not selected a valid group.");
 ?>
 		
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Email Search</title>
@@ -37,25 +37,23 @@ require("sidebar.php");
 	<table width="100%">
 		<tr>
 			<td>
-				<h1>Search Text</h1>
-				<form method="get" action="searchemail.php">
-				Keyword: <input type="text" name="keyword" />
+				<form method="get" action="searchemail.php"><fieldset><legend>Search Text</legend>
+				<label for="keyword">Keyword:</label><input type="text" name="keyword" id="keyword" />
 				<input type="submit" name="kwsearch" value="Search" />
-				</form>
+				</fieldset></form>
 			</td>
 			<td>
-			<h1>Search by Sender</h1>
-				<form method="get" action="searchemail.php">
-				Sender: <select name="sender">
+				<form method="get" action="searchemail.php"><fieldset><legend>Search by Sender</legend>
+				<label for="sender">Sender:</label><select name="sender" id="sender">
 <?php
 					$people = $currentGroup->getGroupMembers();
 					foreach ( $people as $person ) {
-						print "<option value=".$person->getID().">".$person->getFullName()."</option>";
+						print "<option value=\"".$person->getID()."\">".$person->getFullName()."</option>";
 					}
 ?>
 				</select>
 				<input type="submit" name="sendersearch" value="Search" />
-				</form>
+				</fieldset></form>
 			</td>
 		</tr>
 	</table>
@@ -70,7 +68,7 @@ require("sidebar.php");
 		print "<table>";
 		foreach ( $emails as $email ) {
 			$author = $email->getSender();
-			print "<tr><td></td><td><a href='displayemail.php?id=".$email->getID()."'>".$email->getShortSubject()."</a></td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td></tr>";
+			print "<tr><td></td><td><a href=\"displayemail.php?id=".$email->getID()."\">".$email->getShortSubject()."</a></td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td></tr>";
 		}
 		print "</table>";
 	}

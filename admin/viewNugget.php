@@ -25,7 +25,7 @@
 		$files = $nugget->getFiles();
 		$semester = $nugget->getSemester();
 		
-		print "<div class='item'><strong>Nugget Type/Name:</strong> ";
+		print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ";
 		//used to print a nugget that is from a prior semester or for viewing purposes only
 		print $nugget->getType()."</div>";
 		print '<div class="item"><strong>Description:</strong> '.$nugget->getDesc().'</div>';
@@ -59,7 +59,7 @@
 			foreach($files as $file){
                                 print '<li>';
                                 if ($nugget->isOld())
-                                        print "<a href='downloadOld.php?file={$file[0]}'>{$file[1]}</a>&nbsp;";
+                                        print "<a href=\"downloadOld.php?file={$file[0]}\">{$file[1]}</a>&nbsp;";
                                 else
                                         print '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
                                 print '</li>';
@@ -71,7 +71,7 @@
 		}
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Nuggets</title>
@@ -97,7 +97,7 @@
 			border-bottom:1px solid #ccc;
 		}	
 	</style>
-	<script language="JavaScript" type="text/Javascript">
+	<script type="text/javascript">
 
 		function showMessage( msg ) {
 			msgDiv = document.createElement("div");
@@ -124,7 +124,7 @@
 	//Prints all notifications
 	if( isset ($msg)){
 		foreach($msg as $ms){
-			print '<script language = "javascript">showMessage(\''.$ms.'\')</script>';
+			print '<script type="text/javascript">showMessage(\''.$ms.'\')</script>';
 		}
 	}
 	

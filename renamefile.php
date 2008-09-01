@@ -27,11 +27,11 @@
 			$curr = new File($_GET['fileid'], $db);
 		else
 			$curr = new Folder($_GET['folderid'], $db);
-                        print "<form method=\"post\" action=\"files.php\">";
-                                print "Enter new name:";
-                                print "<input type=\"text\" name=\"newname\" size=\"30\" value=\"".$curr->getName()."\" /><br />";
-				print "Enter new description:";
-				print "<input type=\"text\" name=\"newdesc\" size=\"30\" value=\"".$curr->getDesc()."\" />";
+                        print "<form method=\"post\" action=\"files.php\"><fieldset>";
+                                print "<label for=\"newname\">Enter new name:</label>";
+                                print "<input type=\"text\" name=\"newname\" id=\"newname\" size=\"30\" value=\"".$curr->getName()."\" /><br />";
+				print "<label for=\"newdesc\">Enter new description:</label>";
+				print "<input type=\"text\" name=\"newdesc\" id=\"newdesc\" size=\"30\" value=\"".$curr->getDesc()."\" />";
 
                                 print "<input type=\"hidden\" name=\"rename\" value=\"rename\" />";
 				if(isset($_GET['fileid']))
@@ -41,10 +41,10 @@
 ?>
 				<br />
 				<input type="submit" value="Rename" />
-                         </form>
+			</fieldset></form>
 <?php
 	}
 	else
 		print "<p>No file or folder selected.</p>";
 ?>
-                 </div>
+		</div>

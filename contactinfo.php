@@ -21,7 +21,7 @@
 		die("You are not logged in.");
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Contact Info</title>
@@ -102,62 +102,62 @@ require("sidebar.php");
 	<p>If you do not want to update or provide a piece of information, simply leave it blank.</p>
 	<form method="post" action="contactinfo.php" enctype="multipart/form-data">
 <?php
-		print "<h4>Contact Information</h4>";
-		print "<table cellspacing='5'>";
+		print "<fieldset><legend>Contact Information</legend>";
+		print "<table cellspacing=\"5\">";
 		print "<tr><td>Primary E-mail: </td><td>{$currentUser->getEmail()}</td></tr>";
-		print "<tr><td>Alternate E-mail: </td><td><input type='text' name='altEmail' value='".$profile['sAltEmail']."' /></td></tr>";
-		print "<tr><td>Primary Phone #: </td><td><input type='text' name='phone' value='".$profile['sPhone']."' /></td></tr>";
-		print "<tr><td>Home/Other Phone #: </td><td><input type='text' name='phone2' value='".$profile['sPhone2']."' /></td></tr>";
-		print "<tr><td>AIM Screen Name: </td><td><input type='text' name='im' value='{$profile['sIM']}' /></td></tr>";
-		print "</table>";
+		print "<tr><td><label for=\"altEmail\">Alternate E-mail:</label></td><td><input type=\"text\" name=\"altEmail\" id=\"altEmail\" value=\"".$profile['sAltEmail']."\" /></td></tr>";
+		print "<tr><td><label for=\"phone\">Primary Phone #:</label> </td><td><input type=\"text\" name=\"phone\" id=\"phone\" value=\"".$profile['sPhone']."\" /></td></tr>";
+		print "<tr><td><label for=\"phone2\">Home/Other Phone #:</label> </td><td><input type=\"text\" name=\"phone2\" id=\"phone2\" value=\"".$profile['sPhone2']."\" /></td></tr>";
+		print "<tr><td><label for=\"im\">AIM Screen Name:</label> </td><td><input type=\"text\" name=\"im\" id=\"im\" value=\"{$profile['sIM']}\" /></td></tr>";
+		print "</table></fieldset>";
 
-		print "<h4>About Me</h4>";
-		print "<table cellspacing='5'>";
-		print "<tr><td>Nickname: </td><td><input type='text' name='nickname' value='{$profile['sNickname']}' /></td></tr>";
-		print "<tr><td>Major: </td><td><input type='text' name='major' value='{$profile['sMajor']}' /></td></tr>";
-		print "<tr><td>Year: </td><td><select name='year'>";
+		print "<fieldset><legend>About Me</legend>";
+		print "<table cellspacing=\"5\">";
+		print "<tr><td><label for=\"nickname\">Nickname:</label> </td><td><input type=\"text\" name=\"nickname\" id=\"nickname\" value=\"{$profile['sNickname']}\" /></td></tr>";
+		print "<tr><td><label for=\"major\">Major:</label> </td><td><input type=\"text\" name=\"major\" id=\"major\" value=\"{$profile['sMajor']}\" /></td></tr>";
+		print "<tr><td><label for=\"year\">Year:</label> </td><td><select name=\"year\" id=\"year\">";
 		if ($profile['sYear'] == 'Freshman')
-			print "<option value='Freshman' selected=\"selected\">Freshman</option>";
+			print "<option value=\"Freshman\" selected=\"selected\">Freshman</option>";
 		else
-			print "<option value='Freshman'>Freshman</option>";
+			print "<option value=\"Freshman\">Freshman</option>";
 		if ($profile['sYear'] == 'Sophomore')
-			print "<option value='Sophomore' selected=\"selected\">Sophomore</option>";
+			print "<option value=\"Sophomore\" selected=\"selected\">Sophomore</option>";
 		else
-			print "<option value='Sophomore'>Sophomore</option>";
+			print "<option value=\"Sophomore\">Sophomore</option>";
 		if ($profile['sYear'] == 'Junior')
-			print "<option value='Junior' selected=\"selected\">Junior</option>";
+			print "<option value=\"Junior\" selected=\"selected\">Junior</option>";
 		else
-			print "<option value='Junior'>Junior</option>";
+			print "<option value=\"Junior\">Junior</option>";
 		if ($profile['sYear'] == 'Senior')
-			print "<option value='Senior' selected=\"selected\">Senior</option>";
+			print "<option value=\"Senior\" selected=\"selected\">Senior</option>";
 		else
-			print "<option value='Senior'>Senior</option>";
+			print "<option value=\"Senior\">Senior</option>";
 		if ($profile['sYear'] == 'Graduate')
-			print "<option value='Graduate' selected=\"selected\">Graduate</option>";
+			print "<option value=\"Graduate\" selected=\"selected\">Graduate</option>";
 		else
-			print "<option value='Graduate'>Graduate</option>";
+			print "<option value=\"Graduate\">Graduate</option>";
 		print "</select></td></tr>";
-		print "<tr><td>Hometown: </td><td><input type='text' name='hometown' value='{$profile['sHometown']}' /></td></tr>";
+		print "<tr><td><label for=\"hometown\">Hometown:</label> </td><td><input type=\"text\" name=\"hometown\" id=\"hometown\" value=\"{$profile['sHometown']}\" /></td></tr>";
 		if ($profile['isResident'] == 1)
-			print "<tr><td>Live on Campus? </td><td><input type='radio' name='isResident' value='1' checked=\"checked\" />&nbsp;Yes&nbsp;&nbsp;&nbsp;<input type='radio' name='isResident' value='0' />&nbsp;No</td></tr>";
+			print "<tr><td>Live on Campus? </td><td><input type=\"radio\" name=\"isResident\" id=\"isRes1\" value=\"1\" checked=\"checked\" />&nbsp;<label for=\"isRes1\">Yes</label>&nbsp;&nbsp;&nbsp;<input type=\"radio\" name=\"isResident\" id=\"isRes2\" value=\"0\" />&nbsp;<label for=\"isRes2\">No</label></td></tr>";
 		else
-			print "<tr><td>Live on Campus? </td><td><input type='radio' name='isResident' value='1' />&nbsp;Yes&nbsp;&nbsp;&nbsp;<input type='radio' name='isResident' value='0' checked=\"checked\" />&nbsp;No</td></tr>";
-		print "<tr><td valign='top'>Biography: </td><td><textarea name='bio' cols='65' rows='6'>{$profile['sBio']}</textarea></td></tr>";
-		print "<tr><td valign='top'>Skills: </td><td><textarea name='skills' cols='65' rows='6'>{$profile['sSkills']}</textarea></td></tr>";
+			print "<tr><td>Live on Campus? </td><td><input type=\"radio\" name=\"isResident\" id=\"isRes1\" value=\"1\" />&nbsp;<label for=\"isRes1\">Yes</label>&nbsp;&nbsp;&nbsp;<input type=\"radio\" name=\"isResident\" value=\"0\" id=\"isRes2\" checked=\"checked\" />&nbsp;<label for=\"isRes2\">No</label></td></tr>";
+		print "<tr><td valign=\"top\"><label for=\"bio\">Biography:</label> </td><td><textarea name=\"bio\" id=\"bio\" cols=\"65\" rows=\"6\">{$profile['sBio']}</textarea></td></tr>";
+		print "<tr><td valign=\"top\"><label for=\"skills\">Skills:</label> </td><td><textarea name=\"skills\" id=\"skills\" cols=\"65\" rows=\"6\">{$profile['sSkills']}</textarea></td></tr>";
 		if ($error)
 			print "<tr><td>$error</td></tr>";
 		if ($profile['sPicture'])
-			print "<tr><td>Profile Picture Uploaded<br />Delete?&nbsp;<input type='checkbox' name='delPicture' value='true' /></td></tr>";
+			print "<tr><td>Profile Picture Uploaded<br /><label for=\"delPicture\">Delete?</label>&nbsp;<input type=\"checkbox\" name=\"delPicture\" id=\"delPicture\" value=\"true\" /></td></tr>";
 		else
-			print "<tr><td>Profile Picture: </td><td><input type='file' name='picture' /></td></tr>";
+			print "<tr><td><label for=\"picture\">Profile Picture:</label></td><td><input type=\"file\" name=\"picture\" id=\"picture\" /></td></tr>";
 		print "</table>";
-		print "<input type='submit' name='update' value='Update Profile' />";
+		print "<input type=\"submit\" name=\"update\" value=\"Update Profile\" /></fieldset>";
 
-		print "<h1>Change Password</h1>";
-		print "New password: <input type='password' name='pw1' /><br />";
-		print "Confirm password: <input type='password' name='pw2' /><br />";
+		print "<fieldset><legend>Change Password</legend>";
+		print "<label for=\"pw1\">New password:</label><input type=\"password\" name=\"pw1\" id=\"pw1\" /><br />";
+		print "<label for=\"pw2\">Confirm password:</label><input type=\"password\" name=\"pw2\" id=\"pw2\" /><br />";
 ?>
-		<input type='submit' name='update' value='Change Password' />
+		<input type="submit" name="update" value="Change Password" />
 	</form></div>
 </body>
 </html>

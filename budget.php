@@ -40,7 +40,7 @@ if (isset($_POST['submit_budget']))
 		$query = $db->igroupsQuery("INSERT INTO Budgets(iProjectID, iSemesterID, bCategory, bRequested, bDesc, bRequestedDate, bOrder) VALUES($s_selectedGroup, $s_selectedSemester, '$category', $amount, '$desc', now(), $i)") or die('There was a problem with your submission, please go back and try again');
 		}
 	}					
-		echo "<div id='info_msg'>Your submission was successful! Review your submission in the table below or at any time by clicking on the 'Budget' tab of your IPRO.</div>";
+		echo "<div id=\"info_msg\">Your submission was successful! Review your submission in the table below or at any time by clicking on the 'Budget' tab of your IPRO.</div>";
 
 
 //Send Automatic Email
@@ -80,12 +80,15 @@ if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']
 	mail('', $currentGroup->getName() .' submitted a new budget category ' .$s_selectedCategoryName.'', $msg, $headers);
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Budget</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
+		.submit_budget {
+			border-style: none;
+		}
 		.submit_budget tr td {
 			border-top: 1px solid #cc0000;
 			background: #eee;
@@ -115,6 +118,7 @@ if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']
 		
 		.budget {
 			background: #eee;
+			border-style: none;
 		}
 		
 		.budget tr td {
@@ -253,13 +257,13 @@ $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID=$s_selectedGroup AN
 	<hr />
 	
 	<h2 style="color: #cc0000;">Submit a Budget</h2>
-	<form method="post" name="budget_form" id="budget_form" action="budget.php">
+	<form method="post" name="budget_form" id="budget_form" action="budget.php"><fieldset>
 	
-	<table border="0" cellpadding="10" cellspacing="0" class="submit_budget">
+	<table cellpadding="10" cellspacing="0" class="submit_budget">
 	<tr>
 	<td>
 	<h3><label for="supplies">Supplies:</label></h3>
-	<div class='label_desc'>Lab supplies, office supplies, etc.</div>
+	<div class="label_desc">Lab supplies, office supplies, etc.</div>
 	<input type="hidden" id="supplies" name="category[]" value="Supplies" />
 	$ <input type="text" id="supplies_amount" name="amount[]" size="5" onchange="calc()" />
 	</td>
@@ -272,7 +276,7 @@ $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID=$s_selectedGroup AN
 	<tr>
 	<td>
 	<h3><label for="equipment">Equipment:</label></h3>
-	<div class='label_desc'>Purchase materials and/or parts for testing or construction.</div>
+	<div class="label_desc">Purchase materials and/or parts for testing or construction.</div>
 	<input type="hidden" id="equipment" name="category[]" value="Equipment" />
 	$ <input type="text" id="equipment_amount" name="amount[]" size="5" onchange="calc()" />
 	</td>
@@ -285,7 +289,7 @@ $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID=$s_selectedGroup AN
 	<tr>
 	<td>
 	<h3><label for="services">Services:</label></h3>
-	<div class='label_desc'>Printing, rentals, consulting, patent searching, etc.</div>
+	<div class="label_desc">Printing, rentals, consulting, patent searching, etc.</div>
 	<input type="hidden" id="services" name="category[]" value="Services" />
 	$ <input type="text" id="services_amount" name="amount[]" size="5" onchange="calc()" />
 	</td>
@@ -298,7 +302,7 @@ $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID=$s_selectedGroup AN
 	<tr>
 	<td>
 	<h3><label for="travel">Travel/Meetings:</label></h3>
-	<div class='label_desc'>Transportaion costs, meals, conference passes, etc.</div>
+	<div class="label_desc">Transportaion costs, meals, conference passes, etc.</div>
 	<input type="hidden" id="travel" name="category[]" value="Travel" />
 	$ <input type="text" id="travel_amount" name="amount[]" size="5" onchange="calc()" />
 	</td>
@@ -311,7 +315,7 @@ $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID=$s_selectedGroup AN
 	<tr>
 	<td>
 	<h3><label for="participant_support">Participant Support:</label></h3>
-	<div class='label_desc'>Incentives to participants of usability testing, product testing, user survey, focus groups, etc.</div>
+	<div class="label_desc">Incentives to participants of usability testing, product testing, user survey, focus groups, etc.</div>
 	<input type="hidden" id="participant_support" name="category[]" value="Participant Support" />	
 	$ <input type="text" id="participant_support_amount" name="amount[]" size="5" onchange="calc()" />
 	</td>
@@ -394,7 +398,7 @@ $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID=$s_selectedGroup AN
 
 	<input type="hidden" id="iProjectID" name="iProjectID" value="<?php echo $s_selectedGroup ?>" />
 	<input type="hidden" id="iSemesterID" name="iSemesterID" value="<?php echo $s_selectedSemester ?>" />
-	</form>
+	</fieldset></form>
 	
 <?php
 }
@@ -404,7 +408,7 @@ else {
 	echo "<h2>Submitted Budget</h2>";
 	$divs = array();
 //Show details for each individual category	
-	echo "<table class='budget' cellpadding='10' cellspacing='0' border='0'><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Explanation</th><th>Status</th><th>Edit</th></tr>";	
+	echo "<table class=\"budget\" cellpadding=\"10\" cellspacing=\"0\"><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Explanation</th><th>Status</th><th>Edit</th></tr>";	
 
 $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} ORDER by bOrder");
 
@@ -415,24 +419,24 @@ while ($row = mysql_fetch_assoc($query))
 	$desc = shorten( $row[bDesc], $num = 50 );
 	$i++;
 if ( $i&1 ) {
-	echo "<tr style='background-color: #f8f8f8;'>";
+	echo "<tr style=\"background-color: #f8f8f8;\">";
 }
 else {
 	echo "<tr>";
 }
 	echo "<td style=\"font-weight: bold\">$row[bCategory]</td>";
-	echo "<td>$ $row[bRequested]<div class='b_date'>$row[bRequestedDate]</div></td>";
+	echo "<td>$ $row[bRequested]<div class=\"b_date\">$row[bRequestedDate]</div></td>";
 if ($row[bApprovedDate]==NULL) {
-	echo "<td class='b_date' style=\"font-weight: bold\">Awaiting<br />Approval</td>";
+	echo "<td class=\"b_date\" style=\"font-weight: bold\">Awaiting<br />Approval</td>";
 }
 else {
 	echo "<td>$ $row[bApproved]<div class='b_date'>$row[bApprovedDate]</div></td>";
 }
 if ($row[bReimbursed]==NULL) {
-	echo "<td class='b_date' style=\"font-weight: bold\">None</td>";
+	echo "<td class=\"b_date\" style=\"font-weight: bold\">None</td>";
 }
 else {
-	echo "<td>$ $row[bReimbursed]<div class='b_date'>$row[bReimbursedDate]</div></td>";
+	echo "<td>$ $row[bReimbursed]<div class=\"b_date\">$row[bReimbursedDate]</div></td>";
 }
 	echo "<td><a href=\"#\" onmouseover=\"showEvent('R".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('R".$row[bOrder]."');\">".$desc."</a></td>";
 if ($row[bStatus]=='Completed') {
@@ -441,15 +445,15 @@ if ($row[bStatus]=='Completed') {
 else {
 	echo "<td>$row[bStatus]</td>";
 	}
-	echo "<td><span class='edit_desc'><a href='edit_budget.php?bOrder=$row[bOrder]&amp;bDesc=$row[bDesc]'>Revise</a></span></td></tr>";
-	$divs[$row[bOrder]] = "<div class='description' id='R".$row[bOrder]."'><pre>".$row[bDesc]."</pre></div>";
+	echo "<td><span class=\"edit_desc\"><a href=\"edit_budget.php?bOrder=$row[bOrder]&amp;bDesc=$row[bDesc]\">Revise</a></span></td></tr>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\"><pre>".$row[bDesc]."</pre></div>";
 	}
 	
 //Total Amount
 $total_amt = $db->igroupsQuery("SELECT sum(bRequested), sum(bApproved), sum(bReimbursed) from Budgets WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} GROUP by iProjectID");
 $total = mysql_fetch_row($total_amt);
 
-	echo "<tr class='budget_col_totals'><td><strong>TOTAL</strong></td><td class='req_budget_total'>$".round($total[0],2)."</td><td class='app_budget_total'>$".round($total[1], 2)."</td><td>$".round($total[2], 2)."</td><td colspan='4'>&nbsp;</td></tr>";
+	echo "<tr class=\"budget_col_totals\"><td style=\"font-weight: bold\">TOTAL</td><td class=\"req_budget_total\">$".round($total[0],2)."</td><td class=\"app_budget_total\">$".round($total[1], 2)."</td><td>$".round($total[2], 2)."</td><td colspan=\"4\">&nbsp;</td></tr>";
 	echo "</table>";	
 	foreach($divs as $div)
 		echo $div; 
@@ -458,7 +462,7 @@ $total = mysql_fetch_row($total_amt);
 <h3>History of Previously Requested Items:</h3>
 <?php
 //Show details for each individual category	
-	echo "<table class='budget' cellpadding='10' cellspacing='0' border='0'><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Explanation</th><th>Status</th></tr>";	
+	echo "<table class=\"budget\" cellpadding=\"10\" cellspacing=\"0\"><tr><th>Category</th><th>Requested</th><th>Approved</th><th>Explanation</th><th>Status</th></tr>";	
 
 $query = mysql_query("SELECT * FROM BudgetsHistory WHERE iProjectID={$s_selectedGroup} AND iSemesterID={$s_selectedSemester} ORDER by bOrder");
 $divs = array();
@@ -470,11 +474,11 @@ while ($row = mysql_fetch_assoc($query))
 	//spit out results in the table
 	echo "<tr>";
 	echo "<td>$row[bCategory]</td>";
-	echo "<td>$ $row[bRequested]<div class='b_date'>$row[bRequestedDate]</div></td>";
-	echo "<td>$ $row[bApproved]<div class='b_date'>$row[bApprovedDate]</div></td>";
+	echo "<td>$ $row[bRequested]<div class=\"b_date\">$row[bRequestedDate]</div></td>";
+	echo "<td>$ $row[bApproved]<div class=\"b_date\">$row[bApprovedDate]</div></td>";
 	echo "<td><a href=\"#\" onmouseover=\"showEvent('RR".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('RR".$row[bOrder]."');\">".$desc."</a></td>";
 	echo "<td>$row[bStatus]</td></tr>";
-	$divs[$row[bOrder]] = "<div class='description' id='RR".$row[bOrder]."'><pre>".$row[bDesc]."</pre></div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\"><pre>".$row[bDesc]."</pre></div>";
 	}
 	echo "</table>\n";
 	foreach($divs as $div)
@@ -483,7 +487,7 @@ while ($row = mysql_fetch_assoc($query))
 <br />
 <h3>Create a New Budget Category:</h3>
 
-<form method='post' name='new_category_form' id='new_category_form' action='budget.php'>
+<form method="post" name="new_category_form" id="new_category_form" action="budget.php">
 <label for="new_category">New Category:</label>
 <input type="text" id="new_category" name="new_category" />
 <label for="new_category"> Amount:</label>
@@ -500,9 +504,9 @@ $sent_msgs = $db->igroupsQuery("SELECT * FROM BudgetEmails WHERE iProjectID={$s_
 
 while ($row = mysql_fetch_assoc($sent_msgs))
 	{	
-	echo "<p><small>";
+	echo "<p><span style=\"font-size: smaller\">";
 	echo $row['bEmailDate'];
-	echo "</small><br />";
+	echo "</span><br />";
 	echo $row['bEmail'];
 	echo "</p>"; 
 	}

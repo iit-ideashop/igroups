@@ -27,7 +27,7 @@
 		die("You are not logged in.");
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - View Profile</title>
@@ -53,12 +53,12 @@ require("sidebar.php");
 <h2><?php print "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
 <?php
 if ($profile['sPicture']) {
-	print "<img src='profile-pics/{$profile['sPicture']}' width='200' /><br />";
+	print "<img src=\"profile-pics/{$profile['sPicture']}\" width=\"200\" /><br />";
 }
 ?>
 
 <h4>Contact Information</h4>
-<table cellspacing='5'> 
+<table cellspacing="5"> 
 <?php
 print "<tr><td>Primary E-mail: </td><td>{$contactInfo['sEmail']}</td></tr>";
 if ($profile['sAltEmail'])
@@ -73,7 +73,7 @@ if ($profile['sIM'])
 </table>
 
 <h4>Personal Information</h4>
-<table cellspacing='5'>
+<table cellspacing="5">
 <?php
 if ($profile['sMajor'])
 	print "<tr><td>Major: </td><td>{$profile['sMajor']}</td></tr>";
@@ -88,14 +88,14 @@ if ($profile['isResident'])
 if (isset($profile['isResident']) && $profile['isResident'] == 0)
         print "<tr><td>Lives on Campus: </td><td>No</td></tr>";
 if ($profile['sBio']) {
-        print "<tr><td valign='top'>Biography: </td><td valign='top'><pre>{$profile['sBio']}</pre></td></tr>";
+        print "<tr><td valign=\"top\">Biography: </td><td valign=\"top\"><pre>{$profile['sBio']}</pre></td></tr>";
 }
 if ($profile['sSkills']) {
-        print "<tr><td valign='top'>Skills: </td><td valign='top'><pre>{$profile['sSkills']}</pre></td></tr>";
+        print "<tr><td valign=\"top\">Skills: </td><td valign=\"top\"><pre>{$profile['sSkills']}</pre></td></tr>";
 }
 ?>
 </table>
 <br />
-<a href='contactlist.php'>&lt;&lt;&lt; Back</a>
+<a href="contactlist.php">&lt;&lt;&lt; Back</a>
 </div></body>
 </html>

@@ -53,7 +53,7 @@
 			unset($editTime);
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <link rel="stylesheet" href="default.css" type="text/css" />
@@ -514,51 +514,50 @@ function ds_onclick(d, m, y) {
 	<p>To add a new timesheet entry or projected task, first enter the date in MM/DD/YYYY format or select it from a calendar by clicking 'Select Date'. Then, enter the number of hours worked (use .5 for half hours) and briefly describe the tasks performed. Add the new entry or task by clicking 'Add'. You can edit or delete any entry by clicking on it.</p>
 	<p>To view a report of your recorded timesheets, select the week you wish to view from the drop-down menu and click 'View by Week'. To view a report of all your entries, select 'All Weeks' from the menu. All weeks are shown by default.</p>
 	<hr />
-<table border="0" width='85%'>
+<table width="85%" style="border-style: none">
 <tr valign="top"><td>
+	<form method="post" action="logtimespent.php"><fieldset>
 <?php 
 	if (!isset($editTime))
-		print "<h1>Add New Timesheet Entry</h1>";
+		print "<legend>Add New Timesheet Entry</legend>";
 	else
-		print "<h1>Edit Timesheet Entry</h1>";
+		print "<legend>Edit Timesheet Entry</legend>";
 ?>
-	<form method="post" action="logtimespent.php">
-		Date (MM/DD/YYYY): <input type="text" id="date" name="date" onclick="ds_sh(this);" style="cursor: text" value='<?php if (isset($editTime)) print "{$editTime->getDate()}"; ?>' /><br />
-		Hours Spent: <input type="text" name="hours" value='<?php if (isset($editTime)) print "{$editTime->getHoursSpent()}"; ?>' /><br />
-		Tasks Worked On:<br />
-		<textarea name="description" cols="50" rows="5"><?php if (isset($editTime)) print "{$editTime->getTaskDescription()}"; ?></textarea><br />
+		<label for="date">Date (MM/DD/YYYY):</label><input type="text" id="date" name="date" onclick="ds_sh(this);" style="cursor: text" value='<?php if (isset($editTime)) print "{$editTime->getDate()}"; ?>' /><br />
+		<label for="hours">Hours Spent:</label><input type="text" name="hours" id="hours" value='<?php if (isset($editTime)) print "{$editTime->getHoursSpent()}"; ?>' /><br />
+		<label for="description">Tasks Worked On:</label><br />
+		<textarea name="description" id="description" cols="50" rows="5"><?php if (isset($editTime)) print "{$editTime->getTaskDescription()}"; ?></textarea><br />
 <?php
 	if (!isset($editTime))
-		print "<input type='submit' name='addtime' value='Add Entry' />";
+		print "<input type=\"submit\" name=\"addtime\" value=\"Add Entry\" />";
 	else 
-		print "<input type='hidden' name='entryID' value='{$editTime->getID()}' /><input type='submit' name='edittime' value='Edit Entry' />&nbsp;<input type='submit' name='deltime' value='Delete Entry' />";
+		print "<input type=\"hidden\" name=\"entryID\" value=\"{$editTime->getID()}\" /><input type=\"submit\" name=\"edittime\" value=\"Edit Entry\" />&nbsp;<input type=\"submit\" name=\"deltime\" value=\"Delete Entry\" />";
 ?>
-	</form>
+	</fieldset></form>
 </td><td>
+	<form method="post" action="logtimespent.php"><fieldset>
 <?php
 	if (!isset($editTask))	
-		print "<h1>Add New Projected Task</h1>";
+		print "<legend>Add New Projected Task</legend>";
 	else
-		print "<h1>Edit Projected Task</h1>";
+		print "<legend>Edit Projected Task</legend>";
 ?>
-	<form method="post" action="logtimespent.php">
-                Date (MM/DD/YYYY): <input type="text" id="taskDate" name="taskDate" onclick="ds_sh(this);" style="cursor: text" value='<?php if (isset($editTask)) print "{$editTask->getDate()}"; ?>' /><br />
-                Estimated Hours: <input type="text" name="taskHours" value='<?php if (isset($editTask)) print "{$editTask->getHoursSpent()}"; ?>' /><br />
-                Tasks:<br />
-                <textarea name="taskDescription" cols="50" rows="5"><?php if (isset($editTask)) print "{$editTask->getTaskDescription()}"; ?></textarea><br />
+                <label for="taskDate">Date (MM/DD/YYYY):</label><input type="text" id="taskDate" name="taskDate" onclick="ds_sh(this);" style="cursor: text" value="<?php if (isset($editTask)) print "{$editTask->getDate()}"; ?>" /><br />
+                <label for="taskHours">Estimated Hours:</label><input type="text" name="taskHours" id="taskHours" value="<?php if (isset($editTask)) print "{$editTask->getHoursSpent()}"; ?>" /><br />
+                <label for="taskDescription">Tasks:</label><br />
+                <textarea name="taskDescription" id="taskDescription" cols="50" rows="5"><?php if (isset($editTask)) print "{$editTask->getTaskDescription()}"; ?></textarea><br />
 <?php
 	if (!isset($editTask))
-                print "<input type='submit' name='addProjTask' value='Add Task' />";
+                print "<input type=\"submit\" name=\"addProjTask\" value=\"Add Task\" />";
 	else
-		print "<input type='hidden' name='entryID' value='{$editTask->getID()}' /><input type='submit' name='editProjTask' value='Edit Task' />&nbsp;<input type='submit' name='delProjTask' value='Delete Task' />";
+		print "<input type=\"hidden\" name=\"entryID\" value=\"{$editTask->getID()}\" /><input type=\"submit\" name=\"editProjTask\" value=\"Edit Task\" />&nbsp;<input type=\"submit\" name=\"delProjTask\" value=\"Delete Task\" />";
 ?>
-        </form>
+        </fieldset></form>
 </td></tr></table>
 <br />
-<table border="0" align="left" width="85%"><tbody>
+<table style="border-style: none" align="left" width="85%"><tbody>
 <tr><td valign="top">
-<h1>Your Current Timesheet Entries</h1>
-        <form method="get" action="logtimespent.php">
+        <form method="get" action="logtimespent.php"><fieldset><legend>Your Current Timesheet Entries</legend>
         <select name="week">
 <?php
         $timeLog = $currentGroup->getTimeLog();
@@ -580,7 +579,7 @@ function ds_onclick(d, m, y) {
 ?>
         </select>
         <input type="submit" name="submitWeek" value="View by Week" />
-        </form>
+        </fieldset></form>
         <br />
         <table class="list">
                 <thead>
@@ -608,7 +607,7 @@ function ds_onclick(d, m, y) {
                 }
 ?>
         </tbody></table>
-</td><td valign='top'>
+</td><td valign="top">
 
 
 <h1>Your Projected Tasks</h1>

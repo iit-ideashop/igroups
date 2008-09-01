@@ -33,7 +33,7 @@
 			
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
-		print "<li><a href='iprofiles.php?selectFolder=".$folder->getID()."'><img src='../img/folder.gif' alt='' />".$folder->getName()."</a>\n";
+		print "<li><a href=\"iprofiles.php?selectFolder=".$folder->getID()."\"><img src=\"../img/folder.png\" alt=\"\" />".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
 		print "<ul class=\"prof\">\n";
 		foreach ( $subfolder as $key => $val ) {
@@ -56,7 +56,7 @@
 	function printTR() {
 		static $i=0;
 		if ( $i )
-			print "<tr class='shade'>";
+			print "<tr class=\"shade\">";
 		else
 			print "<tr>";
 		$i=!$i;
@@ -64,7 +64,7 @@
 	
 	//----End Display Functions-------------------------------------//
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - IPRO Office Files</title>
@@ -120,26 +120,9 @@
 		ul.prof ul {
 			padding-left:20px;
 		}
-			
+
 		.window {
-			width:500px;
-			background-color:#FFF;
-			border: 1px solid #000;
-			visibility:hidden; 
-			position:absolute;
-			left:20px;
-			top:20px;
-		}
-		
-		.window-topbar {
-			padding-left:5px;
-			font-size:14pt;
-			color:#FFF;
-			background-color:#C00;
-		}
-		
-		.window-content {
-			padding:5px;
+			display: none;
 		}
 	</style>
 	<script type="text/javascript">
@@ -164,6 +147,14 @@
 		}
 	//-->
 	</script>
+<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<script type="text/javascript" src="windowfiles/dhtmlwindow.js">
+/***********************************************
+* DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
+* This notice must stay intact for legal use.
+* Visit http://www.dynamicdrive.com/ for full source code
+***********************************************/
+</script>
 </head>
 <body>
 <?php
@@ -269,26 +260,21 @@
 	
 	//------End Form Processing Code---------------------------------//
 	
-	print "<form method='post' action='iprofiles.php'><ul class=\"prof\">";
+	print "<form method=\"post\" action=\"iprofiles.php\"><fieldset><ul class=\"prof\">";
 	$lists = $db->igroupsQuery( "SELECT iID FROM FileLists" );
 	while ( $row = mysql_fetch_row( $lists ) ) {
 		$list = new FileList( $row[0], $db );
-		print "<li><input type='checkbox' name='list[".$list->getID()."]' /><a href='iprofiles.php?selectList=".$list->getID()."'>".$list->getName()."</a></li>";
+		print "<li><input type=\"checkbox\" name=\"list[".$list->getID()."]\" /><a href=\"iprofiles.php?selectList=".$list->getID()."\">".$list->getName()."</a></li>";
 	}
 	print "</ul>";
-	print "<input type='button' onclick=\"document.getElementById('newlist').style.visibility='visible';\" value='Add a new list' />";
-	print "<input type='submit' name='dellist' value='Delete selected lists' /></form>";
+	print "<input type=\"button\" onclick=\"newwin=dhtmlwindow.open('newbox', 'div', 'newlist', 'Create a File List', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\" value=\"Add a new list\" />";
+	print "<input type=\"submit\" name=\"dellist\" value=\"Delete selected lists\" /></fieldset></form>";
 ?>
 <div class="window" id="newlist">
-	<div class="window-topbar">
-		Create a File List <input class="close-button" type="button" onclick="document.getElementById('newlist').style.visibility='hidden';" />
-	</div>
-	<div class="window-content">
-		<form method="post" action="iprofiles.php">
-			List Name: <input type="text" name="listname" /><br />
-			<input type="submit" name="createlist" value="Create List" />
-		</form>
-	</div>
+	<form method="post" action="iprofiles.php"><fieldset>
+		<label for="listname">List Name:</label><input type="text" name="listname" id="listname" /><br />
+		<input type="submit" name="createlist" value="Create List" />
+	</fieldset></form>
 </div>
 <?php
 	if ( isset( $_SESSION['selectedList'] ) ) {
@@ -317,37 +303,37 @@
 ?>
 			</div>
 			
-			<form method="post" action="iprofiles.php">
+			<form method="post" action="iprofiles.php"><fieldset>
 
 			<div id="menubar">
 				<ul class="prof">
-					<li><a href="#" onclick="document.getElementById('upload').style.visibility='visible';">Upload File</a></li>
-					<li><a href="#" onclick="document.getElementById('newfolder').style.visibility='visible';">Create Folder</a></li>
+					<li><a href="#" onclick="uploadwin=dhtmlwindow.open('uploadbox', 'div', 'upload', 'Upload File', 'width=350px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); return false">Upload File</a></li>
+					<li><a href="#" onclick="newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Folder</a></li>
 					<li><a href="#" onclick="document.getElementById('delete').form.submit()">Delete</a>
-					<input type='hidden' id='delete' name='delete' value='delete' /></li>
+					<input type="hidden" id="delete" name="delete" value="delete" /></li>
 				</ul>
 			</div>
 			
 <?php
-			print "<table width='100%'>";
+			print "<table width=\"100%\">";
 			$folderList = $folder->getFolders();
 			$fileList = $folder->getFiles();
 			
 			foreach ( $folderList as $key => $folder ) {
 				printTR();
-				print "<td><img src='../img/folder.gif' alt='' /></td>";
-				print "<td><a href='iprofiles.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></td>";
+				print "<td><img src=\"../img/folder.png\" alt=\"\" /></td>";
+				print "<td><a href=\"iprofiles.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></td>";
 				print "<td>".$folder->getDesc()."</td>";
-				print "<td align='right'><input type='checkbox' name='folder[".$folder->getID()."]' /></td>";
+				print "<td align=\"right\"><input type=\"checkbox\" name=\"folder[".$folder->getID()."]\" /></td>";
 				print "</tr>\n";
 			}
 			
 			foreach ( $fileList as $key => $file ) {
 				printTR();
-				print "<td><img src='../img/file.gif' alt='' /></td>";
-				print "<td><a href='../download.php?id=".$file->getID()."'>".$file->getName()."</a></td>";
+				print "<td><img src=\"../img/file.png\" alt=\"\" /></td>";
+				print "<td><a href=\"../download.php?id=".$file->getID()."\">".$file->getName()."</a></td>";
 				print "<td>".$file->getDesc()."</td>";
-				print "<td align='right'><input type='checkbox' name='file[".$file->getID()."]' /></td>";
+				print "<td align=\"right\"><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";
 				print "</tr>\n";
 			}
 		
@@ -356,27 +342,27 @@
 
 			print "</table>";
 ?>
-			</form>
+			</fieldset></form>
 		</div>
 		<div id="groups" style="clear:both;">
-			<form method="post" action="iprofiles.php">
+			<form method="post" action="iprofiles.php"><fieldset>
 <?php
 			$groups = $currentSemester->getGroups();
-			print "<h1>".$currentSemester->getName()."</h1>";
+			print "<legend>".$currentSemester->getName()."</legend>";
 			$groups = groupSort( $groups );
 			
 			foreach ( $groups as $group ) {
-				print "<input type='checkbox' name='uselist[".$group->getID()."]'";
+				print "<input type=\"checkbox\" name=\"uselist[".$group->getID()."]\"";
 				if ( $group->usesFileList( $_SESSION['selectedList'] ) )
-					print " checked='checked'";
+					print " checked=\"checked\"";
 				print " /> ".$group->getName()."<br />";
 			}
 ?>
 				<input type="button" value="Select All" onclick="selectAll('uselist')" /><input type="submit" name="updategroups" value="Update Selected Groups" />
-			</form>
+			</fieldset></form>
 		</div>
 		<div id="semesterSelect">
-				<form method="get" action="iprofiles.php">
+				<form method="get" action="iprofiles.php"><fieldset>
 					<select name="semester">
 <?php
 					$semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
@@ -387,42 +373,32 @@
 ?>
 					</select>
 					<input type="submit" name="selectSemester" value="Select Semester" />
-				</form>
+				</fieldset></form>
 		</div>
 		<div class="window" id="upload">
-			<div class="window-topbar">
-				File Upload <input class="close-button" type="button" onclick="document.getElementById('upload').style.visibility='hidden';" />
-			</div>
-			<div class="window-content">
-				<form method="post" action="iprofiles.php" enctype="multipart/form-data">
-					File: <input type="file" name="thefile" /><br />
-					File Name: <input type="text" name="filename" /><br />
-					Description: <input type="text" name="filedescription" /><br />
+				<form method="post" action="iprofiles.php" enctype="multipart/form-data"><fieldset>
+					<label for="thefile">File:</label><input type="file" name="thefile" id="thefile" /><br />
+					<label for="filename">File Name:</label><input type="text" name="filename" id="filename" /><br />
+					<label for="filedescription">Description:</label><input type="text" name="filedescription" /><br />
 					This file will be placed in the
 	<?php
 					print $folder->getName();
 	?>
 					folder.<br />
 					<input type="submit" name="upload" value="Upload File" />
-				</form>
-			</div>
+				</fieldset></form>
 		</div>
 		<div class="window" id="newfolder">
-			<div class="window-topbar">
-				Create a Folder <input class="close-button" type="button" onclick="document.getElementById('newfolder').style.visibility='hidden';" />
-			</div>
-			<div class="window-content">
-				<form method="post" action="iprofiles.php">
-					Folder Name: <input type="text" name="foldername" /><br />
-					Description: <input type="text" name="folderdescription" /><br />
+				<form method="post" action="iprofiles.php"><fieldset>
+					<label for="foldername">Folder Name:</label><input type="text" name="foldername" id="foldername" /><br />
+					<label for="folderdescription">Description:</label><input type="text" name="folderdescription" id="folderdescription" /><br />
 					This folder will be placed in the
 <?php					
 					print $folder->getName();
 ?>
 					folder.<br />
 					<input type="submit" name="create" value="Create Folder" />
-				</form>
-			</div>
+				</fieldset></form>
 		</div>
 <?php
 	}

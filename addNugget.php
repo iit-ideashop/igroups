@@ -43,7 +43,7 @@
 	//begin form processing	
 	//begin creation of new nugget
 	if(isset ($_POST['newName'])){
-		print "<script language='javascript' type='text/javascript'>";
+		print "<script type=\"text/javascript\">";
 		//retrieve user input
 		$name = $_POST['newName'];
 		$description = $_POST['description'];
@@ -113,14 +113,14 @@
 		$nugID = $nugget->getID();
 		if(!$_POST['igroupsRedirect']){
 			print "</script>";
-			print 	"<script type='text/javascript'>
+			print 	"<script type=\"text/javascript\">
 						<!--
 						window.location = 'editNugget.php?nug=$nugID'
 						//-->
 						</script>";
 		}else{
 			print "</script>";
-			print "<script type='text/javascript'>
+			print "<script type=\"text/javascript\">
 				<!--
 				window.location='addFilesToNugget.php?nugget=$nugID'
 				//-->
@@ -129,29 +129,23 @@
 	
 	}
 ?>	
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Files</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
-		ul.nugul {
-			list-style:none;
-			padding:0;
-			margin:0;
-		}
-
-		ul.nugul ul {
-			padding-left:20px;
-		}
-
 		.item {
 			padding-top:5px;
 			padding-bottom:5px;
 			border-bottom:1px solid #ccc;
+		}
+
+		label {
+			font-weight: bold;
 		}	
 	</style>
-	<script language="JavaScript" type="text/Javascript">
+	<script type="text/javascript">
 	<!--
 		function submitForm(){
 			var loop = 0;
@@ -183,7 +177,7 @@
 		                div.className = "item";
 		                div.id = "file"+num;
 				div.innerHTML = 
-					"<strong>File "+(num+1)+": </strong><input type ='file' name='thefile[]' onchange='fileAdd("+(num+1)+");' /><br /><strong>File Name "+(num+1)+":</strong><input type='text' name ='fileName' /><br /><strong>File Description "+(num+1)+": </strong><input type='text' name='fileDescription' /><br />";
+					"<label for=\"thefile"+(num+1)+"\">File "+(num+1)+": </label><input type=\"file\" id=\"thefile"+(num+1)+"\" name='thefile[]' onchange='fileAdd("+(num+1)+");' /><br /><label for=\"filename"+(num+1)+"\">File Name "+(num+1)+":</label><input type='text' id=\"filename"+(num+1)+"\" name='fileName' /><br /><label for=\"filedescription"+(num+1)+"\">File Description "+(num+1)+": </label><input type=\"text\" name=\"fileDescription\" id=\"filedescription"+(num+1)+"\" /><br />";
 				document.getElementById('files').appendChild(div);
 			
 		}
@@ -212,25 +206,25 @@ require("sidebar.php");
 	}
 	if(isset ($_GET['type'])){
 ?>
-		<form method='post' action='addNugget.php' name='myForm' enctype='multipart/form-data'>
+		<form method="post" action="addNugget.php" name="myForm" enctype="multipart/form-data"><fieldset>
 
-		<div class='item'><strong>Nugget Type/Name:</strong>
+		<div class="item"><strong>Nugget Type/Name:</strong>
 <?php
 		if(!in_array($_GET['type'], $_DEFAULTNUGGETS)){
-			print "<input type='text' name='newName' value='Other' />";
+			print "<input type=\"text\" name=\"newName\" value=\"Other\" />";
 		}else{
 			$type = $_GET['type'];
-			print "<input type='hidden' name='newName' value='$type' />";
+			print "<input type=\"hidden\" name=\"newName\" value=\"$type\" />";
 			print "$type";
 		}
 ?>
 		</div>
-		<div class='item'><strong>Make Private?:</strong>&nbsp;<input type='checkbox' name='private' /><br />(If selected, this nugget will only be viewable by those in your group and IPRO Staff)</div>
-		<div class='item'><strong>Description: </strong><br /><textarea cols='40' rows='3' name='description'></textarea></div>
-		<div class='item'>
-		<table cellpadding='1' cellspacing='1' border='0' id='edit_author'>
+		<div class="item"><label for="private">Make Private?:</label>&nbsp;<input type="checkbox" name="private" id="private" /><br />(If selected, this nugget will only be viewable by those in your group and IPRO Staff)</div>
+		<div class="item"><label for="description">Description:</label><br /><textarea cols="40" rows="3" name="description" id="description"></textarea></div>
+		<div class="item">
+		<table cellpadding="1" cellspacing="1" style="border-style: none" id="edit_author">
 		<tr>
-		<td><div class='item'><strong>Authors:</strong></div></td><td><div class='item'><strong>Add Author</strong></div></td><td></td><td><div class='item'><strong>Add Author</strong></div></td>
+		<td><div class="item" style="font-weight: bold">Authors:</div></td><td><div class="item" style="font-weight: bold">Add Author</div></td><td></td><td><div class="item" style="font-weight: bold">Add Author</div></td>
 		</tr>
 <?php
 		$authors = peopleSort($currentGroup->getAllGroupMembers());
@@ -244,7 +238,7 @@ require("sidebar.php");
 				}
 				$name = $author->getFullName();
 				$id = $author->getID();
-				print "<td>$name</td><td align='center'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='authorToAdd[]' value='$id' />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+				print "<td>$name</td><td align=\"center\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" name=\"authorToAdd[]\" value=\"$id\" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>";
 				$count++;
 			}
 			print "</tr>";
@@ -259,29 +253,29 @@ require("sidebar.php");
 				print $file->getName()."<br />";
 			}
 			$files = $_GET['files'];
-			print "<input type='hidden' name='igroupFiles' value='$files' />";
+			print "<input type=\"hidden\" name=\"igroupFiles\" value=\"$files\" />";
 		}
 ?>
-		<div id ='files'>
+		<div id="files">
 		<h4>Add Files</h4>
 		<p>Option 1: Upload new files</p>
-		<div id='file1' class='item'>
-		<strong>File 1: </strong><input type="file" name="thefile[]" onchange='javascript:fileAdd(1);' /><br />
-		<strong>File Name 1: </strong><input type="text" name="fileName" /><br />
-		<strong>Description 1: </strong><input type="text" name="fileDescription" /><br />
+		<div id="file1" class="item">
+		<label for="thefile1">File 1:</label><input type="file" name="thefile[]" id="thefile1" onchange="javascript:fileAdd(1);" /><br />
+		<label for="filename1">File Name 1:</label><input type="text" name="fileName" id="filename1" /><br />
+		<label for="filedescription1">Description 1:</label><input type="text" name="fileDescription" id="filedescription1" /><br />
 		</div>
 		</div>
-		<p>Option 2: <a href='#' onclick='javascript:addFilesFromNugget();'>Import files from iGroups</a></p>
-		<input type='hidden' name='filenames' />
-		<input type='hidden' name='descriptions' />
-		<input type='hidden' name='igroupsRedirect' value="0" />
+		<p>Option 2: <a href="#" onclick="javascript:addFilesFromNugget();">Import files from iGroups</a></p>
+		<input type="hidden" name="filenames" />
+		<input type="hidden" name="descriptions" />
+		<input type="hidden" name="igroupsRedirect" value="0" />
 		These files will be placed in the Nugget File folder of your files.<br />
 		<br />
-		<input type='button' value='Create Nugget' onclick='javascript:submitForm();' />
+		<input type="button" value="Create Nugget" onclick="javascript:submitForm();" />
 		</form>
 <?php
 	}else{
-		print 	"<script type='text/javascript'>
+		print 	"<script type=\"text/javascript\">
 					<!--
 					window.location = 'index.php'
 					//-->

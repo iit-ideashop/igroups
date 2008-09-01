@@ -19,7 +19,7 @@
                         $nuggets = getNuggetStatus($currentGroup, $semID);
 	        $nugCount = 0;
 ?>
-	        <table border cellpadding='3'>
+	        <table cellpadding="3">
         	<tr>
 <?php
 
@@ -31,9 +31,9 @@
                         }
                         if($nuggets[$nug] != 0){
 				$gID = $currentGroup->getID();
-                                print "<td><img src='../img/upload.JPG' height='12' width='13' alt='Y' />&nbsp;$nug</td><td><a href='viewNugget.php?nuggetID=".$nuggets[$nug]."&groupID=$gID'>View</a></td>";
+                                print "<td><img src=\"../img/upload.png\" alt=\"Y\" />&nbsp;$nug</td><td><a href=\"viewNugget.php?nuggetID=".$nuggets[$nug]."&amp;groupID=$gID\">View</a></td>";
                         }else{
-                                print "<td><img src='../img/no_upload.JPG' height='12' width='13' alt='N' />&nbsp;".$nug."</td><td>Not Uploaded</td>";
+                                print "<td><img src=\"../img/no_upload.png\" alt=\"N\" />&nbsp;".$nug."</td><td>Not Uploaded</td>";
                         }
                         $nugCount++;
                 }
@@ -59,12 +59,12 @@
                                 $type = $nug->getType();
 				$gID = $currentGroup->getID();
                                 if(strstr($type, $def)){
-                                        $link .= "<td><img src='../img/upload.JPG' height='12' width='13' alt='Y' />&nbsp;$def</td><td><a href='viewNugget.php?nuggetID=$id&groupID=$gID&isOld=1'>View</a></td>";
+                                        $link .= "<td><img src=\"../img/upload.png\" alt=\"Y\" />&nbsp;$def</td><td><a href='viewNugget.php?nuggetID=$id&amp;groupID=$gID&amp;isOld=1'>View</a></td>";
 					$nugCount++;
                                 }
                         }
                         if (!$link) {
-                                $link = "<td><img src='../img/no_upload.JPG' height='12' width='13' alt='N' />&nbsp;$def</td><td>Not Uploaded</td>";
+                                $link = "<td><img src=\"../img/no_upload.png\" alt=\"N\" />&nbsp;$def</td><td>Not Uploaded</td>";
 				$nugCount++;
 			}
                         print "$link";
@@ -121,7 +121,7 @@
                                 }
                         }
                         if (!$found) {
-                                print "<tr><td><a href='viewNugget.php?nuggetID=$id&isOld=1'>$type</a></td></tr>";
+                                print "<tr><td><a href=\"viewNugget.php?nuggetID=$id&amp;isOld=1\">$type</a></td></tr>";
                                 $nugs = true;
                         }
                         }
@@ -146,7 +146,7 @@
 	                                $nuggetCount = 0;
 	                        }
 	                        print "<td>";
-	                        print "<a href='viewNugget.php?nuggetID=".$tempNugget->getID()."&old=".$tempNugget->isOld()."'>".$tempNugget->getType()."</a>";
+	                        print "<a href=\"viewNugget.php?nuggetID=".$tempNugget->getID()."&amp;old=".$tempNugget->isOld()."\">".$tempNugget->getType()."</a>";
 	                        print "</td>";
 	                        $nuggetCount++;
 			}
@@ -165,11 +165,11 @@
 	        $desc = $nugget->getDescShort();
 	        $id = $nugget->getID();
 		$status = $nugget->getStatus();
-	        print "<td><a href=viewNugget.php?nuggetID=$id>".$title."</a></td>";
+	        print "<td><a href=\"viewNugget.php?nuggetID=$id\">".$title."</a></td>";
 	}
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Nuggets</title>
@@ -215,7 +215,7 @@
 	displayNonDefaultNuggets($currentGroup, $semID, $_DB);
 	//print "<br />";
 	//displayOldNuggets($currentGroup);
-	print "<br /><a href='nuggets.php'>Back</a>";
+	print "<br /><a href=\"nuggets.php\">Back</a>";
 ?>
        <br />
        <br />

@@ -52,7 +52,7 @@
                 $allWeeks[] = $row;
 	
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - View Timesheet Reports</title>
@@ -104,7 +104,7 @@ require("sidebar.php");
 ?>
 	<h1>Semester Hours Summary</h1>
 	[<a href="#" onclick="init()">Click to Print</a>]<br />
-	<table cellpadding="4" cellspacing="0" width='100%' border='1'>
+	<table cellpadding="4" cellspacing="0" width="100%" style="border: thin solid black">
 		<thead>
 		<tr><td>User</td>
 <?php
@@ -122,8 +122,8 @@ require("sidebar.php");
 	foreach ($usersWithTime as $user) {
 		print "<tr><td>{$user->getFullName()}</td>";
 		foreach ($allWeeks as $week)
-			print "<td align='center'>{$log->getHoursSpentByUserAndWeek($user->getID(), $week['iWeekID'])}&nbsp;</td>";
-		print "<td align='center' bgcolor='#DDDDDD'>{$log->getHoursSpentByUser($user->getID())}</td>";
+			print "<td align=\"center\">{$log->getHoursSpentByUserAndWeek($user->getID(), $week['iWeekID'])}&nbsp;</td>";
+		print "<td align=\"center\" bgcolor=\"#DDDDDD\">{$log->getHoursSpentByUser($user->getID())}</td>";
 		print "</tr>";
 	}
 	print "</tbody><tfoot><tr><td>Week Average</td>";

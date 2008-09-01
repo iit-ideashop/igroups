@@ -35,24 +35,23 @@
 	else if(isset($_GET['replyid']))
 	{
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Log In</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
 </head><body>
-<h1>Login</h1>
 <?php
 		if ( isset( $errorMsg ) ) {
 			print $errorMsg."<br />";
 		}
-		print "<form method=\"post\" action=\"email.php?replyid=".$_GET['replyid']."\">";
+		print "<form method=\"post\" action=\"email.php?replyid=".$_GET['replyid']."\"><fieldset><legend>Login</legend>";
 ?>
-			User name: <input name="username" type="text" /><br />
-			Password: <input name="password" type="password" /><br />
-			<input type='checkbox' name='remember' /> Remember me?<br />
+			<label for="username">User name:</label><input name="username" id="username" type="text" /><br />
+			<label for="password">Password:</label><input name="password" id="password" type="password" /><br />
+			<input type="checkbox" name="remember" id="remember" /><label for="remember">Remember me?</label><br />
 			<input type="submit" name="login" value="Login" />
-		</form>
+		</fieldset></form>
 </body></html>
 <?php
 	die();
@@ -96,7 +95,7 @@
 		$i=!$i;
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Email</title>
@@ -144,12 +143,6 @@
 		.menubar li {
 			padding:5px;
 			display:inline;
-		}
-		
-		ul.emailul {
-			list-style:none;
-			padding:0;
-			margin:0;
 		}
 	</style>
 
@@ -450,7 +443,7 @@ require("sidebar.php");
 				Your categories:
 			</div>
 			<div class="menubar">
-				<ul class="emailul"> <?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
+				<ul class="folderlist"> <?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<li><a href="#" onclick="ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Category</a></li>
 					<?php
                                         if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat) {
@@ -464,14 +457,14 @@ require("sidebar.php");
 <?php
 				$categories = $currentGroup->getGroupCategories();
 				if ( $currentCat )
-					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br />";
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br />";
 				else
-					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br />";
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br />";
 				foreach ( $categories as $category ) {
 					if ( $currentCat && $currentCat->getID() == $category->getID() )
-						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".stripTags($category->getName())."</strong></a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".stripTags($category->getName())."</strong></a><br />";
 					else
-						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\">".stripTags($category->getName())."</a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\">".stripTags($category->getName())."</a><br />";
 				}
 ?>
 			</div>
@@ -491,9 +484,9 @@ require("sidebar.php");
 			
 			print "<div class=\"columnbanner\"><span id=\"boxtitle\">$name</span><br /><span id=\"boxdesc\">$desc</span></div>";
 ?>
-			<form method="post" action="email.php"><div class="menubar">
+			<form method="post" action="email.php"><fieldset><div class="menubar">
 			<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
-				<ul class="emailul">
+				<ul class="folderlist">
 					<li><a href="#" onclick="sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
 					<li><a href="#" onclick="window.location.href='searchemail.php';">Search Email</a></li>
 <?php
@@ -519,7 +512,7 @@ require("sidebar.php");
 					$author = $email->getSender();
 					printTR();
 					if ($email->hasAttachments()) 
-						$img = '&nbsp;<img src="img/attach.png" alt="(Attachments)" border="0" title="Paper clip" />';
+						$img = '&nbsp;<img src="img/attach.png" alt="(Attachments)" style="border-style: none" title="Paper clip" />';
 					else
 						$img = '';
 					print "<td colspan='2'><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".str_replace("&", "&amp;", $email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type=\"checkbox\" name=\"email[".$email->getID()."]\" /></td>";
@@ -529,30 +522,30 @@ require("sidebar.php");
 					print "<tr><td>There are no emails in the selected category.</td></tr>";
 ?>
 				</table>
-			</div></form>
+			</div></fieldset></form>
 		</div>
 	</div>
 <?php
 	if (!$currentUser->isGroupGuest($currentGroup)) {	
 ?>
 		<div class="window-content" id="createCat" style="display: none">
-			<form method="post" action="email.php">
-				Category Name: <input type="text" name="catname" /><br />
-				Category Description:<input type="text" name="catdesc" /><br />
+			<form method="post" action="email.php"><fieldset>
+				<label for="catname">Category Name:</label><input type="text" name="catname" id="catname" /><br />
+				<label for="catdesc">Category Description:</label><input type="text" name="catdesc" id="catdesc" /><br />
 				<input type="submit" name="createcat" value="Create Category" />
-			</form>
+			</fieldset></form>
 		</div>
 <?php
 	}
 	if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat) {
 ?>
 		<div class="window-content" id="editCat" style="display: none">
-			<form method="post" action="email.php">
+			<form method="post" action="email.php"><fieldset>
 <?php
 				if ( $currentCat ) {
 					print "Current Category Name: ".$currentCat->getName()."<br />";
-					print "New Category Name: <input type=\"text\" name=\"newcatname\" value=\"".$currentCat->getName()."\" /><br />";
-					print "New Category Description: <input type=\"text\" name=\"newcatdesc\" value=\"".$currentCat->getDesc()."\" /><br />";
+					print "<label for=\"newcatname\">New Category Name:</label><input type=\"text\" name=\"newcatname\" id=\"newcatname\" value=\"".$currentCat->getName()."\" /><br />";
+					print "<label for=\"newcatdesc\">New Category Description:</label><input type=\"text\" name=\"newcatdesc\" id=\"newcatdesc\" value=\"".$currentCat->getDesc()."\" /><br />";
 					print '<input type="submit" name="editcat" value="Edit Category" />';
 					print '<input type="submit" name="delcat" value="Delete Category" />';
 				}
@@ -560,7 +553,7 @@ require("sidebar.php");
 					print "You cannot edit the current active category.";
 				}
 ?>
-			</form>
+			</fieldset></form>
 		</div>
 <?php
 	}
@@ -570,9 +563,9 @@ require("sidebar.php");
 <?php
 			$categories = $currentGroup->getGroupCategories();
 ?>
-			<form method="post" action="email.php">
-			Move email to category:
-			<select name="targetcategory"><option value="0">Uncategorized</option>
+			<form method="post" action="email.php"><fieldset>
+			<label for="targetcategory">Move email to category:</label>
+			<select name="targetcategory" id="targetcategory"><option value="0">Uncategorized</option>
 <?php
 			$categories = $currentGroup->getGroupCategories();
 			foreach ( $categories as $category ) {
@@ -581,7 +574,7 @@ require("sidebar.php");
 			print "</select><input type=\"hidden\" name=\"emailMove\" />";
 ?>
 			<br />
-			<input type="button" name="move" value="Move Emails" onclick="copyCheckBoxes();this.form.submit()" /></form></div>
+			<input type="button" name="move" value="Move Emails" onclick="copyCheckBoxes();this.form.submit()" /></fieldset></form></div>
 <?php
 	}
 ?>

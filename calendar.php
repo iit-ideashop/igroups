@@ -18,7 +18,7 @@
 	else
 		die("You have not selected a valid group.");
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Calendar</title>
@@ -587,13 +587,13 @@ function ds_onclick(d, m, y) {
 	<td width="40%">
 	<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 	<h1>Add Event</h1>
-	<form method="post" action="calendar.php">
-		Date (MM/DD/YYYY): <input type="text" id="date" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
-		Event name: <input type="text" name="name" /><br />
-		Event description:<br />
-		<textarea name="description" cols="50" rows="5"></textarea><br />
+	<form method="post" action="calendar.php"><fieldset>
+		<label for="date1">Date (MM/DD/YYYY):</label><input type="text" id="date1" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
+		<label for="eventname1">Event name:</label><input type="text" name="name" id="eventname1" /><br />
+		<label for="eventdesc1">Event description:</label><br />
+		<textarea name="description" cols="50" rows="5" id="eventdesc1"></textarea><br />
 		<input type="submit" name="addevent" value="Add this Event" />
-	</form>
+	</fieldset></form>
 	</td>
 <?php
 	if(count($currentGroup->getMonthEvents($currentMonth, $currentYear)) > 0) {
@@ -616,13 +616,13 @@ function ds_onclick(d, m, y) {
 	if (isset($_POST['edit']) && isset($_POST['id'])) {
 		$editevent = new Event( $_POST['id'], $db);
 ?>
-	<form method="post" action="calendar.php">
-		Date (MM/DD/YYYY): <input type="text" name="date" value="<?php echo "{$editevent->getDate()}"; ?>" onclick="ds_sh(this);" style="cursor: text" /><br />
-		Event name: <input type="text" name="name" value="<?php echo "{$editevent->getName()}"; ?>" /><br />
-		Event description: <br /><textarea name="description" cols="50" rows="5"><?php echo "{$editevent->getDesc()}"; ?></textarea><br />
+	<form method="post" action="calendar.php"><fieldset>
+		<label for="date2">Date (MM/DD/YYYY):</label><input type="text" name="date" value="<?php echo "{$editevent->getDate()}"; ?>" onclick="ds_sh(this);" style="cursor: text" id="date2" /><br />
+		<label for="eventname2">Event name:</label><input type="text" name="name" value="<?php echo "{$editevent->getName()}"; ?>" id="eventname2" /><br />
+		<label for="eventdesc2">Event description:</label><br /><textarea name="description" cols="50" rows="5" id="eventdesc2"><?php echo "{$editevent->getDesc()}"; ?></textarea><br />
 		<input type="hidden" name="id" value="<?php echo "{$_POST['id']}"; ?>" />
 		<input type="submit" name="editevent" value="Edit this Event" />
-        </form>
+        </fieldset></form>
 <?php
 }
 ?>
@@ -634,18 +634,19 @@ function ds_onclick(d, m, y) {
 	</tr>
 	</table>
 </div>
-
+<?php if($currentUser->isGroupModerator($currentGroup)) { ?>
 <div class="window-content" id="event-edit" style="display: none">
-		<form method="post" action="calendar.php">
-			Date (MM/DD/YYYY): <input type="text" id="editdate" name="date" /><input type="button" onclick="calwin=dhtmlwindow.open('calbox', 'div', 'calendarmenu', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" value="Select Date" /><br />
-			Event name: <input type="text" id="editname" name="name" /><br />
-			Event description:<br />
+		<form method="post" action="calendar.php"><fieldset>
+			<label for="editdate">Date (MM/DD/YYYY):</label><input type="text" id="editdate" name="date" /><input type="button" onclick="calwin=dhtmlwindow.open('calbox', 'div', 'calendarmenu', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" value="Select Date" /><br />
+			<label for="editname">Event name:</label><input type="text" id="editname" name="name" /><br />
+			<label for="editdesc">Event description:</label><br />
 			<textarea name="description" id="editdesc" cols="50" rows="5"></textarea><br />
 			<input type="hidden" name="id" id="editid" />
 			<input type="submit" name="editevent" value="Edit Event" />
 			<input type="submit" name="deleteevent" value="Delete Event" />
-		</form>
+		</fieldset></form>
 	</div>
+<?php } ?>
 
 <div class="window-content" id="event-view" style="display: none">
 			<b>Date</b>: <span id="viewdate"></span><br />

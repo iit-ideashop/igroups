@@ -135,17 +135,17 @@
 <?php
 			print "<br />";
 
-			print "<a href='addNugget.php?type=Other'>Start a new Non-Deliverable Nugget</a>";
+			print "<a href=\"addNugget.php?type=Other\">Start a new Non-Deliverable Nugget</a>";
 			
 		}else{
 			print "There are currently no Non-deliverable Nuggets for this semester<br />";
-			print "<a href='addNugget.php?type=Other'>Start a new Non-Deliverable Nugget</a>";
+			print "<a href=\"addNugget.php?type=Other\">Start a new Non-Deliverable Nugget</a>";
 		}
 		}
 		// display iKnow non-default nuggets
 		else {
 			$nuggets = getOldNuggetsByGroupAndSemester($currentGroup, $_SESSION['selectedSemester']);
-			print "<table cellpadding='3'>";
+			print "<table cellpadding=\"3\">";
 			$nugs = false;
 			foreach($nuggets as $nug){
 
@@ -174,7 +174,7 @@
 	
 	function displayOldNuggets($currentGroup){
 		$oldNuggets = $currentGroup->getInactiveNuggets();
-		print "<h1>Other Semester's Nuggets</h1>";
+		print "<h1>Other Semesters' Nuggets</h1>";
 		if(count($oldNuggets)!= 0){
 ?>
 			<table>
@@ -187,7 +187,7 @@
 						$nuggetCount = 0;
 					}
 					print "<td>";
-					print "<a href='viewNugget.php?nug=".$tempNugget->getID()."'>".$tempNugget->getType()."</a>";
+					print "<a href=\"viewNugget.php?nug=".$tempNugget->getID()."\">".$tempNugget->getType()."</a>";
 					print "</td>";
 					$nuggetCount++;
 			}
@@ -197,7 +197,7 @@
 			
 <?php
 		}else{
-			print "There are no previous nuggets created with the igroups nugget system.<br />";
+			print "There are no previous nuggets created with the iGroups nugget system.<br />";
 		}
 		print "To display nuggets prior to 3.0 release date visit <a href='http://iknow.iit.edu'>http://iknow.iit.edu</a>";
 	}
@@ -267,7 +267,7 @@
 	
 	$msg = array();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Nuggets</title>
@@ -320,7 +320,7 @@
 	//Prints all notifications
 	if( isset ($msg)){
 		foreach($msg as $ms){
-			print '<script language = "javascript">showMessage(\''.$ms.'\')</script>';
+			print '<script type="text/javascript">showMessage(\''.$ms.'\')</script>';
 		}
 	}
 	

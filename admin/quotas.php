@@ -29,7 +29,7 @@
 	function printTR() {
 		static $i=0;
 		if ( $i )
-			print "<tr class='shade'>";
+			print "<tr class=\"shade\">";
 		else
 			print "<tr>";
 		$i=!$i;
@@ -71,7 +71,7 @@
 		$message = "Quotas successfully updated";
 	}
 ?>		
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - IPRO Quota Management</title>
@@ -108,7 +108,7 @@
 <?php
 	require("sidebar.php");
 	if ( isset( $message ) )
-		print "<script type='text/javascript'>showMessage(\"$message\");</script>";
+		print "<script type=\"text/javascript\">showMessage(\"$message\");</script>";
 ?>	
 	<div id="content"><div id="topbanner">
 <?php
@@ -119,7 +119,7 @@
 ?>
 	</div>
 	<div id="semesterSelect">
-		<form method="get" action="quotas.php">
+		<form method="get" action="quotas.php"><fieldset>
 			<select name="semester">
 <?php
 			$semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
@@ -138,9 +138,9 @@
 ?>
 			</select>
 			<input type="submit" name="selectSemester" value="Select Semester" />
-		</form>
+		</fieldset></form>
 	</div>
-	<form method="post" action="quotas.php">
+	<form method="post" action="quotas.php"><fieldset>
 	<table>
 		<thead>
 			<tr><td>Group</td><td>Space Used</td><td>Limit</td><td>New Limit</td></tr>
@@ -165,15 +165,15 @@
 				$quota = createQuota( $group, $db );
 			printTR();
 			print "<td>".$group->getName()."</td>";
-			print "<td><div class='fullness-bar' style='width:102px; height:15px;'><div class='fullness-indicator' style='height:13px;width:".$quota->getPercentUsed()."px;'></div></div></td>";
+			print "<td><div class=\"fullness-bar\" style=\"width:102px; height:15px;\"><div class=\"fullness-indicator\" style=\"height:13px;width:".$quota->getPercentUsed()."px;\"></div></div></td>";
 			print "<td>".round($quota->getLimit()/1048576, 2)." MiB</td>";
-			print "<td><input type='text' name='quota[".$group->getID()."]' style='height:16px;font-size:8pt;' /> bytes</td>";
+			print "<td><input type=\"text\" name='quota[".$group->getID()."]' style=\"height:16px;font-size:8pt;\" /> bytes</td>";
 			print "</tr>";
 		}
 		
 	?>
 	</table>
-	<input type='submit' value="Update Limits" name='updatelimit' />
-	</form></div>
+	<input type="submit" value="Update Limits" name="updatelimit" />
+	</fieldset></form></div>
 </body>
 </html>

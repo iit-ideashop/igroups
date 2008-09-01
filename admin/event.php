@@ -105,7 +105,7 @@
 	}
 	
 ?>		
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - IPRO Event Management</title>
@@ -178,27 +178,6 @@
 			overflow:hidden;
 		}
 		
-		.window {
-			width:500px;
-			background-color:#FFF;
-			border: 1px solid #000;
-			visibility:hidden; 
-			position:absolute;
-			left:20px;
-			top:20px;
-		}
-		
-		.window-topbar {
-			padding-left:5px;
-			font-size:14pt;
-			color:#FFF;
-			background-color:#C00;
-		}
-		
-		.window-content {
-			padding:5px;
-		}
-		
 		#groupSelect {
 			margin-bottom:10px;
 		}
@@ -251,15 +230,12 @@
 
 <link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
-
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
 * This notice must stay intact for legal use.
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
-
 </script>
-
 	<script type="text/javascript">
 		function setCalendarTarget( name ) {
 			document.getElementById('calTarget').value=name;
@@ -303,8 +279,7 @@
 			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
 		}
 	</script>
-</head>
-<body>
+</head><body>
 <?php
 require("sidebar.php");
 ?>
@@ -593,7 +568,7 @@ function ds_onclick(d, m, y) {
 ?>
 	</div>
 	<div id="semesterSelect">
-		<form method="get" action="event.php">
+		<form method="get" action="event.php"><fieldset>
 			<select name="semester">
 <?php
 			$semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
@@ -613,7 +588,7 @@ function ds_onclick(d, m, y) {
 ?>
 			</select>
 			<input type="submit" name="selectSemester" value="Select Semester" />
-		</form>
+		</fieldset></form>
 	</div>
 <?php
 	if ($currentSemester) {
@@ -628,7 +603,7 @@ function ds_onclick(d, m, y) {
 	}
 ?>
 	<div id="groupSelect">
-		<form method="get" action="event.php">
+		<form method="get" action="event.php"><fieldset>
 			<select name="group">
 			<option value=''>Select a Group</option>
 <?php
@@ -642,7 +617,7 @@ function ds_onclick(d, m, y) {
 ?>
 			</select>
 			<input type="submit" name="selectGroup" value="Select Group" />
-		</form>
+		</fieldset></form>
 	</div>
 <?php
 	if ( $currentGroup ) {	
@@ -700,40 +675,38 @@ function ds_onclick(d, m, y) {
 		<table width="85%">
 		<tr>
 		<td width="40%">
-			<h1>Add Event</h1>
-			<form method="post" action="event.php">
-				Date (MM/DD/YYYY): <input type="text" id="date" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
-				Event name: <input type="text" name="name" /><br />
-				<input type="checkbox" name="global" /> Global event? (If checked, will be added to all IPRO teams.) <br />
-				Event description:<br />
-				<textarea name="description" cols="50" rows="5"></textarea><br />
+			<form method="post" action="event.php"><fieldset><legend>Add Event</legend>
+				<label for="adddate">Date (MM/DD/YYYY):</label><input type="text" id="adddate" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
+				<label for="addname">Event name:</label><input type="text" id="addname" name="name" /><br />
+				<input type="checkbox" name="global" id="global" /> <label for="global">Global event? (If checked, will be added to all IPRO teams.)</label> <br />
+				<label for="adddesc">Event description:</label><br />
+				<textarea name="description" id="adddesc" cols="50" rows="5"></textarea><br />
 				<input type="submit" name="addevent" value="Add Event" />
-			</form>
+			</fieldset></form>
 		</td>
 		<td width="60%" valign="top">
 <?php
 		if(count($currentGroup->getMonthIPROEvents($currentMonth, $currentYear)) > 0) {
-			print "<h1>Edit Event</h1>";
-		        print "<form method=\"post\" action=\"event.php\">";
-	                print "<select name=\"id\">";
-                        foreach ($currentGroup->getMonthIPROEvents($currentMonth, $currentYear) as $event) {
-                                echo "<option value='{$event->getID()}'>{$event->getDate()} - {$event->getName()}</option>";
-                        }
-        	        print "</select>";
+			print "<form method=\"post\" action=\"event.php\"><fieldset><legend>Edit Event</legend>";
+			print "<select name=\"id\">";
+			foreach ($currentGroup->getMonthIPROEvents($currentMonth, $currentYear) as $event) {
+				echo "<option value='{$event->getID()}'>{$event->getDate()} - {$event->getName()}</option>";
+			}
+			print "</select>";
 
-        	        print "<input type=\"submit\" name=\"edit\" value=\"Edit\" />";
-	                print "<input type=\"submit\" name=\"deleteevent\" value=\"Delete\" /></form>";
+			print "<input type=\"submit\" name=\"edit\" value=\"Edit\" />";
+			print "<input type=\"submit\" name=\"deleteevent\" value=\"Delete\" /></fieldset></form>";
 		}
-        if (isset($_POST['edit']) && isset($_POST['id'])) {
-                $editevent = new Event( $_POST['id'], $db);
+	if (isset($_POST['edit']) && isset($_POST['id'])) {
+		$editevent = new Event( $_POST['id'], $db);
 ?>
-        <form method="post" action="event.php">
-                Date (MM/DD/YYYY): <input type="text" name="date" value="<?php echo "{$editevent->getDate()}"; ?>" onclick="ds_sh(this);" style="cursor: text" /><br />
-                Event name: <input type="text" name="name" value="<?php echo "{$editevent->getName()}"; ?>" /><br />
-                Event description: <br /><textarea name="description" cols="50" rows="5"><?php echo "{$editevent->getDesc()}"; ?></textarea><br />
-                <input type="hidden" name="id" value="<?php echo "{$_POST['id']}"; ?>" />
-                <input type="submit" name="editevent" value="Edit this Event" />
-        </form>
+	<form method="post" action="event.php"><fieldset>
+		<label for="editdate2">Date (MM/DD/YYYY):</label><input type="text" name="date" id="editdate2" value="<?php echo "{$editevent->getDate()}"; ?>" onclick="ds_sh(this);" style="cursor: text" /><br />
+		<label for="editname2">Event name:</label><input type="text" name="name" id="editname2" value="<?php echo "{$editevent->getName()}"; ?>" /><br />
+		<label for="editdesc2">Event description:</label><br /><textarea id="editdesc2" name="description" cols="50" rows="5"><?php echo "{$editevent->getDesc()}"; ?></textarea><br />
+		<input type="hidden" name="id" value="<?php echo "{$_POST['id']}"; ?>" />
+		<input type="submit" name="editevent" value="Edit this Event" />
+	</fieldset></form>
 <?php
 }
 ?>
@@ -774,16 +747,16 @@ function ds_onclick(d, m, y) {
 				</tr>
 			</table>
 		</div>
-			<div class="window-content" id="event-edit" style="display: none">
+			<div class="window-content" id="event-edit" style="display: none"><fieldset>
 				<form method="post" action="event.php">
-					Date (MM/DD/YYYY): <input type="text" id="editdate" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
-					Event name: <input type="text" id="editname" name="name" /><br />
-					Event description:<br />
+					<label for="editdate">Date (MM/DD/YYYY):</label><input type="text" id="editdate" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
+					<label for="editname">Event name:</label><input type="text" id="editname" name="name" /><br />
+					<label for="editdesc">Event description:</label><br />
 					<textarea name="description" id="editdesc" cols="50" rows="5"></textarea><br />
 					<input type="hidden" name="id" id="editid" />
 					<input type="submit" name="editevent" value="Edit Event" />
 					<input type="submit" name="deleteevent" value="Delete Event" />
-				</form>
+				</fieldset></form>
 			</div>
 <?php
 	}

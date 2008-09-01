@@ -40,10 +40,10 @@
 		$files = $nugget->getFiles();
 		$semester = $nugget->getSemester();
 		
-		print "<form method='post' action='nuggets.php' id='redirectForm'>";
-		print "<input type='hidden' name='nuggetType' />";
+		print "<form method=\"post\" action=\"nuggets.php\" id=\"redirectForm\">";
+		print "<input type=\"hidden\" name=\"nuggetType\" />";
 		print "</form>";
-		print "<div class='item'><strong>Nugget Type/Name:</strong> ";
+		print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ";
 		//used to print a nugget that is from a prior semester or for viewing purposes only
 		if(isset($style) && $style == "link"){
 				
@@ -63,7 +63,7 @@
 		print '<div class="item"><strong>Authors:</strong> <br />';
 		
 		if(count($authors) > 0){
-			print '<ul class="editnug">';
+			print '<ul class="folderlist">';
 			
 			foreach($authors as $author){
 				
@@ -80,7 +80,7 @@
 		print '<div class="item"><strong>Files:</strong>'.'<br />';
 		
 		if(count($files)>0){
-			print '<ul class="editnug">';
+			print '<ul class="folderlist">';
 			foreach($files as $file){
 				print '<li>';
 				print '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
@@ -108,26 +108,26 @@
 		else
 			$private = '';
 
-		print "<form method='post' action='editNugget.php?edit=true&amp;nugID=".$nugget->getID()."' id='myForm' enctype='multipart/form-data'>";
+		print "<form method=\"post\" action=\"editNugget.php?edit=true&amp;nugID=".$nugget->getID()."\" id=\"myForm\" enctype=\"multipart/form-data\"><fieldset>";
 		//if the nugget is non-default than allow the option to edit the title
 		if(!$nugget->isDefault()){
-			print "<div class='item'><strong>Nugget Type/Name:</strong> "."<input type='text' name='type' value='".$nugget->getType()."' />"."</div>";
+			print "<div class=\"item\"><label for=\"type\">Nugget Type/Name:</label> "."<input type=\"text\" name=\"type\" id=\"type\" value=\"".$nugget->getType()."\" />"."</div>";
 		}
 		else{
-			print "<div class='item'><strong>Nugget Type/Name:</strong> ".$nugget->getType()."</div>";
+			print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ".$nugget->getType()."</div>";
 		}
 		
-		print "<div class='item'><strong>Make Private?:</strong>&nbsp;<input type='checkbox' name='private'$private /><br />(If selected, this nugget will only be viewable by those in your group and IPRO Staff)</div>";
+		print "<div class=\"item\"><label for=\"private\">Make Private?:</label>&nbsp;<input type=\"checkbox\" id=\"private\" name=\"private\"$private /><br />(If selected, this nugget will only be viewable by those in your group and IPRO Staff)</div>";
 
 		//print description box
-		print "<div class='item'><strong>Description: </strong><br /><textarea cols='40' rows='3' name='description'>".$nugget->getDesc()."</textarea></div>";
+		print "<div class=\"item\"><label for=\"description\">Description: </label><br /><textarea cols=\"40\" rows=\"3\" id=\"description\" name=\"description\">".$nugget->getDesc()."</textarea></div>";
 		
 		//print date created
-		print "<div class='item'><strong>Date Created: </strong>".$nugget->getDate()."</div>";
+		print "<div class=\"item\"><strong>Date Created: </strong>".$nugget->getDate()."</div>";
 
 ?>
-		<table cellpadding='1' cellspacing='2' border='0' class='edit_author'>
-		<tr class='item' style="font-weight:bold">
+		<table cellpadding="1" cellspacing="2" class="edit_author">
+		<tr class="item" style="font-weight:bold">
 		<td>Authors:</td><td>Add Author&nbsp;</td><td>Delete</td><td></td><td>Add Author</td><td>Delete</td></tr>
 		
 <?php
@@ -152,10 +152,10 @@
 			
 			if($isAuthor == 'checked'){
 				
-				print "<td align='center'>Added</td>";
-				print "<td align='center'>&nbsp;&nbsp;&nbsp;<input type ='checkbox' name='authorToDelete[]' value= '".$author->getID()."' />&nbsp;&nbsp;&nbsp;</td>";
+				print "<td align=\"center\">Added</td>";
+				print "<td align=\"center\">&nbsp;&nbsp;&nbsp;<input type =\"checkbox\" name=\"authorToDelete[]\" value= \"".$author->getID()."\" />&nbsp;&nbsp;&nbsp;</td>";
 			}else{
-				print "<td align='center'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type='checkbox' name='authorToAdd[]' value= '".$author->getID()."'".$isAuthor." />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+				print "<td align=\"center\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" name=\"authorToAdd[]\" value= \"".$author->getID()."\"".$isAuthor." />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>";
 				print "<td></td>";
 				
 			}
@@ -163,14 +163,14 @@
 		}}
 		
 		print "</tr></table>";
-		print "<div class = 'item'>";
+		print "<div class = \"item\">";
 		if(count($files) > 0){
 			
 			?>
 			
-			<table cellpadding='5' cellspacing='0' border='0' class='edit_author'>
+			<table cellpadding="5" cellspacing="0" class="edit_author">
 			<tr>
-			<td><div class='item'><strong>Files:</strong></div></td><td><div class='item'><strong>Delete</strong></div></td></tr>
+			<td><div class="item"><strong>Files:</strong></div></td><td><div class="item"><strong>Delete</strong></div></td></tr>
 			<?php
 			//print each file and its respective checkbox
 
@@ -178,10 +178,10 @@
 
 				print '<tr>';
 				print '<td>';
-				print "<a href='download.php?id=".$file->getID()."'>".$file->getNameNoVer()."</a>&nbsp;";
+				print "<a href=\"download.php?id=".$file->getID()."\">".$file->getNameNoVer()."</a>&nbsp;";
 				print '</td>';
 				print '<td>';
-				print "<input type='checkbox' name='fileToDelete[]' value = '".$file->getID()."' />";
+				print "<input type=\"checkbox\" name=\"fileToDelete[]\" value = \"".$file->getID()."\" />";
 				print '</td>';
 				print '</tr>';
 			}
@@ -196,62 +196,59 @@
 		}
 		
 ?>
-		<div class='item'><strong>Add Files:</strong></div>
+		<div class="item"><strong>Add Files:</strong></div>
 		<p>Option 1: Upload new files</p>
-		<div id='files'>
-		<div id='file1' class='item'>
-		<strong>File 1: </strong><input type="file" name="thefile[]" onchange='javascript:fileAdd(1);' /><br />
-		<strong>File Name: </strong><input type="text" name="fileName" /><br />
-		<strong>Description: </strong><input type="text" name="fileDescription" /><br />
+		<div id="files">
+		<div id="file1" class="item">
+		<label for="thefile1">File 1: </label><input type="file" name="thefile[]" id="thefile1" onchange="javascript:fileAdd(1);" /><br />
+		<label for="filename1">File Name: </label><input type="text" name="fileName" id="filename1" /><br />
+		<label for="filedescription1">Description: </label><input type="text" name="fileDescription" id="filedescription1" /><br />
 		</div>
 		</div>
-		<?php print "<p>Option 2: <a href='#' onclick='javascript:addFilesFromNugget();getUpdates(".$nugget->getID().")'>Import files from iGroups</a></p>";?>
-		<input type='hidden' name='filenames' />
-		<input type='hidden' name='descriptions' />
-		<input type='hidden' name='igroupsRedirect' value='0' />
+		<?php print "<p>Option 2: <a href=\"#\" onclick=\"javascript:addFilesFromNugget();getUpdates(".$nugget->getID().")\">Import files from iGroups</a></p>";?>
+		<input type="hidden" name="filenames" />
+		<input type="hidden" name="descriptions" />
+		<input type="hidden" name="igroupsRedirect" value="0" />
 		These files will be placed in the Nugget File folder of your files.<br />
 <?PHP
 		//Save change button
-		print "<div class='item'>";
-		print "<input type='button' onclick='javascript:getUpdates(".$nugget->getID().");' value='Save Changes' />";
-		print "<input type='button' onclick='javascript:deleteNugget();' value='Delete this Nugget' />";
+		print "<div class=\"item\">";
+		print "<input type=\"button\" onclick=\"javascript:getUpdates(".$nugget->getID().");\" value=\"Save Changes\" />";
+		print "<input type=\"button\" onclick=\"javascript:deleteNugget();\" value=\"Delete this Nugget\" />";
 ?>
 		</div>
 		<input type="hidden" name="nuggetDelete" value="0" />
 		<input type="hidden" name="toUpdate" value="0" />
 <?php
-		print "<input type='hidden' name='nuggetType' value='".$_SESSION['nuggetType']."' />";
+		print "<input type=\"hidden\" name=\"nuggetType\" value=\"".$_SESSION['nuggetType']."\" />";
 		$nugId = $nugget->getID();
-		print "<input type='hidden' name='nuggetID' value='".$nugId."' />";
-		print "<input type='hidden' name='deleteMe' value='no' />";
+		print "<input type=\"hidden\" name=\"nuggetID\" value=\"".$nugId."\" />";
+		print "<input type=\"hidden\" name=\"deleteMe\" value=\"no\" />";
 ?>
 		</form>
 <?php
 	}
 ?>	
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Edit Nugget</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
-		ul.editnug {
-			list-style:none;
-			padding:0;
-			margin:0;
-		}
-
-		ul.editnug ul {
-			padding-left:20px;
-		}
-
 		.item {
 			padding-top:5px;
 			padding-bottom:5px;
 			border-bottom:1px solid #ccc;
-		}	
+		}
+		.edit_author {
+			border-style: none;
+		}
+
+		label {
+			font-weight: bold;
+		}
 	</style>
-	<script language="JavaScript" type="text/javascript">
+	<script type="text/javascript">
 	<!--
 		function addFile(nuggetID) {
 			document.getElementById("add-file").style.visibility="visible";
@@ -292,7 +289,7 @@
 			div.className = "item";
 			div.id = "file"+num;
 			div.innerHTML = 
-				"<strong>File " + (num+1)+": </strong><input type='file' name='thefile[]' onchange'fileAdd("+(num+1)+");' /><br /><strong>File Name "+(num+1)+":</strong><input type='text' name='fileName' /><br /><strong>File Description " + (num+1)+": </strong><input type='text' name='fileDescription' /><br />";
+			"<label for=\"thefile"+(num+1)+"\">File "+(num+1)+": </label><input type=\"file\" id=\"thefile"+(num+1)+"\" name='thefile[]' onchange='fileAdd("+(num+1)+");' /><br /><label for=\"filename"+(num+1)+"\">File Name "+(num+1)+":</label><input type='text' id=\"filename"+(num+1)+"\" name='fileName' /><br /><label for=\"filedescription"+(num+1)+"\">File Description "+(num+1)+": </label><input type=\"text\" name=\"fileDescription\" id=\"filedescription"+(num+1)+"\" /><br />";
 			document.getElementById("files").appendChild(div);
 		}
 		function nuggetRedirect(nugget){
@@ -331,7 +328,7 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 			$nugget->makePrivate();
 		}
 		$nugID = $nugget->getID();
-		print 	"<script type='text/javascript'>
+		print 	"<script type=\"text/javascript\">
 					<!--
 					window.location = 'viewNugget.php?nug=$nugID'
 					//-->
@@ -439,7 +436,7 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 
 		if($_POST['igroupsRedirect']){
 			print "</script>";
-                        print "<script type='text/javascript'>
+                        print "<script type=\"text/javascript\">
                                 <!--
                                 window.location='addFilesToNugget.php?nugget=".$nugget->getID()."'
                                 //-->
@@ -460,7 +457,7 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 		//print nugget form
 		printNuggetForm();
 		$id = $_GET['nug'];
-		print "<a href='editNugget.php?edit=true&amp;nugID=$id'>Edit this Nugget</a>";
+		print "<a href=\"editNugget.php?edit=true&amp;nugID=$id\">Edit this Nugget</a>";
 	}else{
 		if(isset ($_GET['edit']) && $_GET['edit'] == true){
 			printEditableNugget($_GET['nugID']);

@@ -56,13 +56,13 @@
 	// Prints tree structure of folders
 		$subfolder = $folder->getFolders();
 		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
-			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a></strong>\n";
+			print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a></strong>\n";
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
-			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
+			print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		else
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
 			print "<ul class=\"filesul\">\n";
 			foreach ( $subfolder as $key => $val ) {
@@ -113,7 +113,7 @@
 	//----End Display Functions-------------------------------------//
 	
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Files</title>
@@ -162,16 +162,6 @@
 		.menubar li {
 			padding:5px;
 			display:inline;
-		}
-		
-		ul.filesul {
-			list-style:none;
-			padding:0;
-			margin:0;
-		}
-			
-		ul.filesul ul {
-			padding-left:20px;
 		}
 	</style>
 
@@ -533,7 +523,7 @@ require("sidebar.php");
 				Your Folders:
 			</div>
 			<div class="menubar">
-				<ul class="filesul"> <?php if (!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial'])) { ?>
+				<ul class="folderlist"> <?php if (!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial'])) { ?>
 					<li><a href="#" onclick="newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Folder</a></li>
 					<?php
                                         if ( $currentUser->isGroupModerator($currentGroup) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0  ) {
@@ -544,16 +534,16 @@ require("sidebar.php");
 				<?php } ?>
 			</div>
 			<div id="folders">
-				<ul id="top" class="filesul">
+				<ul id="top" class="folderlist">
 <?php
 					if ( !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']==0 )
-						print '<li><img src="img/folder-expanded.png" border="0" alt="=" title="Open folder" />&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
+						print '<li><img src="img/folder-expanded.png" style="border-style: none" alt="=" title="Open folder" />&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
 					else
-						print '<li><img src="img/folder-expanded.png" border="0" alt="=" title="Open folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
+						print '<li><img src="img/folder-expanded.png" style="border-style: none" alt="=" title="Open folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
 					
 						$topFolders = $currentGroup->getGroupFolders();
 						if(count($topFolders) > 0) {
-							print "<ul class=\"filesul\">";
+							print "<ul class=\"folderlist\">";
 							
 							foreach ( $topFolders as $key => $val ) {
 								printFolder( $val );
@@ -563,24 +553,24 @@ require("sidebar.php");
 					print "</li>";
 
 					if ( $_SESSION['selectedSpecial'] == 'obsolete' )
-							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=obsolete">Past Versions</a></strong></li>';
+							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=obsolete">Past Versions</a></strong></li>';
 						else
-							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
+							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
 					if ( $_SESSION['selectedSpecial'] == 'trash' )
-							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=trash">Trash Bin</a></strong</li>';
+							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=trash">Trash Bin</a></strong</li>';
 						else
-							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
+							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
 					
 
 					if ( $currentGroup->getType() == 0 ) {
 						if ( $_SESSION['selectedSpecial'] == 'ipro' )
-							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=ipro">IPRO Office Files</a></strong>';
+							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=ipro">IPRO Office Files</a></strong>';
 						else
-							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a>';
+							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a>';
 
 						if ( in_array( "iprofiles", $_SESSION['expandFolders'] ) ) {
 ?>
-							<ul class="filesul">
+							<ul class="folderlist">
 <?php
 								$topFolders = $currentGroup->getIPROOfficeFolders();
 								foreach ( $topFolders as $key => $val ) {
@@ -595,7 +585,7 @@ require("sidebar.php");
 <?php
 					}
 ?>
-				<li><img src="img/folder.png" border="0" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
+				<li><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
 				</ul>
 			</div>
 		</div>
@@ -630,10 +620,10 @@ require("sidebar.php");
 				}
 ?>			
 			</div>
-			<form method="post" action="files.php">
+			<form method="post" action="files.php"><fieldset>
 				<div class="menubar">
 					<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
-					<ul class="filesul">
+					<ul class="folderlist">
 						<?php if ($_SESSION['selectedSpecial'] != 'obsolete' && $_SESSION['selectedSpecial'] != 'ipro') { if ( $currentFolder == 0 || (is_object($currentFolder) && !$currentFolder->isIPROFolder())) { ?>
 						<li><a href="#" onclick="uploadwin=dhtmlwindow.open('uploadbox', 'div', 'upload', 'Upload File', 'width=350px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); return false">Upload File</a></li>
 <?php
@@ -658,14 +648,14 @@ require("sidebar.php");
 <?php
 					if ($currentFolder && !$currentFolder->isIPROFolder()) {
                                                         printTR();
-                                                        print "<td width=\"24\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></td>";
+                                                        print "<td width=\"24\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
                                                         print "<td align=\"left\" colspan=\"5\"><a href=\"files.php?selectFolder=".$currentFolder->getParentFolderID()."\">..</a></td>";
                                                         print "</tr>\n";
                                         }
 					/*if ($folderList) {//Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $folderList as $key => $folder ) {
 							printTR();
-							print "<td><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></td>";
+							print "<td><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
 							print "<td><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></td>";
 							print "<td colspan='3'>".$folder->getDesc()."</td>";
 							print "<td><input type='checkbox' name='folder[".$folder->getID()."]' /></td>";
@@ -701,14 +691,14 @@ require("sidebar.php");
 ?>
 					</table>
 				</div>
-			</form>
+			</fieldset></form>
 		</div>
 	</div>
 		<div class="window-content" id="upload" style="display: none">
-			<form method="post" action="files.php" enctype="multipart/form-data">
-				File: <input type="file" name="thefile" /><br />
-				File Name: <input type="text" name="filename" /><br />
-				Description: <input type="text" name="filedescription" /><br />
+			<form method="post" action="files.php" enctype="multipart/form-data"><fieldset>
+				<label for="thefile1">File:</label><input type="file" name="thefile" id="thefile1" /><br />
+				<label for="filename">File Name:</label><input type="text" name="filename" id="filename" /><br />
+				<label for="filedescription1">Description:</label><input type="text" name="filedescription" id="filedescription1" /><br />
 				This file will be placed in the
 <?php
 				if ( $currentFolder )
@@ -719,15 +709,15 @@ require("sidebar.php");
 				folder.<br />- or -<br />
 				<input type="checkbox" name="private" />&nbsp;Send to Dropbox (viewable only by instructor)<br />
 				<input type="submit" name="upload" value="Upload File" />
-			</form>
+			</fieldset></form>
 		</div>
 <?php
 	if(count($fileList) > 0) {
 ?>
                 <div class="window-content" id="update" style="display: none">
-                        <form method="post" action="files.php" enctype="multipart/form-data">
-                                File: <input type="file" name="thefile" /><br />
-       				Description: <input type="text" name="filedescription" /><br />
+                        <form method="post" action="files.php" enctype="multipart/form-data"><fieldset>
+                                <label for="thefile2">File:</label><input type="file" name="thefile" id="thefile2" /><br />
+       				<label for="filedescription2">Description:</label><input type="text" name="filedescription" id="filedescription2" /><br />
                                 This file will be placed in the
 <?php
                                 if ( $currentFolder )
@@ -741,15 +731,15 @@ require("sidebar.php");
                                 <input type="hidden" name="files" />
 				<input type="hidden" name="fupdate" value="fupdate" />
                                 <input type="submit" value="Upload File" onclick="copyCheckBoxes();this.form.submit()" />
-                        </form>
+                        </fieldset></form>
                 </div>
 <?php
 		if(($currentFolder == 0 && count($folderList) > 0) || (isset($_SESSION['selectedSpecial']) && $_SESSION['selectedSpecial'] == 'trash') || (!isset($_SESSION['selectedSpecial']) && $currentFolder != 0)) {
 ?>
                 <div class="window-content" id="move" style="display: none">
-			<form method="post" action="files.php">
-				Select Target Folder:
-				<select name="target">
+			<form method="post" action="files.php"><fieldset>
+				<label for="target">Select Target Folder:</label>
+				<select name="target" id="target">
 					<option value="0">Your Files</option>
 <?php
 					printOptions( $currentGroup );
@@ -759,16 +749,16 @@ require("sidebar.php");
 				<input type="hidden" name="files" />
 				<input type="hidden" name="move" value="move" /><br />
 				<input type="button" value="Move Files and Folders" onclick="copyCheckBoxes();this.form.submit()" />
-			</form>
+			</fieldset></form>
 		</div>
 <?php
 	} }
 	if (!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial'])) {
 ?>
 		<div class="window-content" id="newfolder" style="display: none">
-			<form method="post" action="files.php">
-				Folder Name: <input type="text" name="foldername" /><br />
-				Description: <input type="text" name="folderdescription" /><br />
+			<form method="post" action="files.php"><fieldset>
+				<label for="Nfoldername">Folder Name:</label><input type="text" name="foldername" id="Nfoldername" /><br />
+				<label for="Nfolderdesc">Description:</label><input type="text" name="folderdescription" id="Nfolderdesc" /><br />
 				This folder will be placed in the
 <?php
 				if ( $currentFolder )
@@ -780,26 +770,26 @@ require("sidebar.php");
 <?php
 				if ( $currentUser->isGroupAdministrator( $currentGroup ) ) {
 ?>
-					<input type="radio" name="status" value="0" checked="checked" />Normal Folder  <input type="radio" name="status" value="1" />Write Only<br />
+					<input type="radio" name="status" value="0" checked="checked" id="status0" /><label for="status0">Normal Folder</label>  <input type="radio" name="status" value="1" id="status1" /><label for="status1">Write Only</label><br />
 <?php
 				}
 				else
 					print "<input type=\"hidden\" name=\"status\" value=\"0\" />";
 ?>
 				<input type="submit" name="create" value="Create Folder" />
-			</form>
+			</fieldset></form>
 		</div>
 <?php
 	}
 	if ( $currentUser->isGroupModerator($currentGroup) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0  ) {
 ?>
 		<div class="window-content" id="editfolder" style="display: none">
-			<form method="post" action="files.php">
+			<form method="post" action="files.php"><fieldset>
 <?php
 				if ( $currentFolder ) {
 					print "Current Folder Name: ".$currentFolder->getName()."<br />";
-					print "New Folder Name: <input type=\"text\" name=\"foldername\" value=\"".$currentFolder->getName()."\" /><br />";
-					print "New Folder Description: <input type=\"text\" name=\"folderdesc\" value=\"".$currentFolder->getDesc()."\" /><br />";
+					print "<label for=\"Efoldername\">New Folder Name:</label><input type=\"text\" name=\"foldername\" id=\"Efoldername\" value=\"".$currentFolder->getName()."\" /><br />";
+					print "<label for=\"Efolderdesc\">New Folder Description:</label><input type=\"text\" name=\"folderdesc\" id=\"Efolderdesc\" value=\"".$currentFolder->getDesc()."\" /><br />";
 					print '<input type="submit" name="editF" value="Edit Folder" />';
 					print '<input type="submit" name="deleteF" value="Delete Folder" />';
 				}
@@ -807,7 +797,7 @@ require("sidebar.php");
 					print "You cannot edit the current active category.";
 				}
 ?>
-			</form>
+			</fieldset></form>
 	</div>
 <?php
 	}

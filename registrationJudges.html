@@ -1,5 +1,5 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Online Application for IPRO Day Judges</title>
@@ -14,107 +14,88 @@ body {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:80%; padding
 table {font-family: Verdana, Arial, Helvetica, sans-serif; font-size:100%;}
 #sch td {border-bottom:1px solid #ccc;}
 </style>
-
-</head>
-
-<body>
-
-<a href="http://ipro.iit.edu"><img src="http://ipro.iit.edu/test_new/images/header.gif" border="0" alt="Interprofessional Projects Program" /></a>
-
+</head><body>
+<a href="http://ipro.iit.edu"><img src="http://ipro.iit.edu/test_new/images/header.gif" alt="Interprofessional Projects Program" style="border-style: none" /></a>
 <h2>IPRO Day Judges</h2>
-
 <p class="style1">Please complete the Personal Information form in order to register as an IPRO Day Judge for May 2nd, 2008.  <br />
   Please note that all fields that are required are marked with ' * ' symbol.<br />
 </p>
-<form id="form1" name="form1" method="post" action="http://sloth.iit.edu/~iproadmin/scripts/judges.php">
+<form id="form1" name="form1" method="post" action="http://sloth.iit.edu/~iproadmin/scripts/judges.php"><fieldset>
   <table width="100%">
     <tr>
-      <td width="27%" align="left" valign="top"><span class="style1">First Name*</span></td>
-      <td width="73%" align="left" valign="top"><input name="textfield" type="text" tabindex="1" size="30" maxlength="30" /></td>
-    </tr>
-
-    <tr>
-      <td align="left" valign="top"><span class="style1">Last Name*</span></td>
-      <td align="left" valign="top"><input name="textfield2" type="text" tabindex="2" size="30" maxlength="30" /></td>
+      <td width="27%" align="left" valign="top"><label for="textfield" class="style1">First Name*</label></td>
+      <td width="73%" align="left" valign="top"><input name="textfield" id="textfield" type="text" tabindex="1" size="30" maxlength="30" /></td>
     </tr>
     <tr>
-      <td align="left" valign="top"><span class="style1">Title</span></td>
-      <td align="left" valign="top"><input name="textfield6" type="text" tabindex="6" size="30" maxlength="30" /></td>
-    </tr>
-
-    <tr>
-      <td align="left" valign="top" class="style1">Tag Name </td>
-      <td align="left" valign="top"><input name="textfield7" type="text" tabindex="7" size="30" maxlength="30" /></td>
+      <td align="left" valign="top"><label for="textfield2" class="style1">Last Name*</label></td>
+      <td align="left" valign="top"><input name="textfield2" id="textfield2" type="text" tabindex="2" size="30" maxlength="30" /></td>
     </tr>
     <tr>
-      <td align="left" valign="top"><span class="style1">Institution or Company </span></td>
-      <td align="left" valign="top"><input name="textfield8" type="text" tabindex="8" size="30" maxlength="30" /></td>
-    </tr>
-
-    <tr>
-      <td align="left" valign="top"><span class="style1">Phone*</span></td>
-      <td align="left" valign="top"><input name="textfield9" type="text" tabindex="9" size="20" maxlength="20" /></td>
+      <td align="left" valign="top"><label for="textfield6" class="style1">Title</label></td>
+      <td align="left" valign="top"><input name="textfield6" id="textfield6" type="text" tabindex="6" size="30" maxlength="30" /></td>
     </tr>
     <tr>
-      <td align="left" valign="top"><span class="style1">E-mail* </span></td>
-      <td align="left" valign="top"><input name="textfield10"
-type="text" tabindex="10" size="30" maxlength="50" /></td>
+      <td align="left" valign="top"><label for="textfield7" class="style1">Tag Name</label></td>
+      <td align="left" valign="top"><input name="textfield7" id="textfield7" type="text" tabindex="7" size="30" maxlength="30" /></td>
     </tr>
-
     <tr>
-      <td height="38" align="left" valign="top" class="style1">I am a: * </td>
+      <td align="left" valign="top"><label for="textfield8" class="style1">Institution or Company </label></td>
+      <td align="left" valign="top"><input name="textfield8" id="textfield8" type="text" tabindex="8" size="30" maxlength="30" /></td>
+    </tr>
+    <tr>
+      <td align="left" valign="top"><label for="textfield9" class="style1">Phone*</label></td>
+      <td align="left" valign="top"><input name="textfield9" id="textfield9" type="text" tabindex="9" size="20" maxlength="20" /></td>
+    </tr>
+    <tr>
+      <td align="left" valign="top"><label for="textfield10" class="style1">E-mail* </label></td>
+      <td align="left" valign="top"><input name="textfield10" id="textfield10" type="text" tabindex="10" size="30" maxlength="50" /></td>
+    </tr>
+    <tr>
+      <td height="38" align="left" valign="top"><label for="list" class="style1">I am a: * </label></td>
       <td align="left" valign="top"><select name="list" size="1" id="list">
         <option>Educational Professional</option>
         <option>Business Professional</option>
         <option>Graduate Student</option>
         <option>Other</option>
-
-      </select>      </td>
+      </select></td>
     </tr>
     <tr>
-     <td align="left" valign="top"><span class="style1">Major Areas of Expertise or Industry Experiences: </span></td>
-      <td align="left" valign="top"><textarea name="expertise"
-cols="50" rows="4" id="expertise"></textarea></td>
+     <td align="left" valign="top"><label for="expertise" class="style1">Major Areas of Expertise or Industry Experiences: </label></td>
+      <td align="left" valign="top"><textarea name="expertise" cols="50" rows="4" id="expertise"></textarea></td>
     </tr>
     <tr>
-
-     <td align="left" valign="top"><span class="style1">Undergraduate Major: </span></td>
+     <td align="left" valign="top"><label for="underMajor" class="style1">Undergraduate Major: </label></td>
      <td align="left" valign="top"><span class="style1">
-	<select name="underMajor">
+	<select name="underMajor" id="underMajor">
 		<option value="">Click to Choose...</option>
 		<option value="Aerospace Engineering">Aerospace Engineering</option>
 		<option value="Applied Mathematics">Applied Mathematics</option>
 		<option value="Architectural">Architectural Engineering</option>		
 		<option value="Architecture">Architecture</option>
-
 		<option value="Biology">Biology</option>
 		<option value="Biomedical Engineering">Biomedical Engineering</option>
 		<option value="Business">Business</option>
 		<option value="Chemical Engineering">Chemical Engineering</option>
 		<option value="Chemistry">Chemistry</option>
 		<option value="Civil Engineering">Civil Engineering</option>
-
 		<option value="Computer Engineering">Computer Engineering</option>		
 		<option value="Computer Information Systems">Computer Information Systems</option>
 		<option value="Computer Science">Computer Science</option>
 		<option value="Design">Design</option>
 		<option value="Electrical Engineering">Electrical Engineering</option>
 		<option value="Engineering Management">Engineering Management</option>
-
 		<option value="Internet Communication">Internet Communication</option>
 		<option value="Journalism">Journalism</option>
 		<option value="Law">Law</option>
 		<option value="Material Sci/Eng">Material Science / Engineering</option>
 		<option value="Mathematics Education">Mathematics Education</option>
 		<option value="Mechanical Engineering">Mechanical Engineering</option>
-
 		<option value="Molecular Biochem/Biophysics">Molecular Biochem/Biophysics</option>
 		<option value="Physics">Physics</option>
 		<option value="Political Science">Politcal Science</option>
 		<option value="Professional Development">Professional Development</option>
 		<option value="Prof/Tech Communication">Professional / Technical Communication</option>
 		<option value="Psychology">Psychology</option>
-
 		<option value="Public Administration">Public Administration</option>
 		<option value="Science Education">Science Education</option>
 		<option value="Other">Other</option>
@@ -122,83 +103,72 @@ cols="50" rows="4" id="expertise"></textarea></td>
 	</select>
      </span></td>
     </tr>
-
     <tr>
-     <td align="left" valign="top"><span class="style1">Graduate Major: </span></td>
+     <td align="left" valign="top"><label for="gradMajor" class="style1">Graduate Major: </label></td>
      <td align="left" valign="top"><span class="style1">
-        <select name="gradMajor">
+        <select name="gradMajor" id="gradMajor">
                 <option value="">Click to Choose...</option>
                 <option value="Aerospace Engineering">Aerospace Engineering</option>
                 <option value="Applied Mathematics">Applied Mathematics</option>
-
                 <option value="Architectural">Architectural Engineering</option>
                 <option value="Architecture">Architecture</option>
                 <option value="Biology">Biology</option>
                 <option value="Biomedical Engineering">Biomedical Engineering</option>
                 <option value="Business">Business</option>
                 <option value="Chemical Engineering">Chemical Engineering</option>
-
                 <option value="Chemistry">Chemistry</option>
                 <option value="Civil Engineering">Civil Engineering</option>
                 <option value="Computer Engineering">Computer Engineering</option>
                 <option value="Computer Information Systems">Computer Information Systems</option>
                 <option value="Computer Science">Computer Science</option>
                 <option value="Design">Design</option>
-
                 <option value="Electrical Engineering">Electrical Engineering</option>
                 <option value="Engineering Management">Engineering Management</option>
                 <option value="Internet Communication">Internet Communication</option>
                 <option value="Journalism">Journalism</option>
                 <option value="Law">Law</option>
                 <option value="Material Sci/Eng">Material Science / Engineering</option>
-
                 <option value="Mathematics Education">Mathematics Education</option>
                 <option value="Mechanical Engineering">Mechanical Engineering</option>
                 <option value="Molecular Biochem/Biophysics">Molecular Biochem/Biophysics</option>
                 <option value="Physics">Physics</option>
                 <option value="Political Science">Politcal Science</option>
                 <option value="Professional Development">Professional Development</option>
-
                 <option value="Prof/Tech Communication">Professional / Technical Communication</option>
                 <option value="Psychology">Psychology</option>
                 <option value="Public Administration">Public Administration</option>
                 <option value="Science Education">Science Education</option>
                 <option value="Other">Other</option>
                 <option value="N/A">N/A</option>
-
 	</select>
 	</span></td>
     </tr>
     <tr>
-	<td align='left' valign='top'><span class='style1'>Have you judged IPRO Day before? </span></td>
-	<td align='left' valign='top'><input type='radio' name='before' value='yes' />&nbsp;yes<br /><input type='radio' name='before' value='no' />&nbsp;no</td>
+	<td align="left" valign="top"><label for="textfield" class="style1">Have you judged IPRO Day before? </label></td>
+	<td align="left" valign="top"><input type="radio" name="before" id="before1" value="yes" />&nbsp;<label for="before1">yes</label><br /><input type="radio" name="before" id="before2" value="no" />&nbsp;<label for="before2">no</label></td>
     </tr>
-
     <tr>
-	<td height="38" align="left" valign="top" class="style1">Judging Preference: </td>
-      <td align="left" valign="top"><select name="preference" size="1">
+	<td height="38" align="left" valign="top"><label for="preference" class="style1">Judging Preference: </label></td>
+      <td align="left" valign="top"><select name="preference" id="preference" size="1">
         <option>Exhibits</option>
         <option>Presentations</option>
         <option selected="selected">No preference</option>
-      </select>      </td>
-
+      </select></td>
     </tr>
     <tr> 
-	<td align="left" valign="top"><span class="style1"><input name="parking" type="checkbox" />&nbsp;I require a parking pass.</span></td>
+	<td align="left" valign="top"><span class="style1"><input name="parking" id="parking" type="checkbox" />&nbsp;<label for="parking" class="style1">I require a parking pass.</label></td>
     </tr>
     <tr>
-	<td align="left" valign="top"><p class="style1">If so, please enter your address (street, city, state, zip): </p></td>
-      <td align="left" valign="top"><textarea name="address" cols="50" rows="4"></textarea></td>
+	<td align="left" valign="top"><label for="address" class="style1">If so, please enter your address (street, city, state, zip):</label></td>
+      <td align="left" valign="top"><textarea name="address" id="address" cols="50" rows="4"></textarea></td>
     </tr>
-
     <tr>
-      <td align="left" valign="top"><p class="style1">I have dietary restrictions. Please explain: </p></td>
+      <td align="left" valign="top"><label for="dietaryRestrictions" class="style1">I have dietary restrictions. Please explain:</label></td>
       <td align="left" valign="top"><textarea name="dietaryRestrictions" cols="50" rows="4" id="dietaryRestrictions"></textarea></td>
     </tr>
     <tr>
-      <td align="left" valign="top"><p class="style1">I am handicapped. Please explain: </p></td>
+      <td align="left" valign="top"><label for="handicap" class="style1">I am handicapped. Please explain:</label></td>
       <td align="left" valign="top"><textarea name="handicap" cols="50" rows="4" id="handicap"></textarea></td>
-
     </tr>
     <tr>
       <td align="left" valign="top">&nbsp;</td>
@@ -209,6 +179,6 @@ cols="50" rows="4" id="expertise"></textarea></td>
       <td align="left" valign="top">&nbsp;</td>
     </tr>
   </table>
-</form>
+</fieldset></form>
 </body>
 </html>

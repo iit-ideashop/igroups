@@ -19,7 +19,7 @@
 		die("You have not selected a valid group.");
 	
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Pictures</title>
@@ -73,7 +73,7 @@
 		}
 	}
 ?>
-	<form method="post" action="grouppictures.php">
+	<form method="post" action="grouppictures.php"><fieldset>
 <?php
 	$pictures = $currentGroup->getGroupPictures();
 	if(count($pictures) > 0) {
@@ -89,13 +89,13 @@
 				$end = $start + 6;
 			$start2 = $start + 1;
 			if (count($pictures) > 0)
-				print "<center><b>Viewing Pictures {$start2} - {$end}</b></center><br />";
+				print "<tr><th colspan=\"2\">Viewing Pictures {$start2} - {$end}</th></tr><br />";
 			for ($j = $start; $j<$end; $j++) {
 				if ( !$i )
 					print "<tr>";
 				print "<td>";
-				print "<img width=\"300\" src='http://igroups.iit.edu/".$pictures[$j]->getRelativeName()."' alt=\"".$pictures[$j]->getRelativeName()."\" title=\"".$pictures[$j]->getRelativeName()."\" />";
-				print "<br /><center><input type='checkbox' name='picture[".$pictures[$j]->getID()."]' /><b>{$pictures[$j]->getTitle()}</b></center>";
+				print "<img width=\"300\" src=\"http://igroups.iit.edu/".$pictures[$j]->getRelativeName()."\" alt=\"".$pictures[$j]->getRelativeName()."\" title=\"".$pictures[$j]->getRelativeName()."\" />";
+				print "<br /><center><input type=\"checkbox\" name=\"picture[".$pictures[$j]->getID()."]\" /><b>{$pictures[$j]->getTitle()}</b></center>";
 				print "</td>";
 				if ( $i )
 					print "</tr>";
@@ -112,36 +112,33 @@ if (count($pictures) > 6) {
 	//end
 	if ($start && (count($pictures)-$start <= 6)) {
 		$prev = $start-6;
-		print "<a href='grouppictures.php?start=$prev'>Previous Page</a>";
+		print "<a href=\"grouppictures.php?start=$prev\">Previous Page</a>";
 	}
 	//middle
 	else if ($start) {
 		$prev = $start-6;
 		$next = $start+6;
-		print "<a href='grouppictures.php?start=$prev'>Previous Page</a> | <a href='grouppictures.php?start=$next'>Next Page</a>";
+		print "<a href=\"grouppictures.php?start=$prev\">Previous Page</a> | <a href=\"grouppictures.php?start=$next\">Next Page</a>";
 	}
 	//start
 	else {
-		print "<a href='grouppictures.php?start=6'>Next Page</a>";
+		print "<a href=\"grouppictures.php?start=6\">Next Page</a>";
 	}
 	print "</center><br /><br />";
 }
 
 if (!$currentUser->isGroupGuest($currentGroup)) { 
 	if ($pictures != null)
-		print "<input type='submit' name='deletepics' value='Delete Selected Pictures' />";
+		print "<input type=\"submit\" name=\"deletepics\" value=\"Delete Selected Pictures\" />";
 	else
 		print "<h5>You have not uploaded any pictures.</h5>";
 ?>
-	</form>
-<h1>Upload a new picture</h1>
-<form method="post" action="grouppictures.php" enctype="multipart/form-data">
-	<table>
-	<tr><td>Picture:</td><td><input type="file" name="picture" /></td></tr>
-	<tr><td>Title:</td><td><input type="text" name="title" /></td></tr>
-	</table><br />
+	</fieldset></form>
+<form method="post" action="grouppictures.php" enctype="multipart/form-data"><fieldset><legend>Upload a new picture</legend>
+	<label for="picture">Picture:</label><input type="file" name="picture" id="picture" />
+	<label for="title">Title:</label><input type="text" name="title" id="title" /><br />
 	<input type="submit" name="addpic" value="Upload Picture" />
-</form>
+</fieldset></form>
 <?php } ?>
 </div></body>
 </html>

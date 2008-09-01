@@ -39,7 +39,7 @@ if ( !class_exists( "dbConnection" ) ) {
 		//With the introduction of 3.0 the iknow and igroups databases were combined so all previous iknow queries are handeled as igroups queries now	
 		function iknowQuery( $query ) {
 			 $query_db_result = mysql_query($query, $this->igroupsConn) or
-				                                 die("Invalid query:\n<br>\n$query<br>\n" . mysql_error($this->igroupsConn));
+				                                 die("Invalid query:\n<br />\n$query<br />\n" . mysql_error($this->igroupsConn));
                          return $query_db_result;
 		}
 	
@@ -53,7 +53,7 @@ if ( !class_exists( "dbConnection" ) ) {
 	}
 	
 	function stripTags($str) {
-		return str_replace(array('<', '>'), array('&lt;', '&gt;'), $str);
+		return str_replace(array('<', '>', '&'), array('&lt;', '&gt;', '&amp;'), $str);
 	}
 }
 ?>

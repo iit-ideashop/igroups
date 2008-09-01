@@ -26,7 +26,7 @@
 
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Todo List</title>
@@ -198,7 +198,7 @@
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
 </script>
-	<script type="text/Javascript">
+	<script type="text/javascript">
 	<!--
 	function mysubmit(id){
 		obj = document.getElementById('taskFoo');
@@ -506,7 +506,7 @@ function ds_onclick(d, m, y) {
 <h3>About Todo List</h3>
 <p>To add a new task, fill in the task description and complete-by date in the 'Add a new task' box and click 'Add'. To edit a task, click the checkbox associated with that task and click 'Edit'. To mark a task as complete, click the 'Done' checkbox. To delete a task, click the red X under 'Delete'.</p>
 <hr /><br />
-<form action="" method="post" name="myform">
+<form action="" method="post" name="myform"><fieldset>
 <?php
 
 	$bar = new TodoList($currentGroup->getID(),$currentGroup->getSemester(),$db);
@@ -677,7 +677,7 @@ function ds_onclick(d, m, y) {
 		//$todoList = $bar->getList();
 		$todoList = $bar->getSortedList($sort);
 		print("<table class=\"todoList\">");
-		print("<tr class=\"todoHeaders\"><td class=\"todoTop\">&nbsp;</td><td class=\"todoTop\"><a href='todo.php?sort=num' class='todoSort'>Task #</a></td><td class=\"todoTop\"><a href='todo.php?sort=task' class='todoSort'>Task</a></td><td class=\"todoTop\">Assigned</td><td class=\"todoTop\"><a href='todo.php?sort=date' class='todoSort'>Due Date</a></td><td class=\"todoTop\">Done</td><td class=\"todoTop\">Delete</td></tr>");
+		print("<tr class=\"todoHeaders\"><td class=\"todoTop\">&nbsp;</td><td class=\"todoTop\"><a href='todo.php?sort=num' class='todoSort'>Task #</a></td><td class=\"todoTop\"><a href='todo.php?sort=task' class='todoSort'>Task</a></td><td class=\"todoTop\">Assigned</td><td class=\"todoTop\"><a href=\"todo.php?sort=date\" class=\"todoSort\">Due Date</a></td><td class=\"todoTop\">Done</td><td class=\"todoTop\">Delete</td></tr>");
 		foreach($todoList as $foo){
 			#update complete status
 			# Set to complete
@@ -709,7 +709,7 @@ function ds_onclick(d, m, y) {
             else
                 $person_name = "";
 			if ($currentUser->isGroupGuest($currentGroup)) 
-				$disabled = "disabled";
+				$disabled = "disabled=\"disabled\"";
 			print("<td class=\"taskSel\"><input type=\"checkbox\" name=\"taskEdit[]\" value=\"".$foo->getTaskNum()."\" /></td><td class=\"taskNum\">&nbsp;#". $foo->getTaskNum()."</td><td class=\"taskDesc\">". $foo->getTask()." </td><td class=\"taskAssigned\">".$person_name."</td> <td class=\"taskDate\">".$foo->getDueDate()."</td> <td class=\"taskDone\"><input type=\"checkbox\" name=\"taskNum[]\"  value=\"".$foo->getTaskNum()."\" $disabled");
 			if($foo->getCompleted() == '1'){
 				print(" onclick=\"mysubmit(".$foo->getTaskNum().")\" checked=\"checked\"");
@@ -747,13 +747,13 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
 		if($ERROR_task)
 			echo "enter a task name<br />";
 	?>
-    <div class="newItem">Task <span style="color: gray">[required]</span>: <input type="text" name="task" style="border: 1px solid black;width: 350px;" /></div>
+    <div class="newItem"><label for="task">Task <span style="color: gray">[required]</span>:</label> <input type="text" id="task" name="task" style="border: 1px solid black;width: 350px;" /></div>
 	<?php
 		if($ERROR_date)
 			echo "correct the date please<br />";
 	?>
-	<div class="newItem">Complete By (mm/dd/yyyy) <span style="color: gray">[optional]</span>: <input type="text" id="date" name="date" style="border: 1px solid black; text-align: left; width: 100px; cursor: text" onclick="calwind=dhtmlwindow.open('calboxd', 'div', 'calendarmenud', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" /></div>
-	<div class="newItem">Who is assigned to complete this task <span style="color: gray">[optional]</span>: <select id="assinged" name="assigned">
+	<div class="newItem"><label for="date">Complete By (mm/dd/yyyy) <span style="color: gray">[optional]</span>:</label> <input type="text" id="date" name="date" style="border: 1px solid black; text-align: left; width: 100px; cursor: text" onclick="calwind=dhtmlwindow.open('calboxd', 'div', 'calendarmenud', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" /></div>
+	<div class="newItem"><label for="assigned">Who is assigned to complete this task <span style="color: gray">[optional]</span>:</label><select id="assigned" name="assigned">
 	<?php
 		$people = $currentGroup->getGroupMembers();
         print("<option value=\"-1\">No one</option>");
@@ -768,7 +768,7 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
     </div>
 </div>
 <?php } ?>
-</form>
+</fieldset></form>
 <div id="calendarmenud" style="display: none">
 	<table>
 		<tr>
@@ -776,19 +776,19 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
 			$currentMonth = date( "n" );
 			$currentYear = date( "Y" );
 			for ( $i=$currentMonth; $i<$currentMonth+4; $i++ ) {
-				print "<td valign='top'>";
+				print "<td valign=\"top\">";
 				print "<table>";
-				print "<tr><td colspan='7'>".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
+				print "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
 				print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
 				$startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
 				$endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
 				if ( $startDay != 0 )
-					print "<tr><td colspan='$startDay'></td>";
+					print "<tr><td colspan=\"$startDay\"></td>";
 				$weekDay = $startDay;
 				for ( $j=1; $j<=$endDay; $j++ ) {
 					if ( $weekDay == 0 )
 						print "<tr>";
-					print "<td><a href='#' onclick=\"document.getElementById('date').value='".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'; calwind.close();\">$j</a></td>";
+					print "<td><a href=\"#\" onclick=\"document.getElementById('date').value='".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'; calwind.close();\">$j</a></td>";
 					$weekDay++;
 					if ( $weekDay == 7 ) {
 						print "</tr>";
@@ -796,7 +796,7 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
 					}
 				}
 				if ( $weekDay != 0 ) 
-					print "<td colspan='".(7-$weekDay)."'></td></tr>";
+					print "<td colspan=\"".(7-$weekDay)."\"></td></tr>";
 				print "</table>";
 				print "</td>";
 			}
@@ -804,5 +804,5 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
 		</tr>
 	</table>
 </div>
-<input id='calTarget' type='hidden' value='date' />
+<input id="calTarget" type="hidden" value="date" />
 </div></body></html>

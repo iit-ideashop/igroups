@@ -35,7 +35,7 @@
 		$i=!$i;
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Contact Info</title>
@@ -52,7 +52,7 @@ require("sidebar.php");
 	</div>
 	<table cellpadding="2">
 		<thead>
-			<tr><td colspan='5'>Team Roster</td></tr>
+			<tr><td colspan="5">Team Roster</td></tr>
 			<tr><td>Name</td><td>Email</td><td>Phone #</td><td>Alt. Phone #</td><td>AIM</td></tr>
 		</thead>
 <?php
@@ -61,7 +61,7 @@ require("sidebar.php");
 		foreach ( $members as $person ) {
 			$profile = $person->getProfile();
 			printTR();
-			print "<td><a href='viewprofile.php?uID={$person->getID()}'>".$person->getCommaName()."</a></td>";
+			print "<td><a href=\"viewprofile.php?uID={$person->getID()}\">".$person->getCommaName()."</a></td>";
 			print "<td>".$person->getEmail()."</td>";
 			print "<td>".$profile['sPhone']."</td>";
 			print "<td>".$profile['sPhone2']."</td>";
@@ -77,7 +77,7 @@ require("sidebar.php");
 		print "<table><tr>";
 		foreach ($subgroups as $subgroup) {
 			$members = $subgroup->getSubGroupMembers();
-			print "<td style=\"vertical-align: top; border: thin solid black;\"><table><tr><th align='left'>{$subgroup->getName()}</th></tr>";
+			print "<td style=\"vertical-align: top; border: thin solid black;\"><table><tr><th align=\"left\">{$subgroup->getName()}</th></tr>";
 			foreach ($members as $member) {
 				print "<tr><td>{$member->getFullName()}</td></tr>";
 			}

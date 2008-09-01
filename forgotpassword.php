@@ -5,7 +5,7 @@
 		setcookie('password', '', time()-60);
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Forgotten Password</title>
@@ -39,7 +39,7 @@ if ( isset( $_POST['resetPW'] ) ) {
 }
 ?>
 <p>To reset your password, simply enter your email address in the form below. An email will be sent to you containing a new password.</p>
-<form action="forgotpassword.php" method="post">
-Enter email address: <input type="text" name="email" />
+<form action="forgotpassword.php" method="post"><fieldset>
+<label for="email">Enter email address:</label><input type="text" name="email" id="email" />
 <input type="submit" name="resetPW" value="Reset Password" />
-</form></div></body></html>
+</fieldset></form></div></body></html>

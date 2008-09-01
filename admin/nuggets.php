@@ -43,7 +43,7 @@
         }
 
 ?>		
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - IPRO Team Nuggets</title>
@@ -67,7 +67,7 @@
 <?php
 	require("sidebar.php");
 	if ( isset( $message ) )
-		print "<script type='text/javascript'>showMessage(\"$message\");</script>";
+		print "<script type=\"text/javascript\">showMessage(\"$message\");</script>";
 ?>	
 	<div id="content"><div id="topbanner">
 <?php
@@ -102,7 +102,7 @@
 	
 	<center><p><i>* Signifies a protected nugget</i></p></center>
 
-	<table cellpadding='4' border='1' cellspacing='0'>
+	<table cellpadding="4" cellspacing="0" style="border: thin solid black">
 		<thead>
 			<tr><td>Group</td><td>Project Plan</td><td>Abstract</td><td>Code of Ethics</td><td>Midterm Report</td><td>Poster</td><td>Website</td><td>Final Presentation</td><td>Meeting Minutes</td><td>Final Report</td></tr>
 		</thead>
@@ -114,7 +114,7 @@
 		$groups = groupSort( $groups );
 		
 		foreach ( $groups as $group ) {
-			print "<tr><td><a href='viewIproNuggets.php?id={$group->getID()}'>{$group->getName()}</a></td>";
+			print "<tr><td><a href=\"viewIproNuggets.php?id={$group->getID()}\">{$group->getName()}</a></td>";
 			if ($currentSemester->getID() >= 32) {
 				$_DEFAULTNUGGETS = array('Project Plan', 'Abstract', 'Code of Ethics', 'Midterm Report', 'Poster', 'Website', 'Final Presentation', 'Team Minutes', 'Final Report');
 				$nuggets = getNuggetStatus($group, $currentSemester->getID());
@@ -124,90 +124,90 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align='center'><a href='viewNugget.php?nuggetID={$nuggets['Project Plan']}&amp;groupID={$group->getID()}'>View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Project Plan']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
 				else
-					print "<td align='center'><b>N/A</b></td>";
+					print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Abstract'] != 0) {
 					$nug = new Nugget($nuggets['Abstract'], $db, 0);
                                         if ($nug->isPrivate())
                                                 $priv = '*';
                                         else
                                                 $priv = '';
-                                        print "<td align='center'><a href='viewNugget.php?nuggetID={$nuggets['Abstract']}&amp;groupID={$group->getID()}'>View$priv</a></td>";
+                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Abstract']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
                                 else
-                                        print "<td align='center'><b>N/A</b></td>";
+                                        print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Code of Ethics'] != 0) {
 					$nug = new Nugget($nuggets['Code of Ethics'], $db, 0);
                                         if ($nug->isPrivate())
                                                 $priv = '*';
                                         else
                                                 $priv = '';
-                                        print "<td align='center'><a href='viewNugget.php?nuggetID={$nuggets['Code of Ethics']}&amp;groupID={$group->getID()}'>View$priv</a></td>";
+                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Code of Ethics']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
                                 else
-                                        print "<td align='center'><b>N/A</b></td>";
+                                        print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Midterm Report'] != 0) {
 					$nug = new Nugget($nuggets['Midterm Report'], $db, 0);
                                         if ($nug->isPrivate())
                                                 $priv = '*';
                                         else
                                                 $priv = '';
-                                        print "<td align='center'><a href='viewNugget.php?nuggetID={$nuggets['Midterm Report']}&amp;groupID={$group->getID()}'>View$priv</a></td>";
+                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Midterm Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
                                 else
-                                        print "<td align='center'><b>N/A</b></td>";
+                                        print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Poster'] != 0) {
 					$nug = new Nugget($nuggets['Poster'], $db, 0);
                                         if ($nug->isPrivate())
                                                 $priv = '*';
                                         else
                                                 $priv = '';
-                                        print "<td align='center'><a href='viewNugget.php?nuggetID={$nuggets['Poster']}&amp;groupID={$group->getID()}'>View$priv</a></td>";			
+                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Poster']}&amp;groupID={$group->getID()}\">View$priv</a></td>";			
 				}
                                 else
-                                        print "<td align='center'><b>N/A</b></td>";
+                                        print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Website'] != 0) {
 					$nug = new Nugget($nuggets['Website'], $db, 0);
                                         if ($nug->isPrivate())
                                                 $priv = '*';
                                         else
                                                 $priv = '';
-                                        print "<td align='center'><a href='viewNugget.php?nuggetID={$nuggets['Website']}&amp;groupID={$group->getID()}'>View$priv</a></td>";
+                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Website']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
                                 else
-                                        print "<td align='center'><b>N/A</b></td>";
+                                        print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Final Presentation'] != 0) {
 					$nug = new Nugget($nuggets['Final Presentation'], $db, 0);
                                         if ($nug->isPrivate())
                                                 $priv = '*';
                                         else
                                                 $priv = '';
-                                        print "<td align='center'><a href='viewNugget.php?nuggetID={$nuggets['Final Presentation']}&amp;groupID={$group->getID()}'>View$priv</a></td>";
+                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Presentation']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
                                 else
-                                        print "<td align='center'><b>N/A</b></td>";
+                                        print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Team Minutes'] != 0) {
 					$nug = new Nugget($nuggets['Team Minutes'], $db, 0);
                                         if ($nug->isPrivate())
                                                 $priv = '*';
                                         else
                                                 $priv = '';
-                                        print "<td align='center'><a href='viewNugget.php?nuggetID={$nuggets['Team Minutes']}&amp;groupID={$group->getID()}'>View$priv</a></td>";
+                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Team Minutes']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
                                 else
-                                        print "<td align='center'><b>N/A</b></td>";
+                                        print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Final Report'] != 0) {
 					$nug = new Nugget($nuggets['Final Report'], $db, 0);
                                         if ($nug->isPrivate())
                                                 $priv = '*';
                                         else
                                                 $priv = '';
-                                        print "<td align='center'><a href='viewNugget.php?nuggetID={$nuggets['Final Report']}&amp;groupID={$group->getID()}'>View$priv</a></td>";
+                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
                                 else
-                                        print "<td align='center'><b>N/A</b></td>";
+                                        print "<td align=\"center\"><b>N/A</b></td>";
 			}
 			else {
 				$_DEFAULTNUGGETS = array('Project Plan', 'Abstract', 'Code of Ethics', 'Midterm Report', 'Poster', 'Web Site', 'Final Presentation', 'Team Minutes', 'Final Report');
@@ -220,11 +220,11 @@
 					else
 						$priv = '';
 					if (strstr($nug->getType(), $def))
-						$link = "<a href='viewNugget.php?nuggetID={$nug->getID()}&amp;groupID={$group->getID()}&amp;isOld=1'>View$priv</a>&nbsp;";
+						$link = "<a href=\"viewNugget.php?nuggetID={$nug->getID()}&amp;groupID={$group->getID()}&amp;isOld=1\">View$priv</a>&nbsp;";
 				}	
 				if (!$link)
 					$link = "<b>N/A</b>";
-				print "<td align='center'>$link</td>";
+				print "<td align=\"center\">$link</td>";
 				}
 			}
 			print "</tr>";

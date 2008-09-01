@@ -88,7 +88,7 @@ ob_end_flush();
 ?>
 		<script type="text/javascript">
 		<!--
-			window.location.href="../index.php";
+			window.location.href="../grouphomepage.php";
 		//-->
 		</script>
 <?php
@@ -139,8 +139,9 @@ ob_end_flush();
 			$temp = array( $_GET['toggleExpand'] );
 			$_SESSION['expandSemesters'] = array_diff( $_SESSION['expandSemesters'], $temp );
 		}
-		else
+		else {
 			$_SESSION['expandSemesters'][] = $_GET['toggleExpand'];	
+		}
 	}
 
 ?>
@@ -187,7 +188,7 @@ ob_end_flush();
 	foreach ( $sortedIPROs as $key => $val ) {
 		$semester = new Semester( $key, $db );
 		if ( in_array( $semester->getID(), $_SESSION['expandSemesters'] ) ) {
-			print "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/minus.gif\" border=\"0\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+			print "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 			print "<ul>\n";
 			ksort( $val );
 			foreach ( $val as $useless => $group ) {
@@ -202,13 +203,13 @@ ob_end_flush();
 			print "</ul>\n";
 		}
 		else
-			print "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/plus.gif\" border=\"0\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+			print "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 		print "</li>";
 	}
 	print "</ul>\n";
 	
 	if ( in_array( "igroups", $_SESSION['expandSemesters'] ) ) {
-		print "<a href=\"?toggleExpand=igroups\"><img src=\"../img/minus.gif\" border=\"0\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
+		print "<a href=\"?toggleExpand=igroups\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
 		@ksort( $igroups );
 		print "<ul>\n";
 		if ( isset($igroups)) {
@@ -225,11 +226,11 @@ ob_end_flush();
 		print "</ul>\n";
 	}
 	else
-		print "<a href=\"?toggleExpand=igroups\"><img src=\"../img/plus.gif\" border=\"0\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
+		print "<a href=\"?toggleExpand=igroups\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
 
 	if ( $currentUser->isAdministrator() ) {
 		if ( in_array( "admin", $_SESSION['expandSemesters'] ) ) {
-			print "<a href=\"?toggleExpand=admin\"><img src=\"../img/minus.gif\" border=\"0\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
+			print "<a href=\"?toggleExpand=admin\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
 			print "<ul>";
 			print "<li><a href=\"../admin/group.php\">Manage Groups</a></li>";
 			print "<li><a href=\"../admin/email.php\">Email Groups</a></li>";
@@ -244,7 +245,7 @@ ob_end_flush();
 			print "</ul>";
 		}
 		else
-			print "<a href=\"?toggleExpand=admin\"><img src=\"../img/plus.gif\" border=\"0\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
+			print "<a href=\"?toggleExpand=admin\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
 	}
 ?>
 	<ul class="noindent">

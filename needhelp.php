@@ -7,7 +7,7 @@
 
 	$db = new dbConnection();
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Help</title>
@@ -44,20 +44,20 @@ if ( isset( $_POST['help'] ) ) {
 	print("Your request for help has been sent and we will respond to it as soon as possible.<br>");
 }
 ?>
-<p>If you are having trouble logging in, try <a href="http://igroups.iit.edu/forgotpassword.php" target="mainFrame">resetting your password</a>.</p>
+<p>If you are having trouble logging in, try <a href="http://igroups.iit.edu/forgotpassword.php">resetting your password</a>.</p>
 <p>If this fails to correct your problem, complete the form below including your login e-mail address and your IPRO number.</p>
-<form method="post" action="needhelp.php">
+<form method="post" action="needhelp.php"><fieldset>
 <?php
 	if ( isset( $email ) ) {
 		print("<input type=\"hidden\" name=\"email\" value=\"$email\" />");
 	}
 	else {
-		print("E-mail address: <input type=\"text\" name=\"email\" />");
+		print("<label for=\"email\">Email address:</label><input type=\"text\" name=\"email\" id=\"email\" />");
 	}
 ?>
-Please describe the problem you are having in as much detail as possible:<br />
-<textarea name="problem" rows="10" cols="50"></textarea><br /><br />
+<label for="problem">Please describe the problem you are having in as much detail as possible:</label><br />
+<textarea name="problem" id="problem" rows="10" cols="50"></textarea><br /><br />
 <input type="submit" name="help" value="Report Problem" />
-</form></div>
+</fieldset></form></div>
 </body>
 </html>

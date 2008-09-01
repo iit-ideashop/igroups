@@ -23,7 +23,7 @@
 		die("You have not selected a valid group.");
 
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Home Page</title>
@@ -86,6 +86,7 @@
 </script>
 
 	<script type="text/javascript">
+	//<![CDATA[
 		function showEvent( id, x, y ) {
 			document.getElementById(id).style.top=(y+20)+"px";
 			if ( x > window.innerWidth/2 )
@@ -113,6 +114,7 @@
 			document.body.insertBefore( msgDiv, null );
 			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
 		}
+	//]]>
 	</script>
 </head>
 <body>
@@ -166,16 +168,16 @@
 		$month = date( "n" );
 		$day = date( "j" );
 		$year = date( "Y" );
-		print "<table width='85%' style=\"border-collapse: collapse\"><tr valign='top'>";
+		print "<table width=\"85%\" style=\"border-collapse: collapse\"><tr valign=\"top\">";
 		for ( $i=0; $i<7; $i++ ) {
-			print "<td width='14%' class='calbord'>";
-			print "<div class='prop'>&nbsp;</div>";
-			print "<div class='dateHeading'>".date( "D n/d", mktime( 0,0,0,$month,$day+$i,$year ) )."</div>";
+			print "<td width=\"14%\" class=\"calbord\">";
+			print "<div class=\"prop\">&nbsp;</div>";
+			print "<div class=\"dateHeading\">".date( "D n/d", mktime( 0,0,0,$month,$day+$i,$year ) )."</div>";
 			$d = date( "j", mktime( 0,0,0,$month,$day+$i,$year ) );
 			if ( isset( $eventArray[ $d ] ) )
 				foreach ( $eventArray[ $d ] as $event ) {
-					print "<a href='#' onmouseover='showEvent(".$event->getID().", event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);' onmouseout='hideEvent(".$event->getID().");'>".$event->getName()."</a><br />";
-					print "<div class='event' id='".$event->getID()."'>".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
+					print "<a href=\"#\" onmouseover=\"showEvent(".$event->getID().", event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent(".$event->getID().");\">".$event->getName()."</a><br />";
+					print "<div class=\"event\" id=\"".$event->getID()."\">".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
 				}
 			print "</td>";
 		}
@@ -193,7 +195,7 @@
 
 						
 						foreach ( $emails as $email ) {
-							print "<li><a href='email.php?display=".$email->getID()."'>".$email->getSubject()."</a></li>";
+							print "<li><a href=\"email.php?display=".$email->getID()."\">".$email->getSubject()."</a></li>";
 						}
 					print "</ul>";
 					}
@@ -208,7 +210,7 @@
 				if(count($files) > 0) {
 					print "<ul>";
 					foreach ( $files as $file ) {
-						print "<li><a href='download.php?id=".$file->getID()."'>".$file->getName()."</a></li>";
+						print "<li><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a></li>";
 					}
 					print "</ul>";
 				}
@@ -221,12 +223,12 @@
 			$picture = $currentGroup->getRandomGroupPicture();
 			if ( $picture ) {
 				print "<table><tr>";
-				print "<td><a href='grouppictures.php'><img width='375' src='http://igroups.iit.edu/".$picture->getRelativeName()."' alt='".$picture->getRelativeName()."' /></a></td></tr>";
+				print "<td><a href=\"grouppictures.php\"><img width=\"375\" src=\"http://igroups.iit.edu/".$picture->getRelativeName()."\" alt=\"".$picture->getRelativeName()."\" /></a></td></tr>";
 				print "<tr><td><center><b>{$picture->getTitle()}</b></center></td></tr></table>";
 			}
 			else {
 				print "Your group currently does not have any group pictures.";
-				print "<br /><a href='grouppictures.php'>Click here to add a picture.</a><br />";
+				print "<br /><a href=\"grouppictures.php\">Click here to add a picture.</a><br />";
 			}
 ?>
 		</div>
@@ -235,9 +237,9 @@
 			$announcements = $currentGroup->getGroupAnnouncements();
 			print "<b><u><i>Announcements:</i></u></b><br /><br />";
 			foreach ( $announcements as $announcement ) {
-				print "<div class='announcement'>";
+				print "<div class=\"announcement\">";
 				if ( $currentUser->isGroupModerator( $currentGroup ) )
-					print "<a href='#' onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'edit-announcement', 'Edit Announcement', 'width=500px,height=300px,left=300px,top=100px,resize=1,scrolling=1'); editAnnouncement(".$announcement->getID().", '".$announcement->getHeadingJava()."', '".$announcement->getBodyJava()."'); return false\">";
+					print "<a href=\"#\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'edit-announcement', 'Edit Announcement', 'width=500px,height=300px,left=300px,top=100px,resize=1,scrolling=1'); editAnnouncement(".$announcement->getID().", '".$announcement->getHeadingJava()."', '".$announcement->getBodyJava()."'); return false\">";
 				print "<b>{$announcement->getHeading()}</b>";
 				if ( $currentUser->isGroupModerator( $currentGroup ) )
 					print "</a>";
@@ -247,28 +249,28 @@
 			if ( count( $announcements ) == 0 )
 				print "Your group currently does not have any announcements.<br />";
 			if ( $currentUser->isGroupModerator( $currentGroup ) )
-				print "<a href='#' onclick=\"addwin=dhtmlwindow.open('addbox', 'div', 'add-announcement', 'Create Announcement', 'width=500px,height=300px,left=300px,top=100px,resize=1,scrolling=1'); return false\">Click here to add an announcement.</a>";
+				print "<a href=\"#\" onclick=\"addwin=dhtmlwindow.open('addbox', 'div', 'add-announcement', 'Create Announcement', 'width=500px,height=300px,left=300px,top=100px,resize=1,scrolling=1'); return false\">Click here to add an announcement.</a>";
 ?>
 		</div>
 	</div>
 		<div class="window-content" id="add-announcement" style="display: none">
-			<form action="grouphomepage.php" method="post">
-				Expiration Date (MM/DD/YY):<input type="text" id="date" name="date" size="20" /><input type="button" onclick="calwin=dhtmlwindow.open('calbox', 'div', 'calendarmenu', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" value="Select Date" /><br />
-				Heading: <input type="text" name="heading" size="60" /><br />
-				Body:<br />
-				<textarea name="body" cols="55" rows="8"></textarea><br />
+			<form action="grouphomepage.php" method="post"><fieldset>
+				<label for="date">Expiration Date (MM/DD/YY):</label><input type="text" id="date" name="date" size="20" /><input type="button" onclick="calwin=dhtmlwindow.open('calbox', 'div', 'calendarmenu', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" value="Select Date" /><br />
+				<label for="heading">Heading:</label><input type="text" name="heading" id="heading" size="60" /><br />
+				<label for="body">Body:</label><br />
+				<textarea name="body" id="body" cols="55" rows="8"></textarea><br />
 				<input type="submit" name="addannouncement" value="Add Announcement" />
-			</form>
+			</fieldset></form>
 		</div>
 		<div class="window-content" id="edit-announcement" style="display: none">
-			<form action="grouphomepage.php" method="post">
+			<form action="grouphomepage.php" method="post"><fieldset>
 				<input type="hidden" name="id" id="editid" />
-				Heading: <input type="text" name="heading" id="editheading" size="60" /><br />
-				Body:<br />
+				<label for="editheading">Heading:</label><input type="text" name="heading" id="editheading" size="60" /><br />
+				<label for="editbody">Body:</label><br />
 				<textarea name="body" id="editbody" cols="55" rows="8"></textarea><br />
 				<input type="submit" name="editannouncement" value="Edit Announcement" />
 				<input type="submit" name="deleteannouncement" value="Delete Announcement" />
-			</form>
+			</fieldset></form>
 		</div>
 	<div id="calendarmenu" style="display: none">
 		<table>
@@ -277,7 +279,7 @@
 				$currentMonth = date( "n" );
 				$currentYear = date( "Y" );
 				for ( $i=$currentMonth; $i<$currentMonth+4; $i++ ) {
-					print "<td valign='top'>";
+					print "<td valign=\"top\">";
 					print "<table>";
 					print "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
 					print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
@@ -289,7 +291,7 @@
 					for ( $j=1; $j<=$endDay; $j++ ) {
 						if ( $weekDay == 0 )
 							print "<tr>";
-						print "<td><a href='#' onclick=\"document.getElementById('date').value='".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'; calwin.close();\">$j</a></td>";
+						print "<td><a href=\"#\" onclick=\"document.getElementById('date').value='".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'; calwin.close();\">$j</a></td>";
 						$weekDay++;
 						if ( $weekDay == 7 ) {
 							print "</tr>";

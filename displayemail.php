@@ -45,24 +45,24 @@
 			die("You are not a member of this group");
 		$author = $email->getSender();
 		if ($email->prev || $email->next) 
-			print "<table width='100%' border=0 cellspacing=0><tr><td align='center' bgcolor='#AAAAAA'>";
+			print "<table width=\"100%\" cellspacing=\"0\" style=\"border-style: none\"><tr><td align=\"center\" bgcolor=\"#AAAAAA\">";
 		if ($email->prev) {
-                        print "<a href='displayemail.php?id={$email->prev}'>Previous in Thread</a>";
+                        print "<a href=\"displayemail.php?id={$email->prev}\">Previous in Thread</a>";
                         if ($email->next)
-                                print " | <a href='displayemail.php?id={$email->next}'>Next in Thread</a></td></tr></table>";
+                                print " | <a href=\"displayemail.php?id={$email->next}\">Next in Thread</a></td></tr></table>";
                         else
                                 print "</td></tr></table>";
                 }
                 else {
                         if ($email->next)
-                                print "<a href='displayemail.php?id={$email->next}'>Next in Thread</a></td></tr></table>";
+                                print "<a href=\"displayemail.php?id={$email->next}\">Next in Thread</a></td></tr></table>";
                 }
 		print "<p><b>Subject:</b> ".$email->getSubjectHTML()."<br />";
 		print "<b>From:</b> ".$author->getFullName()."<br />";
 		print "<b>Date:</b> ".$email->getDateTime()."<br />";
 		print "<b>To:</b> ".$email->getTo()."<br />";
-		print "<a href='email.php?replyid=".$email->getID()."'>Reply to this email</a>";
-                print "&nbsp;|&nbsp;<a href='email.php?forward=".$email->getID()."'>Forward this email</a><br /><br />";
+		print "<a href=\"email.php?replyid=".$email->getID()."\">Reply to this email</a>";
+                print "&nbsp;|&nbsp;<a href=\"email.php?forward=".$email->getID()."\">Forward this email</a><br /><br />";
 		$files = $email->getAttachments();
 		foreach($files as $file) {
 			print "$file<br />";

@@ -12,7 +12,7 @@
 	if(!$currentUser->isAdministrator())
 		die("You must be an administrator to access this page.");
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - View Profile</title>
@@ -51,7 +51,7 @@
 <h2><?php print "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
 <?php
 if ($profile['sPicture']) {
-	print "<img src='profile-pics/{$profile['sPicture']}' width='200' /><br />";
+	print "<img src=\"profile-pics/{$profile['sPicture']}\" width=\"200\" alt=\"{$profile['sPicture']}\" /><br />";
 }
 ?>
 
@@ -133,9 +133,9 @@ if ($profile['sSkills']) {
 	else //if no email given in URL
 	{
 ?>
-	<form method="get" action="people.php">
-		Email address query: <input type="text" name="email" /><input type="submit" name="Submit" />
-	</form>
+	<form method="get" action="people.php"><fieldset>
+		<label for="email">Email address query:</label><input type="text" name="email" id="email" /><input type="submit" name="Submit" />
+	</fieldset></form>
 <?php
 	}
 ?>
