@@ -605,7 +605,7 @@ require("sidebar.php");
 				if ( $currentFolder ) {
 					$folderList = $currentFolder->getFolders();
 					$fileList = $currentFolder->getFiles();
-					print "Contents of ".$currentFolder->getName();
+					print "<span id=\"boxtitle\">".$currentFolder->getName()."</span><br /><span id=\"boxdesc\">".$currentFolder->getDesc()."</span>";
 				}
 				else {
 					if ( isset( $_SESSION['selectedSpecial'] ) ) {

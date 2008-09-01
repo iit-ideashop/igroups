@@ -106,3 +106,12 @@ div.box .box-header {
 }
 
 .calbord { border: 1px solid #666; }
+
+#boxtitle {
+	font-weight: bold;
+	font-size: larger;
+}
+
+#boxdesc {
+	font-style: italic;
+}

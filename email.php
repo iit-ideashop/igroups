@@ -481,13 +481,15 @@ require("sidebar.php");
 			if ( $currentCat ) {
 				$emails = $currentCat->getEmails();
 				$name = $currentCat->getName();
+				$desc = $currentCat->getDesc();
 			}
 			else {
 				$emails = $currentGroup->getGroupEmails();		
 				$name = "Uncategorized";
+				$desc = "Uncategorized Emails";
 			}
 			
-			print "<div class=\"columnbanner\">Contents of $name:</div>";
+			print "<div class=\"columnbanner\"><span id=\"boxtitle\">$name</span><br /><span id=\"boxdesc\">$desc</span></div>";
 ?>
 			<form method="post" action="email.php"><div class="menubar">
 			<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
