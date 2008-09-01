@@ -513,7 +513,7 @@ require("sidebar.php");
 			<div id="emails">
 				<table width="100%">
 <?php				
-				foreach ( $emails as $email ) {
+				if(count($emails) > 0) { foreach ( $emails as $email ) {
 					$author = $email->getSender();
 					printTR();
 					if ($email->hasAttachments()) 
@@ -522,7 +522,9 @@ require("sidebar.php");
 						$img = '';
 					print "<td colspan='2'><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".str_replace("&", "&amp;", $email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type=\"checkbox\" name=\"email[".$email->getID()."]\" /></td>";
 					print "</tr>";
-				}
+				} }
+				else
+					print "<tr><td>There are no emails in the selected category.</td></tr>";
 ?>
 				</table>
 			</div></form>
