@@ -1,5 +1,5 @@
 <?php
-	if (isset($_SESSION['userID']) && !$_GET['logout'])
+	if (isset($_SESSION['userID']))
 	{
                 require("menu.php");
         }

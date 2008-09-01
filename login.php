@@ -8,15 +8,6 @@
 
 ob_start();
 
-if ( isset( $_GET['logout'] ) ) {
-	session_destroy();
-	setcookie('username', '', time()-60);
-	setcookie('password', '', time()-60);
-	header('Location: index.php');
-	ob_end_flush();
-}
-?>
-
 <div id="sidebar">
 	<div id="iprologo">
 		<a href="http://ipro.iit.edu/home/index.php" title="IPRO Home"><img src="img/iprologo.png" alt="IPRO" title="IPRO" /></a>

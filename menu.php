@@ -9,6 +9,13 @@
 	$db = new dbConnection();
 	
 ob_start();
+if ( isset( $_GET['logout'] ) ) {
+	session_destroy();
+	setcookie('username', '', time()-60);
+	setcookie('password', '', time()-60);
+	header('Location: index.php');
+	ob_end_flush();
+}
 	//-----Process Login------------------------//
 
 	// Remember login info for 1 week
