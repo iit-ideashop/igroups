@@ -262,7 +262,7 @@ if ( isset( $_POST['delete'] ) ) {
                                                 print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a></li>';
 
 ?>
-                                <li><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
+                                <li><img src="img/folder-expanded.png" border="0" alt="-" title="Open folder" />&nbsp;<strong><a href="dropbox.php">Secure Dropbox</a></strong></li>
                                 </ul>
                         </div>
                 </div>
@@ -270,7 +270,7 @@ if ( isset( $_POST['delete'] ) ) {
 		<div id="filebox">
 			<div class="columnbanner">
 <?php
-				print "<span id=\"boxtitle\">My Secure Dropbox</span><br /><span id=\"boxdesc\">Files in your dropbox can only be viewed by you and your instructor</span>";
+				print "<span id=\"boxtitle\">My Secure Dropbox</span><br /><span id=\"boxdesc\">Files in your dropbox can only be viewed by you and your instructor(s).</span>";
 ?>			
 			</div>
 			<form method="post" action="dropbox.php">
