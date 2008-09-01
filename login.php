@@ -39,13 +39,13 @@ ob_end_flush();
 ?>
 		<a href="index.php">iGROUPS Home</a><br /><br />
 		<a href="iknow/main.php">iKnow/iGroups Guest Access</a><br /><br />
-		<form method="post" action="menu.php?loggingin=true">
-			User name: <input name="username" type="text" /><br />
-			Password: <input name="password" type="password" /><br />
+		<form method="post" action="menu.php?loggingin=true"><fieldset>
+			<label for="username">User name:</label><input name="username" id="username" type="text" /><br />
+			<label for="password">Password:</label><input name="password" id="password" type="password" /><br />
 			<input type="hidden" name="logform" value="true" />
-			<input type="checkbox" name="remember" value="true" />&nbsp;Remember Me<br />
+			<input type="checkbox" name="remember" id="remember" value="true" />&nbsp;<label for="remember">Remember Me</label><br />
 			<input type="submit" name="login" value="Login" />
-		</form>
+		</fieldset></form>
 	</div>
 	<p>
 	<a href="forgotpassword.php" title="Forgotten password">Forgot password?</a><br />

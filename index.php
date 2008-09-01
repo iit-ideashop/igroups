@@ -33,7 +33,7 @@
 		}
 	}
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups 2.2</title>
@@ -247,23 +247,23 @@ function addAnnouncement() {
 	{
 ?>
 	<div id="add-announcement" class="window-content" style="display: none">
-		<form action="index.php" method="post">
-			Expiration Date (MM/DD/YY):<input type="text" id="date" name="date" size="20" /><input type="button" onclick="calwin=dhtmlwindow.open('calbox', 'div', 'calendarmenu', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" value="Select Date" /><br />
-			Heading: <input type="text" name="heading" size="60" /><br />
-			Body:<br />
-			<textarea name="body" cols="55" rows="8"></textarea><br />
+		<form action="index.php" method="post"><fieldset>
+			<label for="date">Expiration Date (MM/DD/YY):</label><input type="text" id="date" name="date" size="20" /><input type="button" onclick="calwin=dhtmlwindow.open('calbox', 'div', 'calendarmenu', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" value="Select Date" /><br />
+			<label for="heading">Heading:</label><input type="text" name="heading" id="heading" size="60" /><br />
+			<label for="body">Body:</label><br />
+			<textarea name="body" id="body" cols="55" rows="8"></textarea><br />
 			<input type="submit" name="addannouncement" value="Add Announcement" />
-		</form>
+		</fieldset></form>
 	</div>
 	<div id="edit-announcement" class="window-content" style="display: none">
-		<form action="index.php" method="post">
+		<form action="index.php" method="post"><fieldset>
 			<input type="hidden" name="id" id="editid" />
-			Heading: <input type="text" name="heading" id="editheading" size="60" /><br />
-			Body:<br />
+			<label for="editheading">Heading:</label><input type="text" name="heading" id="editheading" size="60" /><br />
+			<label for="editbody">Body:</label><br />
 			<textarea name="body" id="editbody" cols="55" rows="8"></textarea><br />
 			<input type="submit" name="editannouncement" value="Edit Announcement" />
 			<input type="submit" name="deleteannouncement" value="Delete Announcement" />
-		</form>
+		</fieldset></form>
 	</div>
 <?php
 	}

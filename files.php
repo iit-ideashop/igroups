@@ -697,7 +697,7 @@ require("sidebar.php");
 							print "<tr><td colspan=\"6\">There are no files in the selected folder.</td></tr>\n";
 					}
 					else
-						print "<tr><td>You do not have access to view the files in this folder</td></tr>\n";
+						print "<tr><td>You do not have access to view the files in this folder.</td></tr>\n";
 ?>
 					</table>
 				</div>
