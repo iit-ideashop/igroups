@@ -528,7 +528,9 @@ require("sidebar.php");
 			</div></form>
 		</div>
 	</div>
-		
+<?php
+	if (!$currentUser->isGroupGuest($currentGroup)) {	
+?>
 		<div class="window-content" id="createCat" style="display: none">
 			<form method="post" action="email.php">
 				Category Name: <input type="text" name="catname" /><br />
@@ -536,6 +538,10 @@ require("sidebar.php");
 				<input type="submit" name="createcat" value="Create Category" />
 			</form>
 		</div>
+<?php
+	}
+	if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat) {
+?>
 		<div class="window-content" id="editCat" style="display: none">
 			<form method="post" action="email.php">
 <?php
@@ -551,14 +557,18 @@ require("sidebar.php");
 				}
 ?>
 			</form>
-	</div>
-<div class="window-content" id="moveFrame" style="display: none">
+		</div>
 <?php
-		$categories = $currentGroup->getGroupCategories();
+	}
+	if ( $currentUser->isGroupModerator( $currentGroup ) && count($emails) > 0) {
+?>
+		<div class="window-content" id="moveFrame" style="display: none">
+<?php
+			$categories = $currentGroup->getGroupCategories();
 ?>
 			<form method="post" action="email.php">
 			Move email to category:
-			<select name="targetcategory"><option value="0">No Category</option>
+			<select name="targetcategory"><option value="0">Uncategorized</option>
 <?php
 			$categories = $currentGroup->getGroupCategories();
 			foreach ( $categories as $category ) {
@@ -568,6 +578,9 @@ require("sidebar.php");
 ?>
 			<br />
 			<input type="button" name="move" value="Move Emails" onclick="copyCheckBoxes();this.form.submit()" /></form></div>
+<?php
+	}
+?>
 </div>
 </body>
 </html>
