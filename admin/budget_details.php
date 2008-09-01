@@ -378,8 +378,8 @@ else {
 	else {
 	echo "<td style=\"font-weight: bold\">$row[bStatus]</td>";
 	}
-	echo "<td class=\"actions\" nowrap=\"nowrap\">
-		 <form method=\"post\" name=\"budget_manage_form\" id=\"budget_manage_form".$row[bOrder]."\" action=\"budget_details.php?bOrder=$row[bOrder]&amp;iSemesterID=$row[iSemesterID]&amp;iProjectID=$row[iProjectID]&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]\"><fieldset>
+	echo "<td class=\"actions\">
+		 <form method=\"post\" id=\"budget_manage_form".$row[bOrder]."\" action=\"budget_details.php?bOrder=$row[bOrder]&amp;iSemesterID=$row[iSemesterID]&amp;iProjectID=$row[iProjectID]&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]\"><fieldset>
 		 <input type=\"submit\" id=\"approve_budget".$row[bOrder]."\" name=\"approve_budget\" value=\"Approve\" class=\"approve_btn\" />
 		 or
 		 <input type=\"submit\" id=\"decline_budget".$row[bOrder]."\" name=\"decline_budget\" value=\"Decline\" class=\"decline_btn\" />
@@ -396,7 +396,7 @@ $total = mysql_fetch_row($total_amt);
 
 	echo "<tr class=\"budget_col_totals\"><td style=\"font-weight: bold\">TOTAL</td><td class=\"req_budget_total\">$".round($total[0], 2)."</td><td class=\"app_budget_total\">$".round($total[1], 2)."</td><td>$".round($total[2], 2)."</td><td colspan=\"2\">&nbsp;</td>
 		  <td align=\"center\">
-		  <form method=\"post\" name=\"budget_manage_form\" id=\"budget_manage_form".(count($divs)+1)."\" action=\"budget_details.php?iSemesterID=$s_selectedSemester&amp;iProjectID=$s_selectedGroup&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]\"><fieldset>
+		  <form method=\"post\" id=\"budget_manage_form".(count($divs)+1)."\" action=\"budget_details.php?iSemesterID=$s_selectedSemester&amp;iProjectID=$s_selectedGroup&amp;iproNum=$_GET[iproNum]&amp;iproName=$_GET[iproName]\"><fieldset>
 		  <input type=\"submit\" id=\"approve_all\" name=\"approve_all\" value=\"Approve All\" class=\"approve_btn\" />
 		  OR
 		  <input type=\"submit\" id=\"decline_all\" name=\"decline_all\" value=\"Decline All\" class=\"decline_btn\" />

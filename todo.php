@@ -549,7 +549,7 @@ function ds_onclick(d, m, y) {
             foreach($currentGroup->getGroupMembers() as $peop){
                 print("<option value=\"".$peop->getID()."\"");
                 if ($peop->getID() == $tmp->getAssignedID())
-                    print(" selected");
+                    print(" selected=\"selected\"");
                 print(">".$peop->getLastName().",&nbsp;".$peop->getFirstName()."</option>");
             }
             print("</select>");
