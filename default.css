@@ -4,6 +4,10 @@ body {
 	margin:0;
 }
 
+fieldset {
+	border-style: none;
+}
+
 thead {
 	font-size:10pt;
 	font-weight:bold;
