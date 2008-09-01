@@ -486,7 +486,7 @@ require("sidebar.php");
 			else {
 				$emails = $currentGroup->getGroupEmails();		
 				$name = "Uncategorized";
-				$desc = "Uncategorized Emails";
+				$desc = "These emails are not in any particular category";
 			}
 			
 			print "<div class=\"columnbanner\"><span id=\"boxtitle\">$name</span><br /><span id=\"boxdesc\">$desc</span></div>";

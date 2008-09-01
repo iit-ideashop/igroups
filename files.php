@@ -611,22 +611,21 @@ require("sidebar.php");
 					if ( isset( $_SESSION['selectedSpecial'] ) ) {
 						if ( $_SESSION['selectedSpecial'] == 'trash' ) {
 							$fileList = $currentGroup->getGroupTrashBin();
-							print "Contents of Trash:";
+							print "<span id=\"boxtitle\">Trash</span><br /><span id=\"boxdesc\">Files that have been deleted</span>";
 						}
 						else if ($_SESSION['selectedSpecial'] == 'obsolete') {
 							$fileList = $currentGroup->getGroupObsolete();
-							print "Past Versions";
+							print "<span id=\"boxtitle\">Past Versions</span><br /><span id=\"boxdesc\">Older versions of files</span>";
 						}
-						else
-						if ( $_SESSION['selectedSpecial'] == 'ipro' ) {
+						else if ( $_SESSION['selectedSpecial'] == 'ipro' ) {
 							$folderList = $currentGroup->getIPROOfficeFolders();
-							print "Contents of IPRO Office Files:";
+							print "<span id=\"boxtitle\">IPRO Office Files</span><br /><span id=\"boxdesc\">Files from the IPRO Office</span>";
 						}
 					}
 					else {
 						$folderList = $currentGroup->getGroupFolders();
 						$fileList = $currentGroup->getGroupFiles();
-						print "Contents of Your Files:";
+						print "<span id=\"boxtitle\">Your Files</span><br /><span id=\"boxdesc\">Files uploaded by your group</span>";
 					}
 				}
 ?>			
