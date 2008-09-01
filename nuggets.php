@@ -65,20 +65,20 @@
 			}
 			
 			if($nuggets[$nug] != 0){
-                                print "<td><img src=\"img/upload.png\" alt=\"Y\" title=\"$nugprint has been uploaded\" />&nbsp;<a href=\"viewNugget.php?nug=".$nuggets[$nug]."\">".$nugprint."</a></td><td><a href=\"editNugget.php?edit=true&amp;nugID=".$nuggets[$nug]."\">Edit</a></td>";
-                        }else{
-                                print "<td><img src=\"img/no_upload.png\" alt=\"N\" title=\"$nugprint not uploaded\" />&nbsp;".$nugprint."</td><td><a href=\"addNugget.php?type=".$nug."\">Add Nugget</a></td>";
-                        }
+				print "<td><img src=\"img/upload.png\" alt=\"Y\" title=\"$nugprint has been uploaded\" />&nbsp;<a href=\"viewNugget.php?nug=".$nuggets[$nug]."\">".$nugprint."</a></td><td><a href=\"editNugget.php?edit=true&amp;nugID=".$nuggets[$nug]."\">Edit</a></td>";
+			}else{
+				print "<td><img src=\"img/no_upload.png\" alt=\"N\" title=\"$nugprint not uploaded\" />&nbsp;".$nugprint."</td><td><a href=\"addNugget.php?type=".$nug."\">Add Nugget</a></td>";
+			}
 			$nugCount++;
 		}
 		}
 		//iKnow nuggets
 		else {		
 			foreach($_DEFAULTNUGGETS as $def){
-                        if($nugCount == 2){
-                                print "</tr><tr>";
-                                $nugCount = 0;
-                        }
+			if($nugCount == 2){
+				print "</tr><tr>";
+				$nugCount = 0;
+			}
 
 			$link = null;
 			if ($def == "Website")
@@ -86,16 +86,16 @@
 
 			foreach($nuggets as $nug) {
 				if($nugCount == 2){
-                                	$link .= "</tr><tr>";
-                                	$nugCount = 0;
-                        	}
+					$link .= "</tr><tr>";
+					$nugCount = 0;
+				}
 				$id = $nug->getID();
 				$type = $nug->getType();
-	                        if(strstr($type, $def)){
-        	                        $link .= "<td><img src=\"img/upload.png\" alt=\"Y\" title=\"Uploaded\" />&nbsp;$def</td><td><a href=\"viewNugget.php?nug=$id&amp;isOld=1\">View</a></td>";
+				if(strstr($type, $def)){
+					$link .= "<td><img src=\"img/upload.png\" alt=\"Y\" title=\"Uploaded\" />&nbsp;$def</td><td><a href=\"viewNugget.php?nug=$id&amp;isOld=1\">View</a></td>";
 					$nugCount++;
-                        	}
-                	}
+				}
+			}
 			if (!$link) {
 				$link = "<td><img src=\"img/no_upload.png\" alt=\"N\" title=\"Not uploaded\" />&nbsp;$def</td><td>Not Uploaded</td>";
 				$nugCount++;
@@ -103,7 +103,7 @@
 			print "$link";
 			
 			}
-                }
+		}
 
 ?>
 		</tr>
@@ -149,23 +149,25 @@
 			$nugs = false;
 			foreach($nuggets as $nug){
 
-                        $found = false;
+			$found = false;
 			$id = $nug->getID();
 			$type = $nug->getType();
 
-                        foreach($_DEFAULTNUGGETS as $def) {
+			foreach($_DEFAULTNUGGETS as $def) {
 				if ($def == "Website")
 					$def = "Web Site";
-                                if(strstr($type, $def)){
-                                        $found = true;
-                                }
-                        }
-                        if (!$found) {
-                                print "<tr><td><a href='viewNugget.php?nug=$id&amp;isOld=1'>$type</a></td></tr>";
-	                        $nugCount++;
+				if(strstr($type, $def)){
+					$found = true;
+				}
+			}
+			if (!$found) {
+				print "<tr><td><a href=\"viewNugget.php?nug=$id&amp;isOld=1\">$type</a></td></tr>";
+				$nugCount++;
 				$nugs = true;
 			}
-                        }	
+			else
+				print "<tr><td></td></tr>";
+		}	
 			print "</table>";
 			if (!$nugs)
 				print "There are currently no Non-Deliverable Nuggets for this semester<br />";

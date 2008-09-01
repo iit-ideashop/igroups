@@ -674,7 +674,7 @@ function ds_onclick(d, m, y) {
 		<div id="addevent">
 		<table width="85%">
 		<tr>
-		<td width="40%">
+		<td style="width:40%">
 			<form method="post" action="event.php"><fieldset><legend>Add Event</legend>
 				<label for="adddate">Date (MM/DD/YYYY):</label><input type="text" id="adddate" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
 				<label for="addname">Event name:</label><input type="text" id="addname" name="name" /><br />
@@ -684,7 +684,7 @@ function ds_onclick(d, m, y) {
 				<input type="submit" name="addevent" value="Add Event" />
 			</fieldset></form>
 		</td>
-		<td width="60%" valign="top">
+		<td style="width:60%" valign="top">
 <?php
 		if(count($currentGroup->getMonthIPROEvents($currentMonth, $currentYear)) > 0) {
 			print "<form method=\"post\" action=\"event.php\"><fieldset><legend>Edit Event</legend>";

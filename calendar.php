@@ -600,7 +600,7 @@ function ds_onclick(d, m, y) {
 ?>
 	<td style="width:60%" valign="top">
 	<h1>Edit Event</h1>
-	<form method="post" action="calendar.php">
+	<form method="post" action="calendar.php"><fieldset>
 		<select name="id">
 <?php		
 			foreach ($currentGroup->getMonthEvents($currentMonth, $currentYear) as $event) {
@@ -610,7 +610,7 @@ function ds_onclick(d, m, y) {
 ?>
   		</select>
 		<input type="submit" name="edit" value="Edit" />
-		<input type="submit" name="deleteevent" value="Delete" />
+		<input type="submit" name="deleteevent" value="Delete" /></fieldset>
 		</form>
 <?php
 	if (isset($_POST['edit']) && isset($_POST['id'])) {

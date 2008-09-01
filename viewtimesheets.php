@@ -364,7 +364,7 @@ require("sidebar.php");
 	<input type="submit" name="submitWeek" value="View by Week" />
 	</fieldset></form>
 	<br />
-	[<a href="viewtimesheets.php?print=indiv&amp;week=<?php print "{$_GET['week']}"; ?>"]>Click to Print</a>]<br />
+	[<a href="viewtimesheets.php?print=indiv&amp;week=<?php print "{$_GET['week']}"; ?>">Click to Print</a>]<br />
 	<table width="100%"><tbody><tr><td valign="top">
 	<b>Completed Tasks</b><br />
 	<table width="500">
@@ -423,7 +423,7 @@ require("sidebar.php");
 ?>
 	</tbody>
 	</table>
-	</td></tr></tbody></table></td></tr></table><br />
+	</td></tr></tbody></table><br />
 <?php
 	}
 ?>

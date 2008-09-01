@@ -233,7 +233,7 @@ $delete<hr />";
 ?>
 <tr style="text-align: right; font-weight: bold"><td class="view_options" colspan="2"><?php print "$nav"; ?></td></tr>
 </table>
-<table class="noborder" width="85%" style="text-align: center"><tr style="text-align: left; font-size: smaller; font-weight: bold"><td>Goto Page: 
+<table class="noborder" width="85%"><tr style="text-align: left; font-size: smaller; font-weight: bold"><td>Goto Page: 
 <?php
 foreach($pages as $page)
         print "$page&nbsp;";

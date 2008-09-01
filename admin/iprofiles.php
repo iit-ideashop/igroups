@@ -289,7 +289,7 @@
 <?php
 				printFolder( $currentList->getBaseFolder() );
 ?>
-			</ul>
+			<li></li></ul>
 		</div>
 		<div id="filebox">
 			<div class="columnbanner">
