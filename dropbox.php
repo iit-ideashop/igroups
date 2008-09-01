@@ -25,13 +25,17 @@
 			
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
-		if ( $_SESSION['selectedFolder'] == $folder->getID() )
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></strong>\n";
-		else
-			print "<li><a href='files.php?toggleExpand=".$folder->getID()."'><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
-		if ( in_array( $folder->getID(), $_SESSION['expandFolders'] ) ) {
-			print "<ul>\n";
+		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
+			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></strong>\n";
+		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
+			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+		else
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
+			print "<ul class=\"filesul\">\n";
 			foreach ( $subfolder as $key => $val ) {
 				printFolder( $val );
 			}
@@ -252,7 +256,7 @@ if ( isset( $_POST['delete'] ) ) {
                         <div id="folders">
                                 <ul id="top" class="dropul">
 <?php
-                                                print '<li><a href="files.php?toggleExpand=yourfiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
+                                                print '<li><img src="img/folder.png" border="0" alt="=" title="Folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
                                                 print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
                                                 print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
                                                 print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" border="0" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a></li>';
@@ -266,7 +270,7 @@ if ( isset( $_POST['delete'] ) ) {
 		<div id="filebox">
 			<div class="columnbanner">
 <?php
-				print "My Secure Dropbox";
+				print "<span id=\"boxtitle\">My Secure Dropbox</span><br /><span id=\"boxdesc\">Files in your dropbox can only be viewed by you and your instructor</span>";
 ?>			
 			</div>
 			<form method="post" action="dropbox.php">
@@ -304,6 +308,8 @@ if ( isset( $_POST['delete'] ) ) {
                                                 print "<td align='right'><input type='checkbox' name='file[".$file->getID()."]' /></td>";
                                                 print "</tr>\n";
 					}
+					if(count($files) == 0)
+						print "<tr><td colspan=\"6\">There are no files in your dropbox.</td></tr>\n";
 					print '</table></div>';
 				}
 ?>

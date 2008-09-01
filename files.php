@@ -692,9 +692,9 @@ require("sidebar.php");
 						}
 							
 						if ( count( $folderList ) + count( $fileList ) == 0 )
-							print "<tr><td colspan=\"6\">There are no files or folders in the selected folder</td></tr>\n";
+							print "<tr><td colspan=\"6\">There are no files or folders in the selected folder.</td></tr>\n";
 						else if(count($fileList) == 0)
-							print "<tr><td colspan=\"6\">There are no files in the selected folder</td></tr>\n";
+							print "<tr><td colspan=\"6\">There are no files in the selected folder.</td></tr>\n";
 					}
 					else
 						print "<tr><td>You do not have access to view the files in this folder</td></tr>\n";
