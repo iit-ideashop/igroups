@@ -40,9 +40,9 @@
 		$files = $nugget->getFiles();
 		$semester = $nugget->getSemester();
 		
-		print "<form method=\"post\" action=\"nuggets.php\" id=\"redirectForm\">";
+		print "<form method=\"post\" action=\"nuggets.php\" id=\"redirectForm\"><fieldset>";
 		print "<input type=\"hidden\" name=\"nuggetType\" />";
-		print "</form>";
+		print "</fieldset></form>";
 		print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ";
 		//used to print a nugget that is from a prior semester or for viewing purposes only
 		if(isset($style) && $style == "link"){
@@ -225,7 +225,7 @@
 		print "<input type=\"hidden\" name=\"nuggetID\" value=\"".$nugId."\" />";
 		print "<input type=\"hidden\" name=\"deleteMe\" value=\"no\" />";
 ?>
-		</form>
+		</fieldset></form>
 <?php
 	}
 ?>	

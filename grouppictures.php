@@ -89,18 +89,20 @@
 				$end = $start + 6;
 			$start2 = $start + 1;
 			if (count($pictures) > 0)
-				print "<tr><th colspan=\"2\">Viewing Pictures {$start2} - {$end}</th></tr><br />";
+				print "<tr><th colspan=\"2\">Viewing Pictures {$start2} - {$end}</th></tr>";
 			for ($j = $start; $j<$end; $j++) {
 				if ( !$i )
 					print "<tr>";
 				print "<td>";
 				print "<img width=\"300\" src=\"http://igroups.iit.edu/".$pictures[$j]->getRelativeName()."\" alt=\"".$pictures[$j]->getRelativeName()."\" title=\"".$pictures[$j]->getRelativeName()."\" />";
-				print "<br /><center><input type=\"checkbox\" name=\"picture[".$pictures[$j]->getID()."]\" /><b>{$pictures[$j]->getTitle()}</b></center>";
+				print "<br /><span style=\"text-align: center\"><input type=\"checkbox\" name=\"picture[".$pictures[$j]->getID()."]\" /><b>{$pictures[$j]->getTitle()}</b></span>";
 				print "</td>";
 				if ( $i )
 					print "</tr>";
 				$i=!$i;
 			}
+			if($i)
+				print "</tr>";
 			print "</table>";
 	}
 ?>
@@ -108,7 +110,7 @@
 <?php
 // multi-page display
 if (count($pictures) > 6) {
-	print "<center>";
+	print "<span style=\"text-align: center\">";
 	//end
 	if ($start && (count($pictures)-$start <= 6)) {
 		$prev = $start-6;
@@ -124,7 +126,7 @@ if (count($pictures) > 6) {
 	else {
 		print "<a href=\"grouppictures.php?start=6\">Next Page</a>";
 	}
-	print "</center><br /><br />";
+	print "</span><br /><br />";
 }
 
 if (!$currentUser->isGroupGuest($currentGroup)) { 

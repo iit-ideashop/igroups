@@ -109,6 +109,10 @@
 		#emailboxheader {
 			font-weight: bold;
 		}
+
+		.window {
+			display: none;
+		}
 	</style>
 
 <link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
@@ -332,8 +336,8 @@ require("sidebar.php");
 				foreach ( $groups as $group ) {
 					if ( $i == 0 )
 						print "<tr>";
-					print "<td><input type=\"checkbox\" name=\"sendto[".$group->getID()."]\" id=\"sendto[".$group->getID()."]\" checked=\"checked\" />";
-					print "&nbsp;<label for=\"sendto[".$group->getID()."]\">".$group->getName()."</label></td>";
+					print "<td><input type=\"checkbox\" name=\"sendto[".$group->getID()."]\" id=\"sendto".$group->getID()."\" checked=\"checked\" />";
+					print "&nbsp;<label for=\"sendto".$group->getID()."\">".$group->getName()."</label></td>";
 					if ( $i == 2 ) {
 						print "</tr>";
 						$i = 0;

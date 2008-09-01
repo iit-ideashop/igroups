@@ -163,10 +163,10 @@ foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
 </td>
-<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><a href="create.php?mode=thread"><img src="../img/newthread.png" border="0" alt="New Thread" title="New Thread" /></a></td></tr></table>
+<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><a href="create.php?mode=thread"><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr></table>
 
-<table width="85%" cellspacing="0" cellpadding="5" align="center">
-<tr><th width="45%" colspan="2">Threads</th><th>Replies</th><th>Author</th><th>Views</th><th>Last Post</th></tr>
+<table width="85%" cellspacing="0" cellpadding="5" style="text-align: center">
+<tr><th style="width:45%" colspan="2">Threads</th><th>Replies</th><th>Author</th><th>Views</th><th>Last Post</th></tr>
 <?php
 
 if (count($threads) > 0) {
@@ -181,7 +181,7 @@ foreach ($threads as $thread) {
 	}
 	else
 		$delete = "";
-	print "<tr><td width=\"1%\"><img src=\"../img/thread.png\" alt=\"*\" title=\"Thread #".$thread->getID()."\" /></td><td style=\"font-weight: bold; font-size: smaller\"><a href=\"viewThread.php?id={$thread->getID()}\">{$thread->getName()}</a>$delete</td><td align=\"center\">{$thread->getPostCount()}</td><td align=\"center\">{$thread->getAuthorLink()}</td><td align=\"center\">{$thread->getViews()}</td><td align=\"center\">$text</td></tr>";
+	print "<tr><td style=\"width:1%\"><img src=\"../img/thread.png\" alt=\"*\" title=\"Thread #".$thread->getID()."\" /></td><td style=\"font-weight: bold; font-size: smaller\"><a href=\"viewThread.php?id={$thread->getID()}\">{$thread->getName()}</a>$delete</td><td align=\"center\">{$thread->getPostCount()}</td><td align=\"center\">{$thread->getAuthorLink()}</td><td align=\"center\">{$thread->getViews()}</td><td align=\"center\">$text</td></tr>";
 }
 }
 else
@@ -189,12 +189,12 @@ else
 
 ?>
 </table>
-<table class="noborder" width="85%" align="center"><tr style="font-size: smaller; font-weight: bold"><td style="text-align: left">Goto Page: 
+<table class="noborder" width="85%" style="text-align: center"><tr style="font-size: smaller; font-weight: bold"><td style="text-align: left">Goto Page: 
 <?php
 foreach($pages as $page)
         print "$page&nbsp;";
 ?>
-</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right" class="post_options"><a href="create.php?mode=thread"><img src="../img/newthread.png" border="0" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
+</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right" class="post_options"><a href="create.php?mode=thread"><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
 </div>
 </body>
 </html>

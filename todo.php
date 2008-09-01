@@ -506,7 +506,7 @@ function ds_onclick(d, m, y) {
 <h3>About Todo List</h3>
 <p>To add a new task, fill in the task description and complete-by date in the 'Add a new task' box and click 'Add'. To edit a task, click the checkbox associated with that task and click 'Edit'. To mark a task as complete, click the 'Done' checkbox. To delete a task, click the red X under 'Delete'.</p>
 <hr /><br />
-<form action="" method="post" name="myform"><fieldset>
+<form action="" method="post" id="myform"><fieldset>
 <?php
 
 	$bar = new TodoList($currentGroup->getID(),$currentGroup->getSemester(),$db);
@@ -710,7 +710,7 @@ function ds_onclick(d, m, y) {
                 $person_name = "";
 			if ($currentUser->isGroupGuest($currentGroup)) 
 				$disabled = "disabled=\"disabled\"";
-			print("<td class=\"taskSel\"><input type=\"checkbox\" name=\"taskEdit[]\" value=\"".$foo->getTaskNum()."\" /></td><td class=\"taskNum\">&nbsp;#". $foo->getTaskNum()."</td><td class=\"taskDesc\">". $foo->getTask()." </td><td class=\"taskAssigned\">".$person_name."</td> <td class=\"taskDate\">".$foo->getDueDate()."</td> <td class=\"taskDone\"><input type=\"checkbox\" name=\"taskNum[]\"  value=\"".$foo->getTaskNum()."\" $disabled");
+			print("<td class=\"taskSel\"><input type=\"checkbox\" name=\"taskEdit[]\" value=\"".$foo->getTaskNum()."\" /></td><td class=\"taskNum\">&nbsp;#". $foo->getTaskNum()."</td><td class=\"taskDesc\">".stripTags($foo->getTask())." </td><td class=\"taskAssigned\">".$person_name."</td> <td class=\"taskDate\">".$foo->getDueDate()."</td> <td class=\"taskDone\"><input type=\"checkbox\" name=\"taskNum[]\"  value=\"".$foo->getTaskNum()."\" $disabled");
 			if($foo->getCompleted() == '1'){
 				print(" onclick=\"mysubmit(".$foo->getTaskNum().")\" checked=\"checked\"");
 			}
@@ -719,7 +719,7 @@ function ds_onclick(d, m, y) {
 			}
 				print " /></td><td class=\"taskDel\">";
 			if (!$currentUser->isGroupGuest($currentGroup))
-			print "<a href=\"?d=t&amp;di=".$foo->getID()."&amp;dt=".$foo->getTaskNum()."\"><img src=\"img/delete.png\" border=\"0\" alt=\"X\" title=\"Delete Task ".$foo->getTaskNum()."\" /></a>";
+			print "<a href=\"?d=t&amp;di=".$foo->getID()."&amp;dt=".$foo->getTaskNum()."\"><img src=\"img/delete.png\" style=\"border-style: none\" alt=\"X\" title=\"Delete Task ".$foo->getTaskNum()."\" /></a>";
 			print "</td></tr>\n";
 		}
 		print("</table>");

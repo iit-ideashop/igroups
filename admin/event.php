@@ -640,7 +640,7 @@ function ds_onclick(d, m, y) {
 
 		print "<table width=\"100%\" style=\"border-collapse: collapse\">" ;
 		print "<tr><td id=\"columnbanner\" align=\"center\" colspan=\"7\" class=\"calbord\"><a href=\"event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."\">&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href=\"event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."\">&raquo;</a></td></tr>";
-		print "<tr><td width=\"14%\" class=\"calbord\">Sunday</td><td width=\"14%\" class=\"calbord\">Monday</td><td width=\"14%\" class=\"calbord\">Tuesday</td><td width=\"14%\" class=\"calbord\">Wednesday</td><td width=\"14%\" class=\"calbord\">Thursday</td><td width=\"14%\" class=\"calbord\">Friday</td><td width=\"14%\" class=\"calbord\">Saturday</td></tr>";
+		print "<tr><td class=\"calbord\">Sunday</td><td class=\"calbord\">Monday</td><td class=\"calbord\">Tuesday</td><td class=\"calbord\">Wednesday</td><td class=\"calbord\">Thursday</td><td class=\"calbord\">Friday</td><td class=\"calbord\">Saturday</td></tr>";
 		if ( $startDay != 0 )
 			print "<tr><td colspan=\"$startDay\" class=\"calbord\"></td>";
 		
@@ -747,8 +747,8 @@ function ds_onclick(d, m, y) {
 				</tr>
 			</table>
 		</div>
-			<div class="window-content" id="event-edit" style="display: none"><fieldset>
-				<form method="post" action="event.php">
+			<div class="window-content" id="event-edit" style="display: none">
+				<form method="post" action="event.php"><fieldset>
 					<label for="editdate">Date (MM/DD/YYYY):</label><input type="text" id="editdate" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
 					<label for="editname">Event name:</label><input type="text" id="editname" name="name" /><br />
 					<label for="editdesc">Event description:</label><br />

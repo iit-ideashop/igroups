@@ -179,7 +179,7 @@ foreach($pages as $page)
 ?>
 </td><td align="center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_SESSION['topicLink']}\">{$_SESSION['topicName']}</a>"; ?></td><td class="post_options" align="right"><a href="create.php?mode=thread"><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<a href="create.php?mode=post"><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
-<table width="85%" cellspacing="0" cellpadding="5" align="center" style="table-layout: fixed">
+<table width="85%" cellspacing="0" cellpadding="5" style="table-layout: fixed; text-align: center">
 <tr><td class="view_options" style="text-align: left; font-weight: bold; width: 100px">
 <?php
 	if ($prevThread)
@@ -199,7 +199,7 @@ foreach($pages as $page)
 <?php
 
 foreach ($posts as $post) {
-	print "<tr><td valign=\"top\" width=\"20%\"><span style=\"font-size: smaller; font-weight: bold\">{$post->getAuthorLink()}<br />";
+	print "<tr><td valign=\"top\" style=\"width:20%\"><span style=\"font-size: smaller; font-weight: bold\">{$post->getAuthorLink()}<br />";
 	$author = $post->getAuthor();
 	if (!$_SESSION['global']) {
 		$group = new Group ($currentThread->getGroupID(), $_SESSION['groupType'], $_SESSION['groupSemester'], $db);
@@ -233,7 +233,7 @@ $delete<hr />";
 ?>
 <tr style="text-align: right; font-weight: bold"><td class="view_options" colspan="2"><?php print "$nav"; ?></td></tr>
 </table>
-<table class="noborder" width="85%" align="center"><tr style="text-align: left; font-size: smaller; font-weight: bold"><td>Goto Page: 
+<table class="noborder" width="85%" style="text-align: center"><tr style="text-align: left; font-size: smaller; font-weight: bold"><td>Goto Page: 
 <?php
 foreach($pages as $page)
         print "$page&nbsp;";

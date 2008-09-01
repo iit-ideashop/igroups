@@ -157,7 +157,7 @@ require("sidebar.php");
 		print "<label for=\"pw1\">New password:</label><input type=\"password\" name=\"pw1\" id=\"pw1\" /><br />";
 		print "<label for=\"pw2\">Confirm password:</label><input type=\"password\" name=\"pw2\" id=\"pw2\" /><br />";
 ?>
-		<input type="submit" name="update" value="Change Password" />
+		<input type="submit" name="update" value="Change Password" /></fieldset>
 	</form></div>
 </body>
 </html>

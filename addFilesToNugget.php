@@ -298,11 +298,10 @@ require("sidebar.php");
 					</ul>
 				</div>
 				<div id="files">
-					<table width="100%">
+					<fieldset><table width="100%">
 <?php
 					if(canViewFiles($currentUser, $currentFolder)){
 						if($fileList) {
-							print "<fieldset>";
 							foreach($fileList as $key=>$file){
 								printTR();
 								print "<td><img src=\"img/file.png\" alt=\"\" /></td>";
@@ -321,14 +320,13 @@ require("sidebar.php");
 								print "<td><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";
 								print "</tr>\n";
 							}
-							print "</fieldset>";
 						}
 						if(count($folderList)+count($fileList)==0)
 							print "<tr><td>There are no files or folders in the selected folder</td></tr>\n";
 					}else
 						print "<tr><td>You do not have access to view the files in this folder</td></tr>\n";
 ?>
-					</table>
+					</table></fieldset>
 				</div>
 			</form>
 		</div>

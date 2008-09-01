@@ -50,7 +50,7 @@
 		unset( $_SESSION['selectedIPROGroup'] );
 	}
 	
-	if ( isset( $_GET['selectGroup'] ) && $_GET['selectGroup'] != '') {
+	if ( isset( $_GET['selectAdminGroup'] ) && $_GET['selectAdminGroup'] != '') {
 		$_SESSION['selectedIPROGroup'] = $_GET['group'];
 	}
 
@@ -144,10 +144,10 @@
 	</div>
 	<table width="85%">
 	<tr>
-	<td width="40%">
+	<td style="width:40%">
 	<div id="semesterSelect">
 	<h1>Create New IPRO</h1>
-                <form method="post" action="group.php">
+                <form method="post" action="group.php"><fieldset>
                 <b>Semester</b><br />
                 <select name="semester">
 <?php
@@ -164,7 +164,7 @@
                 <b>Name: </b>(e.g. Developing New Products)<br />
                 <input type='text' name='sName' size='25' />&nbsp;&nbsp;
                 <input type='submit' name='createIPRO' value='Create IPRO' /><br />
-                </form>
+                </fieldset></form>
                 <br />
 		<h1>Manage Groups</h1>
 		<form method="get" action="group.php"><fieldset>
@@ -216,11 +216,11 @@
 			}
 ?>
 			</select>
-			<input type="submit" name="selectGroup" value="Select Group" />
+			<input type="submit" name="selectAdminGroup" value="Select Group" />
 		</fieldset></form>
 	</div>
 	</td>
-	<td width="60%">
+	<td style="width:60%">
 	<div id="createCroup"> 
 		<h1>Create non-IPRO Group</h1>
 		<form method="post" action="group.php"><fieldset>

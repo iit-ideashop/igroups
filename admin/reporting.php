@@ -275,14 +275,14 @@
 	$numPictures = getStats('Pictures', -1, $db);
 	$size = getStats('FileQuota', -1, $db);
 ?>
-	<center>
+	<div style="text-align: center">
 	<h3>System-wide Statistics:</h3><br />
-	<hr width="40%" />
+	<hr />
 	<p><b>Tracking <?php echo "$numUsers"; ?> users in <?php echo "$numGroups" ?> groups.</b></p>
 	<p><b>Files: </b><?php echo "$numFiles"; ?> using <?php echo "$size"; ?> MiB</p>
 	<p><b>Emails: </b><?php echo "$numEmails"; ?></p>
 	<p><b>Pictures: </b><?php echo "$numPictures"; ?></p>
-	</center>
+	</div>
 	<br />
 <?php
 	if ($currentSemester)
@@ -302,21 +302,21 @@
 	$avgEmails = round($numEmails/$numGroups, 0);
 	$avgEmailsPerUser = round($numEmails/$numUsers, 0);
 ?>
-	<center>
+	<div style="text-align: center">
         <h3>Semester Statistics:</h3><br />
-        <hr width="40%" />
+        <hr />
         <p><b><?php echo "$numUsers"; ?> users in <?php echo "$numGroups" ?> groups.</b></p>
         <p><b>Files: </b><?php echo "$numFiles"; ?> using <?php echo "$size"; ?> MiB</p>
         <p><b>Emails: </b><?php echo "$numEmails"; ?></p>
         <p><b>Pictures: </b><?php echo "$numPictures"; ?></p>
-        </center>
+        </div>
 	<br />
 
-	<table align="center" width="75%" cellpadding="3" style="border: thin solid black">
+	<table width="75%" cellpadding="3" style="border: thin solid black; style: text-align: center">
 		<tr>
-			<td bgcolor="red" align="center" colspan="7"><big><b><font color="white">Usage Comparison</font></b></big></td>
+			<td style="background: red; text-align: center; color: white; font-size: bigger; font-weight: bold" colspan="7">Usage Comparison</td>
 		</tr>
-		<tr align="center" bgcolor="#DDDDDD">
+		<tr align="center" style="background: #dddddd">
 			<td><b>IPRO</b></td><td><b>Files Uploaded</b></td><td><b>Percentage of Mean</b></td><td><b>Emails Sent</b></td><td><b>Percentage of Mean</b></td><td><b>Emails per User</b></td><td><b>Percentage of Mean</b></td></tr>
 			<tr align="center"><td>Mean of All Groups</td><td><?php print "$avgFiles"; ?></td><td>100%</td><td><?php print "$avgEmails"; ?></td><td>100%</td><td><?php print "$avgEmailsPerUser"; ?></td><td>100%</td>
 		</tr>
@@ -371,7 +371,7 @@
 		<tr>
 			<td colspan="5" style="font-size: bigger; font-weight: bold; background: red; color: white; text-align: center"><?php echo "{$group->getName()}"; ?></td>
 		</tr>
-		<tr align="center" bgcolor="#DDDDDD">
+		<tr align="center" style="background: #dddddd">
 			<td> </td> 
 			<td><b>E-mails Sent</b></td>
 			<td><b>Files Uploaded</b></td>
@@ -379,43 +379,43 @@
 			<td><b>Pictures Uploaded</b></td>
 		</tr>
 		<tr align="center">
-			<td bgcolor="#DDDDDD"><b>This Week</b></td>
+			<td style="background: #dddddd"><b>This Week</b></td>
 			<td><?php echo "$emailsWeek"; ?></td>
 			<td><?php echo "$filesWeek"; ?></td>
 			<td><?php echo "$eventsWeek"; ?></td>
 			<td><?php echo "$picsWeek"; ?></td>
 		</tr>
 		<tr align="center">
-			<td bgcolor="#DDDDDD"><b>This Month</b></td>
+			<td style="background: #dddddd"><b>This Month</b></td>
 			<td><?php echo "$emailsMonth"; ?></td>
 			<td><?php echo "$filesMonth"; ?></td>
 			<td><?php echo "$eventsMonth"; ?></td>
 			<td><?php echo "$picsMonth"; ?></td>
 		</tr>
 		<tr align="center">
-			<td bgcolor="#DDDDDD"><b>All</b></td>
+			<td style="background: #dddddd"><b>All</b></td>
 			<td><?php echo "$emailsAll"; ?></td>
 			<td><?php echo "$filesAll"; ?></td>
 			<td><?php echo "$eventsAll"; ?></td>
 			<td><?php echo "$picsAll"; ?></td>
 		</tr>
 		<tr align="center">
-                        <td bgcolor="#DDDDDD"><b>User Avg.</b></td>
+                        <td style="background: #dddddd"><b>User Avg.</b></td>
                         <td><?php echo "$emailsAvg"; ?></td>
                         <td><?php echo "$filesAvg"; ?></td>
                         <td><?php echo "$eventsAvg"; ?></td>
                         <td><?php echo "$picsAvg"; ?></td>
                 </tr>
 		<tr>
-			<td align="center" bgcolor="#FFCCCC" colspan="5"><b>User Statistics</b></td>
+			<td align="center" style="background: #ffcccc" colspan="5"><b>User Statistics</b></td>
 		</tr>
 		<tr align="center">
 		<td colspan="5">
 		<table width="100%" cellpadding="3" style="border: thin solid black">
-		<tr bgcolor="#DDDDDD" align="center">
-			<td width="33%"><b>Name</b></td>
-			<td width="33%"><b>E-mails Sent (% of group mean) (% of total mean)</b></td>
-			<td width="33%"><b>Files Uploaded (% of mean)</b></td>
+		<tr style="background: #dddddd" align="center">
+			<td style="width:33%"><b>Name</b></td>
+			<td style="width:33%"><b>E-mails Sent (% of group mean) (% of total mean)</b></td>
+			<td style="width:33%"><b>Files Uploaded (% of mean)</b></td>
 		</tr>
 <?php
 		foreach ($users as $user) {

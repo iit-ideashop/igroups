@@ -76,7 +76,7 @@ if ($_GET['mode'] == 'thread') {
 <table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_SESSION['topicLink']}"; ?>"><?php print "{$_SESSION['topicName']}"; ?></a></td></tr></table>
 <form action="create.php" method="post" id="threadForm"><fieldset><legend>Create a New Thread</legend>
 <table width="85%">
-<tr><td><label for="name">Name</td><td><input type="text" size="60" name="name" id="name" /></td></tr>
+<tr><td><label for="name">Name</label></td><td><input type="text" size="60" name="name" id="name" /></td></tr>
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"></textarea></td></tr>
 <tr><td align="center" colspan="2"><input type="submit" name="newThread" value="Create Thread" /></td></tr>
 </table>

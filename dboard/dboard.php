@@ -103,7 +103,7 @@ if (isset($_SESSION['adminView'])) {
 ?>
 
 <table width="85%" cellspacing="0" cellpadding="5">
-<tr><th width="65%">Topics</th><th>Threads</th><th>Posts</th><th>Last Post</th></tr>
+<tr><th style="width: 65%">Topics</th><th>Threads</th><th>Posts</th><th>Last Post</th></tr>
 
 <?php
 if (count($groups) > 0) {

@@ -266,7 +266,7 @@
 		$list = new FileList( $row[0], $db );
 		print "<li><input type=\"checkbox\" name=\"list[".$list->getID()."]\" /><a href=\"iprofiles.php?selectList=".$list->getID()."\">".$list->getName()."</a></li>";
 	}
-	print "</ul>";
+	print "<li></li></ul>";
 	print "<input type=\"button\" onclick=\"newwin=dhtmlwindow.open('newbox', 'div', 'newlist', 'Create a File List', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\" value=\"Add a new list\" />";
 	print "<input type=\"submit\" name=\"dellist\" value=\"Delete selected lists\" /></fieldset></form>";
 ?>
@@ -280,7 +280,7 @@
 	if ( isset( $_SESSION['selectedList'] ) ) {
 ?>
 		<div id="folderbox">
-			<div id="columnbanner">
+			<div class="columnbanner">
 <?php
 				print "Folders in ".$currentList->getName().":";
 ?>
@@ -292,7 +292,7 @@
 			</ul>
 		</div>
 		<div id="filebox">
-			<div id="columnbanner">
+			<div class="columnbanner">
 <?php
 				if ( isset( $_SESSION['selectedIPROFolder'] ) ) 
 					$folder = new Folder( $_SESSION['selectedIPROFolder'], $db );
@@ -379,7 +379,7 @@
 				<form method="post" action="iprofiles.php" enctype="multipart/form-data"><fieldset>
 					<label for="thefile">File:</label><input type="file" name="thefile" id="thefile" /><br />
 					<label for="filename">File Name:</label><input type="text" name="filename" id="filename" /><br />
-					<label for="filedescription">Description:</label><input type="text" name="filedescription" /><br />
+					<label for="filedescription">Description:</label><input type="text" name="filedescription" id="filedescription" /><br />
 					This file will be placed in the
 	<?php
 					print $folder->getName();

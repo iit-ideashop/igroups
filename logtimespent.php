@@ -555,7 +555,7 @@ function ds_onclick(d, m, y) {
         </fieldset></form>
 </td></tr></table>
 <br />
-<table style="border-style: none" align="left" width="85%"><tbody>
+<table style="border-style: none" width="85%"><tbody>
 <tr><td valign="top">
         <form method="get" action="logtimespent.php"><fieldset><legend>Your Current Timesheet Entries</legend>
         <select name="week">
@@ -611,7 +611,7 @@ function ds_onclick(d, m, y) {
 
 
 <h1>Your Projected Tasks</h1>
-        <form method="get" action="logtimespent.php">
+        <form method="get" action="logtimespent.php"><fieldset>
         <select name="taskWeek">
 <?php
         $timeLog = $currentGroup->getTimeLog();
@@ -633,7 +633,7 @@ function ds_onclick(d, m, y) {
 ?>
         </select>
         <input type="submit" name="submitWeek" value="View by Week" />
-        </form>
+        </fieldset></form>
         <br />
         <table class="list">
                 <thead>

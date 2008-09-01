@@ -70,7 +70,7 @@
 			background-color:#DDD;
 		}
 	</style>
-	<script language="JavaScript1.2">
+	<script type="text/javascript">
                 function init() {
                 if(window.print)
                         window.print();
@@ -115,18 +115,7 @@ require("sidebar.php");
                 $endDate = date( "n/j", mktime( 0, 0, 0, $temp2[1], $temp2[2] ) );
 		print "<td>$startDate - $endDate</td>";
 	}
-?>
-		<td>Semester Total</td>
-		</tr></thead><tbody>
-<?php
-	foreach ($usersWithTime as $user) {
-		print "<tr><td>{$user->getFullName()}</td>";
-		foreach ($allWeeks as $week)
-			print "<td align=\"center\">{$log->getHoursSpentByUserAndWeek($user->getID(), $week['iWeekID'])}&nbsp;</td>";
-		print "<td align=\"center\" bgcolor=\"#DDDDDD\">{$log->getHoursSpentByUser($user->getID())}</td>";
-		print "</tr>";
-	}
-	print "</tbody><tfoot><tr><td>Week Average</td>";
+		print "<td>Semester Total</td></tr></thead><tfoot><tr><td>Week Average</td>";
 	foreach($allWeeks as $week)
 		print "<td>{$log->getAvgHoursSpentByWeek($week['iWeekID'])}</td>";
 	print "<td>&nbsp;</td>";
@@ -135,7 +124,15 @@ require("sidebar.php");
         foreach($allWeeks as $week)
                 print "<td>{$log->getHoursSpentByWeek($week['iWeekID'])}</td>";
         print "<td>{$log->getTotalHoursSpent()}</td>";
-        print "</tr></tfoot>";
+        print "</tr></tfoot><tbody>";
+	foreach ($usersWithTime as $user) {
+		print "<tr><td>{$user->getFullName()}</td>";
+		foreach ($allWeeks as $week)
+			print "<td align=\"center\">{$log->getHoursSpentByUserAndWeek($user->getID(), $week['iWeekID'])}&nbsp;</td>";
+		print "<td style=\"background: #DDDDDD; text-align: center\">{$log->getHoursSpentByUser($user->getID())}</td>";
+		print "</tr>";
+	}
+	print "</tbody>";
 
 ?>
 	</table><br />

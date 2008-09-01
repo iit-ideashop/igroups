@@ -257,7 +257,7 @@ $query = mysql_query("SELECT * FROM Budgets WHERE iProjectID=$s_selectedGroup AN
 	<hr />
 	
 	<h2 style="color: #cc0000;">Submit a Budget</h2>
-	<form method="post" name="budget_form" id="budget_form" action="budget.php"><fieldset>
+	<form method="post" id="budget_form" action="budget.php"><fieldset>
 	
 	<table cellpadding="10" cellspacing="0" class="submit_budget">
 	<tr>

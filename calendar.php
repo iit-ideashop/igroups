@@ -541,7 +541,7 @@ function ds_onclick(d, m, y) {
 	}
 	print "<table width=\"100%\" style=\"border-collapse: collapse\">" ;
 	print "<tr><td id=\"columnbanner\" align=\"center\" colspan=\"7\" class=\"calbord\"><a href=\"calendar.php?month=".date( "n", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."&amp;year=".date( "Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."\">&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href=\"calendar.php?month=".date( "n", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."&amp;year=".date( "Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."\">&raquo;</a></td></tr>";
-	print "<tr><td width=\"14%\" class=\"calbord\">Sunday</td><td width=\"14%\" class=\"calbord\">Monday</td><td width=\"14%\" class=\"calbord\">Tuesday</td><td width=\"14%\" class=\"calbord\">Wednesday</td><td width=\"14%\" class=\"calbord\">Thursday</td><td width=\"14%\" class=\"calbord\">Friday</td><td width=\"14%\" class=\"calbord\">Saturday</td></tr>";
+	print "<tr><td class=\"calbord\">Sunday</td><td class=\"calbord\">Monday</td><td class=\"calbord\">Tuesday</td><td class=\"calbord\">Wednesday</td><td class=\"calbord\">Thursday</td><td class=\"calbord\">Friday</td><td class=\"calbord\">Saturday</td></tr>";
 	if ( $startDay != 0 )
 		print "<tr><td colspan=\"$startDay\" class=\"calbord\"></td>";
 	
@@ -584,7 +584,7 @@ function ds_onclick(d, m, y) {
 <div id="addevent">
 	<table>
 	<tr>
-	<td width="40%">
+	<td style="width:40%">
 	<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 	<h1>Add Event</h1>
 	<form method="post" action="calendar.php"><fieldset>
@@ -598,7 +598,7 @@ function ds_onclick(d, m, y) {
 <?php
 	if(count($currentGroup->getMonthEvents($currentMonth, $currentYear)) > 0) {
 ?>
-	<td width="60%" valign="top">
+	<td style="width:60%" valign="top">
 	<h1>Edit Event</h1>
 	<form method="post" action="calendar.php">
 		<select name="id">

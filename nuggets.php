@@ -293,7 +293,7 @@
 			border-bottom:1px solid #ccc;
 		}	
 	</style>
-	<script language="JavaScript" type="text/Javascript">
+	<script type="text/javascript">
 	<!--
 		function showMessage( msg ) {
 			msgDiv = document.createElement("div");

@@ -78,7 +78,7 @@
 ?>
 	</div>
 	<div id="semesterSelect">
-		<form method="get" action="nuggets.php">
+		<form method="get" action="nuggets.php"><fieldset>
 			<select name="semester">
 <?php
 			$semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
@@ -97,10 +97,10 @@
 ?>
 			</select>
 			<input type="submit" name="selectSemester" value="Select Semester" />
-		</form>
+		</fieldset></form>
 	</div>
 	
-	<center><p><i>* Signifies a protected nugget</i></p></center>
+	<p style="text-align: center; font-style: italic">* Signifies a protected nugget</p>
 
 	<table cellpadding="4" cellspacing="0" style="border: thin solid black">
 		<thead>

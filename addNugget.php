@@ -206,7 +206,7 @@ require("sidebar.php");
 	}
 	if(isset ($_GET['type'])){
 ?>
-		<form method="post" action="addNugget.php" name="myForm" enctype="multipart/form-data"><fieldset>
+		<form method="post" action="addNugget.php" id="myForm" enctype="multipart/form-data"><fieldset>
 
 		<div class="item"><strong>Nugget Type/Name:</strong>
 <?php
@@ -272,7 +272,7 @@ require("sidebar.php");
 		These files will be placed in the Nugget File folder of your files.<br />
 		<br />
 		<input type="button" value="Create Nugget" onclick="javascript:submitForm();" />
-		</form>
+		</fieldset></form>
 <?php
 	}else{
 		print 	"<script type=\"text/javascript\">

@@ -648,7 +648,7 @@ require("sidebar.php");
 <?php
 					if ($currentFolder && !$currentFolder->isIPROFolder()) {
                                                         printTR();
-                                                        print "<td width=\"24\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
+                                                        print "<td style=\"width: 24px\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
                                                         print "<td align=\"left\" colspan=\"5\"><a href=\"files.php?selectFolder=".$currentFolder->getParentFolderID()."\">..</a></td>";
                                                         print "</tr>\n";
                                         }

@@ -282,7 +282,7 @@ require("sidebar.php");
 ?>
 	<h1>Semester Hours Summary</h1>
 	<ul>
-	<li><a href="viewgrouptime.php" target="_blank">View Semester Hours Table</a></li>
+	<li><a href="viewgrouptime.php">View Semester Hours Table</a></li>
 	</ul>
 
 	<br />
@@ -320,10 +320,9 @@ require("sidebar.php");
 	print "<input type=\"hidden\" name=\"entryID\" value=\"{$editTime->getID()}\" /><input type=\"submit\" name=\"edittime\" value=\"Edit Entry\" />&nbsp;<input type=\"submit\" name=\"deltime\" value=\"Delete Entry\" />";
 ?>
 	</fieldset></form>
-</td></tr></table><br />
 <?php
 }
-	if (isset($editTask)) {
+	else if (isset($editTask)) {
 ?>
 	<form method="post" action="viewtimesheets.php"><fieldset><legend>Edit Projected Task</legend>
 		<label for="taskDate">Date (MM/DD/YYYY):</label><input type="text" id="taskDate" name="taskDate" onclick="ds_sh(this);" style="cursor: text" value="<?php if (isset($editTask)) print "{$editTask->getDate()}"; ?>" /><br />
@@ -334,10 +333,9 @@ require("sidebar.php");
 	print "<input type=\"hidden\" name=\"entryID\" value=\"{$editTask->getID()}\" /><input type=\"submit\" name=\"editProjTask\" value=\"Edit Task\" />&nbsp;<input type=\"submit\" name=\"delProjTask\" value=\"Delete Task\" />";
 ?>
 	</fieldset></form>
-</td></tr></table>
-<br />
 <?php
 }
+	print "</td></tr></table><br />";
 	if ( isset( $_SESSION['user'] ) ) {
 		$selectedUser = new Person( $_SESSION['user'], $db );
 		print "<form method=\"get\" action=\"viewtimesheets.php\"><fieldset><legend>Timesheet Report for ".$selectedUser->getFullName()."</legend>";
@@ -366,7 +364,7 @@ require("sidebar.php");
 	<input type="submit" name="submitWeek" value="View by Week" />
 	</fieldset></form>
 	<br />
-	[<a href="viewtimesheets.php?print=indiv&amp;week=<?php print "{$_GET['week']}"; ?>" target="_blank">Click to Print</a>]<br />
+	[<a href="viewtimesheets.php?print=indiv&amp;week=<?php print "{$_GET['week']}"; ?>"]>Click to Print</a>]<br />
 	<table width="100%"><tbody><tr><td valign="top">
 	<b>Completed Tasks</b><br />
 	<table width="500">

@@ -86,7 +86,7 @@
 	        $nuggets = allActiveByTypeandID("Other", $currentGroup->getID(), $currentGroup->getSemester());
 	        if(count($nuggets) > 0){
 ?>
-                        <table border>
+                        <table>
 <?php
 		        foreach($nuggets as $nugget){
 				print "<tr>";
@@ -106,7 +106,7 @@
 		else {
 			global $_DEFAULTNUGGETS;
 			$nuggets = getOldNuggetsByGroupAndSemester($currentGroup, $currentGroup->getSemester());
-                        print "<table border><tr>";
+                        print "<table><tr>";
                         $nugs = false;
                         foreach($nuggets as $nug){
                         $found = false;
@@ -136,7 +136,7 @@
 	        print "<h1>Other Semesters Nuggets</h1>";
 	        if(count($oldNuggets)!= 0){
 ?>
-        	        <table border>
+        	        <table>
                         <tr>
 <?php
 	                $nuggetCount = 0;
