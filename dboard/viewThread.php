@@ -179,7 +179,7 @@ foreach($pages as $page)
 ?>
 </td><td align="center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_SESSION['topicLink']}\">{$_SESSION['topicName']}</a>"; ?></td><td class="post_options" align="right"><a href="create.php?mode=thread"><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<a href="create.php?mode=post"><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
-<table width="85%" cellspacing="0" cellpadding="5" style="table-layout: fixed; text-align: center">
+<table width="85%" cellspacing="0" cellpadding="5" style="table-layout: fixed;">
 <tr><td class="view_options" style="text-align: left; font-weight: bold; width: 100px">
 <?php
 	if ($prevThread)
