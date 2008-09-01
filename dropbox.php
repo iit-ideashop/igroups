@@ -292,7 +292,6 @@ if ( isset( $_POST['delete'] ) ) {
 					while ($result = mysql_fetch_array($query))
 						$files[] = new File($result['iID'], $db);
 
-				if(count($files) > 0) {
 					print '<div id="files"><table width="100%">';
 					foreach ($files as $file) {
 						printTR();
@@ -311,7 +310,6 @@ if ( isset( $_POST['delete'] ) ) {
 					if(count($files) == 0)
 						print "<tr><td colspan=\"6\">There are no files in your dropbox.</td></tr>\n";
 					print '</table></div>';
-				}
 ?>
 			</form>
 		</div>
