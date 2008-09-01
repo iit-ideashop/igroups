@@ -270,7 +270,7 @@ if ( isset( $_POST['delete'] ) ) {
 		<div id="filebox">
 			<div class="columnbanner">
 <?php
-				print "<span id=\"boxtitle\">My Secure Dropbox</span><br /><span id=\"boxdesc\">Files in your dropbox can only be viewed by you and your instructor(s).</span>";
+				print "<span id=\"boxtitle\">My Secure Dropbox</span><br /><span id=\"boxdesc\">Files in your dropbox can only be viewed by you and your instructor(s)</span>";
 ?>			
 			</div>
 			<form method="post" action="dropbox.php">

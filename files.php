@@ -721,6 +721,9 @@ require("sidebar.php");
 				<input type="submit" name="upload" value="Upload File" />
 			</form>
 		</div>
+<?php
+	if(count($fileList) > 0) {
+?>
                 <div class="window-content" id="update" style="display: none">
                         <form method="post" action="files.php" enctype="multipart/form-data">
                                 File: <input type="file" name="thefile" /><br />
@@ -740,6 +743,28 @@ require("sidebar.php");
                                 <input type="submit" value="Upload File" onclick="copyCheckBoxes();this.form.submit()" />
                         </form>
                 </div>
+<?php
+		if(($currentFolder == 0 && count($folderList) > 0) || (isset($_SESSION['selectedSpecial']) && $_SESSION['selectedSpecial'] == 'trash') || (!isset($_SESSION['selectedSpecial']) && $currentFolder != 0)) {
+?>
+                <div class="window-content" id="move" style="display: none">
+			<form method="post" action="files.php">
+				Select Target Folder:
+				<select name="target">
+					<option value="0">Your Files</option>
+<?php
+					printOptions( $currentGroup );
+?>
+				</select>
+				<input type="hidden" name="folders" />
+				<input type="hidden" name="files" />
+				<input type="hidden" name="move" value="move" /><br />
+				<input type="button" value="Move Files and Folders" onclick="copyCheckBoxes();this.form.submit()" />
+			</form>
+		</div>
+<?php
+	} }
+	if (!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial'])) {
+?>
 		<div class="window-content" id="newfolder" style="display: none">
 			<form method="post" action="files.php">
 				Folder Name: <input type="text" name="foldername" /><br />
@@ -764,6 +789,10 @@ require("sidebar.php");
 				<input type="submit" name="create" value="Create Folder" />
 			</form>
 		</div>
+<?php
+	}
+	if ( $currentUser->isGroupModerator($currentGroup) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0  ) {
+?>
 		<div class="window-content" id="editfolder" style="display: none">
 			<form method="post" action="files.php">
 <?php
@@ -780,21 +809,7 @@ require("sidebar.php");
 ?>
 			</form>
 	</div>
-		<div class="window-content" id="move" style="display: none">
-			<form method="post" action="files.php">
-				Select Target Folder:
-				<select name="target">
-					<option value="0">Your Files</option>
 <?php
-					printOptions( $currentGroup );
+	}
 ?>
-				</select>
-				<input type="hidden" name="folders" />
-				<input type="hidden" name="files" />
-				<input type="hidden" name="move" value="move" /><br />
-				<input type="button" value="Move Files and Folders" onclick="copyCheckBoxes();this.form.submit()" />
-			</form>
-		</div>
-         </div>
-</body>
-</html>
+</div></body></html>
