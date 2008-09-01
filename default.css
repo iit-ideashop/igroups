@@ -6,6 +6,8 @@ body {
 
 fieldset {
 	border-style: none;
+	padding: 0px;
+	margin: 0px;
 }
 
 thead {
