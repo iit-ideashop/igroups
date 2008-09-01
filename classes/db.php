@@ -50,6 +50,10 @@ if ( !class_exists( "dbConnection" ) ) {
 		function iknowInsertID() {
 			return mysql_insert_id( $this->igroupsConn );
 		}
+		
+		function stripTags($str) {
+			return str_replace(array('<', '>'), array('&lt;', '&gt;'), $str);
+		}
 	}
 }
 ?>

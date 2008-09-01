@@ -469,9 +469,9 @@ require("sidebar.php");
 					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br />";
 				foreach ( $categories as $category ) {
 					if ( $currentCat && $currentCat->getID() == $category->getID() )
-						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".$category->getName()."</strong></a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".stripTags($category->getName())."</strong></a><br />";
 					else
-						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\">".$category->getName()."</a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\">".stripTags($category->getName())."</a><br />";
 				}
 ?>
 			</div>
@@ -480,8 +480,8 @@ require("sidebar.php");
 <?php
 			if ( $currentCat ) {
 				$emails = $currentCat->getEmails();
-				$name = $currentCat->getName();
-				$desc = $currentCat->getDesc();
+				$name = stripTags($currentCat->getName());
+				$desc = stripTags($currentCat->getDesc());
 			}
 			else {
 				$emails = $currentGroup->getGroupEmails();		

@@ -56,13 +56,13 @@
 	// Prints tree structure of folders
 		$subfolder = $folder->getFolders();
 		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
-			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></strong>\n";
+			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a></strong>\n";
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
-			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+			print "<li><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" border=\"0\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		else
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" border=\"0\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
 			print "<ul class=\"filesul\">\n";
 			foreach ( $subfolder as $key => $val ) {
@@ -605,7 +605,7 @@ require("sidebar.php");
 				if ( $currentFolder ) {
 					$folderList = $currentFolder->getFolders();
 					$fileList = $currentFolder->getFiles();
-					print "<span id=\"boxtitle\">".$currentFolder->getName()."</span><br /><span id=\"boxdesc\">".$currentFolder->getDesc()."</span>";
+					print "<span id=\"boxtitle\">".stripTags($currentFolder->getName())."</span><br /><span id=\"boxdesc\">".stripTags($currentFolder->getDesc())."</span>";
 				}
 				else {
 					if ( isset( $_SESSION['selectedSpecial'] ) ) {
