@@ -33,7 +33,7 @@
 			
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
-		print "<li><a href=\"iprofiles.php?selectFolder=".$folder->getID()."\"><img src=\"../img/folder.png\" alt=\"\" />".$folder->getName()."</a>\n";
+		print "<li><a href=\"iprofiles.php?selectFolder=".$folder->getID()."\"><img src=\"../img/folder.png\" alt=\"\" style=\"border-style: none\" />".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
 		if(count($subfolder) > 0) {
 		print "<ul class=\"prof\">\n";

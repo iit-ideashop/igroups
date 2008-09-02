@@ -42,10 +42,18 @@
 		else
 			die("No users matched that email address.");
 		$profile = mysql_fetch_array($db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$uid}"));
-		$grp = mysql_fetch_array($db->igroupsQuery("SELECT * FROM PeopleGroupMap WHERE iPersonID={$uid}"));
-		$nug = mysql_fetch_array($db->igroupsQuery("SELECT * FROM PeopleNuggetMap WHERE iPersonID={$uid}"));
-		$prj = mysql_fetch_array($db->igroupsQuery("SELECT * FROM PeopleProjectMap WHERE iPersonID={$uid}"));
-		
+		$query = $db->igroupsQuery("SELECT * FROM PeopleGroupMap WHERE iPersonID={$uid}");
+		$groups = array();
+		while($row = mysql_fetch_array($query))
+			$groups[] = new Group($row['iGroupID'], 1, 0, $db);
+		$query = $db->igroupsQuery("SELECT * FROM PeopleNuggetMap WHERE iPersonID={$uid}");
+		$nuggets = array();
+		while($row = mysql_fetch_array($query))
+			$nuggets[] = new Nugget($row['iNuggetID'], $db, 1);
+		$query = $db->igroupsQuery("SELECT * FROM PeopleProjectMap WHERE iPersonID={$uid}");
+		$projects = array();
+		while($row = mysql_fetch_array($query))
+			$projects[] = new Group($row['iProjectID'], 0, $row['iSemesterID'], $db);
 ?>
 <h1>Public Profile</h1>
 <h2><?php print "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
@@ -100,32 +108,25 @@ if ($profile['sSkills']) {
 		if(count($grp['iGroupID']) > 0)
 		{
 			print "<ul>";
-			foreach($grp['iGroupID'] as $id)
-			{
-				$group = mysql_fetch_array($db->igroupsQuery("SELECT * FROM Groups WHERE iID={$id}"));
-				print "<li>".$group['sName']."</li>";
-			}
+			foreach($groups as $group)
+				print "<li><a href=\"group.php?group=".$group->getID()."&amp;selectAdminGroup=Select+Group\">".$group->getName()."</a></li>";
 			print "</ul>";
 		}
 		print "<h2>Projects</h2>";
 		if(count($prj['iProjectID']) > 0)
 		{
 			print "<ul>";
-			foreach($prj['iProjectID'] as $id)
-			{
-				$project = mysql_fetch_array($db->igroupsQuery("SELECT * FROM Projects WHERE iID={$id}"));
-				print "<li>".$project['sIITID'].": ".$project['sName']."</li>";
-			}
+			foreach($projects as $group)
+				print "<li><a href=\"group.php?group=".$group->getID()."&amp;selectAdminGroup=Select+Group\">".$group->getName()."</a></li>";
 			print "</ul>";
 		}
 		print "<h2>Nuggets</h2>";
 		if(count($nug['iNuggetID']) > 0)
 		{
 			print "<ul>";
-			foreach($nug['iNuggetID'] as $id)
+			foreach($nuggets as $nugget)
 			{
-				$nugget = mysql_fetch_array($db->igroupsQuery("SELECT * FROM Nuggets WHERE iID={$id}"));
-				print "<li><a href=\"../viewNugget.php?nug=".$id."&amp;isOld=0\">".$nugget['sTitle']."</a></li>";
+				print "<li><a href=\"viewNugget.php?nug=".$nugget->getID()."&amp;isOld=1\">".$nugget->getType()." for ".$nugget->getGroupName()."</a></li>";
 			}
 			print "</ul>";
 		}

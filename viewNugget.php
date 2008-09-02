@@ -135,7 +135,7 @@
 <body>	
 <?php
 require("sidebar.php");
-print "<div class=\"content\">";
+print "<div id=\"content\">";
 	//Prints all notifications
 	if( isset ($msg)){
 		foreach($msg as $ms){
