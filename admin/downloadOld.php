@@ -9,6 +9,22 @@
 	$db = new dbConnection();
 	#first determine whether the file exists or not, then determine whether the user has the clearance to read that file
 
+	if ( isset( $_SESSION['userID'] ) ) 
+		$currentUser = new Person( $_SESSION['userID'], $db );
+	else
+		die("You are not logged in.");
+		 
+	if ( !$currentUser->isAdministrator() )
+		die("You must be an administrator to access this page.");
+
+	if ( isset( $_SESSION['userID'] ) ) 
+		$currentUser = new Person( $_SESSION['userID'], $db );
+	else
+		die("You are not logged in.");
+		 
+	if ( !$currentUser->isAdministrator() )
+		die("You must be an administrator to access this page.");
+
 	if (isset($_GET['file']) && ($_GET['file'] != '')) {
 		$qFindFile = "select iNuggetID, sDiskName, sOrigName from NuggetFiles where iID = " . $_GET['file'];
 		$rFindFile = $db->igroupsquery($qFindFile, $db);
