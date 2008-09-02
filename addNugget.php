@@ -263,7 +263,7 @@ require("sidebar.php");
 		<label for="filedescription1">Description 1:</label><input type="text" name="fileDescription" id="filedescription1" /><br />
 		</div>
 		</div>
-		<p>Option 2: <a href="#" onclick="javascript:addFilesFromNugget();">Import files from iGroups</a></p>
+		<p>Option 2: <a href="#" onclick="javascript:addFilesFromNugget();this.form.submit();">Import files from iGroups</a></p>
 		<input type="hidden" name="filenames" />
 		<input type="hidden" name="descriptions" />
 		<input type="hidden" name="igroupsRedirect" value="0" />
