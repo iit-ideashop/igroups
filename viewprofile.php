@@ -88,10 +88,10 @@ if ($profile['isResident'])
 if (isset($profile['isResident']) && $profile['isResident'] == 0)
         print "<tr><td>Lives on Campus: </td><td>No</td></tr>";
 if ($profile['sBio']) {
-        print "<tr><td valign=\"top\">Biography: </td><td valign=\"top\"><pre>{$profile['sBio']}</pre></td></tr>";
+        print "<tr><td valign=\"top\">Biography: </td><td valign=\"top\"><pre>".stripTags($profile['sBio'])."</pre></td></tr>";
 }
 if ($profile['sSkills']) {
-        print "<tr><td valign=\"top\">Skills: </td><td valign=\"top\"><pre>{$profile['sSkills']}</pre></td></tr>";
+        print "<tr><td valign=\"top\">Skills: </td><td valign=\"top\"><pre>".stripTags($profile['sSkills'])."</pre></td></tr>";
 }
 ?>
 </table>
