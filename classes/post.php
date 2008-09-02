@@ -52,7 +52,7 @@ if ( !class_exists( "Post" ) ) {
 
 		function getAuthorLink() {
 			$person = $this->getAuthor();
-			return "<a href='../viewprofile.php?uID={$this->author}'>{$person->getFullName()}</a>";
+			return "<a href=\"../viewprofile.php?uID={$this->author}\">{$person->getFullName()}</a>";
 		}
 
 		function getThreadID() {
