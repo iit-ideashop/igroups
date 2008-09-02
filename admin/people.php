@@ -53,7 +53,7 @@
 		$nuggets = array();
 		while($row = mysql_fetch_array($query))
 			$nuggets[] = new Nugget($row['iNuggetID'], $db, 1);
-		$query = $db->igroupsQuery("SELECT * FROM PeopleProjectMap WHERE iPersonID={$uid}");
+		$query = $db->igroupsQuery("SELECT * FROM PeopleProjectMap WHERE iPersonID={$uid} ORDER BY iSemesterID");
 		while($row = mysql_fetch_array($query))
 			$groups[] = new Group($row['iProjectID'], 0, $row['iSemesterID'], $db);
 ?>
