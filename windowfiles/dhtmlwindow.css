@@ -14,8 +14,6 @@ color: white;
 cursor: move;
 overflow: hidden;
 width: auto;
--moz-opacity: 1;
-opacity: 1;
 }
 
 .drag-handle .drag-controls{ /*CSS for controls (min, close etc) within Drag Handle*/
