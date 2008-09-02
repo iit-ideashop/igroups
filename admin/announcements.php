@@ -184,8 +184,8 @@ function clearEditor() {
 				while ( $row = mysql_fetch_row( $announcementResults ) ) {
 					$announcement = new Announcement( $row[0], $db );
 					print "<li>";
-					print "<a href=\"#\" onclick=\"loadEditor( ".$announcement->getID().", '".str_replace("&", "&amp;", $announcement->getHeadingJava())."', '".str_replace("&", "&amp;", $announcement->getBodyJava())."', '".$announcement->getExpirationDate()."' );\">";
-					print $announcement->getHeadingHTML()."</a></li>";
+					print "<a href=\"#\" onclick=\"loadEditor( ".$announcement->getID().", '".htmlspecialchars($announcement->getHeadingJava())."', '".htmlspecialchars($announcement->getBodyJava())."', '".$announcement->getExpirationDate()."' );\">";
+					print htmlspecialchars($announcement->getHeadingJava())."</a></li>";
 				}
 ?>
 </ul>

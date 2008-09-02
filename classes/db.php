@@ -51,9 +51,5 @@ if ( !class_exists( "dbConnection" ) ) {
 			return mysql_insert_id( $this->igroupsConn );
 		}
 	}
-	
-	function stripTags($str) {
-		return str_replace(array('<', '>', '&'), array('&lt;', '&gt;', '&amp;'), $str);
-	}
 }
 ?>

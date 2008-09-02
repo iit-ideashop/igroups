@@ -94,8 +94,8 @@
 				if ( !$i )
 					print "<tr>";
 				print "<td>";
-				print "<img width=\"300\" src=\"http://igroups.iit.edu/".$pictures[$j]->getRelativeName()."\" alt=\"".$pictures[$j]->getRelativeName()."\" title=\"".$pictures[$j]->getRelativeName()."\" />";
-				print "<br /><span style=\"text-align: center\"><input type=\"checkbox\" name=\"picture[".$pictures[$j]->getID()."]\" /><b>{$pictures[$j]->getTitle()}</b></span>";
+				print "<img width=\"300\" src=\"http://igroups.iit.edu/".$pictures[$j]->getRelativeName()."\" alt=\"".htmlspecialchars($pictures[$j]->getTitle())."\" title=\"".htmlspecialchars($pictures[$j]->getTitle())."\" />";
+				print "<br /><span style=\"text-align: center\"><input type=\"checkbox\" name=\"picture[".$pictures[$j]->getID()."]\" /><b>".htmlspecialchars($pictures[$j]->getTitle())."</b></span>";
 				print "</td>";
 				if ( $i )
 					print "</tr>";

@@ -29,7 +29,7 @@
 	function printTR() {
 		static $i=0;
 		if ( $i )
-			print "<tr class='shade'>";
+			print "<tr class=\"shade\">";
 		else
 			print "<tr>";
 		$i=!$i;
@@ -63,9 +63,9 @@ require("sidebar.php");
 			printTR();
 			print "<td><a href=\"viewprofile.php?uID={$person->getID()}\">".$person->getCommaName()."</a></td>";
 			print "<td>".$person->getEmail()."</td>";
-			print "<td>".$profile['sPhone']."</td>";
-			print "<td>".$profile['sPhone2']."</td>";
-			print "<td>".$profile['sIM']."</td>";
+			print "<td>".htmlspecialchars($profile['sPhone'])."</td>";
+			print "<td>".htmlspecialchars($profile['sPhone2'])."</td>";
+			print "<td>".htmlspecialchars($profile['sIM'])."</td>";
 			print "</tr>";
 		}
 ?>
@@ -77,7 +77,7 @@ require("sidebar.php");
 		print "<table><tr>";
 		foreach ($subgroups as $subgroup) {
 			$members = $subgroup->getSubGroupMembers();
-			print "<td style=\"vertical-align: top; border: thin solid black;\"><table><tr><th align=\"left\">{$subgroup->getName()}</th></tr>";
+			print "<td style=\"vertical-align: top; border: thin solid black;\"><table><tr><th align=\"left\">".htmlspecialchars($subgroup->getName())."</th></tr>";
 			foreach ($members as $member) {
 				print "<tr><td>{$member->getFullName()}</td></tr>";
 			}
@@ -86,6 +86,6 @@ require("sidebar.php");
 		print "</tr></table>";
 	}
 ?>
-<p><a href='contactinfo.php'>Update your contact information</a></p>
+<p><a href="contactinfo.php">Update your contact information</a></p>
 </div></body>
 </html>

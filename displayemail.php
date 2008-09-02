@@ -57,7 +57,7 @@
 		}
 		print "</p>";
 		$body = htmlspecialchars($email->getBody());
-		print "<p>".str_replace("\n", "<br />", stripTags($body))."</p>";
+		print "<p>".str_replace("\n", "<br />", $body)."</p>";
 	}
 ?>
 </body>

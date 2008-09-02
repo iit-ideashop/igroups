@@ -435,7 +435,7 @@ else {
 	echo "<td>$row[bStatus]</td>";
 	}
 	echo "<td><span class=\"edit_desc\"><a href=\"edit_budget.php?bOrder=$row[bOrder]&amp;bDesc=$row[bDesc]\">Revise</a></span></td></tr>";
-	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\">".str_replace("\n", "<br />", stripTags($row[bDesc]))."</div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\">".str_replace("\n", "<br />", htmlspecialchars($row[bDesc]))."</div>";
 	}
 	
 //Total Amount
@@ -467,7 +467,7 @@ while ($row = mysql_fetch_assoc($query))
 	echo "<td>$ $row[bApproved]<div class=\"b_date\">$row[bApprovedDate]</div></td>";
 	echo "<td><a href=\"#\" onmouseover=\"showEvent('RR".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('RR".$row[bOrder]."');\">".$desc."</a></td>";
 	echo "<td>$row[bStatus]</td></tr>";
-	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\">".str_replace("\n", "<br />", stripTags($row[bDesc]))."</div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\">".str_replace("\n", "<br />", htmlspecialchars($row[bDesc]))."</div>";
 	}
 	echo "</table>\n";
 	foreach($divs as $div)

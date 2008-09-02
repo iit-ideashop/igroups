@@ -710,7 +710,7 @@ function ds_onclick(d, m, y) {
                 $person_name = "";
 			if ($currentUser->isGroupGuest($currentGroup)) 
 				$disabled = "disabled=\"disabled\"";
-			print("<td class=\"taskSel\"><input type=\"checkbox\" name=\"taskEdit[]\" value=\"".$foo->getTaskNum()."\" /></td><td class=\"taskNum\">&nbsp;#". $foo->getTaskNum()."</td><td class=\"taskDesc\">".stripTags($foo->getTask())." </td><td class=\"taskAssigned\">".$person_name."</td> <td class=\"taskDate\">".$foo->getDueDate()."</td> <td class=\"taskDone\"><input type=\"checkbox\" name=\"taskNum[]\"  value=\"".$foo->getTaskNum()."\" $disabled");
+			print("<td class=\"taskSel\"><input type=\"checkbox\" name=\"taskEdit[]\" value=\"".$foo->getTaskNum()."\" /></td><td class=\"taskNum\">&nbsp;#". $foo->getTaskNum()."</td><td class=\"taskDesc\">".htmlspecialchars($foo->getTask())." </td><td class=\"taskAssigned\">".$person_name."</td> <td class=\"taskDate\">".$foo->getDueDate()."</td> <td class=\"taskDone\"><input type=\"checkbox\" name=\"taskNum[]\"  value=\"".$foo->getTaskNum()."\" $disabled");
 			if($foo->getCompleted() == '1'){
 				print(" onclick=\"mysubmit(".$foo->getTaskNum().")\" checked=\"checked\"");
 			}

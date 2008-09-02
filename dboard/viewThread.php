@@ -225,7 +225,7 @@ foreach ($posts as $post) {
 		$delete = "";
 	print "<td><img src=\"../img/icon_minipost.png\" alt=\"*\" title=\"Post #".$post->getID()."\" /><span style=\"font-size: x-small\">Posted: {$post->getDateTime()}</span>&nbsp; 
 $delete<hr />";
-	print "<p>".str_replace("\n", "<br />", stripTags($post->getBody()))."</p><br /><br /></td></tr>";
+	print "<p>".str_replace("\n", "<br />", $post->getBody())."</p><br /><br /></td></tr>";
 	print "<tr><td style=\"font-size: smaller\"><a href=\"#top\">Back to Top</a></td><td>&nbsp;</td></tr>";
 	print "<tr><td class=\"divide\" colspan=\"2\"></td></tr>";
 }

@@ -377,7 +377,7 @@ else {
 		 <strong>$</strong> <input type=\"text\" id=\"revise_budget_amt".$row[bOrder]."\" name=\"revise_budget_amt\" size=\"5\" />
 		 <input type=\"submit\" id=\"revise_budget".$row[bOrder]."\" name=\"revise_budget\" value=\"Revise\" class=\"revise_btn\" />
 		 </fieldset></form></td></tr>";
-	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\">".str_replace("\n", "<br />", stripTags($row[bDesc]))."</div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\">".str_replace("\n", "<br />", htmlspecialchars($row[bDesc]))."</div>";
 	}
 
 //Totals
@@ -447,7 +447,7 @@ while ($row = mysql_fetch_assoc($query))
 	echo "<td>$ $row[bApproved]<div class=\"b_date\">$row[bApprovedDate]</div></td>";
 	echo "<td><a href=\"#\" onmouseover=\"showEvent('RR".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('RR".$row[bOrder]."');\">".$desc."</a></td>";
 	echo "<td>$row[bStatus]</td>";
-	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\">".str_replace("\n", "<br />", stripTags($row[bDesc]))."</div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\">".str_replace("\n", "<br />", htmlspecialchars($row[bDesc]))."</div>";
 	}
 	echo "</tr></table>";
 	foreach($divs as $div)

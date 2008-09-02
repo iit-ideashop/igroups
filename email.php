@@ -462,9 +462,9 @@ require("sidebar.php");
 					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br />";
 				foreach ( $categories as $category ) {
 					if ( $currentCat && $currentCat->getID() == $category->getID() )
-						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".stripTags($category->getName())."</strong></a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".htmlspecialchars($category->getName())."</strong></a><br />";
 					else
-						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\">".stripTags($category->getName())."</a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\">".htmlspecialchars($category->getName())."</a><br />";
 				}
 ?>
 			</div>
@@ -473,8 +473,8 @@ require("sidebar.php");
 <?php
 			if ( $currentCat ) {
 				$emails = $currentCat->getEmails();
-				$name = stripTags($currentCat->getName());
-				$desc = stripTags($currentCat->getDesc());
+				$name = htmlspecialchars($currentCat->getName());
+				$desc = htmlspecialchars($currentCat->getDesc());
 			}
 			else {
 				$emails = $currentGroup->getGroupEmails();		
@@ -515,7 +515,7 @@ require("sidebar.php");
 						$img = '&nbsp;<img src="img/attach.png" alt="(Attachments)" style="border-style: none" title="Paper clip" />';
 					else
 						$img = '';
-					print "<td colspan='2'><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".str_replace("&", "&amp;", $email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type=\"checkbox\" name=\"email[".$email->getID()."]\" /></td>";
+					print "<td colspan=\"2\"><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".htmlspecialchars($email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type=\"checkbox\" name=\"email[".$email->getID()."]\" /></td>";
 					print "</tr>";
 				} }
 				else

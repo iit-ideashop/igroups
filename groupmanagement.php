@@ -313,7 +313,7 @@ require("sidebar.php");
 	$subgroups = $currentGroup->getSubGroups();
 	$i = 1;
 	foreach ($subgroups as $subgroup) {
-		print "<input type=\"radio\" name=\"delete\" id=\"delete$i\" value=\"{$subgroup->getID()}\" />&nbsp;<label for=\"delete$i\">".stripTags($subgroup->getName())."</label><br />";
+		print "<input type=\"radio\" name=\"delete\" id=\"delete$i\" value=\"{$subgroup->getID()}\" />&nbsp;<label for=\"delete$i\">".htmlspecialchars($subgroup->getName())."</label><br />";
 		$i++;
 	}
 	if (count($subgroups) > 0)
@@ -344,7 +344,7 @@ if ($pastGroups) {
 	foreach($pastGroups as $group) {
 		$query = $db->iknowQuery("SELECT sSemester FROM Semesters where iID={$group->getSemester()}");
 		$row = mysql_fetch_row($query);
-		print "<input type=\"checkbox\" name=\"addGroups[]\" id=\"addGroups$i\" value=\"{$group->getID()}-{$group->getSemester()}\" />&nbsp;<label for=\"addGroups$i\">{$row[0]} -&gt; ".$group->getName().": ".stripTags($group->getDesc())."</label><br />";
+		print "<input type=\"checkbox\" name=\"addGroups[]\" id=\"addGroups$i\" value=\"{$group->getID()}-{$group->getSemester()}\" />&nbsp;<label for=\"addGroups$i\">{$row[0]} -&gt; ".$group->getName().": ".htmlspecialchars($group->getDesc())."</label><br />";
 		$i++;
 	}
 ?>

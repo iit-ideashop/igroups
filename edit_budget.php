@@ -79,7 +79,7 @@ if 	( isset( $_POST['submit_edit_budget'] ) ) {
 	<h3><label for="budget_revised_amt">Amount:</label></h3>
 	$ <input type="text" id="budget_revised_amt" name="budget_revised_amt" value="<?php echo $result[2] ?>" size="5" />
 	<h3>Description:</h3>
-	<textarea id="edit_budget" name="edit_budget" cols="50" rows="20"><?php echo stripTags($result[0]) ?></textarea>
+	<textarea id="edit_budget" name="edit_budget" cols="50" rows="20"><?php echo htmlspecialchars($result[0]) ?></textarea>
 	<input type="hidden" id="budget_category" name="budget_category" value="<?php echo $s_selectedCategory ?>" />
 	<input type="hidden" id="budget_category_name" name="budget_category_name" value="<?php echo $result[1] ?>" />
 		<input type="submit" id="submit_edit_budget" value="Edit" name="submit_edit_budget" />
