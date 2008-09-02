@@ -129,7 +129,7 @@
                                 }
 
 ?>
-			<tr><td colspan=2><a href="javascript:checkedAllGuest('mailform', true)">Check All</a> / <a href="javascript:checkedAllGuest('mailform', false)">Uncheck All</a></td></tr>
+			<tr><td colspan="2"><a href="javascript:checkedAllGuest('mailform', true)">Check All</a> / <a href="javascript:checkedAllGuest('mailform', false)">Uncheck All</a></td></tr>
                         </table></fieldset>
                 </div>
 <?php } ?>		
@@ -138,11 +138,11 @@
 			<tr><td><label for="cc">CC:</label></td><td><input type="text" size="50" name="cc" id="cc" /></td></tr>
 <?php
 		if (isset($replyEmail)) 
-			print "<tr><td>Subject:</td><td><input type=\"text\" size=\"50\" name=\"subject\" value=\"RE: {$replyEmail->getSubjectHTML()}\" /></td></tr>";
+			print "<tr><td><label for=\"subject\">Subject:</label></td><td><input type=\"text\" size=\"50\" name=\"subject\" id=\"subject\" value=\"RE: {$replyEmail->getSubjectHTML()}\" /></td></tr>";
 		else if (isset($forwardEmail)) 
-			print "<tr><td>Subject:</td><td><input type=\"text\" size=\"50\" name=\"subject\" value=\"FW: {$forwardEmail->getSubjectHTML()}\" /></td></tr>";
+			print "<tr><td><label for=\"subject\">Subject:</label></td><td><input type=\"text\" size=\"50\" name=\"subject\" id=\"subject\" value=\"FW: {$forwardEmail->getSubjectHTML()}\" /></td></tr>";
 		else
-			print "<tr><td>Subject:</td><td><input type=\"text\" size=\"50\" name=\"subject\" /></td></tr>";
+			print "<tr><td><label for=\"subject\">Subject:</label></td><td><input type=\"text\" size=\"50\" name=\"subject\" id=\"subject\" /></td></tr>";
 ?>
 			<tr><td><input type="checkbox" name="confidential" id="confidential" /></td><td><label for="confidential">Keep confidential? (if checked, will not be stored in iGROUPS)</label></td></tr>
 			<tr><td><label for="category">Category</label></td><td><select name="category" id="category"><option value="0">No Category</option>

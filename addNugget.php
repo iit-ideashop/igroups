@@ -183,9 +183,7 @@
 		}
 
 		function addFilesFromNugget(){
-
-			document.myForm.igroupsRedirect.value = true;
-			submitForm();
+			document.getElementById("myForm").igroupsRedirect.value = true;
 		}
 	//-->	
 	</script>

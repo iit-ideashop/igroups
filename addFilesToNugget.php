@@ -82,13 +82,13 @@
 	// Prints tree structure of folders
 		$subfolder = $folder->getFolders();
 		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
-			print "<li><img src=\"img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<strong><a href=\"addFilesToNugget.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a></strong>\n";
+			print "<li><img src=\"img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a></strong>\n";
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
-			print "<li><img src=\"img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<a href=\"addFilesToNugget.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
+			print "<li><img src=\"img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
-			print "<li><a href=\"addFilesToNugget.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
+			print "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		else
-			print "<li><a href=\"addFilesToNugget.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" alt=\"+\" title=\"Folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
+			print "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"img/folder.png\" alt=\"+\" title=\"Folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
 			print "<ul class=\"folderlist\">\n";
 			foreach ( $subfolder as $key => $val ) {
@@ -247,7 +247,7 @@ require("sidebar.php");
 						print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0\">Your Files</a></strong>";
 						$topFolders=$currentGroup->getGroupFolders();
 						if(count($topFolders) > 0) {
-							print "<ul>";
+							print "<ul class=\"folderlist\">";
 							
 							foreach($topFolders as $key=> $val){
 								printFolder($val);
@@ -291,7 +291,7 @@ require("sidebar.php");
 			<form method="post" action = "addFilesToNugget.php">
 				<div id="menubar">
 					<?php if (!$currentUser->isGroupGuest($currentGroup)){?>
-					<ul class="addul">
+					<ul class="folderlist">
 						<li><a href="#" onclick="addwin=dhtmlwindow.open('addbox', 'div', 'update', 'Add Files to Nugget', 'width=500px,height=300px,left=300px,top=100px,resize=1,scrolling=1')">Add to Nugget</a></li>
 <?php
 					}?>

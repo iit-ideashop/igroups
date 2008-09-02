@@ -707,7 +707,7 @@ require("sidebar.php");
 					print "Your Files"
 ?>
 				folder.<br />- or -<br />
-				<input type="checkbox" name="private" />&nbsp;Send to Dropbox (viewable only by instructor)<br />
+				<input type="checkbox" name="private" id="private" />&nbsp;<label for="private">Send to Dropbox (viewable only by instructor)</label><br />
 				<input type="submit" name="upload" value="Upload File" />
 			</fieldset></form>
 		</div>

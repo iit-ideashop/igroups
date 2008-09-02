@@ -14,7 +14,6 @@ color: white;
 cursor: move;
 overflow: hidden;
 width: auto;
-filter:progid:DXImageTransform.Microsoft.alpha(opacity=100);
 -moz-opacity: 1;
 opacity: 1;
 }
@@ -23,7 +22,7 @@ opacity: 1;
 position: absolute;
 right: 1px;
 top: 2px;
-cursor: hand;
+cursor: move;
 cursor: pointer;
 }
 
@@ -33,7 +32,7 @@ width: 100%;
 
 
 .drag-contentarea{ /*CSS for Content Display Area div*/
-border-top: 1px solid brown;
+border-top: 1px solid maroon;
 background-color: white;
 color: black;
 height: 150px;

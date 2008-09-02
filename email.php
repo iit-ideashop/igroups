@@ -227,7 +227,7 @@
                                         var div = document.createElement('div');
                                         div.className = "stdBoldText";
                                         div.id = "file"+(num*1+1)+"div";
-                                        div.innerHTML = "&nbsp;&nbsp;&nbsp;File "+(num*1+1)+": <input type='file' name='attachment"+(num*1+1)+"' onchange='fileAdd("+(num*1+1)+");' />";
+                                        div.innerHTML = "&nbsp;&nbsp;&nbsp;<label for=\"attachment"+(num*1+1)+"\">File "+(num*1+1)+":</label> <input type=\"file\" name=\"attachment"+(num*1+1)+"\" id=\"attachment"+(num*1+1)+"\" onchange=\"fileAdd("+(num*1+1)+");\" />";
                                         document.getElementById('files').appendChild(div);
                                 }
                         }
