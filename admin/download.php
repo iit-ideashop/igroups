@@ -8,6 +8,14 @@
 	include_once( "../classes/nugget.php" );	
 
 	$db = new dbConnection();
+
+	if ( isset( $_SESSION['userID'] ) ) 
+		$currentUser = new Person( $_SESSION['userID'], $db );
+	else
+		die("You are not logged in.");
+		 
+	if ( !$currentUser->isAdministrator() )
+		die("You must be an administrator to access this page.");
 		
 	if (!is_numeric($_GET['id']))
 		die("Invalid request");
