@@ -107,7 +107,7 @@ if ($profile['sSkills']) {
 <h1>Administrator features</h1>
 <?php
 		print "<h2>Groups</h2>";
-		if(count($grp['iGroupID']) > 0)
+		if(count($groups) > 0)
 		{
 			print "<ul>";
 			foreach($groups as $group)
@@ -115,7 +115,7 @@ if ($profile['sSkills']) {
 			print "</ul>";
 		}
 		print "<h2>Projects</h2>";
-		if(count($prj['iProjectID']) > 0)
+		if(count($projects) > 0)
 		{
 			print "<ul>";
 			foreach($projects as $group)
@@ -123,7 +123,7 @@ if ($profile['sSkills']) {
 			print "</ul>";
 		}
 		print "<h2>Nuggets</h2>";
-		if(count($nug['iNuggetID']) > 0)
+		if(count($nuggets) > 0)
 		{
 			print "<ul>";
 			foreach($nuggets as $nugget)
