@@ -4,6 +4,7 @@
 	include_once("../classes/person.php");
 	include_once("../classes/nugget.php");
 	include_once("../classes/group.php");
+	include_once("../classes/semester.php");
 	
 	$db = new dbConnection();
 	
@@ -112,7 +113,7 @@ if ($profile['sSkills']) {
 			$currSem = false;
 			foreach($groups as $group)
 			{
-				$sem = new Semester($group->getSemester, $db);
+				$sem = new Semester($group->getSemester(), $db);
 				if(!$currSem)
 				{
 					print "<li style=\"font-weight: bold\">".$sem->getName()."<ul>";
