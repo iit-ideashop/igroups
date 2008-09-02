@@ -2,6 +2,8 @@
 	session_start();
 	include_once("../classes/db.php");
 	include_once("../classes/person.php");
+	include_once("../classes/nugget.php");
+	include_once("../classes/group.php");
 	
 	$db = new dbConnection();
 	
