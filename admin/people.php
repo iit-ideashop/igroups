@@ -116,7 +116,11 @@ if ($profile['sSkills']) {
 				$sem = new Semester($group->getSemester(), $db);
 				if(!$currSem)
 				{
-					print "<li><strong>".$sem->getName()."</strong><ul>";
+					if($sem->getName() == "")
+						$semName = "Global Groups";
+					else
+						$semName = $sem->getName();
+					print "<li><strong>".$semName."</strong><ul>";
 					$currSem = $sem;
 				}
 				else if($currSem != $sem)
