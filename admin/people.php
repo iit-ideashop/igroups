@@ -111,7 +111,7 @@ if ($profile['sSkills']) {
 		{
 			print "<ul>";
 			foreach($groups as $group)
-				print "<li><a href=\"group.php?group=".$group->getID()."&amp;selectAdminGroup=Select+Group\">".$group->getName()."</a></li>";
+				print "<li><a href=\"group.php?group=".$group->getID()."&amp;semester=".$group->getSemester()."&amp;selectAdminGroup=true&amp;selectSemester=true\">".$group->getName()."</a></li>";
 			print "</ul>";
 		}
 		print "<h2>Projects</h2>";
@@ -119,7 +119,7 @@ if ($profile['sSkills']) {
 		{
 			print "<ul>";
 			foreach($projects as $group)
-				print "<li><a href=\"group.php?group=".$group->getID()."&amp;selectAdminGroup=Select+Group\">".$group->getName()."</a></li>";
+				print "<li><a href=\"group.php?group=".$group->getID()."&amp;semester=".$group->getSemester()."&amp;selectAdminGroup=true&amp;selectSemester=true\">".$group->getName()."</a></li>";
 			print "</ul>";
 		}
 		print "<h2>Nuggets</h2>";
@@ -128,7 +128,7 @@ if ($profile['sSkills']) {
 			print "<ul>";
 			foreach($nuggets as $nugget)
 			{
-				print "<li><a href=\"viewNugget.php?nug=".$nugget->getID()."&amp;isOld=1\">".$nugget->getType()." for ".$nugget->getGroupName()."</a></li>";
+				print "<li><a href=\"viewNugget.php?nuggetID=".$nugget->getID()."&amp;isOld=1\">".$nugget->getType()." for ".$nugget->getGroupName()."</a></li>";
 			}
 			print "</ul>";
 		}
