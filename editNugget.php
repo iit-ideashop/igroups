@@ -45,18 +45,31 @@
 		print "</fieldset></form>";
 		print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ";
 		//used to print a nugget that is from a prior semester or for viewing purposes only
+		$nug = $nugget->getType();
+		if($nug == "Code of Ethics")
+			$nugprint = "Ethics Statement";
+		else if($nug == "Website")
+			$nugprint = "Website (optional)";
+		else if($nug == "Midterm Report")
+			$nugprint = "Midterm Presentation";
+		else if($nug == "Team Minutes")
+			$nugprint = "Team Minutes (optional)";
+		else if($nug == "Final Report")
+			$nugprint = "Final Report or Grant Proposal";
+		else
+			$nugprint = $nug;
 		if(isset($style) && $style == "link"){
 				
 			if($nugget->isDefault()){
-				print '<a href="javaScript:nuggetRedirect(\''.$nugget->getType().'\')">'.$nugget->getType().'</a></div>';
+				print '<a href="javaScript:nuggetRedirect(\''.$nugget->getType().'\')">'.$nugprint.'</a></div>';
 			}
 			else{
-				print '<a href="javascript:nuggetRedirect(\'Other\')">'.$nugget->getType().'</a></div>';
+				print '<a href="javascript:nuggetRedirect(\'Other\')">'.$nugprint.'</a></div>';
 			}
 			
 		}
 		else{
-			print $nugget->getType()."</div>";
+			print $nugprint."</div>";
 		}
 		print '<div class="item"><strong>Description:</strong> '.substr($nugget->getDesc(),0,40).'</div>';
 		print '<div class="item"><strong>Date Created:</strong> '.$nugget->getDate().'</div>';

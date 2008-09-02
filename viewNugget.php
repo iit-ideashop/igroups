@@ -41,9 +41,22 @@
 		$files = $nugget->getFiles();
 		$semester = $nugget->getSemester();
 		
-		print "<div class='item'><strong>Nugget Type/Name:</strong> ";
+		print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ";
 		//used to print a nugget that is from a prior semester or for viewing purposes only
-		print $nugget->getType()."</div>";
+		$nug = $nugget->getType();
+		if($nug == "Code of Ethics")
+			$nugprint = "Ethics Statement";
+		else if($nug == "Website")
+			$nugprint = "Website (optional)";
+		else if($nug == "Midterm Report")
+			$nugprint = "Midterm Presentation";
+		else if($nug == "Team Minutes")
+			$nugprint = "Team Minutes (optional)";
+		else if($nug == "Final Report")
+			$nugprint = "Final Report or Grant Proposal";
+		else
+			$nugprint = $nug;
+		print $nugprint."</div>";
 		print '<div class="item"><strong>Description:</strong> '.$nugget->getDesc().'</div>';
 		print '<div class="item"><strong>Date Created:</strong> '.$nugget->getDate().'</div>';
 		print '<div class="item"><strong>Security:</strong> ';

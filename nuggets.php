@@ -40,7 +40,7 @@
 			$nuggets = getNuggetStatus($currentGroup, $_SESSION['selectedSemester']);
 		$nugCount = 0;
 ?>
-		<table cellpadding='3'>
+		<table cellpadding="3">
 		<tr>
 <?php
 		//nuggets is an associative array that has the various nugget types for keys and their id's if they exists, as values
@@ -48,7 +48,7 @@
 		if ($_SESSION['selectedSemester'] >= 32) {
 		foreach($_DEFAULTNUGGETS as $nug){
 			if($nug == "Code of Ethics")
-				$nugprint = "Ethics Module";
+				$nugprint = "Ethics Statement";
 			else if($nug == "Website")
 				$nugprint = "Website (optional)";
 			else if($nug == "Midterm Report")
