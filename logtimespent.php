@@ -436,7 +436,7 @@ function ds_onclick(d, m, y) {
 			$empty = 1;
 	}
 	else if ( isset( $_POST['addProjTask'] ) ) {
-		if($_POST['description'] != "") {
+		if($_POST['taskDescription'] != "") {
                 	$newEntry = createProjTask( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['taskDate'], $_POST['taskHours'], $_POST['taskDescription'], $db );
 ?>
 	                <script type="text/javascript">
@@ -462,7 +462,7 @@ function ds_onclick(d, m, y) {
 			$empty = 1;
         }
 	else if (isset($_POST['editProjTask'])) {
-		if($_POST['description'] != "") {
+		if($_POST['taskDescription'] != "") {
 			$editEntry = new TimeEntry($_POST['entryID'], $db);
 			$editEntry->delete();
 			$newEntry = createProjTask( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['taskDate'], $_POST['taskHours'], $_POST['taskDescription'], $db );
