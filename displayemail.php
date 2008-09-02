@@ -14,23 +14,11 @@
 		die("You are not logged in.");
 ?>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Display Email</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
-	<style type='text/css'>
-        pre {
-         font-family: verdana, arial, sans-serif;
-         font-size:100%;
-         white-space: pre-wrap; /* css-3 */
-        white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-        white-space: -pre-wrap; /* Opera 4-6 */
-        white-space: -o-pre-wrap; /* Opera 7 */
-        word-wrap: break-word; /* Internet Explorer 5.5+ */
-        _white-space: pre; /* IE only hack to re-specify in addition to word-wrap */
-}
-        </style>
 </head>
 
 <body>
@@ -45,7 +33,7 @@
 			die("You are not a member of this group");
 		$author = $email->getSender();
 		if ($email->prev || $email->next) 
-			print "<table width=\"100%\" cellspacing=\"0\" style=\"border-style: none\"><tr><td align=\"center\" bgcolor=\"#AAAAAA\">";
+			print "<table width=\"100%\" cellspacing=\"0\" style=\"border-style: none\"><tr><td align=\"center\" style=\"background: #AAAAAA\">";
 		if ($email->prev) {
                         print "<a href=\"displayemail.php?id={$email->prev}\">Previous in Thread</a>";
                         if ($email->next)
@@ -69,7 +57,7 @@
 		}
 		print "</p>";
 		$body = htmlspecialchars($email->getBody());
-		print "<pre>$body</pre>";
+		print "<p>".str_replace("\n", "<br />", stripTags($body))."</p>";
 	}
 ?>
 </body>

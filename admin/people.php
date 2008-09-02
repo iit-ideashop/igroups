@@ -20,18 +20,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - View Profile</title>
 <link rel="stylesheet" href="../default.css" type="text/css" />
-	<style type='text/css'>
-	pre {
-	 font-family: verdana, arial, sans-serif;
-	 font-size:100%;
-	 white-space: pre-wrap; /* css-3 */
-	white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-	white-space: -pre-wrap; /* Opera 4-6 */
-	white-space: -o-pre-wrap; /* Opera 7 */
-	word-wrap: break-word; /* Internet Explorer 5.5+ */
-	_white-space: pre; /* IE only hack to re-specify in addition to word-wrap */
-}
-	</style>
 </head>
 <body>
 <?php
@@ -96,10 +84,10 @@ if ($profile['isResident'])
 if (isset($profile['isResident']) && $profile['isResident'] == 0)
         print "<tr><td>Lives on Campus: </td><td>No</td></tr>";
 if ($profile['sBio']) {
-        print "<tr><td valign=\"top\">Biography: </td><td valign=\"top\"><pre>".stripTags($profile['sBio'])."</pre></td></tr>";
+        print "<tr><td valign=\"top\">Biography: </td><td valign=\"top\">".str_replace("\n", "<br />", stripTags($profile['sBio']))."</td></tr>";
 }
 if ($profile['sSkills']) {
-        print "<tr><td valign=\"top\">Skills: </td><td valign=\"top\"><pre>".stripTags($profile['sSkills'])."</pre></td></tr>";
+        print "<tr><td valign=\"top\">Skills: </td><td valign=\"top\">".str_replace("\n", "<br />", stripTags($profile['sSkills']))."</td></tr>";
 }
 ?>
 </table>

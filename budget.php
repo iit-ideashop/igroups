@@ -177,17 +177,6 @@ if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']
 			padding: 3px;
 		}
 		
-		pre {
-			font-family: verdana, arial, sans-serif;
-			font-size:100%;
-			white-space: pre-wrap; /* css-3 */
-			white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-			white-space: -pre-wrap; /* Opera 4-6 */
-			white-space: -o-pre-wrap; /* Opera 7 */
-			word-wrap: break-word; /* Internet Explorer 5.5+ */
-			_white-space: pre; /* IE only hack to re-specify in addition to word-wrap */
-		}
-		
 		.b_date {
 			color: #666;
 			font-size: 80%;
@@ -446,7 +435,7 @@ else {
 	echo "<td>$row[bStatus]</td>";
 	}
 	echo "<td><span class=\"edit_desc\"><a href=\"edit_budget.php?bOrder=$row[bOrder]&amp;bDesc=$row[bDesc]\">Revise</a></span></td></tr>";
-	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\"><pre>".$row[bDesc]."</pre></div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\">".str_replace("\n", "<br />", stripTags($row[bDesc]))."</div>";
 	}
 	
 //Total Amount
@@ -478,7 +467,7 @@ while ($row = mysql_fetch_assoc($query))
 	echo "<td>$ $row[bApproved]<div class=\"b_date\">$row[bApprovedDate]</div></td>";
 	echo "<td><a href=\"#\" onmouseover=\"showEvent('RR".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('RR".$row[bOrder]."');\">".$desc."</a></td>";
 	echo "<td>$row[bStatus]</td></tr>";
-	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\"><pre>".$row[bDesc]."</pre></div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\">".str_replace("\n", "<br />", stripTags($row[bDesc]))."</div>";
 	}
 	echo "</table>\n";
 	foreach($divs as $div)

@@ -286,16 +286,6 @@ if (isset($_POST['notify_team']))
 			background: #ffffcc;
 		}
 		
-		pre {
-			font-family: verdana, arial, sans-serif;
-			font-size:100%;
-			white-space: pre-wrap; /* css-3 */
-			white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-			white-space: -pre-wrap; /* Opera 4-6 */
-			white-space: -o-pre-wrap; /* Opera 7 */
-			word-wrap: break-word; /* Internet Explorer 5.5+ */
-			_white-space: pre; /* IE only hack to re-specify in addition to word-wrap */
-		}
 		.b_date {
 			color: #666;
 			font-size: 80%;
@@ -387,7 +377,7 @@ else {
 		 <strong>$</strong> <input type=\"text\" id=\"revise_budget_amt".$row[bOrder]."\" name=\"revise_budget_amt\" size=\"5\" />
 		 <input type=\"submit\" id=\"revise_budget".$row[bOrder]."\" name=\"revise_budget\" value=\"Revise\" class=\"revise_btn\" />
 		 </fieldset></form></td></tr>";
-	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\"><pre>".$row[bDesc]."</pre></div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\">".str_replace("\n", "<br />", stripTags($row[bDesc]))."</div>";
 	}
 
 //Totals
@@ -457,7 +447,7 @@ while ($row = mysql_fetch_assoc($query))
 	echo "<td>$ $row[bApproved]<div class=\"b_date\">$row[bApprovedDate]</div></td>";
 	echo "<td><a href=\"#\" onmouseover=\"showEvent('RR".$row[bOrder]."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('RR".$row[bOrder]."');\">".$desc."</a></td>";
 	echo "<td>$row[bStatus]</td>";
-	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\"><pre>".$row[bDesc]."</pre></div>";
+	$divs[$row[bOrder]] = "<div class=\"description\" id=\"RR".$row[bOrder]."\">".str_replace("\n", "<br />", stripTags($row[bDesc]))."</div>";
 	}
 	echo "</tr></table>";
 	foreach($divs as $div)

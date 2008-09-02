@@ -314,7 +314,7 @@
 
 	<table width="75%" cellpadding="3" style="border: thin solid black; style: text-align: center">
 		<tr>
-			<td style="background: red; text-align: center; color: white; font-size: bigger; font-weight: bold" colspan="7">Usage Comparison</td>
+			<td style="background: red; text-align: center; color: white; font-size: larger; font-weight: bold" colspan="7">Usage Comparison</td>
 		</tr>
 		<tr align="center" style="background: #dddddd">
 			<td><b>IPRO</b></td><td><b>Files Uploaded</b></td><td><b>Percentage of Mean</b></td><td><b>Emails Sent</b></td><td><b>Percentage of Mean</b></td><td><b>Emails per User</b></td><td><b>Percentage of Mean</b></td></tr>
@@ -369,7 +369,7 @@
 <a name="<?php echo "{$group->getID()}"; ?>"></a>
 	<table width="75%" style="border: thin solid black" cellpadding="3">
 		<tr>
-			<td colspan="5" style="font-size: bigger; font-weight: bold; background: red; color: white; text-align: center"><?php echo "{$group->getName()}"; ?></td>
+			<td colspan="5" style="font-size: larger; font-weight: bold; background: red; color: white; text-align: center"><?php echo "{$group->getName()}"; ?></td>
 		</tr>
 		<tr align="center" style="background: #dddddd">
 			<td> </td> 

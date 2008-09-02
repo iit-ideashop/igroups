@@ -59,18 +59,6 @@ if 	( isset( $_POST['submit_edit_budget'] ) ) {
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Budget</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
-	<style type="text/css">
-	pre {
-		font-family: verdana, arial, sans-serif;
-		font-size:100%;
-		white-space: pre-wrap; /* css-3 */
-		white-space: -moz-pre-wrap; /* Mozilla, since 1999 */
-		white-space: -pre-wrap; /* Opera 4-6 */
-		white-space: -o-pre-wrap; /* Opera 7 */
-		word-wrap: break-word; /* Internet Explorer 5.5+ */
-		_white-space: pre; /* IE only hack to re-specify in addition to word-wrap */
-	}	
-	</style>
 </head>
 
 <body>
@@ -91,7 +79,7 @@ if 	( isset( $_POST['submit_edit_budget'] ) ) {
 	<h3><label for="budget_revised_amt">Amount:</label></h3>
 	$ <input type="text" id="budget_revised_amt" name="budget_revised_amt" value="<?php echo $result[2] ?>" size="5" />
 	<h3>Description:</h3>
-	<pre><textarea id="edit_budget" name="edit_budget" cols="50" rows="20"><?php echo $result[0] ?></textarea></pre>
+	<textarea id="edit_budget" name="edit_budget" cols="50" rows="20"><?php echo stripTags($result[0]) ?></textarea>
 	<input type="hidden" id="budget_category" name="budget_category" value="<?php echo $s_selectedCategory ?>" />
 	<input type="hidden" id="budget_category_name" name="budget_category_name" value="<?php echo $result[1] ?>" />
 		<input type="submit" id="submit_edit_budget" value="Edit" name="submit_edit_budget" />
