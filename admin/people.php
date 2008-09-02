@@ -116,17 +116,17 @@ if ($profile['sSkills']) {
 				$sem = new Semester($group->getSemester(), $db);
 				if(!$currSem)
 				{
-					print "<li style=\"font-weight: bold\">".$sem->getName()."<ul>";
+					print "<li><strong>".$sem->getName()."</strong><ul>";
 					$currSem = $sem;
 				}
 				else if($currSem != $sem)
 				{
-					print "</ul></li><li style=\"font-weight: bold\">".$sem->getName()."</li><ul>";
+					print "</ul></li><li><strong>".$sem->getName()."</strong><ul>";
 					$currSem = $sem;
 				}
 				print "<li><a href=\"group.php?group=".$group->getID()."&amp;semester=".$group->getSemester()."&amp;selectAdminGroup=true&amp;selectSemester=true\">".$group->getName()."</a></li>";
 			}
-			print "</ul></ul>";
+			print "</ul></li></ul>";
 		}
 		else
 			print "<p>This user is in no groups.</p>";
