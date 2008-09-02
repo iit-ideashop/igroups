@@ -64,7 +64,7 @@
 		else
 			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".stripTags($folder->getName())."</a>\n";
 		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
-			print "<ul class=\"filesul\">\n";
+			print "<ul class=\"folderlist\">\n";
 			foreach ( $subfolder as $key => $val ) {
 				printFolder( $val );
 			}

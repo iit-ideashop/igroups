@@ -234,13 +234,14 @@ ob_end_flush();
 			print "<ul>";
 			print "<li><a href=\"../admin/group.php\">Manage Groups</a></li>";
 			print "<li><a href=\"../admin/email.php\">Email Groups</a></li>";
-			print "<li><a href=\"../admin/nuggets.php\">Nugget Admin</a></li>";
+			print "<li><a href=\"../admin/nuggets.php\">Manage Nuggets</a></li>";
 			print "<li><a href=\"../admin/event.php\">Manage Calendars</a></li>";
 			print "<li><a href=\"../dboard/dboard.php?adminView=1\">Discussion Board</a></li>";
 			print "<li><a href=\"../admin/budget.php\">Manage Budgets</a></li>";
 			print "<li><a href=\"../admin/iprofiles.php\">IPRO Office Files</a></li>";
 			print "<li><a href=\"../admin/quotas.php\">Group Quotas</a></li>";
 			print "<li><a href=\"../admin/reporting.php\">Group Reporting</a></li>";
+			print "<li><a href=\"../admin/people.php\">View Person</a></li>";
 			print "<li><a href=\"../admin/announcements.php\">Announcements</a></li>";
 			print "</ul>";
 		}
