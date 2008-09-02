@@ -61,7 +61,7 @@
 <h2><?php print "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
 <?php
 if ($profile['sPicture']) {
-	print "<img src=\"profile-pics/{$profile['sPicture']}\" width=\"200\" alt=\"{$profile['sPicture']}\" /><br />";
+	print "<img src=\"../profile-pics/{$profile['sPicture']}\" width=\"200\" alt=\"{$profile['sPicture']}\" /><br />";
 }
 ?>
 
