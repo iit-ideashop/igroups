@@ -53,9 +53,8 @@
 		while($row = mysql_fetch_array($query))
 			$nuggets[] = new Nugget($row['iNuggetID'], $db, 1);
 		$query = $db->igroupsQuery("SELECT * FROM PeopleProjectMap WHERE iPersonID={$uid}");
-		$projects = array();
 		while($row = mysql_fetch_array($query))
-			$projects[] = new Group($row['iProjectID'], 0, $row['iSemesterID'], $db);
+			$groups[] = new Group($row['iProjectID'], 0, $row['iSemesterID'], $db);
 ?>
 <h1>Public Profile</h1>
 <h2><?php print "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
@@ -66,7 +65,7 @@ if ($profile['sPicture']) {
 ?>
 
 <h4>Contact Information</h4>
-<table cellspacing='5'> 
+<table cellspacing="5"> 
 <?php
 print "<tr><td>Primary E-mail: </td><td>{$contactInfo['sEmail']}</td></tr>";
 if ($profile['sAltEmail'])
@@ -81,7 +80,7 @@ if ($profile['sIM'])
 </table>
 
 <h4>Personal Information</h4>
-<table cellspacing='5'>
+<table cellspacing="5">
 <?php
 if ($profile['sMajor'])
 	print "<tr><td>Major: </td><td>{$profile['sMajor']}</td></tr>";
@@ -96,10 +95,10 @@ if ($profile['isResident'])
 if (isset($profile['isResident']) && $profile['isResident'] == 0)
         print "<tr><td>Lives on Campus: </td><td>No</td></tr>";
 if ($profile['sBio']) {
-        print "<tr><td valign='top'>Biography: </td><td valign='top'><pre>{$profile['sBio']}</pre></td></tr>";
+        print "<tr><td valign=\"top\">Biography: </td><td valign=\"top\"><pre>{$profile['sBio']}</pre></td></tr>";
 }
 if ($profile['sSkills']) {
-        print "<tr><td valign='top'>Skills: </td><td valign='top'><pre>{$profile['sSkills']}</pre></td></tr>";
+        print "<tr><td valign=\"top\">Skills: </td><td valign=\"top\"><pre>{$profile['sSkills']}</pre></td></tr>";
 }
 ?>
 </table>
@@ -110,28 +109,38 @@ if ($profile['sSkills']) {
 		if(count($groups) > 0)
 		{
 			print "<ul>";
+			$currSem = false;
 			foreach($groups as $group)
+			{
+				$sem = new Semester($group->getSemester, $db);
+				if(!$currSem)
+				{
+					print "<li style=\"font-weight: bold\">".$sem->getName()."<ul>";
+					$currSem = $sem;
+				}
+				else if($currSem != $sem)
+				{
+					print "</ul></li><li style=\"font-weight: bold\">".$sem->getName()."</li><ul>";
+					$currSem = $sem;
+				}
 				print "<li><a href=\"group.php?group=".$group->getID()."&amp;semester=".$group->getSemester()."&amp;selectAdminGroup=true&amp;selectSemester=true\">".$group->getName()."</a></li>";
-			print "</ul>";
+			}
+			print "</ul></ul>";
 		}
-		print "<h2>Projects</h2>";
-		if(count($projects) > 0)
-		{
-			print "<ul>";
-			foreach($projects as $group)
-				print "<li><a href=\"group.php?group=".$group->getID()."&amp;semester=".$group->getSemester()."&amp;selectAdminGroup=true&amp;selectSemester=true\">".$group->getName()."</a></li>";
-			print "</ul>";
-		}
+		else
+			print "<p>This user is in no groups.</p>";
 		print "<h2>Nuggets</h2>";
 		if(count($nuggets) > 0)
 		{
 			print "<ul>";
 			foreach($nuggets as $nugget)
 			{
-				print "<li><a href=\"viewNugget.php?nuggetID=".$nugget->getID()."&amp;isOld=1\">".$nugget->getType()." for ".$nugget->getGroupName()."</a></li>";
+				print "<li><a href=\"viewNugget.php?nuggetID=".$nugget->getID()."&amp;isOld=1\">".$nugget->getType()."</a></li>";
 			}
 			print "</ul>";
 		}
+		else
+			print "<p>This user has authored no nuggets.</p>";
 	}
 	else //if no email given in URL
 	{
