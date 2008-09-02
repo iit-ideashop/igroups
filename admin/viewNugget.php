@@ -36,7 +36,7 @@
 		print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ";
 		//used to print a nugget that is from a prior semester or for viewing purposes only
 		print $nugget->getType()."</div>";
-		print '<div class="item"><strong>Description:</strong> '.$nugget->getDesc().'</div>';
+		print '<div class="item"><strong>Description:</strong> '.htmlspecialchars($nugget->getDesc()).'</div>';
 		print '<div class="item"><strong>Date Created:</strong> '.$nugget->getDate().'</div>';
 		print '<div class="item"><strong>Security:</strong> ';
                 if ($nugget->isPrivate())

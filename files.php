@@ -668,8 +668,8 @@ require("sidebar.php");
 						foreach ( $fileList as $key => $file ) {
 							printTR();
 							print "<td><img src=\"img/file.png\" alt=\"File\" title=\"File\" /></td>";
-							print "<td><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a></td>";
-							print "<td>".$file->getDesc()."</td>";
+							print "<td><a href=\"download.php?id=".$file->getID()."\">".htmlspecialchars($file->getName())."</a></td>";
+							print "<td>".htmlspecialchars($file->getDesc())."</td>";
 							$author = $file->getAuthor();
 							if ( $author )
 								print "<td>".$author->getFullName()."</td>";
@@ -702,7 +702,7 @@ require("sidebar.php");
 				This file will be placed in the
 <?php
 				if ( $currentFolder )
-					print $currentFolder->getName();
+					print htmlspecialchars($currentFolder->getName());
 				else
 					print "Your Files"
 ?>
@@ -721,7 +721,7 @@ require("sidebar.php");
                                 This file will be placed in the
 <?php
                                 if ( $currentFolder )
-                                        print $currentFolder->getName();
+                                        print htmlspecialchars($currentFolder->getName());
                                 else
                                         print "Your Files"
 ?>
@@ -762,7 +762,7 @@ require("sidebar.php");
 				This folder will be placed in the
 <?php
 				if ( $currentFolder )
-					print $currentFolder->getName();
+					print htmlspecialchars($currentFolder->getName());
 				else
 					print "Your Files"
 ?>

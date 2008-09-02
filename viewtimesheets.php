@@ -385,7 +385,7 @@ require("sidebar.php");
 		       $entries = $timeLog->getEntriesByUser( $selectedUser->getID() );
 
 		foreach ( $entries as $entry ) {
-			print "<tr><td valign=\"top\">".$entry->getDate()."</td><td valign=\"top\" align=\"center\">".$entry->getHoursSpent()."</td><td><a href=\"viewtimesheets.php?editTime={$entry->getID()}\">".$entry->getTaskDescription()."</a></td></tr>";
+			print "<tr><td valign=\"top\">".$entry->getDate()."</td><td valign=\"top\" align=\"center\">".$entry->getHoursSpent()."</td><td><a href=\"viewtimesheets.php?editTime={$entry->getID()}\">".htmlspecialchars($entry->getTaskDescription())."</a></td></tr>";
 		}
 		if ( $entries == array() )
 			print "<tr><td colspan=\"3\">No timesheet entries recorded.</td></tr>";
@@ -412,7 +412,7 @@ require("sidebar.php");
 
 		if ($entries) {
 		foreach ( $entries as $entry ) {
-			print "<tr><td valign=\"top\">".$entry->getDate()."</td><td valign=\"top\" align=\"center\">".$entry->getHoursSpent()."</td><td><a href=\"viewtimesheets.php?editTask={$entry->getID()}\">".$entry->getTaskDescription()."</a></td></tr>";
+			print "<tr><td valign=\"top\">".$entry->getDate()."</td><td valign=\"top\" align=\"center\">".$entry->getHoursSpent()."</td><td><a href=\"viewtimesheets.php?editTask={$entry->getID()}\">".htmlspecialchars($entry->getTaskDescription())."</a></td></tr>";
 		}
 		}
 		if ( $entries == array() )

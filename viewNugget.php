@@ -57,11 +57,11 @@
 		else
 			$nugprint = $nug;
 		print $nugprint."</div>";
-		print '<div class="item"><strong>Description:</strong> '.$nugget->getDesc().'</div>';
+		print '<div class="item"><strong>Description:</strong> '.htmlspecialchars($nugget->getDesc()).'</div>';
 		print '<div class="item"><strong>Date Created:</strong> '.$nugget->getDate().'</div>';
 		print '<div class="item"><strong>Security:</strong> ';
 		if ($nugget->isPrivate())
-			print "Protected (Not publically viewable)";
+			print "Protected (Not publicly viewable)";
 		else
 			print "Public";
 		print "</div>";

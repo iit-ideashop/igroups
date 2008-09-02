@@ -29,9 +29,9 @@
 			$curr = new Folder($_GET['folderid'], $db);
                         print "<form method=\"post\" action=\"files.php\"><fieldset>";
                                 print "<label for=\"newname\">Enter new name:</label>";
-                                print "<input type=\"text\" name=\"newname\" id=\"newname\" size=\"30\" value=\"".$curr->getName()."\" /><br />";
+                                print "<input type=\"text\" name=\"newname\" id=\"newname\" size=\"30\" value=\"".htmlspecialchars($curr->getNameNoVer())."\" /><br />";
 				print "<label for=\"newdesc\">Enter new description:</label>";
-				print "<input type=\"text\" name=\"newdesc\" id=\"newdesc\" size=\"30\" value=\"".$curr->getDesc()."\" />";
+				print "<input type=\"text\" name=\"newdesc\" id=\"newdesc\" size=\"30\" value=\"".htmlspecialchars($curr->getDesc())."\" />";
 
                                 print "<input type=\"hidden\" name=\"rename\" value=\"rename\" />";
 				if(isset($_GET['fileid']))
