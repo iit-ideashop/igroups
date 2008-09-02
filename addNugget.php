@@ -151,6 +151,7 @@
 			var loop = 0;
 			var files = "";
 			var descriptions = "";
+			theform = document.getElementById("myForm");
 			fileNames = document.getElementsByName("fileName");
 			fileDescriptions = document.getElementsByName("fileDescription");
 			while(loop < fileNames.length-1){
@@ -159,9 +160,9 @@
 				loop++;	
 
 			}
-			document.myForm.filenames.value=files;
-			document.myForm.descriptions.value=descriptions;
-			document.myForm.submit();
+			theform.filenames.value=files;
+			theform.descriptions.value=descriptions;
+			theform.submit();
 		}
 		
 		function showMessage( msg ) {
@@ -184,6 +185,7 @@
 
 		function addFilesFromNugget(){
 			document.getElementById("myForm").igroupsRedirect.value = true;
+			submitForm();
 		}
 	//-->	
 	</script>
@@ -263,7 +265,7 @@ require("sidebar.php");
 		<label for="filedescription1">Description 1:</label><input type="text" name="fileDescription" id="filedescription1" /><br />
 		</div>
 		</div>
-		<p>Option 2: <a href="#" onclick="javascript:addFilesFromNugget();this.form.submit();">Import files from iGroups</a></p>
+		<p>Option 2: <a href="#" onclick="javascript:addFilesFromNugget();">Import files from iGroups</a></p>
 		<input type="hidden" name="filenames" />
 		<input type="hidden" name="descriptions" />
 		<input type="hidden" name="igroupsRedirect" value="0" />
