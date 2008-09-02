@@ -10,6 +10,14 @@
 	include_once( "../classes/quota.php" );
 
 	$_DB = new dbConnection();
+
+	if ( isset( $_SESSION['userID'] ) ) 
+		$currentUser = new Person( $_SESSION['userID'], $db );
+	else
+		die("You are not logged in.");
+		 
+	if ( !$currentUser->isAdministrator() )
+		die("You must be an administrator to access this page.");
 	
 	function peopleSort( $array ) {
 		$newArray = array();
