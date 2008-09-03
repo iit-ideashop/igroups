@@ -12,7 +12,7 @@
 	$_DB = new dbConnection();
 
 	if ( isset( $_SESSION['userID'] ) ) 
-		$currentUser = new Person( $_SESSION['userID'], $db );
+		$currentUser = new Person( $_SESSION['userID'], $_DB );
 	else
 		die("You are not logged in.");
 		 

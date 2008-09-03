@@ -28,7 +28,7 @@
 	if(isset($_GET['email']) || (isset($_GET['uid']) && is_numeric($_GET['uid'])))
 	{
 		if(isset($_GET['uid']) && is_numeric($_GET['uid']))
-			$contactInfo = mysql_fetch_array($db->igroupsQuery("SELECT * FROM People WHERE iID='{$_GET['uid']}'"));
+			$contactInfo = mysql_fetch_array($db->igroupsQuery("SELECT * FROM People WHERE iID={$_GET['uid']}"));
 		else if(isset($_GET['email']))
 			$contactInfo = mysql_fetch_array($db->igroupsQuery("SELECT * FROM People WHERE sEmail='{$_GET['email']}'"));
 		if ($contactInfo)
@@ -143,7 +143,7 @@ if ($profile['sSkills']) {
 			}
 			foreach($newnuggets as $nugget)
 			{
-				print "<li><a href=\"viewNugget.php?nuggetID=".$nugget->getID()."&amp;isOld=0\">".htmlspecialchars($nugget->getType())."</a></li>";
+				print "<li><a href=\"viewNugget.php?nuggetID=".$nugget->getID()."\">".htmlspecialchars($nugget->getType())."</a></li>";
 			}
 			print "</ul>";
 		}
