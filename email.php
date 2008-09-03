@@ -488,7 +488,7 @@ require("sidebar.php");
 			print "<div class=\"columnbanner\"><span id=\"boxtitle\">$name</span><br /><span id=\"boxdesc\">$desc</span></div>";
 ?>
 			<form method="post" action="email.php"><fieldset><div class="menubar">
-			<?php if (!$currentUser->isGroupGuest($currentGroup) && ((!$currentCat || $currentCat->getID() != 1)) { ?>
+			<?php if (!$currentUser->isGroupGuest($currentGroup) && (!$currentCat || $currentCat->getID() != 1)) { ?>
 				<ul class="folderlist">
 					<li><a href="#" onclick="sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
 					<li><a href="#" onclick="window.location.href='searchemail.php';">Search Email</a></li>
