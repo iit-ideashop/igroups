@@ -209,8 +209,7 @@
 	function editChk(){
 		var obj = document.myform.getElementsByTagName('input');
 		for (i = 0; i < obj.length; i++){
-			var regex = new RegExp('taskEdit', "i");
-			if (regex.test(obj[i].getAttribute('name')))
+			if (obj[i].type == "checkbox" && obj[i].name == "taskEdit[]")
 				obj[i].checked = true;
 		}
 	}
@@ -218,8 +217,7 @@
 	function editUnChk(){
 		var obj = document.myform.getElementsByTagName('input');
 		for (i = 0; i < obj.length; i++){
-			var regex = new RegExp('taskEdit', "i");
-			if (regex.test(obj[i].getAttribute('name')))
+			if (obj[i].type == "checkbox" && obj[i].name == "taskEdit[]")
 				obj[i].checked = false;
 		}
 	}
