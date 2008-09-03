@@ -164,7 +164,6 @@ if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']
 		
 		.label_desc {
 			margin-top:-10px;
-			padding-top:-10px;
 			margin-bottom: 15px;
 			color: #666;
 			font-size: 80%;
