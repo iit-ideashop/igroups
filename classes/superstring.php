@@ -43,6 +43,14 @@ if ( !class_exists( "SuperString" ) ) {
 			$tempString = str_replace( "'", "\\'", $tempString );
 			return $tempString;
 		}
+
+		function almostJavaString() {
+			$tempString = str_replace( "\\", "\\\\", $this->str );
+			$tempString = str_replace( "\r", "\\r", $tempString );
+			$tempString = str_replace( "\n", "\\n", $tempString );
+			$tempString = str_replace( "'", "\\'", $tempString );
+			return $tempString;
+		}
 	}
 	
 	function quickDBString( $str ) {

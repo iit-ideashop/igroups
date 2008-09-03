@@ -557,10 +557,10 @@ function ds_onclick(d, m, y) {
 				$class = 'eventlink';
 			print "<a href=\"#\" class=\"$class\" onmouseover=\"showEvent('E".$event->getID()."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('E".$event->getID()."');\"";
 			if ( $currentUser->isGroupModerator( $event->getGroup() ) ) {
-				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); editEvent( ".$event->getID().", '".htmlspecialchars($event->getName())."', '".htmlspecialchars($event->getDescJava())."', '".$event->getDate()."')\"";
+				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=450px,height=200px,left=300px,top=100px,resize=0,scrolling=0'); editEvent( ".$event->getID().", '".htmlspecialchars($event->getName())."', '".htmlspecialchars($event->getDescAlmostJava())."', '".$event->getDate()."')\"";
 			}
 			else {
-				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($event->getName())."', '".htmlspecialchars($event->getDescJava())."', '".$event->getDate()."');\"";
+				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($event->getName())."', '".htmlspecialchars($event->getDescAlmostJava())."', '".$event->getDate()."');\"";
 			}
 			print ">".$event->getName()."</a><br />";
 			print "<div class=\"event\" id=\"E".$event->getID()."\">".htmlspecialchars($event->getName())."<br />".$event->getDate()."<br />".htmlspecialchars($event->getDesc())."</div>";

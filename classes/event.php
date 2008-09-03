@@ -63,6 +63,10 @@ if ( !class_exists( "Event" ) ) {
 		function getDescJava() {
 			return $this->desc->getJavaString();
 		}
+
+		function getDescAlmostJava() {
+			return $this->desc->almostJavaString();
+		}
 		
 		function setDesc( $string ) {
 			if ( $string != "" )
