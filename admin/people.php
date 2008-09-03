@@ -57,7 +57,6 @@
 ?>
 <h1>Public Profile</h1>
 <h2><?php print "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
-<p style="font-style: italic"><?php print $usertype." - Account created on ".$contactInfo['dCreateDate']." - User ID# is $uid"; ?></p>
 <?php
 if ($profile['sPicture']) {
 	print "<img src=\"../profile-pics/{$profile['sPicture']}\" width=\"200\" alt=\"{$profile['sPicture']}\" /><br />";
@@ -105,6 +104,7 @@ if ($profile['sSkills']) {
 <br />
 <h1>Administrator features</h1>
 <?php
+		print "<h2>Additional user information</h2><table cellspacing=\"5\"><tr><td>Access level:</td><td>$usertype</td></tr><tr><td>Account created:</td><td>".$contactInfo['dCreateDate']."</td></tr><tr><td>User ID#:</td><td>$uid</td></tr></table>";
 		print "<h2>Groups</h2>";
 		if(count($groups) > 0)
 		{
