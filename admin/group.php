@@ -129,7 +129,7 @@
 <?php
 	require("sidebar.php");
 	if ( isset( $message ) )
-		print "<script type='text/javascript'>showMessage(\"$message\");</script>";
+		print "<script type=\"text/javascript\">showMessage(\"$message\");</script>";
 ?>
 	<div id="content"><div id="topbanner">
 <?php
@@ -160,10 +160,10 @@
 ?>
                 </select><br /><br />
                 <b>ID: </b>(e.g. IPRO 101)<br />
-                <input type='text' name='sIITID' size='10' /><br /><br />
+                <input type="text" name="sIITID" size="10" /><br /><br />
                 <b>Name: </b>(e.g. Developing New Products)<br />
-                <input type='text' name='sName' size='25' />&nbsp;&nbsp;
-                <input type='submit' name='createIPRO' value='Create IPRO' /><br />
+                <input type="text" name="sName" size="25" />&nbsp;&nbsp;
+                <input type="submit" name="createIPRO" value="Create IPRO" /><br />
                 </fieldset></form>
                 <br />
 		<h1>Manage Groups</h1>
@@ -279,7 +279,7 @@
 					<form method="post" action="group.php"><fieldset>
 						<label for="fname">First Name:</label><input type="text" name="fname" /><br />
 						<label for="lname">Last Name:</label><input type="text" name="lname" /><br />
-						<input type="hidden" name="email" value="<?php print "{$_POST['email']}"; ?>" />
+						<input type="hidden" name="email" value="<?php print($_POST['email']); ?>" />
 						<input type="submit" name="newuser" value="Create New User" />
 					</fieldset></form>
 				</div>

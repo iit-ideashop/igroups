@@ -25,9 +25,12 @@
 <?php
 	require("sidebar.php");
 	print "<div id=\"content\">";
-	if(isset($_GET['email']))
+	if(isset($_GET['email']) || (isset($_GET['uid']) && is_numeric($_GET['uid'])))
 	{
-		$contactInfo = mysql_fetch_array($db->igroupsQuery("SELECT * FROM People WHERE sEmail='{$_GET['email']}'"));
+		if(isset($_GET['uid']) && is_numeric($_GET['uid']))
+			$contactInfo = mysql_fetch_array($db->igroupsQuery("SELECT * FROM People WHERE iID='{$_GET['uid']}'"));
+		else if(isset($_GET['email']))
+			$contactInfo = mysql_fetch_array($db->igroupsQuery("SELECT * FROM People WHERE sEmail='{$_GET['email']}'"));
 		if ($contactInfo)
 			$uid = $contactInfo['iID'];
 		else
@@ -37,23 +40,31 @@
 		$groups = array();
 		while($row = mysql_fetch_array($query))
 			$groups[] = new Group($row['iGroupID'], 1, 0, $db);
-		$query = $db->igroupsQuery("SELECT * FROM PeopleNuggetMap WHERE iPersonID={$uid}");
+		$query = $db->igroupsQuery("SELECT * FROM PeopleNuggetMap WHERE iPersonID={$uid} ORDER BY iNuggetID");
 		$nuggets = array();
 		while($row = mysql_fetch_array($query))
 			$nuggets[] = new Nugget($row['iNuggetID'], $db, 1);
+		$query = $db->igroupsQuery("SELECT * from nuggetAuthorMap WHERE iAuthorID={$uid} ORDER BY iNuggetID");
+		$newnuggets = array();
+		while($row = mysql_fetch_array($query))
+			$newnuggets[] = new Nugget($row['iNuggetID'], $db, 0);
 		$query = $db->igroupsQuery("SELECT * FROM PeopleProjectMap WHERE iPersonID={$uid} ORDER BY iSemesterID");
 		while($row = mysql_fetch_array($query))
 			$groups[] = new Group($row['iProjectID'], 0, $row['iSemesterID'], $db);
+		$query = $db->igroupsQuery("SELECT * FROM UserTypes WHERE iID={$contactInfo['iUserTypeID']}");
+		$row = mysql_fetch_array($query);
+		$usertype = $row['sType'];
 ?>
 <h1>Public Profile</h1>
 <h2><?php print "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
+<p style="font-style: italic"><?php print $usertype." - Account created on ".$contactInfo['dCreateDate']; ?></p>
 <?php
 if ($profile['sPicture']) {
 	print "<img src=\"../profile-pics/{$profile['sPicture']}\" width=\"200\" alt=\"{$profile['sPicture']}\" /><br />";
 }
 ?>
 
-<h4>Contact Information</h4>
+<h3>Contact Information</h3>
 <table cellspacing="5"> 
 <?php
 print "<tr><td>Primary E-mail: </td><td>{$contactInfo['sEmail']}</td></tr>";
@@ -68,7 +79,7 @@ if ($profile['sIM'])
 ?>
 </table>
 
-<h4>Personal Information</h4>
+<h3>Personal Information</h3>
 <table cellspacing="5">
 <?php
 if ($profile['sMajor'])
@@ -123,12 +134,16 @@ if ($profile['sSkills']) {
 		else
 			print "<p>This user is in no groups.</p>";
 		print "<h2>Nuggets</h2>";
-		if(count($nuggets) > 0)
+		if((count($nuggets) + count($newnuggets)) > 0)
 		{
 			print "<ul>";
 			foreach($nuggets as $nugget)
 			{
 				print "<li><a href=\"viewNugget.php?nuggetID=".$nugget->getID()."&amp;isOld=1\">".htmlspecialchars($nugget->getType())."</a></li>";
+			}
+			foreach($newnuggets as $nugget)
+			{
+				print "<li><a href=\"viewNugget.php?nuggetID=".$nugget->getID()."&amp;isOld=0\">".htmlspecialchars($nugget->getType())."</a></li>";
 			}
 			print "</ul>";
 		}
