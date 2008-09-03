@@ -655,7 +655,7 @@ function ds_onclick(d, m, y) {
 				print "<a href=\"#\" class=\"eventlink\" onmouseover=\"showEvent('E".$event->getID()."',event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent('E".$event->getID()."');\"";
 				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-edit', 'Edit Event', 'width=500px,height=300px,left=300px,top=100px,resize=1,scrolling=1'); editEvent( ".$event->getID().", '".$event->getNameJava()."', '".$event->getDescJava()."', '".$event->getDate()."')\"";
 				print ">".$event->getName()."</a><br />";
-				print "<div class=\"event\" id=\"E".$event->getID()."\">".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
+				print "<div class=\"event\" id=\"E".$event->getID()."\">".htmlspecialchars($event->getName())."<br />".$event->getDate()."<br />".htmlspecialchars($event->getDescHTML())."</div>";
 			}
 			print "</td>";
 			$weekDay++;
