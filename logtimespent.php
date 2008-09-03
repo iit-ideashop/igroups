@@ -608,10 +608,7 @@ function ds_onclick(d, m, y) {
 ?>
         </tbody></table>
 </td><td valign="top">
-
-
-<h1>Your Projected Tasks</h1>
-        <form method="get" action="logtimespent.php"><fieldset>
+        <form method="get" action="logtimespent.php"><fieldset><legend>Your Projected Tasks</legend>
         <select name="taskWeek">
 <?php
         $timeLog = $currentGroup->getTimeLog();

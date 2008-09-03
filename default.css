@@ -51,10 +51,11 @@ h3 {
 }
 
 legend {
-	font-size:12pt;
+	font-size:14pt;
 	color:#666;
 	padding:0;
 	margin-bottom:5px;
+	font-weight: bold;
 }
 
 #topbanner {
