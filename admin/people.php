@@ -57,7 +57,7 @@
 ?>
 <h1>Public Profile</h1>
 <h2><?php print "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
-<p style="font-style: italic"><?php print $usertype." - Account created on ".$contactInfo['dCreateDate']; ?></p>
+<p style="font-style: italic"><?php print $usertype." - Account created on ".$contactInfo['dCreateDate']." - User ID# is $uid"; ?></p>
 <?php
 if ($profile['sPicture']) {
 	print "<img src=\"../profile-pics/{$profile['sPicture']}\" width=\"200\" alt=\"{$profile['sPicture']}\" /><br />";
