@@ -56,12 +56,16 @@ if ( !class_exists( "dbConnection" ) ) {
 function anchorTags($str)
 {
 	$arr1 = array();
-	$arr1[] = "&lt;a";
+	$arr1[] = "&lt;a href";
+	$arr1[] = "&lt;A HREF";
 	$arr1[] = "&lt;/a";
+	$arr1[] = "&lt;/A";
 	$arr1[] = "&gt;";
 	$arr1[] = "&quot;";
 	$arr2 = array();
 	$arr2[] = "<a";
+	$arr2[] = "<a";
+	$arr2[] = "</a";
 	$arr2[] = "</a";
 	$arr2[] = ">";
 	$arr2[] = "\"";
@@ -73,7 +77,9 @@ function anchorTags($str)
 function anchorTagsNoBreaks($str)
 {
 	$arr1 = array();
-	$arr1[] = "&lt;a";
+	$arr1[] = "&lt;a onclick=\"window.open(this.href); return false;\" href";
+	$arr1[] = "&lt;a onclick=\"window.open(this.href); return false;\" href";
+	$arr1[] = "&lt;/a";
 	$arr1[] = "&lt;/a";
 	$arr1[] = "&gt;";
 	$arr1[] = "&quot;";
