@@ -390,7 +390,7 @@ require("sidebar.php");
 				else
 					$priv='';
 				print "<td>$title$priv</td>";
-				print '<td>'.$nug->getDescShort()."</td>";
+				print '<td>'.htmlspecialchars($nug->getDescShort())."</td>";
 				print '<td>'.$nug->getDate().'</td>';
 				print '</tr>';
 			}
@@ -432,7 +432,7 @@ require("sidebar.php");
 					print $row[0];
 					print "</td>";
 					print "<td>";
-					print $ipro->getDesc();
+					print htmlspecialchars($ipro->getDesc());
 					print "</td>";
 					print "</tr>";
 				}
