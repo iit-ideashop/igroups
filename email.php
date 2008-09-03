@@ -377,7 +377,7 @@ require("sidebar.php");
 <?php
 	}
 	
-	if ( isset( $_POST['delcat'] ) && $currentCat->getID() != 0 ) {
+	if ( isset( $_POST['delcat'] ) && $currentCat->getID() != 0 && $currentCat->getID() != 1) {
 		$currentCat->delete();
 		unset($_SESSION['selectedCategory']);
 		$currentCat = false;
@@ -446,7 +446,7 @@ require("sidebar.php");
 				<ul class="folderlist"> <?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<li><a href="#" onclick="ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Category</a></li>
 					<?php
-                                        if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat) {
+                                        if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat > 1) {
 					?>
                                                 <li><a href="#" onclick="ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Category</a></li>
 					<?php } ?>
@@ -456,10 +456,13 @@ require("sidebar.php");
 			<div id="cats">
 <?php
 				$categories = $currentGroup->getGroupCategories();
-				if ( $currentCat )
-					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br />";
+				if($currentCat == 0)
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br /><a href=\"email.php?selectCategory=1\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\">Notices from the IPRO Office</a><br />";
+				else if($currentCat == 1)
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br /><a href=\"email.php?selectCategory=1\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"+\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\"><strong>Notices from the IPRO Office</strong></a><br />";
 				else
-					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br />";
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br /><a href=\"email.php?selectCategory=1\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\">Notices from the IPRO Office</a><br />";
+				
 				foreach ( $categories as $category ) {
 					if ( $currentCat && $currentCat->getID() == $category->getID() )
 						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".htmlspecialchars($category->getName())."</strong></a><br />";

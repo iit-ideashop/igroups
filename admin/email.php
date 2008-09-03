@@ -259,7 +259,7 @@ require("sidebar.php");
 		$query = $db->igroupsQuery("UPDATE GroupEmailFiles SET iEmailID={$newEmail->getID()} WHERE iEmailID=0");
 		foreach($_POST['sendto'] as $id => $val) {
 			$group = new Group($id, 0, $currentSemester->getID(), $db );
-			$copyEmail = createEmail($group->getName(), $subj->getString(), $body->getString(), $currentUser->getID(), 0, 0, $group->getID(), $group->getType(), $group->getSemester(), $db);
+			$copyEmail = createEmail($group->getName(), $subj->getString(), $body->getString(), $currentUser->getID(), 1, 0, $group->getID(), $group->getType(), $group->getSemester(), $db);
 			for ($i=1; $i<=(count($_FILES)); $i++) {
 				if ( $_FILES["attachment$i"]['size'] != 0 ) {
 				$filename = str_replace(' ', '_', $_FILES["attachment$i"]['name']);
