@@ -207,17 +207,17 @@
 	}
 
 	function editChk(){
-		var obj = document.myform.getElementsByTagName('input');
+		var obj = document.getElementsByName('taskEdit[]');
 		for (i = 0; i < obj.length; i++){
-			if (obj[i].type == "checkbox" && obj[i].name == "taskEdit[]")
+			if (obj[i].type == "checkbox")
 				obj[i].checked = true;
 		}
 	}
 
 	function editUnChk(){
-		var obj = document.myform.getElementsByTagName('input');
+		var obj = document.getElementsByName('taskEdit[]');
 		for (i = 0; i < obj.length; i++){
-			if (obj[i].type == "checkbox" && obj[i].name == "taskEdit[]")
+			if (obj[i].type == "checkbox")
 				obj[i].checked = false;
 		}
 	}
@@ -723,7 +723,7 @@ function ds_onclick(d, m, y) {
 		print("</table>");
 		print("<div id=\"taskFoo\"></div>");
 		print('<input type="hidden" name="c" value="t" />');
-		print("<div id=\"task_table_footer\"><img src=\"img/arrow_ltr.png\" style=\"margin-left: 5px;\" alt=\"^\" title=\"Arrow\" /><span class=\"text\">Task Selection: <a href=\"\" onclick=\"javascript: editChk();return false\">Check All</a> / <a href=\"\" onclick=\"javascript: editUnChk();return false;\">Uncheck All</a>");
+		print("<div id=\"task_table_footer\"><img src=\"img/arrow_ltr.png\" style=\"margin-left: 5px;\" alt=\"^\" title=\"Arrow\" /><span class=\"text\">Task Selection: <a href=\"#\" onclick=\"javascript: editChk();return false\">Check All</a> / <a href=\"#\" onclick=\"javascript: editUnChk();return false;\">Uncheck All</a>");
 		if (!$currentUser->isGroupGuest($currentGroup))
 			print(" / <input type=\"submit\" name=\"e\" value=\"Edit\" id=\"editButton\" />");
 		print("  </span></div>");
