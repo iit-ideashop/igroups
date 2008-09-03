@@ -50,7 +50,7 @@
 		unset( $_SESSION['selectedIPROGroup'] );
 	}
 	
-	if ( isset( $_GET['selectGroup'] ) && $_GET['selectGroup'] != '') {
+	if ( isset( $_GET['selectAGroup'] ) && $_GET['selectAGroup'] != '') {
 		$_SESSION['selectedIPROGroup'] = $_GET['group'];
 	}
 	
@@ -616,7 +616,7 @@ function ds_onclick(d, m, y) {
 			}
 ?>
 			</select>
-			<input type="submit" name="selectGroup" value="Select Group" />
+			<input type="submit" name="selectAGroup" value="Select Group" />
 		</fieldset></form>
 	</div>
 <?php
