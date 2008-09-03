@@ -446,7 +446,7 @@ require("sidebar.php");
 				<ul class="folderlist"> <?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<li><a href="#" onclick="ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Category</a></li>
 					<?php
-                                        if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat > 1) {
+                                        if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat && $currentCat->getID() != 1) {
 					?>
                                                 <li><a href="#" onclick="ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Category</a></li>
 					<?php } ?>
