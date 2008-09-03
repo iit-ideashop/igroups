@@ -56,20 +56,8 @@
 			print "$file<br />";
 		}
 		print "</p>";
-		$arr1 = array();
-		$arr1[] = "&lt;a";
-		$arr1[] = "&lt;/a";
-		$arr1[] = "&gt;";
-		$arr1[] = "\n";
-		$arr1[] = "&quot;";
-		$arr2 = array();
-		$arr2[] = "<a";
-		$arr2[] = "</a";
-		$arr2[] = ">";
-		$arr2[] = "<br />";
-		$arr2[] = "\"";
 		$body = htmlspecialchars($email->getBody());
-		print "<p>".str_replace($arr1, $arr2, $body)."</p>";
+		print "<p>".anchorTags($body)."</p>";
 	}
 ?>
 </body>

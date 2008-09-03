@@ -52,4 +52,31 @@ if ( !class_exists( "dbConnection" ) ) {
 		}
 	}
 }
+
+
+
+$arr1 = array();
+$arr1[] = "&lt;a";
+$arr1[] = "&lt;/a";
+$arr1[] = "&gt;";
+$arr1[] = "&quot;";
+$arr2 = array();
+$arr2[] = "<a";
+$arr2[] = "</a";
+$arr2[] = ">";
+$arr2[] = "\"";
+
+function anchorTags($str)
+{
+	$arr3 = $arr1;
+	$arr4 = $arr2;
+	$arr3[] = "\n";
+	$arr4[] = "<br /";
+	return str_replace($arr1, $arr2, $str);
+}
+
+function anchorTagsNoBreaks($str)
+{
+	return str_replace($arr1, $arr2, $str);
+}
 ?>
