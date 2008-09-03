@@ -133,6 +133,8 @@
 			document.getElementById('viewname').innerHTML=name;
 			desc.replace("&lt;a href", "<a onclick=\"window.open(this.href); return false;\" href");
 			desc.replace("&lt;A HREF", "<a onclick=\"window.open(this.href); return false;\" href");
+			desc.replace("<a href", "<a onclick=\"window.open(this.href); return false;\" href");
+			desc.replace("<A HREF", "<a onclick=\"window.open(this.href); return false;\" href");
 			desc.replace("&lt;/a", "</a");
 			desc.replace("&gt;", ">");
 			desc.replace("&amp;quot;", "\"");
