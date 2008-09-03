@@ -135,6 +135,7 @@
 			desc.replace("&lt;A HREF", "<a onclick=\"window.open(this.href); return false;\" href");
 			desc.replace("&lt;/a", "</a");
 			desc.replace("&gt;", ">");
+			desc.replace("&amp;quot;", "\"");
 			desc.replace("&quot;", "\"");
 			document.getElementById('viewdesc').innerHTML=desc;
 			document.getElementById('viewdate').innerHTML=date;
