@@ -565,7 +565,7 @@ function ds_onclick(d, m, y) {
 				print " onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($event->getNameJava())."', '".htmlspecialchars($event->getDescJava())."', '".$event->getDate()."');\"";
 			}
 			print ">".$event->getName()."</a><br />";
-			print "<div class=\"event\" id=\"E".$event->getID()."\">".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
+			print "<div class=\"event\" id=\"E".$event->getID()."\">".htmlspecialchars($event->getName())."<br />".$event->getDate()."<br />".htmlspecialchars($event->getDescJava())."</div>";
 		}
 		print "</td>";
 		$weekDay++;
