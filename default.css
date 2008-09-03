@@ -31,10 +31,27 @@ a:link, a:visited {
 }
 
 h1 {
+	font-size:14pt;
+	color:#666;
+	padding:0;
+	margin-bottom:5px;
+	font-weight: bold;
+}
+
+h2 {
+	font-size:13pt;
+	color:#666
+	padding:0;
+	margin-bottom:5px;
+	font-weight:bold;
+}
+
+h3 {
 	font-size:12pt;
 	color:#666;
 	padding:0;
 	margin-bottom:5px;
+	font-weight:bold;
 }
 
 legend {
