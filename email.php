@@ -318,7 +318,7 @@ require("sidebar.php");
 		$msg .= "--".$mime_boundary."\n";
 		$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
 		$msg .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
-		$msg .= anchorTags(htmlspecialchars($body->getString()))."\n"."\n"; 
+		$msg .= anchorTagsNoBreaks(htmlspecialchars($body->getString()))."\n"."\n"; 
 		if ( !isset( $_POST['confidential'] ) ) {
 			$msg .= "--".$mime_boundary."\n";
 			$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
