@@ -313,12 +313,12 @@ require("sidebar.php");
 			}
 		}
 		}
-		$tmpstr = wordwrap($_POST['body'], 110);
-		$body = new SuperString($tmpstr);
+		//$tmpstr = wordwrap($_POST['body'], 110);
+		$body = new SuperString($_POST['body']);
 		$msg .= "--".$mime_boundary."\n";
 		$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
 		$msg .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
-		$msg .= anchorTagsNoBreaks(htmlspecialchars($body->getString()))."\n"."\n"; 
+		$msg .= anchorTags(htmlspecialchars($body->getString()))."\n"."\n"; 
 		if ( !isset( $_POST['confidential'] ) ) {
 			$msg .= "--".$mime_boundary."\n";
 			$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";

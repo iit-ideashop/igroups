@@ -237,17 +237,17 @@ require("sidebar.php");
 			move_uploaded_file($_FILES["attachment$i"]['tmp_name'], "/files/igroups/emails/G$id.att");
 		}
 		}
-		$tmpstr = wordwrap($_POST['body'], 100);
+		//$tmpstr = wordwrap($_POST['body'], 100);
 		if ($_POST['subject'] == '')
 			$subject = '(no subject)';
 		else
 			$subject = $_POST['subject'];
 		$subj = new SuperString( $subject );
-		$body = new SuperString( $tmpstr );
+		$body = new SuperString($_POST['body']);
 		$msg .= "--".$mime_boundary."\n";
 		$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
 		$msg .= "Content-Transfer-Encoding: 7bit"."\n"."\n";
-		$msg .= anchorTagsNoBreaks(htmlspecialchars($body->getString()))."\n"."\n";
+		$msg .= anchorTags(htmlspecialchars($body->getString()))."\n"."\n";
 		$msg .= "--".$mime_boundary."--"."\n"."\n";
 		$err = mail( "", "[IPRO Office Notice] ".stripslashes($_POST['subject']), $msg, $headers );
 		$err = 1;
