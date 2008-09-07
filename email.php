@@ -25,11 +25,28 @@
 			$_SESSION['selectedGroupType'] = $email->getGroupType();
 			$_SESSION['selectedSemester'] = $email->getSemester();
 			if ( isset( $_POST["remember"] ) ) {
-				setcookie( "iUserID", $_SESSION['userID'], time()+1209600 );
+				setcookie( "userID", $_SESSION['userID'], time()+1209600 );
 			}
 		}
 		else {
 			$errorMsg = "Invalid username or password";
+		}
+	}
+	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup']))
+	{
+		if(strpos($_COOKIE['userID'], "@") === FALSE)
+			$userName = $_COOKIE['userID']."@iit.edu";
+		else
+			$userName = $_COOKIE['userID'];
+		$user = $db->iknowQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
+		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
+		{
+			$_SESSION['userID'] = $row[0];
+			$currentUser = new Person($row[0], $db);
+			$group = explode(",", $_COOKIE['selectedGroup']);
+			$_SESSION['selectedGroup'] = $group[0];
+			$_SESSION['selectedGroupType'] = $group[1];
+			$_SESSION['selectedSemester'] = $group[2];
 		}
 	}
 	else if(isset($_GET['replyid']))
@@ -176,31 +193,31 @@
 		}
 
 		function toggleSGDisplay() {
-                        box = document.getElementById('subgroups-table');
-                        switch (box.style.display) {
-                                case 'none':
-                                        box.style.display='block';
-                                        break;
-                                default:
-                                        box.style.display='none';
-                                        break;
-                        }
-                }
+			box = document.getElementById('subgroups-table');
+			switch (box.style.display) {
+				case 'none':
+					box.style.display='block';
+					break;
+				default:
+					box.style.display='none';
+					break;
+			}
+		}
 
 		function toggleGuestDisplay() {
-                        guestbox = document.getElementById('guest-table');
-                        switch (guestbox.style.display) {
-                                case 'none':
-                                        guestbox.style.display='block';
-                                        break;
-                                default:
-                                        guestbox.style.display='none';
-                                        break;
-                        }
-                }
+			guestbox = document.getElementById('guest-table');
+			switch (guestbox.style.display) {
+				case 'none':
+					guestbox.style.display='block';
+					break;
+				default:
+					guestbox.style.display='none';
+					break;
+			}
+		}
 
 
-                function checkedAll (id, checked) {
+		function checkedAll (id, checked) {
 			var el = document.getElementById(id);
 			for (var i = 0; i < el.elements.length; i++) {
 	  			if (el.elements[i].name != 'confidential' && el.elements[i].id != 'guest' && el.elements[i].id != 'subgroup') {
@@ -211,26 +228,26 @@
 
 		function checkedAllGuest (id, checked) {
 			var el = document.getElementById(id);
-                        for (var i = 0; i < el.elements.length; i++) {
-                        if (el.elements[i].id == 'guest') {
-                        el.elements[i].checked = checked;
-                        }
-                        }
+			for (var i = 0; i < el.elements.length; i++) {
+			if (el.elements[i].id == 'guest') {
+			el.elements[i].checked = checked;
+			}
+			}
 		}
 
 		function sendinit() {
 			guestbox = document.getElementById('guest-table');
 			guestbox.style.display='none';
 		}
-                        function fileAdd(num) {
-                                if (document.getElementById('files').childNodes.length == num) {
-                                        var div = document.createElement('div');
-                                        div.className = "stdBoldText";
-                                        div.id = "file"+(num*1+1)+"div";
-                                        div.innerHTML = "&nbsp;&nbsp;&nbsp;<label for=\"attachment"+(num*1+1)+"\">File "+(num*1+1)+":</label> <input type=\"file\" name=\"attachment"+(num*1+1)+"\" id=\"attachment"+(num*1+1)+"\" onchange=\"fileAdd("+(num*1+1)+");\" />";
-                                        document.getElementById('files').appendChild(div);
-                                }
-                        }
+			function fileAdd(num) {
+				if (document.getElementById('files').childNodes.length == num) {
+					var div = document.createElement('div');
+					div.className = "stdBoldText";
+					div.id = "file"+(num*1+1)+"div";
+					div.innerHTML = "&nbsp;&nbsp;&nbsp;<label for=\"attachment"+(num*1+1)+"\">File "+(num*1+1)+":</label> <input type=\"file\" name=\"attachment"+(num*1+1)+"\" id=\"attachment"+(num*1+1)+"\" onchange=\"fileAdd("+(num*1+1)+");\" />";
+					document.getElementById('files').appendChild(div);
+				}
+			}
 		function copyCheckBoxes() {
 			var emails = new Array();
 			var inputs = document.getElementsByTagName('input');
@@ -245,7 +262,7 @@
 				emailInputs[i].value=emails;
 		}
 	//-->
-        </script>
+	</script>
 </head>
 <body>
 <?php
@@ -276,14 +293,14 @@ require("sidebar.php");
 		}
 
 		if (isset($_POST['sendtoguest'] )) {
-                foreach ($_POST['sendtoguest'] as $id => $val) {
-                        $person = new Person($id, $db);
-                        $to[] = $person->getEmail();
+		foreach ($_POST['sendtoguest'] as $id => $val) {
+			$person = new Person($id, $db);
+			$to[] = $person->getEmail();
 			$names[] = $person->getFullName();
-                }
-                $tolist = join(",", $to);
+		}
+		$tolist = join(",", $to);
 		$toNames = join(", ", $names);
-                }
+		}
 		
 		$headers = "From: ".$currentUser->getFullName()." <".$currentUser->getEmail().">\n";
 		if ( isset($_POST['cc']) && ($_POST['cc'] != ''))
@@ -322,7 +339,7 @@ require("sidebar.php");
 		if ( !isset( $_POST['confidential'] ) ) {
 			$msg .= "--".$mime_boundary."\n";
 			$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
-	                $msg .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
+			$msg .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
 			$msg .= '<p><a href="http://igroups.iit.edu/email.php?replyid=abxyqzta10">Click here to reply to this email.</a></p>'."\n"."\n";
 		}
 		$msg .= "--".$mime_boundary.'--'."\n";
@@ -446,9 +463,9 @@ require("sidebar.php");
 				<ul class="folderlist"> <?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<li><a href="#" onclick="ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Category</a></li>
 					<?php
-                                        if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat && $currentCat->getID() != 1) {
+					if ( $currentUser->isGroupModerator( $currentGroup ) && $currentCat && $currentCat->getID() != 1) {
 					?>
-                                                <li><a href="#" onclick="ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Category</a></li>
+						<li><a href="#" onclick="ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Category</a></li>
 					<?php } ?>
 				</ul>
 				<?php } ?>

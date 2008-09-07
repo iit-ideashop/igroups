@@ -12,12 +12,27 @@
 	$_DB = new dbConnection();
 	$msg = array();
 	$semester = new Semester($_SESSION['selectedSemester'], $_DB);
-	if ( isset( $_SESSION['userID'] ) )
-		$currentUser = new Person( $_SESSION['userID'], $_DB);
-
+	if(isset($_SESSION['userID']))
+		$currentUser = new Person($_SESSION['userID'], $_DB);
+	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup']))
+	{
+		if(strpos($_COOKIE['userID'], "@") === FALSE)
+			$userName = $_COOKIE['userID']."@iit.edu";
+		else
+			$userName = $_COOKIE['userID'];
+		$user = $_DB->iknowQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
+		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
+		{
+			$_SESSION['userID'] = $row[0];
+			$currentUser = new Person($row[0], $_DB);
+			$group = explode(",", $_COOKIE['selectedGroup']);
+			$_SESSION['selectedGroup'] = $group[0];
+			$_SESSION['selectedGroupType'] = $group[1];
+			$_SESSION['selectedSemester'] = $group[2];
+		}
+	}
 	else
-		 die("You are not logged in.");
-
+		die("You are not logged in.");
 	if ( isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']) ){
 		$_CURRENTGROUP= new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $_DB );
 		$currentGroup = $_CURRENTGROUP;

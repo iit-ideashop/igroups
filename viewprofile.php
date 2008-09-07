@@ -6,25 +6,41 @@
 	
 	$db = new dbConnection();
 	
-	if ( isset( $_SESSION['userID'] ) ) {
-		$currentUser = new Person( $_SESSION['userID'], $db );
-		if (isset($_GET['uID'])) {
-			if (is_numeric($_GET['uID'])) {
-				$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$_GET['uID']}");
-				$profile = mysql_fetch_array($query);
-				if ($profile) {
-				foreach ($profile as $key => $val)
-					$profile[$key] = htmlspecialchars($profile[$key]);
-				}
-				$query = $db->iknowQuery("SELECT * FROM People WHERE iID={$_GET['uID']}");
-				$contactInfo = mysql_fetch_array($query);
-			}
-		}
+	if(isset($_SESSION['userID']))
+		$currentUser = new Person($_SESSION['userID'], $db);
+	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup']))
+	{
+		if(strpos($_COOKIE['userID'], "@") === FALSE)
+			$userName = $_COOKIE['userID']."@iit.edu";
 		else
-			die("No profile selected.");
+			$userName = $_COOKIE['userID'];
+		$user = $db->iknowQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
+		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
+		{
+			$_SESSION['userID'] = $row[0];
+			$currentUser = new Person($row[0], $db);
+			$group = explode(",", $_COOKIE['selectedGroup']);
+			$_SESSION['selectedGroup'] = $group[0];
+			$_SESSION['selectedGroupType'] = $group[1];
+			$_SESSION['selectedSemester'] = $group[2];
+		}
 	}
 	else
 		die("You are not logged in.");
+	if (isset($_GET['uID'])) {
+		if (is_numeric($_GET['uID'])) {
+			$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$_GET['uID']}");
+			$profile = mysql_fetch_array($query);
+			if ($profile) {
+			foreach ($profile as $key => $val)
+				$profile[$key] = htmlspecialchars($profile[$key]);
+			}
+			$query = $db->iknowQuery("SELECT * FROM People WHERE iID={$_GET['uID']}");
+			$contactInfo = mysql_fetch_array($query);
+		}
+	}
+	else
+		die("No profile selected.");
 
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
