@@ -44,6 +44,24 @@
 			$currentGroup = new Group($_SESSION['topicID'], $_SESSION['groupType'], $_SESSION['groupSemester'], $db);
                  }
         }
+        else if(isset($_GET['id']))
+        {
+        	$query = mysql_fetch_array($db->igroupsQuery("select * from Threads where iID=".$_GET['id']));
+        	if(!count($query))
+        		die("Invalid thread ID");
+        	$query2 = mysql_fetch_array($db->igroupsQuery("select * from GlobalTopics where iID=".$query['iTopicID']));
+        	if(count($query2))
+        	{
+        		$currentTopic = new GlobalTopic($query['iTopicID'], $db);
+        		$_SESSION['topicID'] = $query['iTopicID'];
+        		$_SESSION['global'] = true;
+        	else
+        	{
+        		$currentTopic = new Topic($query['iTopicID'], $db);
+        		$_SESSION['topicID'] = $query['iTopicID'];
+			$_SESSION['global'] = false;
+        	}
+        }
         else
                  die("No topic selected");
 
@@ -158,6 +176,11 @@
                 }
         }
 
+	if($_SESSION['global'])
+		$globaltext = "&amp;topicID=".$_GET['id']."&amp;global=true";
+	else
+		$globaltext = "&amp;topicID=".$_GET['id'];
+	$threadtext = "&amp;thread=".$_SESSION['threadID'];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -194,7 +217,7 @@ require("sidebar.php");
 foreach($pages as $page)
         print "$page&nbsp;";
 ?>
-</td><td align="center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_SESSION['topicLink']}\">{$_SESSION['topicName']}</a>"; ?></td><td class="post_options" align="right"><a href="create.php?mode=thread"><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<a href="create.php?mode=post"><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td align="center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_SESSION['topicLink']}\">{$_SESSION['topicName']}</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5" style="table-layout: fixed;">
 <tr><td class="view_options" style="text-align: left; font-weight: bold; width: 100px">
@@ -255,6 +278,6 @@ $delete<hr />";
 foreach($pages as $page)
         print "$page&nbsp;";
 ?>
-</td><td><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_SESSION['topicLink']}\">{$_SESSION['topicName']}</a>"; ?></td><td class="post_options"><a href="create.php?mode=thread"><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<a href="create.php?mode=post"><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_SESSION['topicLink']}\">{$_SESSION['topicName']}</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 </div></body>
 </html>

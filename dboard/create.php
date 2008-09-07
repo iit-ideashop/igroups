@@ -34,7 +34,14 @@
 	else
 		die("You are not logged in.");
 
-	if (isset($_SESSION['topicID'])) {
+	if(isset($_GET['topicID']))
+	{
+		if(isset($_GET['global']) && $_GET['global'] == 'true')
+			$currentTopic = new GlobalTopic($_GET['topicID'], $db);
+		else
+			$currentTopic = new Topic($_GET['topicID'], $db);
+	}
+	else if (isset($_SESSION['topicID'])) {
                  if ($_SESSION['global']) {
                         $currentTopic = new GlobalTopic($_SESSION['topicID'], $db);
                  }
@@ -45,6 +52,8 @@
         else
             	 die("No topic selected");
 	
+	if(!isset($_SESSION['threadID'] && isset($_GET['thread']) && is_numeric($_GET['thread']))
+		$_SESSION['threadID'] = $_GET['thread'];
 
 	if (isset($_GET['mode']) && $_GET['mode'] == 'thread') {
 	
