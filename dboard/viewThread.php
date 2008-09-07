@@ -55,6 +55,7 @@
         		$currentTopic = new GlobalTopic($query['iTopicID'], $db);
         		$_SESSION['topicID'] = $query['iTopicID'];
         		$_SESSION['global'] = true;
+        	}
         	else
         	{
         		$currentTopic = new Topic($query['iTopicID'], $db);

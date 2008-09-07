@@ -52,7 +52,7 @@
         else
             	 die("No topic selected");
 	
-	if(!isset($_SESSION['threadID'] && isset($_GET['thread']) && is_numeric($_GET['thread']))
+	if(!isset($_SESSION['threadID']) && isset($_GET['thread']) && is_numeric($_GET['thread']))
 		$_SESSION['threadID'] = $_GET['thread'];
 
 	if (isset($_GET['mode']) && $_GET['mode'] == 'thread') {
