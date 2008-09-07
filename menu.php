@@ -43,7 +43,8 @@ ob_start();
 <?php
 		}
 	}
-
+	else if(isset($_SESSION['userID']))
+		$currentUser = new Person($_SESSION['userID'], $db);
 	else if ( isset( $_COOKIE['userID'] ) && isset($_COOKIE['password']) ) {
                 if ( strpos( $_COOKIE['userID'], "@" ) === FALSE )
                         $userName = $_COOKIE['userID'] . "@iit.edu";
@@ -72,7 +73,6 @@ ob_start();
 <?php
                 }
         }
-ob_end_flush();
 
 	function selectGroup( $string ) {
 		$temp=explode( ",", $string );
@@ -95,6 +95,11 @@ ob_end_flush();
 		</script>
 <?php
 	}
+	
+	if ( isset( $_GET['selectGroup'] ) ) {
+		selectGroup( $_GET['selectGroup'] );
+	}
+	ob_end_flush();
 	
 	function isSelected( $group ) {
 		if ( !isset( $_SESSION['selectedGroup'] ) )
@@ -124,10 +129,6 @@ ob_end_flush();
 		if ( $group->getType() == 0 && !$user->isGroupGuest($group))
 			print "<li><a href=\"budget.php\">Budget</a></li>";
 		print "<li><a href=\"nuggets.php\">iKnow Nuggets</a></li>";
-	}
-	
-	if ( isset( $_GET['selectGroup'] ) ) {
-		selectGroup( $_GET['selectGroup'] );
 	}
 	
 	if ( !isset( $_SESSION['expandSemesters'] ) ) {
