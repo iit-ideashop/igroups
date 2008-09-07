@@ -72,7 +72,7 @@ ob_start();
 <?php
                 }
         }
-ob_end_flush();
+
 
 	function selectGroup( $string ) {
 		$temp=explode( ",", $string );
@@ -87,14 +87,13 @@ ob_end_flush();
 		unset( $_SESSION['selectedSpecial'] );
 		unset( $_SESSION['expandFolders'] );
 		unset( $_SESSION['selectedCategory'] );
-?>
-		<script type="text/javascript">
-		<!--
-			window.location.href="../grouphomepage.php";
-		//-->
-		</script>
-<?php
+		header("Location: ../grouphomepage.php");
 	}
+	
+	if ( isset( $_GET['selectGroup'] ) ) {
+		selectGroup( $_GET['selectGroup'] );
+	}
+	ob_end_flush();
 	
 	function isSelected( $group ) {
 		if ( !isset( $_SESSION['selectedGroup'] ) )
@@ -124,10 +123,6 @@ ob_end_flush();
 		if ( $group->getType() == 0 && !$user->isGroupGuest($group))
 			print "<li><a href=\"../budget.php\">Budget</a></li>";
 		print "<li><a href=\"../nuggets.php\">iKnow Nuggets</a></li>";
-	}
-	
-	if ( isset( $_GET['selectGroup'] ) ) {
-		selectGroup( $_GET['selectGroup'] );
 	}
 	
 	if ( !isset( $_SESSION['expandSemesters'] ) ) {

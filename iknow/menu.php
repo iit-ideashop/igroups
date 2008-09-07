@@ -72,7 +72,6 @@ ob_start();
 <?php
                 }
         }
-ob_end_flush();
 
 	function selectGroup( $string ) {
 		$temp=explode( ",", $string );
@@ -87,13 +86,7 @@ ob_end_flush();
 		unset( $_SESSION['selectedSpecial'] );
 		unset( $_SESSION['expandFolders'] );
 		unset( $_SESSION['selectedCategory'] );
-?>
-		<script type="text/javascript">
-		<!--
-			window.location.href="../grouphomepage.php";
-		//-->
-		</script>
-<?php
+		header("Location: ../grouphomepage.php");
 	}
 	
 	function isSelected( $group ) {
@@ -129,6 +122,7 @@ ob_end_flush();
 	if ( isset( $_GET['selectGroup'] ) ) {
 		selectGroup( $_GET['selectGroup'] );
 	}
+	ob_end_flush();
 	
 	if ( !isset( $_SESSION['expandSemesters'] ) ) {
 		$semester = $db->iknowQuery( "SELECT iID FROM Semesters WHERE bActiveFlag=1" );

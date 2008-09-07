@@ -87,13 +87,7 @@ ob_start();
 		unset( $_SESSION['selectedSpecial'] );
 		unset( $_SESSION['expandFolders'] );
 		unset( $_SESSION['selectedCategory'] );
-?>
-		<script type="text/javascript">
-		<!--
-			window.location.href="grouphomepage.php";
-		//-->
-		</script>
-<?php
+		header("Location: grouphomepage.php");
 	}
 	
 	if ( isset( $_GET['selectGroup'] ) ) {
