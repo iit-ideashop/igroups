@@ -42,7 +42,7 @@
 			if (!$currentTopic)
 	                        die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;global=true";
-			$_SESSION['global'] = 1;
+			setcookie('globalTopic', '1', time()+60*60*6);
 		}
 		else {
 			if (!is_numeric($_GET['type']) || !is_numeric($_GET['semester']))
@@ -52,7 +52,7 @@
 			if (!$currentGroup)
 				die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;type={$currentGroup->getType()}&amp;semester={$currentGroup->getSemester()}";
-			$_SESSION['global'] = 0;
+			setcookie('globalTopic', '0', time()+60*60*6);
 		}
 	}
 	else
@@ -69,12 +69,12 @@
 	}
 
 	$allThreads = $currentTopic->getThreads();
-	$_SESSION['topicID'] = $currentTopic->getID();
-	$_SESSION['topicLink'] = $link;
+	setcookie('topic', $currentTopic->getID(), time()+60*60*6);
+	setcookie('topicLink', $link, time()+60*60*6); 
 	
 	if (isset($currentGroup)) {
-		$_SESSION['groupType'] = $currentGroup->getType();
-		$_SESSION['groupSemester'] = $currentGroup->getSemester();
+		setcookie('groupType', $currentGroup->getType(), time()+60*60*6);
+		setcookie('groupSemester', $currentGroup->getSemester(), time()+60*60*6);
 	}
 
 	// determine pages
@@ -145,10 +145,19 @@
 				$threads[] = $allThreads[$i];
 		}
 	}
-	if($_SESSION['global'])
+	if($_COOKIE['globalTopic'])
 		$globaltext = "&amp;topicID=".$_GET['id']."&amp;global=true";
 	else
 		$globaltext = "&amp;topicID=".$_GET['id'];
+		
+	if (!isset($currentGroup)) {
+		$topicName = $currentTopic->getName();
+	}
+	else {
+		$topicName = $currentGroup->getName() . " Discussion";
+	}
+
+	setcookie('topicName', $topicName, time()*60*60*6);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -163,16 +172,7 @@ require("sidebar.php");
 ?>
 <div id="content"><div id="topbanner">
 <?php
-	if (!isset($currentGroup)) {
-		$topicName = $currentTopic->getName();
-		print "$topicName";
-	}
-	else {
-		$topicName = $currentGroup->getName() . " Discussion";
-		print "$topicName";
-	}
-
-	$_SESSION['topicName'] = $topicName;
+	print $topicName;
 ?>        
 </div>
 
@@ -197,7 +197,7 @@ foreach ($threads as $thread) {
 	else
 		$text = "<i>No Posts</i>";
 	if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView'])) {
-		$delete = "&nbsp;&nbsp;[<a href=\"{$_SESSION['topicLink']}&amp;delete={$thread->getID()}\">Delete</a>]";
+		$delete = "&nbsp;&nbsp;[<a href=\"{$_COOKIE['topicLink']}&amp;delete={$thread->getID()}\">Delete</a>]";
 	}
 	else
 		$delete = "";

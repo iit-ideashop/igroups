@@ -35,33 +35,32 @@
 	else
 		die("You are not logged in.");
 
-	if (isset($_SESSION['topicID'])) {
-                 if ($_SESSION['global']) {
-                        $currentTopic = new GlobalTopic($_SESSION['topicID'], $db);
-                 }
-                 else {
-                        $currentTopic = new Topic($_SESSION['topicID'], $db);
-			$currentGroup = new Group($_SESSION['topicID'], $_SESSION['groupType'], $_SESSION['groupSemester'], $db);
-                 }
-        }
-        else if(isset($_GET['id']))
+        if(isset($_GET['id']))
         {
         	$query = mysql_fetch_array($db->igroupsQuery("select * from Threads where iID=".$_GET['id']));
         	if(!count($query))
         		die("Invalid thread ID");
         	$query2 = mysql_fetch_array($db->igroupsQuery("select * from GlobalTopics where iID=".$query['iTopicID']));
-        	if(count($query2))
+        	if($_COOKIE['global'])
         	{
         		$currentTopic = new GlobalTopic($query['iTopicID'], $db);
-        		$_SESSION['topicID'] = $query['iTopicID'];
-        		$_SESSION['global'] = true;
+        		setcookie('topic', $currentTopic->getID(), time()+60*60*6);
         	}
         	else
         	{
         		$currentTopic = new Topic($query['iTopicID'], $db);
-        		$_SESSION['topicID'] = $query['iTopicID'];
-			$_SESSION['global'] = false;
+        		setcookie('topic', $currentTopic->getID(), time()+60*60*6);
+        		$currentGroup = new Group($currentTopic->getID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
         	}
+        }
+        else if (isset($_COOKIE['topic'])) {
+                 if ($_COOKIE['global']) {
+                        $currentTopic = new GlobalTopic($_COOKIE['topicID'], $db);
+                 }
+                 else {
+                        $currentTopic = new Topic($_COOKIE['topicID'], $db);
+			$currentGroup = new Group($_COOKIE['topicID'], $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
+                 }
         }
         else
                  die("No topic selected");
@@ -72,7 +71,7 @@
 		$currentThread = new Thread($_GET['id'], $db);
 		if (!$currentThread)
 			die("No such thread");
-		if ($currentThread->getTopicID() != $_SESSION['topicID'])
+		if ($currentThread->getTopicID() != $_COOKIE['topic'])
 			die("No such thread");	
 	}
 	else
@@ -85,7 +84,7 @@
 			if ($thread->getPostCount() == 1) {
 				$thread->delete();
 				$post->delete();
-				header("Location: {$_SESSION['topicLink']}");
+				header("Location: {$_COOKIE['topicLink']}");
 			}
                         $post->delete();
                 }
@@ -99,7 +98,7 @@
 	if (isset($_GET['unwatchThread']))
 		$watchList->removeFromWatchList($currentUser);
 
-	$_SESSION['threadID'] = $currentThread->getID();
+	setcookie('thread', $currentThread->getID(), time()*60*60*6);
 	$allPosts = $currentThread->getPosts();
 	$currentThread->incViews();
 	$currentThread->updateDB();
@@ -177,11 +176,11 @@
                 }
         }
 
-	if($_SESSION['global'])
+	if($_COOKIE['global'])
 		$globaltext = "&amp;topicID=".$_GET['id']."&amp;global=true";
 	else
 		$globaltext = "&amp;topicID=".$_GET['id'];
-	$threadtext = "&amp;thread=".$_SESSION['threadID'];
+	$threadtext = "&amp;thread=".$_COOKIE['thread'];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -196,7 +195,7 @@ require("sidebar.php");
 ?>
 <div id="content"><div id="topbanner">
 <?php
-	print "{$_SESSION['topicName']}";
+	print "{$_COOKIE['topicName']}";
 ?>        
 </div>
 
@@ -218,7 +217,7 @@ require("sidebar.php");
 foreach($pages as $page)
         print "$page&nbsp;";
 ?>
-</td><td align="center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_SESSION['topicLink']}\">{$_SESSION['topicName']}</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td align="center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5" style="table-layout: fixed;">
 <tr><td class="view_options" style="text-align: left; font-weight: bold; width: 100px">
@@ -242,8 +241,8 @@ foreach($pages as $page)
 foreach ($posts as $post) {
 	print "<tr><td valign=\"top\" style=\"width:20%\"><span style=\"font-size: smaller; font-weight: bold\">{$post->getAuthorLink()}<br />";
 	$author = $post->getAuthor();
-	if (!$_SESSION['global']) {
-		$group = new Group ($currentThread->getGroupID(), $_SESSION['groupType'], $_SESSION['groupSemester'], $db);
+	if (!$_COOKIE['global']) {
+		$group = new Group ($currentThread->getGroupID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
 		if ($author->isGroupAdministrator($group))
 			$title = "Group Administrator";
 		else if ($author->isGroupModerator($group))
@@ -261,7 +260,9 @@ foreach ($posts as $post) {
 		$title = "";
 	print "$title</span></td>";
 	if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView']))
-		$delete = "<br />[<a href=\"viewThread.php?id={$currentThread->getID()}&amp;delete={$post->getID()}\">Delete</a>]";
+		$delete = "<br />[<a href=\"edit.php?post=".$post->getID()."\">Edit</a>] [<a href=\"viewThread.php?id={$currentThread->getID()}&amp;delete={$post->getID()}\">Delete</a>]";
+	else if($post->getAuthor() == $currentUser->getID())
+		$delete = "<br />[<a href=\"edit.php?post=".$post->getID()."\">Edit</a>]";
 	else
 		$delete = "";
 	print "<td><img src=\"../img/icon_minipost.png\" alt=\"*\" title=\"Post #".$post->getID()."\" /><span style=\"font-size: x-small\">Posted: {$post->getDateTime()}</span>&nbsp; 
@@ -279,6 +280,6 @@ $delete<hr />";
 foreach($pages as $page)
         print "$page&nbsp;";
 ?>
-</td><td><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_SESSION['topicLink']}\">{$_SESSION['topicName']}</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 </div></body>
 </html>

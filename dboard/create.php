@@ -41,19 +41,19 @@
 		else
 			$currentTopic = new Topic($_GET['topicID'], $db);
 	}
-	else if (isset($_SESSION['topicID'])) {
-                 if ($_SESSION['global']) {
-                        $currentTopic = new GlobalTopic($_SESSION['topicID'], $db);
+	else if (isset($_COOKIE['topic'])) {
+                 if ($_COOKIE['global']) {
+                        $currentTopic = new GlobalTopic($_COOKIE['topic'], $db);
                  }
                  else {
-                        $currentTopic = new Topic($_SESSION['topicID'], $db);
+                        $currentTopic = new Topic($_COOKIE['topic'], $db);
                  }
         }
         else
             	 die("No topic selected");
 	
-	if(!isset($_SESSION['threadID']) && isset($_GET['thread']) && is_numeric($_GET['thread']))
-		$_SESSION['threadID'] = $_GET['thread'];
+	if(!isset($_COOKIE['thread']) && isset($_GET['thread']) && is_numeric($_GET['thread']))
+		setcookie('thread', $_GET['thread'], time()*60*60*6);
 
 	if (isset($_GET['mode']) && $_GET['mode'] == 'thread') {
 	
@@ -67,10 +67,10 @@
 		header("Location: viewThread?id={$thread->getID()}");
 	}
 	else if (isset($_POST['newPost'])) {
-		$post = createPost($_SESSION['threadID'], $_POST['body'], $currentUser->getID(), $db);
-		$watchList = new WatchList($_SESSION['threadID'], $db);
-		$watchList->sendNotification($post, $_SESSION['topicName']);
-		header("Location: viewThread?id={$_SESSION['threadID']}");
+		$post = createPost($_COOKIE['thread'], $_POST['body'], $currentUser->getID(), $db);
+		$watchList = new WatchList($_COOKIE['thread'], $db);
+		$watchList->sendNotification($post, $_COOKIE['topicName']);
+		header("Location: viewThread?id={$_COOKIE['thread']}");
 	}
 	else
 		die("Invalid Request");
@@ -89,7 +89,7 @@ require("sidebar.php");
 ?>
 <div id="content"><div id="topbanner">
 <?php
-	print "{$_SESSION['topicName']}";
+	print "{$_COOKIE['topicName']}";
 ?>        
 </div>
 
@@ -99,7 +99,7 @@ if ($_GET['mode'] == 'thread') {
 
 ?>
 
-<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_SESSION['topicLink']}"; ?>"><?php print "{$_SESSION['topicName']}"; ?></a></td></tr></table>
+<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a></td></tr></table>
 <form action="create.php?topicID=<?php echo $currentTopic->getID(); ?>" method="post" id="threadForm"><fieldset><legend>Create a New Thread</legend>
 <table width="85%">
 <tr><td><label for="name">Name</label></td><td><input type="text" size="60" name="name" id="name" /></td></tr>
@@ -114,10 +114,10 @@ if ($_GET['mode'] == 'thread') {
 
 else if ($_GET['mode'] == 'post') {
 
-$currentThread = new Thread($_SESSION['threadID'], $db);
+$currentThread = new Thread($_COOKIE['thread'], $db);
 ?>
 
-<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_SESSION['topicLink']}"; ?>"><?php print "{$_SESSION['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
+<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
 <form action="create.php?topicID=<?php echo $currentTopic->getID()."&amp;thread=".$currentThread->getID(); ?>" method="post" id="postForm"><fieldset><legend>Post Reply</legend>
 <table width="85%" align="center">
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"></textarea></td></tr>
