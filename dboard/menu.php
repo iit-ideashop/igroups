@@ -243,7 +243,7 @@ ob_start();
 			print "</ul>";
 		}
 		else
-			print "<a href=\"dboard.php?toggleExpand=admin\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
+			print "<a href=\"dboard.php?toggleExpand=admin\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=admin\">Administrative tools:</a>";
 	}
 ?>
 	<ul class="noindent">
