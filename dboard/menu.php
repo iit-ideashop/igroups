@@ -185,7 +185,7 @@ ob_start();
 	foreach ( $sortedIPROs as $key => $val ) {
 		$semester = new Semester( $key, $db );
 		if ( in_array( $semester->getID(), $_SESSION['expandSemesters'] ) ) {
-			print "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+			print "<li><a href=\"dboard.php?toggleExpand=".$semester->getID()."\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 			print "<ul>\n";
 			ksort( $val );
 			foreach ( $val as $useless => $group ) {
@@ -200,13 +200,13 @@ ob_start();
 			print "</ul>\n";
 		}
 		else
-			print "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+			print "<li><a href=\"dboard.php?toggleExpand=".$semester->getID()."\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 		print "</li>";
 	}
 	print "</ul>\n";
 	
 	if ( in_array( "igroups", $_SESSION['expandSemesters'] ) ) {
-		print "<a href=\"?toggleExpand=igroups\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=igroups\">Your Other Groups:</a>\n";
+		print "<a href=\"dboard.php?toggleExpand=igroups\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=igroups\">Your Other Groups:</a>\n";
 		@ksort( $igroups );
 		print "<ul>\n";
 		if ( isset($igroups)) {
@@ -223,11 +223,11 @@ ob_start();
 		print "</ul>\n";
 	}
 	else
-		print "<a href=\"?toggleExpand=igroups\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
+		print "<a href=\"dboard.php?toggleExpand=igroups\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
 
 	if ( $currentUser->isAdministrator() ) {
 		if ( in_array( "admin", $_SESSION['expandSemesters'] ) ) {
-			print "<a href=\"?toggleExpand=admin\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=admin\">Administrative Tools:</a>";
+			print "<a href=\"dboard.php?toggleExpand=admin\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=admin\">Administrative Tools:</a>";
 			print "<ul>";
 			print "<li><a href=\"../admin/group.php\">Manage Groups</a></li>";
 			print "<li><a href=\"../admin/email.php\">Email Groups</a></li>";
@@ -243,7 +243,7 @@ ob_start();
 			print "</ul>";
 		}
 		else
-			print "<a href=\"?toggleExpand=admin\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
+			print "<a href=\"dboard.php?toggleExpand=admin\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
 	}
 ?>
 	<ul class="noindent">
