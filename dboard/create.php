@@ -100,7 +100,7 @@ if ($_GET['mode'] == 'thread') {
 ?>
 
 <table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_SESSION['topicLink']}"; ?>"><?php print "{$_SESSION['topicName']}"; ?></a></td></tr></table>
-<form action="create.php" method="post" id="threadForm"><fieldset><legend>Create a New Thread</legend>
+<form action="create.php?topicID=<?php echo $currentTopic->getID(); ?>" method="post" id="threadForm"><fieldset><legend>Create a New Thread</legend>
 <table width="85%">
 <tr><td><label for="name">Name</label></td><td><input type="text" size="60" name="name" id="name" /></td></tr>
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"></textarea></td></tr>
@@ -118,7 +118,7 @@ $currentThread = new Thread($_SESSION['threadID'], $db);
 ?>
 
 <table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_SESSION['topicLink']}"; ?>"><?php print "{$_SESSION['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
-<form action="create.php" method="post" id="postForm"><fieldset><legend>Post Reply</legend>
+<form action="create.php?topicID=<?php echo $currentTopic->getID()."&amp;thread=".$currentThread->getID(); ?>" method="post" id="postForm"><fieldset><legend>Post Reply</legend>
 <table width="85%" align="center">
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"></textarea></td></tr>
 <tr><td align="center" colspan="2"><input type="submit" name="newPost" value="Post Reply" /></td></tr>
