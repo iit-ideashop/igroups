@@ -331,7 +331,7 @@ require("sidebar.php");
 		<label for="hours">Hours Spent:</label><input type="text" name="hours" id="hours" value="<?php print "{$editTime->getHoursSpent()}"; ?>" />
 <br />
 		<label for="description">Tasks Worked On:</label><br />
-		<textarea name="description" id="description" cols="50" rows="5"><?php print(str_replace("&lt;br /&gt;", "<br />", htmlspecialchars($editTime->getTaskDescription()))); ?></textarea><br />
+		<textarea name="description" id="description" cols="50" rows="5"><?php print(str_replace("&lt;br /&gt;", "\r\n", htmlspecialchars($editTime->getTaskDescription()))); ?></textarea><br />
 <?php
 
 	print "<input type=\"hidden\" name=\"entryID\" value=\"{$editTime->getID()}\" /><input type=\"submit\" name=\"edittime\" value=\"Edit Entry\" />&nbsp;<input type=\"submit\" name=\"deltime\" value=\"Delete Entry\" />";
@@ -345,7 +345,7 @@ require("sidebar.php");
 		<label for="taskDate">Date (MM/DD/YYYY):</label><input type="text" id="taskDate" name="taskDate" onclick="ds_sh(this);" style="cursor: text" value="<?php if (isset($editTask)) print "{$editTask->getDate()}"; ?>" /><br />
 		<label for="taskHours">Estimated Hours:</label><input type="text" name="taskHours" id="taskHours" value="<?php print "{$editTask->getHoursSpent()}"; ?>" /><br />
 		<label for="taskDescription">Tasks:</label><br />
-		<textarea name="taskDescription" id="taskDescription" cols="50" rows="5"><?php print(str_replace("&lt;br /&gt;", "<br />", htmlspecialchars($editTask->getTaskDescription()))); ?></textarea><br />
+		<textarea name="taskDescription" id="taskDescription" cols="50" rows="5"><?php print(str_replace("&lt;br /&gt;", "\r\n", htmlspecialchars($editTask->getTaskDescription()))); ?></textarea><br />
 <?php
 	print "<input type=\"hidden\" name=\"entryID\" value=\"{$editTask->getID()}\" /><input type=\"submit\" name=\"editProjTask\" value=\"Edit Task\" />&nbsp;<input type=\"submit\" name=\"delProjTask\" value=\"Delete Task\" />";
 ?>
