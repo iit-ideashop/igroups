@@ -61,7 +61,7 @@
 		$post->updateDB();
 		header("Location: viewThread?id={$_COOKIE['thread']}");
 	}
-	else
+	else if(!isset($_GET['post']))
 		die("Invalid Request");
 	
 
