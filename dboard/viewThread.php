@@ -261,7 +261,7 @@ foreach ($posts as $post) {
 	print "$title</span></td>";
 	if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView']))
 		$delete = "<br />[<a href=\"edit.php?post=".$post->getID()."\">Edit</a>] [<a href=\"viewThread.php?id={$currentThread->getID()}&amp;delete={$post->getID()}\">Delete</a>]";
-	else if($post->getAuthor() == $currentUser->getID())
+	else if($post->getAuthorID() == $currentUser->getID())
 		$delete = "<br />[<a href=\"edit.php?post=".$post->getID()."\">Edit</a>]";
 	else
 		$delete = "";

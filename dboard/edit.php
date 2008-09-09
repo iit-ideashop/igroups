@@ -88,12 +88,4 @@ require("sidebar.php");
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"><?php echo $post->getBody(); ?></textarea></td></tr>
 <tr><td align="center" colspan="2"><input type="submit" name="editPost" value="Edit Post" /></td></tr>
 </table>
-</fieldset></form>
-<?php
-
-}
-
-?>
-</div>
-</body>
-</html>
+</fieldset></form></div></body></html>
