@@ -249,7 +249,7 @@ ob_start();
 		<li><a href="http://sloth.iit.edu/~iproadmin/peerreview" title="Peer Review">IPRO Peer Review</a></li>
 		<li><a href="../UM_iGROUPS.pdf" title="User Manual">iGROUPS User Manual</a></li>
 		<li><a href="../needhelp.php" title="Help">Need help?</a></li>
-		<li><a href="../index.php?logout=true" title="Logout">Logout</a></li>
+		<li><a href="../login.php?logout=true" title="Logout">Logout</a></li>
 	</ul>
 	<div id="sidebar-bottom">
 	</div>
