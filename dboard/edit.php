@@ -52,7 +52,7 @@
 	else
 		die("No post selected.");
 		
-	if(!((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView']) || $currentUser->getID() == $post->getAuthor()))
+	if(!((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView']) || $currentUser->getID() == $post->getAuthorID()))
 		die("You do not have the necessary privileges to edit this post.");
 
 	if (isset($_POST['editPost']))
