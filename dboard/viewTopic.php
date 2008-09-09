@@ -42,7 +42,7 @@
 			if (!$currentTopic)
 	                        die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;global=true";
-			setcookie('globalTopic', '1', time()+60*60*6);
+			setcookie('global', '1', time()+60*60*6);
 		}
 		else {
 			if (!is_numeric($_GET['type']) || !is_numeric($_GET['semester']))
@@ -52,7 +52,7 @@
 			if (!$currentGroup)
 				die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;type={$currentGroup->getType()}&amp;semester={$currentGroup->getSemester()}";
-			setcookie('globalTopic', '0', time()+60*60*6);
+			setcookie('global', '0', time()+60*60*6);
 		}
 	}
 	else
