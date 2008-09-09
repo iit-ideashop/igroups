@@ -38,7 +38,7 @@
 			$currentTopic = new GlobalTopic($_COOKIE['topic'], $db);
 		else
 			$currentTopic = new Topic($_COOKIE['topic'], $db);
-			$currentGroup = new Group($_COOKIE['topicID'], $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
+			$currentGroup = new Group($_COOKIE['topic'], $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
 	}
 	else
 	    	 die("No topic selected.");
