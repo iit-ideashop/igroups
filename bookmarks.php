@@ -69,9 +69,11 @@
 <?php
 if(isset($message))
 	echo "<p style=\"font-weight: bold\">$message</p>";
+$query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID());
 if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 {
-	if($query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID()))
+	$query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID());
+	if(mysql_num_rows($query) > 0)
 	{
 		$row = mysql_fetch_array($query);
 		echo "<form method=\"post\" action=\"bookmarks.php\"><fieldset><legend>Edit Bookmark</legend>\n";
@@ -82,7 +84,7 @@ if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 	else
 		die("That bookmark is not in your current group.");
 }
-else if($query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID())) { ?>
+else if(mysql_num_rows($query) > 0) { ?>
 <div id="bookmarks"><form method="post" action="bookmarks.php"><fieldset><legend>Current Bookmarks</legend><table>
 <tr><th>Bookmark</th><th>Submitted By</th><th>Date</th><th>Edit</th><th>Delete</th></tr>
 <?php
