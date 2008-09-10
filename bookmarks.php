@@ -32,7 +32,7 @@
 	else
 		die("You have not selected a valid group.");
 	
-	if(isset($_POST['delete']))
+	if(isset($_POST['delete']) && ($currentUser->getID == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup)))
 	{
 		$query = $db->igroupsQuery("select iID from Bookmarks where iGroupID=".$currentGroup->getID());
 		while($row = mysql_fetch_row($query))
@@ -48,7 +48,7 @@
 		$db->igroupsQuery("insert into Bookmarks (iGroupID, iAuthorID, sTitle, sURL) values $values");
 		$message = "The bookmark has been added.";
 	}
-	else if(isset($_POST['editid']) && is_numeric($_POST['editid']))
+	else if(isset($_POST['editid']) && is_numeric($_POST['editid']) && ($currentUser->getID == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup)))
 	{
 		$db->igroupsQuery("update Bookmarks set sTitle='".mysql_real_escape_string($_POST['title'])."', sURL='".mysql_real_escape_string($_POST['url'])."' where iID=".$_POST['editid']);
 		$message = "The bookmark has been edited.";
@@ -60,6 +60,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Bookmarks</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
+<style type="text/css">
+#bookmarks td
+{
+	padding: 5px;
+}
+</style>
 </head><body>
 <?php require("sidebar.php"); ?>
 <div id="content">
@@ -72,7 +78,7 @@ if(isset($message))
 $query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID());
 if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 {
-	$query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID());
+	$query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID()." order by dDate desc");
 	if(mysql_num_rows($query) > 0)
 	{
 		$row = mysql_fetch_array($query);
@@ -91,7 +97,11 @@ else if(mysql_num_rows($query) > 0) { ?>
 	while($row = mysql_fetch_array($query))
 	{
 		$author = new Person($row['iAuthorID'], $db);
-		echo "<tr><td><a href=\"".htmlspecialchars($row['sURL'])."\" title=\"".htmlspecialchars($row['sTitle'])."\">".htmlspecialchars($row['sTitle'])."</a></td><td>".$author->getCommaName()."</td><td>".$row['dDate']."</td><td><a href=\"bookmarks.php?edit=".$row['iID']."\">Edit</a></td><td><input type=\"checkbox\" name=\"del".$row['iID']."\" /></td></tr>\n";
+		echo "<tr><td><a href=\"".htmlspecialchars($row['sURL'])."\" title=\"".htmlspecialchars($row['sTitle'])."\" onclick=\"\">".htmlspecialchars($row['sTitle'])."</a></td><td>".$author->getCommaName()."</td><td>".$row['dDate']."</td>";
+		if($currentUser->getID == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup))
+			echo "<td><a href=\"bookmarks.php?edit=".$row['iID']."\">Edit</a></td><td><input type=\"checkbox\" name=\"del".$row['iID']."\" /></td></tr>\n";
+		else
+			echo "</tr>\n";
 	}
 ?>
 </table><input type="submit" name="delete" id="delete" value="Delete Selected" /></fieldset></form></div>
