@@ -251,7 +251,7 @@ foreach ($posts as $post) {
 		$title = "";
 	print "$title";
 	if ($profile['sPicture'])
-		print "<br /><img src=\"profile-pics/{$profile['sPicture']}\" alt=\"{$profile['sPicture']}\" width=\"100\" />";
+		print "<br /><img src=\"../profile-pics/{$profile['sPicture']}\" alt=\"{$profile['sPicture']}\" width=\"100\" />";
 	echo "</span></td>";
 	if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView']))
 		$delete = "<br />[<a href=\"edit.php?post=".$post->getID()."\">Edit</a>] [<a href=\"viewThread.php?id={$currentThread->getID()}&amp;delete={$post->getID()}\">Delete</a>]";

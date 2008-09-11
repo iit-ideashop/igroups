@@ -269,7 +269,7 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
 		}
 		
 		function getGroupsBySemester($semester) {
-			$ipros = $this->db->iknowQuery( "SELECT iProjectID FROM PeopleProjectMap WHERE iPersonID=".$this->getID()." AND iSemesterID={$semester}.");
+			$ipros = $this->db->iknowQuery( "SELECT iProjectID FROM PeopleProjectMap WHERE iPersonID=".$this->getID()." AND iSemesterID={$semester}");
                         while ( $row = mysql_fetch_row( $ipros ) ) {
                                 $returnArray[] = new Group( $row[0], 0, $semester, $this->db );
                         }
