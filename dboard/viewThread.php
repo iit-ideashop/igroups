@@ -62,8 +62,6 @@
 		$currentThread = new Thread($_GET['id'], $db);
 		if (!$currentThread)
 			die("No such thread");
-		if ($currentThread->getTopicID() != $_COOKIE['topic'])
-			die("Thread and topic mismatch");	
 	}
 	else
 		die("No thread selected");
