@@ -98,7 +98,10 @@ require("sidebar.php");
 <form method="get" action="dboard.php"><fieldset>
 	<select name="semester"><option value="0">All semesters</option>
 <?php
-		$semesters = $db->iknowQuery("SELECT iID FROM Semesters ORDER BY iID DESC");
+		if(isset($_SESSION['adminView']))
+			$semesters = $db->igroupsQuery("SELECT iID FROM Semesters ORDER BY iID DESC");
+		else
+			$semesters = $db->igroupsQuery("select distinct iSemesterID from PeopleProjectMap where iPersonID=".$currentUser->getID()." order by iSemesterID desc");
 		while($row = mysql_fetch_row($semesters))
 		{
 			$semester = new Semester( $row[0], $db );
