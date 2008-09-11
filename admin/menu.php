@@ -122,6 +122,7 @@ ob_start();
 		if ( $group->getType() == 0 && !$user->isGroupGuest($group))
 			print "<li><a href=\"../budget.php\">Budget</a></li>";
 		print "<li><a href=\"../nuggets.php\">iKnow Nuggets</a></li>";
+		print "<li><a href=\"../bookmarks.php\">Bookmarks</a></li>";
 	}
 	
 	if ( !isset( $_SESSION['expandSemesters'] ) ) {

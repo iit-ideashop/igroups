@@ -93,10 +93,6 @@ require("sidebar.php");
 <hr />
 <br />
 
-<?php
-if (isset($_SESSION['adminView'])) {
-?>
-
 <form method="get" action="dboard.php"><fieldset>
                         <select name="semester">
 <?php
@@ -114,10 +110,6 @@ if (isset($_SESSION['adminView'])) {
 			
 </fieldset></form>
 <br />
-
-<?php
-}
-?>
 
 <table width="85%" cellspacing="0" cellpadding="5">
 <tr><th style="width: 65%">Topics</th><th>Threads</th><th>Posts</th><th>Last Post</th></tr>
