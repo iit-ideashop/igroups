@@ -98,7 +98,7 @@ else if(mysql_num_rows($query) > 0) {
 		$hasDel = false;
 	echo "<div id=\"bookmarks\">";
 	if($hasDel)
-		echo '<form method="post" action="bookmarks.php"><fieldset><legend>Current Bookmarks</legend>\n';
+		echo "<form method=\"post\" action=\"bookmarks.php\"><fieldset><legend>Current Bookmarks</legend>\n";
 	else
 		echo "<h1>Current Bookmarks</h1>\n";
 	echo "<table><tr><th>Bookmark</th><th>Submitted By</th><th>Date</th>";
