@@ -96,7 +96,7 @@ require("sidebar.php");
 <hr />
 <br />
 <form method="get" action="dboard.php"><fieldset>
-	<select name="semester">
+	<select name="semester"><option value="0">All semesters</option>
 <?php
 		$semesters = $db->iknowQuery("SELECT iID FROM Semesters ORDER BY iID DESC");
 		while($row = mysql_fetch_row($semesters))
@@ -128,7 +128,7 @@ if(count($groups) > 0)
 		}
 		else
 			$text = "<i>No Posts</i>";
-		if($group->getSemester() == $currentSemesterID)
+		if(!$currentSemesterID || $group->getSemester() == $currentSemesterID)
 			print "<tr><td class=\"subtopic_heading\"><a href=\"viewTopic.php?id={$group->getID()}&amp;type={$group->getType()}&amp;semester={$group->getSemester()}\">{$group->getName()} Discussion</a></td><td align=\"center\">{$topic->getThreadCount()}</td><td align=\"center\">{$topic->getPostCount()}</td><td align=\"center\">$text</td></tr>";
 	}
 }
