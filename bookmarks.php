@@ -94,18 +94,23 @@ else if(mysql_num_rows($query) > 0) { ?>
 <div id="bookmarks"><form method="post" action="bookmarks.php"><fieldset><legend>Current Bookmarks</legend><table>
 <tr><th>Bookmark</th><th>Submitted By</th><th>Date</th><th>Edit</th><th>Delete</th></tr>
 <?php
+	$hasDel = false;
 	while($row = mysql_fetch_array($query))
 	{
 		$author = new Person($row['iAuthorID'], $db);
 		echo "<tr><td><a href=\"".htmlspecialchars($row['sURL'])."\" title=\"".htmlspecialchars($row['sTitle'])."\" onclick=\"\">".htmlspecialchars($row['sTitle'])."</a></td><td>".$author->getCommaName()."</td><td>".$row['dDate']."</td>";
-		if($currentUser->getID == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup))
+		if($currentUser->getID() == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup))
+		{
+			$hasDel = true;
 			echo "<td><a href=\"bookmarks.php?edit=".$row['iID']."\">Edit</a></td><td><input type=\"checkbox\" name=\"del".$row['iID']."\" /></td></tr>\n";
+		}
 		else
 			echo "</tr>\n";
 	}
-?>
-</table><input type="submit" name="delete" id="delete" value="Delete Selected" /></fieldset></form></div>
-<?php } else { echo "<p>Your group does not have any bookmarks.</p>\n"; } if(!isset($_GET['edit']) || !is_numeric($_GET['edit'])) { ?>
+	echo "</table>";
+	<input type="submit" name="delete" id="delete" value="Delete Selected" />
+	echo "</fieldset></form></div>";
+} else { echo "<p>Your group does not have any bookmarks.</p>\n"; } if(!isset($_GET['edit']) || !is_numeric($_GET['edit'])) { ?>
 <form method="post" action="bookmarks.php"><fieldset><legend>Add Bookmark</legend>
 <label for="title">Title</label><input type="text" id="title" name="title" /><br />
 <label for="url">URL</label><input type="text" id="url" name="url" /><br />

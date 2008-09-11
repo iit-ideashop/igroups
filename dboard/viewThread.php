@@ -53,15 +53,6 @@
         		$currentGroup = new Group($currentTopic->getID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
         	}
         }
-        else if (isset($_COOKIE['topic'])) {
-                 if ($_COOKIE['global']) {
-                        $currentTopic = new GlobalTopic($_COOKIE['topicID'], $db);
-                 }
-                 else {
-                        $currentTopic = new Topic($_COOKIE['topicID'], $db);
-			$currentGroup = new Group($_COOKIE['topicID'], $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
-                 }
-        }
         else
                  die("No topic selected");
 
@@ -72,7 +63,7 @@
 		if (!$currentThread)
 			die("No such thread");
 		if ($currentThread->getTopicID() != $_COOKIE['topic'])
-			die("No such thread");	
+			die("Thread and topic mismatch");	
 	}
 	else
 		die("No thread selected");

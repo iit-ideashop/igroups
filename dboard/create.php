@@ -34,25 +34,17 @@
 	else
 		die("You are not logged in.");
 
-	if(isset($_GET['topicID']))
+	if(isset($_GET['topicID']) && is_numeric($_GET['topicID']))
 	{
 		if(isset($_GET['global']) && $_GET['global'] == 'true')
 			$currentTopic = new GlobalTopic($_GET['topicID'], $db);
 		else
 			$currentTopic = new Topic($_GET['topicID'], $db);
 	}
-	else if (isset($_COOKIE['topic'])) {
-                 if ($_COOKIE['global']) {
-                        $currentTopic = new GlobalTopic($_COOKIE['topic'], $db);
-                 }
-                 else {
-                        $currentTopic = new Topic($_COOKIE['topic'], $db);
-                 }
-        }
         else
             	 die("No topic selected");
 	
-	if(!isset($_COOKIE['thread']) && isset($_GET['thread']) && is_numeric($_GET['thread']))
+	if(isset($_GET['thread']) && is_numeric($_GET['thread']))
 		setcookie('thread', $_GET['thread'], time()*60*60*6);
 
 	if (isset($_GET['mode']) && $_GET['mode'] == 'thread') {
