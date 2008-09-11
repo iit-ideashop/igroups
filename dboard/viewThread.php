@@ -38,7 +38,7 @@
         if(isset($_GET['id']))
         {
         	$query = $db->igroupsQuery("select * from Threads where iID=".$_GET['id']);
-        	if(!mysql_count_rows($query))
+        	if(!mysql_num_rows($query))
         		die("Invalid thread ID");
         	$query = mysql_fetch_array($query);
         	$query2 = mysql_fetch_array($db->igroupsQuery("select * from GlobalTopics where iID=".$query['iTopicID']));
