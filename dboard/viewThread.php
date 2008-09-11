@@ -231,6 +231,7 @@ foreach($pages as $page)
 foreach ($posts as $post) {
 	print "<tr><td valign=\"top\" style=\"width:20%\"><span style=\"font-size: smaller; font-weight: bold\">{$post->getAuthorLink()}<br />";
 	$author = $post->getAuthor();
+	$profile = $author->getProfile();
 	if (!$_COOKIE['global']) {
 		$group = new Group ($currentThread->getGroupID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
 		if ($author->isGroupAdministrator($group))
@@ -248,7 +249,10 @@ foreach ($posts as $post) {
 		$title = "IPRO Staff";
 	else
 		$title = "";
-	print "$title</span></td>";
+	print "$title";
+	if ($profile['sPicture'])
+		print "<br /><img src=\"profile-pics/{$profile['sPicture']}\" alt=\"{$profile['sPicture']}\" width=\"100\" />";
+	echo "</span></td>";
 	if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView']))
 		$delete = "<br />[<a href=\"edit.php?post=".$post->getID()."\">Edit</a>] [<a href=\"viewThread.php?id={$currentThread->getID()}&amp;delete={$post->getID()}\">Delete</a>]";
 	else if($post->getAuthorID() == $currentUser->getID())

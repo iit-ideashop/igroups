@@ -90,26 +90,34 @@ if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 	else
 		die("That bookmark is not in your current group.");
 }
-else if(mysql_num_rows($query) > 0) { ?>
-<div id="bookmarks"><form method="post" action="bookmarks.php"><fieldset><legend>Current Bookmarks</legend><table>
-<tr><th>Bookmark</th><th>Submitted By</th><th>Date</th><th>Edit</th><th>Delete</th></tr>
-<?php
-	$hasDel = false;
+else if(mysql_num_rows($query) > 0) {
+	$quer = $db->igroupsQuery("select * from Bookmarks where iAuthorID=".$currentUser->getID()." and iGroupID=".$currentGroup->getID());
+	if($currentUser->isGroupModerator($currentGroup) || mysql_num_rows($quer) > 0)
+		$hasDel = true;
+	else
+		$hasDel = false;
+	echo "<div id=\"bookmarks\">";
+	if($hasDel)
+		echo '<form method="post" action="bookmarks.php"><fieldset><legend>Current Bookmarks</legend>\n';
+	else
+		echo "<h1>Current Bookmarks</h1>\n";
+	echo "<table><tr><th>Bookmark</th><th>Submitted By</th><th>Date</th>";
+	if($hasDel)
+		echo "<th>Edit</th><th>Delete</th>";
+	echo "</tr>\n";
 	while($row = mysql_fetch_array($query))
 	{
 		$author = new Person($row['iAuthorID'], $db);
 		echo "<tr><td><a href=\"".htmlspecialchars($row['sURL'])."\" title=\"".htmlspecialchars($row['sTitle'])."\" onclick=\"\">".htmlspecialchars($row['sTitle'])."</a></td><td>".$author->getCommaName()."</td><td>".$row['dDate']."</td>";
 		if($currentUser->getID() == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup))
-		{
-			$hasDel = true;
 			echo "<td><a href=\"bookmarks.php?edit=".$row['iID']."\">Edit</a></td><td><input type=\"checkbox\" name=\"del".$row['iID']."\" /></td></tr>\n";
-		}
 		else
 			echo "</tr>\n";
 	}
 	echo "</table>";
-	<input type="submit" name="delete" id="delete" value="Delete Selected" />
-	echo "</fieldset></form></div>";
+	if($hasDel)
+		echo "<input type=\"submit\" name=\"delete\" id=\"delete\" value=\"Delete Selected\" /></fieldset></form>";
+	echo "</div>";
 } else { echo "<p>Your group does not have any bookmarks.</p>\n"; } if(!isset($_GET['edit']) || !is_numeric($_GET['edit'])) { ?>
 <form method="post" action="bookmarks.php"><fieldset><legend>Add Bookmark</legend>
 <label for="title">Title</label><input type="text" id="title" name="title" /><br />
