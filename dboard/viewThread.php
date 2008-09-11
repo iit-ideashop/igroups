@@ -73,7 +73,7 @@
 			if ($thread->getPostCount() == 1) {
 				$thread->delete();
 				$post->delete();
-				header("Location: {$_COOKIE['topicLink']}");
+				header("Location: ".str_replace("&amp;", "&", $_COOKIE['topicLink']));
 			}
                         $post->delete();
                 }

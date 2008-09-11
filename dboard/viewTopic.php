@@ -37,7 +37,7 @@
 	if (isset($_GET['id'])) {
 		if (!is_numeric($_GET['id']))
 			die("Invalid Request");
-		if (isset($_GET['global'])) {
+		if (isset($_GET['global']) && $_GET['global'] == 'true') {
 			$currentTopic = new GlobalTopic($_GET['id'], $db);
 			if (!$currentTopic)
 	                        die("No such topic");
@@ -145,7 +145,7 @@
 				$threads[] = $allThreads[$i];
 		}
 	}
-	if($_COOKIE['globalTopic'])
+	if($_COOKIE['global'])
 		$globaltext = "&amp;topicID=".$_GET['id']."&amp;global=true";
 	else
 		$globaltext = "&amp;topicID=".$_GET['id'];
