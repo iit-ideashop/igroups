@@ -24,8 +24,8 @@ if ( !class_exists( "WatchList" ) ) {
 		function refresh() {
 			$this->watchers = array();
 			$query = $this->db->igroupsQuery("SELECT * FROM ThreadWatchList WHERE threadID={$this->threadID}");
-                        while ($row = mysql_fetch_row($query))
-                                $this->watchers[] = new Person($row[1], $this->db);
+			while ($row = mysql_fetch_row($query))
+				$this->watchers[] = new Person($row[1], $this->db);
 		}
 	
 		function getWatchList() {
@@ -61,8 +61,8 @@ if ( !class_exists( "WatchList" ) ) {
 
 				$headers = "From: iGroups <noreply@igroups.iit.edu>\n";
 				$headers .= 'MIME-Version: 1.0'."\n";
-                		$headers .= 'Content-Type: text/plain; charset=iso-8859-1'."\n";
-		                
+				$headers .= 'Content-Type: text/plain; charset=iso-8859-1'."\n";
+				
 				$subject = "Reply: {$threadName}";
 
 				$body .= "Reply made to: $topicName -> $threadName\n";

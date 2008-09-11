@@ -39,12 +39,12 @@
 
 	if ( $file = new File( $_GET['id'], $db ) ) {
 	header("Content-Type: {$file->getMimeType()}");
-        header("Content-Length: " . filesize($file->getDiskName()));
+	header("Content-Length: " . filesize($file->getDiskName()));
 	header('Content-Disposition: attachment; filename="'.$file->getOriginalName().'"');
-        header("Cache-Control: must-revalidate,post-check=0,pre-check=0");
-        header("Cache-Control: public",false);
-        header("Pragma: public");
-        header("Expires: 0");
+	header("Cache-Control: must-revalidate,post-check=0,pre-check=0");
+	header("Cache-Control: public",false);
+	header("Pragma: public");
+	header("Expires: 0");
 
 	readfile($file->getDiskName());
 	}

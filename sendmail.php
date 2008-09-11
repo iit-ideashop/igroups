@@ -80,31 +80,31 @@
 		}
 
 		function toggleSGDisplay() {
-                        box = document.getElementById('subgroups-table');
-                        switch (box.style.display) {
-                                case 'none':
-                                        box.style.display='block';
-                                        break;
-                                default:
-                                        box.style.display='none';
-                                        break;
-                        }
-                }
+			box = document.getElementById('subgroups-table');
+			switch (box.style.display) {
+				case 'none':
+					box.style.display='block';
+					break;
+				default:
+					box.style.display='none';
+					break;
+			}
+		}
 
 		function toggleGuestDisplay() {
-                        guestbox = document.getElementById('guest-table');
-                        switch (guestbox.style.display) {
-                                case 'none':
-                                        guestbox.style.display='block';
-                                        break;
-                                default:
-                                        guestbox.style.display='none';
-                                        break;
-                        }
-                }
+			guestbox = document.getElementById('guest-table');
+			switch (guestbox.style.display) {
+				case 'none':
+					guestbox.style.display='block';
+					break;
+				default:
+					guestbox.style.display='none';
+					break;
+			}
+		}
 
 
-                function checkedAll (id, checked) {
+		function checkedAll (id, checked) {
 			var el = document.getElementById(id);
 			for (var i = 0; i < el.elements.length; i++) {
 	  		if (el.elements[i].name != 'confidential') {
@@ -117,11 +117,11 @@
 
 		function checkedAllGuest (id, checked) {
 			var el = document.getElementById(id);
-                        for (var i = 0; i < el.elements.length; i++) {
-                        if (el.elements[i].id == 'guest') {
-                        el.elements[i].checked = checked;
-                        }
-                        }
+			for (var i = 0; i < el.elements.length; i++) {
+			if (el.elements[i].id == 'guest') {
+			el.elements[i].checked = checked;
+			}
+			}
 		}
 
 		function init() {
@@ -131,16 +131,16 @@
 
 	</script>
 	<script>
-                        function fileAdd(num) {
-                                if (document.getElementById('files').childNodes.length == num) {
-                                        var div = document.createElement('div');
-                                        div.className = "stdBoldText";
-                                        div.id = "file"+(num*1+1)+"div";
-                                        div.innerHTML = "&nbsp;&nbsp;&nbsp;File "+(num*1+1)+": <input type='file' name='attachment"+(num*1+1)+"' onChange='fileAdd("+(num*1+1)+");'>";
-                                        document.getElementById('files').appendChild(div);
-                                }
-                        }
-        </script>
+			function fileAdd(num) {
+				if (document.getElementById('files').childNodes.length == num) {
+					var div = document.createElement('div');
+					div.className = "stdBoldText";
+					div.id = "file"+(num*1+1)+"div";
+					div.innerHTML = "&nbsp;&nbsp;&nbsp;File "+(num*1+1)+": <input type='file' name='attachment"+(num*1+1)+"' onChange='fileAdd("+(num*1+1)+");'>";
+					document.getElementById('files').appendChild(div);
+				}
+			}
+	</script>
 </head>
 <body onload="init()">
 <?php		
@@ -172,14 +172,14 @@
 		}
 
 		if (isset($_POST['sendtoguest'] )) {
-                foreach ($_POST['sendtoguest'] as $id => $val) {
-                        $person = new Person($id, $db);
-                        $to[] = $person->getEmail();
+		foreach ($_POST['sendtoguest'] as $id => $val) {
+			$person = new Person($id, $db);
+			$to[] = $person->getEmail();
 			$names[] = $person->getFullName();
-                }
-                $tolist = join(",", $to);
+		}
+		$tolist = join(",", $to);
 		$toNames = join(", ", $names);
-                }
+		}
 		
 		$headers = "From: ".$currentUser->getFullName()." <".$currentUser->getEmail().">\n";
 		if ( isset($_POST['cc']) && ($_POST['cc'] != ''))
@@ -285,28 +285,28 @@ print "<td>".$person->getFullName()."</td>";
 	$members = $currentGroup->getGroupGuests();
 	if (count($members) > 0) {
 ?>
-                        <br><a href="#" onClick="toggleGuestDisplay()">+</a> Guests:
-                        <table id="guest-table" width='100%'>
+			<br><a href="#" onClick="toggleGuestDisplay()">+</a> Guests:
+			<table id="guest-table" width='100%'>
 <?php
-                                $members = peopleSort( $members );
-                                $i=1;
-                                foreach ( $members as $person ) {
-                                        if ( $i == 1 )
-                                                print "<tr>";
-                                        print "<td><input type='checkbox' id='guest' name='sendtoguest[".$person->getID()."]'></td>";
-                                        print "<td>".$person->getFullName()."</td>";
-                                        if ( $i == 3) {
-                                                print "</tr>";
-                                                $i = 1;
-                                        }
-                                        else
-                                                $i++;
-                                }
+				$members = peopleSort( $members );
+				$i=1;
+				foreach ( $members as $person ) {
+					if ( $i == 1 )
+						print "<tr>";
+					print "<td><input type='checkbox' id='guest' name='sendtoguest[".$person->getID()."]'></td>";
+					print "<td>".$person->getFullName()."</td>";
+					if ( $i == 3) {
+						print "</tr>";
+						$i = 1;
+					}
+					else
+						$i++;
+				}
 
 ?>
 			<tr><td colspan=2><a href="javascript:checkedAllGuest('mailform', true)">Check All</a> / <a href="javascript:checkedAllGuest('mailform', false)">Uncheck All</a></td></tr>
-                        </table>
-                </div>
+			</table>
+		</div>
 <?php } ?>		
 		<br />
 		<table>
@@ -324,10 +324,10 @@ print "<td>".$person->getFullName()."</td>";
 			<tr><td>Attachments:</td></tr>
 			<tr><td colspan='2'>
 			<div id='files'><?php
-                        //$a = 1;
-                        ?><div class="stdBoldText" id='file1div'>&nbsp;&nbsp;&nbsp;File 1: <input type="file" name="attachment1" onChange='fileAdd(1);'></div><?php
-                ?></div>
-                <!--<span onclick='fileAdd(document.getElementById("files").childNodes.length);' style='color:#00F;text-decoration:underline;cursor:pointer;'>Click here to add another file.</span>--></div>
+			//$a = 1;
+			?><div class="stdBoldText" id='file1div'>&nbsp;&nbsp;&nbsp;File 1: <input type="file" name="attachment1" onChange='fileAdd(1);'></div><?php
+		?></div>
+		<!--<span onclick='fileAdd(document.getElementById("files").childNodes.length);' style='color:#00F;text-decoration:underline;cursor:pointer;'>Click here to add another file.</span>--></div>
 			</td></tr>
 			<tr><td colspan=2>Body:</td></tr>
 			<tr><td colspan=2><textarea name="body" cols="54" rows="10"></textarea></td></tr>

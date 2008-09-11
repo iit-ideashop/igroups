@@ -24,10 +24,10 @@ if ( !class_exists( "Post" ) ) {
 		
 		function getDateTime() {
 			list($year, $month, $day_time) = explode('-', $this->datetime);
-                        list($day, $time) = explode(" ", $day_time);
-                        list($hour, $minute, $second) = explode(":", $time);
-                        $ts = mktime($hour, $minute, $second, $month, $day, $year);
-                        $date = date("D M d, Y g:i a", $ts);
+			list($day, $time) = explode(" ", $day_time);
+			list($hour, $minute, $second) = explode(":", $time);
+			$ts = mktime($hour, $minute, $second, $month, $day, $year);
+			$date = date("D M d, Y g:i a", $ts);
 			return $date;
 		}
 	

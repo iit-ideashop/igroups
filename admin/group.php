@@ -45,13 +45,13 @@
 	}
 	
 	function alpha($person1, $person2) {
-                if ($person1->getLastName() < $person2->getLastName())
-                        return -1;
-                else if ($person2->getLastName() < $person1->getLastName())
-                        return 1;
-                else
-                        return 0;
-        }
+		if ($person1->getLastName() < $person2->getLastName())
+			return -1;
+		else if ($person2->getLastName() < $person1->getLastName())
+			return 1;
+		else
+			return 0;
+	}
 
 	function printTR() {
 		static $i=0;
@@ -72,15 +72,15 @@
 	}
 
 	if ( isset($_POST['createIPRO'])) {
-                if (isset($_POST['sIITID'])) {
-                        $db->iknowQuery("INSERT INTO Projects VALUES (NULL, '{$_POST['sName']}', NULL, '{$_POST['sIITID']}')");
-                        $id = $db->iknowInsertID();
-                        $db->iknowQuery("INSERT INTO ProjectSemesterMap VALUES ($id, {$_POST['semester']}, NULL)");
-                        $message = 'Group Created';
-                }
-                else
-                        $message = 'Could not create group: no ID given';
-        }	
+		if (isset($_POST['sIITID'])) {
+			$db->iknowQuery("INSERT INTO Projects VALUES (NULL, '{$_POST['sName']}', NULL, '{$_POST['sIITID']}')");
+			$id = $db->iknowInsertID();
+			$db->iknowQuery("INSERT INTO ProjectSemesterMap VALUES ($id, {$_POST['semester']}, NULL)");
+			$message = 'Group Created';
+		}
+		else
+			$message = 'Could not create group: no ID given';
+	}	
 
 	if ( isset( $_POST['createGroup'] ) ) {
 		$db->igroupsQuery("INSERT INTO Groups (sName) VALUES (\"{$_POST['newGroup']}\")");
@@ -164,25 +164,25 @@
 	<td style="width:40%">
 	<div id="semesterSelect">
 	<h1>Create New IPRO</h1>
-                <form method="post" action="group.php"><fieldset>
-                <b>Semester</b><br />
-                <select name="semester">
+		<form method="post" action="group.php"><fieldset>
+		<b>Semester</b><br />
+		<select name="semester">
 <?php
-                $semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
-                        while ( $row = mysql_fetch_row( $semesters ) ) {
-                                $semester = new Semester( $row[0], $db );
-                                print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
+		$semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
+			while ( $row = mysql_fetch_row( $semesters ) ) {
+				$semester = new Semester( $row[0], $db );
+				print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
 
-                        }
+			}
 ?>
-                </select><br /><br />
-                <b>ID: </b>(e.g. IPRO 101)<br />
-                <input type="text" name="sIITID" size="10" /><br /><br />
-                <b>Name: </b>(e.g. Developing New Products)<br />
-                <input type="text" name="sName" size="25" />&nbsp;&nbsp;
-                <input type="submit" name="createIPRO" value="Create IPRO" /><br />
-                </fieldset></form>
-                <br />
+		</select><br /><br />
+		<b>ID: </b>(e.g. IPRO 101)<br />
+		<input type="text" name="sIITID" size="10" /><br /><br />
+		<b>Name: </b>(e.g. Developing New Products)<br />
+		<input type="text" name="sName" size="25" />&nbsp;&nbsp;
+		<input type="submit" name="createIPRO" value="Create IPRO" /><br />
+		</fieldset></form>
+		<br />
 		<h1>Manage Groups</h1>
 		<form method="get" action="group.php"><fieldset>
 			<select name="semester">
@@ -252,11 +252,11 @@
 	if ( $currentGroup ) {	
 		if ( isset( $_POST['newuser'] ) ) {
 			$email = $_POST['email'];
-	                $email = str_replace(' ', '', $email);
-        	        $email = str_replace('>', '', $email);
-                	$email = str_replace('<', '', $email);
-                	$email = str_replace('"', '', $email);
-                	$email = str_replace("'", '', $email);
+			$email = str_replace(' ', '', $email);
+			$email = str_replace('>', '', $email);
+			$email = str_replace('<', '', $email);
+			$email = str_replace('"', '', $email);
+			$email = str_replace("'", '', $email);
 			$user = createPerson( $email, $_POST['fname'], $_POST['lname'], $db );
 			$user->addToGroup( $currentGroup );
 			$user->updateDB();
@@ -271,11 +271,11 @@
 		
 		if ( isset( $_POST['adduser'] ) ) {
 			$email = $_POST['email'];
-                        $email = str_replace(' ', '', $email);
-                        $email = str_replace('>', '', $email);
-                        $email = str_replace('<', '', $email);
-                        $email = str_replace('"', '', $email);
-                        $email = str_replace("'", '', $email);
+			$email = str_replace(' ', '', $email);
+			$email = str_replace('>', '', $email);
+			$email = str_replace('<', '', $email);
+			$email = str_replace('"', '', $email);
+			$email = str_replace("'", '', $email);
 			$user = $db->iknowQuery( "SELECT iID FROM People WHERE sEmail='".$email."'" );
 			if ( $row = mysql_fetch_row( $user ) ) {
 				$user = new Person( $row[0], $db );
@@ -351,9 +351,9 @@
 					}
 					else {
 						print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"-1\" checked=\"checked\"></td>";
-                                                print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"0\" /></td>";
-                                                print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"1\" /></td>";
-                                                print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"2\" /></td>";					
+						print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"0\" /></td>";
+						print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"1\" /></td>";
+						print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"2\" /></td>";					
 					}
 					print "</tr>";
 				}

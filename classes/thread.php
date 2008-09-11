@@ -44,9 +44,9 @@ if ( !class_exists( "Thread" ) ) {
 		}
 
 		function getAuthorLink() {
-                        $person = $this->getAuthor();
-                        return "<a href='../viewprofile.php?uID={$this->author}'>{$person->getFullName()}</a>";
-                }
+			$person = $this->getAuthor();
+			return "<a href='../viewprofile.php?uID={$this->author}'>{$person->getFullName()}</a>";
+		}
 
 		function getLastPost() {
 			$posts = $this->getPosts();

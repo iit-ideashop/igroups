@@ -76,51 +76,51 @@
 			}
 
 		function toggleSGDisplay() {
-                        box = document.getElementById('subgroups-table');
-                        switch (box.style.display) {
-                                case 'none':
-                                        box.style.display='block';
-                                        break;
-                                default:
-                                        box.style.display='none';
-                                        break;
-                        }
-                }
+			box = document.getElementById('subgroups-table');
+			switch (box.style.display) {
+				case 'none':
+					box.style.display='block';
+					break;
+				default:
+					box.style.display='none';
+					break;
+			}
+		}
 
-                function toggleGuestDisplay() {
-                        guestbox = document.getElementById('guest-table');
-                        switch (guestbox.style.display) {
-                                case 'none':
-                                        guestbox.style.display='block';
-                                        break;
-                                default:
-                                        guestbox.style.display='none';
-                                        break;
-                        }
-                }
+		function toggleGuestDisplay() {
+			guestbox = document.getElementById('guest-table');
+			switch (guestbox.style.display) {
+				case 'none':
+					guestbox.style.display='block';
+					break;
+				default:
+					guestbox.style.display='none';
+					break;
+			}
+		}
 
 			function checkedAll (id, checked) {
-                 	       var el = document.getElementById(id);
-                        	for (var i = 0; i < el.elements.length; i++) {
-                        	if (el.elements[i].name != 'confidential') {
+		 	       var el = document.getElementById(id);
+				for (var i = 0; i < el.elements.length; i++) {
+				if (el.elements[i].name != 'confidential') {
 				if (el.elements[i].id != 'guest' && el.elements[i].id != 'subgroup') {
-                        		el.elements[i].checked = checked;}
+					el.elements[i].checked = checked;}
 				}
-                        }
-                	}
+			}
+			}
 		function checkedAllGuest (id, checked) {
-                        var el = document.getElementById(id);
-                        for (var i = 0; i < el.elements.length; i++) {
-                        if (el.elements[i].id == 'guest') {
-                        el.elements[i].checked = checked;
-                        }
-                        }
-                }
+			var el = document.getElementById(id);
+			for (var i = 0; i < el.elements.length; i++) {
+			if (el.elements[i].id == 'guest') {
+			el.elements[i].checked = checked;
+			}
+			}
+		}
 
 		function init() {
-                         guestbox = document.getElementById('guest-table');
-                         guestbox.style.display='none';
-                 }
+			 guestbox = document.getElementById('guest-table');
+			 guestbox.style.display='none';
+		 }
 		//-->
 		</script>
 	</head>
@@ -129,66 +129,66 @@
 <?php		
 		if ( isset( $_POST['send'] ) ) {
 			if ( isset( $_POST['sendto'] )) {
-                		foreach ( $_POST['sendto'] as $id => $val ) {
-                        		$person = new Person( $id, $db );
-                        		$to[] = $person->getEmail();
-                        		$names[] = $person->getFullName();
-                		}
+				foreach ( $_POST['sendto'] as $id => $val ) {
+					$person = new Person( $id, $db );
+					$to[] = $person->getEmail();
+					$names[] = $person->getFullName();
+				}
 
-                	$tolist = join( ",", $to );
-                	$toNames = join( ", ", $names );
-                	}
+			$tolist = join( ",", $to );
+			$toNames = join( ", ", $names );
+			}
 
 		if (isset($_POST['sendtosubgroup'])) {
-                foreach ($_POST['sendtosubgroup'] as $key => $val) {
-                        $subgroup = new SubGroup($key, $db);
-                        $people = $subgroup->getSubGroupMembers();
-                        foreach($people as $person) {
-                                $to[] = $person->getEmail();
-                        }
-                        $names[] = $subgroup->getName();
-                }
-                $tolist = join(",", $to);
-                $toNames = join(", ", $names);
-                }
+		foreach ($_POST['sendtosubgroup'] as $key => $val) {
+			$subgroup = new SubGroup($key, $db);
+			$people = $subgroup->getSubGroupMembers();
+			foreach($people as $person) {
+				$to[] = $person->getEmail();
+			}
+			$names[] = $subgroup->getName();
+		}
+		$tolist = join(",", $to);
+		$toNames = join(", ", $names);
+		}
 
-                if (isset($_POST['sendtoguest'] )) {
-                foreach ($_POST['sendtoguest'] as $id => $val) {
-                        $person = new Person($id, $db);
-                        $to[] = $person->getEmail();
-                        $names[] = $person->getFullName();
-                }
-                $tolist = join(",", $to);
-                $toNames = join(", ", $names);
-                }
+		if (isset($_POST['sendtoguest'] )) {
+		foreach ($_POST['sendtoguest'] as $id => $val) {
+			$person = new Person($id, $db);
+			$to[] = $person->getEmail();
+			$names[] = $person->getFullName();
+		}
+		$tolist = join(",", $to);
+		$toNames = join(", ", $names);
+		}
 			$headers = "From: ".$currentUser->getFullName()." <".$currentUser->getEmail().">\r\n";
 			//$headers .= "Reply-to: <".$currentUser->getEmail().">\n";
 			//$headers .= "Return-path: <".$currentUser->getEmail().">\n";
 			if ( strlen( $_POST['cc'] != 0 ) )
 				$headers .= "Cc:".$_POST['cc']."\r\n";
 			$mime_boundary=md5(time());
-                	$headers .= 'MIME-Version: 1.0'."\r\n";
-                	$headers .= 'Content-Transfer-Encoding: 7-bit'."\r\n";
-                	$headers .= "Content-Type: multipart/mixed; boundary=".$mime_boundary."\n";
-                	$filename = str_replace(' ', '_', $_FILES['attachment']['name']);
+			$headers .= 'MIME-Version: 1.0'."\r\n";
+			$headers .= 'Content-Transfer-Encoding: 7-bit'."\r\n";
+			$headers .= "Content-Type: multipart/mixed; boundary=".$mime_boundary."\n";
+			$filename = str_replace(' ', '_', $_FILES['attachment']['name']);
 			$msg = "";
-                        if ( $_FILES['attachment']['size'] != 0 ) {
-                        	$handle=fopen($_FILES['attachment']['tmp_name'], 'rb');
-                        	$f_contents=fread($handle, $_FILES['attachment']['size']);
-                        	$f_contents=chunk_split(base64_encode($f_contents));
-                        	fclose($handle);
-                        	$msg .= "--".$mime_boundary."\n";
-                        	$msg .= "Content-Type: {$_FILES['attachment']['type']};\n name={$filename}\n";
-                        	$msg .= "Content-Transfer-Encoding: base64"."\n";
-                        	$msg .= "Content-Disposition: attachment; filename=".$filename."\n"."\n";
-                        	$msg .= $f_contents."\n"."\n";
-                        }
+			if ( $_FILES['attachment']['size'] != 0 ) {
+				$handle=fopen($_FILES['attachment']['tmp_name'], 'rb');
+				$f_contents=fread($handle, $_FILES['attachment']['size']);
+				$f_contents=chunk_split(base64_encode($f_contents));
+				fclose($handle);
+				$msg .= "--".$mime_boundary."\n";
+				$msg .= "Content-Type: {$_FILES['attachment']['type']};\n name={$filename}\n";
+				$msg .= "Content-Transfer-Encoding: base64"."\n";
+				$msg .= "Content-Disposition: attachment; filename=".$filename."\n"."\n";
+				$msg .= $f_contents."\n"."\n";
+			}
 			$tmpstr = wordwrap($_POST['body'], 100);
-                	$body = new SuperString($tmpstr);
-                	$msg .= "--".$mime_boundary."\n";
-                	$msg .= "Content-Type: text/plain; charset=iso-8859-1"."\n";
-                	$msg .= "Content-Transfer-Encoding: 8-bit"."\n"."\n";
-               	        $msg .= $body->getString()."\n"."\n";
+			$body = new SuperString($tmpstr);
+			$msg .= "--".$mime_boundary."\n";
+			$msg .= "Content-Type: text/plain; charset=iso-8859-1"."\n";
+			$msg .= "Content-Transfer-Encoding: 8-bit"."\n"."\n";
+	       		$msg .= $body->getString()."\n"."\n";
 			if ( $_POST['confidential'] == 'on' ) {
 				$subj = new SuperString( $_POST['subject'] );
 				mail( $tolist, "[".$currentGroup->getName()."] ".$subj->getHTMLString(), $msg, $headers );
@@ -196,8 +196,8 @@
 			else {
 				$newEmail = createEmail( $toNames, $_POST['subject'], $_POST['body'], $currentUser->getID(), $_POST['category'], $_POST['replyTo'], $currentGroup->getID(), $currentGroup->getType(), $currentGroup->getSemester(), $db );
 				$replyLink = "--".$mime_boundary."\n";
-        	                $replyLink .= "Content-Type: text/html; charset=iso-8859-1"."\n";
-	                        $replyLink .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
+				$replyLink .= "Content-Type: text/html; charset=iso-8859-1"."\n";
+				$replyLink .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
 				$replyLink .= "<p><a href='http://igroups.iit.edu/reply.php?replyTo=".$newEmail->getID()."'>Click here to reply to this email.</a></p>";
 				mail( $tolist, "[".$currentGroup->getName()."] ".$newEmail->getSubjectHTML(), $msg.$replyLink, $headers );
 			}
@@ -230,61 +230,61 @@
 			</div><br />
 
 <?php
-                $subgroups = $currentGroup->getSubGroups();
-                if ($subgroups) {
+		$subgroups = $currentGroup->getSubGroups();
+		if ($subgroups) {
 ?>
-                <div id="subgroups">
-                        <a href='#' onclick="toggleSGDisplay()">+</a> Subgroups:
-                        <table id="subgroups-table" width='100%'>
+		<div id="subgroups">
+			<a href='#' onclick="toggleSGDisplay()">+</a> Subgroups:
+			<table id="subgroups-table" width='100%'>
 <?php
-                        $i=1;
-                        foreach ($subgroups as $subgroup) {
-                                if ($i == 1)
-                                        print "<tr>";
-                                print "<td><input type='checkbox' id='subgroup' name='sendtosubgroup[".$subgroup->getID()."]' />&nbsp;";
-                                print $subgroup->getName()."</td>";
-                                if ($i == 3) {
-                                        print "</tr>";
-                                        $i=1;
-                                }
-                                else
-                                        $i++;
-                        }
+			$i=1;
+			foreach ($subgroups as $subgroup) {
+				if ($i == 1)
+					print "<tr>";
+				print "<td><input type='checkbox' id='subgroup' name='sendtosubgroup[".$subgroup->getID()."]' />&nbsp;";
+				print $subgroup->getName()."</td>";
+				if ($i == 3) {
+					print "</tr>";
+					$i=1;
+				}
+				else
+					$i++;
+			}
 ?>
-                        </table>
-                </div>
+			</table>
+		</div>
 <?php
-                }
+		}
 ?>
-                <div id="guests">
+		<div id="guests">
 <?php
-        $members = $currentGroup->getGroupGuests();
-        if (count($members) > 0) {
+	$members = $currentGroup->getGroupGuests();
+	if (count($members) > 0) {
 ?>
-                        <br /><a href="#" onclick="toggleGuestDisplay()">+</a> Guests:
-                        <table id="guest-table" width='100%'>
+			<br /><a href="#" onclick="toggleGuestDisplay()">+</a> Guests:
+			<table id="guest-table" width='100%'>
 <?php
-                                $members = peopleSort( $members );
-                                $i=1;
-                                foreach ( $members as $person ) {
-                                        if ( $i == 1 )
-                                                print "<tr>";
-                                        print "<td><input type='checkbox' id='guest' name='sendtoguest[".$person->getID()."]' />&nbsp;{$person->getFullName()}</td>";
-                         
-                                        if ( $i == 3) {
-                                                print "</tr>";
-                                                $i = 1;
-                                        }
-                                        else
-                                                $i++;
-                                }
+				$members = peopleSort( $members );
+				$i=1;
+				foreach ( $members as $person ) {
+					if ( $i == 1 )
+						print "<tr>";
+					print "<td><input type='checkbox' id='guest' name='sendtoguest[".$person->getID()."]' />&nbsp;{$person->getFullName()}</td>";
+			 
+					if ( $i == 3) {
+						print "</tr>";
+						$i = 1;
+					}
+					else
+						$i++;
+				}
 
 ?>
-                        <tr><td colspan=2><a href="javascript:checkedAllGuest('mailform', true)">Check All</a> / <a href="javascript:checkedAllGuest('mailform', false)">Uncheck All</a></td></tr>
-                        </table>
-                </div>
+			<tr><td colspan=2><a href="javascript:checkedAllGuest('mailform', true)">Check All</a> / <a href="javascript:checkedAllGuest('mailform', false)">Uncheck All</a></td></tr>
+			</table>
+		</div>
 <?php } ?>
-                <br />
+		<br />
 			<table>
 				<tr><td>CC:</td><td><input type="text" size="60" name="cc" /></td></tr>
 <?php

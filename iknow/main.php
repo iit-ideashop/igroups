@@ -27,10 +27,10 @@
 <script type="text/javascript">
 //<![CDATA[
 	function refreshSemester(object)
-                {
-                        if ( object.value )
-                                window.location = object.value
-                }
+		{
+			if ( object.value )
+				window.location = object.value
+		}
 
 	function nuggetSearch(){
 		form = document.getElementById("searchForm");
@@ -99,60 +99,60 @@ require("sidebar.php");
 	<br />
 	<table cellspacing="0" cellpadding="6" style="border: thin solid black"><tr><td style="background:#EEEEEE"><b>Browse IPROs</b><br />
 		<table cellspacing="4" cellpadding="0" style="border-style: none">
-                                <tr>
-                                        <td>
-                                                <select onchange="refreshSemester(this);">
-                                                <option>Select a Semester</option>
-                                                <?php
+				<tr>
+					<td>
+						<select onchange="refreshSemester(this);">
+						<option>Select a Semester</option>
+						<?php
 
-                                                $sql = "select iID,sSemester from Semesters order by iID";
-                                                $result = $_DB->igroupsQuery($sql);
-                                                $id = array();
-                                                $sem = array();
-                                                while($row = mysql_fetch_array($result))
-                                                {
-                                                        $id[] = $row['iID'];
-                                                        $sem[] = $row['sSemester'];
-                                                }
+						$sql = "select iID,sSemester from Semesters order by iID";
+						$result = $_DB->igroupsQuery($sql);
+						$id = array();
+						$sem = array();
+						while($row = mysql_fetch_array($result))
+						{
+							$id[] = $row['iID'];
+							$sem[] = $row['sSemester'];
+						}
 
-                                                for($a=count($id)-1; $a>=0; $a--)
-                                                {
-                                                        echo '<option value="main.php?iSemesterID=' . $id[$a] . '"';
-                                                        if(isset($_GET['iSemesterID']) && $id[$a]==$_GET['iSemesterID'])
-                                                                echo " selected=\"selected\"";
+						for($a=count($id)-1; $a>=0; $a--)
+						{
+							echo '<option value="main.php?iSemesterID=' . $id[$a] . '"';
+							if(isset($_GET['iSemesterID']) && $id[$a]==$_GET['iSemesterID'])
+								echo " selected=\"selected\"";
 							else if (!isset($_GET['iSemesterID']) && isset($_SESSION['iSemesterID']) && $id[$a]==$_SESSION['iSemesterID'])
 								echo " selected=\"selected\"";
-                                                        echo  '>' . $sem[$a] .  "</option>";
-                                                }
-                                                ?>
-                                        </select></td>
+							echo  '>' . $sem[$a] .  "</option>";
+						}
+						?>
+					</select></td>
 
-                                        <?php if(isset($_GET['iSemesterID']) || isset($_SESSION['iSemesterID'])){ 
+					<?php if(isset($_GET['iSemesterID']) || isset($_SESSION['iSemesterID'])){ 
 						if (isset($_GET['iSemesterID']))
 							$_SESSION['iSemesterID'] = $_GET['iSemesterID'];
 
 ?>
-                                        <td id="jumpTpBox">
+					<td id="jumpTpBox">
 
-                                        <select name="id">
-                                        <option>Select an IPRO</option>
+					<select name="id">
+					<option>Select an IPRO</option>
 
-                                                <?php
-                                                $sql = "select p.iID,p.sIITID,p.sName from Projects p,ProjectSemesterMap s where s.iSemesterID='" . $_SESSION['iSemesterID'] . "' and s.iProjectID=p.iID group by s.iProjectID order by p.sIITID asc";
-                                                $result = $_DB->igroupsQuery($sql);
+						<?php
+						$sql = "select p.iID,p.sIITID,p.sName from Projects p,ProjectSemesterMap s where s.iSemesterID='" . $_SESSION['iSemesterID'] . "' and s.iProjectID=p.iID group by s.iProjectID order by p.sIITID asc";
+						$result = $_DB->igroupsQuery($sql);
 
-                                                while($row = mysql_fetch_array($result))
-                                                {
-                                                        echo "<option value=\"{$row['iID']}\">{$row['sIITID']}</option>";
-                                                }
-                                                ?>
-                                        </select>
+						while($row = mysql_fetch_array($result))
+						{
+							echo "<option value=\"{$row['iID']}\">{$row['sIITID']}</option>";
+						}
+						?>
+					</select>
 					<input type="hidden" name="semester" value="<?php print $_SESSION['iSemesterID'];?>" />
 					<input type="submit" value="Browse" />
-                                        </td>
-                                        <?php } ?>
-                                </tr></table>
-                                </td></tr></table>
+					</td>
+					<?php } ?>
+				</tr></table>
+				</td></tr></table>
 	</div>
 </fieldset></form>
 <br />
@@ -217,10 +217,10 @@ require("sidebar.php");
 		print "<h2>Search Results</h2>";
 		global $_DB;
 		global $_NUGPERPAGE;
-                global $_COUNT;
-                $multiplier = $_POST['multiplier'];
-                $bottomLim = $multiplier * 10;
-                $topLim = $multiplier * 10 + 10;
+		global $_COUNT;
+		$multiplier = $_POST['multiplier'];
+		$bottomLim = $multiplier * 10;
+		$topLim = $multiplier * 10 + 10;
 		//determine the criteria requested to determine the search method
 		//
 		if($_POST['criteria'] == "name"){
@@ -229,15 +229,15 @@ require("sidebar.php");
 			if ($search == '')
 				print "<p>No criteria provided. Please go back and provide a search term.</p>";
 			else {
-                        $query = "(SELECT MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE) AS score,iNuggetID, bOldNugget FROM iGroupsNuggets WHERE MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE))UNION(SELECT MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE) AS score, iID, bOldNugget FROM Nuggets WHERE MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE)) ORDER BY score DESC LIMIT $bottomLim,$_NUGPERPAGE";
-                        $results = $_DB->igroupsQuery($query);
-                        $nuggets = array();
-                        while($row = mysql_fetch_array($results)){
+			$query = "(SELECT MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE) AS score,iNuggetID, bOldNugget FROM iGroupsNuggets WHERE MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE))UNION(SELECT MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE) AS score, iID, bOldNugget FROM Nuggets WHERE MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE)) ORDER BY score DESC LIMIT $bottomLim,$_NUGPERPAGE";
+			$results = $_DB->igroupsQuery($query);
+			$nuggets = array();
+			while($row = mysql_fetch_array($results)){
 				$nuggets[] = new Nugget($row[1],$_DB, $row[2]);
 			}
 			$query = "(SELECT MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE) AS score,iNuggetID, bOldNugget FROM iGroupsNuggets WHERE MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE))UNION(SELECT MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE) AS score, iID, bOldNugget FROM Nuggets WHERE MATCH(sTitle) AGAINST('$search' IN BOOLEAN MODE)) ORDER BY score DESC";
 			$results = $_DB->igroupsQuery($query);
-	                $_COUNT = mysql_num_rows($results);
+			$_COUNT = mysql_num_rows($results);
 
 			displayNuggets($nuggets, "");
 			}
@@ -273,8 +273,8 @@ require("sidebar.php");
 			$results = $_DB->igroupsQuery($query);
 			while($row = mysql_fetch_array($results)){
 				$person = new Person($row[1], $_DB);
-                                if (count($person->getNuggets()) > 0)
-                                        $authors[] = $person;
+				if (count($person->getNuggets()) > 0)
+					$authors[] = $person;
 			}
 			printAuthorList($authors, "");
 			}
@@ -295,10 +295,10 @@ require("sidebar.php");
 				$nuggets[] = new Nugget($row[1], $_DB, $row[2]);
 			}
 			if(strlen($search) < 4){
-                                $query = "(SELECT iNugget, iNuggetID, bOldNugget FROM iGroupsNuggets WHERE sDescription LIKE '%$search%')UNION(SELECT iID, iID, bOldNugget FROM Nuggets WHERE sAbstract LIKE '%$search%')";
-                        }else{
-                                $query = "(SELECT MATCH(sDescription) AGAINST('$search' IN BOOLEAN MODE) as Score, iNuggetID, bOldNugget FROM iGroupsNuggets WHERE MATCH(sDescription) AGAINST('$search' IN BOOLEAN MODE))UNION(SELECT MATCH(sAbstract) AGAINST('$search' IN BOOLEAN MODE) as Score, iID, bOldNugget FROM Nuggets WHERE MATCH(sAbstract) AGAINST('$search' IN BOOLEAN MODE))ORDER BY Score DESC";
-                        }
+				$query = "(SELECT iNugget, iNuggetID, bOldNugget FROM iGroupsNuggets WHERE sDescription LIKE '%$search%')UNION(SELECT iID, iID, bOldNugget FROM Nuggets WHERE sAbstract LIKE '%$search%')";
+			}else{
+				$query = "(SELECT MATCH(sDescription) AGAINST('$search' IN BOOLEAN MODE) as Score, iNuggetID, bOldNugget FROM iGroupsNuggets WHERE MATCH(sDescription) AGAINST('$search' IN BOOLEAN MODE))UNION(SELECT MATCH(sAbstract) AGAINST('$search' IN BOOLEAN MODE) as Score, iID, bOldNugget FROM Nuggets WHERE MATCH(sAbstract) AGAINST('$search' IN BOOLEAN MODE))ORDER BY Score DESC";
+			}
 			$results = $_DB->igroupsQuery($query);
 			$_COUNT = mysql_num_rows($results);
 			displayNuggets($nuggets, "");

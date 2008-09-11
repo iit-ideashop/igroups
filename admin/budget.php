@@ -31,18 +31,18 @@
 		die("You are not logged in.");
 		
 	if ( !$currentUser->isAdministrator() )
-               die("You must be an administrator to access this page.");
+	       die("You must be an administrator to access this page.");
 
     if ( isset( $_POST['selectSemester'] ) ) {
-                $_SESSION['selectedIPROSemester'] = $_POST['semester'];
-        }
+		$_SESSION['selectedIPROSemester'] = $_POST['semester'];
+	}
 	else {
 		$query = $db->iknowQuery("SELECT iID FROM Semesters WHERE bActiveFlag=1");
 		$row = mysql_fetch_row($query);
 		$_SESSION['selectedIPROSemester'] = $row[0];
 	}
 
-        $currentSemester = new Semester( $_SESSION['selectedIPROSemester'], $db );
+	$currentSemester = new Semester( $_SESSION['selectedIPROSemester'], $db );
 
 		
 	//START Handling Forecast Input
@@ -142,19 +142,19 @@
 ?>
 	<div id="content"><div id="topbanner">Manage Budgets</div>
 	<form method="post" action="budget.php"><fieldset><legend>Select Semester:</legend>
-                        <select name="semester">
+			<select name="semester">
 <?php
-                        $semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
-                        while ( $row = mysql_fetch_row( $semesters ) ) {
-                                $semester = new Semester( $row[0], $db );
-                                if (isset($currentSemester) && $semester->getID() == $currentSemester->getID())
-                                        print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
-                                else
-                                        print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
-                        }
+			$semesters = $db->iknowQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
+			while ( $row = mysql_fetch_row( $semesters ) ) {
+				$semester = new Semester( $row[0], $db );
+				if (isset($currentSemester) && $semester->getID() == $currentSemester->getID())
+					print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
+				else
+					print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
+			}
 ?>
-                        </select>
-                        <input type="submit" name="selectSemester" value="Select Semester" />
+			</select>
+			<input type="submit" name="selectSemester" value="Select Semester" />
 			</fieldset></form>
 	
 	<h2>Submitted Budgets</h2>

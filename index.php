@@ -309,17 +309,17 @@ function addAnnouncement() {
 			</div>
 		</div>
 		
-                <div class="right">
-                        <div class="box">
-                                <span class="box-header">iGROUPS Knowledge Management</span>
-                                        <div class="announcement-heading">
-                                                Guest to iGROUPS?
-                                        </div>
-                                        <div class="announcement-body">
-                                                You can <a href="iknow/main.php">search and browse</a> IPRO team deliverables.
-                                        </div>
-                        </div>
-                </div>
+		<div class="right">
+			<div class="box">
+				<span class="box-header">iGROUPS Knowledge Management</span>
+					<div class="announcement-heading">
+						Guest to iGROUPS?
+					</div>
+					<div class="announcement-body">
+						You can <a href="iknow/main.php">search and browse</a> IPRO team deliverables.
+					</div>
+			</div>
+		</div>
 	</div>
 	<div id="calendarmenu">
 		<table>

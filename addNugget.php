@@ -191,9 +191,9 @@
 		}
 
 		function fileAdd(num) {
-		                var div = document.createElement('div');
-		                div.className = "item";
-		                div.id = "file"+num;
+				var div = document.createElement('div');
+				div.className = "item";
+				div.id = "file"+num;
 				div.innerHTML = 
 					"<label for=\"thefile"+(num+1)+"\">File "+(num+1)+": </label><input type=\"file\" id=\"thefile"+(num+1)+"\" name='thefile[]' onchange='fileAdd("+(num+1)+");' /><br /><label for=\"filename"+(num+1)+"\">File Name "+(num+1)+":</label><input type='text' id=\"filename"+(num+1)+"\" name='fileName' /><br /><label for=\"filedescription"+(num+1)+"\">File Description "+(num+1)+": </label><input type=\"text\" name=\"fileDescription\" id=\"filedescription"+(num+1)+"\" /><br />";
 				document.getElementById('files').appendChild(div);

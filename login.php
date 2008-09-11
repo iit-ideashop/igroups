@@ -2,9 +2,9 @@
 	
 	include_once( "classes/db.php" );
 
-        $db = new dbConnection();
+	$db = new dbConnection();
 
-        //-----Process Login------------------------//
+	//-----Process Login------------------------//
 
 if ( isset( $_GET['logout'] ) ) {
 			session_start();

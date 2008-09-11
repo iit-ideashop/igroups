@@ -56,7 +56,7 @@
 <?php
 require("sidebar.php");
 	if ( isset( $_POST['update'] ) ) {
-		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");                                             $profile = mysql_fetch_array($query);
+		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");					     $profile = mysql_fetch_array($query);
 
 		if ( $_POST['pw1'] == $_POST['pw2'] )
 			$currentUser->setPassword( $_POST['pw1'] );
@@ -66,27 +66,27 @@ require("sidebar.php");
 		if (isset($_POST['phone']))
 			$db->igroupsQuery("UPDATE Profiles SET sPhone='{$_POST['phone']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['phone2']))
-                        $db->igroupsQuery("UPDATE Profiles SET sPhone2='{$_POST['phone2']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sPhone2='{$_POST['phone2']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['im']))
-                        $db->igroupsQuery("UPDATE Profiles SET sIM='{$_POST['im']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sIM='{$_POST['im']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['nickname']))
-                        $db->igroupsQuery("UPDATE Profiles SET sNickname='{$_POST['nickname']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sNickname='{$_POST['nickname']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['major']))
-                        $db->igroupsQuery("UPDATE Profiles SET sMajor='{$_POST['major']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sMajor='{$_POST['major']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['year']))
-                        $db->igroupsQuery("UPDATE Profiles SET sYear='{$_POST['year']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sYear='{$_POST['year']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['hometown']))
-                        $db->igroupsQuery("UPDATE Profiles SET sHometown='{$_POST['hometown']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sHometown='{$_POST['hometown']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['isResident']))
-                        $db->igroupsQuery("UPDATE Profiles SET isResident={$_POST['isResident']} WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET isResident={$_POST['isResident']} WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['bio']))
-                        $db->igroupsQuery("UPDATE Profiles SET sBio='{$_POST['bio']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sBio='{$_POST['bio']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['skills']))
-                        $db->igroupsQuery("UPDATE Profiles SET sSkills='{$_POST['skills']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sSkills='{$_POST['skills']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_FILES['picture'])) {
 			if ( $_FILES['picture']['error'] == UPLOAD_ERR_OK && @getimagesize($_FILES['picture']['tmp_name']) && @is_uploaded_file($_FILES['picture']['tmp_name']) && ($_FILES['picture']['type'] == 'image/gif' || $_FILES['picture']['type'] == 'image/jpeg' || $_FILES['picture']['type'] == 'image/bmp' || $_FILES['picture']['type'] == 'image/x-windows-bmp' || $_FILES['picture']['type'] == 'image/png' || $_FILES['picture']['type'] == 'image/pjpeg')) {
 			    $newName = $currentUser->getID() . substr($_FILES['picture']['name'],strlen($_FILES['picture']['name'])-4);
-                            move_uploaded_file($_FILES['picture']['tmp_name'], "profile-pics/$newName");
+			    move_uploaded_file($_FILES['picture']['tmp_name'], "profile-pics/$newName");
 			    $db->igroupsQuery("UPDATE Profiles SET sPicture='$newName' WHERE iPersonID={$currentUser->getID()}");
 			}
 		}
@@ -108,8 +108,8 @@ require("sidebar.php");
 		else {
 ?>
 		<script type="text/javascript">
-                        showMessage("<?php print "$error"; ?>");
-                </script>
+			showMessage("<?php print "$error"; ?>");
+		</script>
 <?php
 		}
 	}

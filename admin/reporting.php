@@ -143,9 +143,9 @@
 				break;
 			case 'Pictures':
 				if ($sem == -1)
-                                        $sql = "SELECT COUNT(*) FROM {$type}";
-                                else
-                                        $sql = "SELECT COUNT(*) FROM {$type} WHERE iSemesterID={$sem}";
+					$sql = "SELECT COUNT(*) FROM {$type}";
+				else
+					$sql = "SELECT COUNT(*) FROM {$type} WHERE iSemesterID={$sem}";
 				$result = $db->igroupsQuery($sql);
 				$num = mysql_fetch_row($result);
 				return $num[0];
@@ -271,18 +271,18 @@
 	
 ?>
 <div id="groupSelect">
-                <form method="get" action="reporting.php"><fieldset>
-                        <select name="group">
+		<form method="get" action="reporting.php"><fieldset>
+			<select name="group">
 <?php
-                        $groups = groupSort( $groups );
-                        foreach ( $groups as $group ) {
-                                print "<option value=\"".$group->getID()."\">".$group->getName()."</option>";
-                        }
+			$groups = groupSort( $groups );
+			foreach ( $groups as $group ) {
+				print "<option value=\"".$group->getID()."\">".$group->getName()."</option>";
+			}
 ?>
-                        </select>
-                        <input type="submit" name="selectGroup" value="Jump to Group" />
-                </fieldset></form>
-        </div>
+			</select>
+			<input type="submit" name="selectGroup" value="Jump to Group" />
+		</fieldset></form>
+	</div>
 	<br />
 <?php
 	$numUsers = getStats('People', -1, $db);
@@ -309,24 +309,24 @@
 
 	if ($sID) {
 
-        $numUsers = getStats('People', $sID, $db);
-        $numGroups = getStats('Projects', $sID, $db);
-        $numFiles = getStats('Files', $sID, $db);
-        $numEmails = getStats('Emails', $sID, $db);
-        $numPictures = getStats('Pictures', $sID, $db);
-        $size = getStats('FileQuota', $sID, $db);
+	$numUsers = getStats('People', $sID, $db);
+	$numGroups = getStats('Projects', $sID, $db);
+	$numFiles = getStats('Files', $sID, $db);
+	$numEmails = getStats('Emails', $sID, $db);
+	$numPictures = getStats('Pictures', $sID, $db);
+	$size = getStats('FileQuota', $sID, $db);
 	$avgFiles = round($numFiles/$numGroups, 0);
 	$avgEmails = round($numEmails/$numGroups, 0);
 	$avgEmailsPerUser = round($numEmails/$numUsers, 0);
 ?>
 	<div style="text-align: center">
-        <h3>Semester Statistics:</h3><br />
-        <hr />
-        <p><b><?php echo "$numUsers"; ?> users in <?php echo "$numGroups" ?> groups.</b></p>
-        <p><b>Files: </b><?php echo "$numFiles"; ?> using <?php echo "$size"; ?> MiB</p>
-        <p><b>Emails: </b><?php echo "$numEmails"; ?></p>
-        <p><b>Pictures: </b><?php echo "$numPictures"; ?></p>
-        </div>
+	<h3>Semester Statistics:</h3><br />
+	<hr />
+	<p><b><?php echo "$numUsers"; ?> users in <?php echo "$numGroups" ?> groups.</b></p>
+	<p><b>Files: </b><?php echo "$numFiles"; ?> using <?php echo "$size"; ?> MiB</p>
+	<p><b>Emails: </b><?php echo "$numEmails"; ?></p>
+	<p><b>Pictures: </b><?php echo "$numPictures"; ?></p>
+	</div>
 	<br />
 
 	<table width="75%" cellpadding="3" style="border: thin solid black; style: text-align: center">
@@ -365,8 +365,8 @@
 		$emailsWeek = getDetails($groupID, 'Emails', 'week', $db);
 		$emailsMonth = getDetails($groupID, 'Emails', 'month', $db);
 		$filesAll = getDetails($groupID, 'Files', 'all', $db);
-                $filesWeek = getDetails($groupID, 'Files', 'week', $db);
-                $filesMonth = getDetails($groupID, 'Files', 'month', $db);
+		$filesWeek = getDetails($groupID, 'Files', 'week', $db);
+		$filesMonth = getDetails($groupID, 'Files', 'month', $db);
 		$eventsAll = getDetails($groupID, 'Events', 'all', $db);
 		$eventsWeek = getDetails($groupID, 'Events', 'week', $db);
 		$eventsMonth = getDetails($groupID, 'Events', 'month', $db);
@@ -417,12 +417,12 @@
 			<td><?php echo "$picsAll"; ?></td>
 		</tr>
 		<tr align="center">
-                        <td style="background: #dddddd"><b>User Avg.</b></td>
-                        <td><?php echo "$emailsAvg"; ?></td>
-                        <td><?php echo "$filesAvg"; ?></td>
-                        <td><?php echo "$eventsAvg"; ?></td>
-                        <td><?php echo "$picsAvg"; ?></td>
-                </tr>
+			<td style="background: #dddddd"><b>User Avg.</b></td>
+			<td><?php echo "$emailsAvg"; ?></td>
+			<td><?php echo "$filesAvg"; ?></td>
+			<td><?php echo "$eventsAvg"; ?></td>
+			<td><?php echo "$picsAvg"; ?></td>
+		</tr>
 		<tr>
 			<td align="center" style="background: #ffcccc" colspan="5"><b>User Statistics</b></td>
 		</tr>

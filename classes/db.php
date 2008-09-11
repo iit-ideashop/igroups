@@ -5,18 +5,18 @@ if ( !class_exists( "dbConnection" ) ) {
 		
 		function dbConnection() {
 			$ireview_db_name = "peer_review";
-                        $ireview_db_user = "terran4000";
-                        $ireview_db_pass = "CbsoZcD2";
+			$ireview_db_user = "terran4000";
+			$ireview_db_pass = "CbsoZcD2";
 
 			 $igroups_db_name = "igroups";
 			 $igroups_db_user = "igr0upsUser";
 			 $igroups_db_pass = "mxYwnc36";
 
 			$this->ireviewConn = mysql_connect("localhost", $ireview_db_user, $ireview_db_pass) or
-                                die("Could not connect: " . mysql_error());
+				die("Could not connect: " . mysql_error());
 
-                        mysql_select_db($ireview_db_name, $this->ireviewConn) or
-                                die("Could not select DB: " . mysql_error());
+			mysql_select_db($ireview_db_name, $this->ireviewConn) or
+				die("Could not select DB: " . mysql_error());
 			
 			$this->igroupsConn = mysql_connect("localhost", $igroups_db_user, $igroups_db_pass) or
 					die("Could not connect: " . mysql_error());
@@ -32,15 +32,15 @@ if ( !class_exists( "dbConnection" ) ) {
 		}
 	
 		function ireviewQuery( $query ) {
-                        $query_db_result = mysql_query($query, $this->ireviewConn) or
-                                die("Invalid query:\n<br>\n$query<br>\n" . mysql_error($this->ireviewConn));
-                        return $query_db_result;
-                }
+			$query_db_result = mysql_query($query, $this->ireviewConn) or
+				die("Invalid query:\n<br>\n$query<br>\n" . mysql_error($this->ireviewConn));
+			return $query_db_result;
+		}
 		//With the introduction of 3.0 the iknow and igroups databases were combined so all previous iknow queries are handeled as igroups queries now	
 		function iknowQuery( $query ) {
 			 $query_db_result = mysql_query($query, $this->igroupsConn) or
-				                                 die("Invalid query:\n<br />\n$query<br />\n" . mysql_error($this->igroupsConn));
-                         return $query_db_result;
+								 die("Invalid query:\n<br />\n$query<br />\n" . mysql_error($this->igroupsConn));
+			 return $query_db_result;
 		}
 	
 		function igroupsInsertID() {

@@ -32,94 +32,94 @@
 		die("You must be an administrator to access this page.");
 
 	function displayNuggets($currentGroup, $semID, $_DB){
-        	global $_DEFAULTNUGGETS;
+		global $_DEFAULTNUGGETS;
 		$query = $_DB->igroupsQuery("SELECT sSemester FROM Semesters where iID=$semID");
 		$row = mysql_fetch_row($query);
 		print "<h1>{$row[0]} Deliverable Nuggets</h1>";
 
-	        //Get the list of nuggets
-	        if ($semID < 32)
-                        $nuggets = getOldNuggetsByGroupAndSemester($currentGroup, $semID);
-                else
-                        $nuggets = getNuggetStatus($currentGroup, $semID);
-	        $nugCount = 0;
+		//Get the list of nuggets
+		if ($semID < 32)
+			$nuggets = getOldNuggetsByGroupAndSemester($currentGroup, $semID);
+		else
+			$nuggets = getNuggetStatus($currentGroup, $semID);
+		$nugCount = 0;
 ?>
-	        <table cellpadding="3">
-        	<tr>
+		<table cellpadding="3">
+		<tr>
 <?php
 
 		if ($semID >= 32) {
-                foreach($_DEFAULTNUGGETS as $nug){
-                        if($nugCount == 2){
-                                print "</tr><tr>";
-                                $nugCount = 0;
-                        }
-                        if($nuggets[$nug] != 0){
+		foreach($_DEFAULTNUGGETS as $nug){
+			if($nugCount == 2){
+				print "</tr><tr>";
+				$nugCount = 0;
+			}
+			if($nuggets[$nug] != 0){
 				$gID = $currentGroup->getID();
-                                print "<td><img src=\"../img/upload.png\" alt=\"Y\" />&nbsp;$nug</td><td><a href=\"viewNugget.php?nuggetID=".$nuggets[$nug]."&amp;groupID=$gID\">View</a></td>";
-                        }else{
-                                print "<td><img src=\"../img/no_upload.png\" alt=\"N\" />&nbsp;".$nug."</td><td>Not Uploaded</td>";
-                        }
-                        $nugCount++;
-                }
-                }
-                //iKnow nuggets
-                else {
+				print "<td><img src=\"../img/upload.png\" alt=\"Y\" />&nbsp;$nug</td><td><a href=\"viewNugget.php?nuggetID=".$nuggets[$nug]."&amp;groupID=$gID\">View</a></td>";
+			}else{
+				print "<td><img src=\"../img/no_upload.png\" alt=\"N\" />&nbsp;".$nug."</td><td>Not Uploaded</td>";
+			}
+			$nugCount++;
+		}
+		}
+		//iKnow nuggets
+		else {
 			foreach($_DEFAULTNUGGETS as $def){
-                        if($nugCount == 2){
-                                print "</tr><tr>";
-                                $nugCount = 0;
-                        }
+			if($nugCount == 2){
+				print "</tr><tr>";
+				$nugCount = 0;
+			}
 
-                        $link = null;
-                        if ($def == "Website")
-                                $def = "Web Site";
+			$link = null;
+			if ($def == "Website")
+				$def = "Web Site";
 
-                        foreach($nuggets as $nug) {
+			foreach($nuggets as $nug) {
 				if($nugCount == 2){
-                                	$link .= "</tr><tr>";
-                                	$nugCount = 0;
-                        	}
-                                $id = $nug->getID();
-                                $type = $nug->getType();
+					$link .= "</tr><tr>";
+					$nugCount = 0;
+				}
+				$id = $nug->getID();
+				$type = $nug->getType();
 				$gID = $currentGroup->getID();
-                                if(strstr($type, $def)){
-                                        $link .= "<td><img src=\"../img/upload.png\" alt=\"Y\" />&nbsp;$def</td><td><a href='viewNugget.php?nuggetID=$id&amp;groupID=$gID&amp;isOld=1'>View</a></td>";
+				if(strstr($type, $def)){
+					$link .= "<td><img src=\"../img/upload.png\" alt=\"Y\" />&nbsp;$def</td><td><a href='viewNugget.php?nuggetID=$id&amp;groupID=$gID&amp;isOld=1'>View</a></td>";
 					$nugCount++;
-                                }
-                        }
-                        if (!$link) {
-                                $link = "<td><img src=\"../img/no_upload.png\" alt=\"N\" />&nbsp;$def</td><td>Not Uploaded</td>";
+				}
+			}
+			if (!$link) {
+				$link = "<td><img src=\"../img/no_upload.png\" alt=\"N\" />&nbsp;$def</td><td>Not Uploaded</td>";
 				$nugCount++;
 			}
-                        print "$link";
-                        }
-                }
+			print "$link";
+			}
+		}
 
 ?>
-	        </tr>
-        	</table>
+		</tr>
+		</table>
 <?php
-        }
+	}
 
 	function displayNonDefaultNuggets($currentGroup, $semID, $_DB) {
 		$query = $_DB->igroupsQuery("SELECT sSemester FROM Semesters where iID=$semID");
-                $row = mysql_fetch_row($query);
-                print "<h1>{$row[0]} Non-Deliverable Nuggets</h1>";
+		$row = mysql_fetch_row($query);
+		print "<h1>{$row[0]} Non-Deliverable Nuggets</h1>";
 
 		if ($semID >= 32) {
-	        $nuggets = allActiveByTypeandID("Other", $currentGroup->getID(), $currentGroup->getSemester());
-	        if(count($nuggets) > 0){
+		$nuggets = allActiveByTypeandID("Other", $currentGroup->getID(), $currentGroup->getSemester());
+		if(count($nuggets) > 0){
 ?>
-                        <table>
+			<table>
 <?php
-		        foreach($nuggets as $nugget){
+			foreach($nuggets as $nugget){
 				print "<tr>";
 				printNugPreview($nugget);
 				print "</tr>";
 			}
 ?>
-                        </table>
+			</table>
 
 <?php
 			print "<br />";
@@ -131,66 +131,66 @@
 		else {
 			global $_DEFAULTNUGGETS;
 			$nuggets = getOldNuggetsByGroupAndSemester($currentGroup, $currentGroup->getSemester());
-                        print "<table><tr>";
-                        $nugs = false;
-                        foreach($nuggets as $nug){
-                        $found = false;
-                        $id = $nug->getID();
-                        $type = $nug->getType();
+			print "<table><tr>";
+			$nugs = false;
+			foreach($nuggets as $nug){
+			$found = false;
+			$id = $nug->getID();
+			$type = $nug->getType();
 
-                        foreach($_DEFAULTNUGGETS as $def) {
-                                if ($def == "Website")
-                                        $def = "Web Site";
-                                if(strstr($type, $def)){
-                                        $found = true;
-                                }
-                        }
-                        if (!$found) {
-                                print "<tr><td><a href=\"viewNugget.php?nuggetID=$id&amp;isOld=1\">$type</a></td></tr>";
-                                $nugs = true;
-                        }
-                        }
-                        print "</table>";
-                        if (!$nugs)
-                                print "There are currently no Non-Deliverable Nuggets for this semester<br />";
+			foreach($_DEFAULTNUGGETS as $def) {
+				if ($def == "Website")
+					$def = "Web Site";
+				if(strstr($type, $def)){
+					$found = true;
+				}
+			}
+			if (!$found) {
+				print "<tr><td><a href=\"viewNugget.php?nuggetID=$id&amp;isOld=1\">$type</a></td></tr>";
+				$nugs = true;
+			}
+			}
+			print "</table>";
+			if (!$nugs)
+				print "There are currently no Non-Deliverable Nuggets for this semester<br />";
 		}
 	}
 
 	function displayOldNuggets($currentGroup){
-	        $oldNuggets = $currentGroup->getInactiveNuggets();
-	        print "<h1>Other Semesters Nuggets</h1>";
-	        if(count($oldNuggets)!= 0){
+		$oldNuggets = $currentGroup->getInactiveNuggets();
+		print "<h1>Other Semesters Nuggets</h1>";
+		if(count($oldNuggets)!= 0){
 ?>
-        	        <table>
-                        <tr>
+			<table>
+			<tr>
 <?php
-	                $nuggetCount = 0;
-										                        foreach($oldNuggets as $tempNugget){
-			        if($nuggetCount == 2){
-	                                print "</tr><tr>";
-	                                $nuggetCount = 0;
-	                        }
-	                        print "<td>";
-	                        print "<a href=\"viewNugget.php?nuggetID=".$tempNugget->getID()."&amp;old=".$tempNugget->isOld()."\">".$tempNugget->getType()."</a>";
-	                        print "</td>";
-	                        $nuggetCount++;
+			$nuggetCount = 0;
+													foreach($oldNuggets as $tempNugget){
+				if($nuggetCount == 2){
+					print "</tr><tr>";
+					$nuggetCount = 0;
+				}
+				print "<td>";
+				print "<a href=\"viewNugget.php?nuggetID=".$tempNugget->getID()."&amp;old=".$tempNugget->isOld()."\">".$tempNugget->getType()."</a>";
+				print "</td>";
+				$nuggetCount++;
 			}
 ?>
-                        </tr>
-                        </table>
+			</tr>
+			</table>
 
 <?php
 		}else{
-	                print "There are no previous nuggets created with the igroups nugget system.<br />";
-	        }
+			print "There are no previous nuggets created with the igroups nugget system.<br />";
+		}
 	}
 
 	function printNugPreview($nugget){
-	        $title = $nugget->getType();
-	        $desc = $nugget->getDescShort();
-	        $id = $nugget->getID();
+		$title = $nugget->getType();
+		$desc = $nugget->getDescShort();
+		$id = $nugget->getID();
 		$status = $nugget->getStatus();
-	        print "<td><a href=\"viewNugget.php?nuggetID=$id\">".$title."</a></td>";
+		print "<td><a href=\"viewNugget.php?nuggetID=$id\">".$title."</a></td>";
 	}
 ?>
 
@@ -199,27 +199,27 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Nuggets</title>
 <link rel="stylesheet" href="../default.css" type="text/css" />
-        <style type="text/css">
-                table.nugget {
-                        width: 70%;
-                }
+	<style type="text/css">
+		table.nugget {
+			width: 70%;
+		}
 
-                table.nugget tr {
+		table.nugget tr {
 
-                }
+		}
 
-                table.nugget td {
-                        border: 3px solid #ccc;
-                        padding: 20px;
-                        width:50%;
-                }
+		table.nugget td {
+			border: 3px solid #ccc;
+			padding: 20px;
+			width:50%;
+		}
 
-                .item {
-                        padding-top:5px;
-                        padding-bottom:5px;
-                        border-bottom:1px solid #ccc;
-                }
-        </style>
+		.item {
+			padding-top:5px;
+			padding-bottom:5px;
+			border-bottom:1px solid #ccc;
+		}
+	</style>
 </head>
 
 <body>
@@ -232,7 +232,7 @@
 	$sem = $_DB->igroupsQuery("Select iSemesterID FROM ProjectSemesterMap WHERE iProjectID = $id ORDER BY iSemesterID DESC");
 	$row = mysql_fetch_row($sem);
 	$semID = $row[0];
-        $currentGroup = new Group($_GET['id'],0,$semID,$_DB);
+	$currentGroup = new Group($_GET['id'],0,$semID,$_DB);
 	print "<h2>{$currentGroup->getName()}</h2>";
 	print "<h3>{$currentGroup->getDesc()}</h3>";
 	displayNuggets($currentGroup, $semID, $_DB);

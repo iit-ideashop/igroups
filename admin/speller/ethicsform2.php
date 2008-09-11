@@ -1,17 +1,17 @@
 <?php
 
 $db = mysql_connect('sloth.iit.edu', 'terran4000', 't3rran4000');
-        if (!$db) {
-                die("Connection error: ".mysql_connect_error());
-                return false;
-        }
+	if (!$db) {
+		die("Connection error: ".mysql_connect_error());
+		return false;
+	}
 
 mysql_select_db('iknow');
 
 $ipros = array();
 $query = mysql_query("SELECT p.sIITID, p.sName from Projects p, Semesters s, ProjectSemesterMap m where p.iID = m.iProjectID and m.iSemesterID = s.iID AND s.bActiveFlag=1 ORDER BY p.sIITID");
 while ($result = mysql_fetch_array($query))
-        $ipros[] = $result;
+	$ipros[] = $result;
 
 $query = mysql_query("SELECT sSemester FROM Semesters WHERE bActiveFlag=1");
 $curSem = mysql_fetch_row($query);

@@ -66,11 +66,11 @@ if ($profile['sPicture']) {
 <?php
 print "<tr><td>Primary E-mail: </td><td>{$contactInfo['sEmail']}</td></tr>";
 if ($profile['sAltEmail'])
-        print "<tr><td>Alternate E-mail: </td><td>".htmlspecialchars($profile['sAltEmail'])."</td></tr>";
+	print "<tr><td>Alternate E-mail: </td><td>".htmlspecialchars($profile['sAltEmail'])."</td></tr>";
 if ($profile['sPhone'])
 	print "<tr><td>Primary Phone: </td><td>".htmlspecialchars($profile['sPhone'])."</td></tr>";
 if ($profile['sPhone2'])
-        print "<tr><td>Home/Other Phone: </td><td>".htmlspecialchars($profile['sPhone2'])."</td></tr>";
+	print "<tr><td>Home/Other Phone: </td><td>".htmlspecialchars($profile['sPhone2'])."</td></tr>";
 if ($profile['sIM'])
 	print "<tr><td>AIM Screen Name: </td><td>".htmlspecialchars($profile['sIM'])."</td></tr>";
 ?>
@@ -82,20 +82,20 @@ if ($profile['sIM'])
 if ($profile['sMajor'])
 	print "<tr><td>Major: </td><td>".htmlspecialchars($profile['sMajor'])."</td></tr>";
 if ($profile['sYear'])
-        print "<tr><td>Year: </td><td>{$profile['sYear']}</td></tr>";
+	print "<tr><td>Year: </td><td>{$profile['sYear']}</td></tr>";
 if ($profile['sNickname'])
-        print "<tr><td>Nickname: </td><td>".htmlspecialchars($profile['sNickname'])."</td></tr>";
+	print "<tr><td>Nickname: </td><td>".htmlspecialchars($profile['sNickname'])."</td></tr>";
 if ($profile['sHometown'])
-        print "<tr><td>Hometown: </td><td>".htmlspecialchars($profile['sHometown'])."</td></tr>";
+	print "<tr><td>Hometown: </td><td>".htmlspecialchars($profile['sHometown'])."</td></tr>";
 if ($profile['isResident'])
-        print "<tr><td>Lives on Campus: </td><td>Yes</td></tr>";
+	print "<tr><td>Lives on Campus: </td><td>Yes</td></tr>";
 if (isset($profile['isResident']) && $profile['isResident'] == 0)
-        print "<tr><td>Lives on Campus: </td><td>No</td></tr>";
+	print "<tr><td>Lives on Campus: </td><td>No</td></tr>";
 if ($profile['sBio']) {
-        print "<tr><td valign=\"top\">Biography: </td><td valign=\"top\">".str_replace("\n", "<br />", htmlspecialchars($profile['sBio']))."</td></tr>";
+	print "<tr><td valign=\"top\">Biography: </td><td valign=\"top\">".str_replace("\n", "<br />", htmlspecialchars($profile['sBio']))."</td></tr>";
 }
 if ($profile['sSkills']) {
-        print "<tr><td valign=\"top\">Skills: </td><td valign=\"top\">".str_replace("\n", "<br />", htmlspecialchars($profile['sSkills']))."</td></tr>";
+	print "<tr><td valign=\"top\">Skills: </td><td valign=\"top\">".str_replace("\n", "<br />", htmlspecialchars($profile['sSkills']))."</td></tr>";
 }
 ?>
 </table>

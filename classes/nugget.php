@@ -156,11 +156,11 @@ if( !class_exists( "Nugget" ) ) {
 				return $Files;
 			}else{
 				$results = $this->db->igroupsQuery("SELECT iID, sDiskName, sOrigName FROM NuggetFiles WHERE iNuggetID = {$this->id}");
-		                $nuggetFiles = array();
-		                while($row = mysql_fetch_array($results)){
+				$nuggetFiles = array();
+				while($row = mysql_fetch_array($results)){
 					$nuggetFiles[] = array($row['iID'], $row['sOrigName']);
 				}
-                                return $nuggetFiles;			 
+				return $nuggetFiles;			 
 			}
 		}
 		
@@ -551,9 +551,9 @@ if( !class_exists( "Nugget" ) ) {
 		$results = $db->igroupsQuery($query);
 		$nuggets = array();
 		while($row = mysql_fetch_array($results)){
-                        $nuggets[] = new Nugget($row[0], $db, 1);
-                }
-                return $nuggets;
+			$nuggets[] = new Nugget($row[0], $db, 1);
+		}
+		return $nuggets;
 	}
 
 	//The following are functions usable on both old and new nuggets
@@ -594,7 +594,7 @@ if( !class_exists( "Nugget" ) ) {
 		$results = $db->igroupsQuery($query);
 		$nuggets= array();
 		while($row = mysql_fetch_array($results)){
-		        $nuggets[] = new Nugget($row[2], $db, $row[3]);
+			$nuggets[] = new Nugget($row[2], $db, $row[3]);
 		}
 		return $nuggets;
 	}

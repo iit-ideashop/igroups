@@ -40,7 +40,7 @@
 		if (isset($_GET['global']) && $_GET['global'] == 'true') {
 			$currentTopic = new GlobalTopic($_GET['id'], $db);
 			if (!$currentTopic)
-	                        die("No such topic");
+				die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;global=true";
 			setcookie('global', '1', time()+60*60*6);
 		}
@@ -83,11 +83,11 @@
 	if (isset($_GET['start']) && is_numeric($_GET['start']) && $_GET['start'] > 0 && $_GET['start'] % $THREADS_PER_PAGE == 0) {
 		$currentPage = (int)($_GET['start']/$THREADS_PER_PAGE)+1;
 		$lastPage = ceil(count($allThreads)/$THREADS_PER_PAGE);
-                $lastStart = floor(count($allThreads)/$THREADS_PER_PAGE)*$THREADS_PER_PAGE;
+		$lastStart = floor(count($allThreads)/$THREADS_PER_PAGE)*$THREADS_PER_PAGE;
 
 		$prevStart1 = $_GET['start'] - $THREADS_PER_PAGE;
-                $prevPage1 = $currentPage-1;
-                $pages[] = "<a href='{$link}&start={$prevStart1}'>Previous</a>";
+		$prevPage1 = $currentPage-1;
+		$pages[] = "<a href='{$link}&start={$prevStart1}'>Previous</a>";
 
 		if ($currentPage > 2 && !($currentPage == 3 && $currentPage == $lastPage)) {
 			$firstStart1 = 0;
@@ -112,7 +112,7 @@
 			$pages[] = "<a href=\"{$link}&amp;start={$nextStart1}\">$nextPage1</a>";
 			if ((count($allThreads)-$_GET['start']) > 2*$THREADS_PER_PAGE) {
 				$pages[] = "...";
-                                $pages[] = "<a href=\"{$link}&amp;start={$lastStart}\">$lastPage</a>";
+				$pages[] = "<a href=\"{$link}&amp;start={$lastStart}\">$lastPage</a>";
 			}
 			$pages[] = "<a href=\"{$link}&amp;start={$nextStart1}\">Next</a>";
 		}
@@ -173,7 +173,7 @@ require("sidebar.php");
 <div id="content"><div id="topbanner">
 <?php
 	print $topicName;
-?>        
+?>	
 </div>
 
 <table class="noborder" width="85%">
@@ -212,7 +212,7 @@ else
 <table class="noborder" width="85%" style="text-align: center"><tr style="font-size: smaller; font-weight: bold"><td style="text-align: left">Goto Page: 
 <?php
 foreach($pages as $page)
-        print "$page&nbsp;";
+	print "$page&nbsp;";
 ?>
 </td><td style="text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
 </div>

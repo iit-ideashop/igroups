@@ -71,38 +71,38 @@ if ( !class_exists( "Group" ) ) {
 		}
 		
 		function getGroupUsers() {
-                        $returnArray = array();
+			$returnArray = array();
 
-                        if ( $this->getType() == 0 ) {
-                                $people = $this->db->iknowQuery( "SELECT iPersonID FROM PeopleProjectMap WHERE iProjectID=".$this->getID()." AND iSemesterID=".$this->getSemester() );
-                        }
-                        else {
-                                $people = $this->db->igroupsQuery( "SELECT iPersonID FROM PeopleGroupMap WHERE iGroupID=".$this->getID() );
-                        }
-                        while ( $row = mysql_fetch_row( $people ) ) {
-                                $tmp = new Person( $row[0], $this->db );
-                                if (!$tmp->isGroupGuest($this) && !$tmp->isGroupAdministrator($this))
-                                        $returnArray[] = $tmp;
-                        }
-                        return $returnArray;
-                }
+			if ( $this->getType() == 0 ) {
+				$people = $this->db->iknowQuery( "SELECT iPersonID FROM PeopleProjectMap WHERE iProjectID=".$this->getID()." AND iSemesterID=".$this->getSemester() );
+			}
+			else {
+				$people = $this->db->igroupsQuery( "SELECT iPersonID FROM PeopleGroupMap WHERE iGroupID=".$this->getID() );
+			}
+			while ( $row = mysql_fetch_row( $people ) ) {
+				$tmp = new Person( $row[0], $this->db );
+				if (!$tmp->isGroupGuest($this) && !$tmp->isGroupAdministrator($this))
+					$returnArray[] = $tmp;
+			}
+			return $returnArray;
+		}
 
 		function getGroupGuests() {
-                        $returnArray = array();
+			$returnArray = array();
 
-                        if ( $this->getType() == 0 ) {
-                                $people = $this->db->iknowQuery( "SELECT iPersonID FROM PeopleProjectMap WHERE iProjectID=".$this->getID()." AND iSemesterID=".$this->getSemester() );
-                        }
-                        else {
-                                $people = $this->db->igroupsQuery( "SELECT iPersonID FROM PeopleGroupMap WHERE iGroupID=".$this->getID() );
-                        }
-                        while ( $row = mysql_fetch_row( $people ) ) {
-                                $tmp = new Person( $row[0], $this->db );
-                                if ($tmp->isGroupGuest($this))
-                                        $returnArray[] = $tmp;
-                        }
-                        return $returnArray;
-                }
+			if ( $this->getType() == 0 ) {
+				$people = $this->db->iknowQuery( "SELECT iPersonID FROM PeopleProjectMap WHERE iProjectID=".$this->getID()." AND iSemesterID=".$this->getSemester() );
+			}
+			else {
+				$people = $this->db->igroupsQuery( "SELECT iPersonID FROM PeopleGroupMap WHERE iGroupID=".$this->getID() );
+			}
+			while ( $row = mysql_fetch_row( $people ) ) {
+				$tmp = new Person( $row[0], $this->db );
+				if ($tmp->isGroupGuest($this))
+					$returnArray[] = $tmp;
+			}
+			return $returnArray;
+		}
 
 
 		function getGroupMembers() {
@@ -123,20 +123,20 @@ if ( !class_exists( "Group" ) ) {
 		}
 
 		function getAllGroupMembers() {
-                        $returnArray = array();
+			$returnArray = array();
 
-                        if ( $this->getType() == 0 ) {
-                                $people = $this->db->iknowQuery( "SELECT iPersonID FROM PeopleProjectMap WHERE iProjectID=".$this->getID()." AND iSemesterID=".$this->getSemester() );
-                        }
-                        else {
-                                $people = $this->db->igroupsQuery( "SELECT iPersonID FROM PeopleGroupMap WHERE iGroupID=".$this->getID() );
-                        }
-                        while ( $row = mysql_fetch_row( $people ) ) {
-                                $tmp = new Person( $row[0], $this->db );
-                                $returnArray[] = $tmp;
-                        }
-                        return $returnArray;
-                }
+			if ( $this->getType() == 0 ) {
+				$people = $this->db->iknowQuery( "SELECT iPersonID FROM PeopleProjectMap WHERE iProjectID=".$this->getID()." AND iSemesterID=".$this->getSemester() );
+			}
+			else {
+				$people = $this->db->igroupsQuery( "SELECT iPersonID FROM PeopleGroupMap WHERE iGroupID=".$this->getID() );
+			}
+			while ( $row = mysql_fetch_row( $people ) ) {
+				$tmp = new Person( $row[0], $this->db );
+				$returnArray[] = $tmp;
+			}
+			return $returnArray;
+		}
 		
 		function getSubGroups() {
 			$returnArray = array();
@@ -174,12 +174,12 @@ if ( !class_exists( "Group" ) ) {
 				$returnArray[] = new File( $row[0], $this->db );
 			}
 			$finalArray = array();
-                        foreach($returnArray as $item){
-                                if(!$item->isNuggetFile()){
-                                        $finalArray[] = $item;
-                                }
-                        }
-                       return $finalArray;
+			foreach($returnArray as $item){
+				if(!$item->isNuggetFile()){
+					$finalArray[] = $item;
+				}
+			}
+		       return $finalArray;
 		}
 		
 		function getIPROOfficeFolders() {
@@ -213,18 +213,18 @@ if ( !class_exists( "Group" ) ) {
 		}
 
 		function getGroupObsolete() {
-                        $returnArray = array();
-                        if ( $this->getType() == 0 ) {
-                                $files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=1 AND bDeletedFlag=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
-                        }
-                        else {
-                                $files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=1 AND bDeletedFlag=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." ORDER BY sTitle" );
-                        }
-                        while ( $row = mysql_fetch_row( $files ) ) {
-                                $returnArray[] = new File( $row[0], $this->db );
-                        }
-                        return $returnArray;
-                }
+			$returnArray = array();
+			if ( $this->getType() == 0 ) {
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=1 AND bDeletedFlag=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
+			}
+			else {
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=1 AND bDeletedFlag=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." ORDER BY sTitle" );
+			}
+			while ( $row = mysql_fetch_row( $files ) ) {
+				$returnArray[] = new File( $row[0], $this->db );
+			}
+			return $returnArray;
+		}
 		
 		function getGroupCategories() {
 			$returnArray = array();
@@ -456,7 +456,7 @@ if ( !class_exists( "Group" ) ) {
 		function getActiveNuggets(){
 			$returnArray = array();
 			$nuggets = $this->db->igroupsQuery("SELECT iNuggetID FROM iGroupsNuggets WHERE iGroupID =".$this->getID()." AND iSemesterID =".$this->getSemester());
-                        while($row = mysql_fetch_array($nuggets)){
+			while($row = mysql_fetch_array($nuggets)){
 				$returnArray[] = new Nugget( $row[0], $this->db,0);
 			}
 			return $returnArray;
@@ -465,37 +465,37 @@ if ( !class_exists( "Group" ) ) {
 		function getInactiveNuggets(){
 			$returnArray = array();
 
-		        $nuggets = $this->db->igroupsQuery("SELECT iNuggetID FROM iGroupsNuggets WHERE iGroupID =".$this->getID()." AND iSemesterID !=".$this->getSemester());
-		        while($row = mysql_fetch_row($nuggets)){
-		               $returnArray[] = new Nugget( $row[0], $this->db, 1);
-		        }
-	               return $returnArray;
+			$nuggets = $this->db->igroupsQuery("SELECT iNuggetID FROM iGroupsNuggets WHERE iGroupID =".$this->getID()." AND iSemesterID !=".$this->getSemester());
+			while($row = mysql_fetch_row($nuggets)){
+			       $returnArray[] = new Nugget( $row[0], $this->db, 1);
+			}
+		       return $returnArray;
 
-	        }
-	        function getNuggets(){
-                       $returnArray = array();
+		}
+		function getNuggets(){
+		       $returnArray = array();
 
-                       $nuggets = $this->db->igroupsQuery("SELECT iNuggetID FROM iGroupsNuggets WHERE iGroupID =".$this->getID());
-                       while($row = mysql_fetch_row($nuggets)){
-                               $returnArray[] = new Nugget( $row[0], $this->db, 0);
-                       }
-                       return $returnArray;
+		       $nuggets = $this->db->igroupsQuery("SELECT iNuggetID FROM iGroupsNuggets WHERE iGroupID =".$this->getID());
+		       while($row = mysql_fetch_row($nuggets)){
+			       $returnArray[] = new Nugget( $row[0], $this->db, 0);
+		       }
+		       return $returnArray;
 		}
 
 		function getNuggetFiles(){
 			$returnArray = array();
 
-                        $nuggets = $this->getNuggets();
-                        foreach($nuggets as $nugget){
-                                $nuggetID = $nugget->getID();
-                                $query = "SELECT distinct iFileID FROM nuggetFileMap WHERE iNuggetID = $nuggetID";
-                                $results = $this->db->igroupsQuery($query);
-                                while($row = mysql_fetch_row($results)){
-                                       $returnArray[] = new File($row[0], $this->db);
-                               }
-                       }
-                       return $returnArray;
-                }
+			$nuggets = $this->getNuggets();
+			foreach($nuggets as $nugget){
+				$nuggetID = $nugget->getID();
+				$query = "SELECT distinct iFileID FROM nuggetFileMap WHERE iNuggetID = $nuggetID";
+				$results = $this->db->igroupsQuery($query);
+				while($row = mysql_fetch_row($results)){
+				       $returnArray[] = new File($row[0], $this->db);
+			       }
+		       }
+		       return $returnArray;
+		}
 
 	}
 }

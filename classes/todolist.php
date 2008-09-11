@@ -36,9 +36,9 @@ if ( !class_exists( "TodoList" ) ) {
 			return $sortedTodo;
 		}
 
-        function getTask($num){
-            return $this->todolist[$num-1];
-        }
+	function getTask($num){
+	    return $this->todolist[$num-1];
+	}
 
 		function getLength(){
 			return $this->length;
@@ -53,7 +53,7 @@ if ( !class_exists( "TodoList" ) ) {
 			$this->todolist[$taskNum -1]->toggleComplete();
 		}
 
-        function fixdate($date){
+	function fixdate($date){
 			$my_t = getdate(date("U"));
 			if(strcasecmp($date,'today') == 0){
 				$dateTemp = $my_t['mon']."/".$my_t['mday']."/".$my_t['year'];
@@ -62,76 +62,76 @@ if ( !class_exists( "TodoList" ) ) {
 				$my_t = getdate(date("U")+(60*60*24));
 				$dateTemp = $my_t['mon']."/".$my_t['mday']."/".$my_t['year'];
 			}
-            else{
-                $dateTemp = $date;
-                $inputDate = explode('/',$dateTemp);
-                // if the exploded object has 3 parts (basically is it a ['one','two','three'] array now)
-                if(count($inputDate) != 3)
-                    $ERROR_date = 1;
-                else{ // now we assume that it is 3 parts
-                    // get the year
-                    $year = date('y');
-                    // if the given year was given 2006 instead of '06'
-                    if(strlen($inputDate[2]) == 4)
-                        $year = $my_t['year'];
-                        
-                    // get day
-                    $day = $my_t['mday'];
-                    
-                    // get month
-                    $month = $my_t['mon'];
-                    $days_in_month = cal_days_in_month(CAL_GREGORIAN,$month,$year);
-                    // check to see if entered date is before today or not (not is good)
-                    // and also check legallity of it
-                    if($inputDate[2] >= $year){
-                        if ($year == $inputDate[2]){
-                            if($inputDate[0] == $month){
-                                if($inputDate[1] < $day || $inputDate[1] > $days_in_month){
-                                    $ERROR_date = 1;
-                                }
-                            }
-                            else if($inputDate[0] > $month && $inputDate[0] <= 12){
-                                if ($inputDate[1] < 0 || $inputDate[1] > $days_in_month){
-                                    $ERROR_date = 1;
-                                }
-                            }
-                            else {
+	    else{
+		$dateTemp = $date;
+		$inputDate = explode('/',$dateTemp);
+		// if the exploded object has 3 parts (basically is it a ['one','two','three'] array now)
+		if(count($inputDate) != 3)
+		    $ERROR_date = 1;
+		else{ // now we assume that it is 3 parts
+		    // get the year
+		    $year = date('y');
+		    // if the given year was given 2006 instead of '06'
+		    if(strlen($inputDate[2]) == 4)
+			$year = $my_t['year'];
+			
+		    // get day
+		    $day = $my_t['mday'];
+		    
+		    // get month
+		    $month = $my_t['mon'];
+		    $days_in_month = cal_days_in_month(CAL_GREGORIAN,$month,$year);
+		    // check to see if entered date is before today or not (not is good)
+		    // and also check legallity of it
+		    if($inputDate[2] >= $year){
+			if ($year == $inputDate[2]){
+			    if($inputDate[0] == $month){
+				if($inputDate[1] < $day || $inputDate[1] > $days_in_month){
+				    $ERROR_date = 1;
+				}
+			    }
+			    else if($inputDate[0] > $month && $inputDate[0] <= 12){
+				if ($inputDate[1] < 0 || $inputDate[1] > $days_in_month){
+				    $ERROR_date = 1;
+				}
+			    }
+			    else {
 
-                                $ERROR_date = 1;
+				$ERROR_date = 1;
 
-                            }
-                        }
-                        else{ // greater than this year
-                            if ($inputDate[0] < 0 || $inputDate[0] > 12){
-                                $ERROR_date = 1;
-                            }
-                            else {
-                                if($inputDate[1] < 0 || $inputDate[1] > $days_in_month){
-                                    $ERROR_date = 1;
-                                }
-                            }
-                        }
-                    }
-                    else
-                        $ERROR_date = 1;
-                } 
-            }
-            if($ERROR_date == 1)
-                return null;
-            else
-                return $dateTemp;
+			    }
+			}
+			else{ // greater than this year
+			    if ($inputDate[0] < 0 || $inputDate[0] > 12){
+				$ERROR_date = 1;
+			    }
+			    else {
+				if($inputDate[1] < 0 || $inputDate[1] > $days_in_month){
+				    $ERROR_date = 1;
+				}
+			    }
+			}
+		    }
+		    else
+			$ERROR_date = 1;
+		} 
+	    }
+	    if($ERROR_date == 1)
+		return null;
+	    else
+		return $dateTemp;
 		}
 
 		function addTask($task,$date,$person){
 			$this->taskTop += 1;
 
-            $dateTemp = $this->fixdate($date);
-            if($dateTemp != null){
-                $temp = explode( "/", $dateTemp );
-                $dbdate = date( "Y-m-d", mktime(0,0,0,$temp[0],$temp[1],$temp[2] ) );
-            }
-            else
-                $dbdate = "0000-00-00 00:00:00";
+	    $dateTemp = $this->fixdate($date);
+	    if($dateTemp != null){
+		$temp = explode( "/", $dateTemp );
+		$dbdate = date( "Y-m-d", mktime(0,0,0,$temp[0],$temp[1],$temp[2] ) );
+	    }
+	    else
+		$dbdate = "0000-00-00 00:00:00";
 			$sql = "INSERT INTO TodoList (sTask,iGroupID,iTaskNum,iSemesterID,iAssignedID,dDueDate) VALUES('".$task."','".$this->id."','".$this->taskTop."','".$this->semester."','".$person."','".$dbdate."')";
 			$this->db->igroupsQuery($sql);
 			$inID = $this->db->igroupsInsertID();
@@ -164,9 +164,9 @@ if ( !class_exists( "TodoList" ) ) {
 			}
 		}
 
-        function updateTask($iid, $tid, $task, $worker,$date) {
-            $this->todolist[$tid-1]->update($tid,$task,$worker,$date);
-        }
+	function updateTask($iid, $tid, $task, $worker,$date) {
+	    $this->todolist[$tid-1]->update($tid,$task,$worker,$date);
+	}
 	}
 }
 ?>

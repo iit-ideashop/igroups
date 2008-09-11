@@ -127,28 +127,28 @@
 	$members = $currentGroup->getGroupGuests();
 	if (count($members) > 0) {
 ?>
-                        <br /><a href="#" onclick="toggleGuestDisplay()">+</a><fieldset><legend>Guests:</legend>
-                        <table id="guest-table" width="100%">
+			<br /><a href="#" onclick="toggleGuestDisplay()">+</a><fieldset><legend>Guests:</legend>
+			<table id="guest-table" width="100%">
 <?php
-                                $members = peopleSort( $members );
-                                $i=1;
-                                foreach ( $members as $person ) {
-                                        if ( $i == 1 )
-                                                print "<tr>";
-                                        print "<td><input type=\"checkbox\" id=\"guest".$person->getID()."\" name=\"sendtoguest[".$person->getID()."]\" /></td>";
-                                        print "<td><label for=\"guest".$person->getID()."\">".$person->getFullName()."</label></td>";
-                                        if ( $i == 3) {
-                                                print "</tr>";
-                                                $i = 1;
-                                        }
-                                        else
-                                                $i++;
-                                }
+				$members = peopleSort( $members );
+				$i=1;
+				foreach ( $members as $person ) {
+					if ( $i == 1 )
+						print "<tr>";
+					print "<td><input type=\"checkbox\" id=\"guest".$person->getID()."\" name=\"sendtoguest[".$person->getID()."]\" /></td>";
+					print "<td><label for=\"guest".$person->getID()."\">".$person->getFullName()."</label></td>";
+					if ( $i == 3) {
+						print "</tr>";
+						$i = 1;
+					}
+					else
+						$i++;
+				}
 
 ?>
 			<tr><td colspan="2"><a href="javascript:checkedAllGuest('mailform', true)">Check All</a> / <a href="javascript:checkedAllGuest('mailform', false)">Uncheck All</a></td></tr>
-                        </table></fieldset>
-                </div>
+			</table></fieldset>
+		</div>
 <?php } ?>		
 		<br />
 		<table>
@@ -173,7 +173,7 @@
 			<tr><td>Attachments:</td></tr>
 			<tr><td colspan="2">
 			<div id="files"><div class="stdBoldText" id="file1div">&nbsp;&nbsp;&nbsp;<label for="attachment1">File 1:</label> <input type="file" name="attachment1" id="attachment1" onchange="fileAdd(1);" /></div></div></div>
-                <span onclick="fileAdd(document.getElementById('files').childNodes.length);" style="color:#00F;text-decoration:underline;cursor:pointer;">Click here to add another file.</span>
+		<span onclick="fileAdd(document.getElementById('files').childNodes.length);" style="color:#00F;text-decoration:underline;cursor:pointer;">Click here to add another file.</span>
 			</td></tr>
 			<tr><td colspan="2"><label for="body">Body:</label></td></tr>
 <?php

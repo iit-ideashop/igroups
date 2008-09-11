@@ -41,8 +41,8 @@
 		else
 			$currentTopic = new Topic($_GET['topicID'], $db);
 	}
-        else
-            	 die("No topic selected");
+	else
+	    	 die("No topic selected");
 	
 	if(isset($_GET['thread']) && is_numeric($_GET['thread']))
 		setcookie('thread', $_GET['thread'], time()*60*60*6);
@@ -82,7 +82,7 @@ require("sidebar.php");
 <div id="content"><div id="topbanner">
 <?php
 	print "{$_COOKIE['topicName']}";
-?>        
+?>	
 </div>
 
 <?php

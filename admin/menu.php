@@ -13,9 +13,9 @@ ob_start();
 
 	// Remember login info for 1 week
 	if (isset($_POST['remember']) && isset($_POST['username']) && isset($_POST['password'])) {
-                setcookie('userID', $_POST['username'], time()+60*60*24*7);
-                setcookie('password', $_POST['password'], time()+60*60*24*7);
-        }
+		setcookie('userID', $_POST['username'], time()+60*60*24*7);
+		setcookie('password', $_POST['password'], time()+60*60*24*7);
+	}
 
 	if ( isset( $_POST['logform'] ) ) {
 		if ( strpos( $_POST['username'], "@" ) === FALSE ) 
@@ -45,24 +45,24 @@ ob_start();
 	}
 
 	else if ( isset( $_COOKIE['userID'] ) && isset($_COOKIE['password']) ) {
-                if ( strpos( $_COOKIE['userID'], "@" ) === FALSE )
-                        $userName = $_COOKIE['userID'] . "@iit.edu";
+		if ( strpos( $_COOKIE['userID'], "@" ) === FALSE )
+			$userName = $_COOKIE['userID'] . "@iit.edu";
 		else
 			$userName = $_COOKIE['userID'];
-                $user = $db->iknowQuery( "SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'" );
-                if ( ( $row = mysql_fetch_row( $user ) ) && ( md5($_COOKIE['password']) == $row[1] )) {
-                        $_SESSION['userID'] = $row[0];
-                	if(isset($_GET['loggingin'])) {
+		$user = $db->iknowQuery( "SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'" );
+		if ( ( $row = mysql_fetch_row( $user ) ) && ( md5($_COOKIE['password']) == $row[1] )) {
+			$_SESSION['userID'] = $row[0];
+			if(isset($_GET['loggingin'])) {
 ?>
-                    <script type="text/javascript">
+		    <script type="text/javascript">
 		<!--
 			window.location.href="../index.php";
 		//-->
 		</script>
 <?php
-                } }
-                else if(!$_SESSION['loginError']) {
-                        $_SESSION['loginError'] = true;
+		} }
+		else if(!$_SESSION['loginError']) {
+			$_SESSION['loginError'] = true;
 ?>
 		<script type="text/javascript">
 		<!--
@@ -70,8 +70,8 @@ ob_start();
 		//-->
 		</script>
 <?php
-                }
-        }
+		}
+	}
 
 	function selectGroup( $string ) {
 		$temp=explode( ",", $string );

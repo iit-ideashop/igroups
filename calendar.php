@@ -639,7 +639,7 @@ function ds_onclick(d, m, y) {
 		<label for="eventdesc2">Event description:</label><br /><textarea name="description" cols="50" rows="5" id="eventdesc2"><?php echo "{$editevent->getDesc()}"; ?></textarea><br />
 		<input type="hidden" name="id" value="<?php echo "{$_POST['id']}"; ?>" />
 		<input type="submit" name="editevent" value="Edit this Event" />
-        </fieldset></form>
+	</fieldset></form>
 <?php
 }
 ?>

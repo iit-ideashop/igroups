@@ -270,7 +270,7 @@ require("sidebar.php");
 					$file = createFile( $_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
 				else {
 					$file = createFile( $_POST['filename'], $_POST['filedescription'], $currentUser->getID(), $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
-                                	$file->setPrivate(1);
+					$file->setPrivate(1);
 					$file->updateDB();
 				}
 				$file->setMimeType($_FILES['thefile']['type']);
@@ -301,9 +301,9 @@ require("sidebar.php");
 	
 	if ( isset( $_POST['fupdate'] ) ) {
 		if ( ($_POST['files'] != "") && (count($_POST['files']) == 1))
-                        $update = true;
-                else
-                        $update = false;
+			$update = true;
+		else
+			$update = false;
 
 		if ($update) {
 		$oldFile = new File($_POST['files'], $db);
@@ -312,52 +312,52 @@ require("sidebar.php");
 		}
 
 		if ($update) {
-                // Get target folder ID
-                if ( $currentFolder ) {
-                        if ( $currentFolder->getGroupID() == $currentGroup->getID() )
-                                $fid = $currentFolder->getID();
-                        else
-                                $fid = 0;
-                }
-                else
-                        $fid = 0;
-                // Load Quota information
-                if ( !$currentQuota ) {
-                        $currentQuota = createQuota( $currentGroup, $db );
-                }
-                if ( $_FILES['thefile']['error'] == UPLOAD_ERR_OK ) {
-                        if ( $currentQuota->checkSpace( filesize( $_FILES['thefile']['tmp_name'] ) ) ) {
-                                $currentQuota->increaseUsed( filesize( $_FILES['thefile']['tmp_name'] ) );
-                                $currentQuota->updateDB();
+		// Get target folder ID
+		if ( $currentFolder ) {
+			if ( $currentFolder->getGroupID() == $currentGroup->getID() )
+				$fid = $currentFolder->getID();
+			else
+				$fid = 0;
+		}
+		else
+			$fid = 0;
+		// Load Quota information
+		if ( !$currentQuota ) {
+			$currentQuota = createQuota( $currentGroup, $db );
+		}
+		if ( $_FILES['thefile']['error'] == UPLOAD_ERR_OK ) {
+			if ( $currentQuota->checkSpace( filesize( $_FILES['thefile']['tmp_name'] ) ) ) {
+				$currentQuota->increaseUsed( filesize( $_FILES['thefile']['tmp_name'] ) );
+				$currentQuota->updateDB();
 				$oldFile = new File($_POST['files'], $db);
 				$oldFile->makeObsolete();
 				$oldFile->updateDB();
-                                $file = createFile( $oldFile->getNameNoVer(), $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
+				$file = createFile( $oldFile->getNameNoVer(), $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
 				$file->setVersion($oldFile->getVersion() + 1);
 				$file->updateDB();
-                                move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
+				move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
 ?>
-                                <script type="text/javascript">
-                                        showMessage("File successfully uploaded");
-                                </script>
+				<script type="text/javascript">
+					showMessage("File successfully uploaded");
+				</script>
 <?php
-                        }
-                        else {
-                                $currentQuota->sendWarning(1);
+			}
+			else {
+				$currentQuota->sendWarning(1);
 ?>
-                                <script type="text/javascript">
-                                        showMessage("ERROR: Not enough space for file");
-                                </script>
+				<script type="text/javascript">
+					showMessage("ERROR: Not enough space for file");
+				</script>
 <?php
-                        }
-                }
+			}
+		}
 		else {
 ?>
-                        <script type="text/javascript">
-                                showMessage("ERROR: Could not update file");
-                        </script>
+			<script type="text/javascript">
+				showMessage("ERROR: Could not update file");
+			</script>
 <?php
-                }
+		}
 		}
 		else {
 ?>
@@ -366,7 +366,7 @@ require("sidebar.php");
 			</script>
 <?php
 		}
-        }
+	}
 
 	if(isset($_POST['editF']) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0 && $currentUser->isGroupModerator($currentFolder->getGroup()))
 	{
@@ -454,7 +454,7 @@ require("sidebar.php");
 		}
 	}
 
-        if ( isset( $_POST['rename'] ) && (isset($_POST['file']) XOR isset($_POST['folder'])) ) {         
+	if ( isset( $_POST['rename'] ) && (isset($_POST['file']) XOR isset($_POST['folder'])) ) {	 
 		if (isset($_POST['file'])) {
 		 	$file = new File($_POST['file'], $db);
 			if (isset($_POST['newname']) && !$file->isIPROFile())
@@ -472,16 +472,16 @@ require("sidebar.php");
 			$folder->updateDB();
 		}		 
  ?>
-                 <script type="text/javascript">
-                         showMessage("File or folder renamed");
-                 </script>
+		 <script type="text/javascript">
+			 showMessage("File or folder renamed");
+		 </script>
  <?php
-        }
-        else if( isset( $_POST['rename'] )) {
+	}
+	else if( isset( $_POST['rename'] )) {
 ?>
-        <script type="text/javascript">
-                showMessage("Unable to rename. Make sure one file or one folder is selected.");
-        </script>
+	<script type="text/javascript">
+		showMessage("Unable to rename. Make sure one file or one folder is selected.");
+	</script>
 <?php
 	}
 
@@ -543,9 +543,9 @@ require("sidebar.php");
 				<ul class="folderlist"> <?php if (!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial'])) { ?>
 					<li><a href="#" onclick="newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Create Folder</a></li>
 					<?php
-                                        if ( $currentUser->isGroupModerator($currentGroup) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0  ) {
+					if ( $currentUser->isGroupModerator($currentGroup) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0  ) {
 					?>
-                                                <li><a href="#" onclick="editfolderwin=dhtmlwindow.open('editfolderbox', 'div', 'editfolder', 'Edit Folder', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Folder</a></li>
+						<li><a href="#" onclick="editfolderwin=dhtmlwindow.open('editfolderbox', 'div', 'editfolder', 'Edit Folder', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false">Edit/Delete Folder</a></li>
 					<?php } ?>
 				</ul>
 				<?php } ?>
@@ -664,11 +664,11 @@ require("sidebar.php");
 					<table width="100%">
 <?php
 					if ($currentFolder && !$currentFolder->isIPROFolder()) {
-                                                        printTR();
-                                                        print "<td style=\"width: 24px\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
-                                                        print "<td align=\"left\" colspan=\"5\"><a href=\"files.php?selectFolder=".$currentFolder->getParentFolderID()."\">..</a></td>";
-                                                        print "</tr>\n";
-                                        }
+							printTR();
+							print "<td style=\"width: 24px\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
+							print "<td align=\"left\" colspan=\"5\"><a href=\"files.php?selectFolder=".$currentFolder->getParentFolderID()."\">..</a></td>";
+							print "</tr>\n";
+					}
 					/*if ($folderList) {//Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $folderList as $key => $folder ) {
 							printTR();
@@ -731,29 +731,29 @@ require("sidebar.php");
 <?php
 	if(count($fileList) > 0) {
 ?>
-                <div class="window-content" id="update" style="display: none">
-                        <form method="post" action="files.php" enctype="multipart/form-data"><fieldset>
-                                <label for="thefile2">File:</label><input type="file" name="thefile" id="thefile2" /><br />
+		<div class="window-content" id="update" style="display: none">
+			<form method="post" action="files.php" enctype="multipart/form-data"><fieldset>
+				<label for="thefile2">File:</label><input type="file" name="thefile" id="thefile2" /><br />
        				<label for="filedescription2">Description:</label><input type="text" name="filedescription" id="filedescription2" /><br />
-                                This file will be placed in the
+				This file will be placed in the
 <?php
-                                if ( $currentFolder )
-                                        print htmlspecialchars($currentFolder->getName());
-                                else
-                                        print "Your Files"
+				if ( $currentFolder )
+					print htmlspecialchars($currentFolder->getName());
+				else
+					print "Your Files"
 ?>
-                                folder.<br />
+				folder.<br />
 
 				<input type="hidden" name="folders" />
-                                <input type="hidden" name="files" />
+				<input type="hidden" name="files" />
 				<input type="hidden" name="fupdate" value="fupdate" />
-                                <input type="submit" value="Upload File" onclick="copyCheckBoxes();this.form.submit()" />
-                        </fieldset></form>
-                </div>
+				<input type="submit" value="Upload File" onclick="copyCheckBoxes();this.form.submit()" />
+			</fieldset></form>
+		</div>
 <?php
 		if(($currentFolder == 0 && count($folderList) > 0) || (isset($_SESSION['selectedSpecial']) && $_SESSION['selectedSpecial'] == 'trash') || (!isset($_SESSION['selectedSpecial']) && $currentFolder != 0)) {
 ?>
-                <div class="window-content" id="move" style="display: none">
+		<div class="window-content" id="move" style="display: none">
 			<form method="post" action="files.php"><fieldset>
 				<label for="target">Select Target Folder:</label>
 				<select name="target" id="target">

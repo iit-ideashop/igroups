@@ -14,18 +14,18 @@
 		die("You are not logged in.");
 		
 	if ( !$currentUser->isAdministrator() )
-               die("You must be an administrator to access this page.");
+	       die("You must be an administrator to access this page.");
 
     if ( isset( $_POST['selectSemester'] ) ) {
-                $_SESSION['selectedIPROSemester'] = $_POST['semester'];
-        }
+		$_SESSION['selectedIPROSemester'] = $_POST['semester'];
+	}
 	else {
 		$query = $db->iknowQuery("SELECT iID FROM Semesters WHERE bActiveFlag=1");
 		$row = mysql_fetch_row($query);
 		$_SESSION['selectedIPROSemester'] = $row[0];
 	}
 
-        $currentSemester = new Semester( $_SESSION['selectedIPROSemester'], $db );
+	$currentSemester = new Semester( $_SESSION['selectedIPROSemester'], $db );
 
 //Get important info about the project
 $s_selectedGroup = $_GET['iProjectID'];

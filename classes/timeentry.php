@@ -87,21 +87,21 @@ if ( !class_exists( "TimeEntry" ) ) {
 
 	function createProjTask( $userID, $groupID, $semesterID, $date, $hours, $description, $db ) {
 		$temp = explode( "/", $date );
-                $dbDate = date("Y-m-d", mktime( 0, 0, 0, $temp[0], $temp[1], $temp[2]));
-                $query = $db->igroupsQuery( "SELECT iID FROM Weeks WHERE dStartDate <= \"$dbDate\" and dEndDate >= \"$dbDate\"");
-                $result = mysql_fetch_row($query);
-                $weekID = $result[0];
+		$dbDate = date("Y-m-d", mktime( 0, 0, 0, $temp[0], $temp[1], $temp[2]));
+		$query = $db->igroupsQuery( "SELECT iID FROM Weeks WHERE dStartDate <= \"$dbDate\" and dEndDate >= \"$dbDate\"");
+		$result = mysql_fetch_row($query);
+		$weekID = $result[0];
 		if (!$hours)
 			$hours=0;
-                if ( $description != "" && count( $temp ) == 3 ) {
-                        $desc = new SuperString( $description );
-                        if ($weekID != null)
-                                $db->igroupsQuery( "INSERT INTO Timesheets ( iUserID, iGroupID, iSemesterID, dDate, iHoursSpent, sTaskDescription, iWeekID, bProjTask ) VALUES ( $userID, $groupID, $semesterID, '".$dbDate."', $hours, '".$desc->getDBString()."', $weekID, 1 )" );
-                        else
-                                $db->igroupsQuery( "INSERT INTO Timesheets ( iUserID, iGroupID, iSemesterID, dDate, iHoursSpent, sTaskDescription, bProjTask ) VALUES ( $userID, $groupID, $semesterID, '".$dbDate."', $hours, '".$desc->getDBString()."', 1 )" );
-                        return new TimeEntry( $db->igroupsInsertID(), $db );
-                }
-                return false;
+		if ( $description != "" && count( $temp ) == 3 ) {
+			$desc = new SuperString( $description );
+			if ($weekID != null)
+				$db->igroupsQuery( "INSERT INTO Timesheets ( iUserID, iGroupID, iSemesterID, dDate, iHoursSpent, sTaskDescription, iWeekID, bProjTask ) VALUES ( $userID, $groupID, $semesterID, '".$dbDate."', $hours, '".$desc->getDBString()."', $weekID, 1 )" );
+			else
+				$db->igroupsQuery( "INSERT INTO Timesheets ( iUserID, iGroupID, iSemesterID, dDate, iHoursSpent, sTaskDescription, bProjTask ) VALUES ( $userID, $groupID, $semesterID, '".$dbDate."', $hours, '".$desc->getDBString()."', 1 )" );
+			return new TimeEntry( $db->igroupsInsertID(), $db );
+		}
+		return false;
 	}
 }
 ?>

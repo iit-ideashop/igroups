@@ -156,14 +156,14 @@ if ( !class_exists( "Email" ) ) {
 		}	
 
 		function getDateTime() {
-                        $year = substr($this->senddate, 0, 4);
-                        $month = substr($this->senddate, 5, 2);
-                        $day = substr($this->senddate, 8, 2);
-                        $hour = substr($this->senddate, 11, 2);
-                        $min = substr($this->senddate, 14, 2);
-                        $sec = substr($this->senddate, 17, 2);
-                        return date( "m/d/Y h:ia", mktime( $hour, $min, $sec, $month, $day, $year ) );
-                }	
+			$year = substr($this->senddate, 0, 4);
+			$month = substr($this->senddate, 5, 2);
+			$day = substr($this->senddate, 8, 2);
+			$hour = substr($this->senddate, 11, 2);
+			$min = substr($this->senddate, 14, 2);
+			$sec = substr($this->senddate, 17, 2);
+			return date( "m/d/Y h:ia", mktime( $hour, $min, $sec, $month, $day, $year ) );
+		}	
 
 		function getDateDB() {
 			return $this->senddate;
@@ -171,11 +171,11 @@ if ( !class_exists( "Email" ) ) {
 		
 		function setDate( $date ) {
 			$year = substr($date, 0, 4);
-                        $month = substr($date, 5, 2);
-                        $day = substr($date, 8, 2);
-                        $hour = substr($date, 11, 2);
-                        $min = substr($date, 14, 2);
-                        $sec = substr($date, 17, 2);
+			$month = substr($date, 5, 2);
+			$day = substr($date, 8, 2);
+			$hour = substr($date, 11, 2);
+			$min = substr($date, 14, 2);
+			$sec = substr($date, 17, 2);
 			$this->senddate = date( "Y-m-d H:i:s", mktime( $hour, $min, $sec, $month, $day, $year ) );
 		}
 		

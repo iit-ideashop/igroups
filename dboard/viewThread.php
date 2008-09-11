@@ -35,31 +35,31 @@
 	else
 		die("You are not logged in.");
 
-        if(isset($_GET['id']))
-        {
-        	$query = $db->igroupsQuery("select * from Threads where iID=".$_GET['id']);
-        	if(!mysql_num_rows($query))
-        		die("Invalid thread ID");
-        	$query = mysql_fetch_array($query);
-        	$query2 = mysql_fetch_array($db->igroupsQuery("select * from GlobalTopics where iID=".$query['iTopicID']));
-        	if($_COOKIE['global'])
-        	{
-        		$currentTopic = new GlobalTopic($query['iTopicID'], $db);
-        		setcookie('topic', $currentTopic->getID(), time()+60*60*6);
-        	}
-        	else
-        	{
-        		$currentTopic = new Topic($query['iTopicID'], $db);
-        		setcookie('topic', $currentTopic->getID(), time()+60*60*6);
-        		$currentGroup = new Group($currentTopic->getID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
-        	}
-        }
-        else
-                 die("No topic selected");
+	if(isset($_GET['id']))
+	{
+		$query = $db->igroupsQuery("select * from Threads where iID=".$_GET['id']);
+		if(!mysql_num_rows($query))
+			die("Invalid thread ID");
+		$query = mysql_fetch_array($query);
+		$query2 = mysql_fetch_array($db->igroupsQuery("select * from GlobalTopics where iID=".$query['iTopicID']));
+		if($_COOKIE['global'])
+		{
+			$currentTopic = new GlobalTopic($query['iTopicID'], $db);
+			setcookie('topic', $currentTopic->getID(), time()+60*60*6);
+		}
+		else
+		{
+			$currentTopic = new Topic($query['iTopicID'], $db);
+			setcookie('topic', $currentTopic->getID(), time()+60*60*6);
+			$currentGroup = new Group($currentTopic->getID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
+		}
+	}
+	else
+		 die("No topic selected");
 
 	if (isset($_GET['id'])) {
 		if (!is_numeric($_GET['id']))
-                        die("Invalid Request");
+			die("Invalid Request");
 		$currentThread = new Thread($_GET['id'], $db);
 		if (!$currentThread)
 			die("No such thread");
@@ -68,17 +68,17 @@
 		die("No thread selected");
 
 	if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
-                if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView'])) {
-                        $post = new Post($_GET['delete'], $db);
+		if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView'])) {
+			$post = new Post($_GET['delete'], $db);
 			$thread = new Thread($post->getThreadID(), $db);
 			if ($thread->getPostCount() == 1) {
 				$thread->delete();
 				$post->delete();
 				header("Location: ".str_replace("&amp;", "&", $_COOKIE['topicLink']));
 			}
-                        $post->delete();
-                }
-        }
+			$post->delete();
+		}
+	}
 
 	$watchList = new WatchList($currentThread->getID(), $db);
 	
@@ -97,74 +97,74 @@
 	$link = "viewThread.php?id={$currentThread->getID()}";
 
 	// determine pages
-        $pages = array();
-        $posts = array();
+	$pages = array();
+	$posts = array();
 
-        if (isset($_GET['start']) && is_numeric($_GET['start']) && $_GET['start'] > 0 && $_GET['start'] % $POSTS_PER_PAGE == 0) {
-                $currentPage = (int)($_GET['start']/$POSTS_PER_PAGE)+1;
-                $lastPage = ceil(count($allPosts)/$POSTS_PER_PAGE);
-                $lastStart = floor(count($allPosts)/$POSTS_PER_PAGE)*$POSTS_PER_PAGE;
+	if (isset($_GET['start']) && is_numeric($_GET['start']) && $_GET['start'] > 0 && $_GET['start'] % $POSTS_PER_PAGE == 0) {
+		$currentPage = (int)($_GET['start']/$POSTS_PER_PAGE)+1;
+		$lastPage = ceil(count($allPosts)/$POSTS_PER_PAGE);
+		$lastStart = floor(count($allPosts)/$POSTS_PER_PAGE)*$POSTS_PER_PAGE;
 
-                $prevStart1 = $_GET['start'] - $POSTS_PER_PAGE;
-                $prevPage1 = $currentPage-1;
-                $pages[] = "<a href=\"{$link}&start={$prevStart1}\">Previous</a>";
+		$prevStart1 = $_GET['start'] - $POSTS_PER_PAGE;
+		$prevPage1 = $currentPage-1;
+		$pages[] = "<a href=\"{$link}&start={$prevStart1}\">Previous</a>";
 
-                if ($currentPage > 2 && !($currentPage == 3 && $currentPage == $lastPage)) {
-                        $firstStart1 = 0;
-                        $firstPage1 = 1;
-                        $pages[] = "<a href=\"{$link}&amp;start={$firstStart1}\">$firstPage1</a>";
-                        $pages[] = "...";
-                }
+		if ($currentPage > 2 && !($currentPage == 3 && $currentPage == $lastPage)) {
+			$firstStart1 = 0;
+			$firstPage1 = 1;
+			$pages[] = "<a href=\"{$link}&amp;start={$firstStart1}\">$firstPage1</a>";
+			$pages[] = "...";
+		}
 
-                if ($currentPage == $lastPage && ($lastPage-2 > 0)) {
-                        $lastPage2 = $lastPage-2;
-                        $lastStart2 = $lastStart-2*$POSTS_PER_PAGE;
-                        $pages[] = "<a href=\"{$link}&amp;start={$lastStart2}\">$lastPage2</a>";
-                }
+		if ($currentPage == $lastPage && ($lastPage-2 > 0)) {
+			$lastPage2 = $lastPage-2;
+			$lastStart2 = $lastStart-2*$POSTS_PER_PAGE;
+			$pages[] = "<a href=\"{$link}&amp;start={$lastStart2}\">$lastPage2</a>";
+		}
 
-                $pages[] = "<a href=\"{$link}&amp;start={$prevStart1}\">{$prevPage1}</a>";
+		$pages[] = "<a href=\"{$link}&amp;start={$prevStart1}\">{$prevPage1}</a>";
 
-                $pages[] = "{$currentPage}";
+		$pages[] = "{$currentPage}";
 
-                if ((count($allPosts)-$_GET['start']) > $POSTS_PER_PAGE) {
-                        $nextStart1 = $_GET['start'] + $POSTS_PER_PAGE;
-                        $nextPage1 = $currentPage+1;
-                        $pages[] = "<a href=\"{$link}&amp;start={$nextStart1}\">$nextPage1</a>";
-                        if ((count($allPosts)-$_GET['start']) > 2*$POSTS_PER_PAGE) {
-                                $pages[] = "...";
-                                $pages[] = "<a href=\"{$link}&amp;start={$lastStart}\">$lastPage</a>";
-                        }
-                        $pages[] = "<a href=\"{$link}&amp;start={$nextStart1}\">Next</a>";
-                }
-                // get thread range
-                for ($i=$_GET['start']; $i<($_GET['start']+$POSTS_PER_PAGE); $i++) {
-                        if ($allPosts[$i])
-                                $posts[] = $allPosts[$i];
-                }
-        }
+		if ((count($allPosts)-$_GET['start']) > $POSTS_PER_PAGE) {
+			$nextStart1 = $_GET['start'] + $POSTS_PER_PAGE;
+			$nextPage1 = $currentPage+1;
+			$pages[] = "<a href=\"{$link}&amp;start={$nextStart1}\">$nextPage1</a>";
+			if ((count($allPosts)-$_GET['start']) > 2*$POSTS_PER_PAGE) {
+				$pages[] = "...";
+				$pages[] = "<a href=\"{$link}&amp;start={$lastStart}\">$lastPage</a>";
+			}
+			$pages[] = "<a href=\"{$link}&amp;start={$nextStart1}\">Next</a>";
+		}
+		// get thread range
+		for ($i=$_GET['start']; $i<($_GET['start']+$POSTS_PER_PAGE); $i++) {
+			if ($allPosts[$i])
+				$posts[] = $allPosts[$i];
+		}
+	}
 	 else {
-                $currentPage = 1;
-                $pages[] = "1";
-                if (count($allPosts) > $POSTS_PER_PAGE) {
-                        $pages[] = "<a href='{$link}&amp;start={$POSTS_PER_PAGE}'>2</a>";
-                        if (count($allPosts) > 2*$POSTS_PER_PAGE) {
-                                $newStart = 2*$POSTS_PER_PAGE;
-                                $pages[] = "<a href=\"{$link}&amp;start={$newStart}\">3</a>";
-                        }
-                        if (count($allPosts) > 3*$POSTS_PER_PAGE) {
-                                $pages[] = "...";
-                                $lastPage = ceil(count($allPosts)/$POSTS_PER_PAGE);
-                                $lastStart = floor(count($allPosts)/$POSTS_PER_PAGE)*$POSTS_PER_PAGE;
-                                $pages[] = "<a href=\"{$link}&amp;start={$lastStart}\">$lastPage</a>";
-                        }
-                        $pages[] = "<a href=\"{$link}&amp;start={$POSTS_PER_PAGE}\">Next</a>";
-                }
-                // first 20 threads
-                for ($i=0; $i<$POSTS_PER_PAGE; $i++) {
-                        if ($allPosts[$i])
-                                $posts[] = $allPosts[$i];
-                }
-        }
+		$currentPage = 1;
+		$pages[] = "1";
+		if (count($allPosts) > $POSTS_PER_PAGE) {
+			$pages[] = "<a href='{$link}&amp;start={$POSTS_PER_PAGE}'>2</a>";
+			if (count($allPosts) > 2*$POSTS_PER_PAGE) {
+				$newStart = 2*$POSTS_PER_PAGE;
+				$pages[] = "<a href=\"{$link}&amp;start={$newStart}\">3</a>";
+			}
+			if (count($allPosts) > 3*$POSTS_PER_PAGE) {
+				$pages[] = "...";
+				$lastPage = ceil(count($allPosts)/$POSTS_PER_PAGE);
+				$lastStart = floor(count($allPosts)/$POSTS_PER_PAGE)*$POSTS_PER_PAGE;
+				$pages[] = "<a href=\"{$link}&amp;start={$lastStart}\">$lastPage</a>";
+			}
+			$pages[] = "<a href=\"{$link}&amp;start={$POSTS_PER_PAGE}\">Next</a>";
+		}
+		// first 20 threads
+		for ($i=0; $i<$POSTS_PER_PAGE; $i++) {
+			if ($allPosts[$i])
+				$posts[] = $allPosts[$i];
+		}
+	}
 
 	if($_COOKIE['global'])
 		$globaltext = "&amp;topicID=".$_GET['id']."&amp;global=true";
@@ -186,26 +186,26 @@ require("sidebar.php");
 <div id="content"><div id="topbanner">
 <?php
 	print "{$_COOKIE['topicName']}";
-?>        
+?>	
 </div>
 
 <table class="noborder" width="85%"><tr><td colspan="3" style="font-size: larger; font-weight: bold; text-decoration: underline"><?php print "{$currentThread->getName()}"; ?></td></tr>
 <tr><td align="left" colspan="3">
 <?php
-        if (!$watchList->isOnWatchlist($currentUser)) {
-                print "<a href=\"{$link}&amp;watchThread=true\">Watch This Thread</a>&nbsp;&nbsp;";
-                print "(Receive an e-mail every time a new post is added.)<br />";
-        }
-        else {
-                print "<i>You are currently watching this thread.</i><br />";
-                print "<a href=\"{$link}&amp;unwatchThread=true\">Unwatch This Thread</a><br />";
-        }
+	if (!$watchList->isOnWatchlist($currentUser)) {
+		print "<a href=\"{$link}&amp;watchThread=true\">Watch This Thread</a>&nbsp;&nbsp;";
+		print "(Receive an e-mail every time a new post is added.)<br />";
+	}
+	else {
+		print "<i>You are currently watching this thread.</i><br />";
+		print "<a href=\"{$link}&amp;unwatchThread=true\">Unwatch This Thread</a><br />";
+	}
 ?>
 </td></tr>
 <tr style="font-size: smaller; font-weight: bold"><td align="left">Goto Page: 
 <?php
 foreach($pages as $page)
-        print "$page&nbsp;";
+	print "$page&nbsp;";
 ?>
 </td><td align="center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
@@ -272,7 +272,7 @@ $delete<hr />";
 <table class="noborder" width="85%"><tr style="text-align: left; font-size: smaller; font-weight: bold"><td>Goto Page: 
 <?php
 foreach($pages as $page)
-        print "$page&nbsp;";
+	print "$page&nbsp;";
 ?>
 </td><td><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 </div></body>

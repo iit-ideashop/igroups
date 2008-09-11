@@ -147,25 +147,25 @@ require("sidebar.php");
 			}
 ?>
 			<script type="text/javascript">
-                        	showMessage("User(s) successfully added");
-                	</script>
+				showMessage("User(s) successfully added");
+			</script>
 <?php
 		}
 		else {
 ?>
 			<script type="text/javascript">
-                        	showMessage("ERROR: Select at least one user and group");
-                	</script>
+				showMessage("ERROR: Select at least one user and group");
+			</script>
 <?php
 		}
 	}
 	if ( isset( $_POST['adduser'] ) ) {
 		$email = $_POST['email'];
-                $email = str_replace(' ', '', $email);
-                $email = str_replace('>', '', $email);
-                $email = str_replace('<', '', $email);
-                $email = str_replace('"', '', $email);
-                $email = str_replace("'", '', $email);
+		$email = str_replace(' ', '', $email);
+		$email = str_replace('>', '', $email);
+		$email = str_replace('<', '', $email);
+		$email = str_replace('"', '', $email);
+		$email = str_replace("'", '', $email);
 		$user = $db->iknowQuery( "SELECT iID FROM igroups.People WHERE sEmail='".$email."'" );
 		if ( $row = mysql_fetch_row( $user ) ) {
 			$user = new Person( $row[0], $db );
@@ -199,8 +199,8 @@ require("sidebar.php");
 			$db->igroupsQuery("INSERT INTO SubGroups (iGroupID, sName) VALUES ({$currentGroup->getID()}, '{$_POST['subGroupName']}')");
 ?>
 		<script type="text/javascript">
-                        showMessage("Subgroup successfully created");
-                </script>
+			showMessage("Subgroup successfully created");
+		</script>
 <?php
 		}
 	}
@@ -211,8 +211,8 @@ require("sidebar.php");
 			$subgroup->delete();
 ?>
 		<script type="text/javascript">
-                        showMessage("Subgroup successfully deleted");
-                </script>
+			showMessage("Subgroup successfully deleted");
+		</script>
 <?php
 		}
 	}
@@ -226,12 +226,12 @@ require("sidebar.php");
 <?php
 			$admin = $currentUser->isGroupAdministrator( $currentGroup );
 			$subgroups = $currentGroup->getSubGroups();
-                        $numSubgroups = count($subgroups);
+			$numSubgroups = count($subgroups);
 
 			//if ( $admin )
 				//print "<td colspan='4'>Access Level</td>";
 			if ( $currentUser->isGroupModerator($currentGroup) && count($subgroups) > 0)
-                                print "<td colspan=\"4\">Access Level</td><td colspan=\"$numSubgroups\">Subgroup Membership</td>";
+				print "<td colspan=\"4\">Access Level</td><td colspan=\"$numSubgroups\">Subgroup Membership</td>";
 			print "</tr><tr>";
 
 			if ($admin || $currentUser->isGroupModerator($currentGroup))
@@ -254,11 +254,11 @@ require("sidebar.php");
 						if ($admin || $currentUser->isGroupModerator($currentGroup))
 						print "<td></td><td></td><td></td><td align=\"center\">*</td>";
 						foreach ($subgroups as $subgroup) {
-                                                        if ($subgroup->isSubGroupMember($person))
-                                                                print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" checked=\"checked\" /></td>";
-                                                        else
-                                                                print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" /></td>";
-                                                }
+							if ($subgroup->isSubGroupMember($person))
+								print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" checked=\"checked\" /></td>";
+							else
+								print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" /></td>";
+						}
 					}
 					else if ( $person->isGroupModerator( $currentGroup ) ) {
 						if ($currentUser->isGroupModerator($currentGroup) && !$admin)
@@ -269,11 +269,11 @@ require("sidebar.php");
 						print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"1\" checked=\"checked\" /></td><td></td>";
 						}
 						foreach ($subgroups as $subgroup) {
-                                                        if ($subgroup->isSubGroupMember($person))
-                                                                print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" checked=\"checked\" /></td>";
-                                                        else
-                                                                print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" /></td>";
-                                                }
+							if ($subgroup->isSubGroupMember($person))
+								print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" checked=\"checked\" /></td>";
+							else
+								print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" /></td>";
+						}
 					}
 					else if (!$person->isGroupGuest($currentGroup)) {
 						if ($admin || $currentUser->isGroupModerator($currentGroup)) {
@@ -285,27 +285,27 @@ require("sidebar.php");
 						print "<td></td><td></td>";
 						}
 						foreach ($subgroups as $subgroup) {
-                                                        if ($subgroup->isSubGroupMember($person))
-                                                                print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" checked=\"checked\" /></td>";
-                                                        else
-                                                                print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" /></td>";
-                                                }
+							if ($subgroup->isSubGroupMember($person))
+								print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" checked=\"checked\" /></td>";
+							else
+								print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" /></td>";
+						}
 					}
 					else {
 						if ($admin || $currentUser->isGroupModerator($currentGroup)) {
 						print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"-1\" checked=\"checked\" /></td>";
-                                                print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"0\" /></td>";
+						print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"0\" /></td>";
 						if ($admin)
-                                                print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"1\" /></td><td></td>";
+						print "<td align=\"center\"><input type=\"radio\" name=\"access[".$person->getID()."]\" value=\"1\" /></td><td></td>";
 						else
 						print "<td></td><td></td>";
 						}
 						foreach ($subgroups as $subgroup) {
-                                                        if ($subgroup->isSubGroupMember($person))
-                                                                print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" checked=\"checked\" /></td>";
-                                                        else
-                                                                print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" /></td>";
-                                                }
+							if ($subgroup->isSubGroupMember($person))
+								print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" checked=\"checked\" /></td>";
+							else
+								print "<td align=\"center\"><input type=\"checkbox\" name=\"sub_{$subgroup->getID()}[]\" value=\"{$person->getID()}\" /></td>";
+						}
 					}
 				
 				print "</tr>";

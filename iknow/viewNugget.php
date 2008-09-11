@@ -51,13 +51,13 @@
 		if(count($files)>0){
 			print '<ul>';
 			foreach($files as $file){
-                                print '<li>';
-                                if ($nugget->isOld())
-                                        print "<a href=\"downloadOld.php?file={$file[0]}\">{$file[1]}</a>&nbsp;";
-                                else
-                                        print '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
-                                print '</li>';
-                        }
+				print '<li>';
+				if ($nugget->isOld())
+					print "<a href=\"downloadOld.php?file={$file[0]}\">{$file[1]}</a>&nbsp;";
+				else
+					print '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
+				print '</li>';
+			}
 			print '</ul></div>';
 		}
 		else{
@@ -127,9 +127,9 @@ require("sidebar.php");
 		
 		//check that the nugget belongs to the group before displaying
 		if (isset($_GET['isOld']) && $_GET['isOld'] == 1)
-                        $nugget = new Nugget($_GET['nuggetID'], $_DB, 1);
-                else
-                        $nugget = new Nugget($_GET['nuggetID'], $_DB, 0);
+			$nugget = new Nugget($_GET['nuggetID'], $_DB, 1);
+		else
+			$nugget = new Nugget($_GET['nuggetID'], $_DB, 0);
 		
 		$nugGroup = $nugget->getGroupID();
 		if ($nugget->isPrivate())

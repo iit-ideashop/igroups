@@ -341,7 +341,7 @@
 		function addFilesFromNugget(){
 
 			document.getElementById("myForm").igroupsRedirect.value = true;
-	        }
+		}
 	//-->
 	</script>
 	</head>
@@ -464,10 +464,10 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 
 		if($_POST['igroupsRedirect']){
 			print "</script>";
-                        print "<script type=\"text/javascript\">
-                                <!--
-                                window.location='addFilesToNugget.php?nugget=".$nugget->getID()."'
-                                //-->
+			print "<script type=\"text/javascript\">
+				<!--
+				window.location='addFilesToNugget.php?nugget=".$nugget->getID()."'
+				//-->
 				</script>";
 		}
 															//

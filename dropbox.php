@@ -201,51 +201,51 @@ require("sidebar.php");
 if (isset($_POST['upload'])) {
 
 		if ( $_FILES['thefile']['error'] == UPLOAD_ERR_OK ) {
-                                $file = createFile( $_POST['filename'], $_POST['filedescription'], $currentUser->getID(), $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
+				$file = createFile( $_POST['filename'], $_POST['filedescription'], $currentUser->getID(), $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
 				$file->setPrivate(1);
-                                $file->setMimeType($_FILES['thefile']['type']);
+				$file->setMimeType($_FILES['thefile']['type']);
 				$file->updateDB();
-                                move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
+				move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
 ?>
-                                <script type="text/javascript">
-                                        showMessage("File successfully uploaded");
-                                </script>
+				<script type="text/javascript">
+					showMessage("File successfully uploaded");
+				</script>
 <?php
-                }
-                else {
+		}
+		else {
 ?>
-                        <script type="text/javascript">
-                                showMessage("Error occured during upload, please try again");
-                        </script>
+			<script type="text/javascript">
+				showMessage("Error occured during upload, please try again");
+			</script>
 <?php
-                }
+		}
 
 }
 
 if ( isset( $_POST['delete'] ) ) {
-                if ( isset( $_POST['file'] )) {
-                foreach( $_POST['file'] as $fileid => $val ) {
-                        $file = new File( $fileid, $db );
-                        if ( $currentUser->getID() == $file->getAuthorID() ) {
-                                        $file->delete();
-                        }
-                }
-                }
-                if ( isset( $_POST['file'] )) {
+		if ( isset( $_POST['file'] )) {
+		foreach( $_POST['file'] as $fileid => $val ) {
+			$file = new File( $fileid, $db );
+			if ( $currentUser->getID() == $file->getAuthorID() ) {
+					$file->delete();
+			}
+		}
+		}
+		if ( isset( $_POST['file'] )) {
 ?>
-                <script type="text/javascript">
-                        showMessage("Selected items successfully deleted");
-                </script>
+		<script type="text/javascript">
+			showMessage("Selected items successfully deleted");
+		</script>
 <?php
-        }
-        else {
+	}
+	else {
 ?>
-                <script type="text/javascript">
-                        showMessage("Please select file(s) or folder(s) to delete first.");
-                </script>
+		<script type="text/javascript">
+			showMessage("Please select file(s) or folder(s) to delete first.");
+		</script>
 <?php
-        }
-        }
+	}
+	}
 	
 	//------End Form Processing Code---------------------------------//
 	
@@ -257,22 +257,22 @@ if ( isset( $_POST['delete'] ) ) {
 	</div>
 	<div id="container">
 		<div id="folderbox">
-                        <div class="columnbanner">
-                                Your Folders:
-                        </div>
-                        <div id="folders">
-                                <ul id="top" class="folderlist">
+			<div class="columnbanner">
+				Your Folders:
+			</div>
+			<div id="folders">
+				<ul id="top" class="folderlist">
 <?php
-                                                print '<li><img src="img/folder.png" style="border-style: none" alt="=" title="Folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
-                                                print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
-                                                print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
-                                                print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a></li>';
+						print '<li><img src="img/folder.png" style="border-style: none" alt="=" title="Folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a></li>';
+						print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
+						print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
+						print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a></li>';
 
 ?>
-                                <li><img src="img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" />&nbsp;<strong><a href="dropbox.php">Secure Dropbox</a></strong></li>
-                                </ul>
-                        </div>
-                </div>
+				<li><img src="img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" />&nbsp;<strong><a href="dropbox.php">Secure Dropbox</a></strong></li>
+				</ul>
+			</div>
+		</div>
 
 		<div id="filebox">
 			<div class="columnbanner">
@@ -302,17 +302,17 @@ if ( isset( $_POST['delete'] ) ) {
 					print '<div id="files"><table width="100%">';
 					foreach ($files as $file) {
 						printTR();
-                                                print "<td><img src=\"img/file.png\" alt=\"File\" title=\"File\" /></td>";
-                                                print "<td><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a></td>";
-                                                print "<td>".$file->getDesc()."</td>";
-                                                $author = $file->getAuthor();
-                                                if ( $author )
-                                                        print "<td>".$author->getFullName()."</td>";
-                                                else
-                                                        print "<td></td>";
-                                                print "<td>".$file->getDateTime()."</td>";
-                                                print "<td align=\"right\"><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";
-                                                print "</tr>\n";
+						print "<td><img src=\"img/file.png\" alt=\"File\" title=\"File\" /></td>";
+						print "<td><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a></td>";
+						print "<td>".$file->getDesc()."</td>";
+						$author = $file->getAuthor();
+						if ( $author )
+							print "<td>".$author->getFullName()."</td>";
+						else
+							print "<td></td>";
+						print "<td>".$file->getDateTime()."</td>";
+						print "<td align=\"right\"><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";
+						print "</tr>\n";
 					}
 					if(count($files) == 0)
 						print "<tr><td colspan=\"6\">There are no files in your dropbox.</td></tr>\n";

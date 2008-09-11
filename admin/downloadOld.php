@@ -64,21 +64,21 @@ function printBody() {
 }
 
 function printDownloadResponse($diskName, $origName) {
-        $sFullLocation = '/files/iknow/' . $diskName;
-        header("Content-Type: application/octet-stream");
-        header("Content-Length: " . filesize($sFullLocation));
-        header("Content-Disposition: attachment; filename=\"$origName\"");
-        header("Cache-Control: no-store,no-cache, must-revalidate");
-        header("Pragma: no-cache");
-        header("Pragma: public");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
-        header("Cache-Control: public");
-        header("Content-type: application/force-download");
+	$sFullLocation = '/files/iknow/' . $diskName;
+	header("Content-Type: application/octet-stream");
+	header("Content-Length: " . filesize($sFullLocation));
+	header("Content-Disposition: attachment; filename=\"$origName\"");
+	header("Cache-Control: no-store,no-cache, must-revalidate");
+	header("Pragma: no-cache");
+	header("Pragma: public");
+	header("Expires: 0");
+	header("Cache-Control: must-revalidate, post-check=0, pre-check=0");
+	header("Cache-Control: public");
+	header("Content-type: application/force-download");
 	
-        $handle = fopen($sFullLocation, "rb");
-        fpassthru($handle);
-        fclose($handle);
+	$handle = fopen($sFullLocation, "rb");
+	fpassthru($handle);
+	fclose($handle);
 	
 	if(!isset($_SESSION['iUserID']))
 		$logID = -1;

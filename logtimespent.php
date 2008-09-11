@@ -86,13 +86,13 @@
 		}
 			
 		#taskCalendar {
-                        border:solid 1px #000;
-                        background-color:#fff;
-                        visibility:hidden;
-                        position:absolute;
-                        left:50px;
-                        z-index:500;
-                }
+			border:solid 1px #000;
+			background-color:#fff;
+			visibility:hidden;
+			position:absolute;
+			left:50px;
+			z-index:500;
+		}
 
 		table.list {
 			width:500px;
@@ -454,73 +454,73 @@ function ds_onclick(d, m, y) {
 	}
 	else if ( isset( $_POST['addProjTask'] ) ) {
 		if($_POST['taskDescription'] != "") {
-                	$newEntry = createProjTask( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['taskDate'], $_POST['taskHours'], $_POST['taskDescription'], $db );
+			$newEntry = createProjTask( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['taskDate'], $_POST['taskHours'], $_POST['taskDescription'], $db );
 ?>
-	                <script type="text/javascript">
-        	                showMessage("Projected task successfully added");
-        	        </script>
+			<script type="text/javascript">
+				showMessage("Projected task successfully added");
+			</script>
 <?php
 		}
 		else
 			$empty = 1;
-        }
+	}
 	else if (isset($_POST['edittime'])) {
 		if($_POST['description'] != "") {
-                	$editEntry = new TimeEntry($_POST['entryID'], $db);
-	                $editEntry->delete();
-        	        $newEntry = createTimeEntry( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['date'], $_POST['hours'], $_POST['description'], $db );
+			$editEntry = new TimeEntry($_POST['entryID'], $db);
+			$editEntry->delete();
+			$newEntry = createTimeEntry( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['date'], $_POST['hours'], $_POST['description'], $db );
 ?>
-        	        <script type="text/javascript">
-        	                showMessage("Timesheet entry successfully edited");
-        	        </script>
+			<script type="text/javascript">
+				showMessage("Timesheet entry successfully edited");
+			</script>
 <?php
 		}
 		else
 			$empty = 1;
-        }
+	}
 	else if (isset($_POST['editProjTask'])) {
 		if($_POST['taskDescription'] != "") {
 			$editEntry = new TimeEntry($_POST['entryID'], $db);
 			$editEntry->delete();
 			$newEntry = createProjTask( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['taskDate'], $_POST['taskHours'], $_POST['taskDescription'], $db );
 ?>
-	                <script type="text/javascript">
-	                        showMessage("Projected task successfully edited");
-	                </script>
+			<script type="text/javascript">
+				showMessage("Projected task successfully edited");
+			</script>
 <?php
 		}
 		else
 			$empty = 1;
-        }
+	}
 	else if (isset($_POST['deltime'])) {
-                $editEntry = new TimeEntry($_POST['entryID'], $db);
-                $editEntry->delete();
+		$editEntry = new TimeEntry($_POST['entryID'], $db);
+		$editEntry->delete();
 ?>
-                <script type="text/javascript">
-                        showMessage("Timesheet entry successfully deleted");
-                </script>
+		<script type="text/javascript">
+			showMessage("Timesheet entry successfully deleted");
+		</script>
 <?php
-        }
+	}
 	else if (isset($_POST['delProjTask'])) {
-                $editEntry = new TimeEntry($_POST['entryID'], $db);
-                $editEntry->delete();
+		$editEntry = new TimeEntry($_POST['entryID'], $db);
+		$editEntry->delete();
 ?>
-                <script type="text/javascript">
+		<script type="text/javascript">
 		<!--
-                        showMessage("Projected task successfully deleted");
+			showMessage("Projected task successfully deleted");
 		//-->
-                </script>
+		</script>
 <?php
-        }
+	}
 	if($empty == 1) {
 ?>
-                <script type="text/javascript">
+		<script type="text/javascript">
 		<!--
-                        showMessage("Error: Description cannot be blank");
+			showMessage("Error: Description cannot be blank");
 		//-->
-                </script>
+		</script>
 <?php
-        }
+	}
 ?>
 	<div id="topbanner">
 <?php
@@ -559,123 +559,123 @@ function ds_onclick(d, m, y) {
 	else
 		print "<legend>Edit Projected Task</legend>";
 ?>
-                <label for="taskDate">Date (MM/DD/YYYY):</label><input type="text" id="taskDate" name="taskDate" onclick="ds_sh(this);" style="cursor: text" value="<?php if (isset($editTask)) print "{$editTask->getDate()}"; ?>" /><br />
-                <label for="taskHours">Estimated Hours:</label><input type="text" name="taskHours" id="taskHours" value="<?php if (isset($editTask)) print "{$editTask->getHoursSpent()}"; ?>" /><br />
-                <label for="taskDescription">Tasks:</label><br />
-                <textarea name="taskDescription" id="taskDescription" cols="50" rows="5"><?php if (isset($editTask)) print(str_replace("&lt;br /&gt;", "\r\n", htmlspecialchars($editTask->getTaskDescription()))); ?></textarea><br />
+		<label for="taskDate">Date (MM/DD/YYYY):</label><input type="text" id="taskDate" name="taskDate" onclick="ds_sh(this);" style="cursor: text" value="<?php if (isset($editTask)) print "{$editTask->getDate()}"; ?>" /><br />
+		<label for="taskHours">Estimated Hours:</label><input type="text" name="taskHours" id="taskHours" value="<?php if (isset($editTask)) print "{$editTask->getHoursSpent()}"; ?>" /><br />
+		<label for="taskDescription">Tasks:</label><br />
+		<textarea name="taskDescription" id="taskDescription" cols="50" rows="5"><?php if (isset($editTask)) print(str_replace("&lt;br /&gt;", "\r\n", htmlspecialchars($editTask->getTaskDescription()))); ?></textarea><br />
 <?php
 	if (!isset($editTask))
-                print "<input type=\"submit\" name=\"addProjTask\" value=\"Add Task\" />";
+		print "<input type=\"submit\" name=\"addProjTask\" value=\"Add Task\" />";
 	else
 		print "<input type=\"hidden\" name=\"entryID\" value=\"{$editTask->getID()}\" /><input type=\"submit\" name=\"editProjTask\" value=\"Edit Task\" />&nbsp;<input type=\"submit\" name=\"delProjTask\" value=\"Delete Task\" />";
 ?>
-        </fieldset></form>
+	</fieldset></form>
 </td></tr></table>
 <br />
 <table style="border-style: none" width="85%"><tbody>
 <tr><td valign="top">
-        <form method="get" action="logtimespent.php"><fieldset><legend>Your Current Timesheet Entries</legend>
-        <select name="week">
+	<form method="get" action="logtimespent.php"><fieldset><legend>Your Current Timesheet Entries</legend>
+	<select name="week">
 <?php
-        $timeLog = $currentGroup->getTimeLog();
-        $weeks = $timeLog->getWeeks($currentUser->getID());
-        foreach ($weeks as $week) {
-                $temp1 = explode( "-", $week['dStartDate'] );
-                $temp2 = explode( "-", $week['dEndDate'] );
-                $startDate = date( "m/d/Y", mktime( 0, 0, 0, $temp1[1], $temp1[2], $temp1[0] ) );
-                $endDate = date( "m/d/Y", mktime( 0, 0, 0, $temp2[1], $temp2[2], $temp2[0] ) );
-                if ($week['iID'] == $currentWeek)
-                        print "<option value=\"{$week['iID']}\" selected=\"selected\">{$startDate} - {$endDate}</option>";
-                else
-                        print "<option value=\"{$week['iID']}\">{$startDate} - {$endDate}</option>";
-        }
-        if ($currentWeek == 0)
-                print "<option value=\"0\" selected=\"selected\">All Weeks</option>";
-        else
-                print "<option value=\"0\">All Weeks</option>";
+	$timeLog = $currentGroup->getTimeLog();
+	$weeks = $timeLog->getWeeks($currentUser->getID());
+	foreach ($weeks as $week) {
+		$temp1 = explode( "-", $week['dStartDate'] );
+		$temp2 = explode( "-", $week['dEndDate'] );
+		$startDate = date( "m/d/Y", mktime( 0, 0, 0, $temp1[1], $temp1[2], $temp1[0] ) );
+		$endDate = date( "m/d/Y", mktime( 0, 0, 0, $temp2[1], $temp2[2], $temp2[0] ) );
+		if ($week['iID'] == $currentWeek)
+			print "<option value=\"{$week['iID']}\" selected=\"selected\">{$startDate} - {$endDate}</option>";
+		else
+			print "<option value=\"{$week['iID']}\">{$startDate} - {$endDate}</option>";
+	}
+	if ($currentWeek == 0)
+		print "<option value=\"0\" selected=\"selected\">All Weeks</option>";
+	else
+		print "<option value=\"0\">All Weeks</option>";
 ?>
-        </select>
-        <input type="submit" name="submitWeek" value="View by Week" />
-        </fieldset></form>
-        <br />
-        <table class="list">
-                <thead>
-                <tr><td>Date</td><td>Hours Spent</td><td>Task</td></tr>
-                </thead><tfoot><tr><td colspan="3">Total Hours Spent:
+	</select>
+	<input type="submit" name="submitWeek" value="View by Week" />
+	</fieldset></form>
+	<br />
+	<table class="list">
+		<thead>
+		<tr><td>Date</td><td>Hours Spent</td><td>Task</td></tr>
+		</thead><tfoot><tr><td colspan="3">Total Hours Spent:
 <?php
-        if ($currentWeek)
-                echo "<b>{$timeLog->getHoursSpentByUserAndWeek($currentUser->getID(), $currentWeek)}</b>";
-        else
-                echo "<b>{$timeLog->getHoursSpentByUser($currentUser->getID())}</b>";
+	if ($currentWeek)
+		echo "<b>{$timeLog->getHoursSpentByUserAndWeek($currentUser->getID(), $currentWeek)}</b>";
+	else
+		echo "<b>{$timeLog->getHoursSpentByUser($currentUser->getID())}</b>";
 ?>
 </td></tr></tfoot><tbody>
 <?php
-                if ( $timeLog ) {
-                        if ($currentWeek)
-                                $entries = $timeLog->getEntriesByUserAndWeek($currentUser->getID(), $currentWeek);
-                        else
-                                $entries = $timeLog->getEntriesByUser( $currentUser->getID() );
+		if ( $timeLog ) {
+			if ($currentWeek)
+				$entries = $timeLog->getEntriesByUserAndWeek($currentUser->getID(), $currentWeek);
+			else
+				$entries = $timeLog->getEntriesByUser( $currentUser->getID() );
 
-                        if ($entries == null)
-                                print "<tr><td colspan=\"3\">No Entries to display</td></tr>";
-                        foreach ( $entries as $entry ) {
-                                print "<tr><td valign=\"top\">".$entry->getDate()."</td><td valign=\"top\" align=\"center\">".$entry->getHoursSpent()."</td><td><a href=\"logtimespent.php?editTime={$entry->getID()}\">".str_replace("&lt;br /&gt;", "<br />", htmlspecialchars($entry->getTaskDescription()))."</a></td></tr>";
-                        }
-                }
+			if ($entries == null)
+				print "<tr><td colspan=\"3\">No Entries to display</td></tr>";
+			foreach ( $entries as $entry ) {
+				print "<tr><td valign=\"top\">".$entry->getDate()."</td><td valign=\"top\" align=\"center\">".$entry->getHoursSpent()."</td><td><a href=\"logtimespent.php?editTime={$entry->getID()}\">".str_replace("&lt;br /&gt;", "<br />", htmlspecialchars($entry->getTaskDescription()))."</a></td></tr>";
+			}
+		}
 ?>
-        </tbody></table>
+	</tbody></table>
 </td><td valign="top">
-        <form method="get" action="logtimespent.php"><fieldset><legend>Your Projected Tasks</legend>
-        <select name="taskWeek">
+	<form method="get" action="logtimespent.php"><fieldset><legend>Your Projected Tasks</legend>
+	<select name="taskWeek">
 <?php
-        $timeLog = $currentGroup->getTimeLog();
-        $weeks = $timeLog->getTaskWeeks($currentUser->getID());
-        foreach ($weeks as $week) {
-                $temp1 = explode( "-", $week['dStartDate'] );
-                $temp2 = explode( "-", $week['dEndDate'] );
-                $startDate = date( "m/d/Y", mktime( 0, 0, 0, $temp1[1], $temp1[2], $temp1[0] ) );
-                $endDate = date( "m/d/Y", mktime( 0, 0, 0, $temp2[1], $temp2[2], $temp2[0] ) );
-                if ($week['iID'] == $currentTaskWeek)
-                        print "<option value=\"{$week['iID']}\" selected>{$startDate} - {$endDate}</option>";
-                else
-                        print "<option value=\"{$week['iID']}\">{$startDate} - {$endDate}</option>";
-        }
-        if ($currentTaskWeek == 0)
-                print "<option value=\"0\" selected=\"selected\">All Weeks</option>";
-        else
-                print "<option value=\"0\">All Weeks</option>";
+	$timeLog = $currentGroup->getTimeLog();
+	$weeks = $timeLog->getTaskWeeks($currentUser->getID());
+	foreach ($weeks as $week) {
+		$temp1 = explode( "-", $week['dStartDate'] );
+		$temp2 = explode( "-", $week['dEndDate'] );
+		$startDate = date( "m/d/Y", mktime( 0, 0, 0, $temp1[1], $temp1[2], $temp1[0] ) );
+		$endDate = date( "m/d/Y", mktime( 0, 0, 0, $temp2[1], $temp2[2], $temp2[0] ) );
+		if ($week['iID'] == $currentTaskWeek)
+			print "<option value=\"{$week['iID']}\" selected>{$startDate} - {$endDate}</option>";
+		else
+			print "<option value=\"{$week['iID']}\">{$startDate} - {$endDate}</option>";
+	}
+	if ($currentTaskWeek == 0)
+		print "<option value=\"0\" selected=\"selected\">All Weeks</option>";
+	else
+		print "<option value=\"0\">All Weeks</option>";
 ?>
-        </select>
-        <input type="submit" name="submitWeek" value="View by Week" />
-        </fieldset></form>
-        <br />
-        <table class="list">
-                <thead>
-                <tr><td>Date</td><td>Hours</td><td>Task</td></tr>
-                </thead><tfoot><tr><td colspan="3">Total Hours:
+	</select>
+	<input type="submit" name="submitWeek" value="View by Week" />
+	</fieldset></form>
+	<br />
+	<table class="list">
+		<thead>
+		<tr><td>Date</td><td>Hours</td><td>Task</td></tr>
+		</thead><tfoot><tr><td colspan="3">Total Hours:
 <?php
-        if ($currentWeek)
-                echo "<b>{$timeLog->getTaskHoursSpentByUserAndWeek($currentUser->getID(), $currentWeek)}</b>";
-        else
-                echo "<b>{$timeLog->getTaskHoursSpentByUser($currentUser->getID())}</b>";
+	if ($currentWeek)
+		echo "<b>{$timeLog->getTaskHoursSpentByUserAndWeek($currentUser->getID(), $currentWeek)}</b>";
+	else
+		echo "<b>{$timeLog->getTaskHoursSpentByUser($currentUser->getID())}</b>";
 ?>
 
 </td></tr></tfoot><tbody>
 <?php
-                if ( $timeLog ) {
-                        if ($currentTaskWeek)
-                                $entries = $timeLog->getTasksByUserAndWeek($currentUser->getID(), $currentTaskWeek);
-                        else
-                                $entries = $timeLog->getTasksByUser( $currentUser->getID() );
+		if ( $timeLog ) {
+			if ($currentTaskWeek)
+				$entries = $timeLog->getTasksByUserAndWeek($currentUser->getID(), $currentTaskWeek);
+			else
+				$entries = $timeLog->getTasksByUser( $currentUser->getID() );
 
-                        if ($entries == null)
-                                print "<tr><td colspan=\"3\">No Entries to display</td></tr>";
-                        foreach ( $entries as $entry ) {
-                                print "<tr><td valign=\"top\">".$entry->getDate()."</td><td valign=\"top\" align=\"center\">".$entry->getHoursSpent()."</td><td><a href=\"logtimespent.php?editTask={$entry->getID()}\">".str_replace("&lt;br /&gt;", "<br />", htmlspecialchars($entry->getTaskDescription()))."</a></td></tr>";
-                        }
-                }
+			if ($entries == null)
+				print "<tr><td colspan=\"3\">No Entries to display</td></tr>";
+			foreach ( $entries as $entry ) {
+				print "<tr><td valign=\"top\">".$entry->getDate()."</td><td valign=\"top\" align=\"center\">".$entry->getHoursSpent()."</td><td><a href=\"logtimespent.php?editTask={$entry->getID()}\">".str_replace("&lt;br /&gt;", "<br />", htmlspecialchars($entry->getTaskDescription()))."</a></td></tr>";
+			}
+		}
 ?>
-        </tbody>
+	</tbody>
 </table></td></tr></tbody></table>
 
 
@@ -716,40 +716,40 @@ function ds_onclick(d, m, y) {
 	</table>
 </div>
 <div id="taskCalendar">
-        <table>
-                <tr>
+	<table>
+		<tr>
 <?php
-                        $currentMonth = date( "n" );
-                        $currentYear = date( "Y" );
-                        for ( $i=$currentMonth-3; $i<$currentMonth+1; $i++ ) {
-                                print "<td valign=\"top\">";
-                                print "<table>";
-                                print "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
-                                print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
-                                $startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
-                                $endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
-                                if ( $startDay != 0 )
-                                        print "<tr><td colspan=\"$startDay\"></td>";
-                                $weekDay = $startDay;
-                                for ( $j=1; $j<=$endDay; $j++ ) {
-                                        if ( $weekDay == 0 )
-                                                print "<tr>";
-                                        print "<td><a href=\"#\" onclick=\"selectTaskDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
-                                        $weekDay++;
-                                        if ( $weekDay == 7 ) {
-                                                print "</tr>";
-                                                $weekDay = 0;
-                                        }
-                                }
-                                if ( $weekDay != 0 )
-                                        print "<td colspan=\"".(7-$weekDay)."\"></td></tr>";
-                                print "</table>";
-                                print "</td>";
-                        }
+			$currentMonth = date( "n" );
+			$currentYear = date( "Y" );
+			for ( $i=$currentMonth-3; $i<$currentMonth+1; $i++ ) {
+				print "<td valign=\"top\">";
+				print "<table>";
+				print "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
+				print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
+				$startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
+				$endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
+				if ( $startDay != 0 )
+					print "<tr><td colspan=\"$startDay\"></td>";
+				$weekDay = $startDay;
+				for ( $j=1; $j<=$endDay; $j++ ) {
+					if ( $weekDay == 0 )
+						print "<tr>";
+					print "<td><a href=\"#\" onclick=\"selectTaskDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."');\">$j</a></td>";
+					$weekDay++;
+					if ( $weekDay == 7 ) {
+						print "</tr>";
+						$weekDay = 0;
+					}
+				}
+				if ( $weekDay != 0 )
+					print "<td colspan=\"".(7-$weekDay)."\"></td></tr>";
+				print "</table>";
+				print "</td>";
+			}
 ?>
-                </tr>
+		</tr>
 
-        </table>
+	</table>
 </div>
 <input id="calTarget" type="hidden" value="date" />
 <input id="calTaskTarget" type="hidden" value="taskDate" />

@@ -50,14 +50,14 @@
 	$currentSemester = 0;
 	
 	function groupSort( $array ) {
-                $newArray = array();
-                foreach ( $array as $group ) {
-                        if ( $group )
-                                $newArray[$group->getName()] = $group;
-                }
-                ksort( $newArray );
-                return $newArray;
-        }
+		$newArray = array();
+		foreach ( $array as $group ) {
+			if ( $group )
+				$newArray[$group->getName()] = $group;
+		}
+		ksort( $newArray );
+		return $newArray;
+	}
 
 ?>		
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -147,84 +147,84 @@
 					print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Abstract'] != 0) {
 					$nug = new Nugget($nuggets['Abstract'], $db, 0);
-                                        if ($nug->isPrivate())
-                                                $priv = '*';
-                                        else
-                                                $priv = '';
-                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Abstract']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					if ($nug->isPrivate())
+						$priv = '*';
+					else
+						$priv = '';
+					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Abstract']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
-                                else
-                                        print "<td align=\"center\"><b>N/A</b></td>";
+				else
+					print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Code of Ethics'] != 0) {
 					$nug = new Nugget($nuggets['Code of Ethics'], $db, 0);
-                                        if ($nug->isPrivate())
-                                                $priv = '*';
-                                        else
-                                                $priv = '';
-                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Code of Ethics']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					if ($nug->isPrivate())
+						$priv = '*';
+					else
+						$priv = '';
+					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Code of Ethics']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
-                                else
-                                        print "<td align=\"center\"><b>N/A</b></td>";
+				else
+					print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Midterm Report'] != 0) {
 					$nug = new Nugget($nuggets['Midterm Report'], $db, 0);
-                                        if ($nug->isPrivate())
-                                                $priv = '*';
-                                        else
-                                                $priv = '';
-                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Midterm Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					if ($nug->isPrivate())
+						$priv = '*';
+					else
+						$priv = '';
+					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Midterm Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
-                                else
-                                        print "<td align=\"center\"><b>N/A</b></td>";
+				else
+					print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Poster'] != 0) {
 					$nug = new Nugget($nuggets['Poster'], $db, 0);
-                                        if ($nug->isPrivate())
-                                                $priv = '*';
-                                        else
-                                                $priv = '';
-                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Poster']}&amp;groupID={$group->getID()}\">View$priv</a></td>";			
+					if ($nug->isPrivate())
+						$priv = '*';
+					else
+						$priv = '';
+					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Poster']}&amp;groupID={$group->getID()}\">View$priv</a></td>";			
 				}
-                                else
-                                        print "<td align=\"center\"><b>N/A</b></td>";
+				else
+					print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Website'] != 0) {
 					$nug = new Nugget($nuggets['Website'], $db, 0);
-                                        if ($nug->isPrivate())
-                                                $priv = '*';
-                                        else
-                                                $priv = '';
-                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Website']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					if ($nug->isPrivate())
+						$priv = '*';
+					else
+						$priv = '';
+					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Website']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
-                                else
-                                        print "<td align=\"center\"><b>N/A</b></td>";
+				else
+					print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Final Presentation'] != 0) {
 					$nug = new Nugget($nuggets['Final Presentation'], $db, 0);
-                                        if ($nug->isPrivate())
-                                                $priv = '*';
-                                        else
-                                                $priv = '';
-                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Presentation']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					if ($nug->isPrivate())
+						$priv = '*';
+					else
+						$priv = '';
+					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Presentation']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
-                                else
-                                        print "<td align=\"center\"><b>N/A</b></td>";
+				else
+					print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Team Minutes'] != 0) {
 					$nug = new Nugget($nuggets['Team Minutes'], $db, 0);
-                                        if ($nug->isPrivate())
-                                                $priv = '*';
-                                        else
-                                                $priv = '';
-                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Team Minutes']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					if ($nug->isPrivate())
+						$priv = '*';
+					else
+						$priv = '';
+					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Team Minutes']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
-                                else
-                                        print "<td align=\"center\"><b>N/A</b></td>";
+				else
+					print "<td align=\"center\"><b>N/A</b></td>";
 				if ($nuggets['Final Report'] != 0) {
 					$nug = new Nugget($nuggets['Final Report'], $db, 0);
-                                        if ($nug->isPrivate())
-                                                $priv = '*';
-                                        else
-                                                $priv = '';
-                                        print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					if ($nug->isPrivate())
+						$priv = '*';
+					else
+						$priv = '';
+					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 				}
-                                else
-                                        print "<td align=\"center\"><b>N/A</b></td>";
+				else
+					print "<td align=\"center\"><b>N/A</b></td>";
 			}
 			else {
 				$_DEFAULTNUGGETS = array('Project Plan', 'Abstract', 'Code of Ethics', 'Midterm Report', 'Poster', 'Web Site', 'Final Presentation', 'Team Minutes', 'Final Report');

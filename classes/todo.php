@@ -35,21 +35,21 @@ if ( !class_exists( "Todo" ) ) {
 
 		// Return the actual person (class) who is assigned to this item, if he/she exists
 		function getAssigned(){
-            if($this->assigned != -1)
-                return new Person($this->assigned, $this->db);
-            else
-                return null;
+	    if($this->assigned != -1)
+		return new Person($this->assigned, $this->db);
+	    else
+		return null;
 		}
 
 		// Return the assigned persons name
 		function getAssignedName(){
-            if($this->assigned != -1){
-                $bob = new Person($this->assigned, $this->db);
-                if($bob)
-                    return $bob->getLastName().",&nbsp;".$bob->getFirstName();
-                else
-                    return "";
-            }
+	    if($this->assigned != -1){
+		$bob = new Person($this->assigned, $this->db);
+		if($bob)
+		    return $bob->getLastName().",&nbsp;".$bob->getFirstName();
+		else
+		    return "";
+	    }
 			else
 				return "";
 		}
@@ -77,7 +77,7 @@ if ( !class_exists( "Todo" ) ) {
 		// Return due date
 		function getDueDate() {
 			if($this->dueDate){
-                if($this->dueDate != "1969-12-31 00:00:00" && $this->dueDate != "0000-00-00 00:00:00"){
+		if($this->dueDate != "1969-12-31 00:00:00" && $this->dueDate != "0000-00-00 00:00:00"){
 					$temp = explode( "-", $this->dueDate );
 					return date( "m/d/Y", mktime( 0, 0, 0, $temp[1], $temp[2], $temp[0] ) );
 				}
@@ -122,21 +122,21 @@ if ( !class_exists( "Todo" ) ) {
 			return $this->priority;
 		}
 
-        function update($tid,$task,$assigned, $date){
-            $this->taskNum = $tid;
-            $this->task = $task;
-            $this->assigned = $assigned;
-            $dbdate = null;
-            if($date != null){
-                $temp = explode( "/", $date );
-                $dbdate = date( "Y-m-d", mktime(0,0,0,$temp[0],$temp[1],$temp[2] ) );
-            }
-            else
-                $dbdate = "0000-00-00 00:00:00";
-            $this->dueDate = $dbdate;
-            $sql = "UPDATE TodoList SET sTask=\"".$task."\", iTaskNum=\"".$tid."\",iAssignedID=\"".$assigned."\",dDueDate=\"".$dbdate."\" where iID=".$this->id;
-            $this->db->igroupsQuery($sql);
-        }
+	function update($tid,$task,$assigned, $date){
+	    $this->taskNum = $tid;
+	    $this->task = $task;
+	    $this->assigned = $assigned;
+	    $dbdate = null;
+	    if($date != null){
+		$temp = explode( "/", $date );
+		$dbdate = date( "Y-m-d", mktime(0,0,0,$temp[0],$temp[1],$temp[2] ) );
+	    }
+	    else
+		$dbdate = "0000-00-00 00:00:00";
+	    $this->dueDate = $dbdate;
+	    $sql = "UPDATE TodoList SET sTask=\"".$task."\", iTaskNum=\"".$tid."\",iAssignedID=\"".$assigned."\",dDueDate=\"".$dbdate."\" where iID=".$this->id;
+	    $this->db->igroupsQuery($sql);
+	}
 	}
 }
 ?>

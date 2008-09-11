@@ -48,14 +48,14 @@
 <title>iGroups - Group Todo List</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
 	<style type="text/css">
-                #calendar {
-                        border:solid 1px #000;
-                        background-color:#fff;
-                        position:absolute;
+		#calendar {
+			border:solid 1px #000;
+			background-color:#fff;
+			position:absolute;
 			visibility:hidden;
-                        left:50px;
-                        z-index:500;
-                }
+			left:50px;
+			z-index:500;
+		}
 
 
 		table.todoList {
@@ -119,47 +119,47 @@
 			top: -3px;
 		}
 
-        div.taskEdit {
-            position: relative;
-            margin-left: 5px;
-            padding: 5px;
-            background: #EEE;
-            border: 1px dotted #444444;
-            width: 600px;
-        }
+	div.taskEdit {
+	    position: relative;
+	    margin-left: 5px;
+	    padding: 5px;
+	    background: #EEE;
+	    border: 1px dotted #444444;
+	    width: 600px;
+	}
 
-        div.taskEdit div.description {
-            background: #ddd;
-            border-bottom: 2px solid #999;
-            border-top: 2px solid #BBB;
-            padding-bottom: 3px;
-            margin-bottom: 5px;
-        }
-        
-        span.taskNumDisplay{
-            position: relative;
-            float: left;
-            margin-top: 5px;
-            left: 8px;
-            top: -5px;
-            color: green;
-            font-size: 24px;
-            z-index: 5;
-        }
+	div.taskEdit div.description {
+	    background: #ddd;
+	    border-bottom: 2px solid #999;
+	    border-top: 2px solid #BBB;
+	    padding-bottom: 3px;
+	    margin-bottom: 5px;
+	}
+	
+	span.taskNumDisplay{
+	    position: relative;
+	    float: left;
+	    margin-top: 5px;
+	    left: 8px;
+	    top: -5px;
+	    color: green;
+	    font-size: 24px;
+	    z-index: 5;
+	}
 
-        #editButton {
-            border: 0px;
-            width: 30px;
-            background: white;
-            text-decoration: underline;
-            color: #cc0207;
-            font-family: Arial, Helvetica, sans-serif;
-            margin-left: -3px;
-        }
+	#editButton {
+	    border: 0px;
+	    width: 30px;
+	    background: white;
+	    text-decoration: underline;
+	    color: #cc0207;
+	    font-family: Arial, Helvetica, sans-serif;
+	    margin-left: -3px;
+	}
 
-        div.newItem{
-            margin-bottom: 5px;
-        }
+	div.newItem{
+	    margin-bottom: 5px;
+	}
 
 .ds_box {
 	background-color: #FFF;
@@ -514,7 +514,7 @@ function ds_onclick(d, m, y) {
 </script>
 <div id="topbanner">
 <?php
-                print $currentGroup->getName();
+		print $currentGroup->getName();
 ?>
 </div>
 <h3>About Todo List</h3>
@@ -538,58 +538,58 @@ function ds_onclick(d, m, y) {
 		if($_POST['task'] == " " || $_POST['task'] == "")
 			$ERROR_task = 1;
 
-        if($_POST['assigned'] != -1){
-            if(!$currentGroup->isGroupMember(new Person($_POST['assigned'],$db)))
-                $ERROR_person = 1;
-        }
+	if($_POST['assigned'] != -1){
+	    if(!$currentGroup->isGroupMember(new Person($_POST['assigned'],$db)))
+		$ERROR_person = 1;
+	}
 			
 		// we need to check for correct date format and 'legal' date (not before today for example)
 		if(isset($_POST['date']) and $_POST['date'] != ""){
-            $_POST['date'] = $bar->fixdate($_POST['date']);
-        }
+	    $_POST['date'] = $bar->fixdate($_POST['date']);
+	}
 	}
 
     if(isset($_POST['taskEdit']) && isset($_POST['e']) && $_POST['e']=='Edit' && !(isset($_POST['cancel']))){
-        $count = 0;
-        print("<div id=\"editInformation\">To edit any information simple change the corresponding items. To not change anything ... don't change anything.</div>");
-        foreach($_POST['taskEdit'] as $task){
-            $tmp = $bar->getTask($task);
-            print("<span class=\"taskNumDisplay\">#".$tmp->getTaskNum()."</span>\n<br />");
-            print("<div class=\"taskEdit\">");
-            print("<div class=\"description\">Task Description: <input style=\"width: 454px;\" type=\"text\" value=\"".$tmp->getTask()."\" name=\"taskEditDesc[]\" /></div>");
-            print("<div class=\"description\">Who is assigned to the task: ");
-            print("<select class=\"assign\" name=\"assigned".$count."\">");
-            print("<option value=\"-1\">No one</option>");
-            foreach($currentGroup->getGroupMembers() as $peop){
-                print("<option value=\"".$peop->getID()."\"");
-                if ($peop->getID() == $tmp->getAssignedID())
-                    print(" selected=\"selected\"");
-                print(">".$peop->getLastName().",&nbsp;".$peop->getFirstName()."</option>");
-            }
-            print("</select>");
-            print("</div>");
-            print("<div class=\"description\">Complete By (mm/dd/yyyy): <input type=\"text\" name=\"editdate[]\" style=\"border: 1px solid black; text-align: right; width: 80px; cursor: text\" onclick=\"ds_sh(this);\" value=\"".$tmp->getDueDate()."\" /><br/>");
-            print("</div>");
-            print("<input type=\"hidden\" name=\"taskEditID[]\" value=\"".$tmp->getID()."\" />");
-            print("<input type=\"hidden\" name=\"taskEditTID[]\" value=\"".$tmp->getTaskNum()."\" />");
-            print("</div>");
-            $count++;
-        }
-        print("<input type=\"submit\" name=\"doe\" value=\"Save\" />");
-        print("<input type=\"submit\" name=\"cancel\" value=\"Cancel\" />");
+	$count = 0;
+	print("<div id=\"editInformation\">To edit any information simple change the corresponding items. To not change anything ... don't change anything.</div>");
+	foreach($_POST['taskEdit'] as $task){
+	    $tmp = $bar->getTask($task);
+	    print("<span class=\"taskNumDisplay\">#".$tmp->getTaskNum()."</span>\n<br />");
+	    print("<div class=\"taskEdit\">");
+	    print("<div class=\"description\">Task Description: <input style=\"width: 454px;\" type=\"text\" value=\"".$tmp->getTask()."\" name=\"taskEditDesc[]\" /></div>");
+	    print("<div class=\"description\">Who is assigned to the task: ");
+	    print("<select class=\"assign\" name=\"assigned".$count."\">");
+	    print("<option value=\"-1\">No one</option>");
+	    foreach($currentGroup->getGroupMembers() as $peop){
+		print("<option value=\"".$peop->getID()."\"");
+		if ($peop->getID() == $tmp->getAssignedID())
+		    print(" selected=\"selected\"");
+		print(">".$peop->getLastName().",&nbsp;".$peop->getFirstName()."</option>");
+	    }
+	    print("</select>");
+	    print("</div>");
+	    print("<div class=\"description\">Complete By (mm/dd/yyyy): <input type=\"text\" name=\"editdate[]\" style=\"border: 1px solid black; text-align: right; width: 80px; cursor: text\" onclick=\"ds_sh(this);\" value=\"".$tmp->getDueDate()."\" /><br/>");
+	    print("</div>");
+	    print("<input type=\"hidden\" name=\"taskEditID[]\" value=\"".$tmp->getID()."\" />");
+	    print("<input type=\"hidden\" name=\"taskEditTID[]\" value=\"".$tmp->getTaskNum()."\" />");
+	    print("</div>");
+	    $count++;
+	}
+	print("<input type=\"submit\" name=\"doe\" value=\"Save\" />");
+	print("<input type=\"submit\" name=\"cancel\" value=\"Cancel\" />");
     }
 
     if(isset($_POST['doe']) && $_POST['doe']=='Save' && !(isset($_POST['cancel']))){
-        $count = 0;
-        foreach($_POST['taskEditDesc'] as $desc){
-            list($key,$id) = each($_POST['taskEditID']);
-            list($key,$tid) = each($_POST['taskEditTID']);
-            list($key,$editDate) = each($_POST['editdate']);
-            $worker = $_POST['assigned'.$count];
-            $editDate = $bar->fixdate($editDate);
-            $bar->updateTask($id,$tid,$desc,$worker,$editDate);
-            $count++;
-        }
+	$count = 0;
+	foreach($_POST['taskEditDesc'] as $desc){
+	    list($key,$id) = each($_POST['taskEditID']);
+	    list($key,$tid) = each($_POST['taskEditTID']);
+	    list($key,$editDate) = each($_POST['editdate']);
+	    $worker = $_POST['assigned'.$count];
+	    $editDate = $bar->fixdate($editDate);
+	    $bar->updateTask($id,$tid,$desc,$worker,$editDate);
+	    $count++;
+	}
     }
 	
 	# add a new task
@@ -598,9 +598,9 @@ function ds_onclick(d, m, y) {
 	
 	# delete a task
 	if(isset($_GET['di']) and $_GET['di'] != "" && isset($_GET['dt']) && $_GET['dt'] != "" && isset($_GET['d']) and $_GET['d'] == 't'){
-        if($currentGroup->isGroupMember($currentUser) || $currentUser->isAdministrator()){
-            $bar->deleteTask($_GET['di'], $_GET['dt']);
-        }
+	if($currentGroup->isGroupMember($currentUser) || $currentUser->isAdministrator()){
+	    $bar->deleteTask($_GET['di'], $_GET['dt']);
+	}
 	}
 
 	# if the person doesn't have javascript .. they probably clicked the UPDATE button to update the complete status
@@ -653,38 +653,38 @@ function ds_onclick(d, m, y) {
 			else if ($_GET['sort'] == 'date') {
 				$sort = 'dDueDate';
 				if (isset($_SESSION['sort']) && $_SESSION['sort'] == 'dDueDate') {
-                                        $sort = 'dDueDate DESC';
-                                        unset($_SESSION['sort']);
+					$sort = 'dDueDate DESC';
+					unset($_SESSION['sort']);
 				}
-                                else
+				else
 					$_SESSION['sort'] = 'dDueDate';
 			}
 			else if ($_GET['sort'] == 'task') {
 				$sort = 'sTask';
 				if (isset($_SESSION["sort"]) && $_SESSION["sort"] == 'sTask') {
-                                        $sort = 'sTask DESC';
-                                        unset($_SESSION["sort"]);
+					$sort = 'sTask DESC';
+					unset($_SESSION["sort"]);
 				}
-                                else
+				else
 					$_SESSION['sort'] = 'sTask';
 			}
 			else {
 				$sort = 'iTaskNum';
 				if (isset($_SESSION['sort']) && $_SESSION['sort'] == 'iTaskNum') {
-                                        $sort = $sort . ' DESC';
-                                        unset($_SESSION['sort']);
+					$sort = $sort . ' DESC';
+					unset($_SESSION['sort']);
 				}
-                                else
+				else
 					$_SESSION['sort'] = 'iTaskNum';
 			}
 		}
 		else {
 			$sort = 'iTaskNum';
 			if (isset($_SESSION['sort']) && $_SESSION['sort'] == 'iTaskNum') {
-                                        $sort = $sort . ' DESC';
-                                        unset($_SESSION['sort']);
+					$sort = $sort . ' DESC';
+					unset($_SESSION['sort']);
 			}
-                        else
+			else
 				$_SESSION['sort'] = 'iTaskNum';
 		}
 
@@ -706,22 +706,22 @@ function ds_onclick(d, m, y) {
 			if(isset($count)){
 				unset($count);
 				print("<tr class=\"taskColor\"");
-                if($foo->getCompleted())
-                    print(" style=\"color: gray\"");
-                print(" onmouseover=\"this.style.background='#CDCDD4'\" onmouseout=\"this.style.background='#EEEEEE'\">");
+		if($foo->getCompleted())
+		    print(" style=\"color: gray\"");
+		print(" onmouseover=\"this.style.background='#CDCDD4'\" onmouseout=\"this.style.background='#EEEEEE'\">");
 			}
 			else{
 				$count = 1;
-                if($foo->getCompleted())
-                    print("<tr style=\"color: gray\"");
-                else
-                    print("<tr");
+		if($foo->getCompleted())
+		    print("<tr style=\"color: gray\"");
+		else
+		    print("<tr");
 				print(" onmouseover=\"this.style.background='#CDCDD4'\" onmouseout=\"this.style.background=''\">");
 			}
 			if ($foo->getAssigned()) 
-                $person_name = $foo->getAssignedName();
-            else
-                $person_name = "";
+		$person_name = $foo->getAssignedName();
+	    else
+		$person_name = "";
 			if ($currentUser->isGroupGuest($currentGroup)) 
 				$disabled = "disabled=\"disabled\"";
 			print("<td class=\"taskSel\"><input type=\"checkbox\" name=\"taskEdit[]\" value=\"".$foo->getTaskNum()."\" /></td><td class=\"taskNum\">&nbsp;#". $foo->getTaskNum()."</td><td class=\"taskDesc\">".htmlspecialchars($foo->getTask())." </td><td class=\"taskAssigned\">".$person_name."</td> <td class=\"taskDate\">".$foo->getDueDate()."</td> <td class=\"taskDone\"><input type=\"checkbox\" name=\"taskNum[]\"  value=\"".$foo->getTaskNum()."\" $disabled");
@@ -745,7 +745,7 @@ function ds_onclick(d, m, y) {
 		print("  </span></div>");
 	}
     else{
-        print("<h1>No Task in the Todo List</h1>\n");
+	print("<h1>No Task in the Todo List</h1>\n");
     }
 
 
@@ -755,7 +755,7 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
 <br />
 <div class="box" style="width: 500px">
     <p class="box-header">
-        Add a new task
+	Add a new task
     </p>
 	<?php
 		if($ERROR_task)
@@ -770,7 +770,7 @@ if (!$currentUser->isGroupGuest($currentGroup)) {
 	<div class="newItem"><label for="assigned">Who is assigned to complete this task <span style="color: gray">[optional]</span>:</label><select id="assigned" name="assigned">
 	<?php
 		$people = $currentGroup->getGroupMembers();
-        print("<option value=\"-1\">No one</option>");
+	print("<option value=\"-1\">No one</option>");
 		foreach($people as $temp) {
 			print("<option value=\"".$temp->getID()."\">".$temp->getLastName().",&nbsp;".$temp->getFirstName()."</option>");
 		}
