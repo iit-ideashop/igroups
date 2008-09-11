@@ -48,7 +48,8 @@
 
 	if (isset($_GET['selectSemester'])) {
 		$currentSemesterID = $_GET['semester'];
-		$_SESSION['adminSemester'] = $_GET['semester'];
+		if(isset($_GET['adminView']))
+			$_SESSION['adminSemester'] = $_GET['semester'];
 	}
 	else if (isset($_SESSION['adminSemester']))
 		$currentSemesterID = $_SESSION['adminSemester'];
