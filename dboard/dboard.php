@@ -128,7 +128,8 @@ if(count($groups) > 0)
 		}
 		else
 			$text = "<i>No Posts</i>";
-		print "<tr><td class=\"subtopic_heading\"><a href=\"viewTopic.php?id={$group->getID()}&amp;type={$group->getType()}&amp;semester={$group->getSemester()}\">{$group->getName()} Discussion</a></td><td align=\"center\">{$topic->getThreadCount()}</td><td align=\"center\">{$topic->getPostCount()}</td><td align=\"center\">$text</td></tr>";
+		if($group->getSemester() == $currentSemesterID)
+			print "<tr><td class=\"subtopic_heading\"><a href=\"viewTopic.php?id={$group->getID()}&amp;type={$group->getType()}&amp;semester={$group->getSemester()}\">{$group->getName()} Discussion</a></td><td align=\"center\">{$topic->getThreadCount()}</td><td align=\"center\">{$topic->getPostCount()}</td><td align=\"center\">$text</td></tr>";
 	}
 }
 print "<tr><td class=\"topic_heading\" colspan=\"4\">Global Topic Discussion</td></tr>";
