@@ -122,15 +122,6 @@
 			document.getElementById('editheading').value = heading;
 			document.getElementById('editbody').value = body;
 		}
-		
-		
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
 	//]]>
 	</script>
 </head>

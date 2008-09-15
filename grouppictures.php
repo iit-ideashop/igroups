@@ -46,32 +46,14 @@
 			display:inline;
 		}
 	</style>
-	<script type="text/javascript">
-<!--
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-//-->
-	</script>
 </head>
 <body>
 <?php
-	require("sidebar.php");
-	print "<div id=\"content\"><div id=\"topbanner\">";
-	print $currentGroup->getName()."</div>";
 	if ( isset( $_POST['addpic'] ) ) {
 		if ( $_FILES['picture']['error'] == UPLOAD_ERR_OK  && @getimagesize($_FILES['picture']['tmp_name']) && @is_uploaded_file($_FILES['picture']['tmp_name']) && ($_FILES['picture']['type'] == 'image/gif' || $_FILES['picture']['type'] == 'image/jpeg' || $_FILES['picture']['type'] == 'image/bmp' || $_FILES['picture']['type'] == 'image/x-windows-bmp' || $_FILES['picture']['type'] == 'image/png' || $_FILES['picture']['type'] == 'image/pjpeg')) {
 			$pic = createGroupPicture( $_FILES['picture']['name'], $_POST['title'], $currentGroup, $db );
 			move_uploaded_file($_FILES['picture']['tmp_name'], $pic->getDiskName() );
-?>
-			<script type="text/javascript">
-				showMessage("Picture successfully added");
-			</script>
-<?php
+			$message = "Picture successfully added";
 		}
 	}
 	
@@ -81,14 +63,12 @@
 			$pic = new GroupPicture( $picid, $db );
 			$pic->delete();
 		}
-		
-?>
-		<script type="text/javascript">
-			showMessage("Selected pictures successfully deleted");
-		</script>
-<?php
+		$message = "Selected pictures successfully deleted";
 		}
 	}
+	require("sidebar.php");
+	print "<div id=\"content\"><div id=\"topbanner\">";
+	print $currentGroup->getName()."</div>";
 ?>
 	<form method="post" action="grouppictures.php"><fieldset>
 <?php

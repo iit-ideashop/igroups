@@ -161,7 +161,7 @@
 ***********************************************/
 </script>
 	<script type="text/javascript">
-	<!--
+	//<![CDATA[
 		function copyCheckBoxes() {
 			var folders = new Array();
 			var files = new Array();
@@ -182,44 +182,26 @@
 			for ( var i=0; i < folderInputs.length; i++ )
 				folderInputs[i].value=folders;
 		}
-		
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-	//-->
+	//]]>
 	</script>
 </head>
 <body>
 <?php
-require("sidebar.php");
 	//------Start of Code for Form Processing-------------------------//
 
 if (isset($_POST['upload'])) {
 
-		if ( $_FILES['thefile']['error'] == UPLOAD_ERR_OK ) {
-				$file = createFile( $_POST['filename'], $_POST['filedescription'], $currentUser->getID(), $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
-				$file->setPrivate(1);
-				$file->setMimeType($_FILES['thefile']['type']);
-				$file->updateDB();
-				move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
-?>
-				<script type="text/javascript">
-					showMessage("File successfully uploaded");
-				</script>
-<?php
+		if($_FILES['thefile']['error'] == UPLOAD_ERR_OK)
+		{
+			$file = createFile( $_POST['filename'], $_POST['filedescription'], $currentUser->getID(), $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
+			$file->setPrivate(1);
+			$file->setMimeType($_FILES['thefile']['type']);
+			$file->updateDB();
+			move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
+			$message = "File successfully uploaded";
 		}
-		else {
-?>
-			<script type="text/javascript">
-				showMessage("Error occured during upload, please try again");
-			</script>
-<?php
-		}
-
+		else
+			$message = "Error occured during upload, please try again";
 }
 
 if ( isset( $_POST['delete'] ) ) {
@@ -231,24 +213,14 @@ if ( isset( $_POST['delete'] ) ) {
 			}
 		}
 		}
-		if ( isset( $_POST['file'] )) {
-?>
-		<script type="text/javascript">
-			showMessage("Selected items successfully deleted");
-		</script>
-<?php
-	}
-	else {
-?>
-		<script type="text/javascript">
-			showMessage("Please select file(s) or folder(s) to delete first.");
-		</script>
-<?php
-	}
+		if(isset( $_POST['file']))
+			$message = "Selected items successfully deleted";
+		else
+			$message = "Please select file(s) or folder(s) to delete first.";
 	}
 	
 	//------End Form Processing Code---------------------------------//
-	
+	require("sidebar.php");
 ?>
 	<div id="content"><div id="topbanner">
 <?php

@@ -10,7 +10,6 @@
 	include_once( "classes/quota.php" );
 
 	$_DB = new dbConnection();
-	$msg = array();
 	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $_DB);
 	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup']))
@@ -143,21 +142,13 @@
 		}	
 	</style>
 	<script type="text/javascript">
-	<!--
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-
+	//<![CDATA[
 		function nuggetRedirect(nugget){
 			form = document.getElementById("redirectForm");
 			form.nuggetType.value= nugget;
 			form.submit();
 		}
-	//-->	
+	//]]>	
 	</script>
 </head>
 
@@ -165,12 +156,6 @@
 <?php
 require("sidebar.php");
 print "<div id=\"content\">";
-	//Prints all notifications
-	if( isset ($msg)){
-		foreach($msg as $ms){
-			print '<script type="text/javascript">showMessage(\''.$ms.'\')</script>';
-		}
-	}
 	
 	if( isset ($_GET['nug'])){
 		//proceed with view

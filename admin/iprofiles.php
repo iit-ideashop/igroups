@@ -144,15 +144,7 @@
 		}
 	</style>
 	<script type="text/javascript">
-	<!--
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-		
+	//<![CDATA[
 		function selectAll( name ) {
 			var inputs = document.getElementsByTagName('input');
 			for ( var i=0; i < inputs.length; i++ ) {
@@ -163,7 +155,7 @@
 				}
 			}
 		}
-	//-->
+	//]]>
 	</script>
 <link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
@@ -176,8 +168,6 @@
 </head>
 <body>
 <?php
-	require("sidebar.php");
-	print "<div id=\"content\"><div id=\"topbanner\">IPRO Office Files</div>";
 	//------Start of Code for Form Processing-------------------------//
 	
 	if ( isset( $_POST['createlist'] ) ) {
@@ -198,11 +188,7 @@
 			$pfid = $folder->getID();
 		}
 		createIPROFolder( $_POST['foldername'], $_POST['folderdescription'], 0, $pfid, $db );
-?>
-		<script type="text/javascript">
-			showMessage("Folder was successfully created");
-		</script>
-<?php
+		$message = "Folder was successfully created";
 	}
 	
 	if ( isset( $_POST['upload'] ) ) {
@@ -217,11 +203,7 @@
 		if ( $_FILES['thefile']['error'] == UPLOAD_ERR_OK ) {
 			$file = createIPROFile( $_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $db );
 			move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
-?>
-		<script type="text/javascript">
-			showMessage("File was successfully uploaded");
-		</script>
-<?php
+			$message = "File was successfully uploaded";
 		}
 	}
 	
@@ -247,11 +229,7 @@
 			$file->delete();
 		}
 		}
-?>
-		<script type="text/javascript">
-			showMessage("Selected items were successfully deleted");
-		</script>
-<?php
+		$message = "Selected items were successfully deleted";
 	}
 	
 	if ( isset( $_GET['selectSemester'] ) ) {
@@ -277,7 +255,8 @@
 	}
 	
 	//------End Form Processing Code---------------------------------//
-	
+	require("sidebar.php");
+	print "<div id=\"content\"><div id=\"topbanner\">IPRO Office Files</div>";
 	print "<form method=\"post\" action=\"iprofiles.php\"><fieldset><ul class=\"prof\">";
 	$lists = $db->igroupsQuery( "SELECT iID FROM FileLists" );
 	while ( $row = mysql_fetch_row( $lists ) ) {

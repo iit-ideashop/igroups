@@ -132,21 +132,10 @@
 			margin-bottom:10px;
 		}
 	</style>
-	<script type="text/javascript">
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-	</script>
 </head>
 <body>
 <?php
 	require("sidebar.php");
-	if ( isset( $message ) )
-		print "<script type=\"text/javascript\">showMessage(\"$message\");</script>";
 ?>
 	<div id="content"><div id="topbanner">
 <?php

@@ -163,7 +163,7 @@
 		}	
 	</style>
 	<script type="text/javascript">
-	<!--
+	//<![CDATA[
 		function submitForm(){
 			var loop = 0;
 			var files = "";
@@ -182,14 +182,6 @@
 			theform.submit();
 		}
 		
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-
 		function fileAdd(num) {
 				var div = document.createElement('div');
 				div.className = "item";
@@ -204,7 +196,7 @@
 			document.getElementById("myForm").igroupsRedirect.value = true;
 			submitForm();
 		}
-	//-->	
+	//]]>	
 	</script>
 </head>
 <body>

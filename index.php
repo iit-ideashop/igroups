@@ -213,14 +213,6 @@ function addAnnouncement() {
 			}
 		}
 		
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-		
 		announcements = new announcementObj();
 		announcements.doCycle();
 <?php
@@ -235,8 +227,6 @@ function addAnnouncement() {
 		}
 		if (!isset($firstAnnouncement))
 			$firstAnnouncement = new Announcement($row[0], $db);
-	if ( isset( $message ) )
-		print "showMessage(\"$message\");";
 ?>
 //-->
 </script></head><body>

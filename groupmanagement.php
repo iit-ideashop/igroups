@@ -90,29 +90,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Group Management</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
-	<script type="text/javascript">
-	<!--
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-	//-->
-	</script>
 </head><body>
 <?php
-require("sidebar.php");
-	if ( isset( $message ) )
-		print "<script type=\"text/javascript\">showMessage(\"$message\");</script>";
-?>	
-	<div id="content"><div id="topbanner">
-<?php
-		print $currentGroup->getName();
-?>
-	</div>
-<?php
+	$go = true;
 	if ( isset( $_POST['newuser'] ) ) {
 		$email = $_POST['email'];
 		$email = str_replace(' ', '', $email);
@@ -122,11 +102,7 @@ require("sidebar.php");
 		$email = str_replace("'", '', $email);
 		$user = createPerson( $email, $_POST['fname'], $_POST['lname'], $db );
 		$user->addToGroup( $currentGroup );
-?>
-		<script type="text/javascript">
-			showMessage("User was successfully created");
-		</script>
-<?php
+		$message = "User was successfully created";
 	}
 	if (isset($_POST['retroadd'])) {
 		$addUsers = $_POST['addUsers'];
@@ -145,19 +121,10 @@ require("sidebar.php");
 					}
 				}
 			}
-?>
-			<script type="text/javascript">
-				showMessage("User(s) successfully added");
-			</script>
-<?php
+			$message = "User(s) successfully added";
 		}
-		else {
-?>
-			<script type="text/javascript">
-				showMessage("ERROR: Select at least one user and group");
-			</script>
-<?php
-		}
+		else
+			$message = "ERROR: Select at least one user and group";
 	}
 	if ( isset( $_POST['adduser'] ) ) {
 		$email = $_POST['email'];
@@ -170,13 +137,12 @@ require("sidebar.php");
 		if ( $row = mysql_fetch_row( $user ) ) {
 			$user = new Person( $row[0], $db );
 			$user->addToGroup( $currentGroup );
-?>
-			<script type="text/javascript">
-				showMessage("User was successfully added");
-			</script>
-<?php
+			$message = "User was successfully added";
 		}
 		else {
+			$go = false;
+			require("sidebar.php");
+			echo "<div id=\"content\"><div id=\"topbanner\">".$currentGroup->getName()."</div>\n";
 ?>
 			<div id="newuser">
 				No one with e-mail address <span style="font-weight: bold"><?php print "$email"; ?></span> currently exists in our system.<br />
@@ -197,11 +163,7 @@ require("sidebar.php");
 	if (isset($_POST['createSubGroup'])) {
 		if ($_POST['subGroupName'] != '') {
 			$db->igroupsQuery("INSERT INTO SubGroups (iGroupID, sName) VALUES ({$currentGroup->getID()}, '{$_POST['subGroupName']}')");
-?>
-		<script type="text/javascript">
-			showMessage("Subgroup successfully created");
-		</script>
-<?php
+			$message = "Subgroup successfully created";
 		}
 	}
 
@@ -209,15 +171,19 @@ require("sidebar.php");
 		if (isset($_POST['delete'])) {
 			$subgroup = new SubGroup($_POST['delete'], $db);
 			$subgroup->delete();
-?>
-		<script type="text/javascript">
-			showMessage("Subgroup successfully deleted");
-		</script>
-<?php
+			$message = "Subgroup successfully deleted";
 		}
 	}
-
+	if($go)
+	{
+		require("sidebar.php");
+?>	
+	<div id="content"><div id="topbanner">
+<?php
+		print $currentGroup->getName();
 ?>
+	</div>
+<?php 	} ?>
 	<form method="post" action="groupmanagement.php"><fieldset>
 		<legend>Current Users</legend>
 		<table>

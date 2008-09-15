@@ -192,7 +192,7 @@
 </script>
 
 	<script type="text/javascript">
-	<!--
+	//<![CDATA[
 		function copyCheckBoxes() {
 			var folders = new Array();
 			var files = new Array();
@@ -213,20 +213,11 @@
 			for ( var i=0; i < folderInputs.length; i++ )
 				folderInputs[i].value=folders;
 		}
-		
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-	//-->
+	//]]>
 	</script>
 </head>
 <body>
 <?php
-require("sidebar.php");
 	//------Start of Code for Form Processing-------------------------//
 	
 	if ( isset( $_POST['create'] ) ) {
@@ -239,11 +230,7 @@ require("sidebar.php");
 		else
 			$pfid = 0;
 		createFolder( $_POST['foldername'], $_POST['folderdescription'], $_POST['status'], $pfid, $currentGroup, $db );
-?>
-		<script type="text/javascript">
-			showMessage("Folder successfully created");
-		</script>
-<?php
+		$message = "Folder successfully created";
 	}
 	
 	if ( isset( $_POST['upload'] ) ) {
@@ -275,28 +262,15 @@ require("sidebar.php");
 				}
 				$file->setMimeType($_FILES['thefile']['type']);
 				move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
-?>
-				<script type="text/javascript">
-					showMessage("File successfully uploaded");
-				</script>
-<?php
+				$message = "File successfully uploaded";
 			}
 			else {
 				$currentQuota->sendWarning(1);
-?>
-				<script type="text/javascript">
-					showMessage("ERROR: Not enough space for file");
-				</script>
-<?php
+				$message = "ERROR: Not enough space for file";
 			}
 		}
-		else {
-?>
-			<script type="text/javascript">
-				showMessage("Error occured during upload, please try again");
-			</script>
-<?php
-		}
+		else 
+			$message = "Error occured during upload, please try again";
 	}
 	
 	if ( isset( $_POST['fupdate'] ) ) {
@@ -336,36 +310,18 @@ require("sidebar.php");
 				$file->setVersion($oldFile->getVersion() + 1);
 				$file->updateDB();
 				move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
-?>
-				<script type="text/javascript">
-					showMessage("File successfully uploaded");
-				</script>
-<?php
+				$message = "File successfully uploaded";
 			}
 			else {
 				$currentQuota->sendWarning(1);
-?>
-				<script type="text/javascript">
-					showMessage("ERROR: Not enough space for file");
-				</script>
-<?php
+				$message = "ERROR: Not enough space for file";
 			}
 		}
-		else {
-?>
-			<script type="text/javascript">
-				showMessage("ERROR: Could not update file");
-			</script>
-<?php
+		else
+			$message = "ERROR: Could not update file";
 		}
-		}
-		else {
-?>
-			<script type="text/javascript">
-				showMessage("ERROR: Could not update file. Make sure you selected a file to update.");
-			</script>
-<?php
-		}
+		else
+			$message = "ERROR: Could not update file. Make sure you selected a file to update.";
 	}
 
 	if(isset($_POST['editF']) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0 && $currentUser->isGroupModerator($currentFolder->getGroup()))
@@ -375,31 +331,17 @@ require("sidebar.php");
 		if (isset($_POST['folderdesc']) && !$currentFolder->isIPROFolder())
 			$currentFolder->setDesc( $_POST['folderdesc'] );
 		$currentFolder->updateDB();
-?>
-		<script type="text/javascript">
-			showMessage("Folder successfully edited");
-		</script>
-<?php
+		$message = "Folder successfully edited";
 	}
 	else if(isset($_POST['deleteF']) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0 && $currentUser->isGroupModerator($currentFolder->getGroup()))
 	{
 		$currentFolder->trash();
 		$_SESSION['selectedFolder'] = 0;
 		$currentFolder = false;
-?>
-		<script type="text/javascript">
-			showMessage("Folder successfully deleted");
-		</script>
-<?php
+		$message = "Folder successfully deleted";
 	}
 	else if(isset($_POST['editF']) || isset($_POST['deleteF']))
-	{
-?>
-		<script type="text/javascript">
-			showMessage("Error: Folder operation failed");
-		</script>
-<?php
-	}
+		$message = "Error: Folder operation failed";
 	if ( isset( $_POST['move'] ) ) {
 		// Change form data into arrays instead of comma separated list
 		if ( $_POST['files'] != "" )
@@ -439,19 +381,10 @@ require("sidebar.php");
 				$folder->setParentFolderID( $_POST['target'] );
 				$folder->updateDB();
 			}		
-?>
-		<script type="text/javascript">
-			showMessage("Selected items successfully moved");
-		</script>
-<?php
+			$message = "Selected items successfully moved";
 		}
-		else {	
-?>
-		<script type="text/javascript">
-			showMessage("Some elements could not be moved");
-		</script>
-<?php
-		}
+		else
+			$message = "Some elements could not be moved";
 	}
 
 	if ( isset( $_POST['rename'] ) && (isset($_POST['file']) XOR isset($_POST['folder'])) ) {	 
@@ -471,19 +404,10 @@ require("sidebar.php");
 				$folder->setDesc( $_POST['newdesc'] );
 			$folder->updateDB();
 		}		 
- ?>
-		 <script type="text/javascript">
-			 showMessage("File or folder renamed");
-		 </script>
- <?php
+		$message = "File or folder renamed";
 	}
-	else if( isset( $_POST['rename'] )) {
-?>
-	<script type="text/javascript">
-		showMessage("Unable to rename. Make sure one file or one folder is selected.");
-	</script>
-<?php
-	}
+	else if( isset( $_POST['rename'] ))
+		$message = "Unable to rename. Make sure one file or one folder is selected.";
 
 	if ( isset( $_POST['delete'] ) ) {
 		if ( isset( $_POST['folder'] )) {
@@ -510,24 +434,14 @@ require("sidebar.php");
 			}
 		}
 		}	
-		if ( isset( $_POST['folder'] ) || isset( $_POST['file'] )) {
-?>
-		<script type="text/javascript">
-			showMessage("Selected items successfully deleted");
-		</script>
-<?php
-	}
-	else {
-?>
-		<script type="text/javascript">
-			showMessage("Please select file(s) or folder(s) to delete first.");
-		</script>
-<?php
-	}
+		if ( isset( $_POST['folder'] ) || isset( $_POST['file'] ))
+			$message = "Selected items successfully deleted";
+		else
+			$message = "Please select file(s) or folder(s) to delete first.";
 	}
 	
 	//------End Form Processing Code---------------------------------//
-	
+	require("sidebar.php");
 ?>
 	<div id="content"><div id="topbanner">
 <?php

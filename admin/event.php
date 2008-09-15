@@ -287,14 +287,6 @@
 			document.getElementById('editdesc').value=desc;
 			document.getElementById('editdate').value=date;
 		}
-		
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
 	</script>
 </head><body>
 <?php
@@ -568,11 +560,6 @@ function ds_onclick(d, m, y) {
 
 // ]]> -->
 </script>
-
-<?php
-	if ( isset( $message ) )
-		print "<script type=\"text/javascript\">showMessage(\"$message\");</script>";
-?>
 	<div id="topbanner">
 <?php
 		if ( $currentSemester )

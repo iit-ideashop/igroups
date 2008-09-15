@@ -42,19 +42,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Contact Info</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
-	<script type="text/javascript">
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-	</script>
 </head>
 <body>
 <?php
-require("sidebar.php");
 	if ( isset( $_POST['update'] ) ) {
 		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");					     $profile = mysql_fetch_array($query);
 
@@ -98,21 +88,12 @@ require("sidebar.php");
 		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");
 		$profile = mysql_fetch_array($query);
 
-		if (!$error) {
-?>
-		<script type="text/javascript">
-			showMessage("Your profile was successfully updated");
-		</script>
-<?php
-		}
-		else {
-?>
-		<script type="text/javascript">
-			showMessage("<?php print "$error"; ?>");
-		</script>
-<?php
-		}
+		if (!$error)
+			$message = "Your profile was successfully updated";
+		else
+			$message = $error;
 	}
+	require("sidebar.php");
 ?>
 	<div id="content"><h1>Update My Profile</h1>
 	<p>If you do not want to update or provide a piece of information, simply leave it blank.</p>

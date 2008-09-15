@@ -125,7 +125,7 @@
 </script>
 
 	<script type="text/javascript">
-	<!--
+	//<![CDATA[
 		function showEvent( id, x, y ) {
 			document.getElementById(id).style.top=(y+20)+"px";
 			if ( x > window.innerWidth/2 )
@@ -159,15 +159,7 @@
 			document.getElementById('viewdesc').innerHTML=desc;
 			document.getElementById('viewdate').innerHTML=date;
 		}
-		
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-	//-->
+	//]]>
 	</script>
 
 <style type="text/css">
@@ -221,7 +213,41 @@
 </head>
 <body>
 <?php
-require("sidebar.php");
+	//------Start of Code for Form Processing-------------------------//
+
+	if ( isset( $_POST['addevent'] ) ) {
+		createEvent( $_POST['name'], $_POST['description'], $_POST['date'], $currentGroup, $db );
+	}
+	
+	if ( isset( $_POST['editevent'] ) ) {
+		$event = new Event( $_POST['id'], $db );
+		$event->setName( $_POST['name'] );
+		$event->setDesc( $_POST['description'] );
+		$event->setDate( $_POST['date'] );
+		$event->updateDB();
+		$message = "Your event was successfully edited";
+	}
+	
+	if ( isset( $_POST['deleteevent'] ) ) {
+		$event = new Event( $_POST['id'], $db );
+		$event->delete();
+		$message = "Your event was successfully deleted";
+	}
+	
+	if ( isset( $_GET['month'] ) && isset($_GET['year']) ) {
+		
+		if (is_numeric($_GET['month']) && is_numeric($_GET['year'])) {
+			$currentMonth = $_GET['month'];
+			$currentYear = $_GET['year'];
+		}
+	}
+	else {
+		$currentMonth = date( "n" );
+		$currentYear = date( "Y" );
+	}
+	
+	//------End Form Processing Code---------------------------------//
+	require("sidebar.php");
 ?>
 <div id="content">
 <table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
@@ -497,49 +523,6 @@ function ds_onclick(d, m, y) {
 ?>
 	</div>
 <?php
-	//------Start of Code for Form Processing-------------------------//
-
-	if ( isset( $_POST['addevent'] ) ) {
-		createEvent( $_POST['name'], $_POST['description'], $_POST['date'], $currentGroup, $db );
-	}
-	
-	if ( isset( $_POST['editevent'] ) ) {
-		$event = new Event( $_POST['id'], $db );
-		$event->setName( $_POST['name'] );
-		$event->setDesc( $_POST['description'] );
-		$event->setDate( $_POST['date'] );
-		$event->updateDB();
-?>
-		<script type="text/javascript">
-			showMessage("Your event was successfully edited");
-		</script>
-<?php
-	}
-	
-	if ( isset( $_POST['deleteevent'] ) ) {
-		$event = new Event( $_POST['id'], $db );
-		$event->delete();
-?>
-		<script type="text/javascript">
-			showMessage("Your event was successfully deleted");
-		</script>
-<?php
-	}
-	
-	if ( isset( $_GET['month'] ) && isset($_GET['year']) ) {
-		
-		if (is_numeric($_GET['month']) && is_numeric($_GET['year'])) {
-			$currentMonth = $_GET['month'];
-			$currentYear = $_GET['year'];
-		}
-	}
-	else {
-		$currentMonth = date( "n" );
-		$currentYear = date( "Y" );
-	}
-	
-	//------End Form Processing Code---------------------------------//
-	
 	$startDay = date( "w", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) );
 	$endDay = date( "j", mktime( 0, 0, 0, $currentMonth+1, 0, $currentYear ) );
 	

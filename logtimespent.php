@@ -106,17 +106,6 @@
 		tfoot {
 			background-color:#DDD;
 		}
-	</style>
-	<script type="text/javascript">	
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-	</script>
-	<style type="text/css">
 
 .ds_box {
 	background-color: #FFF;
@@ -167,15 +156,6 @@
 </style>
 </head>
 <body>
-<?php
-require("sidebar.php");
-?>
-<div id="content">
-<table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
-<tr><td id="ds_calclass">
-</td></tr>
-</table>
-
 <script type="text/javascript">
 // <!-- <![CDATA[
 
@@ -443,11 +423,7 @@ function ds_onclick(d, m, y) {
 	if ( isset( $_POST['addtime'] ) ) {
 		if($_POST['description'] != "") {
 			$newEntry = createTimeEntry( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['date'], $_POST['hours'], $_POST['description'], $db );
-?>
-			<script type="text/javascript">
-				showMessage("Timesheet entry successfully added");
-			</script>
-<?php
+			$message = "Timesheet entry successfully added";
 		}
 		else
 			$empty = 1;
@@ -455,11 +431,7 @@ function ds_onclick(d, m, y) {
 	else if ( isset( $_POST['addProjTask'] ) ) {
 		if($_POST['taskDescription'] != "") {
 			$newEntry = createProjTask( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['taskDate'], $_POST['taskHours'], $_POST['taskDescription'], $db );
-?>
-			<script type="text/javascript">
-				showMessage("Projected task successfully added");
-			</script>
-<?php
+			$message = "Projected task successfully added";
 		}
 		else
 			$empty = 1;
@@ -469,11 +441,7 @@ function ds_onclick(d, m, y) {
 			$editEntry = new TimeEntry($_POST['entryID'], $db);
 			$editEntry->delete();
 			$newEntry = createTimeEntry( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['date'], $_POST['hours'], $_POST['description'], $db );
-?>
-			<script type="text/javascript">
-				showMessage("Timesheet entry successfully edited");
-			</script>
-<?php
+			$message = "Timesheet entry successfully edited";
 		}
 		else
 			$empty = 1;
@@ -483,11 +451,7 @@ function ds_onclick(d, m, y) {
 			$editEntry = new TimeEntry($_POST['entryID'], $db);
 			$editEntry->delete();
 			$newEntry = createProjTask( $currentUser->getID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['taskDate'], $_POST['taskHours'], $_POST['taskDescription'], $db );
-?>
-			<script type="text/javascript">
-				showMessage("Projected task successfully edited");
-			</script>
-<?php
+			$message = "Projected task successfully edited";
 		}
 		else
 			$empty = 1;
@@ -495,33 +459,23 @@ function ds_onclick(d, m, y) {
 	else if (isset($_POST['deltime'])) {
 		$editEntry = new TimeEntry($_POST['entryID'], $db);
 		$editEntry->delete();
-?>
-		<script type="text/javascript">
-			showMessage("Timesheet entry successfully deleted");
-		</script>
-<?php
+		$message = "Timesheet entry successfully deleted";
 	}
 	else if (isset($_POST['delProjTask'])) {
 		$editEntry = new TimeEntry($_POST['entryID'], $db);
 		$editEntry->delete();
-?>
-		<script type="text/javascript">
-		<!--
-			showMessage("Projected task successfully deleted");
-		//-->
-		</script>
-<?php
+		$message = "Projected task successfully deleted";
 	}
-	if($empty == 1) {
+	if($empty == 1)
+		$message = "Error: Description cannot be blank";
+	require("sidebar.php");
 ?>
-		<script type="text/javascript">
-		<!--
-			showMessage("Error: Description cannot be blank");
-		//-->
-		</script>
-<?php
-	}
-?>
+<div id="content">
+<table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
+<tr><td id="ds_calclass">
+</td></tr>
+</table>
+
 	<div id="topbanner">
 <?php
        	print $currentGroup->getName();

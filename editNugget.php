@@ -10,7 +10,6 @@
 	include_once( "classes/quota.php" );
 
 	$_DB = new dbConnection();
-	$msg = array();
 	$semester = new Semester($_SESSION['selectedSemester'], $_DB);
 	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $_DB);
@@ -286,14 +285,6 @@
 			getUpdates(nuggetID);
 		}
 
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display="none"; }, 3000 );
-		}
-
 		function getUpdates(value) {
 			form = document.getElementById("myForm");
 			form.toUpdate.value = value;
@@ -376,38 +367,34 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 		$nugget->setDesc($_POST['description']);
 		$curAuthors = $nugget->getAuthorIDs();
 		if(isset($_POST['authorToAdd'])){
-			$tmpmsg = "";
 			//construct nugget author list
 			foreach ($_POST['authorToAdd'] as $id => $val){
 				
 				if(!in_array($val, $curAuthors)){
 					
 					if($nugget->addAuthor($val)){
-						$tmpmsg = "Successfully added author\n";
+						$message = "Successfully added author\n";
 					}
 					else
-						$tmpmsg = "error adding author\n";
+						$message = "Error adding author\n";
 				}
 				else{
-					$tmpmsg = "some authors could not be added as they are already in the author list.";
+					$message = "Some authors could not be added as they are already in the author list.";
 				}
-				$msg[] = $tmpmsg;
 			}
 		}
 		if(isset($_POST['authorToDelete'])){
-			$tmpmsg = "";
 			//construct nugget author list
 			foreach ($_POST['authorToDelete'] as $id => $val){
 				if(in_array($val, $curAuthors)){
 					if($nugget->removeAuthor($val)){
-						$tmpmsg = "Successfully removed author\n";
+						$message = "Successfully removed author\n";
 					}
 					else
-						$tmpmsg = "error adding author\n";
+						$message = "Error adding author\n";
 				}else{
-					$tmpmsg = "Some authors could not be removed as they are not in the author list.";
+					$message = "Some authors could not be removed as they are not in the author list.";
 				}
-				$msg[] = $tmpmsg;
 			}
 		}
 		
@@ -417,13 +404,11 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 			foreach ($_POST['fileToDelete'] as $file){
 				
 				if($nugget->removeFile($file)){
-					$tmpmsg = "Successfully removed file";
+					$message = "Successfully removed file";
 				}
 				else
-					$tmpmsg = "error removing file";
+					$message = "Error removing file";
 			}
-
-			$msg[] = $tmpmsg;
 		}
 		
 		if(isset($_POST['filenames']) && $_POST['filenames']!=""){
@@ -445,13 +430,13 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 						$file->updateDB();
 						$file->setMimeType($_FILES['thefile']['type'][$key]);
 						move_uploaded_file($_FILES['thefile']['tmp_name'][$key], $file->getDiskName() );
-						$msg[]="File successfully uploaded";
+						$message="File successfully uploaded";
 						//also add information to nugget
 						$_DB->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$nugget->getID()."', '".$file->getID()."')");
 					}	
 					else {
 						//$currentQuota->sendWarning(1);
-						$msg[]="ERROR: Not enough space for file";
+						$message="ERROR: Not enough space for file";
 					}
 				}
 			}

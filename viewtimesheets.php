@@ -79,39 +79,23 @@
 		$editEntry = new TimeEntry($_POST['entryID'], $db);
 		$newEntry = createTimeEntry( $editEntry->getUserID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['date'], $_POST['hours'], $_POST['description'], $db );
 		$editEntry->delete();
-?>
-		<script type="text/javascript">
-			showMessage("Timesheet entry successfully edited");
-		</script>
-<?php
+		$message = "Timesheet entry successfully edited";
 	}
 	if (isset($_POST['editProjTask'])) {
 		$editEntry = new TimeEntry($_POST['entryID'], $db);
 		$newEntry = createProjTask( $editEntry->getUserID(), $currentGroup->getID(), $currentGroup->getSemester(), $_POST['taskDate'], $_POST['taskHours'], $_POST['taskDescription'], $db );
 		$editEntry->delete();
-?>
-		<script type="text/javascript">
-			showMessage("Projected task successfully edited");
-		</script>
-<?php
+		$message = "Projected task successfully edited";
 	}
 	if (isset($_POST['deltime'])) {
 		$editEntry = new TimeEntry($_POST['entryID'], $db);
 		$editEntry->delete();
-?>
-		<script type="text/javascript">
-			showMessage("Timesheet entry successfully deleted");
-		</script>
-<?php
+		$message = "Timesheet entry successfully deleted";
 	}
 	if (isset($_POST['delProjTask'])) {
 		$editEntry = new TimeEntry($_POST['entryID'], $db);
 		$editEntry->delete();
-?>
-		<script type="text/javascript">
-			showMessage("Projected task successfully deleted");
-		</script>
-<?php
+		$message = "Projected task successfully deleted";
 	}
 	if (isset($_GET['print'])) {
 ?>
@@ -263,17 +247,6 @@
 			background-color:#DDD;
 		}
 	</style>
-	<script type="text/javascript">
-	<!--
-	function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-//-->
-	</script>
 </head>
 <body>
 <?php

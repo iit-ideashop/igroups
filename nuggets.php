@@ -282,8 +282,6 @@
 			print "There are no files for this nugget.</div>";
 		}
 	}
-	
-	$msg = array();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -312,21 +310,13 @@
 		}	
 	</style>
 	<script type="text/javascript">
-	<!--
-		function showMessage( msg ) {
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore( msgDiv, null );
-			window.setTimeout( function() { msgDiv.style.display='none'; }, 3000 );
-		}
-
+	//<![CDATA[
 		function nuggetRedirect(nugget){
 			form = document.getElementById("redirectForm");
 			form.nuggetType.value= nugget;
 			form.submit();
 		}
-	//-->		
+	//]]>		
 	</script>
 </head>
 <body>
@@ -335,13 +325,6 @@
 	require("sidebar.php");
 	print "<div id=\"content\"><div id=\"topbanner\">";
 	print $currentGroup->getName()."</div>";
-	//Prints all notifications
-	if( isset ($msg)){
-		foreach($msg as $ms){
-			print '<script type="text/javascript">showMessage(\''.$ms.'\')</script>';
-		}
-	}
-	
 	displayNuggets($currentGroup);
 	print "<br />";
 	displayNonDefaultNuggets($currentGroup);

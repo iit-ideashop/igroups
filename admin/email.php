@@ -202,11 +202,7 @@ require("sidebar.php");
 			$email = new GroupEmail( $emailid, $db );
 			$email->delete();
 		}
-?>
-		<script type="text/javascript">
-			showMessage("Selected items successfully deleted");
-		</script>
-<?php
+		$message = "Selected items successfully deleted";
 	}
 
 	if ( isset( $_POST['send'] ) ) {

@@ -212,7 +212,7 @@
 </script>
 
 	<script type= "text/javascript">
-	<!--
+	//<![CDATA[
 		function copyCheckBoxes(){
 			var folders = new Array();
 			var files = new Array();
@@ -233,15 +233,7 @@
 			for(var i = 0; i < folderInputs.length; i++)
 				folderInputs[i].value=folders;
 		}
-	
-		function showMessage(msg){
-			msgDiv = document.createElement("div");
-			msgDiv.id="messageBox";
-			msgDiv.innerHTML=msg;
-			document.body.insertBefore(msgDiv,null);
-			window.setTimeout(function() {msgDiv.style.display='none';},3000);
-		}
-	//-->
+	//]]>
 	</script></head><body>
 <?php
 require("sidebar.php");
