@@ -32,12 +32,12 @@
 	else
 		die("You have not selected a valid group.");
 	
-	if(isset($_POST['delete']) && ($currentUser->getID == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup)))
+	if(isset($_POST['delete']))
 	{
-		$query = $db->igroupsQuery("select iID from Bookmarks where iGroupID=".$currentGroup->getID());
-		while($row = mysql_fetch_row($query))
+		$query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID());
+		while($row = mysql_fetch_array($query))
 		{
-			if(isset($_POST['del'.$row[0]]))
+			if(isset($_POST['del'.$row['iID']]) && ($currentUser->getID() == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup)))
 				$db->igroupsQuery("delete from Bookmarks where iID=".$row[0]);
 		}
 		$message = "The selected bookmarks have been deleted.";
@@ -48,10 +48,23 @@
 		$db->igroupsQuery("insert into Bookmarks (iGroupID, iAuthorID, sTitle, sURL) values $values");
 		$message = "The bookmark has been added.";
 	}
-	else if(isset($_POST['editid']) && is_numeric($_POST['editid']) && ($currentUser->getID == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup)))
+	else if(isset($_POST['editid']) && is_numeric($_POST['editid']))
 	{
-		$db->igroupsQuery("update Bookmarks set sTitle='".mysql_real_escape_string($_POST['title'])."', sURL='".mysql_real_escape_string($_POST['url'])."' where iID=".$_POST['editid']);
-		$message = "The bookmark has been edited.";
+		$okay = false;
+		if(!$currentUser->isGroupModerator($currentGroup))
+		{
+			$row = mysql_fetch_row($db->igroupsQuery("select iAuthorID from Bookmarks where iID=".$_POST['editid']));
+			$okay = ($row[0] == $currentUser->getID());
+		}
+		else
+			$okay = true;
+		if($okay)
+		{
+			$db->igroupsQuery("update Bookmarks set sTitle='".mysql_real_escape_string($_POST['title'])."', sURL='".mysql_real_escape_string($_POST['url'])."' where iID=".$_POST['editid']);
+			$message = "The bookmark has been edited.";
+		}
+		else
+			$message = "You don't have permissions to edit that bookmark.";
 	}
 ?>
 
@@ -73,8 +86,6 @@
 <h1>Bookmarks</h1>
 <p>Bookmarks in iGROUPS operate much like bookmarks in your web browser. Add URLs for other members in your group to be able to access at a click.</p>
 <?php
-if(isset($message))
-	echo "<p style=\"font-weight: bold\">$message</p>";
 $query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID());
 if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 {
@@ -82,10 +93,15 @@ if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 	if(mysql_num_rows($query) > 0)
 	{
 		$row = mysql_fetch_array($query);
-		echo "<form method=\"post\" action=\"bookmarks.php\"><fieldset><legend>Edit Bookmark</legend>\n";
-		echo "<label for=\"title\">Title</label><input type=\"text\" id=\"title\" name=\"title\" value=\"".htmlspecialchars($row['sTitle'])."\" /><br />\n";
-		echo "<label for=\"url\">URL</label><input type=\"text\" id=\"url\" name=\"url\" value=\"".htmlspecialchars($row['sURL'])."\" /><br />\n";
-		echo "<input type=\"hidden\" name=\"editid\" value=\"".$_GET['edit']."\" /><input type=\"submit\" value=\"Edit Bookmark\" /></fieldset></form>\n";
+		if($currentUser->isGroupModerator($currentGroup) || $row['iAuthorID'] == $currentUser->getID())
+		{
+			echo "<form method=\"post\" action=\"bookmarks.php\"><fieldset><legend>Edit Bookmark</legend>\n";
+			echo "<label for=\"title\">Title</label><input type=\"text\" id=\"title\" name=\"title\" value=\"".htmlspecialchars($row['sTitle'])."\" /><br />\n";
+			echo "<label for=\"url\">URL</label><input type=\"text\" id=\"url\" name=\"url\" value=\"".htmlspecialchars($row['sURL'])."\" /><br />\n";
+			echo "<input type=\"hidden\" name=\"editid\" value=\"".$_GET['edit']."\" /><input type=\"submit\" value=\"Edit Bookmark\" /></fieldset></form>\n";
+		}
+		else
+			die("You don't have permissions to edit that bookmark.");
 	}
 	else
 		die("That bookmark is not in your current group.");
@@ -121,7 +137,7 @@ else if(mysql_num_rows($query) > 0) {
 } else { echo "<p>Your group does not have any bookmarks.</p>\n"; } if(!isset($_GET['edit']) || !is_numeric($_GET['edit'])) { ?>
 <form method="post" action="bookmarks.php"><fieldset><legend>Add Bookmark</legend>
 <label for="title">Title</label><input type="text" id="title" name="title" /><br />
-<label for="url">URL</label><input type="text" id="url" name="url" /><br />
+<label for="url">URL</label><input type="text" id="url" name="url" value="http://" /><br />
 <input type="submit" name="add" id="add" value="Add Bookmark" />
 </fieldset></form><?php } ?>
 </div></body></html>
