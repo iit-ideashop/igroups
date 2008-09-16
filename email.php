@@ -175,7 +175,7 @@
 <script type="text/javascript" src="speller/spellChecker.js">
 	</script>
 	<script type="text/javascript">
-	<!--
+	//<![CDATA[
 		function openSpellChecker() {
 		var speller = new spellChecker();
 		speller.spellCheckAll();
@@ -261,7 +261,7 @@
 			for ( var i=0; i < emailInputs.length; i++ )
 				emailInputs[i].value=emails;
 		}
-	//-->
+	//]]>
 	</script>
 </head>
 <body>
