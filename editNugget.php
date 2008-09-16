@@ -1,54 +1,20 @@
 <?php
-	session_start();
-
-	include_once( "classes/db.php" );
-	include_once( "classes/person.php" );
-	include_once( "classes/group.php" );
+	include_once("checklogin.php");
 	include_once( "classes/nugget.php" );
 	include_once( "classes/semester.php" );
 	include_once( "classes/file.php" );
 	include_once( "classes/quota.php" );
 
-	$_DB = new dbConnection();
-	$semester = new Semester($_SESSION['selectedSemester'], $_DB);
-	if(isset($_SESSION['userID']))
-		$currentUser = new Person($_SESSION['userID'], $_DB);
-	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup']))
-	{
-		if(strpos($_COOKIE['userID'], "@") === FALSE)
-			$userName = $_COOKIE['userID']."@iit.edu";
-		else
-			$userName = $_COOKIE['userID'];
-		$user = $_DB->iknowQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
-		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
-		{
-			$_SESSION['userID'] = $row[0];
-			$currentUser = new Person($row[0], $_DB);
-			$group = explode(",", $_COOKIE['selectedGroup']);
-			$_SESSION['selectedGroup'] = $group[0];
-			$_SESSION['selectedGroupType'] = $group[1];
-			$_SESSION['selectedSemester'] = $group[2];
-		}
-	}
-	else
-		die("You are not logged in.");
-	if ( isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']) ){
-		$_CURRENTGROUP= new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $_DB );
-		$currentGroup = $_CURRENTGROUP;
-		$_SESSION['currentGroup'] = $currentGroup;
-	}
-	else{
-		die("You have not selected a valid group.");
-	}
+	$_SESSION['currentGroup'] = $currentGroup;
 	
-	$currentQuota = new Quota( $currentGroup, $_DB );
+	$currentQuota = new Quota( $currentGroup, $db );
 	if(!$semester->isActive()){
 		die("You cannot edit a nugget from a previous semester.");
 	}
 	
 	function printNuggetForm(){
-		global $_DB;
-		$nugget = new Nugget($_GET['nug'], $_DB, 0);
+		global $db;
+		$nugget = new Nugget($_GET['nug'], $db, 0);
 		
 		$authors = $nugget->getAuthors();
 		$files = $nugget->getFiles();
@@ -122,12 +88,12 @@
 	
 	function printEditableNugget($nugget){
 	
-		global $_DB;
-		global $_CURRENTGROUP;
+		global $db;
+		global $currentGroup;
 		
-		$nugget = new Nugget($nugget, $_DB, 0);
+		$nugget = new Nugget($nugget, $db, 0);
 		
-		$authors = $_CURRENTGROUP->getAllGroupMembers();
+		$authors = $currentGroup->getAllGroupMembers();
 		$files = $nugget->getFiles();
 		$semester = $nugget->getSemester();
 		if ($nugget->isPrivate())
@@ -341,7 +307,7 @@
 require("sidebar.php");
 print "<div id=\"content\"><h1>Edit Nugget</h1>";
 	if(isset ($_POST['published'])){
-		$nugget = new Nugget($_POST['nuggetID'], $_DB, 0);
+		$nugget = new Nugget($_POST['nuggetID'], $db, 0);
 		$nugget->publish();
 		if($_POST['priv'] != 'false'){
 			$nugget->makePrivate();
@@ -355,7 +321,7 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 	}
 	if(isset ($_POST['toUpdate'])){
 		//check each field of the form and make the appropriate changes
-		$nugget = new Nugget($_POST['nuggetID'], $_DB, 0);
+		$nugget = new Nugget($_POST['nuggetID'], $db, 0);
 		if(isset($_POST['type'])){
 			$nugget->setType($_POST['type']);
 		}
@@ -413,7 +379,7 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 		
 		if(isset($_POST['filenames']) && $_POST['filenames']!=""){
 			if ( !$currentQuota ) {
-			$currentQuota = createQuota( $currentGroup, $_DB );
+			$currentQuota = createQuota( $currentGroup, $db );
 			}
 			$filenames = explode("///", $_POST['filenames']);
 			$description = explode("///", $_POST['descriptions']);
@@ -426,13 +392,13 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 						$currentQuota->increaseUsed( filesize( $_FILES['thefile']['tmp_name'][$key] ) );
 						$currentQuota->updateDB();
 						//I need to get the current groups home folder
-						$file = createFile($filenames[$loop], $description[$loop],0,$currentUser->getID(), $_FILES['thefile']['name'][$key],$currentGroup, $_DB );
+						$file = createFile($filenames[$loop], $description[$loop],0,$currentUser->getID(), $_FILES['thefile']['name'][$key],$currentGroup, $db );
 						$file->updateDB();
 						$file->setMimeType($_FILES['thefile']['type'][$key]);
 						move_uploaded_file($_FILES['thefile']['tmp_name'][$key], $file->getDiskName() );
 						$message="File successfully uploaded";
 						//also add information to nugget
-						$_DB->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$nugget->getID()."', '".$file->getID()."')");
+						$db->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$nugget->getID()."', '".$file->getID()."')");
 					}	
 					else {
 						//$currentQuota->sendWarning(1);

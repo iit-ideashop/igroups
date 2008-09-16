@@ -1,39 +1,11 @@
 <?php
+	include_once( "checkadmin.php" );
 	include_once("../classes/nugget.php");
-	include_once("../classes/group.php");
-	include_once("../classes/db.php");
 	include_once("../nuggetTypes.php");
 
-	$_DB = new dbConnection();
-
-	if(isset($_SESSION['userID']))
-		$currentUser = new Person($_SESSION['userID'], $_DB);
-	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup']))
-	{
-		if(strpos($_COOKIE['userID'], "@") === FALSE)
-			$userName = $_COOKIE['userID']."@iit.edu";
-		else
-			$userName = $_COOKIE['userID'];
-		$user = $_DB->iknowQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
-		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
-		{
-			$_SESSION['userID'] = $row[0];
-			$currentUser = new Person($row[0], $_DB);
-			$group = explode(",", $_COOKIE['selectedGroup']);
-			$_SESSION['selectedGroup'] = $group[0];
-			$_SESSION['selectedGroupType'] = $group[1];
-			$_SESSION['selectedSemester'] = $group[2];
-		}
-	}
-	else
-		die("You are not logged in.");
-		 
-	if ( !$currentUser->isAdministrator() )
-		die("You must be an administrator to access this page.");
-
-	function displayNuggets($currentGroup, $semID, $_DB){
+	function displayNuggets($currentGroup, $semID, $db){
 		global $_DEFAULTNUGGETS;
-		$query = $_DB->igroupsQuery("SELECT sSemester FROM Semesters where iID=$semID");
+		$query = $db->igroupsQuery("SELECT sSemester FROM Semesters where iID=$semID");
 		$row = mysql_fetch_row($query);
 		print "<h1>{$row[0]} Deliverable Nuggets</h1>";
 
@@ -102,8 +74,8 @@
 <?php
 	}
 
-	function displayNonDefaultNuggets($currentGroup, $semID, $_DB) {
-		$query = $_DB->igroupsQuery("SELECT sSemester FROM Semesters where iID=$semID");
+	function displayNonDefaultNuggets($currentGroup, $semID, $db) {
+		$query = $db->igroupsQuery("SELECT sSemester FROM Semesters where iID=$semID");
 		$row = mysql_fetch_row($query);
 		print "<h1>{$row[0]} Non-Deliverable Nuggets</h1>";
 
@@ -229,15 +201,15 @@
 	print "<div id=\"content\">";
 	//Prints all notifications
 	$id = $_GET['id'];
-	$sem = $_DB->igroupsQuery("Select iSemesterID FROM ProjectSemesterMap WHERE iProjectID = $id ORDER BY iSemesterID DESC");
+	$sem = $db->igroupsQuery("Select iSemesterID FROM ProjectSemesterMap WHERE iProjectID = $id ORDER BY iSemesterID DESC");
 	$row = mysql_fetch_row($sem);
 	$semID = $row[0];
-	$currentGroup = new Group($_GET['id'],0,$semID,$_DB);
+	$currentGroup = new Group($_GET['id'],0,$semID,$db);
 	print "<h2>{$currentGroup->getName()}</h2>";
 	print "<h3>{$currentGroup->getDesc()}</h3>";
-	displayNuggets($currentGroup, $semID, $_DB);
+	displayNuggets($currentGroup, $semID, $db);
 	print "<br />";
-	displayNonDefaultNuggets($currentGroup, $semID, $_DB);
+	displayNonDefaultNuggets($currentGroup, $semID, $db);
 	//print "<br />";
 	//displayOldNuggets($currentGroup);
 	print "<br /><a href=\"nuggets.php\">Back</a>";

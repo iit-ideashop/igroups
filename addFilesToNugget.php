@@ -1,44 +1,12 @@
 <?php
-	session_start();
-	
-	include_once("classes/db.php");
-	include_once("classes/person.php");
-	include_once("classes/group.php");
+	include_once("checklogin.php");
 	include_once("classes/folder.php");
 	include_once("classes/file.php");
 	include_once("classes/quota.php");
 	include_once("classes/nugget.php" );
 	include_once("nuggetTypes.php" );
 
-	$_DB = new dbConnection();
 	global $_DEFAULTNUGGETS;
-	if(isset($_SESSION['userID']))
-		$currentUser = new Person($_SESSION['userID'], $_DB);
-	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup']))
-	{
-		if (strpos($_COOKIE['userID'], "@") === FALSE)
-			$userName = $_COOKIE['userID']."@iit.edu";
-		else
-			$userName = $_COOKIE['userID'];
-		$user = $_DB->iknowQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
-		if (($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
-		{
-			$_SESSION['userID'] = $row[0];
-			$currentUser = new Person($row[0], $_DB);
-			$group = explode(",", $_COOKIE['selectedGroup']);
-			$_SESSION['selectedGroup'] = $group[0];
-			$_SESSION['selectedGroupType'] = $group[1];
-			$_SESSION['selectedSemester'] = $group[2];
-		}
-	}
-	else
-		die("You are not logged in.");
-
-	if(isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester'])){
-		$currentGroup = new Group($_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $_DB);
-	}else{
-		die("You have not selected a valid group.");
-	}
 
 	if(isset($_GET['selectFolder'] )){
 		unset($_SESSION['selectedSpecial']);
@@ -51,7 +19,7 @@
 	}
 
 	if(isset($_SESSION['selectedFolder']) && $_SESSION['selectedFolder'] != 0 && $_SESSION['selectedFolder'] != 1){
-		$currentFolder = new Folder($_SESSION['selectedFolder'], $_DB);
+		$currentFolder = new Folder($_SESSION['selectedFolder'], $db);
 	}else
 		$currentFolder = false;
 	
@@ -71,7 +39,7 @@
 	
 	if(isset($_POST['nugget'])){
 		$id = $_POST['nugget'];
-		$nugget = new Nugget($id, $_DB, 0);
+		$nugget = new Nugget($id, $db, 0);
 		$files =  $_POST['files'];
 		$fileList = explode( ",", $files);
 		foreach($fileList as $file){
@@ -82,7 +50,7 @@
 		$folders = explode( ",", $folderList);
 		foreach($folders as $folder) {
 			if (is_numeric($folder)) {
-			$folder = new Folder($folder, $_DB);
+			$folder = new Folder($folder, $db);
 			$folderFiles = $folder->getFiles();
 			foreach ($folderFiles as $file) {
 				$nugget->addFile($file->getID());
