@@ -583,17 +583,15 @@
 							print "<td align=\"left\" colspan=\"5\"><a href=\"files.php?selectFolder=".$currentFolder->getParentFolderID()."\">..</a></td>";
 							print "</tr>\n";
 					}
-					/*if ($folderList) {//Prevents an error from PHP 4 to PHP 5 switch
+					if ($folderList && $_SESSION['selectedSpecial'] == 'ipro') {//Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $folderList as $key => $folder ) {
 							printTR();
 							print "<td><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
-							print "<td><a href='files.php?selectFolder=".$folder->getID()."'>".$folder->getName()."</a></td>";
-							print "<td colspan='3'>".$folder->getDesc()."</td>";
-							print "<td><input type='checkbox' name='folder[".$folder->getID()."]' /></td>";
-							print "<td><a href=\"#\" onclick=\"renamewin=dhtmlwindow.open('renamebox', 'ajax', 'renamefile.php?folderid=".$folder->getID()."', 'Rename Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Rename</a></td>";
+							print "<td><a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></td>";
+							print "<td colspan=\"3\">".$folder->getDesc()."</td>";
 							print "</tr>\n";
 						}
-					}*/			
+					}		
 					if ( canViewFiles( $currentUser, $currentFolder ) ) {
 					if ($fileList) //Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $fileList as $key => $file ) {
