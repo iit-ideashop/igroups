@@ -124,7 +124,7 @@ else if(mysql_num_rows($query) > 0) {
 	while($row = mysql_fetch_array($query))
 	{
 		$author = new Person($row['iAuthorID'], $db);
-		echo "<tr><td><a href=\"".htmlspecialchars($row['sURL'])."\" title=\"".htmlspecialchars($row['sTitle'])."\" onclick=\"\">".htmlspecialchars($row['sTitle'])."</a></td><td>".$author->getCommaName()."</td><td>".$row['dDate']."</td>";
+		echo "<tr><td><a href=\"".htmlspecialchars($row['sURL'])."\" title=\"".htmlspecialchars($row['sTitle'])."\" onclick=\"window.open(this.href); return false;\" onkeypress=\"window.open(this.href); return false;\">".htmlspecialchars($row['sTitle'])."</a></td><td>".$author->getCommaName()."</td><td>".$row['dDate']."</td>";
 		if($currentUser->getID() == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup))
 			echo "<td><a href=\"bookmarks.php?edit=".$row['iID']."\">Edit</a></td><td><input type=\"checkbox\" name=\"del".$row['iID']."\" /></td></tr>\n";
 		else
