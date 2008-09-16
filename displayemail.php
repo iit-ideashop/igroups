@@ -52,15 +52,15 @@
 		if ($email->prev || $email->next) 
 			print "<table width=\"100%\" cellspacing=\"0\" style=\"border-style: none\"><tr><td align=\"center\" style=\"background: #AAAAAA\">";
 		if ($email->prev) {
-			print "<a href=\"displayemail.php?id={$email->prev}\">Previous in Thread</a>";
+			print "<a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->prev."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">Previous in Thread</a>";
 			if ($email->next)
-				print " | <a href=\"displayemail.php?id={$email->next}\">Next in Thread</a></td></tr></table>";
+				print " | <a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->next."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">Next in Thread</a></td></tr></table>";
 			else
 				print "</td></tr></table>";
 		}
 		else {
 			if ($email->next)
-				print "<a href=\"displayemail.php?id={$email->next}\">Next in Thread</a></td></tr></table>";
+				print "<a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->next."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">Next in Thread</a></td></tr></table>";
 		}
 		print "<p><b>Subject:</b> ".$email->getSubjectHTML()."<br />";
 		print "<b>From:</b> ".$author->getFullName()."<br />";
