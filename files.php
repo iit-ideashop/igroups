@@ -583,7 +583,7 @@
 							print "<td align=\"left\" colspan=\"5\"><a href=\"files.php?selectFolder=".$currentFolder->getParentFolderID()."\">..</a></td>";
 							print "</tr>\n";
 					}
-					if ($folderList && ($_SESSION['selectedSpecial'] == 'ipro' || $currentFolder->isIPROFolder())) {//Prevents an error from PHP 4 to PHP 5 switch
+					if ($folderList && ($_SESSION['selectedSpecial'] == 'ipro' || ($currentFolder && $currentFolder->isIPROFolder()))) {
 						foreach ( $folderList as $key => $folder ) {
 							printTR();
 							print "<td><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
