@@ -44,9 +44,14 @@
 	}
 	else if(isset($_POST['add']))
 	{
-		$values = "( ".$currentGroup->getID().", ".$currentUser->getID().", '".mysql_real_escape_string($_POST['title'])."', '".mysql_real_escape_string($_POST['url'])."' )";
-		$db->igroupsQuery("insert into Bookmarks (iGroupID, iAuthorID, sTitle, sURL) values $values");
-		$message = "The bookmark has been added.";
+		if(!isset($_POST['title']) || $_POST['title'] == '' || !isset($_POST['url']) || $_POST['url'] == '' || $_POST['url'] == 'http://')
+			$message = "Please fill both the title field and the URL field before adding a bookmark.";
+		else
+		{
+			$values = "( ".$currentGroup->getID().", ".$currentUser->getID().", '".mysql_real_escape_string($_POST['title'])."', '".mysql_real_escape_string($_POST['url'])."' )";
+			$db->igroupsQuery("insert into Bookmarks (iGroupID, iAuthorID, sTitle, sURL) values $values");
+			$message = "The bookmark has been added.";
+		}
 	}
 	else if(isset($_POST['editid']) && is_numeric($_POST['editid']))
 	{
