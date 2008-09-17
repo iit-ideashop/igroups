@@ -135,14 +135,13 @@
 	<script type="text/javascript">
 	//<![CDATA[
 		function checkspell(id) {
-			var spellwin=dhtmlwindow.open('spellbox', 'ajax', 'spell.php', 'Spell Check', 'width=600px,height=400px,left=300px,top=100px,resize=1,scrolling=1');
+			url = "spell.php?spelltext=" + escape(document.getElementById(id).value).replace("+", "%2B").replace("/", "%2F");
+			var spellwin=dhtmlwindow.open('spellbox', 'ajax', url, 'Spell Check', 'width=600px,height=400px,left=300px,top=100px,resize=1,scrolling=1');
 			spellwin.onclose=function() {
 				textval = document.getElementById('spelltext').value;
 				document.getElementById(id).value = textval;
 				return true;
 			}
-			textval = document.getElementById(id).value;
-			document.getElementById('spelltext').value = textval;
 		}
 
 		function toggleToDisplay() {

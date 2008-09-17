@@ -26,9 +26,10 @@ You should have received a copy of the GNU General Public License
 along with this program; if not, write to the Free Software
 Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.
 */
-
-$text= $_POST['spelltext'];
-$showsource= $_GET['showsource'];
+if(isset($_GET['spelltext']))
+	$text= $_GET['spelltext'];
+else
+	$text = "";
 
 //
 // file paths and the aspell command have moved down below line 58
@@ -55,11 +56,10 @@ if (trim($text)!="") {
 </style>
 </head><body>
 <h1>Spell Check</h1>
-<p>$sourceinfo</p>
 
 <?php
 // if text+check is supplied, first open and create $temptext, then spell check
-if (trim($text)!="" && ($_POST['submit']=="check" || $_POST['submit']=="re-check")) {
+if (trim($text)!="") {
 	
 	// HERE'S WHERE YOU MIGHT NEED TO CHANGE FILE PATHS, etc.
 	//
@@ -197,7 +197,7 @@ if (trim($text)!="" && ($_POST['submit']=="check" || $_POST['submit']=="re-check
 	$htmltext= htmlentities($text);
 	if ($formbody=="") $formbody= "<tr><td>&nbsp;</td><td><br /><strong>No errors!</strong><br />Click 'Correct' to continue with text unchanged.<br />&nbsp;</td></tr>";
 	print "<hr /><h3>Correction form:</h3>
-	<form name=\"corrector\" action=\"spellcheck.php\" method=\"post\"><fieldset>
+	<form name=\"corrector\" action=\"spell.php\" method=\"post\"><fieldset>
 	<input type=\"hidden\" name=\"text\" value=\"$htmltext\" />
 	<table>
 	$formbody
@@ -250,7 +250,7 @@ elseif (trim($text)!="" && $_POST['submit']=="correct") {
 		$newtext.=$value;
 		}
 	print "
-	<form action=\"spellcheck.php\" method=\"post\"><fieldset><legend>Your Corrected Text:</legend>
+	<form action=\"spell.php\" method=\"post\"><fieldset><legend>Your Corrected Text:</legend>
 		<textarea name=\"spelltext\" id=\"spelltext\" cols=\"60\" rows=\"10\">$newtext</textarea><br />
 		<input type=\"submit\" name=\"submit\" value=\"Re-check\" /><input type=\"button\" value=\"Done\" onclick=\"spellwin.close();\" />
 	</fieldset></form>";
@@ -259,7 +259,7 @@ elseif (trim($text)!="" && $_POST['submit']=="correct") {
 // otherwise, show the initial form
 else {
 	print "
-	<form action=\"spellcheck.php\" method=\"post\"><fieldset><legend>Text to Check:</legend>
+	<form action=\"spell.php\" method=\"post\"><fieldset><legend>Text to Check:</legend>
 		<textarea name=\"spelltext\" id=\"spelltext\" cols=\"60\" rows=\"10\">$newtext</textarea><br>
 		<input type=\"submit\" name=\"submit\" value=\"Check\" />
 	</fieldset></form>";
