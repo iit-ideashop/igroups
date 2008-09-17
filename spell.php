@@ -205,7 +205,7 @@ if (trim($text)!="") {
 	$formbody
 	<tr>
 	  <td>&nbsp;</td>
-	  <td><input type=\"button\" value=\"Correct\" onclick=\"parent.pushSpellingChanges('body'); parent.spellwin.close();\" />
+	  <td><input type=\"button\" value=\"Correct\" onclick=\"parent.parent.pushSpellingChanges('body'); parent.parent.spellwin.close();\" />
 		  <input type=\"reset\" name=\"reset\" />
 	  </td>
 	</tr>
@@ -260,11 +260,7 @@ elseif (trim($text)!="" && $_POST['submit']=="correct") {
 	
 // otherwise, show the initial form
 else {
-	print "
-	<form action=\"spell.php\" method=\"post\"><fieldset><legend>Text to Check:</legend>
-		<textarea name=\"spelltext\" id=\"spelltext\" cols=\"60\" rows=\"10\">$newtext</textarea><br>
-		<input type=\"submit\" name=\"submit\" value=\"Check\" />
-	</fieldset></form>";
+	print "Nothing entered, so nothing to check.";
 	}
 		
 print "
