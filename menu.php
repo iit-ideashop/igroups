@@ -80,8 +80,7 @@ ob_start();
 			$_SESSION['selectedGroup'] = $temp[0];
 			$_SESSION['selectedGroupType'] = $temp[1];
 			$_SESSION['selectedSemester'] = $temp[2];
-			if(isset($_COOKIE['userID']))
-				setcookie('selectedGroup', $string, time()+60*60*24*365);
+			setcookie('selectedGroup', $string, time()+60*60*24*365);
 		}
 		unset( $_SESSION['selectedFolder'] );
 		unset( $_SESSION['selectedSpecial'] );
