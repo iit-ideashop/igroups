@@ -148,7 +148,7 @@
 		else
 			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\"></textarea></td></tr>";
 ?>
-			<tr><td colspan="2" align="center"><input type="button" value="Spell Check" onclick="spellcheck('body')" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
+			<tr><td colspan="2" align="center"><input type="button" value="Spell Check" onclick="checkspell('body')" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
 		</table>
 <?php
 		if ( isset( $_GET['replyid'] ) )
