@@ -252,7 +252,7 @@ elseif (trim($text)!="" && $_POST['submit']=="correct") {
 	print "
 	<form action=\"spellcheck.php\" method=\"post\"><fieldset><legend>Your Corrected Text:</legend>
 		<textarea name=\"spelltext\" id=\"spelltext\" cols=\"60\" rows=\"10\">$newtext</textarea><br />
-		<input type=\"submit\" name=\"submit\" value=\"Re-check\" /><input type=\"button\" value=\"Done\" onclick=\"returnChecked('body')\" />
+		<input type=\"submit\" name=\"submit\" value=\"Re-check\" /><input type=\"button\" value=\"Done\" onclick=\"spellwin.close();\" />
 	</fieldset></form>";
 	}
 	

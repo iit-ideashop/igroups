@@ -20,7 +20,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Send Email</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
-	<script type="text/javascript">
+</head>
+<body onload="sendinit()">
+<script type="text/javascript">
 	//<![CDATA[
 		function spellcheck( id ) {
 			var spellwin=dhtmlwindow.open('spellbox', 'ajax', 'spell.php', 'Spell Check', 'width=600px,height=400px,left=300px,top=100px,resize=1,scrolling=1');
@@ -30,8 +32,6 @@
 		}
 	//]]>
 	</script>
-</head>
-<body onload="sendinit()">
 <?php
 	if (isset($_GET['replyid'])) {
 		$replyEmail = new Email($_GET['replyid'], $db);
@@ -158,7 +158,7 @@
 		else
 			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\"></textarea></td></tr>";
 ?>
-			<tr><td colspan="2" align="center"><input type="button" value="Spell Check" onclick="spellcheck('body');" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
+			<tr><td colspan="2" align="center"><input type="button" value="Spell Check" onclick="spellcheck('body')" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
 		</table>
 <?php
 		if ( isset( $_GET['replyid'] ) )
