@@ -439,7 +439,7 @@ function _getFormInputs( inputPattern ) {
 	var inputs = new Array();
 	for( var i = 0; i < document.forms.length; i++ ) {
 		for( var j = 0; j < document.forms[i].elements.length; j++ ) {
-			if( typeof document.forms[i].elements[j].type != "undefined" && document.forms[i].elements[j].type.match( inputPattern )) {
+			if( document.forms[i].elements[j].tagName.match( inputPattern )) {
 				inputs[inputs.length] = document.forms[i].elements[j]; 
 			}	
 		}
