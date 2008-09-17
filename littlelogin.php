@@ -10,7 +10,15 @@
 		<input type="checkbox" name="remember" id="remember" value="true" />&nbsp;<label for="remember">Remember Me</label><br />
 <?php
 	foreach($_POST as $key => $val)
-		echo "<input type=\"hidden\" name=\"$key\" value=\"$val\" />\n";
+	{
+		if(is_array($_POST[$key]))
+		{
+			foreach($_POST[$key] as $key2 => $val2)
+				echo "<input type=\"hidden\" name=\"".$key."[".$key2."]\" value=\"$val2\" />\n";
+		}
+		else
+			echo "<input type=\"hidden\" name=\"$key\" value=\"$val\" />\n";
+	}
 ?>
 		<input type="submit" name="login" value="Login" />
 	</fieldset></form>
