@@ -35,9 +35,11 @@ else
 // file paths and the aspell command have moved down below line 58
 //
 
-// show source code part I
-if ($showsource) $sourceinfo= "Script: $_SERVER[SCRIPT_FILENAME] ( <a href=\"#source\">source code</a> )";
-else $sourceinfo= "<a href=\"$_SERVER[SCRIPT_NAME]?showsource=1#source\">show PHP source code</a>";
+if(isset($_GET['showsource']))
+{
+	show_source($_SERVER['SCRIPT_FILENAME']);
+	die();
+}
 if (trim($text)!="") {
 	$showsource= 0;
 	$sourceinfo= "";
@@ -203,7 +205,7 @@ if (trim($text)!="") {
 	$formbody
 	<tr>
 	  <td>&nbsp;</td>
-	  <td><input type=\"submit\" name=\"submit\" value=\"Correct\" />
+	  <td><input type=\"button\" value=\"Correct\" onclick=\"spellwin.close();\" />
 		  <input type=\"reset\" name=\"reset\" />
 	  </td>
 	</tr>
@@ -268,7 +270,7 @@ else {
 // show source code part II
 if ($showsource) {
 	print "<hr /><a name=\"source\"> </a><h1>PHP Source:</h1>";
-	$void= show_source($_SERVER['SCRIPT_FILENAME']);
+	$void= ;
 	}
 		
 print "
@@ -277,6 +279,7 @@ spellcheck.php Copyright &copy; 2003 by Chris Snyder<br />
 This program comes with ABSOLUTELY NO WARRANTY.  This is free software, and you are welcome
 to redistribute it under certain conditions; please refer to the
 <a href='http://www.gnu.org/licenses/gpl.html'>GNU General Public License</a> for details.
+<a href=\"$_SERVER[SCRIPT_NAME]?showsource=1\">Source code available here</a>
 </body>
 </html>";
 ?>
