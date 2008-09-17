@@ -141,6 +141,7 @@ function print_checker_results() {
 <link rel="stylesheet" type="text/css" href="<?php echo $spellercss ?>" />
 <script language="javascript" src="<?php echo $word_win_src ?>"></script>
 <script language="javascript">
+//<![CDATA[
 var suggs = new Array();
 var words = new Array();
 var textinputs = new Array();
@@ -171,18 +172,16 @@ function init_spell() {
 		}
 	}
 }
-
-
-
+//]]>
 </script>
 
 </head>
-<body onLoad="init_spell();">
+<body onload="init_spell();">
 
 <script type="text/javascript">
+//<![CDATA[
 wordWindowObj.writeBody();
+//]]>
 </script>
-
 </body>
 </html>
-
