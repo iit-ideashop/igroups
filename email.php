@@ -7,7 +7,7 @@
 	if(isset($_GET['replyid']) && is_numeric($_GET['replyid']))
 	{
 		$email = new Email($_GET['replyid'], $db);
-		$currentGroup = new Group($email->getGroupID(), $email->getGroupType(), $email->getSemester());
+		$currentGroup = new Group($email->getGroupID(), $email->getGroupType(), $email->getSemester(), $db);
 		if(!$currentGroup->isGroupMember($currentUser))
 			die("You are not a member of this group.");
 		$_SESSION['selectedGroup'] = $email->getGroupID();
