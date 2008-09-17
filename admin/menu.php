@@ -13,8 +13,8 @@ ob_start();
 
 	// Remember login info for 1 week
 	if (isset($_POST['remember']) && isset($_POST['username']) && isset($_POST['password'])) {
-		setcookie('userID', $_POST['username'], time()+60*60*24*7);
-		setcookie('password', $_POST['password'], time()+60*60*24*7);
+		setcookie('userID', $_POST['username'], time()+60*60*24*7, "../");
+		setcookie('password', $_POST['password'], time()+60*60*24*7, "../");
 	}
 
 	if ( isset( $_POST['logform'] ) ) {
@@ -80,7 +80,7 @@ ob_start();
 			$_SESSION['selectedGroupType'] = $temp[1];
 			$_SESSION['selectedSemester'] = $temp[2];
 			if(isset($_COOKIE['userID']))
-				setcookie('selectedGroup', $string, time()+60*60*24*7);
+				setcookie('selectedGroup', $string, time()+60*60*24*7, "../");
 		}
 		unset( $_SESSION['selectedFolder'] );
 		unset( $_SESSION['selectedSpecial'] );

@@ -4,6 +4,7 @@
 <title>iGroups - Login</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
 </head><body>
+<p>Your session has expired due to inactivity. Please log in to continue.</p>
 <form method="post" action="<?php echo  $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']; ?>"><fieldset><legend>Login</legend>
 		<label for="username">User name:</label><input name="username1" id="username1" type="text" /><br />
 		<label for="password">Password:</label><input name="password1" id="password1" type="password" /><br />

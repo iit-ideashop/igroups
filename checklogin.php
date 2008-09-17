@@ -2,7 +2,7 @@
 	include_once( "checklogingroupless.php" );
 	include_once( "classes/group.php" );
 
-	if ( isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']) )
+	if(isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']))
 	{
 		$currentGroup = new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db );
 		if(!$currentGroup->isGroupMember($currentUser))
@@ -17,7 +17,7 @@
 	else if(isset($_COOKIE['selectedGroup']))
 	{
 		$group = explode(",", $_COOKIE['selectedGroup']);
-		$currentGroup = new Group( $group[0],$group[1], $group[2], $db );
+		$currentGroup = new Group($group[0],$group[1], $group[2], $db);
 		if(!$currentGroup->isGroupMember($currentUser))
 		{
 			setcookie('selectedGroup', '', time()-60);
