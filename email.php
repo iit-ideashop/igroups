@@ -1,86 +1,8 @@
 <?php
-	session_start();
-
-	include_once( "classes/db.php" );
-	include_once( "classes/person.php" );
+	include_once("checklogin.php");
 	include_once( "classes/group.php" );
 	include_once( "classes/category.php" );
 	include_once( "classes/email.php" );
-	
-	$db = new dbConnection();
-	
-	if ( isset( $_SESSION['userID'] ) ) 
-		$currentUser = new Person( $_SESSION['userID'], $db );
-	else if ( isset($_POST['login'] ) && isset($_GET['replyid']) ) {
-		
-		if ( strpos( $_POST['username'], "@" ) === FALSE ) 
-			$_POST['username'] .= "@iit.edu";
-			
-		$user = $db->iknowQuery( "SELECT iID,sPassword FROM People WHERE sEmail='".$_POST['username']."'" );
-		
-		if ( ( $row = mysql_fetch_row( $user ) ) && ( md5($_POST['password']) == $row[1] ) ) {
-			$_SESSION['userID'] = $row[0];
-			$email = new Email($_GET['replyid'], $db);
-			$_SESSION['selectedGroup'] = $email->getGroupID();
-			$_SESSION['selectedGroupType'] = $email->getGroupType();
-			$_SESSION['selectedSemester'] = $email->getSemester();
-			if ( isset( $_POST["remember"] ) ) {
-				setcookie( "userID", $_SESSION['userID'], time()+1209600 );
-			}
-		}
-		else {
-			$errorMsg = "Invalid username or password";
-		}
-	}
-	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup']))
-	{
-		if(strpos($_COOKIE['userID'], "@") === FALSE)
-			$userName = $_COOKIE['userID']."@iit.edu";
-		else
-			$userName = $_COOKIE['userID'];
-		$user = $db->iknowQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
-		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
-		{
-			$_SESSION['userID'] = $row[0];
-			$currentUser = new Person($row[0], $db);
-			$group = explode(",", $_COOKIE['selectedGroup']);
-			$_SESSION['selectedGroup'] = $group[0];
-			$_SESSION['selectedGroupType'] = $group[1];
-			$_SESSION['selectedSemester'] = $group[2];
-		}
-	}
-	else if(isset($_GET['replyid']))
-	{
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Log In</title>
-<link rel="stylesheet" href="default.css" type="text/css" />
-</head><body>
-<?php
-		if ( isset( $errorMsg ) ) {
-			print $errorMsg."<br />";
-		}
-		print "<form method=\"post\" action=\"email.php?replyid=".$_GET['replyid']."\"><fieldset><legend>Login</legend>";
-?>
-			<label for="username">User name:</label><input name="username" id="username" type="text" /><br />
-			<label for="password">Password:</label><input name="password" id="password" type="password" /><br />
-			<input type="checkbox" name="remember" id="remember" /><label for="remember">Remember me?</label><br />
-			<input type="submit" name="login" value="Login" />
-		</fieldset></form>
-</body></html>
-<?php
-	die();
-	}
-	else
-		die("You are not logged in.");
-		 
-	if ( isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']) )
-		$currentGroup = new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db );
-
-	else
-		die("You have not selected a valid group.");
 		
 	if ( isset( $_GET['selectCategory'] ) ) {
 		$_SESSION['selectedCategory'] = $_GET['selectCategory'];

@@ -15,6 +15,11 @@
 		if(($row = mysql_fetch_row($user)) && (md5($_POST['password1']) == $row[1])) //Success! Set session variables.
 		{
 			$_SESSION['userID'] = $row[0];
+			if (isset($_POST['remember']))
+			{
+				setcookie('userID', $_POST['username1'], time()+60*60*24*7);
+				setcookie('password', $_POST['password1'], time()+60*60*24*7);
+			}
 			if(isset($_COOKIE['selectedGroup']))
 			{
 				$group = explode(",", $_COOKIE['selectedGroup']);
