@@ -70,7 +70,7 @@ function checkTextBoxes() {
 
 // call this method to check all textareas (and only textareas ) in the HTML document
 function checkTextAreas() {
-	this.textInputs = this._getFormInputs( "^textarea$" );
+	this.textInputs = document.getElementsByTagName('textarea');
 	this.openChecker();
 }
 
