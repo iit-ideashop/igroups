@@ -22,16 +22,6 @@
 <link rel="stylesheet" href="default.css" type="text/css" />
 </head>
 <body onload="sendinit()">
-<script type="text/javascript">
-	//<![CDATA[
-		function spellcheck( id ) {
-			var spellwin=dhtmlwindow.open('spellbox', 'ajax', 'spell.php', 'Spell Check', 'width=600px,height=400px,left=300px,top=100px,resize=1,scrolling=1');
-			spellwin.onclose=returnChecked(id);
-			textval = document.getElementById( id ).value;
-			document.getElementById( 'spelltext' ).value = textval;
-		}
-	//]]>
-	</script>
 <?php
 	if (isset($_GET['replyid'])) {
 		$replyEmail = new Email($_GET['replyid'], $db);

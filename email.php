@@ -133,10 +133,16 @@
 ***********************************************/
 </script>
 
-<script type="text/javascript" src="speller/spellChecker.js">
-	</script>
 	<script type="text/javascript">
 	//<![CDATA[
+	
+		function spellcheck( id ) {
+			var spellwin=dhtmlwindow.open('spellbox', 'ajax', 'spell.php', 'Spell Check', 'width=600px,height=400px,left=300px,top=100px,resize=1,scrolling=1');
+			spellwin.onclose=returnChecked(id);
+			textval = document.getElementById( id ).value;
+			document.getElementById( 'spelltext' ).value = textval;
+		}
+
 		function returnChecked( id ) {
 			textval = document.getElementById( 'spelltext' ).value;
 			document.getElementById( id ).value = textval;
