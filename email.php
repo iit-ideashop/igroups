@@ -4,15 +4,17 @@
 	include_once( "classes/category.php" );
 	include_once( "classes/email.php" );
 	
-	if(isset($_GET['replyid']))
+	if(isset($_GET['replyid']) && is_numeric($_GET['replyid']))
 	{
 		$email = new Email($_GET['replyid'], $db);
+		$currentGroup = new Group($email->getGroupID(), $email->getGroupType(), $email->getSemester());
+		if(!$currentGroup->isGroupMember($currentUser))
+			die("You are not a member of this group.");
 		$_SESSION['selectedGroup'] = $email->getGroupID();
 		$_SESSION['selectedGroupType'] = $email->getGroupType();
 		$_SESSION['selectedSemester'] = $email->getSemester();
 	}
-	
-	if ( isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']) )
+	else if(isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']))
 	{
 		$currentGroup = new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db );
 		if(!$currentGroup->isGroupMember($currentUser))

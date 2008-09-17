@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	include_once( "classes/db.php" );
-	include_once( "classes/person.php" );
+	include_once("classes/db.php");
+	include_once("classes/person.php");
 	$db = new dbConnection();
 	
 	//If we have an "on-the-fly" login
@@ -11,11 +11,11 @@
 			$userName = $_POST['username1']."@iit.edu";
 		else
 			$userName = $_POST['username1'];
-		$user = $db->iknowQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
+		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
 		if(($row = mysql_fetch_row($user)) && (md5($_POST['password1']) == $row[1])) //Success! Set session variables.
 		{
 			$_SESSION['userID'] = $row[0];
-			if (isset($_POST['remember']))
+			if(isset($_POST['remember']))
 			{
 				setcookie('userID', $_POST['username1'], time()+60*60*24*7);
 				setcookie('password', $_POST['password1'], time()+60*60*24*7);
@@ -44,7 +44,7 @@
 			$userName = $_COOKIE['userID']."@iit.edu";
 		else
 			$userName = $_COOKIE['userID'];
-		$user = $db->iknowQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
+		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
 		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
 		{
 			$_SESSION['userID'] = $row[0];
