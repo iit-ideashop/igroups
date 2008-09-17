@@ -266,12 +266,6 @@ else {
 		<input type=\"submit\" name=\"submit\" value=\"Check\" />
 	</fieldset></form>";
 	}
-	
-// show source code part II
-if ($showsource) {
-	print "<hr /><a name=\"source\"> </a><h1>PHP Source:</h1>";
-	$void= ;
-	}
 		
 print "
 <hr />
