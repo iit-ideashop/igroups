@@ -132,6 +132,7 @@
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
 </script>
+<script type="text/javascript" src="speller/spellChecker.js"></script>
 	<script type="text/javascript">
 	//<![CDATA[
 		function openSpellChecker() {
