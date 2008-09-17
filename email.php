@@ -138,11 +138,12 @@
 		function checkspell(id) {
 			url = "spell.php?spelltext=" + escape(document.getElementById(id).value).replace("+", "%2B").replace("/", "%2F");
 			spellwin=dhtmlwindow.open('spellbox', 'ajax', url, 'Spell Check', 'width=600px,height=400px,left=300px,top=100px,resize=1,scrolling=1');
-			spellwin.onclose=function() {
-				textval = document.getElementById('spelltext').value;
-				document.getElementById(id).value = textval;
-				return true;
-			}
+			spellwin.onclose=pushSpellingChanges(id);
+		}
+		
+		function pushSpellingChanges(id) {
+			textval = document.getElementById('spelltext').value;
+			document.getElementById(id).value = textval;
 		}
 
 		function toggleToDisplay() {
