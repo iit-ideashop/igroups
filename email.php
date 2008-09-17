@@ -134,9 +134,10 @@
 </script>
 	<script type="text/javascript">
 	//<![CDATA[
+		var spellwin;
 		function checkspell(id) {
 			url = "spell.php?spelltext=" + escape(document.getElementById(id).value).replace("+", "%2B").replace("/", "%2F");
-			var spellwin=dhtmlwindow.open('spellbox', 'ajax', url, 'Spell Check', 'width=600px,height=400px,left=300px,top=100px,resize=1,scrolling=1');
+			spellwin=dhtmlwindow.open('spellbox', 'ajax', url, 'Spell Check', 'width=600px,height=400px,left=300px,top=100px,resize=1,scrolling=1');
 			spellwin.onclose=function() {
 				textval = document.getElementById('spelltext').value;
 				document.getElementById(id).value = textval;
