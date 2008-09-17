@@ -20,7 +20,16 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title>iGroups - Send Email</title>
 <link rel="stylesheet" href="default.css" type="text/css" />
-	
+	<script type="text/javascript">
+	//<![CDATA[
+		function spellcheck( id ) {
+			var spellwin=dhtmlwindow.open('spellbox', 'ajax', 'spell.php', 'Spell Check', 'width=600px,height=400px,left=300px,top=100px,resize=1,scrolling=1');
+			spellwin.onclose=returnChecked(id);
+			textval = document.getElementById( id ).value;
+			document.getElementById( 'spelltext' ).value = textval;
+		}
+	//]]>
+	</script>
 </head>
 <body onload="sendinit()">
 <?php
