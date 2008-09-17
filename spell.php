@@ -205,7 +205,7 @@ if (trim($text)!="") {
 	$formbody
 	<tr>
 	  <td>&nbsp;</td>
-	  <td><input type=\"button\" value=\"Correct\" onclick=\"parent.parent.pushSpellingChanges('body'); parent.parent.spellwin.close();\" />
+	  <td><input type=\"button\" value=\"Correct\" onclick=\"parent.parent.window.pushSpellingChanges('body'); parent.parent.window.spellwin.close();\" />
 		  <input type=\"reset\" name=\"reset\" />
 	  </td>
 	</tr>
