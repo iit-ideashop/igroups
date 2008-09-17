@@ -137,7 +137,7 @@
 	//<![CDATA[
 		function openSpellChecker() {
 		var speller = new spellChecker();
-		speller.spellCheckAll();
+		speller.checkTextAreas();
 		}
 
 		function toggleToDisplay() {
