@@ -1,6 +1,10 @@
-
-<script>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Frameset//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-frameset.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<title>iGroups - Spell Check</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript">
+//<![CDATA[
 var wordWindow = null;
 var controlWindow = null;
 
@@ -37,11 +41,11 @@ function postWords() {
 	var bodyDoc = window.frames[0].document;
 	bodyDoc.open();
 	bodyDoc.write('<html>');
-	bodyDoc.write('<meta http-equiv="Content-Type" content="text/html; charset=utf-8">');
-	bodyDoc.write('<link rel="stylesheet" type="text/css" href="spellerStyle.css"/>');
+	bodyDoc.write('<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />');
+	bodyDoc.write('<link rel="stylesheet" type="text/css" href="spellerStyle.css" />');
 	if (opener) {
 		var speller = opener.speller;
-		bodyDoc.write('<body class="normalText" onLoad="document.forms[0].submit();">');
+		bodyDoc.write('<body class="normalText" onload="document.forms[0].submit();">');
 		bodyDoc.write('<p>Spell check in progress...</p>');
 		bodyDoc.write('<form action="'+speller.spellCheckScript+'" method="post">');
 		for( var i = 0; i < speller.textInputs.length; i++ ) {
@@ -57,15 +61,11 @@ function postWords() {
 	bodyDoc.write('</html>');
 	bodyDoc.close();
 }
+//]]>
 </script>
-
-<html>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-<head>
-<title>Speller Pages</title>
 </head>
-<frameset rows="*,201" onLoad="postWords();">
-<frame src="blank.html">
-<frame src="controls.html">
-</frameset>
+<frameset rows="*,201" onload="postWords();">
+<frame src="blank.html" />
+<frame src="controls.html" />
+</frameset></body>
 </html>
