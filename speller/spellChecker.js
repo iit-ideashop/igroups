@@ -439,7 +439,7 @@ function _getFormInputs( inputPattern ) {
 	var inputs = new Array();
 	for( var i = 0; i < document.forms.length; i++ ) {
 		for( var j = 0; j < document.forms[i].elements.length; j++ ) {
-			if( document.forms[i].elements[j].tagName.match( inputPattern )) {
+			if( document.forms[i].elements[j].tagName == 'textarea' {
 				inputs[inputs.length] = document.forms[i].elements[j]; 
 			}	
 		}
