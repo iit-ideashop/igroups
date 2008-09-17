@@ -97,7 +97,7 @@ ob_start();
 	}	
 	
 	function getLinkedName( $group ) {
-		return "<a href=\"menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester()."\">".$group->getName()."</a>";
+		return "<a href=\"../menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester()."\">".$group->getName()."</a>";
 	}
 	
 	function printGroupMenu( $user, $group ) {
