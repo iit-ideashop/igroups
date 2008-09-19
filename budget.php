@@ -77,6 +77,7 @@ if(isset($_GET['delete']) && is_numeric($_GET['proj']) && is_numeric($_GET['type
 	if(!$group->isGroupMember($currentUser))
 		die("You are not a member of this group.");
 	$db->igroupsQuery("delete from Budgets where iProjectID=".$_GET['proj']." and iSemesterID=".$_GET['sem']." and bCategory='".mysql_real_escape_string($_GET['cat'])."'");
+	$message = "Budget item successfully deleted.";
 }
 
 ?>
