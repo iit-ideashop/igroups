@@ -13,33 +13,41 @@ if (isset($_POST['submit_budget']))
 {
 	
 	$i=0;
+	$notify = true;
 	foreach ($_POST['category'] as $row=>$category)
 	{
-	$amount = $_POST['amount'][$row];
-	$desc = $_POST['desc'][$row];
+		$amount = $_POST['amount'][$row];
+		$desc = $_POST['desc'][$row];
+		if($desc == "Foobar")
+			$notify = false;
 	
 		if ($amount != NULL && is_numeric($amount)) {
 		$i++;
 		$query = $db->igroupsQuery("INSERT INTO Budgets(iProjectID, iSemesterID, bCategory, bRequested, bDesc, bRequestedDate, bOrder) VALUES($s_selectedGroup, $s_selectedSemester, '$category', $amount, '$desc', now(), $i)") or die('There was a problem with your submission, please go back and try again');
 		}
 	}					
-		echo "<div id=\"info_msg\">Your submission was successful! Review your submission in the table below or at any time by clicking on the 'Budget' tab of your IPRO.</div>";
 
-
-//Send Automatic Email
-	$msg = "This is an auto-generated iGroups notification to let you know that ". $currentGroup->getName() ." team has submitted a budget and is awaiting your review.\n\n";
-	$msg .= "--- iGroups System Auto-Generated Massage";
-	$headers = "From: \"IPRO Office\" <igroups@iit.edu>\n";
+	if($notify)
+	{
+		//Send Automatic Email
+		$msg = "This is an auto-generated iGroups notification to let you know that ". $currentGroup->getName() ." team has submitted a budget and is awaiting your review.\n\n";
+		$msg .= "--- iGroups System Auto-Generated Massage";
+		$headers = "From: \"IPRO Office\" <igroups@iit.edu>\n";
 					
-	$headers .= "To: jacobius@iit.edu";
-	$headers .= "\nContent-Type: text/plain;\n";
-	$headers .= "Content-Transfer-Encoding: 7bit;\n";
-	mail('', $currentGroup->getName() .' submitted a budget ' .$s_selectedCategoryName.'', $msg, $headers);
+		$headers .= "To: jacobius@iit.edu";
+		$headers .= "\nContent-Type: text/plain;\n";
+		$headers .= "Content-Transfer-Encoding: 7bit;\n";
+		mail('', $currentGroup->getName() .' submitted a budget ' .$s_selectedCategoryName.'', $msg, $headers);
+		$message = "Your submission was successful! Review your submission in the table below or at any time by clicking on the 'Budget' tab of your IPRO.";
+	}
+	else
+		$message = "Your test submission was successful!";
+	
 }
 
 //START Handling New Category
 if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']) && is_numeric($_POST['new_category_amount'])) 
-	{
+{
 	//Get max order #
 	$query = $db->igroupsQuery("SELECT max(bOrder) as ordernum FROM Budgets WHERE iSemesterID=$s_selectedSemester AND iProjectID=$s_selectedGroup");
 	$ordernum = mysql_fetch_row($query);
@@ -61,7 +69,16 @@ if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']
 	$headers .= "\nContent-Type: text/plain;\n";
 	$headers .= "Content-Transfer-Encoding: 7bit;\n";
 	mail('', $currentGroup->getName() .' submitted a new budget category ' .$s_selectedCategoryName.'', $msg, $headers);
-	}
+}
+
+if(isset($_GET['delete']) && is_numeric($_GET['proj']) && is_numeric($_GET['type']) && is_numeric($_GET['sem']) && isset($_GET['cat']))
+{
+	$group = new Group($_GET['proj'], $_GET['type'], $_GET['sem'], $db);
+	if(!$group->isGroupMember($currentUser))
+		die("You are not a member of this group.");
+	$db->query("delete from Budgets where iProjectID=".$_GET['proj']." and iSemesterID=".$_GET['sem']." and bCategory=".$_GET['cat']);
+}
+
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -416,7 +433,7 @@ if ($row[bStatus]=='Completed') {
 else {
 	echo "<td>$row[bStatus]</td>";
 	}
-	echo "<td><span class=\"edit_desc\"><a href=\"edit_budget.php?bOrder=$row[bOrder]&amp;bDesc=$row[bDesc]\">Revise</a></span></td></tr>";
+	echo "<td><span class=\"edit_desc\"><a href=\"edit_budget.php?bOrder=$row[bOrder]&amp;bDesc=$row[bDesc]\">Revise</a> or <a href=\"budget.php?delete=true&amp;proj=$row[iProjectID]&amp;sem=$row[iSemesterID]&amp;cat=".urlencode($row[bCategory])."\" title=\"Delete this item\">Delete</a></span></td></tr>";
 	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\">".str_replace("\n", "<br />", htmlspecialchars($row[bDesc]))."</div>";
 	}
 	
