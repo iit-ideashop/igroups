@@ -433,7 +433,10 @@ if ($row[bStatus]=='Completed') {
 else {
 	echo "<td>$row[bStatus]</td>";
 	}
-	echo "<td><span class=\"edit_desc\"><a href=\"edit_budget.php?bOrder=$row[bOrder]&amp;bDesc=$row[bDesc]\">Revise</a> or <a href=\"budget.php?delete=true&amp;proj=$row[iProjectID]&amp;sem=$row[iSemesterID]&amp;cat=".urlencode($row[bCategory])."\" title=\"Delete this item\">Delete</a></span></td></tr>";
+	echo "<td><span class=\"edit_desc\"><a href=\"edit_budget.php?bOrder=$row[bOrder]&amp;bDesc=$row[bDesc]\">Revise</a>";
+	if($row[bApprovedDate]==NULL)
+		echo " or <a href=\"budget.php?delete=true&amp;proj=$row[iProjectID]&amp;type=$s_selectedGroupType&amp;sem=$row[iSemesterID]&amp;cat=".urlencode($row[bCategory])."\" title=\"Delete this item\">Delete</a>";
+	echo "</span></td></tr>";
 	$divs[$row[bOrder]] = "<div class=\"description\" id=\"R".$row[bOrder]."\">".str_replace("\n", "<br />", htmlspecialchars($row[bDesc]))."</div>";
 	}
 	
