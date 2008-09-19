@@ -612,6 +612,7 @@ function ds_onclick(d, m, y) {
 			$eventArray[ intval( $temp[1] ) ][]=$event;
 		}
 
+		print "<p>Calendar events can now accept links. Use standard HTML: '&lt;a href=\"http://igroups.iit.edu\"&gt;Click here for iGroups&lt;/a&gt;' as an example.</p>\n";
 		print "<table width=\"100%\" style=\"border-collapse: collapse\">" ;
 		print "<tr><td id=\"columnbanner\" align=\"center\" colspan=\"7\" class=\"calbord\"><a href=\"event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."\">&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href=\"event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."\">&raquo;</a></td></tr>";
 		print "<tr><td class=\"calbord\">Sunday</td><td class=\"calbord\">Monday</td><td class=\"calbord\">Tuesday</td><td class=\"calbord\">Wednesday</td><td class=\"calbord\">Thursday</td><td class=\"calbord\">Friday</td><td class=\"calbord\">Saturday</td></tr>";
