@@ -44,6 +44,7 @@
 	$allThreads = $currentTopic->getThreads();
 	setcookie('topic', $currentTopic->getID(), time()+60*60*6);
 	setcookie('topicLink', $link, time()+60*60*6); 
+	setcookie('topicName', $topicName, time()+60*60*6);
 	
 	if (isset($currentGroup)) {
 		setcookie('groupType', $currentGroup->getType(), time()+60*60*6);
@@ -156,7 +157,7 @@ foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
 </td>
-<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr></table>
+<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <strong>$topicName</strong>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5">
 <tr><th style="width:45%" colspan="2">Threads</th><th>Replies</th><th>Author</th><th>Views</th><th>Last Post</th></tr>
