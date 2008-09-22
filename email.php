@@ -402,10 +402,8 @@ require("sidebar.php");
 		$_POST['emailMove'] = explode( ",", $_POST['emailMove'] );
 		foreach( $_POST['emailMove'] as $key => $val ) {
 			$email = new Email( $val, $db );
-			if ( $currentUser->isGroupModerator( $email->getGroup() ) ) {
-				$email->setCategory($_POST['targetcategory']);
-				$email->updateDB();
-			}
+			$email->setCategory($_POST['targetcategory']);
+			$email->updateDB();
 		}
 ?>
 		<script type="text/javascript">
@@ -470,16 +468,18 @@ require("sidebar.php");
 					<li><a href="#" onclick="sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
 					<li><a href="#" onclick="window.location.href='searchemail.php';">Search Email</a></li>
 <?php
-					if ( $currentUser->isGroupModerator( $currentGroup ) && count($emails) > 0) {
+					if (count($emails) > 0) {
 						if(count($currentGroup->getGroupCategories()) > 0) {
 ?>
 						<li><a href="#" onclick="movewin=dhtmlwindow.open('movebox', 'div', 'moveFrame', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false">Move Selected</a></li>
 <?php
 						}
+						if($currentUser->isGroupModerator( $currentGroup )) {
 ?>
 						<li><a href="#" onclick="document.getElementById('delete').value='1'; document.getElementById('delete').form.submit()">Delete Selected</a>
 						<input type="hidden" id="delete" name="delete" value="0" /></li>
 <?php
+						}
 					}
 ?>
 				</ul>
@@ -537,7 +537,7 @@ require("sidebar.php");
 		</div>
 <?php
 	}
-	if ( $currentUser->isGroupModerator( $currentGroup ) && count($emails) > 0) {
+	if (count($emails) > 0) {
 ?>
 		<div class="window-content" id="moveFrame" style="display: none">
 <?php
