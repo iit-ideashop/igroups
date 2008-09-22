@@ -17,7 +17,7 @@
 			$message = "Please fill both the title field and the URL field before adding a bookmark.";
 		else
 		{
-			$values = "( ".$currentGroup->getID().", ".$currentUser->getID().", '".mysql_real_escape_string($_POST['title'])."', '".mysql_real_escape_string($_POST['url'])."', '".mysql_real_escape_string($_POST['desc'])."' )";
+			$values = "( ".$currentGroup->getID().", ".$currentUser->getID().", '".$_POST['title']."', '".$_POST['url']."', '".$_POST['desc']."' )";
 			$db->igroupsQuery("insert into Bookmarks (iGroupID, iAuthorID, sTitle, sURL, sDesc) values $values");
 			$message = "The bookmark has been added.";
 		}
@@ -34,7 +34,7 @@
 			$okay = true;
 		if($okay)
 		{
-			$db->igroupsQuery("update Bookmarks set sTitle='".mysql_real_escape_string($_POST['title'])."', sURL='".mysql_real_escape_string($_POST['url'])."', sDesc='".mysql_real_escape_string($_POST['desc'])."' where iID=".$_POST['editid']);
+			$db->igroupsQuery("update Bookmarks set sTitle='".$_POST['title']."', sURL='".$_POST['url']."', sDesc='".$_POST['desc']."' where iID=".$_POST['editid']);
 			$message = "The bookmark has been edited.";
 		}
 		else
