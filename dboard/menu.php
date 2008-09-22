@@ -181,30 +181,33 @@ ob_start();
 
 	@krsort( $sortedIPROs );
 	
-	print "Your IPROs:\n";
-	print "<ul class=\"noindent\">\n";
-	foreach ( $sortedIPROs as $key => $val ) {
-		$semester = new Semester( $key, $db );
-		if ( in_array( $semester->getID(), $_SESSION['expandSemesters'] ) ) {
-			print "<li><a href=\"dboard.php?toggleExpand=".$semester->getID()."\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
-			print "<ul>\n";
-			ksort( $val );
-			foreach ( $val as $useless => $group ) {
-				print "<li>".getLinkedName($group);
-				if ( isSelected( $group ) ) {
-					print "<ul>\n";
-					printGroupMenu( $currentUser, $group );
-					print "</ul>\n";
+	if(count($sortedIPROs) > 0)
+	{
+		print "Your IPROs:\n";
+		print "<ul class=\"noindent\">\n";
+		foreach ( $sortedIPROs as $key => $val ) {
+			$semester = new Semester( $key, $db );
+			if ( in_array( $semester->getID(), $_SESSION['expandSemesters'] ) ) {
+				print "<li><a href=\"dboard.php?toggleExpand=".$semester->getID()."\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+				print "<ul>\n";
+				ksort( $val );
+				foreach ( $val as $useless => $group ) {
+					print "<li>".getLinkedName($group);
+					if ( isSelected( $group ) ) {
+						print "<ul>\n";
+						printGroupMenu( $currentUser, $group );
+						print "</ul>\n";
+					}
+					print "</li>\n";
 				}
-				print "</li>\n";
+				print "</ul>\n";
 			}
-			print "</ul>\n";
+			else
+				print "<li><a href=\"dboard.php?toggleExpand=".$semester->getID()."\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+			print "</li>";
 		}
-		else
-			print "<li><a href=\"dboard.php?toggleExpand=".$semester->getID()."\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
-		print "</li>";
+		print "</ul>\n";
 	}
-	print "</ul>\n";
 	
 	if ( in_array( "igroups", $_SESSION['expandSemesters'] ) ) {
 		print "<a href=\"dboard.php?toggleExpand=igroups\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"dboard.php?toggleExpand=igroups\">Your Other Groups:</a>\n";
