@@ -18,7 +18,7 @@
 	    	 die("No topic selected");
 	
 	if(isset($_GET['thread']) && is_numeric($_GET['thread']))
-		setcookie('thread', $_GET['thread'], time()*60*60*6);
+		setcookie('thread', $_GET['thread'], time()+60*60*6);
 
 	if (isset($_GET['mode']) && $_GET['mode'] == 'thread') {
 	
