@@ -60,10 +60,10 @@
 <h1>Bookmarks</h1>
 <p>Bookmarks in iGROUPS operate much like bookmarks in your web browser. Add URLs for other members in your group to be able to access at a click.</p>
 <?php
-$query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID());
+$query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID()." order by sTitle");
 if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 {
-	$query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID()." order by sTitle");
+	$query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID());
 	if(mysql_num_rows($query) > 0)
 	{
 		$row = mysql_fetch_array($query);
