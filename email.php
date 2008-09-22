@@ -178,16 +178,16 @@
 
 
 		function checkedAll (id, checked) {
-			var el = document.getElementById(id);
+			var el = document.getElementByTagName("input");
 			var guest = new RegEx("guest.", "i"), subg = new RegEx("subgroup.", "i");
 			for(var i = 0; i < el.elements.length; i++) {
-	  			if(el.elements[i].name != 'confidential' && !guest.test(el.elements[i].id) && !subg.test(el.elements[i].id))
+	  			if(el.elements[i].name != 'confidential' && !guest.test(el.elements[i].id + '.') && !subg.test(el.elements[i].id + '.'))
 					el.elements[i].checked = checked;
 			}
       		}
 
 		function checkedAllGuest (id, checked) {
-			var el = document.getElementById(id);
+			var el = document.getElementsByTagName("input");
 			var guest = new RegEx("guest.", "i");
 			for(var i = 0; i < el.elements.length; i++) {
 				if(guest.test(el.elements[i].id))
