@@ -484,7 +484,6 @@
 					}
 ?>
 				<li><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
-				<li><img src="img/globe.png" style="border-style: none" alt="Link" title="External Link" />&nbsp;<a href="http://ipro.iit.edu/home/index.php?id=163" onclick="window.open(this.href); return false" onkeypress="window.open(this.href); return false;">IPRO Deliverables</a></li>
 				</ul>
 			</div>
 		</div>
@@ -559,6 +558,8 @@
 							print "<td colspan=\"3\">".$folder->getDesc()."</td>";
 							print "</tr>\n";
 						}
+						printTR();
+						echo "<td><img src=\"img/globe.png\" style=\"border-style: none\" alt=\"Link\" title=\"External Link\" /></td><td><a href=\"http://ipro.iit.edu/home/index.php?id=163\" onclick=\"window.open(this.href); return false\" onkeypress=\"window.open(this.href); return false;\">IPRO Deliverables</a></td></tr>\n";
 					}		
 					if ( canViewFiles( $currentUser, $currentFolder ) ) {
 					if ($fileList) //Prevents an error from PHP 4 to PHP 5 switch
