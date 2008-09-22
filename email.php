@@ -179,19 +179,19 @@
 
 		function checkedAll (id, checked) {
 			var el = document.getElementById(id);
-			for (var i = 0; i < el.elements.length; i++) {
-	  			if (el.elements[i].name != 'confidential' && el.elements[i].id != 'guest' && el.elements[i].id != 'subgroup') {
+			var guest = new RegEx("guest.", "i"), subg = new RegEx("subgroup.", "i");
+			for(var i = 0; i < el.elements.length; i++) {
+	  			if(el.elements[i].name != 'confidential' && !guest.test(el.elements[i].id) && !subg.test(el.elements[i].id))
 					el.elements[i].checked = checked;
-				}
 			}
       		}
 
 		function checkedAllGuest (id, checked) {
 			var el = document.getElementById(id);
-			for (var i = 0; i < el.elements.length; i++) {
-			if (el.elements[i].id == 'guest') {
-			el.elements[i].checked = checked;
-			}
+			var guest = new RegEx("guest.", "i");
+			for(var i = 0; i < el.elements.length; i++) {
+				if(guest.test(el.elements[i].id))
+					el.elements[i].checked = checked;
 			}
 		}
 

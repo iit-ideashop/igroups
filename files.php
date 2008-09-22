@@ -484,6 +484,7 @@
 					}
 ?>
 				<li><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
+				<li><img src="img/globe.png" style="border-style: none" alt="Link" title="External Link" />&nbsp;<a href="http://ipro.iit.edu/home/index.php?id=163" onclick="window.open(this.href); return false" onkeypress="window.open(this.href); return false;">IPRO Deliverables</a></li>
 				</ul>
 			</div>
 		</div>
