@@ -558,9 +558,12 @@
 							print "<td colspan=\"3\">".$folder->getDesc()."</td>";
 							print "</tr>\n";
 						}
+					}
+					if($_SESSION['selectedSpecial'] == 'ipro')
+					{
 						printTR();
 						echo "<td><img src=\"img/globe.png\" style=\"border-style: none\" alt=\"Link\" title=\"External Link\" /></td><td><a href=\"http://ipro.iit.edu/home/index.php?id=163\" onclick=\"window.open(this.href); return false\" onkeypress=\"window.open(this.href); return false;\">IPRO Deliverables</a></td><td>Guidelines for the IPRO deliverables</td></tr>\n";
-					}		
+					}	
 					if ( canViewFiles( $currentUser, $currentFolder ) ) {
 					if ($fileList) //Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $fileList as $key => $file ) {
