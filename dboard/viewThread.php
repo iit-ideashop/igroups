@@ -61,7 +61,7 @@
 	if (isset($_GET['unwatchThread']))
 		$watchList->removeFromWatchList($currentUser);
 
-	setcookie('thread', $currentThread->getID(), time()*60*60*6);
+	setcookie('thread', $currentThread->getID(), time()+60*60*6);
 	$allPosts = $currentThread->getPosts();
 	$currentThread->incViews();
 	$currentThread->updateDB();
