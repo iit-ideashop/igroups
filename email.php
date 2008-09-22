@@ -187,7 +187,7 @@
       		}
 
 		function checkedAllGuest (id, checked) {
-			var el = document.getElementsById(id);
+			var el = document.getElementById(id);
 			var guest = new RegExp("guest.", "i");
 			for(var i = 0; i < el.elements.length; i++) {
 				if(guest.test(el.elements[i].id))
