@@ -63,7 +63,7 @@
 $query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID());
 if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 {
-	$query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID()." order by dDate desc");
+	$query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID()." order by sTitle");
 	if(mysql_num_rows($query) > 0)
 	{
 		$row = mysql_fetch_array($query);
