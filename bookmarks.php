@@ -92,14 +92,14 @@ else if(mysql_num_rows($query) > 0) {
 		echo "<form method=\"post\" action=\"bookmarks.php\"><fieldset><legend>Current Bookmarks</legend>\n";
 	else
 		echo "<h1>Current Bookmarks</h1>\n";
-	echo "<table><tr><th>Bookmark</th><th>Description</th><th>Submitted By</th>";
+	echo "<table><tr><th>Bookmark</th><th style=\"max-width: 400px;\">Description</th><th>Submitted By</th>";
 	if($hasDel)
 		echo "<th>Edit</th><th>Delete</th>";
 	echo "</tr>\n";
 	while($row = mysql_fetch_array($query))
 	{
 		$author = new Person($row['iAuthorID'], $db);
-		echo "<tr><td><a href=\"".htmlspecialchars($row['sURL'])."\" title=\"".htmlspecialchars($row['sTitle'])."\" onclick=\"window.open(this.href); return false;\" onkeypress=\"window.open(this.href); return false;\">".htmlspecialchars($row['sTitle'])."</a></td><td>".htmlspecialchars($row['sDesc'])."</td><td>".$author->getCommaName()."</td>";
+		echo "<tr><td><a href=\"".htmlspecialchars($row['sURL'])."\" title=\"".htmlspecialchars($row['sTitle'])."\" onclick=\"window.open(this.href); return false;\" onkeypress=\"window.open(this.href); return false;\">".htmlspecialchars($row['sTitle'], ENT_NOQUOTES)."</a></td><td>".htmlspecialchars($row['sDesc'], ENT_NOQUOTES)."</td><td>".$author->getCommaName()."</td>";
 		if($currentUser->getID() == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup))
 			echo "<td><a href=\"bookmarks.php?edit=".$row['iID']."\">Edit</a></td><td><input type=\"checkbox\" name=\"del".$row['iID']."\" /></td></tr>\n";
 		else
