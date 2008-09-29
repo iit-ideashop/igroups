@@ -124,10 +124,10 @@ if ( !class_exists( "File" ) ) {
 
 		function getDateTime() {
 			$date = substr($this->senddate, 0, strpos($this->senddate, ' '));
-			$temp = explode( "-", $date );
-			$time = substr($this->senddate, strpos($this->senddate, ' ')+1, strlen($this->senddate));
-			$temp2 = explode( ":", $time);
-			return date( "m/d/Y h:m A", mktime( $temp2[0], $temp2[1], $temp2[2], $temp[1], $temp[2], $temp[0] ) );
+                        $temp = explode( "-", $date );
+                        $time = substr($this->senddate, strpos($this->senddate, ' ')+1, strlen($this->senddate));
+                        $temp2 = explode( ":", $time);
+                        return date( "m/d/Y h:m A", mktime( $temp2[0], $temp2[1], $temp2[2], $temp[1], $temp[2], $temp[0] ) );
 		}
 	
 		function getDateDB() {
@@ -212,39 +212,46 @@ if ( !class_exists( "File" ) ) {
 		}
 
 		function isNuggetFile() {
-			$count = 0;
-			$results = $this->db->igroupsQuery("SELECT * FROM nuggetFileMap WHERE iFileID = $this->id");
-			while($row = mysql_fetch_array($results)){
-			       $count ++;
-			}
-			if($count != 0){
-				return true;
-		       }
-			else return false;
-		}
+                        $count = 0;
+                        $results = $this->db->igroupsQuery("SELECT * FROM nuggetFileMap WHERE iFileID = $this->id");
+                        while($row = mysql_fetch_array($results)){
+                               $count ++;
+                        }
+                        if($count != 0){
+                                return true;
+                       }
+                        else return false;
+                }
 
-	       function getNugget(){
-			if($this->isNuggetFile()){
-				$results = $this->db->igroupsQuery("SELECT iNuggetID FROM nuggetFileMap WHERE iFileID = $this->id");
-			       $row = mysql_fetch_array($results);
-				$nugget = new Nugget($row['iNuggetID'], $this->db, 0);
-				return $nugget;
-		       }
-		}
+               function getNugget(){
+                        if($this->isNuggetFile()){
+                                $results = $this->db->igroupsQuery("SELECT iNuggetID FROM nuggetFileMap WHERE iFileID = $this->id");
+                               $row = mysql_fetch_array($results);
+                                $nugget = new Nugget($row['iNuggetID'], $this->db, 0);
+                                return $nugget;
+                       }
+                }
 
 		function updateDB() {
 			$this->db->igroupsQuery( "UPDATE Files SET sTitle='".$this->getNameDB()."', sDescription='".$this->getDescDB()."', sOriginalName='".quickDBString( $this->origname )."', bObsolete=".$this->obsolete.", iFolderID=".$this->folder.", iVersion=".$this->version.", bDeletedFlag=".intval($this->deleted).", bPrivate=".$this->private." WHERE iID=".$this->id );
 		}
 	}
 	
-	function createFile( $name, $desc, $folder, $author, $origname, $group, $db ) {
+	function createFile( $name, $desc, $folder, $author, $origname, $group, $tmp, $mime, $priv, $db ) {
 		if ($name == '')
 			$name = $origname;
 		$namess = new SuperString( $name );
 		$descss = new SuperString( $desc );
 		$dbdate = date( "Y-m-d H:m:s" );
-		$db->igroupsQuery( "INSERT INTO Files( sTitle, sDescription, iFolderID, iAuthorID, dDate, sOriginalName, iGroupID, iGroupType, iSemesterID) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $folder, $author, '$dbdate', '$origname', ".$group->getID().", ".$group->getType().", ".$group->getSemester().")" );
-		return new File( $db->igroupsInsertID(), $db );
+		$db->igroupsQuery( "INSERT INTO Files( sTitle, sDescription, iFolderID, iAuthorID, dDate, sOriginalName, iGroupID, iGroupType, iSemesterID, sMetaComments, bPrivate) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $folder, $author, '$dbdate', '$origname', ".$group->getID().", ".$group->getType().", ".$group->getSemester().", '".mysql_real_escape_string($mime)."', $priv)" );
+		$file = new File( $db->igroupsInsertID(), $db );
+		if(move_uploaded_file($tmp, $file->getDiskName() ))
+			return $file;
+		else
+		{
+			$db->igroupsQuery("delete from Files where iID=".$file->getID());
+			return false;
+		}
 	}
 	
 	function createIPROFile( $name, $desc, $folder, $author, $origname, $db ) {
@@ -262,10 +269,10 @@ if ( !class_exists( "File" ) ) {
 		if ( $name == "")
 			$name = $origname;
 		$namess = new SuperString( $name );
-		$descss = new SuperString( $desc );
-		$dbdate = date( "Y-m-d H:m:s" );
-		$db->igroupsQuery( "INSERT INTO Files( sTitle, sDescription, iFolderID, iAuthorID, dDate, sOriginalName, iGroupID, iGroupType, iSemesterID ) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $folder, $author, '$dbdate', '$origname', ".$group->getID().", ".$group->getType().", ".$group->getSemester().")" );
-		return new File( $db->igroupsInsertID(), $db );
+                $descss = new SuperString( $desc );
+                $dbdate = date( "Y-m-d H:m:s" );
+                $db->igroupsQuery( "INSERT INTO Files( sTitle, sDescription, iFolderID, iAuthorID, dDate, sOriginalName, iGroupID, iGroupType, iSemesterID ) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $folder, $author, '$dbdate', '$origname', ".$group->getID().", ".$group->getType().", ".$group->getSemester().")" );
+                return new File( $db->igroupsInsertID(), $db );
 	}
 }
 ?>

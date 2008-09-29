@@ -220,16 +220,11 @@
 			if ( $currentQuota->checkSpace( filesize( $_FILES['thefile']['tmp_name'] ) ) ) {
 				$currentQuota->increaseUsed( filesize( $_FILES['thefile']['tmp_name'] ) );
 				$currentQuota->updateDB();
-				if (!isset($_POST['private']))
-					$file = createFile( $_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
-				else {
-					$file = createFile( $_POST['filename'], $_POST['filedescription'], $currentUser->getID(), $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
-					$file->setPrivate(1);
-					$file->updateDB();
-				}
-				$file->setMimeType($_FILES['thefile']['type']);
-				move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
-				$message = "File successfully uploaded";
+				$file = createFile( $_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], $_POST['private'], $db );
+				if(!$file)
+					$message = "Error during upload. Please try again.";
+				else
+					$message = "File successfully uploaded";
 			}
 			else {
 				$currentQuota->sendWarning(1);
@@ -273,10 +268,9 @@
 				$oldFile = new File($_POST['files'], $db);
 				$oldFile->makeObsolete();
 				$oldFile->updateDB();
-				$file = createFile( $oldFile->getNameNoVer(), $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
+				$file = createFile( $oldFile->getNameNoVer(), $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], $oldFile->isPrivate(), $db );
 				$file->setVersion($oldFile->getVersion() + 1);
 				$file->updateDB();
-				move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
 				$message = "File successfully uploaded";
 			}
 			else {

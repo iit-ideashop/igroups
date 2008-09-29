@@ -68,12 +68,12 @@
 						$currentQuota->updateDB();
 	
 						//create the file
-						$file = createFile( $filenames[$loop], $description[$loop], 0, $currentUser->getID(), $_FILES['thefile']['name'][$key], $currentGroup, $db );
-						$file->updateDB();
-						$file->setMimeType($_FILES['thefile']['type'][$key]);
-	
-						//move the file to the correct location
-						move_uploaded_file($_FILES['thefile']['tmp_name'][$key], $file->getDiskName() );
+						$file = createFile( $filenames[$loop], $description[$loop], 0, $currentUser->getID(), $_FILES['thefile']['name'][$key], $currentGroup, $_FILES['thefile']['tmp_name'][$key], 0, $_FILES['thefile']['type'][$key], $db );
+						if(!$file)
+						{
+							$message="Upload error on ".$filenames[$loop];
+							break;
+						}
 	
 						//also add information to nugget
 						$db->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$id."', '".$file->getID()."')");

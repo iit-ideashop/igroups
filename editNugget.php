@@ -393,13 +393,15 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 						$currentQuota->increaseUsed( filesize( $_FILES['thefile']['tmp_name'][$key] ) );
 						$currentQuota->updateDB();
 						//I need to get the current groups home folder
-						$file = createFile($filenames[$loop], $description[$loop],0,$currentUser->getID(), $_FILES['thefile']['name'][$key],$currentGroup, $db );
-						$file->updateDB();
-						$file->setMimeType($_FILES['thefile']['type'][$key]);
-						move_uploaded_file($_FILES['thefile']['tmp_name'][$key], $file->getDiskName() );
-						$message="File successfully uploaded";
-						//also add information to nugget
-						$db->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$nugget->getID()."', '".$file->getID()."')");
+						$file = createFile($filenames[$loop], $description[$loop],0,$currentUser->getID(), $_FILES['thefile']['name'][$key],$currentGroup, $_FILES['thefile']['tmp_name'][$key], $_FILES['thefile']['type'][$key], 0, $db );
+						if(!$file)
+							$message = "Upload error";
+						else
+						{
+							$message="File successfully uploaded";
+							//also add information to nugget
+							$db->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$nugget->getID()."', '".$file->getID()."')");
+						}
 					}	
 					else {
 						//$currentQuota->sendWarning(1);

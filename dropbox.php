@@ -159,12 +159,11 @@ if (isset($_POST['upload'])) {
 
 		if($_FILES['thefile']['error'] == UPLOAD_ERR_OK)
 		{
-			$file = createFile( $_POST['filename'], $_POST['filedescription'], $currentUser->getID(), $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $db );
-			$file->setPrivate(1);
-			$file->setMimeType($_FILES['thefile']['type']);
-			$file->updateDB();
-			move_uploaded_file($_FILES['thefile']['tmp_name'], $file->getDiskName() );
-			$message = "File successfully uploaded";
+			$file = createFile( $_POST['filename'], $_POST['filedescription'], $currentUser->getID(), $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], 1, $db );
+			if(!$file)
+				$message = "Upload error";
+			else
+				$message = "File successfully uploaded";
 		}
 		else
 			$message = "Error occured during upload, please try again";
