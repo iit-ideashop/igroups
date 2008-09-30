@@ -68,7 +68,7 @@
 						$currentQuota->updateDB();
 	
 						//create the file
-						$file = createFile( $filenames[$loop], $description[$loop], 0, $currentUser->getID(), $_FILES['thefile']['name'][$key], $currentGroup, $_FILES['thefile']['tmp_name'][$key], 0, $_FILES['thefile']['type'][$key], $db );
+						$file = createFile( $filenames[$loop], $description[$loop], 0, $currentUser->getID(), $_FILES['thefile']['name'][$key], $currentGroup, $_FILES['thefile']['tmp_name'][$key], $_FILES['thefile']['type'][$key], 0, $db );
 						if(!$file)
 						{
 							$message="Upload error on ".$filenames[$loop];

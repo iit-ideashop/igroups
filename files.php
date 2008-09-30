@@ -220,7 +220,11 @@
 			if ( $currentQuota->checkSpace( filesize( $_FILES['thefile']['tmp_name'] ) ) ) {
 				$currentQuota->increaseUsed( filesize( $_FILES['thefile']['tmp_name'] ) );
 				$currentQuota->updateDB();
-				$file = createFile( $_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], $_POST['private'], $db );
+				if(isset($_POST['private']) && $_POST['private'])
+					$priv = true;
+				else
+					$priv = false;
+				$file = createFile( $_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], $priv, $db );
 				if(!$file)
 					$message = "Error during upload. Please try again.";
 				else
