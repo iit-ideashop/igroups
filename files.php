@@ -226,7 +226,7 @@
 					$priv = 0;
 				$file = createFile( $_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], $priv, $db );
 				if(!$file)
-					$message = "Error during upload. Please try again.";
+					$message = "Error saving file. Please try again.";
 				else
 					$message = "File successfully uploaded";
 			}
@@ -273,9 +273,14 @@
 				$oldFile->makeObsolete();
 				$oldFile->updateDB();
 				$file = createFile( $oldFile->getNameNoVer(), $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], $oldFile->isPrivate(), $db );
-				$file->setVersion($oldFile->getVersion() + 1);
-				$file->updateDB();
-				$message = "File successfully uploaded";
+				if(!$file)
+					$message = "Error saving file. Please try again.";
+				else
+				{
+					$file->setVersion($oldFile->getVersion() + 1);
+					$file->updateDB();
+					$message = "File successfully uploaded";
+				}
 			}
 			else {
 				$currentQuota->sendWarning(1);
