@@ -154,10 +154,10 @@ if ( !class_exists( "Folder" ) ) {
 			$returnArray = array();
 			
 			if ( $this->getGroupType() == 0 && $this->getGroupID() != 0 ) {
-				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=0 AND bPrivate!=1 AND bDeletedFlag=0 AND iFolderID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=0 AND bPrivate=0 AND bDeletedFlag=0 AND iFolderID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
 			}
 			else {
-				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=0 AND bPrivate!=1 AND bDeletedFlag=0 AND iFolderID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." ORDER BY sTitle" );
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=0 AND bPrivate=0 AND bDeletedFlag=0 AND iFolderID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." ORDER BY sTitle" );
 			}
 			
 			while ( $row = mysql_fetch_row( $files ) ) {
