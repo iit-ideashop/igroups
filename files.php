@@ -221,9 +221,9 @@
 				$currentQuota->increaseUsed( filesize( $_FILES['thefile']['tmp_name'] ) );
 				$currentQuota->updateDB();
 				if(isset($_POST['private']) && $_POST['private'])
-					$priv = true;
+					$priv = 1;
 				else
-					$priv = false;
+					$priv = 0;
 				$file = createFile( $_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], $priv, $db );
 				if(!$file)
 					$message = "Error during upload. Please try again.";
