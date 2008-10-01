@@ -1,5 +1,6 @@
 <?php
 include_once( "superstring.php" );
+include_once("group.php");
 
 if ( !class_exists( "Category" ) ) {
 	class Category {
@@ -115,29 +116,7 @@ if ( !class_exists( "Category" ) ) {
 		
 		function getEmailsSortedBy($sort) {
 			$returnArray = array();
-			switch($sort)
-			{
-				case 1:
-					$add = " order by Emails.sSubject";
-					break;
-				case -1:
-					$add = " order by Emails.sSubject desc";
-					break;
-				case 2:
-					$add = " order by People.sLName, People.sFName";
-					break;
-				case -2:
-					$add = " order by People.sLName desc, People.sFName desc";
-					break;
-				case 3:
-					$add = " order by Emails.dDate";
-					break;
-				case -3:
-					$add = " order by Emails.dDate desc";
-					break;
-				default:
-					$add = " order by Emails.iID desc";
-			}
+			$add = decodeEmailSort($sort);
 			
 			if ( $this->getGroupType() == 0 )
 				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=0 AND Emails.iGroupID=".$this->getID()." AND Emails.iGroupType=".$this->getType()." AND Emails.iSemesterID=".$this->getSemester().$add );

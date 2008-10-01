@@ -1,5 +1,6 @@
 <?php
 include_once( "superstring.php" );
+include_once( "group.php" );
 
 if ( !class_exists( "Folder" ) ) {
 	class Folder {
@@ -158,6 +159,23 @@ if ( !class_exists( "Folder" ) ) {
 			}
 			else {
 				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=0 AND bPrivate=0 AND bDeletedFlag=0 AND iFolderID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." ORDER BY sTitle" );
+			}
+			
+			while ( $row = mysql_fetch_row( $files ) ) {
+				$returnArray[] = new File( $row[0], $this->db );
+			}
+			return $returnArray;
+		}
+		
+		function getFilesSortedBy($sort) {
+			$returnArray = array();
+			$add = decodeFileSort($sort);
+			
+			if ( $this->getGroupType() == 0 && $this->getGroupID() != 0 ) {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bObsolete=0 AND Files.bPrivate=0 AND Files.bDeletedFlag=0 AND Files.iFolderID=".$this->getID()." AND Files.iGroupID=".$this->getGroupID()." AND Files.iGroupType=".$this->getGroupType()." AND Files.iSemesterID=".$this->getSemester().$add );
+			}
+			else {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bObsolete=0 AND Files.bPrivate=0 AND Files.bDeletedFlag=0 AND Files.iFolderID=".$this->getID()." AND Files.iGroupID=".$this->getGroupID()." AND Files.iGroupType=".$this->getGroupType().$add );
 			}
 			
 			while ( $row = mysql_fetch_row( $files ) ) {
