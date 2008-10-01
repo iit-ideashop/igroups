@@ -2,7 +2,7 @@
 require_once('subgroup.php');
 
 if ( !class_exists( "Group" ) ) {
-	function decodeFileSort($sort) {
+	function decodeEmailSort($sort) {
 		switch($sort)
 		{
 			case 1:
@@ -22,7 +22,7 @@ if ( !class_exists( "Group" ) ) {
 		}
 	}
 	
-	function decodeEmailSort($sort) {
+	function decodeFileSort($sort) {
 		switch($sort)
 		{
 			case 1:
