@@ -259,31 +259,31 @@ if ( !class_exists( "Group" ) ) {
 			switch($sort)
 			{
 				case 1:
-					$add = " order by sSubject";
+					$add = " order by Emails.sSubject";
 					break;
 				case -1:
-					$add = " order by sSubject desc";
+					$add = " order by Emails.sSubject desc";
 					break;
 				case 2:
-					$add = " and iSenderID in (select iID from People) order by People.sLName, People.sFName";
+					$add = " order by People.sLName, People.sFName";
 					break;
 				case -2:
-					$add = " and iSenderID in (select iID from People) order by People.sLName desc, People.sFName desc";
+					$add = " order by People.sLName desc, People.sFName desc";
 					break;
 				case 3:
-					$add = " order by dDate";
+					$add = " order by Emails.dDate";
 					break;
 				case -3:
-					$add = " order by dDate desc";
+					$add = " order by Emails.dDate desc";
 					break;
 				default:
-					$add = " order by iID desc";
+					$add = " order by Emails.iID desc";
 			}
 			
 			if ( $this->getType() == 0 ) 
-				$emails = $this->db->igroupsQuery( "SELECT iID FROM Emails WHERE iCategoryID=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester().$add );
+				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=0 AND Emails.iGroupID=".$this->getID()." AND Emails.iGroupType=".$this->getType()." AND Emails.iSemesterID=".$this->getSemester().$add );
 			else 
-				$emails = $this->db->igroupsQuery( "SELECT iID FROM Emails WHERE iCategoryID=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType().$add );
+				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=0 AND Emails.iGroupID=".$this->getID()." AND Emails.iGroupType=".$this->getType().$add );
 				
 			while ( $row = mysql_fetch_row( $emails ) ) {
 				$returnArray[] = new Email( $row[0], $this->db );
