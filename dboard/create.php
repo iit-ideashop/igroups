@@ -10,9 +10,15 @@
 	if(isset($_GET['topicID']) && is_numeric($_GET['topicID']))
 	{
 		if(isset($_GET['global']) && $_GET['global'] == 'true')
+		{
 			$currentTopic = new GlobalTopic($_GET['topicID'], $db);
+			$glob = "&amp;global=true";
+		}
 		else
+		{
 			$currentTopic = new Topic($_GET['topicID'], $db);
+			$glob = "";
+		}
 	}
 	else
 	    	 die("No topic selected");
@@ -84,7 +90,7 @@ else if ($_GET['mode'] == 'post') {
 $currentThread = new Thread($_COOKIE['thread'], $db);
 ?>
 
-<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
+<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -&gt; <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic=".$_GET['topicID'].$glob ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
 <form action="create.php?topicID=<?php echo $currentTopic->getID()."&amp;thread=".$currentThread->getID(); ?>" method="post" id="postForm"><fieldset><legend>Post Reply</legend>
 <table width="85%" align="center">
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"></textarea></td></tr>
