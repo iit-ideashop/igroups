@@ -260,7 +260,7 @@ require("sidebar.php");
 
 	$emails = array();
 	$add = str_replace("Emails", "GroupEmails", decodeEmailSort($_SESSION['emailSort']));
-	$query = $db->igroupsQuery("SELECT GroupEmails.iID, People.sFName, People.sLName inner join People on GroupEmails.iSenderID=People.iID FROM GroupEmails WHERE GroupEmails.iSemesterID={$currentSemester->getID()}".$add);
+	$query = $db->igroupsQuery("SELECT GroupEmails.iID, People.sFName, People.sLName FROM GroupEmails inner join People on GroupEmails.iSenderID=People.iID WHERE GroupEmails.iSemesterID={$currentSemester->getID()}".$add);
 	while ($row = mysql_fetch_row($query)) {
 		$emails[] = new GroupEmail($row[0], $db);
 	}
