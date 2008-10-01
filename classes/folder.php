@@ -1,6 +1,6 @@
 <?php
 include_once( "superstring.php" );
-include_once( "group.php" );
+include_once( "sort.php" );
 
 if ( !class_exists( "Folder" ) ) {
 	class Folder {

@@ -1,14 +1,4 @@
-<?php
-	function groupSort( $array ) {
-		$newArray = array();
-		foreach ( $array as $group ) {
-			if ( $group )
-				$newArray[$group->getName()] = $group;
-		}
-		ksort( $newArray );
-		return $newArray;
-	}
-
+<?php	
 	session_start();
 	include_once( "../classes/db.php" );
 	include_once( "../classes/person.php" );
