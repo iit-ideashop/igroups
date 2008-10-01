@@ -87,7 +87,7 @@ if ($_GET['mode'] == 'thread') {
 
 else if ($_GET['mode'] == 'post') {
 
-$currentThread = new Thread($_COOKIE['thread'], $db);
+$currentThread = new Thread($_GET['thread'], $db);
 ?>
 
 <table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -&gt; <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic=".$_GET['topicID'].$glob ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
