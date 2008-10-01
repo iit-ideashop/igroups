@@ -512,7 +512,7 @@ require("sidebar.php");
 				else if($_SESSION['emailSort'] == -3)
 					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in descending order\" /></a>";
 				else
-					echo "<td><a href=\"email.php?sort=3\" title=\"Sort by date\">Date</a>";
+					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort by date\">Date</a>";
 ?>
 				<td></td>
 				</tr>
