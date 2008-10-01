@@ -15,20 +15,25 @@
 			die("Invalid thread ID");
 		$query = mysql_fetch_array($query);
 		$query2 = mysql_fetch_array($db->igroupsQuery("select * from GlobalTopics where iID=".$query['iTopicID']));
-		if($_COOKIE['global'])
+		if(isset($_GET['global']))
 		{
 			$currentTopic = new GlobalTopic($query['iTopicID'], $db);
 			setcookie('topic', $currentTopic->getID(), time()+60*60*6);
+			$glob = "&amp;global=true";
 		}
 		else
 		{
 			$currentTopic = new Topic($query['iTopicID'], $db);
 			setcookie('topic', $currentTopic->getID(), time()+60*60*6);
 			$currentGroup = new Group($currentTopic->getID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
+			$glob = "";
 		}
 	}
 	else
 		 die("No topic selected");
+		 
+	if(!isset($_GET['topic']) || !is_numeric($_GET['topic']))
+		die("No topic selected");
 
 	if (isset($_GET['id'])) {
 		if (!is_numeric($_GET['id']))
@@ -139,11 +144,11 @@
 		}
 	}
 
-	if($_COOKIE['global'])
-		$globaltext = "&amp;topicID=".$_GET['id']."&amp;global=true";
+	if($_GET['global'])
+		$globaltext = "&amp;topicID=".$_GET['topic']."&amp;global=true";
 	else
-		$globaltext = "&amp;topicID=".$_GET['id'];
-	$threadtext = "&amp;thread=".$_COOKIE['thread'];
+		$globaltext = "&amp;topicID=".$_GET['topic'];
+	$threadtext = "&amp;thread=".$_GET['thread'];
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->

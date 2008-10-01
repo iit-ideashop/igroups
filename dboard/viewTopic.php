@@ -6,6 +6,7 @@
 	include_once( "../classes/thread.php" );
 	include_once( "../classes/post.php" );
 	$THREADS_PER_PAGE = 10;
+	
 
 	if (isset($_GET['id'])) {
 		if (!is_numeric($_GET['id']))
@@ -16,6 +17,7 @@
 				die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;global=true";
 			setcookie('global', '1', time()+60*60*6);
+			$glob = "&amp;global=true";
 		}
 		else {
 			if (!is_numeric($_GET['type']) || !is_numeric($_GET['semester']))
@@ -26,6 +28,7 @@
 				die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;type={$currentGroup->getType()}&amp;semester={$currentGroup->getSemester()}";
 			setcookie('global', '0', time()+60*60*6);
+			$glob = "";
 		}
 	}
 	else
@@ -156,7 +159,7 @@ foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
 </td>
-<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <strong>$topicName</strong>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr></table>
+<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <strong>$topicName</strong>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext&amp;topic=".$_GET['id']."\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5">
 <tr><th style="width:45%" colspan="2">Threads</th><th>Replies</th><th>Author</th><th>Views</th><th>Last Post</th></tr>
@@ -174,7 +177,7 @@ foreach ($threads as $thread) {
 	}
 	else
 		$delete = "";
-	print "<tr><td style=\"width:1%\"><img src=\"../img/thread.png\" alt=\"*\" title=\"Thread #".$thread->getID()."\" /></td><td style=\"font-weight: bold; font-size: smaller\"><a href=\"viewThread.php?id={$thread->getID()}\">{$thread->getName()}</a>$delete</td><td align=\"center\">{$thread->getPostCount()}</td><td align=\"center\">{$thread->getAuthorLink()}</td><td align=\"center\">{$thread->getViews()}</td><td align=\"center\">$text</td></tr>";
+	print "<tr><td style=\"width:1%\"><img src=\"../img/thread.png\" alt=\"*\" title=\"Thread #".$thread->getID()."\" /></td><td style=\"font-weight: bold; font-size: smaller\"><a href=\"viewThread.php?id={$thread->getID()}&amp;topic=".$_GET['id']."$glob\">{$thread->getName()}</a>$delete</td><td align=\"center\">{$thread->getPostCount()}</td><td align=\"center\">{$thread->getAuthorLink()}</td><td align=\"center\">{$thread->getViews()}</td><td align=\"center\">$text</td></tr>";
 }
 }
 else
@@ -187,7 +190,7 @@ else
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
+</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext&amp;topic=".$_GET['id']."\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
 </div>
 </body>
 </html>
