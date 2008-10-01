@@ -246,12 +246,12 @@ if ( isset( $_POST['delete'] ) ) {
 						echo "<td><a href=\"dropbox.php?sort=1\" title=\"Sort this ascendingly\">Filename <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 					else
 						echo "<td><a href=\"dropbox.php?sort=1\" title=\"Sort by filename\">Filename</a>";
-					if($_SESSION['emailSort'] == 2)
-						echo "<td colspan=\"3\"><a href=\"dropbox.php?sort=-2\" title=\"Sort this descendingly\">Description <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					if($_SESSION['fileSort'] == 2)
+						echo "<td><a href=\"dropbox.php?sort=-2\" title=\"Sort this descendingly\">Description <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 					else if($_SESSION['fileSort'] == -2)
-						echo "<td colspan=\"3\"><a href=\"dropbox.php?sort=2\" title=\"Sort this ascendingly\">Description <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+						echo "<td><a href=\"dropbox.php?sort=2\" title=\"Sort this ascendingly\">Description <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 					else
-						echo "<td colspan=\"3\"><a href=\"dropbox.php?sort=2\" title=\"Sort by description\">Description</a>";
+						echo "<td><a href=\"dropbox.php?sort=2\" title=\"Sort by description\">Description</a>";
 					if($_SESSION['fileSort'] == 3)
 						echo "<td><a href=\"dropbox.php?sort=-3\" title=\"Sort this descendingly\">Author <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 					else if($_SESSION['fileSort'] == -3)
