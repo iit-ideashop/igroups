@@ -40,7 +40,7 @@
 	{
 		$post->setBody($_POST['body']);
 		$post->updateDB();
-		header("Location: viewThread?id={$_COOKIE['thread']}");
+		header("Location: viewThread?id={$_GET['thread']}&amp;topic=".$currentTopic->getID().$glob);
 	}
 	else if(!isset($_GET['post']) || !is_numeric($_GET['post']))
 		die("Invalid Request");
@@ -64,7 +64,7 @@ require("sidebar.php");
 ?>	
 </div>
 <table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic={$_GET['topic']}$glob"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
-<form action="edit.php?post=<?php echo $_GET['post']; ?>" method="post" id="postForm"><fieldset><legend>Edit Post</legend>
+<form action="edit.php?post=<?php echo $_GET['post']."&amp;topic=".$_GET['topic']."&amp;thread=".$_GET['thread'].$glob; ?>" method="post" id="postForm"><fieldset><legend>Edit Post</legend>
 <table width="85%">
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"><?php echo $post->getBody(); ?></textarea></td></tr>
 <tr><td align="center" colspan="2"><input type="submit" name="editPost" value="Edit Post" /></td></tr>
