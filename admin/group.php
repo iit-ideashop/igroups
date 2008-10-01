@@ -3,16 +3,6 @@
 	include_once( "../classes/group.php" );
 	include_once( "../classes/quota.php" );
 	include_once( "../classes/semester.php" );
-
-	function groupSort( $array ) {
-		$newArray = array();
-		foreach ( $array as $group ) {
-			if ( $group )
-				$newArray[$group->getName()] = $group;
-		}
-		ksort( $newArray );
-		return $newArray;
-	}
 	
 	function alpha($person1, $person2) {
 		if ($person1->getLastName() < $person2->getLastName())
