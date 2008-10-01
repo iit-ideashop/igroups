@@ -37,6 +37,11 @@
 		return $newArray;
 	}
 
+	if(isset($_GET['sort']) && is_numeric($_GET['sort']))
+		$_SESSION['emailSort'] = $_GET['sort'];
+	
+	if(!isset($_SESSION['emailSort']))
+		$_SESSION['emailSort'] = -3;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -254,7 +259,8 @@ require("sidebar.php");
 	}
 
 	$emails = array();
-	$query = $db->igroupsQuery("SELECT iID FROM GroupEmails WHERE iSemesterID={$currentSemester->getID()} ORDER BY dDate DESC");
+	$add = decodeEmailSort($_SESSION['emailSort']);
+	$query = $db->igroupsQuery("SELECT GroupEmails.iID, People.sFName, People.sLName FROM Emails inner join People on GroupEmails.iSenderID=People.iID FROM GroupEmails WHERE GroupEmails.iSemesterID={$currentSemester->getID()}".$add);
 	while ($row = mysql_fetch_row($query)) {
 		$emails[] = new GroupEmail($row[0], $db);
 	}
@@ -291,6 +297,26 @@ require("sidebar.php");
 <?php
 			if(count($emails) > 0) {
 				print "<table width=\"85%\">";
+				echo "<tr class=\"sortbar\">\n";
+				if($_SESSION['emailSort'] == 1)
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=-1\" title=\"Sort this descendingly\">Subject <img src=\"../img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+				else if($_SESSION['emailSort'] == -1)
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort this ascendingly\">Subject <img src=\"../img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+				else
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort by subject\">Subject</a>";
+				if($_SESSION['emailSort'] == 2)
+					echo "<td><a href=\"email.php?sort=-2\" title=\"Sort this descendingly\">Author <img src=\"../img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+				else if($_SESSION['emailSort'] == -2)
+					echo "<td><a href=\"email.php?sort=2\" title=\"Sort this ascendingly\">Author <img src=\"../img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+				else
+					echo "<td><a href=\"email.php?sort=2\" title=\"Sort by author\">Author</a>";
+				if($_SESSION['emailSort'] == 3)
+					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort this descendingly\">Date <img src=\"../img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+				else if($_SESSION['emailSort'] == -3)
+					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date <img src=\"../img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+				else
+					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort by date\">Date</a>";
+				echo "<td></td></tr>\n";
 				
 				foreach ( $emails as $email ) {
 					$author = $email->getSender();
