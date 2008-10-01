@@ -166,6 +166,7 @@ ul.folderlist ul {
 
 .sortbar a:link, .sortbar a:visited, .sortbar a:active, .sortbar a {
 	color:  #d6c610;
+	font-style: bold;
 }
 
 .sortbar img {
