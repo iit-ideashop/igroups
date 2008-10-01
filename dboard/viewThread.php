@@ -232,7 +232,7 @@ foreach ($posts as $post) {
 		print "<br /><img src=\"../profile-pics/{$profile['sPicture']}\" alt=\"{$profile['sPicture']}\" width=\"100\" />";
 	echo "</span></td>";
 	if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView']))
-		$delete = "<br />[<a href=\"edit.php?topic=".$_GET['topic']."&amp;thread=".$_GET['id']."&amp;post=".$post->getID()."$glob\">Edit</a>] [<a href=\"viewThread.php?id={$currentThread->getID()}&amp;delete={$post->getID()}\">Delete</a>]";
+		$delete = "<br />[<a href=\"edit.php?topic=".$_GET['topic']."&amp;thread=".$_GET['id']."&amp;post=".$post->getID()."$glob\">Edit</a>] [<a href=\"viewThread.php?id={$currentThread->getID()}&amp;topic=".$_GET['topic'].$glob."&amp;delete={$post->getID()}\">Delete</a>]";
 	else if($post->getAuthorID() == $currentUser->getID())
 		$delete = "<br />[<a href=\"edit.php?topic=".$_GET['topic']."&amp;thread=".$_GET['id']."&amp;post=".$post->getID()."$glob\">Edit</a>]";
 	else
