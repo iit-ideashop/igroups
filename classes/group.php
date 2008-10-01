@@ -271,10 +271,10 @@ if ( !class_exists( "Group" ) ) {
 					$add = " order by People.sLName desc, People.sFName desc";
 					break;
 				case 3:
-					$add = " order by Emails.dDate";
+					$add = " order by Emails.dDate, Emails.iID";
 					break;
 				case -3:
-					$add = " order by Emails.dDate desc";
+					$add = " order by Emails.dDate desc, Emails.iID desc";
 					break;
 				default:
 					$add = " order by Emails.iID desc";
