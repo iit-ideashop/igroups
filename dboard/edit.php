@@ -7,20 +7,24 @@
 	include_once( "../classes/post.php" );
 	include_once( "../classes/watchlist.php");
 
-	if(isset($_COOKIE['topic']))
+	if(isset($_GET['topic']))
 	{
-		if($_COOKIE['global'])
+		if(isset($_GET['global']))
+		{
 			$currentTopic = new GlobalTopic($_COOKIE['topic'], $db);
+			$glob = "&amp;global=true";
+		}
 		else
 		{
 			$currentTopic = new Topic($_COOKIE['topic'], $db);
 			$currentGroup = new Group($_COOKIE['topic'], $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
+			$glob = "";
 		}
 	}
 	else
 	    	 die("No topic selected.");
 	
-	if(isset($_COOKIE['thread']))
+	if(isset($_GET['thread']))
 		$currentThread = new Thread($_COOKIE['thread'], $db);
 	else
 		die("No thread selected.");
@@ -59,7 +63,7 @@ require("sidebar.php");
 	print "{$_COOKIE['topicName']}";
 ?>	
 </div>
-<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
+<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic={$_GET['topic']}$glob"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
 <form action="edit.php?post=<?php echo $_GET['post']; ?>" method="post" id="postForm"><fieldset><legend>Edit Post</legend>
 <table width="85%">
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"><?php echo $post->getBody(); ?></textarea></td></tr>

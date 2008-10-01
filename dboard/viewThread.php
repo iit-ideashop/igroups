@@ -232,9 +232,9 @@ foreach ($posts as $post) {
 		print "<br /><img src=\"../profile-pics/{$profile['sPicture']}\" alt=\"{$profile['sPicture']}\" width=\"100\" />";
 	echo "</span></td>";
 	if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView']))
-		$delete = "<br />[<a href=\"edit.php?post=".$post->getID()."\">Edit</a>] [<a href=\"viewThread.php?id={$currentThread->getID()}&amp;delete={$post->getID()}\">Delete</a>]";
+		$delete = "<br />[<a href=\"edit.php?topic=".$_GET['topic']."&amp;thread=".$_GET['id']."&amp;post=".$post->getID()."$glob\">Edit</a>] [<a href=\"viewThread.php?id={$currentThread->getID()}&amp;delete={$post->getID()}\">Delete</a>]";
 	else if($post->getAuthorID() == $currentUser->getID())
-		$delete = "<br />[<a href=\"edit.php?post=".$post->getID()."\">Edit</a>]";
+		$delete = "<br />[<a href=\"edit.php?topic=".$_GET['topic']."&amp;thread=".$_GET['id']."&amp;post=".$post->getID()."$glob\">Edit</a>]";
 	else
 		$delete = "";
 	print "<td><img src=\"../img/icon_minipost.png\" alt=\"*\" title=\"Post #".$post->getID()."\" /><span style=\"font-size: x-small\">Posted: {$post->getDateTime()}</span>&nbsp; 
