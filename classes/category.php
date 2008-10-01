@@ -124,10 +124,10 @@ if ( !class_exists( "Category" ) ) {
 					$add = " order by sSubject desc";
 					break;
 				case 2:
-					$add = " and iSenderID in (select iID, sFName, sLName from People) order by People.sLName, People.sFName";
+					$add = " and iSenderID in (select iID from People) order by People.sLName, People.sFName";
 					break;
 				case -2:
-					$add = " and iSenderID in (select iID, sFName, sLName from People) order by People.sLName desc, People.sFName desc";
+					$add = " and iSenderID in (select iID from People) order by People.sLName desc, People.sFName desc";
 					break;
 				case 3:
 					$add = " order by dDate";
