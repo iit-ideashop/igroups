@@ -171,12 +171,12 @@ require("sidebar.php");
 <tr><td align="left" colspan="3">
 <?php
 	if (!$watchList->isOnWatchlist($currentUser)) {
-		print "<a href=\"{$link}&amp;watchThread=true\">Watch This Thread</a>&nbsp;&nbsp;";
+		print "<a href=\"{$link}&amp;topic=".$_GET['topic'].$glob."&amp;watchThread=true\">Watch This Thread</a>&nbsp;&nbsp;";
 		print "(Receive an e-mail every time a new post is added.)<br />";
 	}
 	else {
 		print "<i>You are currently watching this thread.</i><br />";
-		print "<a href=\"{$link}&amp;unwatchThread=true\">Unwatch This Thread</a><br />";
+		print "<a href=\"{$link}&amp;topic=".$_GET['topic'].$glob."&amp;unwatchThread=true\">Unwatch This Thread</a><br />";
 	}
 ?>
 </td></tr>
