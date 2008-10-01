@@ -19,6 +19,8 @@
 	
 	if(isset($_GET['thread']) && is_numeric($_GET['thread']))
 		setcookie('thread', $_GET['thread'], time()+60*60*6);
+	else
+		die("No thread selected");
 
 	if (isset($_GET['mode']) && $_GET['mode'] == 'thread') {
 	
@@ -32,10 +34,10 @@
 		header("Location: viewThread?id={$thread->getID()}");
 	}
 	else if (isset($_POST['newPost'])) {
-		$post = createPost($_COOKIE['thread'], $_POST['body'], $currentUser->getID(), $db);
-		$watchList = new WatchList($_COOKIE['thread'], $db);
+		$post = createPost($_GET['thread'], $_POST['body'], $currentUser->getID(), $db);
+		$watchList = new WatchList($_GET['thread'], $db);
 		$watchList->sendNotification($post, $_COOKIE['topicName']);
-		header("Location: viewThread?id={$_COOKIE['thread']}");
+		header("Location: viewThread?id={$_GET['thread']}");
 	}
 	else
 		die("Invalid Request");
