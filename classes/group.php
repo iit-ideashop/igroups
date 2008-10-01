@@ -2,6 +2,50 @@
 require_once('subgroup.php');
 
 if ( !class_exists( "Group" ) ) {
+	function decodeFileSort($sort) {
+		switch($sort)
+		{
+			case 1:
+				return " order by Emails.sSubject";
+			case -1:
+				return " order by Emails.sSubject desc";
+			case 2:
+				return " order by People.sLName, People.sFName";
+			case -2:
+				return " order by People.sLName desc, People.sFName desc";
+			case 3:
+				return " order by Emails.dDate, Emails.iID";
+			case -3:
+				return " order by Emails.dDate desc, Emails.iID desc";
+			default:
+				return " order by Emails.iID desc";
+		}
+	}
+	
+	function decodeEmailSort($sort) {
+		switch($sort)
+		{
+			case 1:
+				return " order by Files.sTitle";
+			case -1:
+				return " order by Files.sTitle desc";
+			case 2:
+				return " order by Files.sDescription";
+			case -2:
+				return " order by Files.sDescription desc";
+			case 3:
+				return " order by People.sLName, People.sFName";
+			case -3:
+				return " order by People.sLName desc, People.sFName desc";
+			case 4:
+				return " order by Files.dDate, Files.iID";
+			case -4:
+				return " order by Files.dDate desc, Files.iID desc";
+			default:
+				return " order by Files.iID desc";
+		}
+	}
+		
 	class Group {
 		var $id, $type, $semester, $name, $desc;
 		var $db;
@@ -165,10 +209,32 @@ if ( !class_exists( "Group" ) ) {
 			$returnArray = array();
 			
 			if ( $this->getType() == 0 ) {
-				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=0 AND bDeletedFlag=0 AND iFolderID=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=0 AND bPrivate=0 AND bDeletedFlag=0 AND iFolderID=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
 			}
 			else {
-				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=0 AND bDeletedFlag=0 AND iFolderID=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." ORDER BY sTitle" );
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=0 AND bPrivate=0 AND bDeletedFlag=0 AND iFolderID=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." ORDER BY sTitle" );
+			}
+			while ( $row = mysql_fetch_row( $files ) ) {
+				$returnArray[] = new File( $row[0], $this->db );
+			}
+			$finalArray = array();
+			foreach($returnArray as $item){
+				if(!$item->isNuggetFile()){
+					$finalArray[] = $item;
+				}
+			}
+		       return $finalArray;
+		}
+		
+		function getGroupFilesSortedBy($sort) {
+			$returnArray = array();
+			$add = decodeFileSort($sort);
+			
+			if ( $this->getType() == 0 ) {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bObsolete=0 AND Files.bPrivate=0 AND Files.bDeletedFlag=0 AND Files.iFolderID=0 AND Files.iGroupID=".$this->getID()." AND Files.iGroupType=".$this->getType()." AND Files.iSemesterID=".$this->getSemester().$add );
+			}
+			else {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bObsolete=0 AND Files.bPrivate=0 AND Files.bDeletedFlag=0 AND Files.iFolderID=0 AND Files.iGroupID=".$this->getID()." AND Files.iGroupType=".$this->getType().$add );
 			}
 			while ( $row = mysql_fetch_row( $files ) ) {
 				$returnArray[] = new File( $row[0], $this->db );
@@ -201,10 +267,26 @@ if ( !class_exists( "Group" ) ) {
 			$returnArray = array();
 			
 			if ( $this->getType() == 0 ) {
-				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bDeletedFlag=1 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bDeletedFlag=1 AND bPrivate=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
 			}
 			else {
-				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bDeletedFlag=1 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." ORDER BY sTitle" );
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bDeletedFlag=1 AND bPrivate=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." ORDER BY sTitle" );
+			}
+			while ( $row = mysql_fetch_row( $files ) ) {
+				$returnArray[] = new File( $row[0], $this->db );
+			}
+			return $returnArray;
+		}
+		
+		function getGroupTrashBinSortedBy($sort) {
+			$returnArray = array();
+			$add = decodeFileSort($sort);
+			
+			if ( $this->getType() == 0 ) {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bDeletedFlag=1 AND Files.bPrivate=0 AND Files.iGroupID=".$this->getID()." AND Files.iGroupType=".$this->getType()." AND Files.iSemesterID=".$this->getSemester().$add );
+			}
+			else {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bDeletedFlag=1 AND Files.bPrivate=0 AND Files.iGroupID=".$this->getID()." AND Files.iGroupType=".$this->getType().$add );
 			}
 			while ( $row = mysql_fetch_row( $files ) ) {
 				$returnArray[] = new File( $row[0], $this->db );
@@ -215,10 +297,55 @@ if ( !class_exists( "Group" ) ) {
 		function getGroupObsolete() {
 			$returnArray = array();
 			if ( $this->getType() == 0 ) {
-				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=1 AND bDeletedFlag=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=1 AND bDeletedFlag=0 AND bPrivate=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
 			}
 			else {
-				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=1 AND bDeletedFlag=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." ORDER BY sTitle" );
+				$files = $this->db->igroupsQuery( "SELECT iID FROM Files WHERE bObsolete=1 AND bDeletedFlag=0 AND bPrivate=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." ORDER BY sTitle" );
+			}
+			while ( $row = mysql_fetch_row( $files ) ) {
+				$returnArray[] = new File( $row[0], $this->db );
+			}
+			return $returnArray;
+		}
+		
+		function getGroupObsoleteSortedBy($sort) {
+			$returnArray = array();
+			$add = decodeFileSort($sort);
+			if ( $this->getType() == 0 ) {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bObsolete=1 AND Files.bDeletedFlag=0 AND Files.bPrivate=0 AND Files.iGroupID=".$this->getID()." AND Files.iGroupType=".$this->getType()." AND Files.iSemesterID=".$this->getSemester().$add);
+			}
+			else {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bObsolete=1 AND Files.bDeletedFlag=0 AND Files.bPrivate=0 AND Files.iGroupID=".$this->getID()." AND Files.iGroupType=".$this->getType().$add );
+			}
+			while ( $row = mysql_fetch_row( $files ) ) {
+				$returnArray[] = new File( $row[0], $this->db );
+			}
+			return $returnArray;
+		}
+		
+		function getUserDropboxSortedBy($userID, $sort) {
+			$returnArray = array();
+			$add = decodeFileSort($sort);
+			if ( $this->getType() == 0 ) {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE bPrivate=1 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester()." AND iAuthorID=$userID".$add);
+			}
+			else {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE bPrivate=1 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType().$add );
+			}
+			while ( $row = mysql_fetch_row( $files ) ) {
+				$returnArray[] = new File( $row[0], $this->db );
+			}
+			return $returnArray;
+		}
+		
+		function getDropboxSortedBy($sort) {
+			$returnArray = array();
+			$add = decodeFileSort($sort);
+			if ( $this->getType() == 0 ) {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bPrivate=1 AND Files.iGroupID=".$this->getID()." AND Files.iGroupType=".$this->getType()." AND Files.iSemesterID=".$this->getSemester().$add);
+			}
+			else {
+				$files = $this->db->igroupsQuery( "SELECT Files.iID, People.sFName, People.sLName FROM Files inner join People on Files.iAuthorID=People.iID WHERE Files.bPrivate=1 AND Files.iGroupID=".$this->getID()." AND Files.iGroupType=".$this->getType().$add );
 			}
 			while ( $row = mysql_fetch_row( $files ) ) {
 				$returnArray[] = new File( $row[0], $this->db );
@@ -256,29 +383,7 @@ if ( !class_exists( "Group" ) ) {
 		
 		function getGroupEmailsSortedBy($sort) {
 			$returnArray = array();
-			switch($sort)
-			{
-				case 1:
-					$add = " order by Emails.sSubject";
-					break;
-				case -1:
-					$add = " order by Emails.sSubject desc";
-					break;
-				case 2:
-					$add = " order by People.sLName, People.sFName";
-					break;
-				case -2:
-					$add = " order by People.sLName desc, People.sFName desc";
-					break;
-				case 3:
-					$add = " order by Emails.dDate, Emails.iID";
-					break;
-				case -3:
-					$add = " order by Emails.dDate desc, Emails.iID desc";
-					break;
-				default:
-					$add = " order by Emails.iID desc";
-			}
+			$add = decodeEmailSort($sort);
 			
 			if ( $this->getType() == 0 ) 
 				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=0 AND Emails.iGroupID=".$this->getID()." AND Emails.iGroupType=".$this->getType()." AND Emails.iSemesterID=".$this->getSemester().$add );

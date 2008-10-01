@@ -66,6 +66,11 @@
 	
 	//----End Display Functions-------------------------------------//
 	
+	if(isset($_GET['sort']) && is_numeric($_GET['sort']))
+		$_SESSION['fileSort'] = $_GET['sort'];
+	
+	if(!isset($_SESSION['fileSort']))
+		$_SESSION['fileSort'] = 1;
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -229,14 +234,37 @@ if ( isset( $_POST['delete'] ) ) {
 				</div>
 <?php
 					if ($currentUser->isGroupAdministrator($currentGroup))
-						$query = $db->igroupsQuery("SELECT * FROM Files WHERE iGroupID={$currentGroup->getID()} AND iSemesterID={$_SESSION['selectedSemester']} AND bPrivate=1 ORDER BY iAuthorID");
+						$files = $currentGroup->getDropboxSortedBy($_SESSION['fileSort']);
 					else
-						$query = $db->igroupsQuery("SELECT * FROM Files WHERE iGroupID={$currentGroup->getID()} AND iSemesterID={$_SESSION['selectedSemester']} AND bPrivate=1 AND iAuthorID={$currentUser->getID()}");
-					$files = array();
-					while ($result = mysql_fetch_array($query))
-						$files[] = new File($result['iID'], $db);
+						$files = $currentGroup->getUserDropboxSortedBy($currentUser->getID(), $_SESSION['fileSort']);
 
 					print '<div id="files"><table width="100%">';
+					echo "<tr class=\"sortbar\"><td></td>\n";
+					if($_SESSION['fileSort'] == 1)
+						echo "<td><a href=\"dropbox.php?sort=-1\" title=\"Sort this descendingly\">Filename <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					else if($_SESSION['fileSort'] == -1)
+						echo "<td><a href=\"dropbox.php?sort=1\" title=\"Sort this ascendingly\">Filename <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					else
+						echo "<td><a href=\"dropbox.php?sort=1\" title=\"Sort by filename\">Filename</a>";
+					if($_SESSION['emailSort'] == 2)
+						echo "<td colspan=\"3\"><a href=\"dropbox.php?sort=-2\" title=\"Sort this descendingly\">Description <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					else if($_SESSION['fileSort'] == -2)
+						echo "<td colspan=\"3\"><a href=\"dropbox.php?sort=2\" title=\"Sort this ascendingly\">Description <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					else
+						echo "<td colspan=\"3\"><a href=\"dropbox.php?sort=2\" title=\"Sort by description\">Description</a>";
+					if($_SESSION['fileSort'] == 3)
+						echo "<td><a href=\"dropbox.php?sort=-3\" title=\"Sort this descendingly\">Author <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					else if($_SESSION['fileSort'] == -3)
+						echo "<td><a href=\"dropbox.php?sort=3\" title=\"Sort this ascendingly\">Author <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					else
+						echo "<td><a href=\"dropbox.php?sort=3\" title=\"Sort by author\">Author</a>";
+					if($_SESSION['fileSort'] == 4)
+						echo "<td><a href=\"dropbox.php?sort=-4\" title=\"Sort this descendingly\">Date <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					else if($_SESSION['fileSort'] == -4)
+						echo "<td><a href=\"dropbox.php?sort=4\" title=\"Sort this ascendingly\">Date <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					else
+						echo "<td><a href=\"dropbox.php?sort=-4\" title=\"Sort by date\">Date</a>";
+					echo "<td></td></tr>\n"; 
 					foreach ($files as $file) {
 						printTR();
 						print "<td><img src=\"img/file.png\" alt=\"File\" title=\"File\" /></td>";

@@ -96,6 +96,12 @@
 	
 	//----End Display Functions-------------------------------------//
 	
+	if(isset($_GET['sort']) && is_numeric($_GET['sort']))
+		$_SESSION['fileSort'] = $_GET['sort'];
+	
+	if(!isset($_SESSION['fileSort']))
+		$_SESSION['fileSort'] = 1;
+	
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -498,17 +504,17 @@
 <?php
 				if ( $currentFolder ) {
 					$folderList = $currentFolder->getFolders();
-					$fileList = $currentFolder->getFiles();
+					$fileList = $currentFolder->getFilesSortedBy($_SESSION['fileSort']);
 					print "<span id=\"boxtitle\">".htmlspecialchars($currentFolder->getName())."</span><br /><span id=\"boxdesc\">".htmlspecialchars($currentFolder->getDesc())."</span>";
 				}
 				else {
 					if ( isset( $_SESSION['selectedSpecial'] ) ) {
 						if ( $_SESSION['selectedSpecial'] == 'trash' ) {
-							$fileList = $currentGroup->getGroupTrashBin();
+							$fileList = $currentGroup->getGroupTrashBinSortedBy($_SESSION['fileSort']);
 							print "<span id=\"boxtitle\">Trash</span><br /><span id=\"boxdesc\">Files that have been deleted</span>";
 						}
 						else if ($_SESSION['selectedSpecial'] == 'obsolete') {
-							$fileList = $currentGroup->getGroupObsolete();
+							$fileList = $currentGroup->getGroupObsoleteSortedBy($_SESSION['fileSort']);
 							print "<span id=\"boxtitle\">Past Versions</span><br /><span id=\"boxdesc\">Older versions of files</span>";
 						}
 						else if ( $_SESSION['selectedSpecial'] == 'ipro' ) {
@@ -518,7 +524,7 @@
 					}
 					else {
 						$folderList = $currentGroup->getGroupFolders();
-						$fileList = $currentGroup->getGroupFiles();
+						$fileList = $currentGroup->getGroupFilesSortedBy($_SESSION['fileSort']);
 						print "<span id=\"boxtitle\">Your Files</span><br /><span id=\"boxdesc\">Files uploaded by your group</span>";
 					}
 				}
@@ -549,7 +555,34 @@
 				</div>
 				<div id="files">
 					<table width="100%">
-<?php
+<?php					if($_SESSION['selectedSpecial'] != 'ipro') {
+						echo "<tr class=\"sortbar\"><td></td>\n";
+						if($_SESSION['fileSort'] == 1)
+							echo "<td><a href=\"files.php?sort=-1\" title=\"Sort this descendingly\">Filename <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+						else if($_SESSION['fileSort'] == -1)
+							echo "<td><a href=\"files.php?sort=1\" title=\"Sort this ascendingly\">Filename <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+						else
+							echo "<td><a href=\"files.php?sort=1\" title=\"Sort by filename\">Filename</a>";
+						if($_SESSION['emailSort'] == 2)
+							echo "<td colspan=\"3\"><a href=\"files.php?sort=-2\" title=\"Sort this descendingly\">Description <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+						else if($_SESSION['fileSort'] == -2)
+							echo "<td colspan=\"3\"><a href=\"files.php?sort=2\" title=\"Sort this ascendingly\">Description <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+						else
+							echo "<td colspan=\"3\"><a href=\"files.php?sort=2\" title=\"Sort by description\">Description</a>";
+						if($_SESSION['fileSort'] == 3)
+							echo "<td><a href=\"files.php?sort=-3\" title=\"Sort this descendingly\">Author <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+						else if($_SESSION['fileSort'] == -3)
+							echo "<td><a href=\"files.php?sort=3\" title=\"Sort this ascendingly\">Author <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+						else
+							echo "<td><a href=\"files.php?sort=3\" title=\"Sort by author\">Author</a>";
+						if($_SESSION['fileSort'] == 4)
+							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort this descendingly\">Date <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+						else if($_SESSION['fileSort'] == -4)
+							echo "<td><a href=\"files.php?sort=4\" title=\"Sort this ascendingly\">Date <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+						else
+							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort by date\">Date</a>";
+						echo "<td></td><td></td></tr>\n"; 
+					}
 					if ($currentFolder && !$currentFolder->isIPROFolder()) {
 							printTR();
 							print "<td style=\"width: 24px\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
