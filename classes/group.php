@@ -254,6 +254,43 @@ if ( !class_exists( "Group" ) ) {
 			return $returnArray;
 		}
 		
+		function getGroupEmailsSortedBy($sort) {
+			$returnArray = array();
+			switch($sort)
+			{
+				case 1:
+					$add = " order by sSubject";
+					break;
+				case -1:
+					$add = " order by sSubject desc";
+					break;
+				case 2:
+					$add = " inner join People on Emails.iSenderID=People.iID order by People.sLName, People.sFName";
+					break;
+				case -2:
+					$add = " inner join People on Emails.iSenderID=People.iID order by People.sLName desc, People.sFName desc";
+					break;
+				case 3:
+					$add = " order by dDate";
+					break;
+				case -3:
+					$add = " order by dDate desc";
+					break;
+				default:
+					$add = " order by iID desc";
+			}
+			
+			if ( $this->getType() == 0 ) 
+				$emails = $this->db->igroupsQuery( "SELECT iID FROM Emails WHERE iCategoryID=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType()." AND iSemesterID=".$this->getSemester().$add );
+			else 
+				$emails = $this->db->igroupsQuery( "SELECT iID FROM Emails WHERE iCategoryID=0 AND iGroupID=".$this->getID()." AND iGroupType=".$this->getType().$add );
+				
+			while ( $row = mysql_fetch_row( $emails ) ) {
+				$returnArray[] = new Email( $row[0], $this->db );
+			}
+			return $returnArray;
+		}
+		
 		function getGroupAnnouncements() {
 			$returnArray = array();
 			

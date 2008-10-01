@@ -157,3 +157,12 @@ ul.folderlist {
 ul.folderlist ul {
 	padding-left:20px;
 }
+
+.sortbar {
+	background-color: #222222;
+	color: #dddddd;
+}
+
+.sortbar a:link, .sortbar a:visited, .sortbar a:active, .sortbar a {
+	color:  #d6c610;
+}

@@ -113,6 +113,44 @@ if ( !class_exists( "Category" ) ) {
 			return $returnArray;
 		}
 		
+		function getEmailsSortedBy($sort) {
+			$returnArray = array();
+			switch($sort)
+			{
+				case 1:
+					$add = " order by sSubject";
+					break;
+				case -1:
+					$add = " order by sSubject desc";
+					break;
+				case 2:
+					$add = " inner join People on Emails.iSenderID=People.iID order by People.sLName, People.sFName";
+					break;
+				case -2:
+					$add = " inner join People on Emails.iSenderID=People.iID order by People.sLName desc, People.sFName desc";
+					break;
+				case 3:
+					$add = " order by dDate";
+					break;
+				case -3:
+					$add = " order by dDate desc";
+					break;
+				default:
+					$add = " order by iID desc";
+			}
+			
+			if ( $this->getGroupType() == 0 ) {
+				$emails = $this->db->igroupsQuery( "SELECT iID FROM Emails WHERE iCategoryID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." AND iSemesterID=".$this->getSemester().$add);
+			}
+			else {
+				$emails = $this->db->igroupsQuery( "SELECT iID FROM Emails WHERE iCategoryID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType().$add );
+			}
+			while ( $row = mysql_fetch_row( $emails ) ) {
+				$returnArray[] = new Email( $row[0], $this->db );
+			}
+			return $returnArray;
+		}
+		
 		function delete() {
 			$emails = $this->getEmails();
 			foreach ( $emails as $email ) {
