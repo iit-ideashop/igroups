@@ -159,7 +159,7 @@ foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
 </td>
-<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <strong>$topicName</strong>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext&amp;topic=".$_GET['id']."\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr></table>
+<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <strong>$topicName</strong>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5">
 <tr><th style="width:45%" colspan="2">Threads</th><th>Replies</th><th>Author</th><th>Views</th><th>Last Post</th></tr>
@@ -190,7 +190,7 @@ else
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext&amp;topic=".$_GET['id']."\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
+</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
 </div>
 </body>
 </html>
