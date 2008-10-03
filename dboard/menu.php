@@ -244,6 +244,7 @@ ob_start();
 			print "<li><a href=\"../admin/reporting.php\">Group Reporting</a></li>";
 			print "<li><a href=\"../admin/people.php\">View Person</a></li>";
 			print "<li><a href=\"../admin/announcements.php\">Announcements</a></li>";
+			print "<li><a href=\"../admin/appearance.php\">Appearance</a></li>";
 			print "</ul>";
 		}
 		else
