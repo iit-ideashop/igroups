@@ -15,11 +15,11 @@
 <link rel="stylesheet" href="../default.css" type="text/css" />
 <style type="text/css">
 <?php
-	$query = $db->igroupsQuery("select distinct sKey from Appearance where sCSSAtrribute not null");
+	$query = $db->igroupsQuery("select distinct sKey from Appearance where sCSSAtrribute is not null");
 	while($row = mysql_fetch_row($query))
 	{
 		echo $row[0]." {\n";
-		$query2 = $db->igroupsQuery("select sCSSAttribute, sValue from Appearance where sKey='".$row[0]."' and sCSSAttribute not null");
+		$query2 = $db->igroupsQuery("select sCSSAttribute, sValue from Appearance where sKey='".$row[0]."' and sCSSAttribute is not null");
 		while($row2 = mysql_fetch_array($query2))
 		{
 			echo "\t".$row2['sCSSAttribute'].": ".$row2['sValue'].";\n";
@@ -35,7 +35,7 @@
 <div id="content"><div id="topbanner">Appearance</div>
 <form method="post" action="appearance.php"><fieldset>
 <?php
-	$query = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='appname' and sCSSAttribute=NULL"));
+	$query = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='appname' and sCSSAttribute is null"));
 	echo "<label for=\"appname\">Application name:</label><input type=\"text\" name=\"appname\" id=\"appname\" value=\"".$query[0]."\" />\n";
 	$query = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='a:link, a:visited' and sCSSAttribute='color'"));
 	echo "<label for=\"linkcolor\">Link color:</label><input type=\"text\" name=\"linkcolor\" id=\"linkcolor\" value=\"".$query[0]."\" />\n";
