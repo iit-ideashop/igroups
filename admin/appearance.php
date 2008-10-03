@@ -40,6 +40,6 @@
 	$query = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='a:link, a:visited' and sCSSAttribute='color'"));
 	echo "<label for=\"linkcolor\">Link color:</label><input type=\"text\" name=\"linkcolor\" id=\"linkcolor\" value=\"".$query[0]."\" />\n";
 ?>
-<input type="submit" name=\"sub\" /><input type="reset" />
+<input type="submit" name="sub" /><input type="reset" />
 </fieldset></form>	
 </div></body></html>
