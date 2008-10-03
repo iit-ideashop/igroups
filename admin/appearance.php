@@ -36,7 +36,7 @@
 <form method="post" action="appearance.php"><fieldset>
 <?php
 	$query = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='appname' and sCSSAttribute is null"));
-	echo "<label for=\"appname\">Application name:</label><input type=\"text\" name=\"appname\" id=\"appname\" value=\"".$query[0]."\" />\n";
+	echo "<label for=\"appname\">Application name:</label><input type=\"text\" name=\"appname\" id=\"appname\" value=\"".$query[0]."\" /><br />\n";
 	$query = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='a:link, a:visited' and sCSSAttribute='color'"));
 	echo "<label for=\"linkcolor\">Link color:</label><input type=\"text\" name=\"linkcolor\" id=\"linkcolor\" value=\"".$query[0]."\" />\n";
 ?>
