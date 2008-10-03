@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="../default.css" type="text/css" />
 <style type="text/css">
 <?php
-	$query = $db->igroupsQuery("select distinct sKey from Appearance where sCSSAtrribute is not null");
+	$query = $db->igroupsQuery("select distinct sKey from Appearance where sCSSAttribute is not null");
 	while($row = mysql_fetch_row($query))
 	{
 		echo $row[0]." {\n";
