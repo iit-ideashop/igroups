@@ -9,9 +9,9 @@
 	if(isset($_POST['categorySearch']) && is_numeric($_POST['categorySearch']) && $_POST['categorySearch'] > -1)
 		$searchParams .= "and iCategoryID=".$_POST['categorySearch']." ";
 	if(isset($_POST['subjectSearch']) && trim($_POST['subjectSearch']) != "")
-		$searchParams .= "and match(sSubject) against('".str_replace('\"', '"', mysql_real_escape_string(stripslashes($_POST['subjectSearch'])))."' in boolean mode) ";
+		$searchParams .= "and match(sSubject) against('".mysql_real_escape_string(stripslashes($_POST['subjectSearch']))."' in boolean mode) ";
 	if(isset($_POST['bodySearch']) && trim($_POST['bodySearch']) != "")
-		$searchParams .= "and match(sBody) against('".str_replace('\"', '"', mysql_real_escape_string(stripslashes($_POST['bodySearch'])))."' in boolean mode) ";
+		$searchParams .= "and match(sBody) against('".mysql_real_escape_string(stripslashes($_POST['bodySearch']))."' in boolean mode) ";
 	
 	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()."  $searchParams order by iID desc");
 	$emails = array();
@@ -49,12 +49,11 @@ require("sidebar.php");
 ?>
 	<div id="content"><div id="topbanner">
 <?php
-		//echo $currentGroup->getName();
-		echo "select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()."  $searchParams order by iID desc"
+		echo $currentGroup->getName();
 ?>
 	</div>
 <form method="post" action="searchemail.php"><fieldset><table>
-	<tr><td><label for="subjectSearch">Subject:</label></td><td><input type="text" name="subjectSearch" id="subjectSearch" value="<?php echo htmlspecialchars($_POST['subjectSearch']); ?>" /></td><td><label for="senderSearch">Sender:</label></td><td>
+	<tr><td><label for="subjectSearch">Subject:</label></td><td><input type="text" name="subjectSearch" id="subjectSearch" value="<?php echo htmlspecialchars(stripslashes($_POST['subjectSearch'])); ?>" /></td><td><label for="senderSearch">Sender:</label></td><td>
 	<select name="senderSearch" id="senderSearch"><option value="-1">Any</option>
 <?php
 	$people = $currentGroup->getGroupUsers();
@@ -67,7 +66,7 @@ require("sidebar.php");
 	}
 ?>			
 	</select></td></tr>
-	<tr><td><label for="bodySearch">Body:</label></td><td><input type="text" name="bodySearch" id="bodySearch" value="<?php echo htmlspecialchars($_POST['bodySearch']); ?>" /></td><td><label for="categorySearch">Category:</label></td><td><select name="categorySearch" id="categorySearch"><option value="-1">Any</option><option value="0"<?php if($_POST['categorySearch'] == 0) echo ' selected="selected"'; ?>>Uncategorized</option>
+	<tr><td><label for="bodySearch">Body:</label></td><td><input type="text" name="bodySearch" id="bodySearch" value="<?php echo htmlspecialchars(stripslashes($_POST['bodySearch'])); ?>" /></td><td><label for="categorySearch">Category:</label></td><td><select name="categorySearch" id="categorySearch"><option value="-1">Any</option><option value="0"<?php if($_POST['categorySearch'] == 0) echo ' selected="selected"'; ?>>Uncategorized</option>
 <?php
 	$categories = $currentGroup->getGroupCategories();
 	foreach($categories as $category)
