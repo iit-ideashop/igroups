@@ -469,12 +469,14 @@ require("sidebar.php");
 			print "<div class=\"columnbanner\"><span id=\"boxtitle\">$name</span><br /><span id=\"boxdesc\">$desc</span></div>";
 ?>
 			<form method="post" action="email.php"><fieldset><div class="menubar">
-			<?php if (!$currentUser->isGroupGuest($currentGroup) && (!$currentCat || $currentCat->getID() != 1)) { ?>
+			<?php if (!$currentCat || $currentCat->getID() != 1) { ?>
 				<ul class="folderlist">
+					<?php if(!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<li><a href="#" onclick="sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
+					<?php } ?>
 					<li><a href="#" onclick="searchwin=dhtmlwindow.open('searchbox', 'div', 'searchFrame', 'Search Group Emails', 'width=300px,height=200px,left=300px,top=100px,resize=1,scrolling=1'); return false">Search Email</a></li>
 <?php
-					if (count($emails) > 0) {
+					if (!$currentUser->isGroupGuest($currentGroup) && count($emails) > 0) {
 						if(count($currentGroup->getGroupCategories()) > 0) {
 ?>
 						<li><a href="#" onclick="movewin=dhtmlwindow.open('movebox', 'div', 'moveFrame', 'Move Email', 'width=200px,height=100px,left=600px,top=100px,resize=0,scrolling=0'); return false">Move Selected</a></li>
