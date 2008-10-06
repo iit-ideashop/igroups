@@ -66,7 +66,7 @@ require("sidebar.php");
 	}
 ?>			
 	</select></td></tr>
-	<tr><td><label for="bodySearch">Body:</label></td><td><input type="text" name="bodySearch" id="bodySearch" value="<?php echo htmlspecialchars($_POST['bodySearch']); ?>" /></td><td><label for="categorySearch">Category:</label></td><td><select name="categorySearch" id="categorySearch"><option value="-1">Any</option><option value="0">Uncategorized</option>
+	<tr><td><label for="bodySearch">Body:</label></td><td><input type="text" name="bodySearch" id="bodySearch" value="<?php echo htmlspecialchars($_POST['bodySearch']); ?>" /></td><td><label for="categorySearch">Category:</label></td><td><select name="categorySearch" id="categorySearch"><option value="-1">Any</option><option value="0"<?php if($_POST['categorySearch'] == 0) echo ' selected="selected"'; ?>>Uncategorized</option>
 <?php
 	$categories = $currentGroup->getGroupCategories();
 	foreach($categories as $category)
