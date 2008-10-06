@@ -598,7 +598,7 @@ require("sidebar.php");
 			foreach($people as $person)
 				echo "<option value=\"".$person->getID()."\">".$person->getCommaName()."</option>\n";
 ?>			
-			<br />
+			</select><br />
 			<label for="categorySearch">Category:</label>&nbsp;<select name="categorySearch" id="categorySearch"><option value="-1">Any</option><option value="0">Uncategorized</option>
 <?php
 			$categories = $currentGroup->getGroupCategories();
