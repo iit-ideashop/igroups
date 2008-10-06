@@ -11,7 +11,7 @@
 	else
 		$ctgy = "";
 	
-	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()." $sndr $ctgy and match(sSubject) against('".mysql_real_escape_string($_POST['subjectSearch'])."') in boolean mode and match(sBody) against('".mysql_real_escape_string($_POST['bodySearch'])."') in boolean mode");
+	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()." $sndr $ctgy and match(sSubject) against('".mysql_real_escape_string($_POST['subjectSearch'])."' in boolean mode) and match(sBody) against('".mysql_real_escape_string($_POST['bodySearch'])."' in boolean mode)");
 	$emails = array();
 	while($row = mysql_fetch_row($query))
 		$emails[] = new Email($row[0], $db);
