@@ -472,7 +472,7 @@ require("sidebar.php");
 			<?php if (!$currentUser->isGroupGuest($currentGroup) && (!$currentCat || $currentCat->getID() != 1)) { ?>
 				<ul class="folderlist">
 					<li><a href="#" onclick="sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
-					<li><a href="#" onclick="window.location.href='searchemail.php';">Search Email</a></li>
+					<li><a href="#" onclick="searchwin=dhtmlwindow.open('searchbox', 'div', 'searchFrame', 'Search Group Emails', 'width=300px,height=200px,left=300px,top=100px,resize=1,scrolling=1'); return false">Search Email</a></li>
 <?php
 					if (count($emails) > 0) {
 						if(count($currentGroup->getGroupCategories()) > 0) {
@@ -584,6 +584,32 @@ require("sidebar.php");
 ?>
 			<br />
 			<input type="button" name="move" value="Move Emails" onclick="copyCheckBoxes();this.form.submit()" /></fieldset></form></div>
+<?php
+	}
+?>
+</div>
+<div class="window-content" id="searchFrame" style="display: none">
+			<form method="post" action="searchemail.php"><fieldset><legend>Search Group Emails</legend>
+			<label for="subjectSearch">Subject:</label>&nbsp;<input type="text" name="subjectSearch" id="subjectSearch" /><br />
+			<label for="bodySearch">Body:</label>&nbsp;<input type="text" name="bodySearch" id="bodySearch" /><br />
+			<label for="senderSearch">Sender:</label>&nbsp;<select name="senderSearch" id="senderSearch"><option value="-1">Any</option>
+<?php
+			$people = $currentGroup->getGroupUsers();
+			foreach($people as $person)
+				echo "<option value=\"".$person->getID()."\">".$person->getCommaName()."</option>\n";
+?>			
+			<br />
+			<label for="categorySearch">Category:</label>&nbsp;<select name="categorySearch" id="categorySearch"><option value="-1">Any</option><option value="0">Uncategorized</option>
+<?php
+			$categories = $currentGroup->getGroupCategories();
+			foreach ( $categories as $category ) {
+				echo "<option value=\"".$category->getID()."\">".$category->getName()."</option>\n";
+			}
+?>
+			</select><br />
+			<input type="submit" name="search" /></fieldset></form>
+			<p style="font-size: smaller"><strong>Note:</strong> Subject and body search terms use <a href="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" onclick="window.open(this.href); return false;">implied boolean logic</a>.</p>
+			</div>
 <?php
 	}
 ?>
