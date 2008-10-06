@@ -13,7 +13,7 @@
 	if(isset($_POST['bodySearch']))
 		$searchParams .= "and match(sBody) against('".mysql_real_escape_string($_POST['bodySearch'])."' in boolean mode) ";
 	
-	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()." $searchParams");
+	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()."  $searchParams");
 	$emails = array();
 	while($row = mysql_fetch_row($query))
 		$emails[] = new Email($row[0], $db);
