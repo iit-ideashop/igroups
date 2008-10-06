@@ -3,16 +3,17 @@
 	include_once( "classes/email.php" );
 	include_once( "classes/category.php" );
 	
+	$searchParams = "";
 	if(isset($_POST['senderSearch']) && is_numeric($_POST['senderSearch']) && $_POST['senderSearch'] > -1)
-		$sndr = "and iSenderID=".$_POST['senderSearch'];
-	else
-		$sndr = "";
+		$searchParams .= "and iSenderID=".$_POST['senderSearch']." ";
 	if(isset($_POST['categorySearch']) && is_numeric($_POST['categorySearch']) && $_POST['categorySearch'] > -1)
-		$ctgy = "and iCategoryID=".$_POST['categorySearch'];
-	else
-		$ctgy = "";
+		$searchParams .= "and iCategoryID=".$_POST['categorySearch']." ";
+	if(isset($_POST['subjectSearch']))
+		$searchParams .= "and match(sSubject) against('".mysql_real_escape_string($_POST['subjectSearch'])."' in boolean mode) ";
+	if(isset($_POST['bodySearch']))
+		$searchParams .= "and match(sBody) against('".mysql_real_escape_string($_POST['bodySearch'])."' in boolean mode) ";
 	
-	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()." $sndr $ctgy and match(sSubject) against('".mysql_real_escape_string($_POST['subjectSearch'])."' in boolean mode) and match(sBody) against('".mysql_real_escape_string($_POST['bodySearch'])."' in boolean mode)");
+	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()." $searchParams");
 	$emails = array();
 	while($row = mysql_fetch_row($query))
 		$emails[] = new Email($row[0], $db);
