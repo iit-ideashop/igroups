@@ -9,9 +9,9 @@
 	if(isset($_POST['categorySearch']) && is_numeric($_POST['categorySearch']) && $_POST['categorySearch'] > -1)
 		$searchParams .= "and iCategoryID=".$_POST['categorySearch']." ";
 	if(isset($_POST['subjectSearch']) && trim($_POST['subjectSearch']) != "")
-		$searchParams .= "and match(sSubject) against('".str_replace('\"', '"', mysql_real_escape_string($_POST['subjectSearch']))."' in boolean mode) ";
+		$searchParams .= "and match(sSubject) against('".str_replace('\"', '"', mysql_real_escape_string(stripslashes($_POST['subjectSearch'])))."' in boolean mode) ";
 	if(isset($_POST['bodySearch']) && trim($_POST['bodySearch']) != "")
-		$searchParams .= "and match(sBody) against('".str_replace('\"', '"', mysql_real_escape_string($_POST['bodySearch']))."' in boolean mode) ";
+		$searchParams .= "and match(sBody) against('".str_replace('\"', '"', mysql_real_escape_string(stripslashes($_POST['bodySearch'])))."' in boolean mode) ";
 	
 	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()."  $searchParams order by iID desc");
 	$emails = array();
