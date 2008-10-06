@@ -1,6 +1,7 @@
 <?php
 	include_once("checklogin.php");
 	include_once( "classes/email.php" );
+	include_once( "classes/category.php" );
 	
 	if(isset($_POST['senderSearch']) && is_numeric($_POST['senderSearch']) && $_POST['senderSearch'] > -1)
 		$sndr = "and iSenderID=".$_POST['senderSearch'];
@@ -16,7 +17,8 @@
 	while($row = mysql_fetch_row($query))
 		$emails[] = new Email($row[0], $db);
 	
-	function printTR() {
+	function printTR()
+	{
 		static $i=0;
 		if ( $i )
 			print "<tr class=\"shade\">";
