@@ -49,7 +49,8 @@ require("sidebar.php");
 ?>
 	<div id="content"><div id="topbanner">
 <?php
-		echo $currentGroup->getName();
+		//echo $currentGroup->getName();
+		echo "select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()."  $searchParams order by iID desc"
 ?>
 	</div>
 <form method="post" action="searchemail.php"><fieldset><table>
