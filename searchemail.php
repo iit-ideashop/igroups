@@ -56,7 +56,7 @@ require("sidebar.php");
 	<tr><td><label for="subjectSearch">Subject:</label></td><td><input type="text" name="subjectSearch" id="subjectSearch" value="<?php echo htmlspecialchars(stripslashes($_POST['subjectSearch'])); ?>" /></td><td><label for="senderSearch">Sender:</label></td><td>
 	<select name="senderSearch" id="senderSearch"><option value="-1">Any</option>
 <?php
-	$people = $currentGroup->getGroupUsers();
+	$people = $currentGroup->getGroupMembers();
 	foreach($people as $person)
 	{
 		if($_POST['senderSearch'] == $person->getID())

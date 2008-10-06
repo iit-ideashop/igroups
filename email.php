@@ -594,7 +594,7 @@ require("sidebar.php");
 			<label for="bodySearch">Body:</label>&nbsp;<input type="text" name="bodySearch" id="bodySearch" /><br />
 			<label for="senderSearch">Sender:</label>&nbsp;<select name="senderSearch" id="senderSearch"><option value="-1">Any</option>
 <?php
-			$people = $currentGroup->getGroupUsers();
+			$people = $currentGroup->getGroupMembers();
 			foreach($people as $person)
 				echo "<option value=\"".$person->getID()."\">".$person->getCommaName()."</option>\n";
 ?>			
