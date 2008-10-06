@@ -57,13 +57,22 @@ require("sidebar.php");
 	<select name="senderSearch" id="senderSearch"><option value="-1">Any</option>
 <?php
 	$people = $currentGroup->getGroupMembers();
-	foreach($people as $person)
-	{
-		if($_POST['senderSearch'] == $person->getID())
-			echo "<option value=\"".$person->getID()."\" selected=\"selected\">".$person->getCommaName()."</option>\n";
-		else
-			echo "<option value=\"".$person->getID()."\">".$person->getCommaName()."</option>\n";
-	}
+		$iid = "";
+		$i = 0;
+		foreach($people as $person)
+		{
+			if($i)
+				$iid .= ",";
+			$iid .= $person->getID();
+		}
+		$query = $db->igroupsQuery("select iID, sLName, sFName from People where iID in $iid order by sLName, sFName");
+		while($row = mysql_fetch_row($query))
+		{
+			if($_POST['senderSearch'] == $row[0])
+				echo "<option value=\"".$row[0]."\" selected=\"selected\">".$row[1].", ".$row[2]."</option>\n";
+			else
+				echo "<option value=\"".$row[0]."\">".$row[1].", ".$row[2]."</option>\n";
+		}
 ?>			
 	</select></td></tr>
 	<tr><td><label for="bodySearch">Body:</label></td><td><input type="text" name="bodySearch" id="bodySearch" value="<?php echo htmlspecialchars(stripslashes($_POST['bodySearch'])); ?>" /></td><td><label for="categorySearch">Category:</label></td><td><select name="categorySearch" id="categorySearch"><option value="-1">Any</option><option value="0"<?php if($_POST['categorySearch'] == 0) echo ' selected="selected"'; ?>>Uncategorized</option>

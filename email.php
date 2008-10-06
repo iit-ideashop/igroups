@@ -595,8 +595,17 @@ require("sidebar.php");
 			<label for="senderSearch">Sender:</label>&nbsp;<select name="senderSearch" id="senderSearch"><option value="-1">Any</option>
 <?php
 			$people = $currentGroup->getGroupMembers();
+			$iid = "";
+			$i = 0;
 			foreach($people as $person)
-				echo "<option value=\"".$person->getID()."\">".$person->getCommaName()."</option>\n";
+			{
+				if($i)
+					$iid .= ",";
+				$iid .= $person->getID();
+			}
+			$query = $db->igroupsQuery("select iID, sLName, sFName from People where iID in $iid order by sLName, sFName");
+			while($row = mysql_fetch_row($query))
+				echo "<option value=\"".$row[0]."\">".$row[1].", ".$row[2]."</option>\n";
 ?>			
 			</select><br />
 			<label for="categorySearch">Category:</label>&nbsp;<select name="categorySearch" id="categorySearch"><option value="-1">Any</option><option value="0">Uncategorized</option>
