@@ -8,9 +8,9 @@
 		$searchParams .= "and iSenderID=".$_POST['senderSearch']." ";
 	if(isset($_POST['categorySearch']) && is_numeric($_POST['categorySearch']) && $_POST['categorySearch'] > -1)
 		$searchParams .= "and iCategoryID=".$_POST['categorySearch']." ";
-	if(isset($_POST['subjectSearch']))
+	if(isset($_POST['subjectSearch']) && trim($_POST['subjectSearch']) != "")
 		$searchParams .= "and match(sSubject) against('".mysql_real_escape_string($_POST['subjectSearch'])."' in boolean mode) ";
-	if(isset($_POST['bodySearch']))
+	if(isset($_POST['bodySearch']) && trim($_POST['bodySearch']) != "")
 		$searchParams .= "and match(sBody) against('".mysql_real_escape_string($_POST['bodySearch'])."' in boolean mode) ";
 	
 	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()."  $searchParams");
@@ -49,11 +49,10 @@ require("sidebar.php");
 ?>
 	<div id="content"><div id="topbanner">
 <?php
-		//echo $currentGroup->getName();
-		echo "select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()."  $searchParams";
+		echo $currentGroup->getName();
 ?>
 	</div>
-<form method="post" action="searchemail.php"><fieldset><table width="100%">
+<form method="post" action="searchemail.php"><fieldset><table>
 	<tr><td><label for="subjectSearch">Subject:</label></td><td><input type="text" name="subjectSearch" id="subjectSearch" value="<?php echo htmlspecialchars($_POST['subjectSearch']); ?>" /></td><td><label for="senderSearch">Sender:</label></td><td>
 	<select name="senderSearch" id="senderSearch"><option value="-1">Any</option>
 <?php
@@ -81,24 +80,26 @@ require("sidebar.php");
 	</select></td></tr>
 	<tr><td><input type="submit" name="search" /></td><td colspan="3" style="font-size: smaller"><strong>Note:</strong> Subject and body search terms use <a href="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" onclick="window.open(this.href); return false;">implied boolean logic</a>.</td></tr></table></fieldset></form>
 <div id="emails">
-	<table width="100%">
+	<table>
 <?php				
 	if(count($emails) > 0)
 	{
+		echo "<tr><th>Subject</th><th>Sender</th><th>Date</th><th>Category</th></tr>\n";
 		foreach ($emails as $email)
 		{
 			$author = $email->getSender();
+			$cat = $email->getCategory();
 			printTR();
 			if($email->hasAttachments()) 
 				$img = '&nbsp;<img src="img/attach.png" alt="(Attachments)" style="border-style: none" title="Paper clip" />';
 			else
 				$img = '';
-			echo "<td colspan=\"2\"><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".htmlspecialchars($email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td>";
-			echo "</tr>";
+			echo "<td colspan=\"2\"><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".htmlspecialchars($email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td>".$cat->getName()."</td>";
+			echo "</tr>\n";
 		}
 	}
 	else
-		echo "<tr><td>Your search returned no results.</td></tr>";
+		echo "<tr><td>Your search returned no results.</td></tr>\n";
 ?>
 	</table>
 </div></body>
