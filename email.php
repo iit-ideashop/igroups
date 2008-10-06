@@ -604,7 +604,7 @@ require("sidebar.php");
 				$i++;
 				$iid .= $person->getID();
 			}
-			$query = $db->igroupsQuery("select iID, sLName, sFName from People where iID in $iid order by sLName, sFName");
+			$query = $db->igroupsQuery("select iID, sLName, sFName from People where iID in ($iid) order by sLName, sFName");
 			while($row = mysql_fetch_row($query))
 				echo "<option value=\"".$row[0]."\">".$row[1].", ".$row[2]."</option>\n";
 ?>			
