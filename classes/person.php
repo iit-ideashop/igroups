@@ -1,5 +1,4 @@
 <?php
-include_once("../globals.php");
 include_once( "superstring.php" );
 
 if ( !class_exists( "Person" ) ) {

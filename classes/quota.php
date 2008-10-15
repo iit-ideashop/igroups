@@ -1,5 +1,4 @@
 <?php
-include_once("../globals.php");
 if ( !class_exists( "Quota" ) ) {
 	class Quota {
 		var $group, $type, $semester, $used, $limit;

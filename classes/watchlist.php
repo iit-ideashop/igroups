@@ -1,5 +1,4 @@
 <?php
-include_once("../globals.php");
 include_once('thread.php');
 include_once('person.php');
 include_once('post.php');
