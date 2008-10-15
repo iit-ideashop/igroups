@@ -1,5 +1,5 @@
 <?php
-	echo "<link rel=\"stylesheet\" href=\"default.css\" type=\"text/css\" />\n";
+	echo "<link rel=\"stylesheet\" href=\"../default.css\" type=\"text/css\" />\n";
 	echo "<style type=\"text/css\">\n";
 	$query = $db->igroupsQuery("select distinct sKey from Appearance where sCSSAttribute is not null");
 	while($row = mysql_fetch_row($query))

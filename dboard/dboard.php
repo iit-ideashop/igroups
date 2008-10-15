@@ -53,7 +53,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Discussion Board</title>
 <link rel="stylesheet" href="dboard.css" type="text/css" />
-<?php require("../appearance.php"); ?>
+<?php require("../iknow/appearance.php"); ?>
 </head>
 <body>
 <?php
