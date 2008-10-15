@@ -1,5 +1,5 @@
 <?php
-
+include_once("../globals.php");
 include_once('thread.php');
 include_once('person.php');
 include_once('post.php');
@@ -59,7 +59,7 @@ if ( !class_exists( "WatchList" ) ) {
 				$postDate = $post->getDateTime();
 				$postAuthor = $post->getAuthorName();
 
-				$headers = "From: iGroups <noreply@igroups.iit.edu>\n";
+				$headers = "From: $appname <$contactemail>\n";
 				$headers .= 'MIME-Version: 1.0'."\n";
 				$headers .= 'Content-Type: text/plain; charset=iso-8859-1'."\n";
 				
@@ -70,7 +70,7 @@ if ( !class_exists( "WatchList" ) ) {
 				$body .= "By: $postAuthor\n\n";
 				$body .= "{$postBody}\n\n";
 				$body .= "----------------------\n\n";
-				$body .= "You are receiving this e-mail because you have chosen to watch the thread \"{$threadName}\" in the iGroups Discussion Board. If you no longer want to receive these e-mails, you can choose to unwatch the thread by clicking on \"Unwatch Thread\" after logging in and navigating to the thread in the iGroups Discussion Board.";
+				$body .= "You are receiving this e-mail because you have chosen to watch the thread \"{$threadName}\" in the $appname Discussion Board. If you no longer want to receive these e-mails, you can choose to unwatch the thread by clicking on \"Unwatch Thread\" after logging in and navigating to the thread in the $appname Discussion Board.";
 
 				mail($watcher->getEmail(), $subject, $body, $headers);
 			}

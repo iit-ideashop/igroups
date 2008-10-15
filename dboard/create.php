@@ -1,4 +1,5 @@
 <?php
+	include_once("../globals.php");
 	include_once( "../checklogingroupless.php" );
 	include_once( "../classes/group.php" );
 	include_once( "../classes/topic.php" );
@@ -52,9 +53,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Discussion Board</title>
+<title><?php echo $appname; ?> - Discussion Board</title>
 <link rel="stylesheet" href="dboard.css" type="text/css" />
-<link rel="stylesheet" href="../default.css" type="text/css" />
+<?php require("../appearance.php"); ?>
 </head>
 <body>
 <?php
@@ -72,7 +73,7 @@ if ($_GET['mode'] == 'thread') {
 
 ?>
 
-<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a></td></tr></table>
+<table class="noborder" width="85%"><tr><td><a href="dboard.php"><?php echo $appname; ?> Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a></td></tr></table>
 <form action="create.php?topicID=<?php echo $currentTopic->getID(); ?>" method="post" id="threadForm"><fieldset><legend>Create a New Thread</legend>
 <table width="85%">
 <tr><td><label for="name">Name</label></td><td><input type="text" size="60" name="name" id="name" /></td></tr>
@@ -90,7 +91,7 @@ else if ($_GET['mode'] == 'post') {
 $currentThread = new Thread($_GET['thread'], $db);
 ?>
 
-<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -&gt; <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic=".$_GET['topicID'].$glob ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
+<table class="noborder" width="85%"><tr><td><a href="dboard.php"><?php echo $appname; ?> Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -&gt; <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic=".$_GET['topicID'].$glob ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
 <form action="create.php?topicID=<?php echo $currentTopic->getID()."&amp;thread=".$currentThread->getID(); ?>" method="post" id="postForm"><fieldset><legend>Post Reply</legend>
 <table width="85%" align="center">
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"></textarea></td></tr>

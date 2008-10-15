@@ -1,6 +1,7 @@
 <?php
 	session_start();
 
+	include_once("../globals.php");
 	include_once( "../classes/db.php" );
 	include_once( "../classes/person.php" );
 	include_once( "../classes/group.php" );
@@ -147,7 +148,7 @@ ob_start();
 		<a href="http://ipro.iit.edu/"><img src="../img/iprologo.png" alt="IPRO" title="IPRO" /></a>
 	</div>
 	<div id="igroupslogo">
-		<img src="../img/iGroupslogo.png" alt="iGroups" title="iGroups" />
+		<img src="../img/iGroupslogo.png" alt="<?php echo $appname; ?>" title="<?php echo $appname; ?>" />
 	</div>
 <?php	
 	if ( isset( $_SESSION['userID'] )) 
@@ -174,7 +175,7 @@ ob_start();
 			$igroups[$group->getName()] = $group;
 	}
 	
-	print "<ul class=\"noindent\"><li><a href=\"../index.php\">iGROUPS Home</a></li>";
+	print "<ul class=\"noindent\"><li><a href=\"../index.php\">$appname Home</a></li>";
 	print "<li><a href=\"../contactinfo.php\">My Profile</a></li>";
 	print "<li><a href=\"../iknow/main.php\">Browse Nuggets Library</a>&nbsp;</li></ul>";	
 
@@ -252,7 +253,7 @@ ob_start();
 ?>
 	<ul class="noindent">
 		<li><a href="http://sloth.iit.edu/~iproadmin/peerreview" title="Peer Review">IPRO Peer Review</a></li>
-		<li><a href="../UM_iGROUPS.pdf" title="User Manual">iGROUPS User Manual</a></li>
+		<li><a href="../UM_iGROUPS.pdf" title="User Manual"><?php echo $appname; ?> User Manual</a></li>
 		<li><a href="../needhelp.php" title="Help">Need help?</a></li>
 		<li><a href="../login.php?logout=true" title="Logout">Logout</a></li>
 	</ul>

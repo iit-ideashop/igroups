@@ -1,4 +1,5 @@
 <?php
+	include_once("globals.php");
 	include_once("checklogin.php");
 	include_once( "classes/timelog.php" );
 	
@@ -30,9 +31,9 @@ if (isset($_POST['submit_budget']))
 	if($notify)
 	{
 		//Send Automatic Email
-		$msg = "This is an auto-generated iGroups notification to let you know that ". $currentGroup->getName() ." team has submitted a budget and is awaiting your review.\n\n";
-		$msg .= "--- iGroups System Auto-Generated Massage";
-		$headers = "From: \"IPRO Office\" <igroups@iit.edu>\n";
+		$msg = "This is an auto-generated $appname notification to let you know that ". $currentGroup->getName() ." team has submitted a budget and is awaiting your review.\n\n";
+		$msg .= "--- $appname System Auto-Generated Massage";
+		$headers = "From: \"$appname Support\" <$contactemail>\n";
 					
 		$headers .= "To: jacobius@iit.edu";
 		$headers .= "\nContent-Type: text/plain;\n";
@@ -61,9 +62,9 @@ if (isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']
 	echo "<div id='info_msg'>New category has been added to your budget.</div>";	
 		
 //Send Automatic Email
-	$msg = "This is an auto-generated iGroups notification to let you know that ". $currentGroup->getName() ." team has submitted a new budget category and is awaiting your review.\n\n";
-	$msg .= "--- iGroups System Auto-Generated Massage";
-	$headers = "From: \"IPRO Office\" <igroups@iit.edu>\n";
+	$msg = "This is an auto-generated $appname notification to let you know that ". $currentGroup->getName() ." team has submitted a new budget category and is awaiting your review.\n\n";
+	$msg .= "--- $appname Auto-Generated Massage";
+	$headers = "From: \"$appname Support\" <$contactemail>\n";
 					
 	$headers .= "To: jacobius@iit.edu";
 	$headers .= "\nContent-Type: text/plain;\n";
@@ -84,8 +85,8 @@ if(isset($_GET['delete']) && is_numeric($_GET['proj']) && is_numeric($_GET['type
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Budget</title>
-<link rel="stylesheet" href="default.css" type="text/css" />
+<title><?php echo $appname; ?> - Budget</title>
+<?php require("appearance.php"); ?>
 	<style type="text/css">
 		.submit_budget {
 			border-style: none;

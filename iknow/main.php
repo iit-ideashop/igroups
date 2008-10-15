@@ -1,6 +1,7 @@
 <?php
 	session_start();
 
+	include_once("../globals.php");
 	include_once( "../classes/db.php" );
 	include_once( "../classes/person.php" );
 	include_once( "../classes/group.php" );
@@ -22,8 +23,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Nugget Library</title>
-<link rel="stylesheet" href="../default.css" type="text/css" />
+<title><?php echo $appname; ?> - Nugget Library</title>
+<?php require("../appearance.php"); ?>
 <script type="text/javascript">
 //<![CDATA[
 	function refreshSemester(object)
@@ -75,7 +76,7 @@ require("sidebar.php");
 <div id="content">
 <hr />
 <h2>iKnow/iGroups Nugget Library</h2>
-<p>Welcome to the iGroups Knowledge Management System. Here you can browse the deliverables of IIT's IPRO teams of the past and present. All deliverables and non-deliverables are organized into "nuggets". Nuggets contain downloadable files that make up the deliverable, plus metadata that contains information about the files' author(s) and their description. If you know the name of the team you wish to browse, use the "Browse IPROs" feature to locate it. If you don't know the name of the team, you can search through all of the nuggets by name, author or description.</p>
+<p>Welcome to the <?php echo $appname; ?> Knowledge Management System. Here you can browse the deliverables of IIT's IPRO teams of the past and present. All deliverables and non-deliverables are organized into "nuggets". Nuggets contain downloadable files that make up the deliverable, plus metadata that contains information about the files' author(s) and their description. If you know the name of the team you wish to browse, use the "Browse IPROs" feature to locate it. If you don't know the name of the team, you can search through all of the nuggets by name, author or description.</p>
 <form id="searchForm" method = "post" action="main.php"><fieldset>
 	<div id="searchBar">
 	<table cellspacing="0" cellpadding="6" style="border: thin solid black"><tr><td style="background:#EEEEEE">

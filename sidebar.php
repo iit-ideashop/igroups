@@ -1,4 +1,5 @@
 <?php
+	include_once("globals.php");
 	if (isset($_SESSION['userID']) && !$_GET['logout'])
 	{
 		require("menu.php");

@@ -1,4 +1,5 @@
 <?php
+	include_once("globals.php");
 	include_once("checklogin.php");
 	include_once( "classes/groupannouncement.php" );
 	include_once( "classes/event.php" );
@@ -9,8 +10,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Group Home Page</title>
-<link rel="stylesheet" href="default.css" type="text/css" />
+<title><?php echo $appname; ?> - Group Home Page</title>
+<?php require("appearance.php"); ?>
 	<style type="text/css">
 		#recent {
 			margin-top:10px;
@@ -221,7 +222,7 @@
 			$picture = $currentGroup->getRandomGroupPicture();
 			if ( $picture ) {
 				print "<table><tr>";
-				print "<td><a href=\"grouppictures.php\"><img width=\"375\" src=\"http://igroups.iit.edu/".$picture->getRelativeName()."\" alt=\"".$picture->getRelativeName()."\" /></a></td></tr>";
+				print "<td><a href=\"grouppictures.php\"><img width=\"375\" src=\"$appurl/".$picture->getRelativeName()."\" alt=\"".$picture->getRelativeName()."\" /></a></td></tr>";
 				print "<tr><td><center><b>{$picture->getTitle()}</b></center></td></tr></table>";
 			}
 			else {

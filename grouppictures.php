@@ -1,4 +1,5 @@
 <?php
+	include_once("globals.php");
 	include_once("checklogin.php");	
 	include_once( "classes/grouppicture.php" );
 	
@@ -7,8 +8,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Group Pictures</title>
-<link rel="stylesheet" href="default.css" type="text/css" />
+<title><?php echo $appname; ?> - Group Pictures</title>
+<?php require("appearance.php"); ?>
 	<style type="text/css">
 		.picture-container {
 			display:inline;
@@ -59,7 +60,7 @@
 				if ( !$i )
 					print "<tr>";
 				print "<td>";
-				print "<img width=\"300\" src=\"http://igroups.iit.edu/".$pictures[$j]->getRelativeName()."\" alt=\"".htmlspecialchars($pictures[$j]->getTitle())."\" title=\"".htmlspecialchars($pictures[$j]->getTitle())."\" />";
+				print "<img width=\"300\" src=\"$appurl/".$pictures[$j]->getRelativeName()."\" alt=\"".htmlspecialchars($pictures[$j]->getTitle())."\" title=\"".htmlspecialchars($pictures[$j]->getTitle())."\" />";
 				print "<br /><span style=\"text-align: center\"><input type=\"checkbox\" name=\"picture[".$pictures[$j]->getID()."]\" /><b>".htmlspecialchars($pictures[$j]->getTitle())."</b></span>";
 				print "</td>";
 				if ( $i )

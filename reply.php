@@ -1,6 +1,7 @@
 <?php
 	session_start();
 
+	include_once("globals.php");
 	include_once( "classes/db.php" );
 	include_once( "classes/person.php" );
 	include_once( "classes/group.php" );
@@ -59,8 +60,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Send Email</title>
-<link rel="stylesheet" href="default.css" type="text/css" />
+<title><?php echo $appname; ?> - Send Email</title>
+<?php require("appearance.php"); ?>
 		<script language="JavaScript" type="text/JavaScript">
 		<!--
 			function toggleToDisplay() {
@@ -198,10 +199,10 @@
 				$replyLink = "--".$mime_boundary."\n";
 				$replyLink .= "Content-Type: text/html; charset=iso-8859-1"."\n";
 				$replyLink .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
-				$replyLink .= "<p><a href='http://igroups.iit.edu/reply.php?replyTo=".$newEmail->getID()."'>Click here to reply to this email.</a></p>";
+				$replyLink .= "<p><a href='$appurl/reply.php?replyTo=".$newEmail->getID()."'>Click here to reply to this email.</a></p>";
 				mail( $tolist, "[".$currentGroup->getName()."] ".$newEmail->getSubjectHTML(), $msg.$replyLink, $headers );
 			}
-			die( "<p>Your email was successfully sent.  <a href='http://igroups.iit.edu/'>Click here to proceed to iGROUPS</a></p>" );
+			die( "<p>Your email was successfully sent.  <a href='$appurl'>Click here to proceed to $appname</a></p>" );
 		}
 ?>
 		<form method="post" action="reply.php" enctype="multipart/form-data" id="mailform">

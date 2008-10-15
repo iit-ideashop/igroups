@@ -1,6 +1,7 @@
 <?php
 	session_start();
-	
+
+	include_once("globals.php");
 	include_once( "classes/db.php" );
 	include_once( "classes/announcement.php" );
 	include_once( "classes/person.php" );
@@ -36,8 +37,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups 2.2</title>
-<link rel="stylesheet" href="default.css" type="text/css" />
+<title><?php echo $appname; ?> 2.2</title>
+<?php require("appearance.php"); ?>
 <style type="text/css">		
 	#container {
 		height: 100%;
@@ -260,11 +261,11 @@ function addAnnouncement() {
 ?>
 	<div id="container">
 		<div id="top">
-			<h1>Welcome to iGROUPS!</h1>
-			<p>The iGROUPS system is designed to support all communication, scheduling, and collaboration activities of IPRO teams. Through the use of iGROUPS you can send/receive e-mail messages, store/retrieve files, access/update a team calendar, and view a complete history of a team's activities since the creation of the team in iGROUPS. Welcome to iGROUPS, a team management tool developed by IIT students.</p>
+			<h1>Welcome to <?php echo $appname; ?></h1>
+			<p><?php echo $appname; ?> is designed to support all communication, scheduling, and collaboration activities of IPRO teams. Through the use of <?php echo $appname; ?> you can send/receive e-mail messages, store/retrieve files, access/update a team calendar, and view a complete history of a team's activities since the creation of the team in <?php echo $appname; ?>. Welcome to <?php echo $appname; ?>, a team management tool developed by IIT students.</p>
 <?php
 	if(!$currentUser)
-		print "<p>To use iGROUPS simply enter your username and password in the login pane to the left. Your initial username is the first part of your IIT email address, or your entire email address if you do not have or use an IIT email. Your initial password is the first part of your email address (text appearing before the @). If you are a first-time user, please change your password upon entry to iGROUPS (from the My Profile page).</p>";
+		print "<p>To use $appname simply enter your username and password in the login pane to the left. Your initial username is the first part of your IIT email address, or your entire email address if you do not have or use an IIT email. Your initial password is the first part of your email address (text appearing before the @). If you are a first-time user, please change your password upon entry to $appname (from the My Profile page).</p>";
 ?>
 		</div>
 		<div id="left">
@@ -301,9 +302,9 @@ function addAnnouncement() {
 		
 		<div class="right">
 			<div class="box">
-				<span class="box-header">iGROUPS Knowledge Management</span>
+				<span class="box-header"><?php echo $appname; ?> Knowledge Management</span>
 					<div class="announcement-heading">
-						Guest to iGROUPS?
+						Guest to <?php echo $appname; ?>
 					</div>
 					<div class="announcement-body">
 						You can <a href="iknow/main.php">search and browse</a> IPRO team deliverables.

@@ -1,4 +1,5 @@
 <?php
+	include_once("../globals.php");
 	include_once( "../checklogingroupless.php" );
 	include_once( "../classes/group.php" );
 	include_once( "../classes/topic.php" );
@@ -50,9 +51,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Discussion Board</title>
+<title><?php echo $appname; ?> - Discussion Board</title>
 <link rel="stylesheet" href="dboard.css" type="text/css" />
-<link rel="stylesheet" href="../default.css" type="text/css" />
+<?php require("../appearance.php"); ?>
 </head>
 <body>
 <?php
@@ -63,7 +64,7 @@ require("sidebar.php");
 	print "{$_COOKIE['topicName']}";
 ?>	
 </div>
-<table class="noborder" width="85%"><tr><td><a href="dboard.php">iGroups Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic={$_GET['topic']}$glob"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
+<table class="noborder" width="85%"><tr><td><a href="dboard.php"><?php echo $appname; ?> Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic={$_GET['topic']}$glob"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
 <form action="edit.php?post=<?php echo $_GET['post']."&amp;topic=".$_GET['topic']."&amp;thread=".$_GET['thread'].$glob; ?>" method="post" id="postForm"><fieldset><legend>Edit Post</legend>
 <table width="85%">
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"><?php echo $post->getBody(); ?></textarea></td></tr>

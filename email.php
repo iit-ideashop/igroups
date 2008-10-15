@@ -1,4 +1,5 @@
 <?php
+	include_once("globals.php");
 	include_once("checklogingroupless.php");
 	include_once( "classes/group.php" );
 	include_once( "classes/category.php" );
@@ -82,8 +83,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Group Email</title>
-<link rel="stylesheet" href="default.css" type="text/css" />
+<title><?php echo $appname; ?> - Group Email</title>
+<?php require("appearance.php"); ?>
 	<style type="text/css">		
 		#container {
 			padding:0;
@@ -306,7 +307,7 @@ require("sidebar.php");
 			$msg .= "--".$mime_boundary."\n";
 			$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
 			$msg .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
-			$msg .= '<p><a href="http://igroups.iit.edu/email.php?replyid=abxyqzta10">Click here to reply to this email.</a></p>'."\n"."\n";
+			$msg .= "<p><a href=\"$appurl/email.php?replyid=abxyqzta10\">Click here to reply to this email.</a></p>\n\n";
 		}
 		$msg .= "--".$mime_boundary.'--'."\n";
 		if ( isset( $_POST['confidential'] ) ) {

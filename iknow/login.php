@@ -1,5 +1,5 @@
 <?php
-	
+	include_once("../globals.php");
 	include_once( "../classes/db.php" );
 
 	$db = new dbConnection();
@@ -15,8 +15,7 @@ ob_start();
 Home"><img src="../img/iprologo.png" alt="IPRO" title="IPRO" /></a>
 	</div>
 	<div id="igroupslogo">
-		<img src="../img/iGroupslogo.png" alt="iGroups" 
-title="iGroups" />
+		<img src="../img/iGroupslogo.png" alt="<?php echo $appname; ?>" title="<?php echo $appname; ?>" />
 	</div>
 	
 	<div id="loginform">
@@ -39,7 +38,7 @@ ob_end_flush();
 			print "<strong>Invalid username or password.</strong><br />";
 		unset( $_SESSION['loginError'] );
 ?>
-		<a href="../index.php">iGROUPS Home</a><br /><br />
+		<a href="../index.php"><?php echo $appname; ?> Home</a><br /><br />
 		<a href="../iknow/main.php">iKnow/iGroups Guest Access</a><br /><br />
 		<form method="post" action="../menu.php?loggingin=true"><fieldset>
 			<label for="username">User name:</label><input name="username" id="username" type="text" /><br />
@@ -52,7 +51,7 @@ ob_end_flush();
 	<p>
 	<a href="../forgotpassword.php" title="Forgotten 
 password">Forgot password?</a><br />
-	<a href="../UM_iGROUPS.pdf" title="User manual">iGROUPS User Manual</a><br />
+	<a href="../UM_iGROUPS.pdf" title="User manual"><?php echo $appname; ?> User Manual</a><br />
 	<a href="../needhelp.php" title="Help">Need help?</a>
 	</p>
 </div>

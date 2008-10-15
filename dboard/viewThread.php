@@ -1,4 +1,5 @@
 <?php
+	include_once("../globals.php");
 	include_once( "../checklogingroupless.php" );
 	include_once( "../classes/group.php" );
 	include_once( "../classes/topic.php" );
@@ -153,9 +154,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Discussion Board - View Thread</title>
+<title><?php echo $appname; ?> - Discussion Board - View Thread</title>
 <link rel="stylesheet" href="dboard.css" type="text/css" />
-<link rel="stylesheet" href="../default.css" type="text/css" />
+<?php require("../appearance.php"); ?>
 </head>
 <body>
 <?php
@@ -185,7 +186,7 @@ require("sidebar.php");
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td align="center"><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td align="center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5" style="table-layout: fixed;">
 <tr><td class="view_options" style="text-align: left; font-weight: bold; width: 100px">
@@ -221,10 +222,10 @@ foreach ($posts as $post) {
 		else if ($author->isGroupMember($group))
 			$title = "Group Member";
 		else
-			$title = "IPRO Staff";
+			$title = "$appname Staff";
 	}
 	else if ($author->isAdministrator())
-		$title = "IPRO Staff";
+		$title = "$appname Staff";
 	else
 		$title = "";
 	print "$title";
@@ -252,6 +253,6 @@ $delete<hr />";
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td><?php print "<a href=\"dboard.php\">iGroups Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 </div></body>
 </html>

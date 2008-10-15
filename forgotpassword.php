@@ -1,4 +1,5 @@
 <?php
+	include_once("globals.php");
 	if(isset($_POST['resetPW']))
 	{
 		setcookie('username', '', time()-60);
@@ -8,8 +9,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Forgotten Password</title>
-<link rel="stylesheet" href="default.css" type="text/css" />
+<title><?php echo $appname; ?> - Forgotten Password</title>
+<?php require("appearance.php"); ?>
 </head>
 <body>
 <?php
@@ -30,7 +31,7 @@ if ( isset( $_POST['resetPW'] ) ) {
 		$user = new Person( $row[0], $db );
 		$user->setPassword( $pw );
 		$user->updateDB();
-		mail( $_POST['email'], "Your iGROUPS password has been reset", "Your password is:\n$pw\nPasswords are case-sensitive.\nYou should change your password (in My Profile) the next time you log in.", "From: igroups@iit.edu" );
+		mail( $_POST['email'], "Your $appname password has been reset", "Your password is:\n$pw\nPasswords are case-sensitive.\nYou should change your password (in My Profile) the next time you log in.", "From: $contactemail" );
 		print "<p>Your password has been reset. An email has been sent to you containing your new password.</p>";
 	}
 	else {

@@ -2,6 +2,7 @@
 	session_start();
 	ini_set(”memory_limit”,”16M”);
 
+	include_once("globals.php");
 	include_once( "classes/db.php" );
 	include_once( "classes/person.php" );
 	include_once( "classes/group.php" );
@@ -56,8 +57,8 @@
 
 <html>
 <head>
-	<title>iGROUPS - Send Email</title>
-	<link href="default.css" rel="stylesheet" type="text/css">
+	<title><?php echo $appname; ?> - Send Email</title>
+<?php require("appearance.php"); ?>
 	<script language="javascript" type="text/javascript" src="speller/spellChecker.js">
 	</script>
 	<script language="javascript" type="text/javascript">
@@ -216,7 +217,7 @@
 		$msg .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
 		$msg .= $body->getHTMLString()."\n"."\n"; 
 		if ( !isset( $_POST['confidential'] ) )
-			$msg .= '<p><a href="http://igroups.iit.edu/reply.php?replyTo=abxyqzta10">Click here to reply to this email.</a></p>'."\n"."\n";
+			$msg .= "<p><a href=\"$appurl/reply.php?replyTo=abxyqzta10\">Click here to reply to this email.</a></p>\n\n";
 		$msg .= "--".$mime_boundary.'--'."\n"."\n";
 		if ( isset( $_POST['confidential'] ) ) {
 			$subj = new SuperString( $_POST['subject'] );

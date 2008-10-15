@@ -4,7 +4,8 @@
 	include_once( "../classes/db.php" );
 	include_once( "../classes/person.php" );
 	include_once( "../classes/group.php" );
-	include_once( "../classes/semester.php" );	
+	include_once( "../classes/semester.php" );
+	include_once("../globals.php");
 
 	$db = new dbConnection();
 	
@@ -127,7 +128,7 @@ if (isset($_POST['notify_team']))
 //Send Automatic Email
 	//$msg = "There have been changes made on the budget for your {$ipro_num}: {$ipro_name} group. Please login in to iGROUPS to see the status of your team's submitted budget.\n\n";
 	//$msg .= "--- The IPRO Office Team";
-	$headers = "From: \"IPRO Office\" <iproadmin@iit.edu>\n";
+	$headers = "From: \"$appname Support\" <$contactemail>\n";
 							
 	$query_getemails = $db->iknowQuery("SELECT sFName, sLName, sEmail from People WHERE iID in (SELECT iPersonID from PeopleProjectMap WHERE iProjectID=$project AND iSemesterID=$semester)");
 							
@@ -165,8 +166,8 @@ if (isset($_POST['notify_team']))
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Manage Budgets</title>
-<link rel="stylesheet" href="../default.css" type="text/css" />
+<?php require("../appearance.php"); ?>
+<title><?php echo $appname;?> - Manage Budgets</title>
 	<style type="text/css">
 		.submit_budget tr td {
 			border-top: 1px solid #cc0000;

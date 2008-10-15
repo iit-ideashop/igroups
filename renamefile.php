@@ -1,4 +1,5 @@
 <?php
+	include_once("globals.php");
 	include_once("checklogin.php");
 	include_once( "classes/folder.php" );
 	include_once( "classes/file.php" );

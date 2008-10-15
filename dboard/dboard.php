@@ -1,4 +1,5 @@
 <?php
+	include_once("../globals.php");
 	include_once( "../checklogingroupless.php" );
 	require_once( "../classes/group.php" );
 	require_once( "../classes/topic.php" );
@@ -50,9 +51,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - Discussion Board</title>
+<title><?php echo $appname; ?> - Discussion Board</title>
 <link rel="stylesheet" href="dboard.css" type="text/css" />
-<link rel="stylesheet" href="../default.css" type="text/css" />
+<?php require("../appearance.php"); ?>
 </head>
 <body>
 <?php
@@ -65,7 +66,7 @@ require("sidebar.php");
 ?>	
 </div>
 <h1>About Discussion Board</h1>
-<p>Welcome to the new iGroups Discussion Board. Listed below are the discussion board topics you have access to: one for every group you are a member of in the selected semester, and some additional global topics. In global topics, you can communicate with people outside of your IPRO, including IPRO support staff. Each topic is then organized into threads, which consist of a list of posts. You can contribute to an existing thread by posting a reply, or starting a new thread.</p>
+<p>Welcome to the new <?php echo $appname; ?> Discussion Board. Listed below are the discussion board topics you have access to: one for every group you are a member of in the selected semester, and some additional global topics. In global topics, you can communicate with people outside of your IPRO, including IPRO support staff. Each topic is then organized into threads, which consist of a list of posts. You can contribute to an existing thread by posting a reply, or starting a new thread.</p>
 <p>The Discussion Board is currently in beta version, so please bear with us as we work out the bugs. We plan on expanding its features in the future, and we welcome your thoughts and suggestions.</p>
 <hr />
 <br />

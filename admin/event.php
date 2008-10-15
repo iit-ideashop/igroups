@@ -1,4 +1,5 @@
 <?php
+	include_once("../globals.php");
 	include_once( "checkadmin.php" );
 	include_once( "../classes/group.php" );
 	include_once( "../classes/event.php" );
@@ -95,8 +96,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title>iGroups - IPRO Event Management</title>
-<link rel="stylesheet" href="../default.css" type="text/css" />
+<?php require("../appearance.php"); ?>
+<title><?php echo $appname;?> - IPRO Event Management</title>
 	<style type="text/css">
 		li.ev {
 			display:inline;
@@ -612,7 +613,7 @@ function ds_onclick(d, m, y) {
 			$eventArray[ intval( $temp[1] ) ][]=$event;
 		}
 
-		print "<p>Calendar events can now accept links. Use standard HTML: '&lt;a href=\"http://igroups.iit.edu\"&gt;Click here for iGroups&lt;/a&gt;' as an example.</p>\n";
+		print "<p>Calendar events can now accept links. Use standard HTML: '&lt;a href=\"$appurl\"&gt;Click here for $appname&lt;/a&gt;' as an example.</p>\n";
 		print "<table width=\"100%\" style=\"border-collapse: collapse\">" ;
 		print "<tr><td id=\"columnbanner\" align=\"center\" colspan=\"7\" class=\"calbord\"><a href=\"event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."\">&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href=\"event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."\">&raquo;</a></td></tr>";
 		print "<tr><td class=\"calbord\">Sunday</td><td class=\"calbord\">Monday</td><td class=\"calbord\">Tuesday</td><td class=\"calbord\">Wednesday</td><td class=\"calbord\">Thursday</td><td class=\"calbord\">Friday</td><td class=\"calbord\">Saturday</td></tr>";

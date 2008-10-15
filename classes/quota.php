@@ -1,5 +1,5 @@
 <?php
-
+include_once("../globals.php");
 if ( !class_exists( "Quota" ) ) {
 	class Quota {
 		var $group, $type, $semester, $used, $limit;
@@ -52,14 +52,14 @@ if ( !class_exists( "Quota" ) ) {
 				$array = mysql_fetch_array($result);
 				$name = $array['sName'];
 				}
-				$headers = "From: \"IPRO Admin\" <iproadmin@iit.edu>\n";
-				$headers .= "To: \"IPRO Admin\" <iproadmin@iit.edu>, \"Daniel Ferguson\" <dmferguson@iit.edu>\n";
+				$headers = "From: \"$appname Support\" <$contactemail>\n";
+				$headers .= "To: \"$appname Support\" <$contactemail>\n";
 				$headers .= "Content-Type: text/plain;\n";
 				$headers .= "Content-Transfer-Encoding: 7bit;\n";
 				if ($warn == 0)
-				mail('', 'iGROUPS Group Quota Notification', "This is an auto-generated message warning you that {$name} has less than 20MB of space left in their quota. They currently have a quota of {$this->limit}. Please increase their quota to allow them to upload more files into iGROUPS.", $headers);
+				mail('', "$appname Group Quota Notification", "This is an auto-generated message warning you that $name has less than 20MB of space left in their quota. They currently have a quota of {$this->limit}. Please increase their quota to allow them to upload more files into $appname.", $headers);
 				else
-				mail('', 'iGROUPS Group Quota Warning', "This is an auto-generated message warning you that {$name} has run out of space in their quota. They currently have a quota of {$this->limit}. Please increase their quota to allow them to upload more files into iGROUPS.", $headers);
+				mail('', "$appname Group Quota Warning", "This is an auto-generated message warning you that $name has run out of space in their quota. They currently have a quota of {$this->limit}. Please increase their quota to allow them to upload more files into $appname.", $headers);
 
 		}	
 	
