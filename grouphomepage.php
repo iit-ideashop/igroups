@@ -109,12 +109,22 @@
 <?php
 	require("sidebar.php");
 	if ( isset( $_POST['addannouncement'] ) ) {
-		createGroupAnnouncement( $_POST['heading'], $_POST['body'], $_POST['date'], $currentGroup, $db );		
+		if(createGroupAnnouncement( $_POST['heading'], $_POST['body'], $_POST['date'], $currentGroup, $db ))
+		{
 ?>
 		<script type="text/javascript">
 			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Announcement added.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
 		</script>
 <?php
+		}
+		else
+		{
+		?>
+		<script type="text/javascript">
+			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Announcement was not added. Please ensure that you have filled out all fields, and try again.</p>', 'Error', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
+		</script>
+		<?php
+		}
 	}
 	
 	if ( isset( $_POST['editannouncement'] ) ) {
@@ -241,6 +251,7 @@
 ?>
 		</div>
 	</div>
+<?php if($currentUser->isGroupModerator( $currentGroup )) { ?>
 		<div class="window-content" id="add-announcement" style="display: none">
 			<form action="grouphomepage.php" method="post"><fieldset>
 				<label for="date">Expiration Date (MM/DD/YY):</label><input type="text" id="date" name="date" size="20" /><input type="button" onclick="calwin=dhtmlwindow.open('calbox', 'div', 'calendarmenu', 'Select date', 'width=600px,height=165px,left=300px,top=100px,resize=0,scrolling=0'); return false" value="Select Date" /><br />
@@ -260,6 +271,7 @@
 				<input type="submit" name="deleteannouncement" value="Delete Announcement" />
 			</fieldset></form>
 		</div>
+<?php } ?>
 		<div class="window-content" id="event-view" style="display: none">
 			<b>Date</b>: <span id="viewdate"></span><br />
 			<b>Event name</b>: <span id="viewname"></span><br />
