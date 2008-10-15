@@ -1,6 +1,7 @@
 <?php
 	include_once("../globals.php");
 	include_once( "checkadmin.php" );
+	include_once("../classes/announcement.php");
 
 	if ( isset( $_POST['addannouncement'] ) ) {
 		createAnnouncement( $_POST['heading'], $_POST['body'], $_POST['date'], $db );
