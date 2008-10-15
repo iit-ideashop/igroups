@@ -1,5 +1,4 @@
 <?php
-	include_once("../globals.php");
 	include_once( "checkadmin.php" );
 	
 	if(isset($_POST['sub']))
@@ -10,6 +9,7 @@
 		$db->igroupsQuery("update Appearance set sValue='".mysql_real_escape_string($_POST['linkcolor'])."' where sKey='a:link, a:visited' and sCSSAttribute='color'");
 		$message = "The appearance has been updated";
 	}
+	include_once("../globals.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
