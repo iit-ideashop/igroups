@@ -1,6 +1,9 @@
-<link rel="stylesheet" href="../default.css" type="text/css" />
-<style type="text/css">
 <?php
+	echo "<link rel=\"stylesheet\" href=\"";
+	if(strstr(__FILE__,"admin/") || strstr(__FILE__,"iknow/") || strstr(__FILE__,"dboard/"))
+		echo "../";
+	echo "default.css\" type=\"text/css\" />\n";
+	echo "<style type=\"text/css\">\n";
 	$query = $db->igroupsQuery("select distinct sKey from Appearance where sCSSAttribute is not null");
 	while($row = mysql_fetch_row($query))
 	{
