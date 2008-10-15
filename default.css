@@ -159,13 +159,13 @@ ul.folderlist ul {
 }
 
 .sortbar {
-	background-color: #222222;
+	background-color: #cc0000;
 	color: #dddddd;
 	font-weight: bold;
 }
 
 .sortbar a:link, .sortbar a:visited, .sortbar a:active, .sortbar a {
-	color:  #d6c610;
+	color:  #666;
 	text-decoration: none;
 }
 
