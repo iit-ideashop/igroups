@@ -87,7 +87,7 @@
 		$groups = groupSort( $groups );
 		
 		foreach ( $groups as $group ) {
-			print "<tr><td><a href=\"viewNugget.php?id={$group->getID()}\">{$group->getName()}</a></td>";
+			print "<tr><td><a href=\"iknow/viewIproNuggets.php?id={$group->getID()}&amp;semester={$semester->getID()}\">{$group->getName()}</a></td>";
 			if ($currentSemester->getID() >= 32) {
 				$_DEFAULTNUGGETS = array('Project Plan', 'Abstract', 'Code of Ethics', 'Midterm Report', 'Poster', 'Website', 'Final Presentation', 'Team Minutes', 'Final Report');
 				$nuggets = getNuggetStatus($group, $currentSemester->getID());
@@ -97,7 +97,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Project Plan']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Project Plan']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -107,7 +107,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Abstract']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Abstract']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -117,7 +117,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Code of Ethics']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Code of Ethics']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -127,7 +127,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Midterm Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Midterm Report']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -137,7 +137,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Poster']}&amp;groupID={$group->getID()}\">View$priv</a></td>";			
+					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Poster']}\">View$priv</a></td>";			
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -147,7 +147,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Website']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Website']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -157,7 +157,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Presentation']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Final Presentation']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -167,7 +167,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Team Minutes']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Team Minutes']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -177,7 +177,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Final Report']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -193,7 +193,7 @@
 					else
 						$priv = '';
 					if (strstr($nug->getType(), $def))
-						$link = "<a href=\"viewNugget.php?nuggetID={$nug->getID()}&amp;groupID={$group->getID()}&amp;isOld=1\">View$priv</a>&nbsp;";
+						$link = "<a href=\"viewNugget.php?nug={$nug->getID()}&amp;isOld=1\">View$priv</a>&nbsp;";
 				}	
 				if (!$link)
 					$link = "<b>N/A</b>";
