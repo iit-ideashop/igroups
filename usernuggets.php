@@ -62,7 +62,7 @@
 			while($row = mysql_fetch_row($semesters))
 			{
 				$semester = new Semester( $row[0], $db );
-				if ($currentSemesterID == $semester->getID())
+				if ($currentSemester->getID() == $semester->getID())
 					print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
 				else
 					print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
