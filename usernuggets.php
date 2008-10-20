@@ -87,7 +87,7 @@
 	<tr><td>Group</td><td>Project Plan</td><td>Abstract</td><td>Ethics Statement</td><td>Midterm Report</td><td>Poster</td><td>Website (optional)</td><td>Final Presentation</td><td>Team Minutes (optional)</td><td>Final Report or Grant Proposal</td></tr></tfoot>
 	<tbody>
 	<?php
-		$groups = $currentUser->getGroupsBySemester($currentSemester);
+		$groups = $currentUser->getGroupsBySemester($currentSemester->getID());
 		$groups = groupSort( $groups );
 		
 		foreach ( $groups as $group ) {
