@@ -58,19 +58,15 @@
 		<form method="get" action="usernuggets.php"><fieldset>
 			<select name="semester">
 <?php
-			$semesters = $db->igroupsQuery( "SELECT iID FROM Semesters ORDER BY iID DESC" );
-			while ( $row = mysql_fetch_row( $semesters ) ) {
+			$semesters = $db->igroupsQuery("select distinct iSemesterID from PeopleProjectMap where iPersonID=".$currentUser->getID()." order by iSemesterID desc");
+			while($row = mysql_fetch_row($semesters))
+			{
 				$semester = new Semester( $row[0], $db );
-				if ($currentSemester && $currentSemester->getID() == $semester->getID())
+				if ($currentSemesterID == $semester->getID())
 					print "<option value=\"".$semester->getID()."\" selected=\"selected\">".$semester->getName()."</option>";
 				else
 					print "<option value=\"".$semester->getID()."\">".$semester->getName()."</option>";
 			}
-			if (!$currentSemester)
-				print "<option value=\"0\" selected=\"selected\">All iGROUPS</option>";
-			else
-				print "<option value=\"0\">All iGROUPS</option>";
-		
 ?>
 			</select>
 			<input type="submit" name="selectSemester" value="Select Semester" />
