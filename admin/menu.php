@@ -107,23 +107,23 @@ ob_start();
 	}
 	
 	function printGroupMenu( $user, $group ) {
-		print "<li><a href=\"../files.php\">Files</a></li>";
-		print "<li><a href=\"../email.php\">Email</a></li>";
-		print "<li><a href=\"../calendar.php\">Calendar</a></li>";
-		print "<li><a href=\"../todo.php\">Todo List</a></li>";
-		print "<li><a href=\"../contactlist.php\">Contact List</a></li>";
-		print "<li><a href=\"../grouppictures.php\">Group Pictures</a></li>";
+		echo "<li><a href=\"../files.php\">Files</a></li>";
+		echo "<li><a href=\"../email.php\">Email</a></li>";
+		echo "<li><a href=\"../calendar.php\">Calendar</a></li>";
+		echo "<li><a href=\"../todo.php\">Todo List</a></li>";
+		echo "<li><a href=\"../contactlist.php\">Contact List</a></li>";
+		echo "<li><a href=\"../grouppictures.php\">Group Pictures</a></li>";
 		if ( $group->getType() == 0 && !$user->isGroupGuest($group))
-			print "<li><a href=\"../logtimespent.php\">Your Timesheet</a></li>";
+			echo "<li><a href=\"../logtimespent.php\">Your Timesheet</a></li>";
 		if ( $user->isGroupModerator( $group ) )
-			print "<li><a href=\"../groupmanagement.php\">Manage Group</a></li>";
+			echo "<li><a href=\"../groupmanagement.php\">Manage Group</a></li>";
 		if ( $group->getType() == 0 )
-			print "<li><a href=\"../viewtimesheets.php\">Time Reporting</a></li>";
-		print "<li><a href=\"../dboard/dboard.php?a=0\">Discussion Board</a></li>";
+			echo "<li><a href=\"../viewtimesheets.php\">Time Reporting</a></li>";
+		echo "<li><a href=\"../dboard/dboard.php?a=0\">Discussion Board</a></li>";
 		if ( $group->getType() == 0 && !$user->isGroupGuest($group))
-			print "<li><a href=\"../budget.php\">Budget</a></li>";
-		print "<li><a href=\"../nuggets.php\">iKnow Nuggets</a></li>";
-		print "<li><a href=\"../bookmarks.php\">Bookmarks</a></li>";
+			echo "<li><a href=\"../budget.php\">Budget</a></li>";
+		echo "<li><a href=\"../nuggets.php\">iKnow Nuggets</a></li>";
+		echo "<li><a href=\"../bookmarks.php\">Bookmarks</a></li>";
 	}
 	
 	if ( !isset( $_SESSION['expandSemesters'] ) ) {
@@ -156,7 +156,7 @@ ob_start();
 	else
 		die("You are not logged in.");
 	
-	print "Welcome, ".$currentUser->getFirstName();
+	echo "Welcome, ".$currentUser->getFirstName();
 	
 	$groups = $currentUser->getGroups();
 	
@@ -175,80 +175,81 @@ ob_start();
 			$igroups[$group->getName()] = $group;
 	}
 	
-	print "<ul class=\"noindent\"><li><a href=\"../index.php\">$appname Home</a></li>";
-	print "<li><a href=\"../contactinfo.php\">My Profile</a></li>";
-	print "<li><a href=\"../iknow/main.php\">Browse Nuggets Library</a>&nbsp;</li></ul>";	
+	echo "<ul class=\"noindent\"><li><a href=\"../index.php\">$appname Home</a></li>\n";
+	echo "<li><a href=\"../contactinfo.php\">My Profile</a></li>\n";
+	echo "<li><a href=\"../iknow/main.php\">Browse Nuggets Library</a>&nbsp;</li>\n";
+	echo "<li><a href=\"../usernuggets.php\">Your Groups' Nuggets</a></li></ul>\n";	
 
 	@krsort( $sortedIPROs );
 	
 	if(count($sortedIPROs) > 0)
 	{
-		print "Your IPROs:\n";
-		print "<ul class=\"noindent\">\n";
+		echo "Your IPROs:\n";
+		echo "<ul class=\"noindent\">\n";
 		foreach ( $sortedIPROs as $key => $val ) {
 			$semester = new Semester( $key, $db );
 			if ( in_array( $semester->getID(), $_SESSION['expandSemesters'] ) ) {
-				print "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
-				print "<ul>\n";
+				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+				echo "<ul>\n";
 				ksort( $val );
 				foreach ( $val as $useless => $group ) {
-					print "<li>".getLinkedName($group);
+					echo "<li>".getLinkedName($group);
 					if ( isSelected( $group ) ) {
-						print "<ul>\n";
+						echo "<ul>\n";
 						printGroupMenu( $currentUser, $group );
-						print "</ul>\n";
+						echo "</ul>\n";
 					}
-					print "</li>\n";
+					echo "</li>\n";
 				}
-				print "</ul>\n";
+				echo "</ul>\n";
 			}
 			else
-				print "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
-			print "</li>";
+				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+			echo "</li>";
 		}
-		print "</ul>\n";
+		echo "</ul>\n";
 	}
 	
 	if ( in_array( "igroups", $_SESSION['expandSemesters'] ) ) {
-		print "<a href=\"?toggleExpand=igroups\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
+		echo "<a href=\"?toggleExpand=igroups\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
 		@ksort( $igroups );
-		print "<ul>\n";
+		echo "<ul>\n";
 		if ( isset($igroups)) {
 		foreach ( $igroups as $key => $group ) {
-			print "<li>".getLinkedName( $group );
+			echo "<li>".getLinkedName( $group );
 			if ( isSelected( $group ) ) {
-				print "<ul>\n";
+				echo "<ul>\n";
 				printGroupMenu( $currentUser, $group );
-				print "</ul>\n";
+				echo "</ul>\n";
 			}
-			print "</li>\n";
+			echo "</li>\n";
 		}
 		}
-		print "</ul>\n";
+		echo "</ul>\n";
 	}
 	else
-		print "<a href=\"?toggleExpand=igroups\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
+		echo "<a href=\"?toggleExpand=igroups\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
 
 	if ( $currentUser->isAdministrator() ) {
 		if ( in_array( "admin", $_SESSION['expandSemesters'] ) ) {
-			print "<a href=\"?toggleExpand=admin\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
-			print "<ul>";
-			print "<li><a href=\"../admin/group.php\">Manage Groups</a></li>";
-			print "<li><a href=\"../admin/email.php\">Email Groups</a></li>";
-			print "<li><a href=\"../admin/nuggets.php\">Manage Nuggets</a></li>";
-			print "<li><a href=\"../admin/event.php\">Manage Calendars</a></li>";
-			print "<li><a href=\"../dboard/dboard.php?adminView=1\">Discussion Board</a></li>";
-			print "<li><a href=\"../admin/budget.php\">Manage Budgets</a></li>";
-			print "<li><a href=\"../admin/iprofiles.php\">IPRO Office Files</a></li>";
-			print "<li><a href=\"../admin/quotas.php\">Group Quotas</a></li>";
-			print "<li><a href=\"../admin/reporting.php\">Group Reporting</a></li>";
-			print "<li><a href=\"../admin/people.php\">View Person</a></li>";
-			print "<li><a href=\"../admin/announcements.php\">Announcements</a></li>";
-			print "<li><a href=\"../admin/appearance.php\">Appearance</a></li>";
-			print "</ul>";
+			echo "<a href=\"?toggleExpand=admin\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
+			echo "<ul>";
+			echo "<li><a href=\"../admin/group.php\">Manage Groups</a></li>";
+			echo "<li><a href=\"../admin/email.php\">Email Groups</a></li>";
+			echo "<li><a href=\"../admin/nuggets.php\">Manage Nuggets</a></li>";
+			echo "<li><a href=\"../admin/event.php\">Manage Calendars</a></li>";
+			echo "<li><a href=\"../dboard/dboard.php?adminView=1\">Discussion Board</a></li>";
+			echo "<li><a href=\"../admin/budget.php\">Manage Budgets</a></li>";
+			echo "<li><a href=\"../admin/iprofiles.php\">IPRO Office Files</a></li>";
+			echo "<li><a href=\"../admin/quotas.php\">Group Quotas</a></li>";
+			echo "<li><a href=\"../admin/reporting.php\">Group Reporting</a></li>";
+			echo "<li><a href=\"../admin/people.php\">View Person</a></li>";
+			echo "<li><a href=\"../admin/announcements.php\">Announcements</a></li>";
+			echo "<li><a href=\"../admin/appearance.php\">Appearance</a></li>";
+			echo "</ul>";
 		}
 		else
-			print "<a href=\"?toggleExpand=admin\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
+			echo "<a href=\"?toggleExpand=admin\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
 	}
 ?>
 	<ul class="noindent">
