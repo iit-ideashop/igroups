@@ -119,9 +119,9 @@ if ( !class_exists( "Category" ) ) {
 			$add = decodeEmailSort($sort);
 			
 			if ( $this->getGroupType() == 0 )
-				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=0 AND Emails.iGroupID=".$this->getID()." AND Emails.iGroupType=".$this->getType()." AND Emails.iSemesterID=".$this->getSemester().$add );
+				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=0 AND Emails.iGroupID=".$this->getID()." AND Emails.iGroupType=".$this->getGroupType()." AND Emails.iSemesterID=".$this->getSemester().$add );
 			else 
-				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=0 AND Emails.iGroupID=".$this->getID()." AND Emails.iGroupType=".$this->getType().$add );
+				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=0 AND Emails.iGroupID=".$this->getID()." AND Emails.iGroupType=".$this->getGroupType().$add );
 			while ( $row = mysql_fetch_row( $emails ) ) {
 				$returnArray[] = new Email( $row[0], $this->db );
 			}
