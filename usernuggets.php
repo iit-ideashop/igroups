@@ -73,6 +73,7 @@
 		</fieldset></form>
 	</div>
 	
+	<p><strong>Note:</strong> This page links to nuggets' public interfaces. If you need to edit or upload a nugget, you should use the "iKnow Nuggets" link for your group.</p>
 	<p style="text-align: center; font-style: italic">* Signifies a protected nugget</p>
 
 	<table cellpadding="4" cellspacing="2" style="border: thin solid black">
@@ -97,7 +98,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Project Plan']}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"iknow/viewNugget.php?nuggetID={$nuggets['Project Plan']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -107,7 +108,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Abstract']}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"iknow/viewNugget.php?nuggetID={$nuggets['Abstract']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -117,7 +118,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Code of Ethics']}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"iknow/viewNugget.php?nuggetID={$nuggets['Code of Ethics']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -127,7 +128,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Midterm Report']}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"iknow/viewNugget.php?nuggetID={$nuggets['Midterm Report']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -137,7 +138,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Poster']}\">View$priv</a></td>";			
+					print "<td align=\"center\"><a href=\"iknow/viewNugget.php?nuggetID={$nuggets['Poster']}\">View$priv</a></td>";			
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -147,7 +148,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Website']}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"iknow/viewNugget.php?nuggetID={$nuggets['Website']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -157,7 +158,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Final Presentation']}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"iknow/viewNugget.php?nuggetID={$nuggets['Final Presentation']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -167,7 +168,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Team Minutes']}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"iknow/viewNugget.php?nuggetID={$nuggets['Team Minutes']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -177,7 +178,7 @@
 						$priv = '*';
 					else
 						$priv = '';
-					print "<td align=\"center\"><a href=\"viewNugget.php?nug={$nuggets['Final Report']}\">View$priv</a></td>";
+					print "<td align=\"center\"><a href=\"iknow/viewNugget.php?nuggetID={$nuggets['Final Report']}\">View$priv</a></td>";
 				}
 				else
 					print "<td align=\"center\"><b>N/A</b></td>";
@@ -193,7 +194,7 @@
 					else
 						$priv = '';
 					if (strstr($nug->getType(), $def))
-						$link = "<a href=\"viewNugget.php?nug={$nug->getID()}&amp;isOld=1\">View$priv</a>&nbsp;";
+						$link = "<a href=\"iknow/viewNugget.php?nuggetID={$nug->getID()}&amp;isOld=1\">View$priv</a>&nbsp;";
 				}	
 				if (!$link)
 					$link = "<b>N/A</b>";
