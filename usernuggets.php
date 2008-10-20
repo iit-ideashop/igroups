@@ -75,7 +75,7 @@
 	
 	<p style="text-align: center; font-style: italic">* Signifies a protected nugget</p>
 
-	<table cellpadding="4" cellspacing="0" style="border: thin solid black">
+	<table cellpadding="4" cellspacing="2" style="border: thin solid black">
 		<thead>
 			<tr><td>Group</td><td>Project Plan</td><td>Abstract</td><td>Ethics Statement</td><td>Midterm Report</td><td>Poster</td><td>Website (optional)</td><td>Final Presentation</td><td>Team Minutes (optional)</td><td>Final Report or Grant Proposal</td></tr>
 		</thead>
