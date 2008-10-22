@@ -124,11 +124,13 @@
 		print "</table>";
 		print "<input type=\"submit\" name=\"update\" value=\"Update Profile\" /></fieldset>";
 
-		print "<fieldset><legend>Change Password</legend>";
+/*		print "<fieldset><legend>Change Password</legend>";
 		print "<label for=\"pw1\">New password:</label><input type=\"password\" name=\"pw1\" id=\"pw1\" /><br />";
-		print "<label for=\"pw2\">Confirm password:</label><input type=\"password\" name=\"pw2\" id=\"pw2\" /><br />";
+		print "<label for=\"pw2\">Confirm password:</label><input type=\"password\" name=\"pw2\" id=\"pw2\" /><br />";*/
 ?>
-		<input type="submit" name="update" value="Change Password" /></fieldset>
-	</form></div>
+		<!--input type="submit" name="update" value="Change Password" /></fieldset-->
+	</form>
+<a href="http://sloth.iit.edu/~iproadmin/userpassword.php">Change my password</a>
+</div>
 </body>
 </html>

@@ -4,13 +4,13 @@ if ( !class_exists( "dbConnection" ) ) {
 		var $igroupsConn, $iknowConn;
 		
 		function dbConnection() {
+			$igroups_db_name = "igroups";
+			$igroups_db_user = "igr0upsUser";
+			$igroups_db_pass = "mxYwnc36";
+
 			$ireview_db_name = "peer_review";
 			$ireview_db_user = "terran4000";
 			$ireview_db_pass = "CbsoZcD2";
-
-			 $igroups_db_name = "igroups";
-			 $igroups_db_user = "igr0upsUser";
-			 $igroups_db_pass = "mxYwnc36";
 
 			$this->ireviewConn = mysql_connect("localhost", $ireview_db_user, $ireview_db_pass) or
 				die("Could not connect: " . mysql_error());
