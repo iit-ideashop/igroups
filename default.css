@@ -91,12 +91,17 @@ legend {
 	font-size:10pt;
 	width: 200px;
 	background-color:#EEEEEE;
+	font-weight: bold;
+	color: #990000;
 	padding-left:5px;
 	float: left;
 	border-right: 1px solid #999;
 	border-bottom: 1px solid #999;
 }
 
+#sidebar a:link {color:#666666;}
+#sidebar a:visited {color:#999999;}
+#sidebar a:active {color:#999999;}
 
 #loginform {
 	margin-top:10px;
