@@ -245,7 +245,7 @@ ob_start();
 			echo "<li><a href=\"../admin/reporting.php\">Group Reporting</a></li>";
 			echo "<li><a href=\"../admin/people.php\">View Person</a></li>";
 			echo "<li><a href=\"../admin/announcements.php\">Announcements</a></li>";
-			echo "<li><a href=\"../admin/appearance.php\">Appearance</a></li>";
+			//echo "<li><a href=\"../admin/appearance.php\">Appearance</a></li>";
 			echo "</ul>";
 		}
 		else
