@@ -92,16 +92,16 @@ legend {
 	width: 200px;
 	background-color:#EEEEEE;
 	font-weight: bold;
-	color: #990000;
+	color: #666666
 	padding-left:5px;
 	float: left;
 	border-right: 1px solid #999;
 	border-bottom: 1px solid #999;
 }
 
-#sidebar a:link {color:#666666;}
-#sidebar a:visited {color:#999999;}
-#sidebar a:active {color:#999999;}
+#sidebar a:link {color:#990000;}
+#sidebar a:visited {color:#990000;}
+#sidebar a:active {color:#990000;}
 
 #loginform {
 	margin-top:10px;
