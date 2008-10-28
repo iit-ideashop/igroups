@@ -191,7 +191,7 @@ else
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$link\">$topicName</a>"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
+</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; $topicName"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
 </div>
 </body>
 </html>
