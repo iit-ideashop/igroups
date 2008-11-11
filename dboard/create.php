@@ -44,7 +44,7 @@
 		$post = createPost($_GET['thread'], $_POST['body'], $currentUser->getID(), $db);
 		$watchList = new WatchList($_GET['thread'], $db);
 		$watchList->sendNotification($post, $_COOKIE['topicName']);
-		header("Location: viewThread?id={$_GET['thread']}&topic={$_GET['topicID']}");
+		header("Location: viewThread?id={$_GET['thread']}&topic={$_GET['topicID']}$glob");
 	}
 	else
 		die("Invalid Request");

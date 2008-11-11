@@ -211,7 +211,7 @@ foreach ($posts as $post) {
 	print "<tr><td valign=\"top\" style=\"width:20%\"><span style=\"font-size: smaller; font-weight: bold\">{$post->getAuthorLink()}<br />";
 	$author = $post->getAuthor();
 	$profile = $author->getProfile();
-	if (!$_COOKIE['global']) {
+	if (!$_GET['global']) {
 		$group = new Group ($currentThread->getGroupID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
 		if ($author->isGroupAdministrator($group))
 			$title = "Group Administrator";
