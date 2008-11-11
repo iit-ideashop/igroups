@@ -144,9 +144,6 @@ ob_start();
 
 ?>
 <div id="sidebar">
-	<div id="iprologo">
-		<a href="http://ipro.iit.edu/"><img src="img/iprologo.png" alt="IPRO" title="IPRO" /></a>
-	</div>
 	<div id="igroupslogo">
 		<img src="img/iGroupslogo.png" alt="<?php echo $appname; ?>" title="<?php echo $appname; ?>" />
 	</div>

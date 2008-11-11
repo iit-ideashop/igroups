@@ -20,9 +20,6 @@ if ( isset( $_GET['logout'] ) ) {
 <?php } ?>
 
 <div id="sidebar">
-	<div id="iprologo">
-		<a href="http://ipro.iit.edu/home/index.php" title="IPRO Home"><img src="img/iprologo.png" alt="IPRO" title="IPRO" /></a>
-	</div>
 	<div id="igroupslogo">
 		<img src="img/iGroupslogo.png" alt="<?php echo $appname; ?>" title="<?php echo $appname; ?>" />
 	</div>
