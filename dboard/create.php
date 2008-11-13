@@ -38,13 +38,13 @@
 	else if (isset($_POST['newThread'])) {
 		$thread = createThread($_POST['name'], $currentUser->getID(), $currentTopic->getID(), $db);
 		$post = createPost($thread->getID(), $_POST['body'], $currentUser->getID(), $db);
-		header("Location: viewThread?id={$thread->getID()}");
+		header("Location: viewThread.php?id={$thread->getID()}&topic={$_GET['topicID']}$glob");
 	}
 	else if (isset($_POST['newPost'])) {
 		$post = createPost($_GET['thread'], $_POST['body'], $currentUser->getID(), $db);
 		$watchList = new WatchList($_GET['thread'], $db);
 		$watchList->sendNotification($post, $_COOKIE['topicName']);
-		header("Location: viewThread?id={$_GET['thread']}&topic={$_GET['topicID']}$glob");
+		header("Location: viewThread.php?id={$_GET['thread']}&topic={$_GET['topicID']}$glob");
 	}
 	else
 		die("Invalid Request");
