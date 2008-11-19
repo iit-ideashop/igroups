@@ -20,10 +20,10 @@
 		else
 		{
 			$currentTopic = new Topic($_GET['topicID'], $db);
-			$glob = "&amp;type=".$_GET['type']."&amp;semester={$currentGroup->getSemester()}";
 			$topicLink = "viewTopic.php?id={$currentTopic->getID()}&amp;type={$currentGroup->getType()}&amp;semester={$currentGroup->getSemester()}";
 			$currentGroup = new Group($currentTopic->getID(), $_GET['type'], $_GET['semester'], $db);
 			$topicName = $currentGroup->getName() . " Discussion";
+			$glob = "&amp;type=".$_GET['type']."&amp;semester={$currentGroup->getSemester()}";
 		}
 	}
 	else

@@ -148,10 +148,7 @@
 		}
 	}
 
-	if($_GET['global'])
-		$globaltext = "&amp;topicID=".$_GET['topic']."&amp;global=true";
-	else
-		$globaltext = "&amp;topicID=".$_GET['topic'];
+	$topicID = "&amp;topicID=".$_GET['id'];
 	$threadtext = "&amp;thread=".$currentThread->getID();
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
@@ -189,7 +186,7 @@ require("sidebar.php");
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td align="center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td align="center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$topicID$glob$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5" style="table-layout: fixed;">
 <tr><td class="view_options" style="text-align: left; font-weight: bold; width: 100px">
@@ -256,6 +253,6 @@ $delete<hr />";
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$topicID$glob$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 </div></body>
 </html>
