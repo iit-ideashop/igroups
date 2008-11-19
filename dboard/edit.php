@@ -12,21 +12,25 @@
 	{
 		if(isset($_GET['global']))
 		{
-			$currentTopic = new GlobalTopic($_COOKIE['topic'], $db);
+			$currentTopic = new GlobalTopic($_GET['topic'], $db);
 			$glob = "&amp;global=true";
+			$topicLink = "viewTopic.php?id={$currentTopic->getID()}&amp;global=true";
+			$topicName = $currentTopic->getName();
 		}
 		else
 		{
-			$currentTopic = new Topic($_COOKIE['topic'], $db);
-			$currentGroup = new Group($_COOKIE['topic'], $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
-			$glob = "";
+			$currentTopic = new Topic($_GET['topic'], $db);
+			$currentGroup = new Group($_GET['topic'], $_GET['type'], $_GET['semester'], $db);
+			$glob = "&amp;type=".$_GET['type']."&amp;semester={$currentGroup->getSemester()}";
+			$topicLink = "viewTopic.php?id={$currentTopic->getID()}&amp;type={$currentGroup->getType()}&amp;semester={$currentGroup->getSemester()}";
+			$topicName = $currentGroup->getName() . " Discussion";
 		}
 	}
 	else
 	    	 die("No topic selected.");
 	
 	if(isset($_GET['thread']))
-		$currentThread = new Thread($_COOKIE['thread'], $db);
+		$currentThread = new Thread($_GET['thread'], $db);
 	else
 		die("No thread selected.");
 	if(isset($_GET['post']) && is_numeric($_GET['post']))
@@ -61,10 +65,10 @@ require("sidebar.php");
 ?>
 <div id="content"><div id="topbanner">
 <?php
-	print "{$_COOKIE['topicName']}";
+	print $topicName;
 ?>	
 </div>
-<table class="noborder" width="85%"><tr><td><a href="dboard.php"><?php echo $appname; ?> Discussion Board</a> -&gt; <a href="<?php print "{$_COOKIE['topicLink']}"; ?>"><?php print "{$_COOKIE['topicName']}"; ?></a> -> <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic={$_GET['topic']}$glob"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
+<table class="noborder" width="85%"><tr><td><a href="dboard.php"><?php echo $appname; ?> Discussion Board</a> -&gt; <a href="<?php print $topicLink; ?>"><?php print $topicName; ?></a> -&gt; <a href="viewThread.php?id=<?php print "{$currentThread->getID()}&amp;topic={$_GET['topic']}$glob"; ?>"><?php print "{$currentThread->getName()}"; ?></a></td></tr></table>
 <form action="edit.php?post=<?php echo $_GET['post']."&amp;topic=".$_GET['topic']."&amp;thread=".$_GET['thread'].$glob; ?>" method="post" id="postForm"><fieldset><legend>Edit Post</legend>
 <table width="85%">
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"><?php echo $post->getBody(); ?></textarea></td></tr>

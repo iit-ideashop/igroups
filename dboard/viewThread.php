@@ -19,15 +19,17 @@
 		if(isset($_GET['global']))
 		{
 			$currentTopic = new GlobalTopic($query['iTopicID'], $db);
-			setcookie('topic', $currentTopic->getID(), time()+60*60*6);
 			$glob = "&amp;global=true";
+			$topicLink = "viewTopic.php?id={$currentTopic->getID()}&amp;global=true";
+			$topicName = $currentTopic->getName();
 		}
 		else if(isset($_GET['semester']))
 		{
 			$currentTopic = new Topic($query['iTopicID'], $db);
-			setcookie('topic', $currentTopic->getID(), time()+60*60*6);
-			$currentGroup = new Group($currentTopic->getID(), $_COOKIE['groupType'], $_GET['semester'], $db);
-			$glob = "&amp;semester={$currentGroup->getSemester()}";
+			$currentGroup = new Group($currentTopic->getID(), $_GET['type'], $_GET['semester'], $db);
+			$glob = "&amp;type=".$_GET['type']."&amp;semester={$currentGroup->getSemester()}";
+			$topicLink = "viewTopic.php?id={$currentTopic->getID()}&amp;type={$currentGroup->getType()}&amp;semester={$currentGroup->getSemester()}";
+			$topicName = $currentGroup->getName() . " Discussion";
 		}
 		else
 			die('URL error');
@@ -55,7 +57,7 @@
 			if ($thread->getPostCount() == 1) {
 				$thread->delete();
 				$post->delete();
-				header("Location: ".str_replace("&amp;", "&", $_COOKIE['topicLink']));
+				header("Location: ".str_replace('&amp;', '&', $topicLink));
 			}
 			$post->delete();
 		}
@@ -69,7 +71,6 @@
 	if (isset($_GET['unwatchThread']))
 		$watchList->removeFromWatchList($currentUser);
 
-	setcookie('thread', $currentThread->getID(), time()+60*60*6);
 	$allPosts = $currentThread->getPosts();
 	$currentThread->incViews();
 	$currentThread->updateDB();
@@ -166,7 +167,7 @@ require("sidebar.php");
 ?>
 <div id="content"><div id="topbanner">
 <?php
-	print "{$_COOKIE['topicName']}";
+	print $topicName;
 ?>	
 </div>
 
@@ -188,7 +189,7 @@ require("sidebar.php");
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td align="center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td align="center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5" style="table-layout: fixed;">
 <tr><td class="view_options" style="text-align: left; font-weight: bold; width: 100px">
@@ -214,7 +215,7 @@ foreach ($posts as $post) {
 	$author = $post->getAuthor();
 	$profile = $author->getProfile();
 	if (!$_GET['global']) {
-		$group = new Group ($currentThread->getGroupID(), $_COOKIE['groupType'], $_GET['semester'], $db);
+		$group = new Group ($currentThread->getGroupID(), $_GET['type'], $_GET['semester'], $db);
 		if ($author->isGroupAdministrator($group))
 			$title = "Group Administrator";
 		else if ($author->isGroupModerator($group))
@@ -255,6 +256,6 @@ $delete<hr />";
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"{$_COOKIE['topicLink']}\">{$_COOKIE['topicName']}</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$globaltext\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$globaltext$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 </div></body>
 </html>

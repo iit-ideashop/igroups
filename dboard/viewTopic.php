@@ -17,7 +17,6 @@
 			if (!$currentTopic)
 				die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;global=true";
-			setcookie('global', '1', time()+60*60*6);
 			$glob = "&amp;global=true";
 		}
 		else {
@@ -28,8 +27,7 @@
 			if (!$currentGroup)
 				die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;type={$currentGroup->getType()}&amp;semester={$currentGroup->getSemester()}";
-			setcookie('global', '0', time()+60*60*6);
-			$glob = "&amp;semester={$currentGroup->getSemester()}";
+			$glob = "&amp;type=".$_GET['type']."&amp;semester={$currentGroup->getSemester()}";
 		}
 	}
 	else
@@ -46,13 +44,6 @@
 	}
 
 	$allThreads = $currentTopic->getThreads();
-	setcookie('topic', $currentTopic->getID(), time()+60*60*6);
-	setcookie('topicLink', $link, time()+60*60*6); 
-	
-	if (isset($currentGroup)) {
-		setcookie('groupType', $currentGroup->getType(), time()+60*60*6);
-		setcookie('groupSemester', $currentGroup->getSemester(), time()+60*60*6);
-	}
 
 	// determine pages
 	$pages = array();
@@ -122,7 +113,7 @@
 				$threads[] = $allThreads[$i];
 		}
 	}
-	if($_COOKIE['global'])
+	if($_GET['global'])
 		$globaltext = "&amp;topicID=".$_GET['id']."&amp;global=true";
 	else
 		$globaltext = "&amp;topicID=".$_GET['id'];
@@ -133,8 +124,6 @@
 	else {
 		$topicName = $currentGroup->getName() . " Discussion";
 	}
-
-	setcookie('topicName', $topicName, time()+60*60*6);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -174,7 +163,7 @@ foreach ($threads as $thread) {
 	else
 		$text = "<i>No Posts</i>";
 	if ((isset($currentGroup) && $currentUser->isGroupModerator($currentGroup)) || isset($_SESSION['adminView'])) {
-		$delete = "&nbsp;&nbsp;[<a href=\"{$_COOKIE['topicLink']}&amp;delete={$thread->getID()}\">Delete</a>]";
+		$delete = "&nbsp;&nbsp;[<a href=\"$link&amp;delete={$thread->getID()}\">Delete</a>]";
 	}
 	else
 		$delete = "";
