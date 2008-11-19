@@ -10,11 +10,6 @@
 
 	if(isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']) )
 		$currentGroup = new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db );
-	else if(isset($_SESSION['adminView']) || isset($_GET['adminView']))
-	{
-	}
-	else
-		die("You have not selected a valid group.");
 
 	if($currentUser->isAdministrator() && isset($_GET['adminView']))
 		$_SESSION['adminView'] = 1;
