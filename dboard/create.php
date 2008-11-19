@@ -25,6 +25,7 @@
 			$topicName = $currentGroup->getName() . " Discussion";
 			$glob = "&amp;type=".$_GET['type']."&amp;semester={$currentGroup->getSemester()}";
 		}
+		$globurl = str_replace('&amp;', '&', $glob);
 	}
 	else
 	    	 die("No topic selected");
@@ -41,13 +42,13 @@
 	else if (isset($_POST['newThread'])) {
 		$thread = createThread($_POST['name'], $currentUser->getID(), $currentTopic->getID(), $db);
 		$post = createPost($thread->getID(), $_POST['body'], $currentUser->getID(), $db);
-		header("Location: viewThread.php?id={$thread->getID()}&topic={$_GET['topicID']}$glob");
+		header("Location: viewThread.php?id={$thread->getID()}&topic={$_GET['topicID']}$globurl");
 	}
 	else if (isset($_POST['newPost'])) {
 		$post = createPost($_GET['thread'], $_POST['body'], $currentUser->getID(), $db);
 		$watchList = new WatchList($_GET['thread'], $db);
 		$watchList->sendNotification($post, $topicName);
-		header("Location: viewThread.php?id={$_GET['thread']}&topic={$_GET['topicID']}$glob");
+		header("Location: viewThread.php?id={$_GET['thread']}&topic={$_GET['topicID']}$globurl");
 	}
 	else
 		die("Invalid Request");
