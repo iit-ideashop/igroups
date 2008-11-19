@@ -22,13 +22,15 @@
 			setcookie('topic', $currentTopic->getID(), time()+60*60*6);
 			$glob = "&amp;global=true";
 		}
-		else
+		else if(isset($_GET['semester']))
 		{
 			$currentTopic = new Topic($query['iTopicID'], $db);
 			setcookie('topic', $currentTopic->getID(), time()+60*60*6);
-			$currentGroup = new Group($currentTopic->getID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
-			$glob = "";
+			$currentGroup = new Group($currentTopic->getID(), $_COOKIE['groupType'], $_GET['semester'], $db);
+			$glob = "&amp;semester={$currentGroup->getSemester()}";
 		}
+		else
+			die('URL error');
 	}
 	else
 		 die("No topic selected");

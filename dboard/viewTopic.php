@@ -29,7 +29,7 @@
 				die("No such topic");
 			$link = "viewTopic.php?id={$currentTopic->getID()}&amp;type={$currentGroup->getType()}&amp;semester={$currentGroup->getSemester()}";
 			setcookie('global', '0', time()+60*60*6);
-			$glob = "";
+			$glob = "&amp;semester={$currentGroup->getSemester()}";
 		}
 	}
 	else
