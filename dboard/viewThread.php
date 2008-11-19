@@ -214,7 +214,7 @@ foreach ($posts as $post) {
 	$author = $post->getAuthor();
 	$profile = $author->getProfile();
 	if (!$_GET['global']) {
-		$group = new Group ($currentThread->getGroupID(), $_COOKIE['groupType'], $_COOKIE['groupSemester'], $db);
+		$group = new Group ($currentThread->getGroupID(), $_COOKIE['groupType'], $_GET['semester'], $db);
 		if ($author->isGroupAdministrator($group))
 			$title = "Group Administrator";
 		else if ($author->isGroupModerator($group))
