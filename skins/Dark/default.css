@@ -1,0 +1,191 @@
+html {
+	background-color: black;
+	color: white;
+}
+
+body { 
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10pt;
+	margin:0;
+}
+
+fieldset {
+	border-style: none;
+	padding-left: 0px;
+	padding-right: 0px;
+	margin-left: 0px;
+	margin-right: 0px;
+}
+
+thead {
+	font-size:10pt;
+	font-weight:bold;
+	background-color:#CCCCCC;
+	text-align:center;
+}
+
+tfoot {
+	font-size:10pt;
+	font-weight:bold;
+	background-color:#CCCCCC;
+	text-align:center;
+}
+
+a:link, a:visited {
+	color:#CC0000;
+}
+
+h1 {
+	font-size:14pt;
+	color:#666;
+	padding:0;
+	margin-bottom:5px;
+	font-weight: bold;
+}
+
+h2 {
+	font-size:12pt;
+	color:#666;
+	font-weight: bold;
+}
+
+h3 {
+	font-size:10pt;
+	color:#666;
+	font-weight:bold;
+}
+
+legend {
+	font-size:14pt;
+	color:#666;
+	padding:0;
+	margin-bottom:5px;
+	font-weight: bold;
+}
+
+#topbanner {
+	padding: .25em;
+	font-size:14pt;
+	border-bottom-style:solid;
+	border-bottom-color:#CC0000;
+	text-align:center;
+	margin-bottom:10px;
+}
+
+.columnbanner {
+	padding: .25em;
+	margin-bottom:0;
+	border-bottom: 1px solid #CC0000;
+	text-align:center;
+}
+
+.shade {
+	background-color:#EEEEEE;
+}
+
+#messageBox {
+	background-color:#CCCCCC;
+	color:#000;
+	font-size:12pt;
+	padding:5px;
+	border-bottom:1px solid #000;
+}
+
+#sidebar {
+	font-size:10pt;
+	width: 200px;
+	background-color:#EEEEEE;
+	padding-left:5px;
+	float: left;
+	border-right: 1px solid #999;
+	border-bottom: 1px solid #999;
+}
+
+
+#loginform {
+	margin-top:10px;
+}
+
+ul.noindent {
+			margin-left:0;
+			padding-left:0;
+		}
+
+#content {
+	margin-left: 220px;
+	width: 80%;
+	clear: none;
+	position: absolute;
+	top: 20px;
+	left: 0px;
+}
+#igroupslogo img {
+	border-style: none;
+	padding-top: 10px;
+}
+
+div.box {
+	background-color: #EEEEEE;
+	text-align:left;
+	padding:15px;
+	position:relative;
+	border: 1px solid #999;
+}
+
+div.box .box-header {
+	font-size:12pt;
+	color:#666;
+	font-weight: bold;
+}
+
+.calbord {
+	border: 1px solid #666;
+	width: 14%;
+}
+
+#boxtitle {
+	font-weight: bold;
+	font-size: larger;
+}
+
+#boxdesc {
+	font-style: italic;
+}
+
+ul.folderlist {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+
+ul.folderlist ul {
+	padding-left:20px;
+}
+
+.sortbar {
+	background-color: #cc0000;
+	color: #dddddd;
+	font-weight: bold;
+}
+
+.sortbar a:link, .sortbar a:visited, .sortbar a:active, .sortbar a {
+	color:  #dddddd;
+	text-decoration: none;
+}
+
+.sortbar img {
+	border: 0;
+}
+
+#bookmarks td
+{
+	padding: 5px;
+}
+
+#semesterSelect {
+	margin-bottom:10px;
+}
+
+#groupSelect {
+	margin-bottom:10px;
+}

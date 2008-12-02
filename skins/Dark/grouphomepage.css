@@ -1,0 +1,45 @@
+#recent {
+	margin-top:10px;
+	float:right;
+	width:50%;
+}
+
+#pictures {
+	margin:10px;
+}
+
+#announcements {
+	margin:10px;
+}
+
+.dateHeading {
+	background:#EEE;
+	border-bottom: 1px solid #666;
+}
+
+.prop {
+	float:right;
+	height:100px;
+	width:1px;
+	overflow:hidden;
+}
+	
+#calendarmenu {
+	border:solid 1px #000;
+	background-color:#fff;
+	visibility:hidden;
+	position:absolute;
+	left:50px;
+}
+
+.event {
+	border:solid 1px #000;
+	background-color:#fff;
+	position:absolute;
+	visibility:hidden;
+	width:200px;
+	padding:5px;
+	top:0;
+	left:0;
+	overflow:hidden;
+}
