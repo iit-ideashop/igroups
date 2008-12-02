@@ -21,6 +21,7 @@
 			
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
+		global $skin;
 		print "<li><a href=\"iprofiles.php?selectFolder=".$folder->getID()."\"><img src=\"../skins/$skin/img/folder.png\" alt=\"\" style=\"border-style: none\" />".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
 		if(count($subfolder) > 0) {
