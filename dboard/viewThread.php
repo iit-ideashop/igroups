@@ -157,7 +157,7 @@
 <title><?php echo $appname; ?> - Discussion Board - View Thread</title>
 <?php
 require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/dboard.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dboard.css\" type=\"text/css\" />\n";
 ?>
 </head>
 <body>
