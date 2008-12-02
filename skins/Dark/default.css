@@ -189,3 +189,8 @@ ul.folderlist ul {
 #groupSelect {
 	margin-bottom:10px;
 }
+
+input[type="text"], textarea {
+	background-color: #333333;
+	color: white;
+}
