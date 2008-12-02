@@ -29,11 +29,11 @@
 #files{
 	width:100%;
 	text-align-left;
-	background-color:#fff;
+	background-color:#000;
 }
 
 #menubar, .menubar{
-	background-color:#eeeeee;
+	background-color:#222222;
 	margin-bottom:5px;
 	padding:3px;
 }
