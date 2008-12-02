@@ -47,69 +47,18 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<?php require("../iknow/appearance.php"); ?>
 <title><?php echo $appname;?> - Group Email</title>
+<?php
+require("../iknow/appearance.php");
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/email.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+?>
 	<style type="text/css">
-		#container {
-			padding:0;
-		}
-		
-		#catbox {
-			float:left;
-			width:20%;
-			margin:5px;
-			padding:8px;
-			border:1px solid #000;
-		}
-		
-		#cats {
-			width:100%;
-			text-align:left;
-			background-color: #fff;
-			padding-top:5px;
-		}
-		
-		#emailbox {
-			float:right;
-			margin:5px;
-			padding:2px;
-			width:95%;
-			border:1px solid #000;
-		}
-		
-		#emails {
-			width:100%;
-			text-align:left;
-			background-color:#fff;
-		}
-		
-		#menubar {
-			background-color:#eeeeee;
-			margin-bottom:5px;
-			padding:3px;
-		}
-		
-		#menubar li {
-			padding:5px;
-			display:inline;
-		}
-		
-		ul.ema {
-			list-style:none;
-			padding:0;
-			margin:0;
-		}
-
-		#emailboxheader {
-			font-weight: bold;
-		}
-
 		.window {
 			display: none;
 		}
 	</style>
 
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
@@ -300,21 +249,21 @@ require("sidebar.php");
 				print "<table width=\"85%\">";
 				echo "<tr class=\"sortbar\">\n";
 				if($_SESSION['emailSort'] == 1)
-					echo "<td colspan=\"2\"><a href=\"email.php?sort=-1\" title=\"Sort this descendingly\">Subject <img src=\"../img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=-1\" title=\"Sort this descendingly\">Subject <img src=\"../skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 				else if($_SESSION['emailSort'] == -1)
-					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort this ascendingly\">Subject <img src=\"../img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort this ascendingly\">Subject <img src=\"../skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 				else
 					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort by subject\">Subject</a>";
 				if($_SESSION['emailSort'] == 2)
-					echo "<td><a href=\"email.php?sort=-2\" title=\"Sort this descendingly\">Author <img src=\"../img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					echo "<td><a href=\"email.php?sort=-2\" title=\"Sort this descendingly\">Author <img src=\"../skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 				else if($_SESSION['emailSort'] == -2)
-					echo "<td><a href=\"email.php?sort=2\" title=\"Sort this ascendingly\">Author <img src=\"../img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					echo "<td><a href=\"email.php?sort=2\" title=\"Sort this ascendingly\">Author <img src=\"../skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 				else
 					echo "<td><a href=\"email.php?sort=2\" title=\"Sort by author\">Author</a>";
 				if($_SESSION['emailSort'] == 3)
-					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort this descendingly\">Date <img src=\"../img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort this descendingly\">Date <img src=\"../skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 				else if($_SESSION['emailSort'] == -3)
-					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date <img src=\"../img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date <img src=\"../skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 				else
 					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort by date\">Date</a>";
 				echo "<td></td></tr>\n";
@@ -323,7 +272,7 @@ require("sidebar.php");
 					$author = $email->getSender();
 					printTR();
 					if ($email->hasAttachments()) 
-						$img = '&nbsp;<img src="../img/attach.png" alt="(Attachments)" title="Paper clip" />';
+						$img = '&nbsp;<img src="../skins/'.$skin.'/img/attach.png" alt="(Attachments)" title="Paper clip" />';
 					else
 						$img = '';
 					print "<td colspan=\"2\"><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'View Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".$email->getShortSubject()."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type='checkbox' name='email[".$email->getID()."]' /></td></tr>";

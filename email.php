@@ -84,54 +84,11 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Group Email</title>
-<?php require("appearance.php"); ?>
-	<style type="text/css">		
-		#container {
-			padding:0;
-		}
-		
-		#catbox {
-			float:left;
-			width:25%;
-			margin:5px;
-			padding:2px;
-			border:1px solid #000;
-		}
-		
-		#cats {
-			width:100%;
-			text-align:left;
-			background-color: #fff;
-			padding-top:5px;
-		}
-		
-		#emailbox {
-			float:left;
-			margin:5px;
-			padding:2px;
-			width:55%;
-			border:1px solid #000;
-		}
-		
-		#emails {
-			width:100%;
-			text-align:left;
-			background-color:#fff;
-		}
-		
-		.menubar {
-			background-color:#eeeeee;
-			margin-bottom:5px;
-			padding:3px;
-		}
-		
-		.menubar li {
-			padding:5px;
-			display:inline;
-		}
-	</style>
-
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/email.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)

@@ -126,8 +126,10 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Discussion Board - View Topic</title>
-<link rel="stylesheet" href="dboard.css" type="text/css" />
-<?php require("../iknow/appearance.php"); ?>
+<?php
+require("../iknow/appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/dboard.css\" type=\"text/css\" />\n";
+?>
 </head>
 <body>
 <?php
@@ -146,7 +148,7 @@ foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
 </td>
-<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <strong>$topicName</strong>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr></table>
+<td style="font-size: smaller; font-weight: bold; text-align: center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <strong>$topicName</strong>"; ?></td><td style="text-align: right; font-weight:bold" class="post_options"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../skins/<?php echo $skin; ?>/img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5">
 <tr><th style="width:45%" colspan="2">Threads</th><th>Replies</th><th>Author</th><th>Views</th><th>Last Post</th></tr>
@@ -164,7 +166,7 @@ foreach ($threads as $thread) {
 	}
 	else
 		$delete = "";
-	print "<tr><td style=\"width:1%\"><img src=\"../img/thread.png\" alt=\"*\" title=\"Thread #".$thread->getID()."\" /></td><td style=\"font-weight: bold; font-size: smaller\"><a href=\"viewThread.php?id={$thread->getID()}&amp;topic=".$_GET['id']."$glob\">{$thread->getName()}</a>$delete</td><td align=\"center\">{$thread->getPostCount()}</td><td align=\"center\">{$thread->getAuthorLink()}</td><td align=\"center\">{$thread->getViews()}</td><td align=\"center\">$text</td></tr>";
+	print "<tr><td style=\"width:1%\"><img src=\"../skins/$skin/img/thread.png\" alt=\"*\" title=\"Thread #".$thread->getID()."\" /></td><td style=\"font-weight: bold; font-size: smaller\"><a href=\"viewThread.php?id={$thread->getID()}&amp;topic=".$_GET['id']."$glob\">{$thread->getName()}</a>$delete</td><td align=\"center\">{$thread->getPostCount()}</td><td align=\"center\">{$thread->getAuthorLink()}</td><td align=\"center\">{$thread->getViews()}</td><td align=\"center\">$text</td></tr>";
 }
 }
 else
@@ -177,7 +179,7 @@ else
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; $topicName"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
+</td><td style="text-align: center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; $topicName"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../skins/<?php echo $skin; ?>/img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php print "$currentPage"; ?></td></tr></table>
 </div>
 </body>
 </html>

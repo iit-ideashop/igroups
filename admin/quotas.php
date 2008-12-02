@@ -63,26 +63,11 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<?php require("../iknow/appearance.php"); ?>
 <title><?php echo $appname;?> - IPRO Quota Management</title>
-	<style type="text/css">
-		.fullness-bar {
-			text-align:left;
-			width:500px;
-			height:20px;
-			border: 1px solid #666666;
-		}
-		
-		.fullness-indicator {
-			margin: 1px;
-			height:18px;
-			background-color:#999999;
-		}
-		
-		#semesterSelect {
-			margin-bottom:10px;
-		}
-	</style>
+<?php
+require("../iknow/appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/quota.css\" type=\"text/css\" />\n";
+?>
 </head>
 <body>
 <?php

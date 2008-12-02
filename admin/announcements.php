@@ -27,42 +27,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<?php require("../iknow/appearance.php"); ?>
 <title><?php echo $appname;?> - Announcement Editor</title>
-<style type="text/css">
-.box {
-	width:40%;
-}
-
-#announcement-list {
-	position:absolute;
-	left:70%;
-	top:0%;
-}
-		
-#calendarmenu {
-	border:solid 1px #000;
-	background-color:#fff;
-	visibility:hidden;
-	position:absolute;
-	left:50px;
-}
-
-#edit1 {
-	display:none;
-}
-
-#edit2 {
-	display:none;
-}
-
-h2 {
-	font-size:11pt;
-	color:#CC0000;
-	margin-bottom:5px;
-}
-</style>
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<?php
+require("../iknow/appearance.php");
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/announce.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)

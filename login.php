@@ -21,7 +21,7 @@ if ( isset( $_GET['logout'] ) ) {
 
 <div id="sidebar">
 	<div id="igroupslogo">
-		<img src="img/iGroupslogo.png" alt="<?php echo $appname; ?>" title="<?php echo $appname; ?>" />
+		<img src="skins/<?php echo $skin; ?>/img/iGroupslogo.png" alt="<?php echo $appname; ?>" title="<?php echo $appname; ?>" />
 	</div>
 	
 	<div id="loginform">

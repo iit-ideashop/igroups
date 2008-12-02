@@ -47,8 +47,10 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Discussion Board</title>
-<link rel="stylesheet" href="dboard.css" type="text/css" />
-<?php require("../iknow/appearance.php"); ?>
+<?php
+require("../iknow/appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/dboard.css\" type=\"text/css\" />\n";
+?>
 </head>
 <body>
 <?php

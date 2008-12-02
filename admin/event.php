@@ -96,127 +96,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<?php require("../iknow/appearance.php"); ?>
 <title><?php echo $appname;?> - IPRO Event Management</title>
-	<style type="text/css">
-		li.ev {
-			display:inline;
-			padding:5px;
-			border:solid 1px #000;
-		}
-		
-		li.size3 {
-			display:inline;
-			padding:5px;
-			border:solid 1px #000;
-			font-size:8pt;
-		}
-		
-		li.size2 {
-			display:inline;
-			padding:5px;
-			border:solid 1px #000;
-			font-size:11pt;
-		}
-		
-		li.size1 {
-			display:inline;
-			padding:5px;
-			border:solid 1px #000;
-			font-size:14pt;
-		}
-		
-		li.size0 {
-			display:inline;
-			padding:5px;
-			border:solid 1px #000;
-			font-size:20pt;
-		}
-		
-		#calendar {
-			border:solid 1px #000;
-			background-color:#fff;
-			visibility:hidden;
-			position:absolute;
-			left:50px;
-			z-index:500;
-		}
-		
-		.event {
-			border:solid 1px #000;
-			background-color:#fff;
-			position:absolute;
-			visibility:hidden;
-			width:200px;
-			padding:5px;
-			top:0;
-			left:0;
-			overflow:hidden;
-		}
-		
-		.eventlink {
-			font-size:10px;
-			display:block;
-		}
-		
-		.prop {
-			float:right;
-			height:100px;
-			width:1px;
-			overflow:hidden;
-		}
-		
-		#groupSelect {
-			margin-bottom:10px;
-		}
-
-.ds_box {
-	background-color: #FFF;
-	border: 1px solid #000;
-	position: absolute;
-	z-index: 32767;
-}
-
-.ds_tbl {
-	background-color: #FFF;
-}
-
-.ds_head {
-	background-color: #C00;
-	color: #FFF;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	font-weight: bold;
-	text-align: center;
-	letter-spacing: 2px;
-}
-
-.ds_subhead {
-	background-color: #CCC;
-	color: #000;
-	font-size: 12px;
-	font-weight: bold;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-	width: 32px;
-}
-
-.ds_cell {
-	background-color: #EEE;
-	color: #000;
-	font-size: 13px;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-	padding: 5px;
-	cursor: pointer;
-}
-
-.ds_cell:hover {
-	background-color: #F3F3F3;
-} /* This hover code won't work for IE */
-	</style>
-
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<?php
+require("../iknow/appearance.php");
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/calendar.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/eventcal.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)

@@ -155,8 +155,10 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Discussion Board - View Thread</title>
-<link rel="stylesheet" href="dboard.css" type="text/css" />
-<?php require("../iknow/appearance.php"); ?>
+<?php
+require("../iknow/appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/dboard.css\" type=\"text/css\" />\n";
+?>
 </head>
 <body>
 <?php
@@ -186,7 +188,7 @@ require("sidebar.php");
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td align="center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$topicID$glob$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td align="center"><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options" align="right"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../skins/<?php echo $skin; ?>/img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$topicID$glob$threadtext\">"; ?><img src="../skins/<?php echo $skin; ?>/img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
 <table width="85%" cellspacing="0" cellpadding="5" style="table-layout: fixed;">
 <tr><td class="view_options" style="text-align: left; font-weight: bold; width: 100px">
@@ -238,7 +240,7 @@ foreach ($posts as $post) {
 		$delete = "<br />[<a href=\"edit.php?topic=".$_GET['topic']."&amp;thread=".$_GET['id']."&amp;post=".$post->getID()."$glob\">Edit</a>]";
 	else
 		$delete = "";
-	print "<td><img src=\"../img/icon_minipost.png\" alt=\"*\" title=\"Post #".$post->getID()."\" /><span style=\"font-size: x-small\">Posted: {$post->getDateTime()}</span>&nbsp; 
+	print "<td><img src=\"../skins/$skin/img/icon_minipost.png\" alt=\"*\" title=\"Post #".$post->getID()."\" /><span style=\"font-size: x-small\">Posted: {$post->getDateTime()}</span>&nbsp; 
 $delete<hr />";
 	print "<p>".str_replace("\n", "<br />", $post->getBody())."</p><br /><br /></td></tr>";
 	print "<tr><td style=\"font-size: smaller\"><a href=\"#top\">Back to Top</a></td><td>&nbsp;</td></tr>";
@@ -253,6 +255,6 @@ $delete<hr />";
 foreach($pages as $page)
 	print "$page&nbsp;";
 ?>
-</td><td><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$topicID$glob$threadtext\">"; ?><img src="../img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
+</td><td><?php print "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../skins/<?php echo $skin; ?>/img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$topicID$glob$threadtext\">"; ?><img src="../skins/<?php echo $skin; ?>/img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 </div></body>
 </html>

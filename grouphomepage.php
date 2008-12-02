@@ -11,56 +11,11 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Group Home Page</title>
-<?php require("appearance.php"); ?>
-	<style type="text/css">
-		#recent {
-			margin-top:10px;
-			float:right;
-			width:50%;
-		}
-		
-		#pictures {
-			margin:10px;
-		}
-
-		#announcements {
-			margin:10px;
-		}
-		
-		.dateHeading {
-			background:#EEE;
-			border-bottom: 1px solid #666;
-		}
-		
-		.prop {
-			float:right;
-			height:100px;
-			width:1px;
-			overflow:hidden;
-		}
-			
-		#calendarmenu {
-			border:solid 1px #000;
-			background-color:#fff;
-			visibility:hidden;
-			position:absolute;
-			left:50px;
-		}
-	
-		.event {
-			border:solid 1px #000;
-			background-color:#fff;
-			position:absolute;
-			visibility:hidden;
-			width:200px;
-			padding:5px;
-			top:0;
-			left:0;
-			overflow:hidden;
-		}
-	</style>
-
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/grouphomepage.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)

@@ -38,69 +38,13 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> 2.2</title>
-<?php require("appearance.php"); ?>
-<style type="text/css">		
-	#container {
-		height: 100%;
-	}
-	
-	#top {
-		margin-bottom:10px;
-	}
-	
-	#top h1 {
-		color:#000000;
-		border-bottom-style:solid;
-		border-bottom-color:#CC0000;
-		font-size:20px;
-		font-weight:normal;
-	}
-	
-	#left {
-		float:left;
-		width:380px;
-		text-align:center;
-		margin-top:20px;
-		padding: 1em;
-	}
-	
-	.right {
-		margin-left:400px;
-		margin-top:20px;
-		padding: 1em;
-	} 
-	
-	#bottom {
-		margin-top:10px;
-	}
-	
-	#bottom h1 {
-		color:#000000;
-		border-bottom-style:solid;
-		border-bottom-color:#CC0000;
-		font-size:20px;
-		font-weight:normal;
-		margin-left: 2em;
-	}
-	
-	.announcement-heading {
-		color:#cc0000;
-		font-weight:bold;
-	}
-			
-	#calendarmenu {
-		border:solid 1px #000;
-		background-color:#fff;
-		visibility:hidden;
-		position:absolute;
-		left:50px;
-	}
-</style>
 <?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/files.css\" type=\"text/css\" />\n";
 if ( $currentUser && $currentUser->isAdministrator() )
 {
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
 ?>
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)

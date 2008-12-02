@@ -1,16 +1,10 @@
 <?php
-	echo "<link rel=\"stylesheet\" href=\"../default.css\" type=\"text/css\" />\n";
-	echo "<style type=\"text/css\">\n";
-	$query = $db->igroupsQuery("select distinct sKey from Appearance where sCSSAttribute is not null");
-	while($row = mysql_fetch_row($query))
-	{
-		echo $row[0]." {\n";
-		$query2 = $db->igroupsQuery("select sCSSAttribute, sValue from Appearance where sKey='".$row[0]."' and sCSSAttribute is not null");
-		while($row2 = mysql_fetch_array($query2))
-		{
-			echo "\t".$row2['sCSSAttribute'].": ".$row2['sValue'].";\n";
-		}
-		echo "}\n";
-	}
+	if(isset($currentUser) && isset($db))
+		$lynyrdskynyrd = mysql_fetch_row($db->igroupsQuery('select sName from Skins where iID in (select iSkin from People where iID='.$currentUser->getID().')'));
+	else if(isset($db))
+		$lynyrdskynyrd = mysql_fetch_row($db->igroupsQuery('select sName from Skins where bDefault=1'));
+	else
+		die('No database connection');
+	$skin = $lynyrdskynyrd[0];
+	echo "<link rel=\"stylesheet\" href=\"../skins/$skin/default.css\" type=\"text/css\" />\n";
 ?>
-</style>

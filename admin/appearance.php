@@ -29,8 +29,6 @@
 	echo "<label for=\"appurl\">Application URL:</label><input type=\"text\" name=\"appurl\" id=\"appurl\" value=\"".$query[0]."\" /><br />\n";
 	$query = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='contactemail' and sCSSAttribute is null"));
 	echo "<label for=\"contactemail\">Contact email:</label><input type=\"text\" name=\"contactemail\" id=\"contactemail\" value=\"".$query[0]."\" /><br />\n";
-	$query = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='a:link, a:visited' and sCSSAttribute='color'"));
-	echo "<label for=\"linkcolor\">Link color:</label><input type=\"text\" name=\"linkcolor\" id=\"linkcolor\" value=\"".$query[0]."\" /><br />\n";
 ?>
 <input type="submit" name="sub" /><input type="reset" />
 </fieldset></form>	

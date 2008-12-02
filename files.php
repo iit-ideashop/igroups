@@ -41,13 +41,13 @@
 	// Prints tree structure of folders
 		$subfolder = $folder->getFolders();
 		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
-			print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a></strong>\n";
+			print "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a></strong>\n";
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
-			print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
+			print "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		else
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
 			print "<ul class=\"folderlist\">\n";
 			foreach ( $subfolder as $key => $val ) {
@@ -108,55 +108,11 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Group Files</title>
-<?php require("appearance.php"); ?>
-	<style type="text/css">
-		#container {
-			margin:auto;
-			padding:0;
-		}
-		
-		#folderbox {
-			float:left;
-			width:30%;
-			margin:5px;
-			padding:2px;
-			border:1px solid #000;
-		}
-		
-		#folders {
-			width:100%;
-			text-align:left;
-			background-color: #fff;
-			padding-top:5px;
-		}
-		
-		#filebox {
-			float:left;
-			margin:5px;
-			padding:2px;
-			width:65%;
-			border:1px solid #000;
-		}
-		
-		#files {
-			width:100%;
-			text-align:left;
-			background-color:#fff;
-		}
-		
-		.menubar {
-			background-color:#eeeeee;
-			margin-bottom:5px;
-			padding:3px;
-		}
-		
-		.menubar li {
-			padding:5px;
-			display:inline;
-		}
-	</style>
-
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/files.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
@@ -448,9 +404,9 @@
 				<ul id="top" class="folderlist">
 <?php
 					if ( !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']==0 )
-						print '<li><img src="img/folder-expanded.png" style="border-style: none" alt="=" title="Open folder" />&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
+						print '<li><img src="skins/'.$skin.'/img/folder-expanded.png" style="border-style: none" alt="=" title="Open folder" />&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
 					else
-						print '<li><img src="img/folder-expanded.png" style="border-style: none" alt="=" title="Open folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
+						print '<li><img src="skins/'.$skin.'/img/folder-expanded.png" style="border-style: none" alt="=" title="Open folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
 					
 						$topFolders = $currentGroup->getGroupFolders();
 						if(count($topFolders) > 0) {
@@ -464,20 +420,20 @@
 					print "</li>";
 
 					if ( $_SESSION['selectedSpecial'] == 'obsolete' )
-							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=obsolete">Past Versions</a></strong></li>';
+							print '<li><a href="files.php?selectSpecial=obsolete"><img src="skins/'.$skin.'/img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=obsolete">Past Versions</a></strong></li>';
 						else
-							print '<li><a href="files.php?selectSpecial=obsolete"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
+							print '<li><a href="files.php?selectSpecial=obsolete"><img src="skins/'.$skin.'/img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=obsolete">Past Versions</a></li>';
 					if ( $_SESSION['selectedSpecial'] == 'trash' )
-							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=trash">Trash Bin</a></strong</li>';
+							print '<li><a href="files.php?selectSpecial=trash"><img src="skins/'.$skin.'/img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=trash">Trash Bin</a></strong</li>';
 						else
-							print '<li><a href="files.php?selectSpecial=trash"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
+							print '<li><a href="files.php?selectSpecial=trash"><img src="skins/'.$skin.'/img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=trash">Trash Bin</a></li>';
 					
 
 					if ( $currentGroup->getType() == 0 ) {
 						if ( $_SESSION['selectedSpecial'] == 'ipro' )
-							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=ipro">IPRO Office Files</a></strong>';
+							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="skins/'.$skin.'/img/folder-expanded.png" style="border-style: none" alt="-" title="Open folder" /></a>&nbsp;<strong><a href="files.php?selectSpecial=ipro">IPRO Office Files</a></strong>';
 						else
-							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a>';
+							print '<li><a href="files.php?toggleExpand=iprofiles"><img src="skins/'.$skin.'/img/folder.png" style="border-style: none" alt="+" title="Folder" /></a>&nbsp;<a href="files.php?selectSpecial=ipro">IPRO Office Files</a>';
 
 						if ( in_array( "iprofiles", $_SESSION['expandFolders'] ) ) {
 ?>
@@ -496,7 +452,7 @@
 <?php
 					}
 ?>
-				<li><img src="img/folder.png" style="border-style: none" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
+				<li><img src="skins/<?php echo $skin.; ?>img/folder.png" style="border-style: none" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
 				</ul>
 			</div>
 		</div>
@@ -559,41 +515,41 @@
 <?php					if($_SESSION['selectedSpecial'] != 'ipro') {
 						echo "<tr class=\"sortbar\"><td></td>\n";
 						if($_SESSION['fileSort'] == 1)
-							echo "<td><a href=\"files.php?sort=-1\" title=\"Sort this descendingly\">Filename <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=-1\" title=\"Sort this descendingly\">Filename <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 						else if($_SESSION['fileSort'] == -1)
-							echo "<td><a href=\"files.php?sort=1\" title=\"Sort this ascendingly\">Filename <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=1\" title=\"Sort this ascendingly\">Filename <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 						else
 							echo "<td><a href=\"files.php?sort=1\" title=\"Sort by filename\">Filename</a>";
 						if($_SESSION['fileSort'] == 2)
-							echo "<td><a href=\"files.php?sort=-2\" title=\"Sort this descendingly\">Description <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=-2\" title=\"Sort this descendingly\">Description <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 						else if($_SESSION['fileSort'] == -2)
-							echo "<td><a href=\"files.php?sort=2\" title=\"Sort this ascendingly\">Description <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=2\" title=\"Sort this ascendingly\">Description <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 						else
 							echo "<td><a href=\"files.php?sort=2\" title=\"Sort by description\">Description</a>";
 						if($_SESSION['fileSort'] == 3)
-							echo "<td><a href=\"files.php?sort=-3\" title=\"Sort this descendingly\">Author <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=-3\" title=\"Sort this descendingly\">Author <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 						else if($_SESSION['fileSort'] == -3)
-							echo "<td><a href=\"files.php?sort=3\" title=\"Sort this ascendingly\">Author <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=3\" title=\"Sort this ascendingly\">Author <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 						else
 							echo "<td><a href=\"files.php?sort=3\" title=\"Sort by author\">Author</a>";
 						if($_SESSION['fileSort'] == 4)
-							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort this descendingly\">Date <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort this descendingly\">Date <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 						else if($_SESSION['fileSort'] == -4)
-							echo "<td><a href=\"files.php?sort=4\" title=\"Sort this ascendingly\">Date <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=4\" title=\"Sort this ascendingly\">Date <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 						else
 							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort by date\">Date</a>";
 						echo "<td></td><td></td></tr>\n"; 
 					}
 					if ($currentFolder && !$currentFolder->isIPROFolder()) {
 							printTR();
-							print "<td style=\"width: 24px\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
+							print "<td style=\"width: 24px\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
 							print "<td align=\"left\" colspan=\"5\"><a href=\"files.php?selectFolder=".$currentFolder->getParentFolderID()."\">..</a></td>";
 							print "</tr>\n";
 					}
 					if ($folderList && ($_SESSION['selectedSpecial'] == 'ipro' || ($currentFolder && $currentFolder->isIPROFolder()))) {
 						foreach ( $folderList as $key => $folder ) {
 							printTR();
-							print "<td><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
+							print "<td><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></td>";
 							print "<td><a href=\"files.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></td>";
 							print "<td colspan=\"3\">".$folder->getDesc()."</td>";
 							print "</tr>\n";
@@ -602,13 +558,13 @@
 					if($_SESSION['selectedSpecial'] == 'ipro')
 					{
 						printTR();
-						echo "<td><img src=\"img/globe.png\" style=\"border-style: none\" alt=\"Link\" title=\"External Link\" /></td><td><a href=\"http://ipro.iit.edu/home/index.php?id=163\" onclick=\"window.open(this.href); return false\" onkeypress=\"window.open(this.href); return false;\">IPRO Deliverables</a></td><td>Guidelines for the IPRO deliverables</td></tr>\n";
+						echo "<td><img src=\"skins/$skin/img/globe.png\" style=\"border-style: none\" alt=\"Link\" title=\"External Link\" /></td><td><a href=\"http://ipro.iit.edu/home/index.php?id=163\" onclick=\"window.open(this.href); return false\" onkeypress=\"window.open(this.href); return false;\">IPRO Deliverables</a></td><td>Guidelines for the IPRO deliverables</td></tr>\n";
 					}	
 					if ( canViewFiles( $currentUser, $currentFolder ) ) {
 					if ($fileList) //Prevents an error from PHP 4 to PHP 5 switch
 						foreach ( $fileList as $key => $file ) {
 							printTR();
-							print "<td><img src=\"img/file.png\" alt=\"File\" title=\"File\" /></td>";
+							print "<td><img src=\"skins/$skin/img/file.png\" alt=\"File\" title=\"File\" /></td>";
 							print "<td><a href=\"download.php?id=".$file->getID()."\">".htmlspecialchars($file->getName())."</a></td>";
 							print "<td>".htmlspecialchars($file->getDesc())."</td>";
 							$author = $file->getAuthor();

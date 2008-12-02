@@ -171,3 +171,16 @@ ul.folderlist ul {
 .sortbar img {
 	border: 0;
 }
+
+#bookmarks td
+{
+	padding: 5px;
+}
+
+#semesterSelect {
+	margin-bottom:10px;
+}
+
+#groupSelect {
+	margin-bottom:10px;
+}

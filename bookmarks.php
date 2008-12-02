@@ -48,12 +48,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Group Bookmarks</title>
 <?php require("appearance.php"); ?>
-<style type="text/css">
-#bookmarks td
-{
-	padding: 5px;
-}
-</style>
 </head><body>
 <?php require("sidebar.php"); ?>
 <div id="content">

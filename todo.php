@@ -9,167 +9,12 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Group Todo List</title>
-<?php require("appearance.php"); ?>
-	<style type="text/css">
-		#calendar {
-			border:solid 1px #000;
-			background-color:#fff;
-			position:absolute;
-			visibility:hidden;
-			left:50px;
-			z-index:500;
-		}
-
-
-		table.todoList {
-			margin: 0px;
-			padding: 0px;
-			border: 1px solid black;
-			background: #FFFFFF;
-		}
-
-		table.todoList tr.todoHeaders {
-			color: #000;
-			text-align: center;
-			font-weight: bold;
-			font-size: 16px;
-			background: #EEE;
-		}
-
-		table.todoList td.todoTop {
-			border-bottom: 1px solid #cc0000;
-		}
-
-		a.todoSort {
-			color: #000;
-		}
-
-		table.todoList td.taskNum {
-			width: 60px;
-		}
-		
-		table.todoList td.taskDesc {
-			text-align: right;
-			padding-right: 5px;
-			width: 400px;
-		}
-
-		table.todoList td.taskDate {
-			text-align: center;
-			width: 80px;
-		}
-
-		table.todoList td.taskDone {
-			text-align: center;
-			width: 50px;
-		}
-
-		table.todoList td.taskDel {
-			text-align: center;
-			width: 70px;
-		}
-
-		table.todoList tr.taskColor {
-			background: #EEE;
-		}
-
-		div#task_table_footer {
-			font-size: 14px;
-		}
-
-		div#task_table_footer span.text{
-			position: relative;
-			top: -3px;
-		}
-
-	div.taskEdit {
-	    position: relative;
-	    margin-left: 5px;
-	    padding: 5px;
-	    background: #EEE;
-	    border: 1px dotted #444444;
-	    width: 600px;
-	}
-
-	div.taskEdit div.description {
-	    background: #ddd;
-	    border-bottom: 2px solid #999;
-	    border-top: 2px solid #BBB;
-	    padding-bottom: 3px;
-	    margin-bottom: 5px;
-	}
-	
-	span.taskNumDisplay{
-	    position: relative;
-	    float: left;
-	    margin-top: 5px;
-	    left: 8px;
-	    top: -5px;
-	    color: green;
-	    font-size: 24px;
-	    z-index: 5;
-	}
-
-	#editButton {
-	    border: 0px;
-	    width: 30px;
-	    background: white;
-	    text-decoration: underline;
-	    color: #cc0207;
-	    font-family: Arial, Helvetica, sans-serif;
-	    margin-left: -3px;
-	}
-
-	div.newItem{
-	    margin-bottom: 5px;
-	}
-
-.ds_box {
-	background-color: #FFF;
-	border: 1px solid #000;
-	position: absolute;
-	z-index: 32767;
-}
-
-.ds_tbl {
-	background-color: #FFF;
-}
-
-.ds_head {
-	background-color: #C00;
-	color: #FFF;
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 13px;
-	font-weight: bold;
-	text-align: center;
-	letter-spacing: 2px;
-}
-
-.ds_subhead {
-	background-color: #CCC;
-	color: #000;
-	font-size: 12px;
-	font-weight: bold;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-	width: 32px;
-}
-
-.ds_cell {
-	background-color: #EEE;
-	color: #000;
-	font-size: 13px;
-	text-align: center;
-	font-family: Arial, Helvetica, sans-serif;
-	padding: 5px;
-	cursor: pointer;
-}
-
-.ds_cell:hover {
-	background-color: #F3F3F3;
-} /* This hover code won't work for IE */
-	</style>
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/todo.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/calendar.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/dhtmlwindow.css\" type=\"text/css\" />"
+?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
@@ -696,13 +541,13 @@ function ds_onclick(d, m, y) {
 			}
 				print " /></td><td class=\"taskDel\">";
 			if (!$currentUser->isGroupGuest($currentGroup))
-			print "<a href=\"?d=t&amp;di=".$foo->getID()."&amp;dt=".$foo->getTaskNum()."\"><img src=\"img/delete.png\" style=\"border-style: none\" alt=\"X\" title=\"Delete Task ".$foo->getTaskNum()."\" /></a>";
+			print "<a href=\"?d=t&amp;di=".$foo->getID()."&amp;dt=".$foo->getTaskNum()."\"><img src=\"skins/$skin/img/delete.png\" style=\"border-style: none\" alt=\"X\" title=\"Delete Task ".$foo->getTaskNum()."\" /></a>";
 			print "</td></tr>\n";
 		}
 		print("</table>");
 		print("<div id=\"taskFoo\"></div>");
 		print('<input type="hidden" name="c" value="t" />');
-		print("<div id=\"task_table_footer\"><img src=\"img/arrow_ltr.png\" style=\"margin-left: 5px;\" alt=\"^\" title=\"Arrow\" /><span class=\"text\">Task Selection: <a href=\"#\" onclick=\"javascript: editChk();return false\">Check All</a> / <a href=\"#\" onclick=\"javascript: editUnChk();return false;\">Uncheck All</a>");
+		print("<div id=\"task_table_footer\"><img src=\"skins/$skin/img/arrow_ltr.png\" style=\"margin-left: 5px;\" alt=\"^\" title=\"Arrow\" /><span class=\"text\">Task Selection: <a href=\"#\" onclick=\"javascript: editChk();return false\">Check All</a> / <a href=\"#\" onclick=\"javascript: editUnChk();return false;\">Uncheck All</a>");
 		if (!$currentUser->isGroupGuest($currentGroup))
 			print(" / <input type=\"submit\" name=\"e\" value=\"Edit\" id=\"editButton\" />");
 		print("  </span></div>");

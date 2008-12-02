@@ -47,9 +47,9 @@
 			}
 			
 			if($nuggets[$nug] != 0){
-				print "<td><img src=\"img/upload.png\" alt=\"Y\" title=\"$nugprint has been uploaded\" />&nbsp;<a href=\"viewNugget.php?nug=".$nuggets[$nug]."\">".$nugprint."</a></td><td><a href=\"editNugget.php?edit=true&amp;nugID=".$nuggets[$nug]."\">Edit</a></td>";
+				print "<td><img src=\"skins/$skin/img/upload.png\" alt=\"Y\" title=\"$nugprint has been uploaded\" />&nbsp;<a href=\"viewNugget.php?nug=".$nuggets[$nug]."\">".$nugprint."</a></td><td><a href=\"editNugget.php?edit=true&amp;nugID=".$nuggets[$nug]."\">Edit</a></td>";
 			}else{
-				print "<td><img src=\"img/no_upload.png\" alt=\"N\" title=\"$nugprint not uploaded\" />&nbsp;".$nugprint."</td><td><a href=\"addNugget.php?type=".$nug."\">Add Nugget</a></td>";
+				print "<td><img src=\"skins/$skin/img/no_upload.png\" alt=\"N\" title=\"$nugprint not uploaded\" />&nbsp;".$nugprint."</td><td><a href=\"addNugget.php?type=".$nug."\">Add Nugget</a></td>";
 			}
 			$nugCount++;
 		}
@@ -74,12 +74,12 @@
 				$id = $nug->getID();
 				$type = $nug->getType();
 				if(strstr($type, $def)){
-					$link .= "<td><img src=\"img/upload.png\" alt=\"Y\" title=\"Uploaded\" />&nbsp;$def</td><td><a href=\"viewNugget.php?nug=$id&amp;isOld=1\">View</a></td>";
+					$link .= "<td><img src=\"skins/$skin/img/upload.png\" alt=\"Y\" title=\"Uploaded\" />&nbsp;$def</td><td><a href=\"viewNugget.php?nug=$id&amp;isOld=1\">View</a></td>";
 					$nugCount++;
 				}
 			}
 			if (!$link) {
-				$link = "<td><img src=\"img/no_upload.png\" alt=\"N\" title=\"Not uploaded\" />&nbsp;$def</td><td>Not Uploaded</td>";
+				$link = "<td><img src=\"skins/$skin/img/no_upload.png\" alt=\"N\" title=\"Not uploaded\" />&nbsp;$def</td><td>Not Uploaded</td>";
 				$nugCount++;
 			}
 			print "$link";
@@ -253,28 +253,10 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Nuggets</title>
-<?php require("appearance.php"); ?>
-	<style type="text/css">
-		table.nugget {
-			width: 70%;
-		}
-		
-		table.nugget tr {
-			
-		}	
-			
-		table.nugget td {
-			border: 3px solid #ccc;
-			padding: 20px;
-			width:50%;
-		}	
-		
-		.item {
-			padding-top:5px;
-			padding-bottom:5px;
-			border-bottom:1px solid #ccc;
-		}	
-	</style>
+<?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/nuggets.css\" type=\"text/css\" />\n";
+?>
 	<script type="text/javascript">
 	//<![CDATA[
 		function nuggetRedirect(nugget){

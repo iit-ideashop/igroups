@@ -33,9 +33,9 @@
 			}
 			if($nuggets[$nug] != 0){
 				$gID = $currentGroup->getID();
-				print "<td><img src=\"../img/upload.png\" alt=\"Y\" />&nbsp;$nug</td><td><a href='viewNugget.php?nuggetID=".$nuggets[$nug]."&amp;groupID=$gID'>View</a></td>";
+				print "<td><img src=\"../skins/$skin/img/upload.png\" alt=\"Y\" />&nbsp;$nug</td><td><a href='viewNugget.php?nuggetID=".$nuggets[$nug]."&amp;groupID=$gID'>View</a></td>";
 			}else{
-				print "<td><img src=\"../img/no_upload.png\" alt=\"N\" />&nbsp;".$nug."</td><td>Not Uploaded</td>";
+				print "<td><img src=\"../skins/$skin/img/no_upload.png\" alt=\"N\" />&nbsp;".$nug."</td><td>Not Uploaded</td>";
 			}
 			$nugCount++;
 		}
@@ -61,12 +61,12 @@
 				$type = $nug->getType();
 				$gID = $currentGroup->getID();
 				if(strstr($type, $def)){
-					$link .= "<td><img src=\"../img/upload.png\" alt=\"Y\" />&nbsp;$def</td><td><a href='viewNugget.php?nuggetID=$id&amp;groupID=$gID&amp;isOld=1'>View</a></td>";
+					$link .= "<td><img src=\"../skins/$skin/img/upload.png\" alt=\"Y\" />&nbsp;$def</td><td><a href='viewNugget.php?nuggetID=$id&amp;groupID=$gID&amp;isOld=1'>View</a></td>";
 					$nugCount++;
 				}
 			}
 			if (!$link) {
-				$link = "<td><img src=\"../img/no_upload.png\" alt=\"N\" />&nbsp;$def</td><td>Not Uploaded</td>";
+				$link = "<td><img src=\"../skins/$skin/img/no_upload.png\" alt=\"N\" />&nbsp;$def</td><td>Not Uploaded</td>";
 				$nugCount++;
 			}
 			print "$link";
@@ -169,28 +169,10 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Nuggets</title>
-<?php require("appearance.php"); ?>
-	<style type="text/css">
-		table.nugget {
-			width: 70%;
-		}
-
-		table.nugget tr {
-
-		}
-
-		table.nugget td {
-			border: 3px solid #ccc;
-			padding: 20px;
-			width:50%;
-		}
-
-		.item {
-			padding-top:5px;
-			padding-bottom:5px;
-			border-bottom:1px solid #ccc;
-		}
-	</style>
+<?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/nuggets.css\" type=\"text/css\" />\n";
+?>
 </head>
 
 <body>

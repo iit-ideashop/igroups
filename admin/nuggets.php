@@ -36,11 +36,6 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <?php require("../iknow/appearance.php"); ?>
 <title><?php echo $appname;?> - IPRO Team Nuggets</title>
-	<style type="text/css">
-		#semesterSelect {
-			margin-bottom:10px;
-		}
-	</style>
 </head>
 <body>
 <?php

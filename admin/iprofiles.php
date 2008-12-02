@@ -21,7 +21,7 @@
 			
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
-		print "<li><a href=\"iprofiles.php?selectFolder=".$folder->getID()."\"><img src=\"../img/folder.png\" alt=\"\" style=\"border-style: none\" />".$folder->getName()."</a>\n";
+		print "<li><a href=\"iprofiles.php?selectFolder=".$folder->getID()."\"><img src=\"../skins/$skin/img/folder.png\" alt=\"\" style=\"border-style: none\" />".$folder->getName()."</a>\n";
 		$subfolder = $folder->getFolders();
 		if(count($subfolder) > 0) {
 		print "<ul class=\"prof\">\n";
@@ -56,60 +56,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<?php require("../iknow/appearance.php"); ?>
 <title><?php echo $appname;?> - IPRO Office Files</title>
+<?php
+require("../iknow/appearance.php");
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/files.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+?>
 	<style type="text/css">
-		#folderbox {
-			float:left;
-			width:30%;
-			margin:5px;
-			padding:2px;
-			border:3px solid #000;
-		}
-		
-		#folders {
-			width:100%;
-			text-align:left;
-			background-color: #fff;
-			padding-top:5px;
-		}
-		
-		
-		#filebox {
-			float:left;
-			margin:5px;
-			padding:2px;
-			width:64%;
-			border:3px solid #000;
-		}
-		
-		#files {
-			width:100%;
-			text-align:left;
-			background-color:#fff;
-		}
-		
-		#menubar {
-			background-color:#eeeeee;
-			margin-bottom:5px;
-			padding:3px;
-		}
-		
-		#menubar li {
-			padding:5px;
-			display:inline;
-		}
-		
-		ul.prof {
-			list-style:none;
-			padding:0;
-			margin:0;
-		}
-			
-		ul.prof ul {
-			padding-left:20px;
-		}
-
 		.window {
 			display: none;
 		}
@@ -128,7 +81,6 @@
 		}
 	//]]>
 	</script>
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
@@ -289,7 +241,7 @@
 			
 			foreach ( $folderList as $key => $folder ) {
 				printTR();
-				print "<td><img src=\"../img/folder.png\" alt=\"\" /></td>";
+				print "<td><img src=\"../skins/$skin/img/folder.png\" alt=\"\" /></td>";
 				print "<td><a href=\"iprofiles.php?selectFolder=".$folder->getID()."\">".$folder->getName()."</a></td>";
 				print "<td>".$folder->getDesc()."</td>";
 				print "<td align=\"right\"><input type=\"checkbox\" name=\"folder[".$folder->getID()."]\" /></td>";
@@ -298,7 +250,7 @@
 			
 			foreach ( $fileList as $key => $file ) {
 				printTR();
-				print "<td><img src=\"../img/file.png\" alt=\"\" /></td>";
+				print "<td><img src=\"../skins/$skin/img/file.png\" alt=\"\" /></td>";
 				print "<td><a href=\"../download.php?id=".$file->getID()."\">".$file->getName()."</a></td>";
 				print "<td>".$file->getDesc()."</td>";
 				print "<td align=\"right\"><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";

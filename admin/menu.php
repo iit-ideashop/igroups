@@ -145,7 +145,7 @@ ob_start();
 ?>
 <div id="sidebar">
 	<div id="igroupslogo">
-		<img src="../img/iGroupslogo.png" alt="<?php echo $appname; ?>" title="<?php echo $appname; ?>" />
+		<img src="../skins/<?php echo $skin; ?>/img/iGroupslogo.png" alt="<?php echo $appname; ?>" title="<?php echo $appname; ?>" />
 	</div>
 <?php	
 	if ( isset( $_SESSION['userID'] )) 
@@ -186,7 +186,7 @@ ob_start();
 		foreach ( $sortedIPROs as $key => $val ) {
 			$semester = new Semester( $key, $db );
 			if ( in_array( $semester->getID(), $_SESSION['expandSemesters'] ) ) {
-				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../skins/$skin/img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 				echo "<ul>\n";
 				ksort( $val );
 				foreach ( $val as $useless => $group ) {
@@ -201,14 +201,14 @@ ob_start();
 				echo "</ul>\n";
 			}
 			else
-				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../skins/$skin/img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 			echo "</li>";
 		}
 		echo "</ul>\n";
 	}
 	
 	if ( in_array( "igroups", $_SESSION['expandSemesters'] ) ) {
-		echo "<a href=\"?toggleExpand=igroups\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
+		echo "<a href=\"?toggleExpand=igroups\"><img src=\"../skins/$skin/img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
 		@ksort( $igroups );
 		echo "<ul>\n";
 		if ( isset($igroups)) {
@@ -225,11 +225,11 @@ ob_start();
 		echo "</ul>\n";
 	}
 	else
-		echo "<a href=\"?toggleExpand=igroups\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
+		echo "<a href=\"?toggleExpand=igroups\"><img src=\"../skins/$skin/img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
 
 	if ( $currentUser->isAdministrator() ) {
 		if ( in_array( "admin", $_SESSION['expandSemesters'] ) ) {
-			echo "<a href=\"?toggleExpand=admin\"><img src=\"../img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
+			echo "<a href=\"?toggleExpand=admin\"><img src=\"../skins/$skin/img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
 			echo "<ul>";
 			echo "<li><a href=\"../admin/group.php\">Manage Groups</a></li>";
 			echo "<li><a href=\"../admin/email.php\">Email Groups</a></li>";
@@ -246,7 +246,7 @@ ob_start();
 			echo "</ul>";
 		}
 		else
-			echo "<a href=\"?toggleExpand=admin\"><img src=\"../img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
+			echo "<a href=\"?toggleExpand=admin\"><img src=\"../skins/$skin/img/plus.png\" style=\"border-style: none\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
 	}
 ?>
 	<ul class="noindent">

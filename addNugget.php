@@ -117,18 +117,10 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Group Files</title>
-<?php require("appearance.php"); ?>
-	<style type="text/css">
-		.item {
-			padding-top:5px;
-			padding-bottom:5px;
-			border-bottom:1px solid #ccc;
-		}
-
-		label {
-			font-weight: bold;
-		}	
-	</style>
+<?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/nuggets.css\" type=\"text/css\" />\n";
+?>
 	<script type="text/javascript">
 	//<![CDATA[
 		function submitForm(){

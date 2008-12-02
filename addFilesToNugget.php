@@ -67,13 +67,13 @@
 	// Prints tree structure of folders
 		$subfolder = $folder->getFolders();
 		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
-			print "<li><img src=\"img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a></strong>\n";
+			print "<li><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a></strong>\n";
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
-			print "<li><img src=\"img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
+			print "<li><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
-			print "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
+			print "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		else
-			print "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"img/folder.png\" alt=\"+\" title=\"Folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
+			print "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
 			print "<ul class=\"folderlist\">\n";
 			foreach ( $subfolder as $key => $val ) {
@@ -128,50 +128,11 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Nugget File Transfer</title>
-<?php require("appearance.php"); ?>
-	<style type="text/css">
-		#container{
-			margin:auto;
-			padding:0;
-		}
-
-		#folderbox{
-			float:left;
-			width:30%;
-			margin:5px;
-			padding:2px;
-			border:1px solid #000;
-		}
-
-		#folders {
-			width:100%;
-			text-align:left;
-			background-color:#fff;
-			padding-top:5px;
-		}
-		
-		#filebox{
-			float:left;
-			margin:5px;
-			padding:2px;
-			width:64%;
-			border:1px solid #000;
-		}
-
-		#files{
-			width:100%;
-			text-align-left;
-			background-color:#fff;
-		}
-	
-		#menubar{
-			background-color:#eeeeee;
-			margin-bottom:5px;
-			padding:3px;
-		}
-	</style>
-
-<link rel="stylesheet" href="windowfiles/dhtmlwindow.css" type="text/css" />
+<?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/files.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
@@ -221,7 +182,7 @@ require("sidebar.php");
 				<ul id="top" class="folderlist">
 <?php
 					if( !isset( $_SESSION['selectedSpecial']) && $_SESSION['selectedFolder']==0){
-						print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0\">Your Files</a></strong>";
+						print "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0\">Your Files</a></strong>";
 						$topFolders=$currentGroup->getGroupFolders();
 						if(count($topFolders) > 0) {
 							print "<ul class=\"folderlist\">";
@@ -236,7 +197,7 @@ require("sidebar.php");
 						</li>
 <?php
 					}else
-						print "<li><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0\">Your Files</a>";
+						print "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0\">Your Files</a>";
 ?>
 				</ul>
 			</div>
@@ -281,7 +242,7 @@ require("sidebar.php");
 						if($fileList) {
 							foreach($fileList as $key=>$file){
 								printTR();
-								print "<td><img src=\"img/file.png\" alt=\"\" /></td>";
+								print "<td><img src=\"skins/$skin/img/file.png\" alt=\"\" /></td>";
 								print "<td><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a></td>";
 								if($_SESSION['selectedFolder']==1){
 									$nuggetName=$file->getNugget()->getType();
