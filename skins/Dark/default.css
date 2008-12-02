@@ -125,7 +125,7 @@ ul.noindent {
 }
 
 div.box {
-	background-color: #EEEEEE;
+	background-color: #222222;
 	text-align:left;
 	padding:15px;
 	position:relative;
@@ -163,7 +163,7 @@ ul.folderlist ul {
 }
 
 .sortbar {
-	background-color: #cc0000;
+	background-color: #444444;
 	color: #dddddd;
 	font-weight: bold;
 }
