@@ -73,12 +73,12 @@ echo "<link rel=\"stylesheet\" href=\"../skins/$skin/budget.css\" type=\"text/cs
 		
 	else {
 		echo "<table id=\"budget\" cellpadding=\"7\" cellspacing=\"0\">";
-		echo "<tr".($currow & 1 ? ' class="shade"' : '')."><th>IPRO Name</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Balance</th><th>Waiting Approval?</th></tr>";
+		echo "<tr><th>IPRO Name</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Balance</th><th>Waiting Approval?</th></tr>";
 		while ($row = mysql_fetch_assoc($query))
 		{	
 		$get_ipro_name = $db->iknowQuery("SELECT sIITID, sName FROM Projects WHERE iID={$row[iProjectID]}");
 		$result = mysql_fetch_row($get_ipro_name);
-		echo "<tr><td><a href=\"budget_details.php?iProjectID=$row[iProjectID]&amp;iSemesterID=$this_semester&amp;iproNum=$result[0]&amp;iproName=$result[1]\"><strong>$result[0]:</strong> $result[1]</a></td><td>$".round($row[requested], 2)."</td><td>$".round($row[approved], 2)."</td><td>$".round($row[reimbursed], 2)."</td><td>$".round($row[difference], 2)."</td>";
+		echo "<tr".($currow & 1 ? ' class="shade"' : '')."><td><a href=\"budget_details.php?iProjectID=$row[iProjectID]&amp;iSemesterID=$this_semester&amp;iproNum=$result[0]&amp;iproName=$result[1]\"><strong>$result[0]:</strong> $result[1]</a></td><td>$".round($row[requested], 2)."</td><td>$".round($row[approved], 2)."</td><td>$".round($row[reimbursed], 2)."</td><td>$".round($row[difference], 2)."</td>";
 		
 			//Check for Pending Requests
 			$query_pending = mysql_query("SELECT bStatus FROM Budgets WHERE iSemesterID={$this_semester} AND iProjectID={$row[iProjectID]} AND bStatus='Pending'");
