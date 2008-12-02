@@ -28,16 +28,16 @@
 	overflow:hidden;
 }
 
-.budget {
+.budget, #budget {
 	background: #eee;
 	border-style: none;
 }
 
-.budget tr td {
+.budget tr td, #budget tr td {
 	border: 1px solid #ccc;
 }
 
-.budget tr th {
+.budget tr th, #budget tr th {
 	border: 1px solid #ccc;
 	background: #ccc;
 }
