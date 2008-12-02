@@ -2,7 +2,7 @@ table.todoList {
 	margin: 0px;
 	padding: 0px;
 	border: 1px solid black;
-	background: #FFFFFF;
+	background: #222222;
 }
 
 table.todoList tr.todoHeaders {
@@ -90,7 +90,7 @@ span.taskNumDisplay{
 #editButton {
     border: 0px;
     width: 30px;
-    background: black;
+    background: #444;
     text-decoration: underline;
     color: #ccc;
     font-family: Arial, Helvetica, sans-serif;
