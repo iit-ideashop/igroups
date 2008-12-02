@@ -10,7 +10,7 @@
 	global $_DEFAULTNUGGETS;
 
 	function displayNuggets($currentGroup){
-		global $_DEFAULTNUGGETS;
+		global $_DEFAULTNUGGETS, $skin;
 ?>
 		<h1>Current Semester's IPRO Deliverable Nuggets</h1>
 <?php
