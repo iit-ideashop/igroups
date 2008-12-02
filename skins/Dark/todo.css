@@ -6,11 +6,11 @@ table.todoList {
 }
 
 table.todoList tr.todoHeaders {
-	color: #000;
+	color: #fff;
 	text-align: center;
 	font-weight: bold;
 	font-size: 16px;
-	background: #EEE;
+	background: #222;
 }
 
 table.todoList td.todoTop {
@@ -47,7 +47,7 @@ table.todoList td.taskDel {
 }
 
 table.todoList tr.taskColor {
-	background: #EEE;
+	background: #222;
 }
 
 div#task_table_footer {
@@ -63,13 +63,13 @@ div.taskEdit {
     position: relative;
     margin-left: 5px;
     padding: 5px;
-    background: #EEE;
+    background: #222;
     border: 1px dotted #444444;
     width: 600px;
 }
 
 div.taskEdit div.description {
-    background: #ddd;
+    background: #222;
     border-bottom: 2px solid #999;
     border-top: 2px solid #BBB;
     padding-bottom: 3px;
@@ -90,9 +90,9 @@ span.taskNumDisplay{
 #editButton {
     border: 0px;
     width: 30px;
-    background: white;
+    background: black;
     text-decoration: underline;
-    color: #cc0207;
+    color: #ccc;
     font-family: Arial, Helvetica, sans-serif;
     margin-left: -3px;
 }

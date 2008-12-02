@@ -190,7 +190,7 @@ ul.folderlist ul {
 	margin-bottom:10px;
 }
 
-input[type="text"], textarea {
+input, textarea {
 	background-color: #333333;
 	color: white;
 }

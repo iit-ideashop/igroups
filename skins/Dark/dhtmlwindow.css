@@ -9,7 +9,7 @@ background-color: white;
 padding: 1px;
 text-indent: 3px;
 font: bold 14px Arial;
-background-color: #CA0000;
+background-color: #000000;
 color: white;
 cursor: move;
 overflow: hidden;
@@ -40,7 +40,8 @@ overflow: auto;
 
 .drag-statusarea{ /*CSS for Status Bar div (includes resizearea)*/
 border-top: 1px solid gray;
-background-color: #F8F8F8;
+background-color: #222;
+color: #fff;
 height: 13px; /*height of resize image*/
 }
 
