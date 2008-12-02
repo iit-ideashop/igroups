@@ -40,7 +40,7 @@
 <title><?php echo $appname; ?> 2.2</title>
 <?php
 require("appearance.php");
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/files.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/index.css\" type=\"text/css\" />\n";
 if ( $currentUser && $currentUser->isAdministrator() )
 {
 echo "<link rel=\"stylesheet\" href=\"skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
