@@ -86,7 +86,7 @@ echo "<link rel=\"stylesheet\" href=\"../skins/$skin/budget.css\" type=\"text/cs
 			echo "<td>No</td></tr>";
 			}
 			else {
-			echo "<td style=\"background: yellow;\">Yes</td></tr>";
+			echo "<td class=\"highlight\">Yes</td></tr>";
 			}					
 		}	
 			
