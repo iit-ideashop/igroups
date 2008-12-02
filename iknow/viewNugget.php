@@ -11,6 +11,8 @@
 	include_once( "../classes/quota.php" );
 
 	$_DB = new dbConnection();
+	if(is_numeric($_SESSION['userID']))
+		$currentUser = new Person($_SESSION['userID'], $db);
 	
 	function peopleSort( $array ) {
 		$newArray = array();

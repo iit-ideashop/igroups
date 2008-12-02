@@ -14,6 +14,9 @@
 	$_NUGPERPAGE = 10;
 	$_DB = new dbConnection();
 	$_COUNT = 0;
+	
+	if(is_numeric($_SESSION['userID']))
+		$currentUser = new Person($_SESSION['userID'], $db);
 
 	if (isset($_POST['criteria']))
 		$_SESSION['postdata'] = $_POST;
