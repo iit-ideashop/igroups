@@ -216,7 +216,7 @@ while ($row = mysql_fetch_assoc($query))
 	$desc = shorten( $row[bDesc], $num = 50 );
 	$i++;
 if ( $i&1 ) {
-	echo "<tr style=\"background-color: #f8f8f8;\">";
+	echo "<tr class=\"shade\">";
 }
 else {
 	echo "<tr>";
