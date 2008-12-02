@@ -1,6 +1,10 @@
 <?php
-	if(isset($currentUser) && isset($db))
+	if(isset($currentUser) && $currentUser && isset($db))
+	{
 		$lynyrdskynyrd = mysql_fetch_row($db->igroupsQuery('select sName from Skins where iID in (select iSkin from People where iID='.$currentUser->getID().')'));
+		if(!$lynyrdskynyrd)
+			$lynyrdskynyrd = mysql_fetch_row($db->igroupsQuery('select sName from Skins where bDefault=1'));
+	}
 	else if(isset($db))
 		$lynyrdskynyrd = mysql_fetch_row($db->igroupsQuery('select sName from Skins where bDefault=1'));
 	else
