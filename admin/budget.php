@@ -65,6 +65,7 @@ echo "<link rel=\"stylesheet\" href=\"../skins/$skin/budget.css\" type=\"text/cs
 	
 	//Get the number of rows in order to display a message if there are no budgets in a 
 	$num_rows = mysql_num_rows($query);
+	$currow = 0;
 	
 	if ($num_rows == 0) {
 		echo "<p>There were no budgets submitted for this semester.</p>";
@@ -72,7 +73,7 @@ echo "<link rel=\"stylesheet\" href=\"../skins/$skin/budget.css\" type=\"text/cs
 		
 	else {
 		echo "<table id=\"budget\" cellpadding=\"7\" cellspacing=\"0\">";
-		echo "<tr><th>IPRO Name</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Balance</th><th>Waiting Approval?</th></tr>";
+		echo "<tr".($currow & 1 ? ' class="shade"' : '')."><th>IPRO Name</th><th>Requested</th><th>Approved</th><th>Reimbursed</th><th>Balance</th><th>Waiting Approval?</th></tr>";
 		while ($row = mysql_fetch_assoc($query))
 		{	
 		$get_ipro_name = $db->iknowQuery("SELECT sIITID, sName FROM Projects WHERE iID={$row[iProjectID]}");
@@ -87,7 +88,8 @@ echo "<link rel=\"stylesheet\" href=\"../skins/$skin/budget.css\" type=\"text/cs
 			}
 			else {
 			echo "<td class=\"highlight\">Yes</td></tr>";
-			}					
+			}
+		$currow++;					
 		}	
 			
 		
