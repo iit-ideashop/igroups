@@ -1,15 +1,18 @@
 <?php
 	session_start();
 	include_once("../globals.php");
+	include_once("../classes/person.php");
 	include_once("../classes/nugget.php");
 	include_once("../classes/group.php");
 	include_once("../classes/db.php");
 	include_once("../nuggetTypes.php");
 
 	$_DB = new dbConnection();
+	if(is_numeric($_SESSION['userID']))
+		$currentUser = new Person($_SESSION['userID'], $db);
 
 	function displayNuggets($currentGroup, $semID, $_DB){
-		global $_DEFAULTNUGGETS;
+		global $_DEFAULTNUGGETS, $skin;
 		$query = $_DB->igroupsQuery("SELECT sSemester FROM Semesters where iID=$semID");
 		$row = mysql_fetch_row($query);
 		print "<h1>{$row[0]} Deliverable Nuggets</h1>";
