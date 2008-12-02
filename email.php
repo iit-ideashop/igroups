@@ -396,17 +396,17 @@ require("sidebar.php");
 <?php
 				$categories = $currentGroup->getGroupCategories();
 				if(!$currentCat)
-					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br /><a href=\"email.php?selectCategory=1\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\">IPRO Office Notices</a><br />";
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br /><a href=\"email.php?selectCategory=1\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\">IPRO Office Notices</a><br />";
 				else if($currentCat->getID() == 1)
-					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br /><a href=\"email.php?selectCategory=1\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"+\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\"><strong>IPRO Office Notices</strong></a><br />";
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br /><a href=\"email.php?selectCategory=1\"><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"+\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\"><strong>IPRO Office Notices</strong></a><br />";
 				else
-					print "<a href=\"email.php?selectCategory=0\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br /><a href=\"email.php?selectCategory=1\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\">IPRO Office Notices</a><br />";
+					print "<a href=\"email.php?selectCategory=0\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\">Uncategorized</a><br /><a href=\"email.php?selectCategory=1\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\">IPRO Office Notices</a><br />";
 				
 				foreach ( $categories as $category ) {
 					if ( $currentCat && $currentCat->getID() == $category->getID() )
-						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".htmlspecialchars($category->getName())."</strong></a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\"><strong>".htmlspecialchars($category->getName())."</strong></a><br />";
 					else
-						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\">".htmlspecialchars($category->getName())."</a><br />";
+						print "<a href=\"email.php?selectCategory=".$category->getID()."\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=".$category->getID()."\">".htmlspecialchars($category->getName())."</a><br />";
 				}
 ?>
 			</div>
@@ -456,21 +456,21 @@ require("sidebar.php");
 				<tr class="sortbar">
 <?php
 				if($_SESSION['emailSort'] == 1)
-					echo "<td colspan=\"2\"><a href=\"email.php?sort=-1\" title=\"Sort this descendingly\">Subject <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=-1\" title=\"Sort this descendingly\">Subject <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 				else if($_SESSION['emailSort'] == -1)
-					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort this ascendingly\">Subject <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort this ascendingly\">Subject <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 				else
 					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort by subject\">Subject</a>";
 				if($_SESSION['emailSort'] == 2)
-					echo "<td><a href=\"email.php?sort=-2\" title=\"Sort this descendingly\">Author <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					echo "<td><a href=\"email.php?sort=-2\" title=\"Sort this descendingly\">Author <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 				else if($_SESSION['emailSort'] == -2)
-					echo "<td><a href=\"email.php?sort=2\" title=\"Sort this ascendingly\">Author <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					echo "<td><a href=\"email.php?sort=2\" title=\"Sort this ascendingly\">Author <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 				else
 					echo "<td><a href=\"email.php?sort=2\" title=\"Sort by author\">Author</a>";
 				if($_SESSION['emailSort'] == 3)
-					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort this descendingly\">Date <img src=\"img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort this descendingly\">Date <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
 				else if($_SESSION['emailSort'] == -3)
-					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date <img src=\"img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
 				else
 					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort by date\">Date</a>";
 ?>
@@ -481,7 +481,7 @@ require("sidebar.php");
 					$author = $email->getSender();
 					printTR();
 					if ($email->hasAttachments()) 
-						$img = '&nbsp;<img src="img/attach.png" alt="(Attachments)" style="border-style: none" title="Paper clip" />';
+						$img = '&nbsp;<img src="skins/'.$skin.'/img/attach.png" alt="(Attachments)" style="border-style: none" title="Paper clip" />';
 					else
 						$img = '';
 					print "<td colspan=\"2\"><a href=\"#\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".htmlspecialchars($email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type=\"checkbox\" name=\"email[".$email->getID()."]\" /></td>";
