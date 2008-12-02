@@ -14,7 +14,7 @@ table.todoList tr.todoHeaders {
 }
 
 table.todoList td.todoTop {
-	border-bottom: 1px solid #00cc00;
+	border-bottom: 1px solid #00aa00;
 }
 
 a.todoSort {
@@ -92,7 +92,7 @@ span.taskNumDisplay{
     width: 30px;
     background: white;
     text-decoration: underline;
-    color: #00cc00;
+    color: #00aa00;
     font-family: Arial, Helvetica, sans-serif;
     margin-left: -3px;
 }

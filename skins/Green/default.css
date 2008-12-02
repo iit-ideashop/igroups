@@ -27,7 +27,7 @@ tfoot {
 }
 
 a:link, a:visited {
-	color:#00CC00;
+	color:#00AA00;
 }
 
 h1 {
@@ -62,7 +62,7 @@ legend {
 	padding: .25em;
 	font-size:14pt;
 	border-bottom-style:solid;
-	border-bottom-color:#00CC00;
+	border-bottom-color:#00AA00;
 	text-align:center;
 	margin-bottom:10px;
 }
@@ -70,7 +70,7 @@ legend {
 .columnbanner {
 	padding: .25em;
 	margin-bottom:0;
-	border-bottom: 1px solid #00CC00;
+	border-bottom: 1px solid #00AA00;
 	text-align:center;
 }
 
@@ -158,7 +158,7 @@ ul.folderlist ul {
 }
 
 .sortbar {
-	background-color: #00CC00;
+	background-color: #00AA00;
 	color: #dddddd;
 	font-weight: bold;
 }
