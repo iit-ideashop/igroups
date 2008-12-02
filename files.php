@@ -39,6 +39,7 @@
 	
 	function printFolder( $folder ) {
 	// Prints tree structure of folders
+		global $skin;
 		$subfolder = $folder->getFolders();
 		if ( $_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
 			print "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a></strong>\n";
