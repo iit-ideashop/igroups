@@ -1,40 +1,40 @@
 li.ev {
-			display:inline;
-			padding:5px;
-			border:solid 1px #000;
-		}
+	display:inline;
+	padding:5px;
+	border:solid 1px #666;
+}
 
 li.calli {
 	display:inline;
 	padding:5px;
-	border:solid 1px #000;
+	border:solid 1px #666;
 }
 
 li.size3 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #000;
+	border:solid 1px #666;
 	font-size:8pt;
 }
 
 li.size2 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #000;
+	border:solid 1px #666;
 	font-size:11pt;
 }
 
 li.size1 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #000;
+	border:solid 1px #666;
 	font-size:14pt;
 }
 
 li.size0 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #000;
+	border:solid 1px #666;
 	font-size:20pt;
 }
 
@@ -47,7 +47,7 @@ li.size0 {
 
 #calendar {
 	border:solid 1px #000;
-	background-color:#fff;
+	background-color:#333;
 	visibility:hidden;
 	position:absolute;
 	left:50px;
@@ -67,7 +67,7 @@ a.iproeventlink {
 
 .event {
 	border:solid 1px #000;
-	background-color:#fff;
+	background-color:#333;
 	position:absolute;
 	visibility:hidden;
 	width:200px;

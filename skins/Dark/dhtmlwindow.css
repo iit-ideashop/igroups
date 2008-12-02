@@ -31,7 +31,7 @@ width: 100%;
 
 .drag-contentarea{ /*CSS for Content Display Area div*/
 border-top: 1px solid maroon;
-background-color: white;
+background-color: #333;
 color: black;
 height: 150px;
 padding: 2px;
