@@ -1,0 +1,27 @@
+.item {
+	padding-top:5px;
+	padding-bottom:5px;
+	border-bottom:1px solid #ccc;
+}
+
+label {
+	font-weight: bold;
+}
+
+table.nugget {
+	width: 70%;
+}
+
+table.nugget tr {
+	
+}	
+	
+table.nugget td {
+	border: 3px solid #ccc;
+	padding: 20px;
+	width:50%;
+}
+
+.edit_author {
+	border-style: none;
+}
