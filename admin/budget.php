@@ -89,7 +89,7 @@ echo "<link rel=\"stylesheet\" href=\"../skins/$skin/budget.css\" type=\"text/cs
 			else {
 			echo "<td class=\"highlight\">Yes</td></tr>";
 			}
-		$currow++;					
+			$currow++;					
 		}	
 			
 		
