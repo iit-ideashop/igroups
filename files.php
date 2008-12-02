@@ -452,7 +452,7 @@ echo "<link rel=\"stylesheet\" href=\"skins/$skin/dhtmlwindow.css\" type=\"text/
 <?php
 					}
 ?>
-				<li><img src="skins/<?php echo $skin; ?>img/folder.png" style="border-style: none" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
+				<li><img src="skins/<?php echo $skin; ?>/img/folder.png" style="border-style: none" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
 				</ul>
 			</div>
 		</div>
