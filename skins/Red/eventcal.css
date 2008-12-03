@@ -1,10 +1,10 @@
-@import url("default.css")
+@import url('default.css');
 
 li.ev {
-			display:inline;
-			padding:5px;
-			border:solid 1px #000;
-		}
+	display:inline;
+	padding:5px;
+	border:solid 1px #000;
+}
 
 li.calli {
 	display:inline;
