@@ -45,14 +45,14 @@ foreach($altskins as $altskin)
 
 		function viewEvent( name, desc, date ) {
 			document.getElementById('viewname').innerHTML=name;
-			desc = desc.replace(/&lt;a href/, "<a onclick=\"window.open(this.href); return false;\" href");
-			desc = desc.replace(/&lt;A HREF/, "<a onclick=\"window.open(this.href); return false;\" href");
-			desc = desc.replace(/<a href/, "<a onclick=\"window.open(this.href); return false;\" href");
-			desc = desc.replace(/<A HREF/, "<a onclick=\"window.open(this.href); return false;\" href");
-			desc = desc.replace(/&lt;/a/, "</a");
-			desc = desc.replace(/&gt;/, ">");
-			desc = desc.replace(/&amp;quot;/, "\"");
-			desc = desc.replace(/&quot;/, "\"");
+			desc = desc.replace("&lt;a href", "<a onclick=\"window.open(this.href); return false;\" href");
+			desc = desc.replace("&lt;A HREF", "<a onclick=\"window.open(this.href); return false;\" href");
+			desc = desc.replace("<a href", "<a onclick=\"window.open(this.href); return false;\" href");
+			desc = desc.replace("<A HREF", "<a onclick=\"window.open(this.href); return false;\" href");
+			desc = desc.replace("&lt;/a", "</a");
+			desc = desc.replace("&gt;", ">");
+			desc = desc.replace("&amp;quot;", "\"");
+			desc = desc.replace("&quot;", "\"");
 			document.getElementById('viewdesc').innerHTML=desc;
 			document.getElementById('viewdate').innerHTML=date;
 		}
