@@ -457,21 +457,21 @@ require("sidebar.php");
 				<tr class="sortbar">
 <?php
 				if($_SESSION['emailSort'] == 1)
-					echo "<td colspan=\"2\"><a href=\"email.php?sort=-1\" title=\"Sort this descendingly\">Subject &#x21e9;</a>";
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=-1\" title=\"Sort this descendingly\">Subject &#x2193;</a>";
 				else if($_SESSION['emailSort'] == -1)
-					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort this ascendingly\">Subject &#x21e7;</a>";
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort this ascendingly\">Subject &#x2191;</a>";
 				else
 					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort by subject\">Subject</a>";
 				if($_SESSION['emailSort'] == 2)
-					echo "<td><a href=\"email.php?sort=-2\" title=\"Sort this descendingly\">Author &#x21e9;</a>";
+					echo "<td><a href=\"email.php?sort=-2\" title=\"Sort this descendingly\">Author &#x2193;</a>";
 				else if($_SESSION['emailSort'] == -2)
-					echo "<td><a href=\"email.php?sort=2\" title=\"Sort this ascendingly\">Author &#x21e7;</a>";
+					echo "<td><a href=\"email.php?sort=2\" title=\"Sort this ascendingly\">Author &#x2191;</a>";
 				else
 					echo "<td><a href=\"email.php?sort=2\" title=\"Sort by author\">Author</a>";
 				if($_SESSION['emailSort'] == 3)
-					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort this descendingly\">Date &#x21e9;</a>";
+					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort this descendingly\">Date &#x2193;</a>";
 				else if($_SESSION['emailSort'] == -3)
-					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date &#x21e7;</a>";
+					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date &#x2191;</a>";
 				else
 					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort by date\">Date</a>";
 ?>
