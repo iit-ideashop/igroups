@@ -4,8 +4,8 @@
 	
 	if(isset($_POST['newname']))
 	{
-		$priv = $_POST['private'] ? 1 : 0;
-		if($db->igroupsQuery('insert into Skins (sName, bPrivate) values ("'.mysql_real_escape_string($_POST['newname']).'",'.$priv.')'))
+		$priv = $_POST['private'] ? 0 : 1;
+		if($db->igroupsQuery('insert into Skins (sName, bPublic) values ("'.mysql_real_escape_string($_POST['newname']).'",'.$priv.')'))
 			$messages[] = 'New skin created';
 		else
 			$messages[] = 'Error occurred while creating skin: '.mysql_error();
@@ -16,18 +16,20 @@
 		foreach($ids as $id)
 		{
 			if(is_numeric($id))
-				$db->igroupsQuery('update Skins set sName="'.mysql_real_escape_string($_POST["N$id"]).'", bPrivate='.($_POST["P$id"] ? 1 : 0)." where iID=$id");
+				$db->igroupsQuery('update Skins set sName="'.mysql_real_escape_string($_POST["N$id"]).'", bPublic='.($_POST["P$id"] ? 0 : 1)." where iID=$id");
 		}
 		if(is_numeric($_POST['default']) && mysql_num_rows($db->igroupsQuery('select * from Skins where iID='.$_POST['default'])))
 		{
 			$db->igroupsQuery('update Skins set bDefault=0');
 			$db->igroupsQuery('update Skins set bDefault=1, bPublic=1 where iID='.$_POST['default']);
 		}
+		if(!mysql_num_rows($db->igroupsQuery('select * from Skins where bPublic=1')))
+			$db->igroupsQuery('update Skins set bPublic=1 where bDefault=1');
 	}
 	else if(is_numeric($_GET['delete']))
 	{
-		$default = mysql_fetch_row($db->igroupsQuery('select bPrivate, bDefault from Skins where iID='.$_GET['delete']));
-		$count = mysql_fetch_row($db->igroupsQuery('select count(*) from Skins'.($default[0] ? '' : ' where bPrivate=0')));
+		$default = mysql_fetch_row($db->igroupsQuery('select bPublic, bDefault from Skins where iID='.$_GET['delete']));
+		$count = mysql_fetch_row($db->igroupsQuery('select count(*) from Skins'.($default[0] ? '' : ' where bPublic=1')));
 		if($count[0] <= 1)
 			$messages[] = 'Cannot delete this skin: Must have at least one public skin';
 		else if($default[1])
