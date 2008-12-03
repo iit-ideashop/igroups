@@ -45,3 +45,8 @@
 	left:0;
 	overflow:hidden;
 }
+
+.timeago
+{
+	font-size: smaller;
+}
