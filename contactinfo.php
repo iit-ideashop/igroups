@@ -37,7 +37,7 @@
 			$db->igroupsQuery("UPDATE Profiles SET sBio='{$_POST['bio']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['skills']))
 			$db->igroupsQuery("UPDATE Profiles SET sSkills='{$_POST['skills']}' WHERE iPersonID={$currentUser->getID()}");
-		if(is_numeric($_POST['skin']) && ($_POST['skin'] == 0 || mysql_num_rows($db->igroupsQuery('select * from Skins where iID='.$_POST['skin']))))
+		if(is_numeric($_POST['skin']) && ($_POST['skin'] == 0 || mysql_num_rows($db->igroupsQuery('select * from Skins where iID='.$_POST['skin'].' and bPublic=1'))))
 			$db->igroupsQuery('update People set iSkin='.$_POST['skin'].' where iID='.$currentUser->getID());
 		if (isset($_FILES['picture'])) {
 			if ( $_FILES['picture']['error'] == UPLOAD_ERR_OK && @getimagesize($_FILES['picture']['tmp_name']) && @is_uploaded_file($_FILES['picture']['tmp_name']) && ($_FILES['picture']['type'] == 'image/gif' || $_FILES['picture']['type'] == 'image/jpeg' || $_FILES['picture']['type'] == 'image/bmp' || $_FILES['picture']['type'] == 'image/x-windows-bmp' || $_FILES['picture']['type'] == 'image/png' || $_FILES['picture']['type'] == 'image/pjpeg')) {
@@ -123,12 +123,12 @@
 		else
 			print "<tr><td><label for=\"picture\">Profile Picture:</label></td><td><input type=\"file\" name=\"picture\" id=\"picture\" /></td></tr>";
 		$query = $db->igroupsQuery('select * from Skins');
-		$userskin = mysql_fetch_row($db->igroupsQuery('select iSkin from People where iID='.$currentUser->getID()));
+		$userskin = mysql_fetch_row($db->igroupsQuery('select iSkin from People where bPublic=1 and iID='.$currentUser->getID()));
 		$skins = "<select name=\"skin\" id=\"skin\">\n";
 		$skins .= "<option value=\"0\"".($userskin[0] == 0 ? ' selected="selected"' : '').">Use default</option>\n";
 		while($row = mysql_fetch_array($query))
 		{
-			$skins .= "<option value=\"{$row['iID']}\"".($userskin[0] == $row['iID'] ? ' selected="selected"' : '').">{$row['sName']}</option>\n";
+			$skins .= "<option value=\"{$row['iID']}\"".($userskin[0] == $row['iID'] ? ' selected="selected"' : '').">".str_replace('&', '&amp;', stripslashes($row['sName']))."</option>\n";
 		}
 		$skins .= "</select>\n";
 		print "<tr><td><label for=\"skin\">Skin:</label></td><td>$skins</td></tr>\n";
