@@ -22,7 +22,7 @@ table tr td table
 
 tr.toptitle th
 {
-	background-color: #333333;
+	background-color: #CC0000;
 	color: #FFFFFF;
 	font-size: larger;
 }
@@ -35,6 +35,6 @@ tr.subtitle th
 
 tr.coltitle th, th.lefttitle
 {
-	background-color: #000000;
-	color: #DDDDDD;
+	background-color: #333333;
+	color: #FFFFFF;
 }
