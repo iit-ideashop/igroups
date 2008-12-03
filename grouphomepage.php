@@ -165,7 +165,7 @@ foreach($altskins as $altskin)
 				if(count($files) > 0) {
 					print "<ul>";
 					foreach ( $files as $file ) {
-						print "<li><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a> (".$file-getDateTime().")</li>";
+						print "<li><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a> (".$file->getDateTime().")</li>";
 					}
 					print "</ul>";
 				}
