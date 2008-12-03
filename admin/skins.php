@@ -61,7 +61,7 @@
 		echo '<tr>';
 		echo '<td><input type="text" name="N'.$row['iID'].'" value="'.htmlspecialchars(stripslashes($row['sName'])).'" /></td>';
 		echo '<td><input type="checkbox" name="P'.$row['iID'].'" '.($row['bPublic'] ? '' : 'checked="checked" ').'/></td>';
-		echo '<td><input type="radio" name="default" value="'.$row['iID'].' '.($row['bDefault'] ? 'checked="checked" ' : '').'/></td>';
+		echo '<td><input type="radio" name="default" value="'.$row['iID'].'" '.($row['bDefault'] ? 'checked="checked" ' : '').'/></td>';
 		echo '<td><a href="skins.php?delete='.$row['iID'].'">Delete</a></td>';
 		echo "</tr>\n";
 		$i++;
