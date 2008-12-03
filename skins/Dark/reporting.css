@@ -3,7 +3,7 @@
 table
 {
 	width: 75%;
-	border: thin solid black;
+	border: thin solid white;
 	border-collapse: collapse;
 	text-align: center;
 }
@@ -11,7 +11,7 @@ table
 td, th
 {
 	padding: 3px;
-	border: thin solid black;
+	border: thin solid white;
 	text-align: center;
 }
 
