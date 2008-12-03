@@ -1,0 +1,40 @@
+@import url('default.css');
+
+table
+{
+	width: 75%;
+	border: thin solid black;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+td, th
+{
+	padding: 3px;
+	border: thin solid black;
+	text-align: center;
+}
+
+table tr td table
+{
+	width: 100%;
+}
+
+tr.toptitle th
+{
+	background-color: #007700;
+	color: #FFFFFF;
+	font-size: larger;
+}
+
+tr.subtitle th
+{
+	background-color: #CCFFCC;
+	color: #000000;
+}
+
+tr.coltitle th, th.lefttitle
+{
+	background-color: #DDDDDD;
+	color: #000000;
+}

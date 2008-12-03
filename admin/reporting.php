@@ -176,9 +176,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <?php
 require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/reporting.css\" type=\"text/css\" title=\"$skin\" />\n";
 foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
+	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/reporting.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <title><?php echo $appname;?> - IPRO Group Reporting</title>
 	<style type="text/css">
@@ -294,13 +294,13 @@ foreach($altskins as $altskin)
 	</div>
 	<br />
 
-	<table width="75%" cellpadding="3" style="border: thin solid black; style: text-align: center">
-		<tr>
-			<td style="background: red; text-align: center; color: white; font-size: larger; font-weight: bold" colspan="7">Usage Comparison</td>
+	<table>
+		<tr class="toptitle" >
+			<thcolspan="7">Usage Comparison</td>
 		</tr>
-		<tr align="center" style="background: #dddddd">
-			<td><b>IPRO</b></td><td><b>Files Uploaded</b></td><td><b>Percentage of Mean</b></td><td><b>Emails Sent</b></td><td><b>Percentage of Mean</b></td><td><b>Emails per User</b></td><td><b>Percentage of Mean</b></td></tr>
-			<tr align="center"><td>Mean of All Groups</td><td><?php print "$avgFiles"; ?></td><td>100%</td><td><?php print "$avgEmails"; ?></td><td>100%</td><td><?php print "$avgEmailsPerUser"; ?></td><td>100%</td>
+		<tr class="coltitle">
+			<th>IPRO</th><th>Files Uploaded</th><th>Percentage of Mean</th><th>Emails Sent</th><th>Percentage of Mean</th><th>Emails per User</th><th>Percentage of Mean</th></tr>
+			<tr><td>Mean of All Groups</td><td><?php print "$avgFiles"; ?></td><td>100%</td><td><?php print "$avgEmails"; ?></td><td>100%</td><td><?php print "$avgEmailsPerUser"; ?></td><td>100%</td>
 		</tr>
 <?php
 		foreach($groups as $group) {
@@ -315,7 +315,7 @@ foreach($altskins as $altskin)
 				$filesPer = (round($files/$avgFiles, 2))*100;
 			if ($avgEmailsPerUser != 0)
 				$emailsPerUserPer = (round($emailsPerUser/$avgEmailsPerUser, 2))*100;
-			print "<tr align=\"center\"><td>{$group->getName()}</td><td>{$files}</td><td>$filesPer%</td><td>$emails</td><td>$emailsPer%</td><td>$emailsPerUser</td><td>$emailsPerUserPer%</td></tr>";
+			print "<tr><td>{$group->getName()}</td><td>{$files}</td><td>$filesPer%</td><td>$emails</td><td>$emailsPer%</td><td>$emailsPerUser</td><td>$emailsPerUserPer%</td></tr>";
 		}
 ?>
 	</table>
@@ -349,55 +349,55 @@ foreach($altskins as $altskin)
 ?>
 <br />
 <a name="<?php echo "{$group->getID()}"; ?>"></a>
-	<table width="75%" style="border: thin solid black" cellpadding="3">
+	<table>
+		<tr class="toptitle">
+			<th colspan="5"><?php echo "{$group->getName()}"; ?></th>
+		</tr>
+		<tr class="coltitle">
+			<th></th>
+			<th>E-mails Sent</th>
+			<th>Files Uploaded</th>
+			<th>Events Posted</th>
+			<th>Pictures Uploaded</th>
+		</tr>
 		<tr>
-			<td colspan="5" style="font-size: larger; font-weight: bold; background: red; color: white; text-align: center"><?php echo "{$group->getName()}"; ?></td>
-		</tr>
-		<tr align="center" style="background: #dddddd">
-			<td> </td> 
-			<td><b>E-mails Sent</b></td>
-			<td><b>Files Uploaded</b></td>
-			<td><b>Events Posted</b></td>
-			<td><b>Pictures Uploaded</b></td>
-		</tr>
-		<tr align="center">
-			<td style="background: #dddddd"><b>This Week</b></td>
+			<th class="lefttitle">This Week</th>
 			<td><?php echo "$emailsWeek"; ?></td>
 			<td><?php echo "$filesWeek"; ?></td>
 			<td><?php echo "$eventsWeek"; ?></td>
 			<td><?php echo "$picsWeek"; ?></td>
 		</tr>
-		<tr align="center">
-			<td style="background: #dddddd"><b>This Month</b></td>
+		<tr>
+			<th class="lefttitle">This Month</th>
 			<td><?php echo "$emailsMonth"; ?></td>
 			<td><?php echo "$filesMonth"; ?></td>
 			<td><?php echo "$eventsMonth"; ?></td>
 			<td><?php echo "$picsMonth"; ?></td>
 		</tr>
-		<tr align="center">
-			<td style="background: #dddddd"><b>All</b></td>
+		<tr>
+			<th class="lefttitle">All</th>
 			<td><?php echo "$emailsAll"; ?></td>
 			<td><?php echo "$filesAll"; ?></td>
 			<td><?php echo "$eventsAll"; ?></td>
 			<td><?php echo "$picsAll"; ?></td>
 		</tr>
-		<tr align="center">
-			<td style="background: #dddddd"><b>User Avg.</b></td>
+		<tr>
+			<th class="lefttitle">User Avg.</th>
 			<td><?php echo "$emailsAvg"; ?></td>
 			<td><?php echo "$filesAvg"; ?></td>
 			<td><?php echo "$eventsAvg"; ?></td>
 			<td><?php echo "$picsAvg"; ?></td>
 		</tr>
-		<tr>
-			<td align="center" style="background: #ffcccc" colspan="5"><b>User Statistics</b></td>
+		<tr class="subtitle">
+			<th colspan="5">User Statistics</th>
 		</tr>
-		<tr align="center">
+		<tr>
 		<td colspan="5">
-		<table width="100%" cellpadding="3" style="border: thin solid black">
-		<tr style="background: #dddddd" align="center">
-			<td style="width:33%"><b>Name</b></td>
-			<td style="width:33%"><b>E-mails Sent (% of group mean) (% of total mean)</b></td>
-			<td style="width:33%"><b>Files Uploaded (% of mean)</b></td>
+		<table>
+		<tr class="coltitle">
+			<th style="width:33%">Name</th>
+			<th style="width:33%">E-mails Sent (% of group mean) (% of total mean)</th>
+			<th style="width:33%">Files Uploaded (% of mean)</th>
 		</tr>
 <?php
 		foreach ($users as $user) {
@@ -411,8 +411,8 @@ foreach($altskins as $altskin)
 				$emailsPerUser = round($numEmails / $avgEmailsPerUser, 3) * 100 . '%';
 			echo "<tr>";
 			echo "<td>{$user->getFullName()}</td>";
-			echo "<td align=\"center\">$numEmails ($emailsPer) ($emailsPerUser)</td>";
-			echo "<td align=\"center\">$numFiles ($filesPer)</td>";
+			echo "<td>$numEmails ($emailsPer) ($emailsPerUser)</td>";
+			echo "<td>$numFiles ($filesPer)</td>";
 			echo "</tr>";
 		}		
 
