@@ -106,7 +106,7 @@ if ( !class_exists( "SuperString" ) ) {
     *
     */
     function timeAgoInWords($from_time, $include_seconds = false) {
-        return $this->distanceOfTimeInWords($from_time, time(), $include_seconds);
+        return distanceOfTimeInWords($from_time, time(), $include_seconds);
     }
 }
 ?>
