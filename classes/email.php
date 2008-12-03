@@ -162,7 +162,7 @@ if ( !class_exists( "Email" ) ) {
 			$hour = substr($this->senddate, 11, 2);
 			$min = substr($this->senddate, 14, 2);
 			$sec = substr($this->senddate, 17, 2);
-			return date( "Y-m-d h:i A", mktime( $hour, $min, $sec, $month, $day, $year ) );
+			return date( "Y-m-d h:m A", mktime( $hour, $min, $sec, $month, $day, $year ) );
 		}	
 
 		function getDateDB() {
