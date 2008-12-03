@@ -296,7 +296,7 @@ foreach($altskins as $altskin)
 
 	<table>
 		<tr class="toptitle" >
-			<thcolspan="7">Usage Comparison</td>
+			<th colspan="7">Usage Comparison</td>
 		</tr>
 		<tr class="coltitle">
 			<th>IPRO</th><th>Files Uploaded</th><th>Percentage of Mean</th><th>Emails Sent</th><th>Percentage of Mean</th><th>Emails per User</th><th>Percentage of Mean</th></tr>
