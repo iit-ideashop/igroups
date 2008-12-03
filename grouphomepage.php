@@ -150,7 +150,7 @@ foreach($altskins as $altskin)
 
 						
 						foreach ( $emails as $email ) {
-							print "<li><a href=\"email.php?display=".$email->getID()."\">".$email->getSubject()."</a> (".$email->getDateTime().")</li>";
+							print "<li>".$email->getDateTime()." - <a href=\"email.php?display=".$email->getID()."\">".$email->getSubject()."</a></li>";
 						}
 					print "</ul>";
 					}
@@ -165,7 +165,7 @@ foreach($altskins as $altskin)
 				if(count($files) > 0) {
 					print "<ul>";
 					foreach ( $files as $file ) {
-						print "<li><a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a> (".$file->getDateTime().")</li>";
+						print "<li>".$file->getDateTime()." - <a href=\"download.php?id=".$file->getID()."\">".$file->getName()."</a></li>";
 					}
 					print "</ul>";
 				}
