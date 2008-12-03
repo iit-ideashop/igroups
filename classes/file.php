@@ -129,6 +129,14 @@ if ( !class_exists( "File" ) ) {
                         $temp2 = explode( ":", $time);
                         return date( "Y-m-d h:m A", mktime( $temp2[0], $temp2[1], $temp2[2], $temp[1], $temp[2], $temp[0] ) );
 		}
+		
+		function getShortDateTime() {
+			$date = substr($this->senddate, 0, strpos($this->senddate, ' '));
+                        $temp = explode( "-", $date );
+                        $time = substr($this->senddate, strpos($this->senddate, ' ')+1, strlen($this->senddate));
+                        $temp2 = explode( ":", $time);
+                        return date( "m/d H:m", mktime( $temp2[0], $temp2[1], $temp2[2], $temp[1], $temp[2], $temp[0] ) );
+		}
 	
 		function getDateDB() {
 			return $this->senddate;

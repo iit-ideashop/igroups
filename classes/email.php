@@ -163,7 +163,17 @@ if ( !class_exists( "Email" ) ) {
 			$min = substr($this->senddate, 14, 2);
 			$sec = substr($this->senddate, 17, 2);
 			return date( "Y-m-d h:m A", mktime( $hour, $min, $sec, $month, $day, $year ) );
-		}	
+		}
+		
+		function getShortDateTime() {
+			$year = substr($this->senddate, 0, 4);
+			$month = substr($this->senddate, 5, 2);
+			$day = substr($this->senddate, 8, 2);
+			$hour = substr($this->senddate, 11, 2);
+			$min = substr($this->senddate, 14, 2);
+			$sec = substr($this->senddate, 17, 2);
+			return date( "m/d H:m", mktime( $hour, $min, $sec, $month, $day, $year ) );
+		}
 
 		function getDateDB() {
 			return $this->senddate;
