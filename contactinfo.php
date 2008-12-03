@@ -122,8 +122,8 @@
 			print "<tr><td>Profile Picture Uploaded<br /><label for=\"delPicture\">Delete?</label>&nbsp;<input type=\"checkbox\" name=\"delPicture\" id=\"delPicture\" value=\"true\" /></td></tr>\n";
 		else
 			print "<tr><td><label for=\"picture\">Profile Picture:</label></td><td><input type=\"file\" name=\"picture\" id=\"picture\" /></td></tr>";
-		$query = $db->igroupsQuery('select * from Skins');
-		$userskin = mysql_fetch_row($db->igroupsQuery('select iSkin from People where bPublic=1 and iID='.$currentUser->getID()));
+		$query = $db->igroupsQuery('select * from Skins where bPublic=1');
+		$userskin = mysql_fetch_row($db->igroupsQuery('select iSkin from People where iID='.$currentUser->getID()));
 		$skins = "<select name=\"skin\" id=\"skin\">\n";
 		$skins .= "<option value=\"0\"".($userskin[0] == 0 ? ' selected="selected"' : '').">Use default</option>\n";
 		while($row = mysql_fetch_array($query))
