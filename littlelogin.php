@@ -5,7 +5,12 @@
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Login</title>
-<?php require("appearance.php"); ?>
+<?php
+require("appearance.php");
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
+foreach($altskins as $altskin)
+	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
+?>
 </head><body>
 <p>Your session has expired due to inactivity. Please log in to continue.</p>
 <form method="post" action="<?php echo  $_SERVER['PHP_SELF'].'?'.$_SERVER['QUERY_STRING']; ?>"><fieldset><legend>Login</legend>

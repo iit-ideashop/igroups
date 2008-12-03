@@ -73,7 +73,9 @@
 <title><?php echo $appname;?> - Nuggets</title>
 <?php
 require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/nuggets.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/nuggets.css\" type=\"text/css\" title=\"$skin\" />\n";
+foreach($altskins as $altskin)
+	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/nuggets.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 	<script type="text/javascript">
 	//<![CDATA[

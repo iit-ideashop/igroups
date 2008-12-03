@@ -50,8 +50,9 @@
 <title><?php echo $appname;?> - Group Email</title>
 <?php
 require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/email.css\" type=\"text/css\" />\n";
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/email.css\" type=\"text/css\" title=\"$skin\" />\n";
+foreach($altskins as $altskin)
+	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/email.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 	<style type="text/css">
 		.window {

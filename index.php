@@ -40,10 +40,11 @@
 <title><?php echo $appname; ?> 2.2</title>
 <?php
 require("appearance.php");
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/index.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"skins/$skin/index.css\" type=\"text/css\" title=\"$skin\" />\n";
+foreach($altskins as $altskin)
+	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/index.css\" type=\"text/css\" title=\"$altskin\" />\n";
 if ( $currentUser && $currentUser->isAdministrator() )
 {
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
 ?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************

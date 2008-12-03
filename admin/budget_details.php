@@ -169,7 +169,9 @@ if (isset($_POST['notify_team']))
 <title><?php echo $appname;?> - Manage Budgets</title>
 <?php
 require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/budget.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/budget.css\" type=\"text/css\" title=\"$skin\" />\n";
+foreach($altskins as $altskin)
+	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/budget.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 
 <script type="text/javascript">

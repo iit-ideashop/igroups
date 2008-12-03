@@ -128,7 +128,9 @@
 <title><?php echo $appname; ?> - Discussion Board - View Topic</title>
 <?php
 require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dboard.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dboard.css\" type=\"text/css\" title=\"$skin\" />\n";
+foreach($altskins as $altskin)
+	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/dboard.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 </head>
 <body>

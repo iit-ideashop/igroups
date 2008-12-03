@@ -99,9 +99,9 @@
 <title><?php echo $appname;?> - IPRO Event Management</title>
 <?php
 require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/calendar.css\" type=\"text/css\" />\n";
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/eventcal.css\" type=\"text/css\" />\n";
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/calendar.css\" type=\"text/css\" title=\"$skin\" />\n";
+foreach($altskins as $altskin)
+	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/calendar.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************

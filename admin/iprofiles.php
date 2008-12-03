@@ -60,8 +60,9 @@
 <title><?php echo $appname;?> - IPRO Office Files</title>
 <?php
 require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/files.css\" type=\"text/css\" />\n";
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dhtmlwindow.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/files.css\" type=\"text/css\" title=\"$skin\" />\n";
+foreach($altskins as $altskin)
+	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/files.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 	<style type="text/css">
 		.window {

@@ -66,7 +66,9 @@
 <title><?php echo $appname;?> - IPRO Quota Management</title>
 <?php
 require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/quota.css\" type=\"text/css\" />\n";
+echo "<link rel=\"stylesheet\" href=\"../skins/$skin/quota.css\" type=\"text/css\" title=\"$skin\" />\n";
+foreach($altskins as $altskin)
+	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/quota.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 </head>
 <body>

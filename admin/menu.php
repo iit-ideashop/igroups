@@ -140,14 +140,7 @@ ob_start();
 		else {
 			$_SESSION['expandSemesters'][] = $_GET['toggleExpand'];	
 		}
-	}
-
-?>
-<div id="sidebar">
-	<div id="igroupslogo">
-		<img src="../skins/<?php echo $skin; ?>/img/iGroupslogo.png" alt="<?php echo $appname; ?>" title="<?php echo $appname; ?>" />
-	</div>
-<?php	
+	}	
 	if ( isset( $_SESSION['userID'] )) 
 		$currentUser = new Person( $_SESSION['userID'], $db );
 	else
@@ -258,4 +251,3 @@ ob_start();
 	</ul>
 	<div id="sidebar-bottom">
 	</div>
-</div>

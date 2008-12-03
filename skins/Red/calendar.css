@@ -1,3 +1,75 @@
+@import url("default.css")
+
+li.ev {
+	display:inline;
+	padding:5px;
+	border:solid 1px #000;
+}
+
+li.calli {
+	display:inline;
+	padding:5px;
+	border:solid 1px #000;
+}
+
+li.size3 {
+	display:inline;
+	padding:5px;
+	border:solid 1px #000;
+	font-size:8pt;
+}
+
+li.size2 {
+	display:inline;
+	padding:5px;
+	border:solid 1px #000;
+	font-size:11pt;
+}
+
+li.size1 {
+	display:inline;
+	padding:5px;
+	border:solid 1px #000;
+	font-size:14pt;
+}
+
+li.size0 {
+	display:inline;
+	padding:5px;
+	border:solid 1px #000;
+	font-size:20pt;
+}
+
+.prop {
+	float:right;
+	height:100px;
+	width:1px;
+	overflow:hidden;
+}
+
+.eventlink {
+	font-size:10px;
+	display:block;
+}
+
+a.iproeventlink {
+	font-size:10px;
+	display:block;
+	color:#000;
+}
+
+.event {
+	border:solid 1px #000;
+	background-color:#fff;
+	position:absolute;
+	visibility:hidden;
+	width:200px;
+	padding:5px;
+	top:0;
+	left:0;
+	overflow:hidden;
+}
+
 #calendar {
 	border:solid 1px #000;
 	background-color:#fff;

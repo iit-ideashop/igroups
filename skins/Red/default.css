@@ -1,3 +1,5 @@
+@import url("dhtmlwindow.css")
+
 body { 
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 10pt;
@@ -102,9 +104,9 @@ legend {
 }
 
 ul.noindent {
-			margin-left:0;
-			padding-left:0;
-		}
+	margin-left:0;
+	padding-left:0;
+}
 
 #content {
 	margin-left: 220px;
@@ -114,9 +116,12 @@ ul.noindent {
 	top: 20px;
 	left: 0px;
 }
-#igroupslogo img {
-	border-style: none;
+
+#igroupslogo {
 	padding-top: 10px;
+	width: 180px;
+	height: 102px;
+	background: url("img/iGroupslogo.png");
 }
 
 div.box {
