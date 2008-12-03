@@ -99,6 +99,7 @@ if ( !class_exists( "SuperString" ) ) {
         } else {
             return 'over ' . round(floatval($distance_in_minutes) / 525600) . ' years';
         }
+    }
 
    /*
     * Like distanceOfTimeInWords, but where to_time is fixed to the output of time()
