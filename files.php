@@ -517,27 +517,27 @@ foreach($altskins as $altskin)
 <?php					if($_SESSION['selectedSpecial'] != 'ipro') {
 						echo "<tr class=\"sortbar\"><td></td>\n";
 						if($_SESSION['fileSort'] == 1)
-							echo "<td><a href=\"files.php?sort=-1\" title=\"Sort this descendingly\">Filename <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=-1\" title=\"Sort this descendingly\">Filename &#x21e9;</a>";
 						else if($_SESSION['fileSort'] == -1)
-							echo "<td><a href=\"files.php?sort=1\" title=\"Sort this ascendingly\">Filename <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=1\" title=\"Sort this ascendingly\">Filename &#x21e7;</a>";
 						else
 							echo "<td><a href=\"files.php?sort=1\" title=\"Sort by filename\">Filename</a>";
 						if($_SESSION['fileSort'] == 2)
-							echo "<td><a href=\"files.php?sort=-2\" title=\"Sort this descendingly\">Description <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=-2\" title=\"Sort this descendingly\">Description &#x21e9;</a>";
 						else if($_SESSION['fileSort'] == -2)
-							echo "<td><a href=\"files.php?sort=2\" title=\"Sort this ascendingly\">Description <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=2\" title=\"Sort this ascendingly\">Description &#x21e7;</a>";
 						else
 							echo "<td><a href=\"files.php?sort=2\" title=\"Sort by description\">Description</a>";
 						if($_SESSION['fileSort'] == 3)
-							echo "<td><a href=\"files.php?sort=-3\" title=\"Sort this descendingly\">Author <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=-3\" title=\"Sort this descendingly\">Author &#x21e9;</a>";
 						else if($_SESSION['fileSort'] == -3)
-							echo "<td><a href=\"files.php?sort=3\" title=\"Sort this ascendingly\">Author <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=3\" title=\"Sort this ascendingly\">Author &#x21e7;</a>";
 						else
 							echo "<td><a href=\"files.php?sort=3\" title=\"Sort by author\">Author</a>";
 						if($_SESSION['fileSort'] == 4)
-							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort this descendingly\">Date <img src=\"skins/$skin/img/down.png\" alt=\"V\" title=\"Sorted in ascending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort this descendingly\">Date &#x21e9;</a>";
 						else if($_SESSION['fileSort'] == -4)
-							echo "<td><a href=\"files.php?sort=4\" title=\"Sort this ascendingly\">Date <img src=\"skins/$skin/img/up.png\" alt=\"^\" title=\"Sorted in descending order\" /></a>";
+							echo "<td><a href=\"files.php?sort=4\" title=\"Sort this ascendingly\">Date &#x21e7;</a>";
 						else
 							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort by date\">Date</a>";
 						echo "<td></td><td></td></tr>\n"; 
