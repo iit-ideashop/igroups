@@ -18,9 +18,20 @@
 			$message = "Please fill both the title field and the URL field before adding a bookmark.";
 		else
 		{
-			$values = "( ".$currentGroup->getID().", ".$currentUser->getID().", '".$_POST['title']."', '".$_POST['url']."', '".$_POST['desc']."' )";
-			$db->igroupsQuery("insert into Bookmarks (iGroupID, iAuthorID, sTitle, sURL, sDesc) values $values");
+			$values = "( ".$currentGroup->getID().", ".$currentUser->getID().", '".$_POST['title']."', '".$_POST['url']."', '".$_POST['desc']."', ".(is_numeric($_POST['folder']) && $_POST['folder'] > 1 ? $_POST['folder'] : 'null')." )";
+			$db->igroupsQuery("insert into Bookmarks (iGroupID, iAuthorID, sTitle, sURL, sDesc, iFolder) values $values");
 			$message = "The bookmark has been added.";
+		}
+	}
+	else if(isset($_POST['addf']))
+	{
+		if(!isset($_POST['title']) || $_POST['title'] == '')
+			$message = "Please fill the title field before adding a folder.";
+		else
+		{
+			$values = "( ".$currentGroup->getID().", '".$_POST['title']."')";
+			$db->igroupsQuery("insert into BookmarkFolders (iGroupID, sTitle) values $values");
+			$message = "The folder has been added.";
 		}
 	}
 	else if(isset($_POST['editid']) && is_numeric($_POST['editid']))
@@ -33,13 +44,38 @@
 		}
 		else
 			$okay = true;
+		if(!is_numeric($_POST['folder']) || $_POST['folder'] == 1)
+			$okay = false;
 		if($okay)
 		{
-			$db->igroupsQuery("update Bookmarks set sTitle='".$_POST['title']."', sURL='".$_POST['url']."', sDesc='".$_POST['desc']."' where iID=".$_POST['editid']);
+			$db->igroupsQuery("update Bookmarks set sTitle='".$_POST['title']."', sURL='".$_POST['url']."', sDesc='".$_POST['desc']."', iFolder=".$_POST['folder']." where iID=".$_POST['editid']);
 			$message = "The bookmark has been edited.";
 		}
 		else
 			$message = "You don't have permissions to edit that bookmark.";
+	}
+	
+	if(isset($_GET['folder']) && is_numeric($_GET['folder']))
+	{
+		$row = mysql_fetch_row($db->igroupsQuery('select iGroupID, sTitle from BookmarkFolders where iID='.$_GET['folder']));
+		if($_GET['folder'] <= 1 || ($row && $row[0] == $currentGroup->getID()))
+		{
+			$BF = $_GET['folder'];
+			$BFQ = '='.$_GET['folder'];
+			$BFN = stripslashes($row[1]);
+		}
+		else
+		{
+			$BF = 0;
+			$BFQ = ' is null';
+			$BFN = 'Unfiled';
+		}
+	}
+	else
+	{
+		$BF = 0;
+		$BFQ = ' is null';
+		$BFN = 'Unfiled';
 	}
 ?>
 
@@ -60,19 +96,24 @@ foreach($altskins as $altskin)
 <h1>Bookmarks</h1>
 <p>Bookmarks in <?php echo $appname; ?> operate much like bookmarks in your web browser. Add URLs for other members in your group to be able to access at a click.</p>
 <?php
-$query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID()." order by sTitle");
+$query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID()." and iFolder$BFQ order by sTitle");
 if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 {
 	$query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID());
 	if(mysql_num_rows($query) > 0)
 	{
 		$row = mysql_fetch_array($query);
-		if($currentUser->isGroupModerator($currentGroup) || $row['iAuthorID'] == $currentUser->getID())
+		if(($currentUser->isGroupModerator($currentGroup) || $row['iAuthorID'] == $currentUser->getID()) && $row['iFolder'] != 1)
 		{
 			echo "<form method=\"post\" action=\"bookmarks.php\"><fieldset><legend>Edit Bookmark</legend>\n";
 			echo "<label for=\"title\">Title</label>&nbsp;<input type=\"text\" id=\"title\" name=\"title\" value=\"".htmlspecialchars($row['sTitle'])."\" /><br />\n";
 			echo "<label for=\"url\">URL</label>&nbsp;<input type=\"text\" id=\"url\" name=\"url\" value=\"".htmlspecialchars($row['sURL'])."\" /><br />\n";
 			echo "<label for=\"desc\">Description</label>&nbsp;<input type=\"text\" id=\"desc\" name=\"desc\" value=\"".htmlspecialchars($row['sDesc'])."\" /><br />\n";
+			echo "<label for=\"folder\">Folder</label>&nbsp;<select id=\"folder\" name=\"folder\"><option value=\"0\">Unfiled</option>\n";
+			$query2 = $db->igroupsQuery("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
+			while($row2 = mysql_fetch_row($query))
+				echo '<option value="'.$row2[0].'"'.($row2[0] == $row['iFolder'] ? ' selected="selected"' : '').'>'.$row2[1]."</option>\n";
+			echo "</select><br />\n";
 			echo "<input type=\"hidden\" name=\"editid\" value=\"".$_GET['edit']."\" /><input type=\"submit\" value=\"Edit Bookmark\" /></fieldset></form>\n";
 		}
 		else
@@ -82,16 +123,22 @@ if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 		die("That bookmark is not in your current group.");
 }
 else if(mysql_num_rows($query) > 0) {
-	$quer = $db->igroupsQuery("select * from Bookmarks where iAuthorID=".$currentUser->getID()." and iGroupID=".$currentGroup->getID());
+	$quer = $db->igroupsQuery("select * from Bookmarks where iAuthorID=".$currentUser->getID()." and iFolder$BFQ and iGroupID=".$currentGroup->getID());
 	if($currentUser->isGroupModerator($currentGroup) || mysql_num_rows($quer) > 0)
 		$hasDel = true;
 	else
 		$hasDel = false;
 	echo "<div id=\"bookmarks\">";
+	echo "<form method=\"get\"><fieldset><legend>Select Folder</legend>\n";
+	echo "<select name=\"folder\"><option value=\"0\"".(0 == $BF ? ' selected="selected"' : '').">Unfiled</option>\n<option value=\"1\"".(1 == $BF ? ' selected="selected"' : '').">IPRO Office Bookmarks</option>\n";
+	$query2 = $db->igroupsQuery("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
+	while($row = mysql_fetch_row($query2))
+		echo '<option value="'.$row[0].'"'.($row[0] == $BF ? ' selected="selected"' : '').'>'.$row[1]."</option>\n";
+	echo "</select><br /><input type=\"submit\" value=\"Select Folder\" /></fieldset></form>\n";
 	if($hasDel)
-		echo "<form method=\"post\" action=\"bookmarks.php\"><fieldset><legend>Current Bookmarks</legend>\n";
+		echo "<form method=\"post\" action=\"bookmarks.php\"><fieldset><legend>Bookmarks in $BFN</legend>\n";
 	else
-		echo "<h1>Current Bookmarks</h1>\n";
+		echo "<h1>Bookmarks in $BFN</h1>\n";
 	echo "<table><tr><th>Bookmark</th><th style=\"max-width: 400px;\">Description</th><th>Submitted By</th>";
 	if($hasDel)
 		echo "<th>Edit</th><th>Delete</th>";
@@ -114,6 +161,17 @@ else if(mysql_num_rows($query) > 0) {
 <label for="title">Title</label>&nbsp;<input type="text" id="title" name="title" /><br />
 <label for="url">URL</label>&nbsp;<input type="text" id="url" name="url" value="http://" /><br />
 <label for="desc">Description</label>&nbsp;<input type="text" id="desc" name="desc" /><br />
+<label for="folder">Folder</label>&nbsp;<select id="folder" name="folder"><option value="0">Unfiled</option>
+<?php
+	$query = $db->igroupsQuery("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
+	while($row = mysql_fetch_row($query))
+		echo '<option value="'.$row[0].'">'.$row[1]."</option>\n";
+?>
+</select><br />
 <input type="submit" name="add" id="add" value="Add Bookmark" />
+</fieldset></form>
+<form method="post" action="bookmarks.php"><fieldset><legend>Add Folder</legend>
+<label for="title">Title</label>&nbsp;<input type="text" id="title" name="title" /><br />
+<input type="submit" name="addf" id="addf" value="Add Folder" />
 </fieldset></form><?php } ?>
 </div></body></html>
