@@ -58,11 +58,17 @@
 	if(isset($_GET['folder']) && is_numeric($_GET['folder']))
 	{
 		$row = mysql_fetch_row($db->igroupsQuery('select iGroupID, sTitle from BookmarkFolders where iID='.$_GET['folder']));
-		if($_GET['folder'] <= 1 || ($row && $row[0] == $currentGroup->getID()))
+		if($_GET['folder'] > 1 && ($row && $row[0] == $currentGroup->getID()))
 		{
 			$BF = $_GET['folder'];
 			$BFQ = '='.$_GET['folder'];
 			$BFN = stripslashes($row[1]);
+		}
+		else if($_GET['folder'] == 1)
+		{
+			$BF = 1;
+			$BFQ = '=1';
+			$BFN = 'IPRO Office Bookmarks';
 		}
 		else
 		{
@@ -122,9 +128,12 @@ if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 	else
 		die("That bookmark is not in your current group.");
 }
-else if(mysql_num_rows($query) > 0) {
-	$quer = $db->igroupsQuery("select * from Bookmarks where iAuthorID=".$currentUser->getID()." and iFolder$BFQ and iGroupID=".$currentGroup->getID());
-	if($currentUser->isGroupModerator($currentGroup) || mysql_num_rows($quer) > 0)
+else if(mysql_num_rows($query) > 0 || $BF == 1) {
+	if($BF == 1)
+		$query = $db->igroupsQuery("select * from Bookmarks where iFolder=1 order by sTitle");
+	else
+		$quer = $db->igroupsQuery("select * from Bookmarks where iAuthorID=".$currentUser->getID()." and iFolder$BFQ and iGroupID=".$currentGroup->getID());
+	if($BF != 1 && ($currentUser->isGroupModerator($currentGroup) || mysql_num_rows($quer) > 0))
 		$hasDel = true;
 	else
 		$hasDel = false;
@@ -156,7 +165,18 @@ else if(mysql_num_rows($query) > 0) {
 	if($hasDel)
 		echo "<input type=\"submit\" name=\"delete\" id=\"delete\" value=\"Delete Selected\" /></fieldset></form>";
 	echo "</div>";
-} else { echo "<p>Your group does not have any bookmarks.</p>\n"; } if(!isset($_GET['edit']) || !is_numeric($_GET['edit'])) { ?>
+}
+else
+{
+	echo "<form method=\"get\"><fieldset><legend>Select Folder</legend>\n";
+	echo "<select name=\"folder\"><option value=\"0\"".(0 == $BF ? ' selected="selected"' : '').">Unfiled</option>\n<option value=\"1\"".(1 == $BF ? ' selected="selected"' : '').">IPRO Office Bookmarks</option>\n";
+	$query2 = $db->igroupsQuery("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
+	while($row = mysql_fetch_row($query2))
+		echo '<option value="'.$row[0].'"'.($row[0] == $BF ? ' selected="selected"' : '').'>'.$row[1]."</option>\n";
+	echo "</select><br /><input type=\"submit\" value=\"Select Folder\" /></fieldset></form>\n";
+	echo "<p>Your group does not have any bookmarks.</p>\n";
+} 
+if(!isset($_GET['edit']) || !is_numeric($_GET['edit'])) { ?>
 <form method="post" action="bookmarks.php"><fieldset><legend>Add Bookmark</legend>
 <label for="title">Title</label>&nbsp;<input type="text" id="title" name="title" /><br />
 <label for="url">URL</label>&nbsp;<input type="text" id="url" name="url" value="http://" /><br />
