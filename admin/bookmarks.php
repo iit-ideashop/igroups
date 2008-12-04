@@ -4,7 +4,7 @@
 	
 	if(isset($_POST['delete']))
 	{
-		$query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID());
+		$query = $db->igroupsQuery('select * from Bookmarks where iFolder=1');
 		while($row = mysql_fetch_array($query))
 		{
 			if(isset($_POST['del'.$row['iID']]))
