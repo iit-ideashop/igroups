@@ -156,7 +156,7 @@ else if(mysql_num_rows($query) > 0 || $BF == 1) {
 	{
 		$author = new Person($row['iAuthorID'], $db);
 		echo "<tr><td><a href=\"".htmlspecialchars($row['sURL'])."\" title=\"".htmlspecialchars($row['sTitle'])."\" onclick=\"window.open(this.href); return false;\" onkeypress=\"window.open(this.href); return false;\">".htmlspecialchars($row['sTitle'], ENT_NOQUOTES)."</a></td><td>".htmlspecialchars($row['sDesc'], ENT_NOQUOTES)."</td><td>".$author->getCommaName()."</td>";
-		if($currentUser->getID() == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup))
+		if($BF != 1 && ($currentUser->getID() == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup)))
 			echo "<td><a href=\"bookmarks.php?edit=".$row['iID']."\">Edit</a></td><td><input type=\"checkbox\" name=\"del".$row['iID']."\" /></td></tr>\n";
 		else
 			echo "</tr>\n";
