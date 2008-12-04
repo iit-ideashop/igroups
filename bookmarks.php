@@ -48,7 +48,7 @@
 			$okay = false;
 		if($okay)
 		{
-			$db->igroupsQuery("update Bookmarks set sTitle='".$_POST['title']."', sURL='".$_POST['url']."', sDesc='".$_POST['desc']."', iFolder=".$_POST['folder']." where iID=".$_POST['editid']);
+			$db->igroupsQuery("update Bookmarks set sTitle='".$_POST['title']."', sURL='".$_POST['url']."', sDesc='".$_POST['desc']."', iFolder=".($_POST['folder'] ? $_POST['folder'] : 'null')." where iID=".$_POST['editid']);
 			$message = "The bookmark has been edited.";
 		}
 		else
