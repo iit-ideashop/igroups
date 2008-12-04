@@ -117,7 +117,7 @@ if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 			echo "<label for=\"desc\">Description</label>&nbsp;<input type=\"text\" id=\"desc\" name=\"desc\" value=\"".htmlspecialchars($row['sDesc'])."\" /><br />\n";
 			echo "<label for=\"folder\">Folder</label>&nbsp;<select id=\"folder\" name=\"folder\"><option value=\"0\">Unfiled</option>\n";
 			$query2 = $db->igroupsQuery("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
-			while($row2 = mysql_fetch_row($query))
+			while($row2 = mysql_fetch_row($query2))
 				echo '<option value="'.$row2[0].'"'.($row2[0] == $row['iFolder'] ? ' selected="selected"' : '').'>'.$row2[1]."</option>\n";
 			echo "</select><br />\n";
 			echo "<input type=\"hidden\" name=\"editid\" value=\"".$_GET['edit']."\" /><input type=\"submit\" value=\"Edit Bookmark\" /></fieldset></form>\n";
@@ -174,7 +174,7 @@ else
 	while($row = mysql_fetch_row($query2))
 		echo '<option value="'.$row[0].'"'.($row[0] == $BF ? ' selected="selected"' : '').'>'.$row[1]."</option>\n";
 	echo "</select><br /><input type=\"submit\" value=\"Select Folder\" /></fieldset></form>\n";
-	echo "<p>Your group does not have any bookmarks.</p>\n";
+	echo "<p>This folder does not have any bookmarks.</p>\n";
 } 
 if(!isset($_GET['edit']) || !is_numeric($_GET['edit'])) { ?>
 <form method="post" action="bookmarks.php"><fieldset><legend>Add Bookmark</legend>
