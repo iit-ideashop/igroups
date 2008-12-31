@@ -51,45 +51,45 @@ if ( !class_exists( "dbConnection" ) ) {
 			return mysql_insert_id( $this->igroupsConn );
 		}
 	}
-}
+	
+	function anchorTags($str)
+	{
+		$arr1 = array();
+		$arr1[] = "&lt;a href";
+		$arr1[] = "&lt;A HREF";
+		$arr1[] = "&lt;/a";
+		$arr1[] = "&lt;/A";
+		$arr1[] = "&gt;";
+		$arr1[] = "&quot;";
+		$arr2 = array();
+		$arr2[] = "<a onclick=\"window.open(this.href); return false;\" href";
+		$arr2[] = "<a onclick=\"window.open(this.href); return false;\" href";
+		$arr2[] = "</a";
+		$arr2[] = "</a";
+		$arr2[] = ">";
+		$arr2[] = "\"";
+		$arr1[] = "\n";
+		$arr2[] = "<br />";
+		return str_replace($arr1, $arr2, $str);
+	}
 
-function anchorTags($str)
-{
-	$arr1 = array();
-	$arr1[] = "&lt;a href";
-	$arr1[] = "&lt;A HREF";
-	$arr1[] = "&lt;/a";
-	$arr1[] = "&lt;/A";
-	$arr1[] = "&gt;";
-	$arr1[] = "&quot;";
-	$arr2 = array();
-	$arr2[] = "<a onclick=\"window.open(this.href); return false;\" href";
-	$arr2[] = "<a onclick=\"window.open(this.href); return false;\" href";
-	$arr2[] = "</a";
-	$arr2[] = "</a";
-	$arr2[] = ">";
-	$arr2[] = "\"";
-	$arr1[] = "\n";
-	$arr2[] = "<br />";
-	return str_replace($arr1, $arr2, $str);
-}
-
-function anchorTagsNoBreaks($str)
-{
-	$arr1 = array();
-	$arr1[] = "&lt;a href";
-	$arr1[] = "&lt;A HREF";
-	$arr1[] = "&lt;/a";
-	$arr1[] = "&lt;/A";
-	$arr1[] = "&gt;";
-	$arr1[] = "&quot;";
-	$arr2 = array();
-	$arr2[] = "<a onclick=\"window.open(this.href); return false;\" href";
-	$arr2[] = "<a onclick=\"window.open(this.href); return false;\" href";
-	$arr2[] = "</a";
-	$arr2[] = "</a";
-	$arr2[] = ">";
-	$arr2[] = "\"";
-	return str_replace($arr1, $arr2, $str);
+	function anchorTagsNoBreaks($str)
+	{
+		$arr1 = array();
+		$arr1[] = "&lt;a href";
+		$arr1[] = "&lt;A HREF";
+		$arr1[] = "&lt;/a";
+		$arr1[] = "&lt;/A";
+		$arr1[] = "&gt;";
+		$arr1[] = "&quot;";
+		$arr2 = array();
+		$arr2[] = "<a onclick=\"window.open(this.href); return false;\" href";
+		$arr2[] = "<a onclick=\"window.open(this.href); return false;\" href";
+		$arr2[] = "</a";
+		$arr2[] = "</a";
+		$arr2[] = ">";
+		$arr2[] = "\"";
+		return str_replace($arr1, $arr2, $str);
+	}
 }
 ?>
