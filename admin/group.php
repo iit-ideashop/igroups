@@ -141,7 +141,10 @@ foreach($altskins as $altskin)
 			}
 ?>
 		</select><br /><br />
-		<b>ID: </b>(e.g. IPRO 101)<br />
+		<?php
+		$last = mysql_fetch_row($db->igroupsQuery('select sIITID from Projects where iID=max(iID)'));
+		echo "<b>ID: </b>(last: {$last[0]})<br />";
+		?>
 		<input type="text" name="sIITID" size="10" /><br /><br />
 		<b>Name: </b>(e.g. Developing New Products)<br />
 		<input type="text" name="sName" size="25" />&nbsp;&nbsp;
