@@ -1,6 +1,6 @@
 <?php
 include_once( "superstring.php" );
-require_once('../globals.php');
+include_once('../globals.php');
 
 if ( !class_exists( "Person" ) ) {
 	class Person {
