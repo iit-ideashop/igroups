@@ -1,5 +1,6 @@
 <?php
 include_once( "superstring.php" );
+require_once('../globals.php');
 
 if ( !class_exists( "Person" ) ) {
 	class Person {
@@ -127,6 +128,7 @@ if ( !class_exists( "Person" ) ) {
 		}
 
 		function addToGroup( $group ) {
+			global $appname, $appurl, $contactemail;
 			if ( !$this->isGroupMember( $group ) ) {
 				switch ($group->getType()) {
 					case 0:
