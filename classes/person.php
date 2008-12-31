@@ -1,6 +1,7 @@
 <?php
+set_include_path(get_include_path() . PATH_SEPARATOR . '/srv/igroups');
 include_once( "superstring.php" );
-include_once('../globals.php');
+include_once('globals.php');
 
 if ( !class_exists( "Person" ) ) {
 	class Person {
