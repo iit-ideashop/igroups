@@ -142,7 +142,7 @@ foreach($altskins as $altskin)
 ?>
 		</select><br /><br />
 		<?php
-		$last = mysql_fetch_row($db->igroupsQuery('select sIITID from Projects where iID=max(iID)'));
+		$last = mysql_fetch_row($db->igroupsQuery('select sIITID from Projects group by iID desc limit 1'));
 		echo "<b>ID: </b>(last: {$last[0]})<br />";
 		?>
 		<input type="text" name="sIITID" size="10" /><br /><br />
