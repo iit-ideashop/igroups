@@ -2,7 +2,7 @@
 	include_once( "checklogingroupless.php" );
 	include_once( "classes/group.php" );
 
-	if(isset($_GET['selectedGroup']
+	if(isset($_GET['selectedGroup']))
 	{
 		$group = explode('z', $_GET['selectedGroup']);
 		$currentGroup = new Group($group[0],$group[1], $group[2], $db);
