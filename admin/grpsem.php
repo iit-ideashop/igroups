@@ -17,12 +17,12 @@ foreach($altskins as $altskin)
 <?php
 	require("sidebar.php");
 	print "<div id=\"content\">";
-	if(is_numeric($_GET['gid']))
+	if(is_numeric($_POST['gid']) && $_POST['hurdle'] == 1)
 	{
 		echo "<h1>Group Semester Mover Thingy Step 2</h1>\n";
-		$group = mysql_fetch_array($db->igroupsQuery('select * from Projects where iID='.$_GET['gid']));
+		$group = mysql_fetch_array($db->igroupsQuery('select * from Projects where iID='.$_POST['gid']));
 		echo "<ul><li><b>Group:</b> {$group['sName']}</li>\n";
-		$sem = mysql_fetch_array($db->igroupsQuery('select * from Semesters where iID in (select iSemesterID from ProjectSemesterMap where iProjectID='.$_GET['gid'].')'));
+		$sem = mysql_fetch_array($db->igroupsQuery('select * from Semesters where iID in (select iSemesterID from ProjectSemesterMap where iProjectID='.$_POST['gid'].')'));
 		echo "<li><b>Semester:</b> {$sem['sSemester']}</li></ul>\n";
 		echo "<p>What semester do you want to move this group into? Note: Submitting this form WILL move the group!</p>\n";
 		echo "<form method=\"post\" action=\"grpsem.php\"><fieldset><legend>Move Group</legend>\n";
@@ -30,9 +30,9 @@ foreach($altskins as $altskin)
 		$sems = $db->igroupsQuery("select * from Semesters where iID<>{$sem['iID']} order by iID desc");
 		while($row = mysql_fetch_array($sems))
 			echo "<option value=\"{$row['iID']}\">{$row['sSemester']}</option>\n";
-		echo "</select></label><input type=\"hidden\" name=\"gid\" value=\"{$_GET['gid']}\" /><input type=\"submit\" /></fieldset></form>\n";
+		echo "</select></label><input type=\"hidden\" name=\"gid\" value=\"{$_POST['gid']}\" /><input type=\"hidden\" name=\"hurdle\" value=\"2\" /><input type=\"submit\" /></fieldset></form>\n";
 	}
-	else if(is_numeric($_POST['gid']) && is_numeric($_POST['semester']))
+	else if(is_numeric($_POST['gid']) && is_numeric($_POST['semester']) && $_POST['hurdle'] == 2)
 	{
 		echo "<h1>Group Semester Mover Thingy is go!</h1>\n<ul>";
 		$group = $_POST['gid'];
@@ -79,9 +79,9 @@ foreach($altskins as $altskin)
 	{
 		echo "<h1>Group Semester Mover Thingy</h1>\n";
 		echo "<p>This form will automagically move a group from one semester to another. You must know the group's ID to continue. (You can find that if you select your group on <a href=\"group.php\">group.php</a> and look at the query string.) Submitting this form will not yet make any changes.</p>\n";
-		echo "<form method=\"get\"><fieldset><legend>Select Group</legend>\n";
+		echo "<form method=\"post\"><fieldset><legend>Select Group</legend>\n";
 		echo "<label>Group ID: <input type=\"text\" name=\"gid\" /></label>\n";
-		echo "<input type=\"submit\" /></fieldset></form>\n";
+		echo "<input type=\"hidden\" name=\"hurdle\" value=\"1\" /><input type=\"submit\" /></fieldset></form>\n";
 	}
 ?>
 </div></body>
