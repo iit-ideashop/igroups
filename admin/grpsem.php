@@ -22,12 +22,12 @@ foreach($altskins as $altskin)
 		echo "<h1>Group Semester Mover Thingy Step 2</h1>\n";
 		$group = mysql_fetch_array($db->igroupsQuery('select * from Projects where iID='.$_GET['gid']));
 		echo "<ul><li><b>Group:</b> {$group['sName']}</li>\n";
-		$sem = mysql_fetch_array($db->igroupsQuery('select * from Semesters where iID in (select iSemesterID from ProjectSemesterMap where iProjectID='.$_GET['gid'].') order by iID desc'));
+		$sem = mysql_fetch_array($db->igroupsQuery('select * from Semesters where iID in (select iSemesterID from ProjectSemesterMap where iProjectID='.$_GET['gid'].')'));
 		echo "<li><b>Semester:</b> {$sem['sSemester']}</li></ul>\n";
 		echo "<p>What semester do you want to move this group into? Note: Submitting this form WILL move the group!</p>\n";
 		echo "<form method=\"post\"><fieldset><legend>Move Group</legend>\n";
 		echo "<label>Semester:<br /><select name=\"semester\"><option value=\"bananapudding\" selected=\"selected\">Select a semester</option>\n";
-		$sems = $db->igroupsQuery("select * from Semesters where iID<>{$sem['iID']}");
+		$sems = $db->igroupsQuery("select * from Semesters where iID<>{$sem['iID']} order by iID desc");
 		while($row = mysql_fetch_array($sems))
 			echo "<option value=\"{$row['iID']}\">{$row['sSemester']}</option>\n";
 		echo "</select></label><input type=\"hidden\" name=\"gid\" value=\"{$_GET['gid']}\" /><input type=\"submit\" /></fieldset></form>\n";
