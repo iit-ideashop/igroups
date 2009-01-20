@@ -65,7 +65,8 @@ foreach($altskins as $altskin)
 		{
 			echo "<li>Updating table <b>$table</b> (which stores the group ID in <b>$nm</b>)...";
 			$query = $db->igroupsQuery("update $table set iSemesterID=$sem where $nm=$group");
-			echo ($query ? '<b>OK</b>' : '<b style="color: red">FAIL</b>'.mysql_error());
+			$rows = mysql_affected_rows();
+			echo ($query ? "<b>OK</b> ($rows rows affected)" : '<b style="color: red">FAIL</b>'.mysql_error());
 			if(!$query)
 				$fail = true;
 			echo "</li>\n";
