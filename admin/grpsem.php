@@ -50,7 +50,7 @@ foreach($altskins as $altskin)
 			'FileQuota' => $g,
 			'Files' => $g,
 			'Folders' => $g,
-			'GroupAccessMap' => $g
+			'GroupAccessMap' => $g,
 			'GroupListMap' => $g,
 			'iGroupsNuggets' => $g,
 			'PeopleProjectMap' => $p,
