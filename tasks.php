@@ -101,7 +101,7 @@ function toggle(id)
 			{
 				$nm = mysql_fetch_row($db->igroupsQuery('select sFName, sLName from People where iID='.$assign['iPersonID']));
 				$asns[$assign['iPersonID']] = $nm[0].' '.$nm[1];
-				$asns[$assign['iPersonID']] .= strlen($assign['sRole']) ? ': <span class="role">'$assign['sRole'].'</span>' : '';
+				$asns[$assign['iPersonID']] .= strlen($assign['sRole']) ? ': <span class="role">'.$assign['sRole'].'</span>' : '';
 			}
 			$sgassignments = $db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$task['iID']);
 			$sgasns = array();
