@@ -71,7 +71,7 @@ foreach($altskins as $altskin)
 	$members = peopleSort($members);
 	$query = $db->igroupsQuery('select iPersonID from TaskAssignments where iTaskID='.$task['iID']);
 	$people = array();
-	while($row = mysql_fetch_row($query))
+	while($row = mysql_fetch_array($query))
 		$people[$row['iPersonID']] = true;
 	$i = 1;
 	foreach($members as $person)
