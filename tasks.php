@@ -120,7 +120,7 @@ function toggle(id)
 			$taskassn .= count($sgasns) ? '</ul>' : '';
 			if($currentUser->getID() == $task['iOwnerID'] || $currentUser->isGroupModerator($currentGroup))
 				$taskassn .= '<a href="taskassign.php?taskid='.$task['iID'].'" class="taskassign">Change assignments</a>';
-			$overdue = (!$task['dClosed'] && strtotime($task['dDue']) >= time()) ? ' class="overdue"' : ''
+			$overdue = (!$task['dClosed'] && strtotime($task['dDue']) >= time()) ? ' class="overdue"' : '';
 			$del = ($currentUser->isGroupModerator($currentGroup)) ? '<td><a href="tasks.php?viewTasks='.$viewTasks.'&amp;del='.$task['iID'].'">Delete</a></td>' : '';
 			echo "\n<tr$overdue><td>{$task['sName']}</td><td>{$task['dDue']}</td><td class=\"assignments\">$taskassn</td><td>{$task['dCompleted']}</td>$del</tr>";
 		}
