@@ -117,7 +117,7 @@ function toggle(id)
 			$taskassn .= count($sgasns) ? "<strong>Subgroups: <a href=\"javascript:toggle('S{$task['iID']}')\" class=\"toggle\">Toggle</a></strong><ul id=\"S{$task['iID']}\">" : 'No subgroups';
 			foreach($sgasns as $personid => $asn)
 				$taskassn .= "<li>$asn</li>";
-			$taskassn .= count($sgasns) ? '</ul>' : '';
+			$taskassn .= count($sgasns) ? '</ul>' : '<br />';
 			if($currentUser->getID() == $task['iOwnerID'] || $currentUser->isGroupModerator($currentGroup))
 				$taskassn .= '<a href="taskassign.php?taskid='.$task['iID'].'" class="taskassign">Change assignments</a>';
 			$overdue = (!$task['dClosed'] && strtotime($task['dDue']) <= time()) ? ' class="overdue"' : '';
