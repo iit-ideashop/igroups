@@ -17,6 +17,11 @@ tr.overdue td
 	color: white;
 }
 
+tr.overdue a
+{
+	color: yellow;
+}
+
 td.assignments ul
 {
 	display: block;

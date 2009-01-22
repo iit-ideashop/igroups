@@ -71,7 +71,7 @@ foreach($altskins as $altskin)
 <script type="text/javascript">
 function toggle(id)
 {
-	document.getElementById(id).style.display = (document.getElementById(id).style.display == 'block') ? 'none' : 'block';
+	document.getElementById(id).style.display = (document.getElementById(id).style.display == 'none') ? 'block' : 'none';
 }
 </script>
 </head>
