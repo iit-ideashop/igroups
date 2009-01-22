@@ -9,7 +9,7 @@
 		$hurdle = 0;
 		if(!strlen($name))
 			$message = 'ERROR: Could not create task: You must enter a name for the task.';
-		else if(mysql_num_rows($db->igroupsQuery('select iID from Tasks where iGroupID='.$currentGroup->getID()." and sName=\"$name\"")))
+		else if(mysql_num_rows($db->igroupsQuery('select iID from Tasks where iTeamID='.$currentGroup->getID()." and sName=\"$name\"")))
 			$message = 'Your group already has a task with that name.';
 		else
 			$hurdle++;
@@ -24,7 +24,7 @@
 		$desc = mysql_real_escape_string($_POST['desc']);
 		if($hurdle == 2)
 		{
-			$ok = $db->igroupsQuery('insert into Tasks (iGroupID, iOwnerID, sName, sDescription, dDue) values ('.$currentGroup->getID().', '.$currentUser->getID().", \"$name\", \"$desc\", \"$date\")");
+			$ok = $db->igroupsQuery('insert into Tasks (iTeamID, iOwnerID, sName, sDescription, dDue) values ('.$currentGroup->getID().', '.$currentUser->getID().", \"$name\", \"$desc\", \"$date\")");
 			if($ok)
 				header('Location: taskassign.php?taskid='.$db->igroupsInsertID());
 			else
@@ -33,7 +33,7 @@
 	}
 	else if(is_numeric($_GET['del']) && $currentUser->isGroupModerator($currentGroup))
 	{
-		$q = $db->igroupsQuery('select iGroupID from Tasks where iID='.$_GET['del']);
+		$q = $db->igroupsQuery('select iTeamID from Tasks where iID='.$_GET['del']);
 		$r = mysql_fetch_row($q);
 		if($r && $currentGroup->getID() == $r[0])
 		{ //Manually cascade this deletion
