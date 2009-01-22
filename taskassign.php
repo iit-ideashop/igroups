@@ -26,20 +26,27 @@
 			errorPage('Invalid Task ID', 'The task ID provided is invalid.', 400);
 		if($_POST['form'] == 'submit')
 		{
-			foreach($_POST['person'] as $id => $person)
+			if(is_array($_POST['person']))
 			{
-				if($person)
-					$db->igroupsQuery('insert into TaskAssignments (iTaskID, iPersonID) values ('.$task['iID'].", $id)");
-				else
-					$db->igroupsQuery('delete from TaskAssignments where iTaskID='.$task['iID']." and iPersonID=$id");
+				foreach($_POST['person'] as $id => $person)
+				{
+					if($person)
+						$db->igroupsQuery('insert into TaskAssignments (iTaskID, iPersonID) values ('.$task['iID'].", $id)");
+					else
+						$db->igroupsQuery('delete from TaskAssignments where iTaskID='.$task['iID']." and iPersonID=$id");
+				}
 			}
-			foreach($_POST['subgroup'] as $id => $subgroup)
+			if(is_array($_POST['subgroup']))
 			{
-				if($subgroup)
-					$db->igroupsQuery('insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ('.$task['iID'].", $id)");
-				else
-					$db->igroupsQuery('delete from TaskSubgroupAssignments where iTaskID='.$task['iID']." and iSubgroupID=$id");
+				foreach($_POST['subgroup'] as $id => $subgroup)
+				{
+					if($subgroup)
+						$db->igroupsQuery('insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ('.$task['iID'].", $id)");
+					else
+						$db->igroupsQuery('delete from TaskSubgroupAssignments where iTaskID='.$task['iID']." and iSubgroupID=$id");
+				}
 			}
+			header('Location: tasks.php');
 		}
 	}
 	else if($_GET['taskid'])
