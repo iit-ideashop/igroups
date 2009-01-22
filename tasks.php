@@ -1,7 +1,7 @@
 <?php
 	include_once('globals.php');
 	include_once('checklogin.php');
-	include_once('classes/task.php');
+	//include_once('classes/task.php');
 	
 	if($_POST['form'] == 'addtask')
 	{	//We have a new task to process
