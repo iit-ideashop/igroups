@@ -2,6 +2,15 @@
 	include_once('globals.php');
 	include_once('checklogin.php');
 	//include_once('classes/task.php');
+	
+	function peopleSort($array)
+	{
+		$newArray = array();
+		foreach($array as $person)
+			$newArray[$person->getCommaName()] = $person;
+		ksort($newArray);
+		return $newArray;
+	}
 		
 	if(is_numeric($_GET['taskid']))
 	{	
