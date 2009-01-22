@@ -48,7 +48,7 @@
 	else if(is_numeric($_GET['del']))
 		$message = 'ERROR: You do not have the requisite privileges to delete this task.';
 	
-	$viewTasks = (is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] == 1 || $_GET['viewTasks'] == 2) ? $_GET['viewTasks'] : 3;
+	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] == 1 || $_GET['viewTasks'] == 2) ? $_GET['viewTasks'] : 3;
 	if($viewTasks == 1)
 		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') order by dDue');
 	else if($viewTasks == 2)
