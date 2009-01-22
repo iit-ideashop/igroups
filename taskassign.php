@@ -98,7 +98,7 @@ foreach($altskins as $altskin)
 	{
 		$query = $db->igroupsQuery('select iSubgroupID from TaskSubgroupAssignments where iTaskID='.$task['iID']);
 		$subgr = array();
-		while($row = mysql_fetch_row($query))
+		while($row = mysql_fetch_array($query))
 			$subgr[$row['iSubgroupID']] = true;
 		echo "<fieldset id=\"subgroups\"><legend>Subgroups:</legend>\n";
 		echo "<table>\n";
