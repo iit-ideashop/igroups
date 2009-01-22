@@ -1,5 +1,16 @@
 @import url('default.css');
 
+table#tasks
+{
+	border-collapse: collapse;
+	border: thin solid black;
+}
+
+table#tasks td, table#tasks th
+{
+	border: thin solid black;
+}
+
 tr.overdue td
 {
 	background-color: maroon;

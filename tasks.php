@@ -89,7 +89,7 @@ function toggle(id)
 	echo "</select><input type=\"submit\" value=\"View Tasks\" /></fieldset></form>\n";
 	if(mysql_num_rows($tasks))
 	{
-		echo '<table><tr><th>Task</th><th>Due Date</th><th>Assigned to</th><th>Completed</th>';
+		echo '<table id="tasks"><tr><th>Task</th><th>Due Date</th><th>Assigned to</th><th>Completed</th>';
 		if($currentUser->isGroupModerator($currentGroup))
 			echo '<th>Delete</th>';
 		echo '</tr>';
