@@ -10,7 +10,7 @@
 		{
 			$task = mysql_fetch_array($query);
 			if($currentUser->getID() != $task['iOwnerID'] && !$currentUser->isGroupModerator($currentGroup))
-				errorPage('Access Denied', 'You must be either the task owner or a group moderator to make assignments to a task.', 403);
+				errorPage('Access Denied', 'You must be either the task owner or a group moderator to close a task.', 403);
 			//else OK
 		}
 		else
@@ -45,7 +45,7 @@ echo "<link rel=\"stylesheet\" href=\"skins/$skin/tasks.css\" type=\"text/css\" 
 foreach($altskins as $altskin)
 	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<title><?php echo $appname; ?> - Task Assignments</title>
+<title><?php echo $appname; ?> - Close Task</title>
 </head>
 <body>
 <?php
@@ -53,7 +53,7 @@ foreach($altskins as $altskin)
 ?>
 <div id="content">
 <?php
-	echo '<p>We are completing the task <b>'.$task['sName']."</b></p>\n";
+	echo '<p>We are closing the task <b>'.$task['sName']."</b></p>\n";
 	echo "<form method=\"post\" action=\"taskcomplete.php?taskid={$_GET['taskid']}\"><fieldset><legend>Complete Task</legend>\n";
 	echo "<label>Date completed: <input type=\"text\" name=\"date\" value=\"$thedate\" /></label>\n";
 	echo "<input type=\"submit\" value=\"Complete Task\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"submit\" /></fieldset></form>\n";

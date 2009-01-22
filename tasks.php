@@ -48,16 +48,16 @@
 	else if(is_numeric($_GET['del']))
 		$message = 'ERROR: You do not have the requisite privileges to delete this task.';
 	
-	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] == 1 || $_GET['viewTasks'] == 2) ? $_GET['viewTasks'] : 3;
+	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] >= 1 && $_GET['viewTasks'] <= 4) ? $_GET['viewTasks'] : 3;
 	if($viewTasks == 1)
 		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') and dClosed is null order by dDue');
 	else if($viewTasks == 2)
 		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and (iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') or iID in (select iTaskID from TaskSubgroupAssignments where iSubgroupID in (select iSubGroupID from PeopleSubGroupMap where iPersonID='.$currentUser->getID().'))) and dClosed is null order by dDue');
-	else if($viewTasks == 3)
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and dClosed is null order by dDue');
-	else
+	else if($viewTasks == 4)
 		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' order by dDue');
-	$taskSelect = array(1 => '', 2 => '', 3 => '');
+	else
+		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and dClosed is null order by dDue');
+	$taskSelect = array(1 => '', 2 => '', 3 => '', 4 => '');
 	$taskSelect[$viewTasks] = ' selected="selected"';
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
