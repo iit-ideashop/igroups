@@ -1,0 +1,31 @@
+@import url('default.css');
+
+tr.overdue td
+{
+	background-color: maroon;
+	color: white;
+}
+
+td.assignments ul
+{
+	display: block;
+}
+
+td.assignments strong
+{
+	font-size: x-small;
+	font-weight: bold;
+}
+
+.role
+{
+	font-size: smaller;
+	font-style: italic;
+}
+
+a.toggle
+{
+	font-size: smaller;
+	font-weight: normal;
+	vertical-align: super;
+}
