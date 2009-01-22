@@ -50,9 +50,11 @@
 	
 	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] == 1 || $_GET['viewTasks'] == 2) ? $_GET['viewTasks'] : 3;
 	if($viewTasks == 1)
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') order by dDue');
+		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') and dClosed is null order by dDue');
 	else if($viewTasks == 2)
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and (iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') or iID in (select iTaskID from TaskSubgroupAssignments where iSubgroupID in (select iSubGroupID from PeopleSubGroupMap where iPersonID='.$currentUser->getID().'))) order by dDue');
+		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and (iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') or iID in (select iTaskID from TaskSubgroupAssignments where iSubgroupID in (select iSubGroupID from PeopleSubGroupMap where iPersonID='.$currentUser->getID().'))) and dClosed is null order by dDue');
+	else if($viewTasks == 3)
+		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and dClosed is null order by dDue');
 	else
 		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' order by dDue');
 	$taskSelect = array(1 => '', 2 => '', 3 => '');
@@ -83,9 +85,10 @@ function toggle(id)
 <?php
 	//List tasks (choose: My tasks, my tasks + my subgroups, all group tasks)
 	echo "<form method=\"get\"><fieldset><legend>Filter Tasks</legend><select name=\"viewTasks\">\n";
-	echo "<option value=\"1\"{$taskSelect[1]}>My tasks</option>\n";
-	echo "<option value=\"2\"{$taskSelect[2]}>My tasks (plus my subgroups)</option>\n";
-	echo "<option value=\"3\"{$taskSelect[3]}>All group tasks</option>\n";
+	echo "<option value=\"1\"{$taskSelect[1]}>My uncompleted tasks</option>\n";
+	echo "<option value=\"2\"{$taskSelect[2]}>My uncompleted tasks (plus my subgroups)</option>\n";
+	echo "<option value=\"3\"{$taskSelect[3]}>All uncompleted tasks</option>\n";
+	echo "<option value=\"4\"{$taskSelect[4]}>All tasks</option>\n";
 	echo "</select><input type=\"submit\" value=\"View Tasks\" /></fieldset></form>\n";
 	if(mysql_num_rows($tasks))
 	{
@@ -122,7 +125,8 @@ function toggle(id)
 				$taskassn .= '<a href="taskassign.php?taskid='.$task['iID'].'" class="taskassign">Change assignments</a>';
 			$overdue = (!$task['dClosed'] && strtotime($task['dDue']) <= time()) ? ' class="overdue"' : '';
 			$del = ($currentUser->isGroupModerator($currentGroup)) ? '<td><a href="tasks.php?viewTasks='.$viewTasks.'&amp;del='.$task['iID'].'">Delete</a></td>' : '';
-			echo "\n<tr$overdue><td>{$task['sName']}</td><td>{$task['dDue']}</td><td class=\"assignments\">$taskassn</td><td>{$task['dCompleted']}</td>$del</tr>";
+			$taskClosed = $task['dClosed'] ? $task['dClosed'] : '<a href="taskcomplete?taskid='.$task['iID'].'">Close task</a>';
+			echo "\n<tr$overdue><td>{$task['sName']}</td><td>{$task['dDue']}</td><td class=\"assignments\">$taskassn</td><td>$taskClosed</td>$del</tr>";
 		}
 		echo "\n</table>\n";
 	}
