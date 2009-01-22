@@ -113,11 +113,11 @@ function toggle(id)
 				$nm = mysql_fetch_row($db->igroupsQuery('select sName from SubGroups where iID='.$assign['iSubgroupID']));
 				$sgasns[$assign['iPersonID']] = $nm[0];
 			}
-			$taskassn = count($asns) ? "<strong>People: <a href=\"javascript:toggle('P{$task['iID']}')\" class=\"toggle\">Toggle</a></strong><ul id=\"P{$task['iID']}\">" : 'No people';
+			$taskassn = count($asns) ? "<strong>People: <a href=\"javascript:toggle('P{$task['iID']}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task['iID']}\">" : 'No people';
 			foreach($asns as $personid => $asn)
 				$taskassn .= "<li>$asn</li>";
 			$taskassn .= count($asns) ? '</ul>' : '<br />';
-			$taskassn .= count($sgasns) ? "<strong>Subgroups: <a href=\"javascript:toggle('S{$task['iID']}')\" class=\"toggle\">Toggle</a></strong><ul id=\"S{$task['iID']}\">" : 'No subgroups';
+			$taskassn .= count($sgasns) ? "<strong>Subgroups: <a href=\"javascript:toggle('S{$task['iID']}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"S{$task['iID']}\">" : 'No subgroups';
 			foreach($sgasns as $personid => $asn)
 				$taskassn .= "<li>$asn</li>";
 			$taskassn .= count($sgasns) ? '</ul>' : '<br />';
