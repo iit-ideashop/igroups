@@ -125,7 +125,7 @@ function toggle(id)
 				$taskassn .= '<a href="taskassign.php?taskid='.$task['iID'].'" class="taskassign">Change assignments</a>';
 			$overdue = (!$task['dClosed'] && strtotime($task['dDue']) <= time()) ? ' class="overdue"' : '';
 			$del = ($currentUser->isGroupModerator($currentGroup)) ? '<td><a href="tasks.php?viewTasks='.$viewTasks.'&amp;del='.$task['iID'].'">Delete</a></td>' : '';
-			$taskClosed = $task['dClosed'] ? $task['dClosed'] : '<a href="taskcomplete?taskid='.$task['iID'].'">Close task</a>';
+			$taskClosed = $task['dClosed'] ? $task['dClosed'] : (($currentUser->isGroupModerator($currentGroup) || $task['iOwnerID'] == $currentUser->getID()) ? '<a href="taskcomplete?taskid='.$task['iID'].'">Close task</a>' : '');
 			echo "\n<tr$overdue><td>{$task['sName']}</td><td>{$task['dDue']}</td><td class=\"assignments\">$taskassn</td><td>$taskClosed</td>$del</tr>";
 		}
 		echo "\n</table>\n";
