@@ -53,7 +53,7 @@
 		unset($_SESSION['selectedCategory']);
 		$currentCat = false;
 	}
-	else if ( isset( $_SESSION['selectedCategory'] ) && is_numeric($_SESSION['selectCategory']) ){
+	else if ( isset( $_SESSION['selectedCategory'] ) && is_numeric($_SESSION['selectedCategory']) ){
 		$currentCat = new Category( $_SESSION['selectedCategory'], $db );
 		if(!$currentCat->getGroupID())
 			$currentCat->setGroup($currentGroup->getID());
