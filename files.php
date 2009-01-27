@@ -24,6 +24,11 @@
 	
 	if ( isset( $_SESSION['selectedFolder'] ) && $_SESSION['selectedFolder'] != 0 ){
 		$currentFolder = new Folder( $_SESSION['selectedFolder'], $db );
+		if(!$currentFolder->isValid())
+		{
+			$_SESSION['selectedFolder'] = 0;
+			$currentFolder = new Folder(0, $db);
+		}
 	}
 	else
 		$currentFolder = false;
