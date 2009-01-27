@@ -15,7 +15,7 @@
 		$_SESSION['selectedGroupType'] = $email->getGroupType();
 		$_SESSION['selectedSemester'] = $email->getSemester();
 	}
-	else if(isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']))
+	else if(isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']) && is_numeric($_SESSION['selectedGroup']) && is_numeric($_SESSION['selectedGroupType']) && is_numeric($$_SESSION['selectedSemester']))
 	{
 		$currentGroup = new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db );
 		if(!$currentGroup->isGroupMember($currentUser))
@@ -44,7 +44,7 @@
 	else
 		die("You have not selected a valid group.");
 	
-	if ( isset( $_GET['selectCategory'] ) ) {
+	if ( isset( $_GET['selectCategory'] ) && is_numeric($_GET['selectCategory']) ) {
 		$_SESSION['selectedCategory'] = $_GET['selectCategory'];
 	}
 	
@@ -53,7 +53,7 @@
 		unset($_SESSION['selectedCategory']);
 		$currentCat = false;
 	}
-	else if ( isset( $_SESSION['selectedCategory'] ) ){
+	else if ( isset( $_SESSION['selectedCategory'] ) && is_numeric($_SESSION['selectCategory']) ){
 		$currentCat = new Category( $_SESSION['selectedCategory'], $db );
 		if(!$currentCat->getGroupID())
 			$currentCat->setGroup($currentGroup->getID());
@@ -61,6 +61,11 @@
 			$currentCat->setSemester($currentGroup->getSemester());
 		if(!$currentCat->getGroupType())
 			$currentCat->setType($currentGroup->getType());
+		if($currentCat->getGroupID() != $currentGroup->getID())
+		{
+			unset($_SESSION['selectedCategory']);
+			$currentCat = false;
+		}
 	}
 	else
 		$currentCat = false;
