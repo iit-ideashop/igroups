@@ -121,6 +121,11 @@ if ( !class_exists( "Folder" ) ) {
 			$this->pfid=$id;
 		}
 		
+		function isValid()
+		{
+			return is_numeric($this->getID()) && is_numeric($this->getGroupID()) && is_numeric($this->getGroupType());
+		}
+
 		function getFolders() {
 			$returnArray = array();
 			if(!is_numeric($this->getID()) || !is_numeric($this->getGroupID()) || !is_numeric($this->getGroupType()))
