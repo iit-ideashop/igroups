@@ -27,7 +27,7 @@
 		if(!$currentFolder->isValid())
 		{
 			$_SESSION['selectedFolder'] = 0;
-			$currentFolder = new Folder(0, $db);
+			$currentFolder = false;
 		}
 	}
 	else
