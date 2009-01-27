@@ -24,7 +24,7 @@
 	
 	if ( isset( $_SESSION['selectedFolder'] ) && $_SESSION['selectedFolder'] != 0 ){
 		$currentFolder = new Folder( $_SESSION['selectedFolder'], $db );
-		if(!$currentFolder->isValid())
+		if(!$currentFolder->isValid() || $currentFolder->getGroupID() != $currentGroup->getID())
 		{
 			$_SESSION['selectedFolder'] = 0;
 			$currentFolder = false;
