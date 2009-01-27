@@ -12,9 +12,14 @@
 		$_SESSION['selectedFolder'] = $_GET['selectFolder'];
 	}
 	
-	if ( isset( $_GET['selectSpecial'] ) && is_numeric($_GET['selectSpecial'])) {
+	else if ( isset( $_GET['selectSpecial'] ) && is_numeric($_GET['selectSpecial'])) {
 		unset( $_SESSION['selectedFolder'] );
 		$_SESSION['selectedSpecial'] = $_GET['selectSpecial'];
+	}
+	else
+	{
+		unset($_SESSION['selectedSpecial']);
+		$_SESSION['selectedFolder'] = 0;
 	}
 	
 	if ( isset( $_SESSION['selectedFolder'] ) && $_SESSION['selectedFolder'] != 0 ){
