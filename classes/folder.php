@@ -123,7 +123,8 @@ if ( !class_exists( "Folder" ) ) {
 		
 		function getFolders() {
 			$returnArray = array();
-			
+			if(!is_numeric($this->getID()) || !is_numeric($this->getGroupID()) || !is_numeric($this->getGroupType()))
+				return array();
 			if ( $this->getGroupType() == 0 && $this->getGroupID() != 0 ) {
 				$folders = $this->db->igroupsQuery( "SELECT iID FROM Folders WHERE iParentFolderID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." AND iSemesterID=".$this->getSemester()." ORDER BY sTitle" );
 			}
