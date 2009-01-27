@@ -7,12 +7,12 @@
 		
 	$currentQuota = new Quota( $currentGroup, $db );
 	
-	if ( isset( $_GET['selectFolder'] ) ) {
+	if ( isset( $_GET['selectFolder'] ) && is_numeric($_GET['selectFolder'])) {
 		unset( $_SESSION['selectedSpecial'] );
 		$_SESSION['selectedFolder'] = $_GET['selectFolder'];
 	}
 	
-	if ( isset( $_GET['selectSpecial'] ) ) {
+	if ( isset( $_GET['selectSpecial'] ) is_numeric($_GET['selectSpecial'])) {
 		unset( $_SESSION['selectedFolder'] );
 		$_SESSION['selectedSpecial'] = $_GET['selectSpecial'];
 	}
