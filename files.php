@@ -28,10 +28,21 @@
 		{
 			$_SESSION['selectedFolder'] = 0;
 			$currentFolder = false;
+			$suffix = '';
+			$ampsuffix = '';
+		}
+		else
+		{
+			$suffix = '?selectFolder='.$currentFolder->getID();
+			$ampsuffix = '&amp;selectFolder='.$currentFolder->getID();
 		}
 	}
 	else
+	{
 		$currentFolder = false;
+		$suffix = '';
+		$ampsuffix = '';
+	}
 	
 	if ( !isset( $_SESSION['expandFolders'] ) )
 		$_SESSION['expandFolders'] = array();
@@ -56,9 +67,9 @@
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
 			print "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."$ampsuffix\"><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		else
-			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
+			print "<li><a href=\"files.php?toggleExpand=".$folder->getID()."$ampsuffix\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		if ( count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID())) {
 			print "<ul class=\"folderlist\">\n";
 			foreach ( $subfolder as $key => $val ) {
@@ -499,7 +510,7 @@ foreach($altskins as $altskin)
 				}
 ?>			
 			</div>
-			<form method="post" action="files.php"><fieldset>
+			<form method="post" action="files.php<?php echo $suffix; ?>"><fieldset>
 				<div class="menubar">
 					<?php if (!$currentUser->isGroupGuest($currentGroup)) { ?>
 					<ul class="folderlist">
@@ -527,29 +538,29 @@ foreach($altskins as $altskin)
 <?php					if($_SESSION['selectedSpecial'] != 'ipro') {
 						echo "<tr class=\"sortbar\"><td></td>\n";
 						if($_SESSION['fileSort'] == 1)
-							echo "<td><a href=\"files.php?sort=-1\" title=\"Sort this descendingly\">Filename &#x2193;</a>";
+							echo "<td><a href=\"files.php?sort=-1$ampsuffix\" title=\"Sort this descendingly\">Filename &#x2193;</a>";
 						else if($_SESSION['fileSort'] == -1)
-							echo "<td><a href=\"files.php?sort=1\" title=\"Sort this ascendingly\">Filename &#x2191;</a>";
+							echo "<td><a href=\"files.php?sort=1$ampsuffix\" title=\"Sort this ascendingly\">Filename &#x2191;</a>";
 						else
-							echo "<td><a href=\"files.php?sort=1\" title=\"Sort by filename\">Filename</a>";
+							echo "<td><a href=\"files.php?sort=1$ampsuffix\" title=\"Sort by filename\">Filename</a>";
 						if($_SESSION['fileSort'] == 2)
-							echo "<td><a href=\"files.php?sort=-2\" title=\"Sort this descendingly\">Description &#x2193;</a>";
+							echo "<td><a href=\"files.php?sort=-2$ampsuffix\" title=\"Sort this descendingly\">Description &#x2193;</a>";
 						else if($_SESSION['fileSort'] == -2)
-							echo "<td><a href=\"files.php?sort=2\" title=\"Sort this ascendingly\">Description &#x2191;</a>";
+							echo "<td><a href=\"files.php?sort=2$ampsuffix\" title=\"Sort this ascendingly\">Description &#x2191;</a>";
 						else
-							echo "<td><a href=\"files.php?sort=2\" title=\"Sort by description\">Description</a>";
+							echo "<td><a href=\"files.php?sort=2$ampsuffix\" title=\"Sort by description\">Description</a>";
 						if($_SESSION['fileSort'] == 3)
-							echo "<td><a href=\"files.php?sort=-3\" title=\"Sort this descendingly\">Author &#x2193;</a>";
+							echo "<td><a href=\"files.php?sort=-3$ampsuffix\" title=\"Sort this descendingly\">Author &#x2193;</a>";
 						else if($_SESSION['fileSort'] == -3)
-							echo "<td><a href=\"files.php?sort=3\" title=\"Sort this ascendingly\">Author &#x2191;</a>";
+							echo "<td><a href=\"files.php?sort=3$ampsuffix\" title=\"Sort this ascendingly\">Author &#x2191;</a>";
 						else
-							echo "<td><a href=\"files.php?sort=3\" title=\"Sort by author\">Author</a>";
+							echo "<td><a href=\"files.php?sort=3$ampsuffix\" title=\"Sort by author\">Author</a>";
 						if($_SESSION['fileSort'] == 4)
-							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort this descendingly\">Date &#x2193;</a>";
+							echo "<td><a href=\"files.php?sort=-4$ampsuffix\" title=\"Sort this descendingly\">Date &#x2193;</a>";
 						else if($_SESSION['fileSort'] == -4)
-							echo "<td><a href=\"files.php?sort=4\" title=\"Sort this ascendingly\">Date &#x2191;</a>";
+							echo "<td><a href=\"files.php?sort=4$ampsuffix\" title=\"Sort this ascendingly\">Date &#x2191;</a>";
 						else
-							echo "<td><a href=\"files.php?sort=-4\" title=\"Sort by date\">Date</a>";
+							echo "<td><a href=\"files.php?sort=-4$ampsuffix\" title=\"Sort by date\">Date</a>";
 						echo "<td></td><td></td></tr>\n"; 
 					}
 					if ($currentFolder && !$currentFolder->isIPROFolder()) {
@@ -604,7 +615,7 @@ foreach($altskins as $altskin)
 		</div>
 	</div>
 		<div class="window-content" id="upload" style="display: none">
-			<form method="post" action="files.php" enctype="multipart/form-data"><fieldset>
+			<form method="post" action="files.php<?php echo $suffix; ?>" enctype="multipart/form-data"><fieldset>
 				<label for="thefile1">File:</label><input type="file" name="thefile" id="thefile1" /><br />
 				<label for="filename">File Name:</label><input type="text" name="filename" id="filename" /><br />
 				<label for="filedescription1">Description:</label><input type="text" name="filedescription" id="filedescription1" /><br />
@@ -624,7 +635,7 @@ foreach($altskins as $altskin)
 	if(count($fileList) > 0) {
 ?>
 		<div class="window-content" id="update" style="display: none">
-			<form method="post" action="files.php" enctype="multipart/form-data"><fieldset>
+			<form method="post" action="files.php<?php echo $suffix; ?>" enctype="multipart/form-data"><fieldset>
 				<label for="thefile2">File:</label><input type="file" name="thefile" id="thefile2" /><br />
        				<label for="filedescription2">Description:</label><input type="text" name="filedescription" id="filedescription2" /><br />
 				This file will be placed in the
@@ -646,7 +657,7 @@ foreach($altskins as $altskin)
 		if(($currentFolder == 0 && count($folderList) > 0) || (isset($_SESSION['selectedSpecial']) && $_SESSION['selectedSpecial'] == 'trash') || (!isset($_SESSION['selectedSpecial']) && $currentFolder != 0)) {
 ?>
 		<div class="window-content" id="move" style="display: none">
-			<form method="post" action="files.php"><fieldset>
+			<form method="post" action="files.php<?php echo $suffix; ?>"><fieldset>
 				<label for="target">Select Target Folder:</label>
 				<select name="target" id="target">
 					<option value="0">Your Files</option>
@@ -665,7 +676,7 @@ foreach($altskins as $altskin)
 	if (!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial'])) {
 ?>
 		<div class="window-content" id="newfolder" style="display: none">
-			<form method="post" action="files.php"><fieldset>
+			<form method="post" action="files.php<?php echo $suffix; ?>"><fieldset>
 				<label for="Nfoldername">Folder Name:</label><input type="text" name="foldername" id="Nfoldername" /><br />
 				<label for="Nfolderdesc">Description:</label><input type="text" name="folderdescription" id="Nfolderdesc" /><br />
 				This folder will be placed in the
@@ -693,7 +704,7 @@ foreach($altskins as $altskin)
 	if ( $currentUser->isGroupModerator($currentGroup) && !isset( $_SESSION['selectedSpecial'] ) && $_SESSION['selectedFolder']!=0  ) {
 ?>
 		<div class="window-content" id="editfolder" style="display: none">
-			<form method="post" action="files.php"><fieldset>
+			<form method="post" action="files.php<?php echo $suffix; ?>"><fieldset>
 <?php
 				if ( $currentFolder ) {
 					print "Current Folder Name: ".$currentFolder->getName()."<br />";
