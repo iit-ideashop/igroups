@@ -50,6 +50,7 @@ foreach($altskins as $altskin)
 		<label for="email">Email address query:</label><input type="text" name="email" id="email" /><input type="submit" name="Submit" />
 	</fieldset></form>
 <?php
+		echo "<a href=\"people.php?uid=$uid\">Back to user profile</a>\n";
 	}
 ?>
 </div></body>
