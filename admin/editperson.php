@@ -15,8 +15,6 @@ foreach($altskins as $altskin)
 </head>
 <body>
 <?php
-	require("sidebar.php");
-	print "<div id=\"content\">";
 	if(isset($_GET['id']) && is_numeric($_GET['id']))
 	{
 		$contactInfo = mysql_fetch_array($db->igroupsQuery("SELECT * FROM People WHERE iID={$_GET['id']}"));
@@ -34,6 +32,8 @@ foreach($altskins as $altskin)
 			else
 				$message = 'ERROR: Update failed: '.mysql_error();
 		}
+	require("sidebar.php");
+	print "<div id=\"content\">";
 ?>
 <form method="post" action="editperson.php?id=<?php echo $uid; ?>"><fieldset><legend>Edit Person</legend>
 <p><b>Primary email:</b> <?php echo $contactInfo['sEmail']; ?></p>
