@@ -1,9 +1,6 @@
 <?php
 	include_once("../globals.php");
 	include_once( "checkadmin.php" );
-	include_once("../classes/nugget.php");
-	include_once("../classes/group.php");
-	include_once("../classes/semester.php");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -14,7 +11,7 @@ echo "<link rel=\"stylesheet\" href=\"../skins/$skin/default.css\" type=\"text/c
 foreach($altskins as $altskin)
 	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<title><?php echo $appname;?> - View Profile</title>
+<title><?php echo $appname;?> - Edit Person</title>
 </head>
 <body>
 <?php
@@ -22,7 +19,7 @@ foreach($altskins as $altskin)
 	print "<div id=\"content\">";
 	if(isset($_GET['id']) && is_numeric($_GET['id']))
 	{
-		$contactInfo = mysql_fetch_array($db->igroupsQuery("SELECT * FROM People WHERE iID={$_GET['uid']}"));
+		$contactInfo = mysql_fetch_array($db->igroupsQuery("SELECT * FROM People WHERE iID={$_GET['id']}"));
 		if ($contactInfo)
 			$uid = $contactInfo['iID'];
 		else
