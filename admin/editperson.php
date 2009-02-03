@@ -42,6 +42,7 @@ foreach($altskins as $altskin)
 <p style="font-size: smaller">A user's primary email address may not be edited.</p>
 <input type="submit" value="Edit Person" /><input type="reset" /></fieldset></form>
 <?php
+		echo "<a href=\"people.php?uid=$uid\">Back to user profile</a>\n";
 	}
 	else //if no email given in URL
 	{
@@ -50,7 +51,6 @@ foreach($altskins as $altskin)
 		<label for="email">Email address query:</label><input type="text" name="email" id="email" /><input type="submit" name="Submit" />
 	</fieldset></form>
 <?php
-		echo "<a href=\"people.php?uid=$uid\">Back to user profile</a>\n";
 	}
 ?>
 </div></body>
