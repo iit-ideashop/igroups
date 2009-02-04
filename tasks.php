@@ -1,6 +1,7 @@
 <?php
 	include_once('globals.php');
 	include_once('checklogin.php');
+	include_once('subgroup.php');
 	//include_once('classes/task.php');
 	
 	if($_POST['form'] == 'addtask')
@@ -92,7 +93,7 @@ function toggle(id)
 	echo "</select><input type=\"submit\" value=\"View Tasks\" /></fieldset></form>\n";
 	if(mysql_num_rows($tasks))
 	{
-		echo '<table id="tasks"><tr><th>Task</th><th>Due Date</th><th>Assigned to</th><th>Completed</th>';
+		echo '<table id="tasks"><tr><th>Task</th><th>Due Date</th><th>Assigned to</th><th>Hours</th><th>Completed</th>';
 		if($currentUser->isGroupModerator($currentGroup))
 			echo '<th>Delete</th>';
 		echo '</tr>';
@@ -114,19 +115,36 @@ function toggle(id)
 				$sgasns[$assign['iPersonID']] = $nm[0];
 			}
 			$taskassn = count($asns) ? "<strong>People: <a href=\"javascript:toggle('P{$task['iID']}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task['iID']}\">" : 'No people';
+			$mytask = false;
 			foreach($asns as $personid => $asn)
+			{
 				$taskassn .= "<li>$asn</li>";
+				if($personid == $currentUser->getID())
+					$mytask = true;
+			}
 			$taskassn .= count($asns) ? '</ul>' : '<br />';
 			$taskassn .= count($sgasns) ? "<strong>Subgroups: <a href=\"javascript:toggle('S{$task['iID']}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"S{$task['iID']}\">" : 'No subgroups';
 			foreach($sgasns as $personid => $asn)
+			{
 				$taskassn .= "<li>$asn</li>";
+				$subgr = new SubGroup($personid, $db);
+				if($subgr->isSubGroupMember($currentUser))
+					$mytask = true;
+			}
 			$taskassn .= count($sgasns) ? '</ul>' : '<br />';
 			if($currentUser->getID() == $task['iOwnerID'] || $currentUser->isGroupModerator($currentGroup))
 				$taskassn .= '<a href="taskassign.php?taskid='.$task['iID'].'" class="taskassign">Change assignments</a>';
 			$overdue = (!$task['dClosed'] && strtotime($task['dDue']) <= time()) ? ' class="overdue"' : '';
+			if($mytask)
+			{
+				$hours = mysql_fetch_row($db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$task['iID']} and iPersonID={$currentUser->getID()}"));
+				$myhours = "{$hours[0]}<br /><a href=\"taskhours.php\">Add hours</a>";
+			}
+			else
+				$myhours = 'N/A';
 			$del = ($currentUser->isGroupModerator($currentGroup)) ? '<td><a href="tasks.php?viewTasks='.$viewTasks.'&amp;del='.$task['iID'].'">Delete</a></td>' : '';
 			$taskClosed = $task['dClosed'] ? $task['dClosed'] : (($currentUser->isGroupModerator($currentGroup) || $task['iOwnerID'] == $currentUser->getID()) ? '<a href="taskcomplete?taskid='.$task['iID'].'">Close task</a>' : '');
-			echo "\n<tr$overdue><td>{$task['sName']}</td><td>{$task['dDue']}</td><td class=\"assignments\">$taskassn</td><td>$taskClosed</td>$del</tr>";
+			echo "\n<tr$overdue><td>{$task['sName']}</td><td>{$task['dDue']}</td><td class=\"assignments\">$taskassn</td><td>$myhours</td><td>$taskClosed</td>$del</tr>";
 		}
 		echo "\n</table>\n";
 	}
