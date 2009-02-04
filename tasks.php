@@ -138,7 +138,7 @@ function toggle(id)
 			if($mytask)
 			{
 				$hours = mysql_fetch_row($db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$task['iID']} and iPersonID={$currentUser->getID()}"));
-				$myhours = "{$hours[0]}<br /><a href=\"taskhours.php\">Add hours</a>";
+				$myhours = "{$hours[0]}<br /><a href=\"taskhours.php?taskid={$task['iID']}\">Add hours</a>";
 			}
 			else
 				$myhours = 'N/A';
