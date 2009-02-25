@@ -54,7 +54,7 @@ foreach($altskins as $altskin)
 <body>
 <?php
 	require("sidebar.php");
-	echo '<div id="content">';
+	echo '<div id="content"><p>Warning: Do not add or edit a skin using this interface unless the requisite CSS files have been places in the skins folder.</p>';
 	$query = $db->igroupsQuery('select * from Skins');
 	echo "<form method=\"post\"><fieldset><legend>Edit Skins</legend>\n";
 	echo "<table><tr><th>Skin</th><th>Private</th><th>Default</th><th>Delete</th></tr>\n";
