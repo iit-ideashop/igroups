@@ -45,7 +45,7 @@
 	{
 		$post->setBody($_POST['body']);
 		$post->updateDB();
-		header("Location: viewThread?id={$_GET['thread']}&topic=".$currentTopic->getID().$glob);
+		header("Location: viewThread?id={$_GET['thread']}&topic=".$currentTopic->getID().str_replace('&amp;', '&', $glob));
 	}
 	else if(!isset($_GET['post']) || !is_numeric($_GET['post']))
 		die("Invalid Request");
