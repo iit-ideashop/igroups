@@ -15,6 +15,12 @@
 		ksort( $newArray );
 		return $newArray;
 	}
+	$query = $db->igroupsQuery('select sSig from Profiles where iPersonID='.$currentUser->getID());
+	$arr = mysql_fetch_row($query);
+	unset($query);
+	$sig = $arr[0];
+	unset($arr);
+	$sig = "\n--\n$sig";
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -148,11 +154,11 @@ foreach($altskins as $altskin)
 			<tr><td colspan="2"><label for="body">Body:</label></td></tr>
 <?php
 		if (isset($replyEmail)) 
-			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\">\n\n\n----Original E-mail Follows----\n{$replyEmail->getReplyBody()}</textarea></td></tr>";
+			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\">$sig\n\n\n----Original E-mail Follows----\n{$replyEmail->getReplyBody()}</textarea></td></tr>";
 		else if (isset($forwardEmail)) 
-			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\">\n\n\n----Original E-mail Follows----\n{$forwardEmail->getReplyBody()}</textarea></td></tr>";
+			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\">$sig\n\n\n----Original E-mail Follows----\n{$forwardEmail->getReplyBody()}</textarea></td></tr>";
 		else
-			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\"></textarea></td></tr>";
+			print "<tr><td colspan=\"2\"><textarea name=\"body\" id=\"body\" cols=\"54\" rows=\"10\">$sig</textarea></td></tr>";
 ?>
 			<tr><td colspan="2" align="center"><input type="button" value="Spell Check" onclick="openSpellChecker();" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
 		</table>

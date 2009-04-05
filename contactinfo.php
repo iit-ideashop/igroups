@@ -9,34 +9,42 @@
 		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$db->igroupsInsertID()}");
 		$profile = mysql_fetch_array($query);
 	}
-	if ( isset( $_POST['update'] ) ) {
-		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");					     $profile = mysql_fetch_array($query);
+	if ( isset( $_POST['update'] ) ) 
+	{
+		$clean = array();
+		foreach($_POST as $key => $val)
+			$clean[$key] = mysql_real_escape_string(stripslashes($val));
+		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");
+		$profile = mysql_fetch_array($query);
+		
 
-		if ( $_POST['pw1'] == $_POST['pw2'] )
-			$currentUser->setPassword( $_POST['pw1'] );
+		if ($_POST['pw1'] == $_POST['pw2'])
+			$currentUser->setPassword($_POST['pw1']);
 		$currentUser->updateDB();
 		if (isset($_POST['altEmail']))
-			$db->igroupsQuery("UPDATE Profiles SET sAltEmail='{$_POST['altEmail']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sAltEmail='{$clean['altEmail']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['phone']))
-			$db->igroupsQuery("UPDATE Profiles SET sPhone='{$_POST['phone']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sPhone='{$clean['phone']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['phone2']))
-			$db->igroupsQuery("UPDATE Profiles SET sPhone2='{$_POST['phone2']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sPhone2='{$clean['phone2']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['im']))
-			$db->igroupsQuery("UPDATE Profiles SET sIM='{$_POST['im']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sIM='{$clean['im']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['nickname']))
-			$db->igroupsQuery("UPDATE Profiles SET sNickname='{$_POST['nickname']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sNickname='{$clean['nickname']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['major']))
-			$db->igroupsQuery("UPDATE Profiles SET sMajor='{$_POST['major']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sMajor='{$clean['major']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['year']))
-			$db->igroupsQuery("UPDATE Profiles SET sYear='{$_POST['year']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sYear='{$clean['year']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['hometown']))
-			$db->igroupsQuery("UPDATE Profiles SET sHometown='{$_POST['hometown']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sHometown='{$clean['hometown']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['isResident']))
 			$db->igroupsQuery("UPDATE Profiles SET isResident={$_POST['isResident']} WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['bio']))
-			$db->igroupsQuery("UPDATE Profiles SET sBio='{$_POST['bio']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sBio='{$clean['bio']}' WHERE iPersonID={$currentUser->getID()}");
 		if (isset($_POST['skills']))
-			$db->igroupsQuery("UPDATE Profiles SET sSkills='{$_POST['skills']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->igroupsQuery("UPDATE Profiles SET sSkills='{$clean['skills']}' WHERE iPersonID={$currentUser->getID()}");
+		if(isset($_POST['sig']))
+			$db->igroupsQuery("UPDATE Profiles SET sSig='{$clean['sig']}' WHERE iPersonID={$currentUser->getID()}");
 		if(is_numeric($_POST['skin']) && ($_POST['skin'] == 0 || mysql_num_rows($db->igroupsQuery('select * from Skins where iID='.$_POST['skin'].' and bPublic=1'))))
 			$db->igroupsQuery('update People set iSkin='.$_POST['skin'].' where iID='.$currentUser->getID());
 		if (isset($_FILES['picture'])) {
@@ -121,6 +129,7 @@ foreach($altskins as $altskin)
 			print "<tr><td>Live on Campus? </td><td><input type=\"radio\" name=\"isResident\" id=\"isRes1\" value=\"1\" />&nbsp;<label for=\"isRes1\">Yes</label>&nbsp;&nbsp;&nbsp;<input type=\"radio\" name=\"isResident\" value=\"0\" id=\"isRes2\" checked=\"checked\" />&nbsp;<label for=\"isRes2\">No</label></td></tr>\n";
 		print "<tr><td valign=\"top\"><label for=\"bio\">Biography:</label> </td><td><textarea name=\"bio\" id=\"bio\" cols=\"65\" rows=\"6\">{$profile['sBio']}</textarea></td></tr>\n";
 		print "<tr><td valign=\"top\"><label for=\"skills\">Skills:</label> </td><td><textarea name=\"skills\" id=\"skills\" cols=\"65\" rows=\"6\">{$profile['sSkills']}</textarea></td></tr>\n";
+		print "<tr><td valign=\"top\"><label for=\"sig\">Email Signature:</label></td><td><textarea name=\"sig\" id=\"sig\" cols=\"65\" rows=\"6\">{$profile['sSig']}</textarea></td></tr>\n";
 		if ($error)
 			print "<tr><td>$error</td></tr>\n";
 		if ($profile['sPicture'])
@@ -142,9 +151,10 @@ foreach($altskins as $altskin)
 
 /*		print "<fieldset><legend>Change Password</legend>\n";
 		print "<label for=\"pw1\">New password:</label><input type=\"password\" name=\"pw1\" id=\"pw1\" /><br />\n";
-		print "<label for=\"pw2\">Confirm password:</label><input type=\"password\" name=\"pw2\" id=\"pw2\" /><br />";*/
+		print "<label for=\"pw2\">Confirm password:</label><input type=\"password\" name=\"pw2\" id=\"pw2\" /><br />";
+		print "<input type="submit" name="update" value="Change Password" /></fieldset>\n";
+*/
 ?>
-		<!--input type="submit" name="update" value="Change Password" /></fieldset-->
 	</form>
 <a href="http://sloth.iit.edu/~iproadmin/userpassword.php">Change my password</a>
 </div>
