@@ -67,7 +67,7 @@
 	else
 		errorPage('Missing Task ID', 'No task ID was provided.', 400);
 		
-	$query = $db->igroupsQuery('select * from Hours where iTaskID='.$task['iID'].' and iPersonID='.$currentUser->getID().' sort by dDate asc');
+	$query = $db->igroupsQuery('select * from Hours where iTaskID='.$task['iID'].' and iPersonID='.$currentUser->getID().' order by dDate asc');
 	$hours = array();
 	$dates = array();
 	$totalhours = 0;
