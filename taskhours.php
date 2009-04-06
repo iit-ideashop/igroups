@@ -71,7 +71,7 @@
 	$hours = array();
 	$dates = array();
 	$totalhours = 0;
-	while($row = mysql_fetch_array($query));
+	while($row = mysql_fetch_array($query))
 	{
 		$hours[$row['iID']] = $row['fHours'];
 		$dates[$row['iID']] = $row['dDate'];
