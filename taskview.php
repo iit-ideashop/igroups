@@ -129,7 +129,7 @@ function toggle(id)
 		echo "\t<li>You are not assigned to this task.</li>\n";
 	if($assigned || $sgassigned || $hours > 0)
 		echo "\t<li>You have contributed <b>$hours</b> hours of work to this task, out of <b>$tothours</b> hours overall (<b>$percenthours</b>)</li>\n";
-	echo "</div>\n<h2>Description</h2>\n<div id=\"taskdesc\"><p>{$task['sDescription']}</p></div>\n";
+	echo "</ul>\n<h2>Description</h2>\n<div id=\"taskdesc\"><p>{$task['sDescription']}</p></div>\n";
 	echo "<h2>Assignments</h2>\n";
 	if(count($assignments))
 	{
