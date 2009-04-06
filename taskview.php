@@ -106,7 +106,7 @@ function toggle(id)
 	{
 		echo "<ul id=\"assignments\">\n";
 		foreach($assignments as $asn)
-			echo "<li>$asn</li>\n";
+			echo "<li>{$asn->getShortName()}</li>\n";
 		echo "</ul>\n";
 	}
 	else if(count($sgassignments))
@@ -119,7 +119,7 @@ function toggle(id)
 		echo "<ul id=\"sgassignments\">\n";
 		foreach($sgassignments as $sgid => $asn)
 		{
-			echo "<li>$asn <strong><a href=\"javascript:toggle('SG$sgid')\" class=\"toggle\">Toggle</a></strong>";
+			echo "<li>{$asn->getName()} <strong><a href=\"javascript:toggle('SG$sgid')\" class=\"toggle\">Toggle</a></strong>";
 			$sg = new SubGroup($sgid, $db);
 			$people = $sg->getSubGroupMembers();
 			if(count($people))
