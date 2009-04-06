@@ -46,7 +46,7 @@ a.toggle
 	vertical-align: super;
 }
 
-p#overdue
+li#overdue
 {
 	color: #ff7777;
 }
