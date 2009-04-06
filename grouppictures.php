@@ -64,7 +64,7 @@ foreach($altskins as $altskin)
 					print "<tr>";
 				print "<td>";
 				print "<img width=\"300\" src=\"$appurl/".$pictures[$j]->getRelativeName()."\" alt=\"".htmlspecialchars($pictures[$j]->getTitle())."\" title=\"".htmlspecialchars($pictures[$j]->getTitle())."\" />";
-				print "<br /><span style=\"text-align: center\"><input type=\"checkbox\" name=\"picture[".$pictures[$j]->getID()."]\" /><b>".htmlspecialchars($pictures[$j]->getTitle())."</b></span>";
+				print "<br /><span style=\"text-align: center\"><label><input type=\"checkbox\" name=\"picture[".$pictures[$j]->getID()."]\" /><b>".htmlspecialchars($pictures[$j]->getTitle())."</b></label></span>";
 				print "</td>";
 				if ( $i )
 					print "</tr>";
