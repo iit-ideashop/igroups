@@ -74,7 +74,7 @@
 	$query = $db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$task['iID']}");
 	$row = mysql_fetch_row($query);
 	$tothours = $row[0];
-	$percenthours = ($tothours > 0 ? number_format(100*$hours/$tothours, 3).'%' : '0%');
+	$percenthours = ($tothours > 0 ? number_format(100*$hours/$tothours, 1).'%' : '0%');
 	$query = $db->igroupsQuery('select * from TaskAssignments where iTaskID='.$task['iID']);
 	$assignments = array();
 	while($assign = mysql_fetch_array($query))
@@ -103,7 +103,7 @@ foreach($altskins as $altskin)
 <script type="text/javascript">
 function toggle(id)
 {
-	document.getElementById(id).style.display = (document.getElementById(id).style.display == 'none') ? 'block' : 'none';
+	document.getElementById(id).style.display = (document.getElementById(id).style.display == 'block') ? 'none' : 'block';
 }
 </script>
 </head>
@@ -114,21 +114,21 @@ function toggle(id)
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	echo "<h1>{$task['sName']}</h1>\n";
-	echo "<div id=\"notices\">\n";
+	echo "<ul id=\"notices\">\n";
 	if($overdue)
-		echo "\t<p id=\"overdue\">This task is overdue. It was due on {$task['dDue']}.</p>\n";
+		echo "\t<li id=\"overdue\">This task is overdue. It was due on {$task['dDue']}.</li>\n";
 	else
-		echo "\t<p>This task is due on {$task['dDue']}.</p>\n";
+		echo "\t<li>This task is due on {$task['dDue']}.</li>\n";
 	if($creator)
-		echo "\t<p>You are the creator of this task.</p>\n";
+		echo "\t<li>You are the creator of this task.</li>\n";
 	if($assigned)
-		echo "\t<p>You are currently assigned to this task. You may <a href=\"taskhours.php?taskid={$task['iID']}\">add hours</a> to this task.</p>\n";
+		echo "\t<li>You are currently assigned to this task. You may <a href=\"taskhours.php?taskid={$task['iID']}\">add hours</a> to this task.</li>\n";
 	else if($sgassigned)
-		echo "\t<p>One or more of your subgroups are currently assigned to this task. You may <a href=\"taskhours.php?taskid={$task['iID']}\">add hours</a> to this task.</p>\n";
+		echo "\t<li>One or more of your subgroups are currently assigned to this task. You may <a href=\"taskhours.php?taskid={$task['iID']}\">add hours</a> to this task.</li>\n";
 	else
-		echo "\t<p>You are not assigned to this task.</p>\n";
+		echo "\t<li>You are not assigned to this task.</li>\n";
 	if($assigned || $sgassigned || $hours > 0)
-		echo "\t<p>You have contributed <b>$hours</b> hours of work to this task, out of <b>$tothours</b> hours overall (<b>$percenthours</b>)</p>\n";
+		echo "\t<li>You have contributed <b>$hours</b> hours of work to this task, out of <b>$tothours</b> hours overall (<b>$percenthours</b>)</li>\n";
 	echo "</div>\n<h2>Description</h2>\n<div id=\"taskdesc\"><p>{$task['sDescription']}</p></div>\n";
 	echo "<h2>Assignments</h2>\n";
 	if(count($assignments))
@@ -172,11 +172,11 @@ function toggle(id)
 		echo "<li><a href=\"taskcomplete.php?taskid={$task['iID']}\">Mark this task as completed</a></li>\n";
 		echo "<li><a href=\"tasks.php?del={$task['iID']}\">Delete this task</a> (This action cannot be undone!)</li>\n";
 		echo "</ul>\n";
-		echo "<form method=\"post\" action=\"taskview.php\"><fieldset><legend>Edit this Task</legend>\n";
-		echo "<label>Name: <input type=\"text\" name=\"name\" value=\"{$task['sName']}\" /><br />\n";
+		echo "<form method=\"post\" action=\"taskview.php\"><fieldset><legend id=\"taskedit\">Edit this Task</legend>\n";
+		echo "<label>Name: <input type=\"text\" name=\"name\" value=\"{$task['sName']}\" /></label><br />\n";
 		echo "<label>Due: <input name=\"due\" type=\"text\" value=\"{$task['dDue']}\" /></label><br />\n";
 		echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\">{$task['sDescription']}</textarea></label><br />\n";
-		echo "<input value=\"Edit Task\" type=\"submit\"><input type=\"reset\" /><input name=\"form\" value=\"edittask\" type=\"hidden\" /></fieldset></form>\n";
+		echo "<input value=\"Edit Task\" type=\"submit\" /><input type=\"reset\" /><input name=\"form\" value=\"edittask\" type=\"hidden\" /></fieldset></form>\n";
 	}
 ?>
 </div></body></html>

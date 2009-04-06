@@ -56,3 +56,9 @@ p#overdue
 {
 	display: none;
 }
+
+
+legend#taskedit
+{
+	font-size: 10pt;
+}
