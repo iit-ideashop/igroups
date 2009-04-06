@@ -46,6 +46,9 @@ EOF;
 				echo "<li><b>User ID</b>: {$currentUser->getID()}</li>\n";
 			if($currentGroup)
 				echo "<li><b>Group ID</b>: {$currentGroup->getID()}</li>\n";
+			echo "<li><b>Error title:</b> $title</li>\n";
+			echo "<li><b>Error description:</b> $desc</li>\n";
+			echo "<li><b>HTTP response code</b> $response</li>\n";
 			echo "</ul>\n";
 			echo '</div></body></html>';
 			die();
