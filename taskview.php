@@ -120,7 +120,7 @@ function toggle(id)
 	else if(!$task['dClosed'])
 		echo "\t<li>This task is due on {$task['dDue']}.</li>\n";
 	else
-		echo "\t<li>This task was closed on {$task['dClosed'}</li>\n";
+		echo "\t<li>This task was closed on {$task['dClosed']}</li>\n";
 	if($creator)
 		echo "\t<li>You are the creator of this task.</li>\n";
 	if($assigned)
