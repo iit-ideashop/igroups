@@ -9,7 +9,7 @@
 		if(!$currentGroup->isGroupMember($currentUser))
 		{
 			setcookie('selectedGroup', '', time()-60);
-			errorPage('Invalid Group', 'You are not a member of this group.', 401);
+			errorPage('Group Credentials Required', 'You are not a member of this group.', 403);
 		}
 		$_SESSION['selectedGroup'] = $group[0];
 		$_SESSION['selectedGroupType'] = $group[1];
@@ -24,7 +24,7 @@
 			unset($_SESSION['selectedGroupType']);
 			unset($_SESSION['selectedSemester']);
 			setcookie('selectedGroup', '', time()-60);
-			errorPage('Invalid Group', 'You are not a member of this group.', 401);
+			errorPage('Group Credentials Required', 'You are not a member of this group.', 403);
 		}
 	}
 	else if(isset($_COOKIE['selectedGroup']))
@@ -34,7 +34,7 @@
 		if(!$currentGroup->isGroupMember($currentUser))
 		{
 			setcookie('selectedGroup', '', time()-60);
-			errorPage('Invalid Group', 'You are not a member of this group.', 401);
+			errorPage('Group Credentials Required', 'You are not a member of this group.', 403);
 		}
 		$_SESSION['selectedGroup'] = $group[0];
 		$_SESSION['selectedGroupType'] = $group[1];

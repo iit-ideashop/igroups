@@ -19,13 +19,13 @@ foreach($altskins as $altskin)
 <body>
 <?php
 	if (!is_numeric($_GET['id']))
-		die("Invalid request");
+		errorPage('Invalid Email ID', 'The email ID provided is invalid', 400);
 	if ( $email = new Email( $_GET['id'], $db ) ) {
 		if ($email->getGroupID() == null)
-			die("No such email");
+			errorPage('Invalid Email ID', 'There is no such email ID', 400);
 		$group = new Group($email->getGroupID(), $email->getGroupType(), $email->getSemester(),$db);
 		if (!$currentUser->isGroupMember($group))
-			die("You are not a member of this group");
+			errorPage('Group Credentials Required', 'You are not a member of this group', 403);
 		$author = $email->getSender();
 		if ($email->prev || $email->next) 
 			print "<table width=\"100%\" cellspacing=\"0\" style=\"border-style: none\"><tr><td align=\"center\" style=\"background: #AAAAAA\">";

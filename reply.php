@@ -8,8 +8,6 @@
 	include_once( "classes/category.php" );
 	include_once( "classes/email.php" );
 	
-	$db = new dbConnection();
-	
 	if ( isset( $_COOKIE["iUserID"] ) && !isset($_POST['login']) ) {
 		$_SESSION['userID'] = $_COOKIE["iUserID"];
 		setcookie( "iUserID", $_SESSION['userID'], time()+1209600 );
@@ -41,12 +39,12 @@
 		$replyEmail = new Email( $_GET['replyTo'], $db );
 		
 		if ( !$replyEmail )
-			die("You are attempting to reply to an email that does not exist." );
+			errorPage('Invalid Email ID', 'You are attempting to reply to an email that does not exist', 400);
 		
 		$currentGroup = $replyEmail->getGroup();
 
 		if ( !$currentUser->isGroupMember( $currentGroup ) )
-			die("You are not a member of this group." );
+			errorPage('Group Credentials Required', 'You are not a member of this group', 403);
 
 		function peopleSort( $array ) {
 			$newArray = array();

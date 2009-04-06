@@ -11,7 +11,7 @@
 	$currentQuota = new Quota( $currentGroup, $db );
 	$semester = new Semester($_SESSION['selectedSemester'], $db);
 	if(!$semester->isActive()){
-		die("You cannot edit a nugget from a previous semester.");
+		errorPage('Invalid Semester', 'You cannot edit a nugget from a previous semester.', 403);
 	}
 	
 	function printNuggetForm(){

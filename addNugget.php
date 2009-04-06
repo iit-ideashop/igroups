@@ -12,7 +12,7 @@
 
 	$currentQuota = new Quota( $currentGroup, $db );
 	if(!$semester->isActive()){
-		die("You cannot add a nugget to a previous semester.");
+		errorPage('Invalid Semester', 'You cannot add a nugget to a previous semester.', 403);
 	}
 
 	function peopleSort( $array ) {

@@ -10,8 +10,6 @@
 	include_once( "classes/category.php" );
 	include_once( "classes/email.php" );
 	
-	$db = new dbConnection();
-	
 	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);
 	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup']))
@@ -32,14 +30,14 @@
 		}
 	}
 	else
-		die("You are not logged in.");
+		errorPage('Credentials Required', 'You are not logged in', 403);
 	if ( isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']) )
 		$currentGroup = new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db );
 	else
-		die("You have not selected a valid group.");
+		errorPage('Invalid Group ID', 'The group you have selected is invalid', 400);
 		
 	if ( !$currentUser->isGroupMember( $currentGroup ) )
-		die("You are not a member of this group." );
+		errorPage('Group Credentials Required', 'You are not a member of this group', 403);
 		
 	function peopleSort( $array ) {
 		$newArray = array();

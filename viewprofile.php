@@ -1,21 +1,18 @@
 <?php
 	include_once("globals.php");
 	include_once( "checklogingroupless.php" );
-	if (isset($_GET['uID'])) {
-		if (is_numeric($_GET['uID'])) {
-			$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$_GET['uID']}");
-			$profile = mysql_fetch_array($query);
-			if ($profile) {
-			foreach ($profile as $key => $val)
-				$profile[$key] = htmlspecialchars($profile[$key]);
-			}
-			$query = $db->iknowQuery("SELECT * FROM People WHERE iID={$_GET['uID']}");
-			$contactInfo = mysql_fetch_array($query);
+	if (isset($_GET['uID']) && is_numeric($_GET['uID'])) {
+		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$_GET['uID']}");
+		$profile = mysql_fetch_array($query);
+		if ($profile) {
+		foreach ($profile as $key => $val)
+			$profile[$key] = htmlspecialchars($profile[$key]);
 		}
+		$query = $db->iknowQuery("SELECT * FROM People WHERE iID={$_GET['uID']}");
+		$contactInfo = mysql_fetch_array($query);
 	}
 	else
-		die("No profile selected.");
-
+		errorPage('Invalid user ID', 'The user ID you have selected is invalid', 400);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->

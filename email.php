@@ -10,7 +10,7 @@
 		$email = new Email($_GET['replyid'], $db);
 		$currentGroup = new Group($email->getGroupID(), $email->getGroupType(), $email->getSemester(), $db);
 		if(!$currentGroup->isGroupMember($currentUser))
-			die("You are not a member of this group.");
+			errorPage('Group Credentials Required', 'You are not a member of this group', 403);
 		$_SESSION['selectedGroup'] = $email->getGroupID();
 		$_SESSION['selectedGroupType'] = $email->getGroupType();
 		$_SESSION['selectedSemester'] = $email->getSemester();
@@ -24,7 +24,7 @@
 			unset($_SESSION['selectedGroupType']);
 			unset($_SESSION['selectedSemester']);
 			setcookie('selectedGroup', '', time()-60);
-			die("You are not a member of this group.");
+			errorPage('Group Credentials Required', 'You are not a member of this group', 403);
 		}
 	}
 	else if(isset($_COOKIE['selectedGroup']))
@@ -34,7 +34,7 @@
 		if(!$currentGroup->isGroupMember($currentUser))
 		{
 			setcookie('selectedGroup', '', time()-60);
-			die("You are not a member of this group.");
+			errorPage('Group Credentials Required', 'You are not a member of this group', 403);
 		}
 		$_SESSION['selectedGroup'] = $group[0];
 		$_SESSION['selectedGroupType'] = $group[1];
@@ -42,7 +42,7 @@
 		
 	}
 	else
-		die("You have not selected a valid group.");
+		errorPage('Invalid Email ID', 'The email ID provided is invalid', 400);
 	
 	if ( isset( $_GET['selectCategory'] ) && is_numeric($_GET['selectCategory']) ) {
 		$_SESSION['selectedCategory'] = $_GET['selectCategory'];

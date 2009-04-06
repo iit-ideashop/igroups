@@ -6,10 +6,10 @@
 	
 	if (isset($_GET['user'])) {
 		if (!is_numeric($_GET['user']))
-			die("Invalid request");
+			errorPage('Invalid user ID', 'The user you have selected is invalid', 400);
 		$user = new Person($_GET['user'], $db);
 		if ($user->getID() && !$currentGroup->isGroupMember($user))
-			die("This person is not in your group");
+			errorPage('Group Credentials Required', 'The user you have selected is not in your group', 403);
 
 		$_SESSION['user'] = $_GET['user'];
 	}

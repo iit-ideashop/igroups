@@ -23,10 +23,10 @@
 			$_SESSION['selectedSemester'] = $group[2];
 		}
 		else
-			errorPage('Credentials Required', 'You are not logged in.', 401);
+			errorPage('Credentials Required', 'You are not logged in.', 403);
 	}
 	else
-		errorPage('Credentials Required', 'You are not logged in.', 401);
+		errorPage('Credentials Required', 'You are not logged in.', 403);
 	if (!$currentUser->isAdministrator())
-		errorPage('Credentials Required', 'You must be an administrator to access this page.', 401);
+		errorPage('Credentials Required', 'You must be an administrator to access this page.', 403);
 ?>

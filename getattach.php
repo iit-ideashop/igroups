@@ -5,7 +5,7 @@
 	if ( $email = new Email( $_GET['email'], $db ) ) {
 	$group = $email->getGroup();
 	if (!$group->isGroupMember($currentUser))
-		die("You are not authorized to download this file.");
+		errorPage('Group Credentials Required', 'You are not authorized to download this file.', 403);
 	$query = $db->igroupsQuery("SELECT * FROM EmailFiles WHERE iID={$_GET['id']}");
 	$file = mysql_fetch_array($query);
 	header("Content-Type: {$file['sMimeType']}");
