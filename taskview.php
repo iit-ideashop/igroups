@@ -42,7 +42,10 @@
 		{
 			$ok = $db->igroupsQuery("update Tasks set sName=\"$name\", sDescription=\"$desc\", dDue=\"$date\" where iID={$task->getID()}");
 			if($ok)
+			{
 				$message = 'Task successfully edited';
+				$task = new Task($_GET['taskid'], $currentGroup->getType(), $currentGroup->getSemester(), $db); //Resync
+			}
 			else
 				$message = 'Task editing failed: '.mysql_error();
 		}
