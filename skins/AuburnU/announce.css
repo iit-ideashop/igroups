@@ -1,0 +1,33 @@
+@import url('default.css');
+
+.box {
+	width:40%;
+}
+
+#announcement-list {
+	position:absolute;
+	left:70%;
+	top:0%;
+}
+		
+#calendarmenu {
+	border:solid 1px #000;
+	background-color:#fff;
+	visibility:hidden;
+	position:absolute;
+	left:50px;
+}
+
+#edit1 {
+	display:none;
+}
+
+#edit2 {
+	display:none;
+}
+
+h2 {
+	font-size:11pt;
+	color:#CC0000;
+	margin-bottom:5px;
+}

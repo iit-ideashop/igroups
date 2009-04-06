@@ -1,0 +1,56 @@
+@import url('default.css');
+
+#container{
+	margin:auto;
+	padding:0;
+}
+
+#folderbox{
+	float:left;
+	width:30%;
+	margin:5px;
+	padding:2px;
+	border:1px solid #000;
+}
+
+#folders {
+	width:100%;
+	text-align:left;
+	background-color:#fff;
+	padding-top:5px;
+}
+
+#filebox{
+	float:left;
+	margin:5px;
+	padding:2px;
+	width:64%;
+	border:1px solid #000;
+}
+
+#files{
+	width:100%;
+	text-align: left;
+	background-color:#fff;
+}
+
+#menubar, .menubar{
+	background-color:#eeeeee;
+	margin-bottom:5px;
+	padding:3px;
+}
+
+#menubar li, .menubar li {
+	padding:5px;
+	display:inline;
+}
+
+ul.prof {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+	
+ul.prof ul {
+	padding-left:20px;
+}

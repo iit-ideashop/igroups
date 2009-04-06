@@ -1,0 +1,14 @@
+@import url('default.css');
+
+.fullness-bar {
+	text-align:left;
+	width:500px;
+	height:20px;
+	border: 1px solid #666666;
+}
+
+.fullness-indicator {
+	margin: 1px;
+	height:18px;
+	background-color:#999999;
+}

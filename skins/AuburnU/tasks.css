@@ -1,0 +1,63 @@
+@import url('default.css');
+
+table#tasks
+{
+	border-collapse: collapse;
+	border: thin solid black;
+}
+
+table#tasks td, table#tasks th
+{
+	border: thin solid black;
+}
+
+tr.overdue td
+{
+	background-color: maroon;
+	color: white;
+}
+
+tr.overdue a
+{
+	color: yellow;
+}
+
+td.assignments ul
+{
+	display: block;
+}
+
+td.assignments strong
+{
+	font-size: x-small;
+	font-weight: bold;
+}
+
+.role
+{
+	font-size: smaller;
+	font-style: italic;
+}
+
+a.toggle
+{
+	font-size: smaller;
+	font-weight: normal;
+	vertical-align: super;
+}
+
+li#overdue
+{
+	color: red;
+	background-color: white;
+}
+
+.sgpersonlist
+{
+	display: none;
+}
+
+legend#taskedit
+{
+	font-size: 10pt;
+}
