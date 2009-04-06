@@ -116,6 +116,8 @@ foreach($altskins as $altskin)
 			else
 				$i++;
 		}
+		if($i != 1)
+			echo '</tr>';
 		echo "</table></fieldset>\n";
 	}
 	echo "<input type=\"submit\" value=\"Submit Assignments\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"submit\" /></fieldset></form>\n";
