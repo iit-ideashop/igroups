@@ -1,7 +1,6 @@
 <?php
 	include_once('globals.php');
 	include_once('checklogin.php');
-	//include_once('classes/task.php');
 	
 	function peopleSort($array)
 	{

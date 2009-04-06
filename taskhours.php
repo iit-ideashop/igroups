@@ -2,7 +2,6 @@
 	include_once('globals.php');
 	include_once('checklogin.php');
 	include_once('classes/subgroup.php');
-	//include_once('classes/task.php');
 	
 	if(is_numeric($_GET['taskid']))
 	{	
@@ -35,7 +34,20 @@
 			errorPage('Invalid Task ID', 'The task ID provided is invalid.', 400);
 		if($_POST['form'] == 'edit')
 		{
-			//TODO Do stuff
+			$ids = explode(',', $_POST['ids']);
+			foreach($ids as $id)
+			{
+				if(!is_numeric($id)) //A non-numeric $id means someone's trying to trick us; skip it
+					continue;
+				$query = $db->igroupsQuery("select * from Hours where iID=$id");
+				$hour = mysql_fetch_array($query);
+				if(!$hour || $hour['iTaskID'] != $task['iID'] || $hour['iPersonID'] != $currentUser->getID() || !is_numeric($_POST["D$id"])) //Verifying that: The hours entry exists, it matches the current task, it matches the current user, and the entered value is numeric
+					continue;
+				if($_POST["D$id"] > 0)
+					$db->igroupsQuery("update Hours set fHours={$_POST["D$id"]} where iID=$id");
+				else if($_POST["D$id"] == 0)
+					$db->igroupsQuery("delete from Hours where iID=$id");
+			}
 			header('Location: tasks.php');
 		}
 		else if($_POST['form'] == 'new')
@@ -106,6 +118,11 @@ foreach($altskins as $altskin)
 			echo "<tr><td><label for=\"D$id\">$date</label></td><td><input type=\"text\" name=\"D$id\" id=\"D$id\" value=\"{$hours[$id]}\" /></td></tr>\n";
 		}
 		echo "</table>\n";
+		$ids = '';
+		foreach($dates as $id => $date)
+			$ids .= "$id,";
+		$ids = trim($str, ',');
+		echo "<input type=\"hidden\" name=\"ids\" value=\"$str\" />\n";
 		echo "<input type=\"submit\" value=\"Edit Hours\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"edit\" /></fieldset></form>\n";
 	}
 	
