@@ -52,17 +52,17 @@
 				}
 				else if($hour['iTaskID'] != $task['iID'])
 				{
-					$message .= "<li>ID value <b>$id</b> belongs to task {$hour['iTaskID']} in the database, yet we are editing hours for task {$task['iID']}. Skipping.</li>\n";
+					$message .= "<li>ID value <b>$id</b> does not belong to this task. Skipping.</li>\n";
 					continue;
 				}
 				else if($hour['iPersonID'] != $currentUser->getID())
 				{
-					$message .= "<li>ID value <b>$id</b> belongs to person {$hour['iPersonID']}, yet the logged in user has ID {$currentUser->getID()}. Skipping.</li>\n";
+					$message .= "<li>ID value <b>$id</b> does not belong to the logged in user. Skipping.</li>\n";
 					continue;
 				}
 				else if(!is_numeric($_POST["D$id"]) || $_POST["D$id"] < 0)
 				{
-					$message .= "<li>Invalid input <b>{$_POST["D$id"]}</b>entered for ID value <b>$id</b></li>\n";
+					$message .= "<li>Invalid input <b>{$_POST["D$id"]}</b> entered for ID value <b>$id</b>. Skipping.</li>\n";
 					continue;
 				}
 				if($_POST["D$id"] > 0)
