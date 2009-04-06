@@ -292,5 +292,5 @@ function addAnnouncement() {
 			</tr>
 		</table>
 	</div><br />
-<p style="font-size:85%; clear:both; color:#666; text-align:center;">Copyright &copy; 2008 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
+<p style="font-size:85%; clear:both; color:#666; text-align:center;">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
 </div></body></html>
