@@ -33,15 +33,10 @@
 	}
 	else if(is_numeric($_GET['del']) && $currentUser->isGroupModerator($currentGroup))
 	{
-		$q = $db->igroupsQuery('select iTeamID from Tasks where iID='.$_GET['del']);
-		$r = mysql_fetch_row($q);
-		if($r && $currentGroup->getID() == $r[0])
-		{ //Manually cascade this deletion
-			$db->igroupsQuery('delete from TaskAssignments where iTaskID='.$_GET['del']);
-			$db->igroupsQuery('delete from TaskSubgroupAssignments where iTaskID='.$_GET['del']);
-			$db->igroupsQuery('delete from Milestones where iTaskID='.$_GET['del']);
-			$db->igroupsQuery('delete from Hours where iTaskID='.$_GET['del']);
-			$db->igroupsQuery('delete from Tasks where iID='.$_GET['del']);
+		$task = new Task($_GET['del'], $currentGroup->getType(), $currentGroup->getSemester(), $db);
+		if($currentGroup->getID() == $task->getTeam()->getID())
+		{
+			$task->delete();
 			$message = 'Task deletion successful';
 		}
 	}
@@ -93,9 +88,10 @@ function toggle(id)
 	if(mysql_num_rows($tasks))
 	{
 		echo '<table id="tasks"><tr><th>Task</th><th>Due Date</th><th>Assigned to</th><th>Hours</th><th>Completed</th></tr>';
-		while($task = mysql_fetch_array($tasks))
+		while($t = mysql_fetch_array($tasks))
 		{
-			$assignments = $db->igroupsQuery('select * from TaskAssignments where iTaskID='.$task['iID']);
+			$task = new Task($t['iID'], $currentGroup->getType(), $currentGroup->getSemester(), $db);
+			$assignments = $db->igroupsQuery('select * from TaskAssignments where iTaskID='.$task->getID());
 			$asns = array();
 			while($assign = mysql_fetch_array($assignments))
 			{
@@ -103,14 +99,14 @@ function toggle(id)
 				$asns[$assign['iPersonID']] = $nm[0].' '.$nm[1];
 				$asns[$assign['iPersonID']] .= strlen($assign['sRole']) ? ': <span class="role">'.$assign['sRole'].'</span>' : '';
 			}
-			$sgassignments = $db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$task['iID']);
+			$sgassignments = $db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$task->getID());
 			$sgasns = array();
 			while($assign = mysql_fetch_array($sgassignments))
 			{
 				$nm = mysql_fetch_row($db->igroupsQuery('select sName from SubGroups where iID='.$assign['iSubgroupID']));
 				$sgasns[$assign['iSubgroupID']] = $nm[0];
 			}
-			$taskassn = count($asns) ? "<strong>People: <a href=\"javascript:toggle('P{$task['iID']}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task['iID']}\">" : 'No people';
+			$taskassn = count($asns) ? "<strong>People: <a href=\"javascript:toggle('P{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task->getID()}\">" : 'No people';
 			$mytask = false;
 			foreach($asns as $personid => $asn)
 			{
@@ -119,7 +115,7 @@ function toggle(id)
 					$mytask = true;
 			}
 			$taskassn .= count($asns) ? '</ul>' : '<br />';
-			$taskassn .= count($sgasns) ? "<strong>Subgroups: <a href=\"javascript:toggle('S{$task['iID']}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"S{$task['iID']}\">" : 'No subgroups';
+			$taskassn .= count($sgasns) ? "<strong>Subgroups: <a href=\"javascript:toggle('S{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"S{$task->getID()}\">" : 'No subgroups';
 			foreach($sgasns as $personid => $asn)
 			{
 				$taskassn .= "<li>$asn</li>";
@@ -128,18 +124,18 @@ function toggle(id)
 					$mytask = true;
 			}
 			$taskassn .= count($sgasns) ? '</ul>' : '<br />';
-			if($currentUser->getID() == $task['iOwnerID'] || $currentUser->isGroupModerator($currentGroup))
-				$taskassn .= '<a href="taskassign.php?taskid='.$task['iID'].'" class="taskassign">Change assignments</a>';
-			$overdue = (!$task['dClosed'] && strtotime($task['dDue']) <= time()) ? ' class="overdue"' : '';
+			if($currentUser->getID() == $task->getCreator()->getID() || $currentUser->isGroupModerator($currentGroup))
+				$taskassn .= '<a href="taskassign.php?taskid='.$task->getID().'" class="taskassign">Change assignments</a>';
+			$overdue = (!$task->getClosed() && strtotime($task->getDue()) <= time()) ? ' class="overdue"' : '';
 			if($mytask)
 			{
-				$hours = mysql_fetch_row($db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$task['iID']} and iPersonID={$currentUser->getID()}"));
-				$myhours = "{$hours[0]}<br /><a href=\"taskhours.php?taskid={$task['iID']}\">Add hours</a>";
+				$hours = mysql_fetch_row($db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$task->getID()} and iPersonID={$currentUser->getID()}"));
+				$myhours = "{$hours[0]}<br /><a href=\"taskhours.php?taskid={$task->getID()}\">Add hours</a>";
 			}
 			else
 				$myhours = 'N/A';
-			$taskClosed = $task['dClosed'] ? $task['dClosed'] : (($currentUser->isGroupModerator($currentGroup) || $task['iOwnerID'] == $currentUser->getID()) ? '<a href="taskcomplete.php?taskid='.$task['iID'].'">Close task</a>' : '');
-			echo "\n<tr$overdue><td><a href=\"taskview.php?taskid={$task['iID']}\">{$task['sName']}</a></td><td>{$task['dDue']}</td><td class=\"assignments\">$taskassn</td><td>$myhours</td><td>$taskClosed</td></tr>";
+			$taskClosed = $task->getClosed() ? $task->getClosed() : (($currentUser->isGroupModerator($currentGroup) || $task->getCreator()->getID() == $currentUser->getID()) ? '<a href="taskcomplete.php?taskid='.$task->getID().'">Close task</a>' : '');
+			echo "\n<tr$overdue><td><a href=\"taskview.php?taskid={$task->getID()}\">{$task->getName()}</a></td><td>{$task->getDue()}</td><td class=\"assignments\">$taskassn</td><td>$myhours</td><td>$taskClosed</td></tr>";
 		}
 		echo "\n</table>\n";
 	}

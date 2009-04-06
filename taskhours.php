@@ -2,31 +2,14 @@
 	include_once('globals.php');
 	include_once('checklogin.php');
 	include_once('classes/subgroup.php');
+	include_once('classes/task.php');
 	
 	if(is_numeric($_GET['taskid']))
 	{	
-		$query = $db->igroupsQuery('select * from Tasks where iID='.$_GET['taskid']);
-		if(mysql_num_rows($query))
+		$task = new Task($_GET['taskid'], $currentGroup->getType(), $currentGroup->getSemester(), $db);
+		if($task->isValid())
 		{
-			$ok = false;
-			$task = mysql_fetch_array($query);
-			$query2 = $db->igroupsQuery('select * from TaskAssignments where iTaskID='.$_GET['taskid'].' and iPersonID='.$currentUser->getID());
-			if(mysql_num_rows($query2))
-				$ok = true;
-			else
-			{
-				$query2 = $db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$_GET['taskid']);
-				while($row = mysql_fetch_array($query2))
-				{
-					$sg = new SubGroup($row['iSubgroupID'], $db);
-					if($sg->isSubGroupMember($currentUser))
-					{
-						$ok = true;
-						break;
-					}
-				}
-			}
-			if(!$ok)
+			if(!$task->isAssigned($currentUser))
 				errorPage('Access Denied', 'You (or one of your subgroups) must be assigned to a task to add hours to it.', 403);
 			//else OK
 		}
@@ -43,19 +26,18 @@
 					$message .= "<li>ID value <b>$id</b> encountered; not numeric. Skipping.</li>\n";
 					continue;
 				}
-				$query = $db->igroupsQuery("select * from Hours where iID=$id");
-				$hour = mysql_fetch_array($query);
-				if(!$hour)
+				$hour = new Hour($id, $db);
+				if(!$hour->isValid())
 				{
 					$message .= "<li>ID value <b>$id</b> does not exist in the database. Skipping.</li>\n";
 					continue;
 				}
-				else if($hour['iTaskID'] != $task['iID'])
+				else if($hour->getTaskID() != $task->getID())
 				{
 					$message .= "<li>ID value <b>$id</b> does not belong to this task. Skipping.</li>\n";
 					continue;
 				}
-				else if($hour['iPersonID'] != $currentUser->getID())
+				else if($hour->getPerson()->getID() != $currentUser->getID())
 				{
 					$message .= "<li>ID value <b>$id</b> does not belong to the logged in user. Skipping.</li>\n";
 					continue;
@@ -65,10 +47,8 @@
 					$message .= "<li>Invalid input <b>{$_POST["D$id"]}</b> entered for ID value <b>$id</b>. Skipping.</li>\n";
 					continue;
 				}
-				if($_POST["D$id"] > 0)
-					$db->igroupsQuery("update Hours set fHours={$_POST["D$id"]} where iID=$id");
-				else if($_POST["D$id"] == 0)
-					$db->igroupsQuery("delete from Hours where iID=$id");
+				if(!$hour->setHours($_POST["D$id"]))
+					$message .= "<li>Unknown error setting hours for $id</li>\n";
 			}
 			if($message == '')
 				$message = 'All values successfully updated.';
@@ -84,15 +64,7 @@
 			else if($_POST['hours'] <= 0)
 				$message = 'ERROR: Hours must be positive';
 			else if($_POST['date'] !== false && $subdate <= time())
-			{
-				$sqldate = date('Y-m-d', $subdate);
-				//Make sure date doesn't already exist
-				$query = $db->igroupsQuery("select * from Hours where iTaskID={$task['iID']} and iPersonID={$currentUser->getID()} and dDate=\"$sqldate\"");
-				if(mysql_num_rows($query))
-					$message = 'ERROR: The entered date already exists for this task. You must use Edit Hours to change the hours for this date.';
-				else
-					$message = $db->igroupsQuery("insert into Hours (iTaskID, iPersonID, dDate, fHours) values ({$task['iID']}, {$currentUser->getID()}, \"$sqldate\", {$_POST['hours']})") ? 'Hours added' : 'ERROR: An SQL error occurred. Please contact the software maintainer to correct this problem.<br />'.mysql_error();
-			}
+				$message = $task->setHours($subdate, $currentUser, $_POST['hours']) ? 'Hours added' : 'ERROR: An SQL error occurred. Please contact the software maintainer to correct this problem.<br />'.mysql_error();
 			else if($_POST['date'] === false)
 				$message = 'ERROR: The entered date is not in a recognizable format. Please use the ISO 8601 format (YYYY-MM-DD).';
 			else //Remove this error message when time travel is invented
@@ -104,17 +76,7 @@
 	else
 		errorPage('Missing Task ID', 'No task ID was provided.', 400);
 		
-	$query = $db->igroupsQuery('select * from Hours where iTaskID='.$task['iID'].' and iPersonID='.$currentUser->getID().' order by dDate asc');
-	$hours = array();
-	$dates = array();
-	$totalhours = 0;
-	while($row = mysql_fetch_array($query))
-	{
-		$hours[$row['iID']] = $row['fHours'];
-		$dates[$row['iID']] = $row['dDate'];
-		$totalhours += $row['fHours'];
-	}
-	unset($query);
+	$hours = $task->getHours($currentUser);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2009 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -133,14 +95,14 @@ foreach($altskins as $altskin)
 ?>
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
-	echo '<p>We are assigning hours for <b>'.$task['sName']."</b>. Thus far, you have spent <b>$totalhours</b> hours on this task.</p>\n";
+	echo '<p>We are assigning hours for <b>'.$task->getName()."</b>. Thus far, you have spent <b>{$task->getTotalHoursFor($currentUser)}</b> hours on this task.</p>\n";
 	if(count($dates) > 0)
 	{
 		echo "<form method=\"post\" action=\"taskhours.php?taskid={$_GET['taskid']}\"><fieldset><legend>Edit Hours</legend>\n";
 		echo "<table><tr><th>Date</th><th>Hours</th></tr>\n";
-		foreach($dates as $id => $date)
+		foreach($hours as $id => $hour)
 		{
-			echo "<tr><td><label for=\"D$id\">$date</label></td><td><input type=\"text\" name=\"D$id\" id=\"D$id\" value=\"{$hours[$id]}\" /></td></tr>\n";
+			echo "<tr><td><label for=\"D$id\">{$hour->getDate()}</label></td><td><input type=\"text\" name=\"D$id\" id=\"D$id\" value=\"{$hour->getHours()}\" /></td></tr>\n";
 		}
 		echo "</table>\n";
 		$ids = '';
@@ -155,6 +117,6 @@ foreach($altskins as $altskin)
 	echo "<label>Date: <input type=\"text\" name=\"date\" /></label><br />\n";
 	echo "<label>Hours: <input type=\"text\" name=\"hours\" /></label><br />\n";
 	echo "<input type=\"submit\" value=\"Add Hours\" /><input type=\"hidden\" name=\"form\" value=\"new\" /></fieldset></form>\n";
-	echo "<p><a href=\"tasks.php\">Cancel and return to tasks listing</a></p>\n";
+	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n";
 ?>
 </div></body></html>

@@ -4,11 +4,10 @@
 	
 	if(is_numeric($_GET['taskid']))
 	{	
-		$query = $db->igroupsQuery('select * from Tasks where iID='.$_GET['taskid']);
-		if(mysql_num_rows($query))
+		$task = new Task($_GET['taskid'], $currentGroup->getType(), $currentGroup->getSemester(), $db);
+		if($task->isValid())
 		{
-			$task = mysql_fetch_array($query);
-			if($currentUser->getID() != $task['iOwnerID'] && !$currentUser->isGroupModerator($currentGroup))
+			if($currentUser->getID() != $task->getCreator()->getID() && !$currentUser->isGroupModerator($currentGroup))
 				errorPage('Access Denied', 'You must be either the task owner or a group moderator to close a task.', 403);
 			//else OK
 		}
@@ -20,8 +19,7 @@
 			$subdate = strtotime($_POST['date']);
 			if($_POST['date'] !== false && $subdate <= time())
 			{
-				$sqldate = date('Y-m-d', $subdate);
-				$db->igroupsQuery("update Tasks set dClosed='$sqldate' where iID={$_GET['taskid']}");
+				$task->setClosed($subdate);
 				header('Location: tasks.php');
 			}
 			else if($_POST['date'] === false)
@@ -52,10 +50,10 @@ foreach($altskins as $altskin)
 ?>
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
-	echo '<p>We are closing the task <b>'.$task['sName']."</b></p>\n";
+	echo '<p>We are closing the task <b>'.$task->getName()."</b></p>\n";
 	echo "<form method=\"post\" action=\"taskcomplete.php?taskid={$_GET['taskid']}\"><fieldset><legend>Complete Task</legend>\n";
 	echo "<label>Date completed: <input type=\"text\" name=\"date\" value=\"$thedate\" /></label>\n";
 	echo "<input type=\"submit\" value=\"Complete Task\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"submit\" /></fieldset></form>\n";
-	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task['iID']}\">return to task</a></p>\n";
+	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n";
 ?>
 </div></body></html>
