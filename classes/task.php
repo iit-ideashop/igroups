@@ -20,8 +20,8 @@ if(!class_exists('Task'))
 				{
 					$this->id = $id;
 					$this->db = $db;
-					$this->name = $result['sName'];
-					$this->desc = $result['sDescription'];
+					$this->name = stripslashes($result['sName']);
+					$this->desc = stripslashes($result['sDescription']);
 					$this->team = new Group($result['iTeamID'], $type, $sem, $db);
 					$this->creator = new Person($result['iOwnerID'], $db);
 					$this->created = $result['dCreated'];
