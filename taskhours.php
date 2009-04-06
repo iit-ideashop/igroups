@@ -131,7 +131,7 @@ foreach($altskins as $altskin)
 <?php
 	require('sidebar.php');
 ?>
-<div id="content">
+<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	echo '<p>We are assigning hours for <b>'.$task['sName']."</b>. Thus far, you have spent <b>$totalhours</b> hours on this task.</p>\n";
 	if(count($dates) > 0)

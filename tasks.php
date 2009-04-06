@@ -81,7 +81,7 @@ function toggle(id)
 <?php
 	require('sidebar.php');
 ?>
-<div id="content">
+<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	//List tasks (choose: My tasks, my tasks + my subgroups, all group tasks)
 	echo "<form method=\"get\" action=\"tasks.php\"><fieldset><legend>Filter Tasks</legend><select name=\"viewTasks\">\n";
@@ -92,10 +92,7 @@ function toggle(id)
 	echo "</select><input type=\"submit\" value=\"View Tasks\" /></fieldset></form>\n";
 	if(mysql_num_rows($tasks))
 	{
-		echo '<table id="tasks"><tr><th>Task</th><th>Due Date</th><th>Assigned to</th><th>Hours</th><th>Completed</th>';
-		if($currentUser->isGroupModerator($currentGroup))
-			echo '<th>Delete</th>';
-		echo '</tr>';
+		echo '<table id="tasks"><tr><th>Task</th><th>Due Date</th><th>Assigned to</th><th>Hours</th><th>Completed</th></tr>';
 		while($task = mysql_fetch_array($tasks))
 		{
 			$assignments = $db->igroupsQuery('select * from TaskAssignments where iTaskID='.$task['iID']);
@@ -141,9 +138,8 @@ function toggle(id)
 			}
 			else
 				$myhours = 'N/A';
-			$del = ($currentUser->isGroupModerator($currentGroup)) ? '<td><a href="tasks.php?viewTasks='.$viewTasks.'&amp;del='.$task['iID'].'">Delete</a></td>' : '';
 			$taskClosed = $task['dClosed'] ? $task['dClosed'] : (($currentUser->isGroupModerator($currentGroup) || $task['iOwnerID'] == $currentUser->getID()) ? '<a href="taskcomplete.php?taskid='.$task['iID'].'">Close task</a>' : '');
-			echo "\n<tr$overdue><td>{$task['sName']}</td><td>{$task['dDue']}</td><td class=\"assignments\">$taskassn</td><td>$myhours</td><td>$taskClosed</td>$del</tr>";
+			echo "\n<tr$overdue><td><a href=\"taskview.php?taskid={$task['iID']}\">{$task['sName']}</a></td><td>{$task['dDue']}</td><td class=\"assignments\">$taskassn</td><td>$myhours</td><td>$taskClosed</td></tr>";
 		}
 		echo "\n</table>\n";
 	}

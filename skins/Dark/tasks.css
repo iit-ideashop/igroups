@@ -45,3 +45,13 @@ a.toggle
 	font-weight: normal;
 	vertical-align: super;
 }
+
+p#overdue
+{
+	color: #ff7777;
+}
+
+.sgpersonlist
+{
+	display: none;
+}

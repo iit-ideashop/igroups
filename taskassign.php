@@ -60,7 +60,7 @@ foreach($altskins as $altskin)
 <?php
 	require('sidebar.php');
 ?>
-<div id="content">
+<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	echo '<p>We are assigning tasks for <b>'.$task['sName']."</b></p>\n";
 	echo "<form method=\"post\" action=\"taskassign.php?taskid={$_GET['taskid']}\">\n";
@@ -121,6 +121,6 @@ foreach($altskins as $altskin)
 		echo "</table></fieldset>\n";
 	}
 	echo "<input type=\"submit\" value=\"Submit Assignments\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"submit\" /></fieldset></form>\n";
-	echo "<p><a href=\"tasks.php\">Cancel and return to tasks listing</a></p>\n";
+	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task['iID']}\">return to task</a></p>\n";
 ?>
 </div></body></html>
