@@ -475,7 +475,7 @@ function ds_onclick(d, m, y) {
 		if ( isset( $taskArray[$i] ) )
 		foreach ( $taskArray[$i] as $task ) {
 			$class = 'tasklink';
-			print "<a href=\"#\" class=\"$class\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\"";
+			print "<a href=\"#\" class=\"$class\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'task-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\"";
 			print ">".$task->getName()."</a><br />";
 		}
 		print "</td>";
@@ -563,6 +563,12 @@ function ds_onclick(d, m, y) {
 			<b>Date</b>: <span id="viewdate"></span><br />
 			<b>Event name</b>: <span id="viewname"></span><br />
 			<b>Event description</b>:<br /><span id="viewdesc"></span>
+	</div>
+
+<div class="window-content" id="task-view" style="display: none">
+			<b>Due Date</b>: <span id="viewdate"></span><br />
+			<b>Task name</b>: <span id="viewname"></span><br />
+			<b>Task description</b>:<br /><span id="viewdesc"></span>
 	</div>
 
 <div id="calendarmenu" style="display: none">

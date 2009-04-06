@@ -144,8 +144,7 @@ foreach($altskins as $altskin)
 				}
 			if(isset($taskArray[$d]))
 				foreach($taskArray[$d] as $task) {
-					print "<a href=\"#\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\">".$task->getName()."</a><br />";
-					print "<div class=\"event\" id=\"".$event->getID()."\">".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
+					print "<a href=\"#\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'task-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\">".$task->getName()."</a><br />";
 				}
 			print "</td>";
 		}
@@ -246,6 +245,11 @@ foreach($altskins as $altskin)
 			<b>Date</b>: <span id="viewdate"></span><br />
 			<b>Event name</b>: <span id="viewname"></span><br />
 			<b>Event description</b>:<br /><span id="viewdesc"></span>
+	</div>
+	<div class="window-content" id="task-view" style="display: none">
+			<b>Due Date</b>: <span id="viewdate"></span><br />
+			<b>Task name</b>: <span id="viewname"></span><br />
+			<b>Task description</b>:<br /><span id="viewdesc"></span>
 	</div>
 	<div id="calendarmenu" style="display: none">
 		<table>
