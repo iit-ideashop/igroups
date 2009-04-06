@@ -12,7 +12,7 @@
 	{
 		function errorPage($title, $desc, $response)
 		{
-			global $appname, $appurl, $contactemail;
+			global $appname, $appurl, $contactemail, $db;
 			if($response == 400)
 				header('HTTP/1.1 400 Bad Request');
 			else if($response == 401)
