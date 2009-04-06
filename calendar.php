@@ -473,10 +473,13 @@ function ds_onclick(d, m, y) {
 			print "<div class=\"event\" id=\"E".$event->getID()."\">".htmlspecialchars($event->getName())."<br />".$event->getDate()."<br />".htmlspecialchars($event->getDesc())."</div>";
 		}
 		if ( isset( $taskArray[$i] ) )
-		foreach ( $taskArray[$i] as $task ) {
-			$class = 'tasklink';
-			print "Due: <a href=\"#\" class=\"$class\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'task-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\"";
-			print ">".$task->getName()."</a><br />";
+		{
+			echo 'Due:';
+			foreach ( $taskArray[$i] as $task ) {
+				$class = 'tasklink';
+				print "<a href=\"#\" class=\"$class\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'task-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\"";
+				print ">".$task->getName()."</a><br />";
+			}
 		}
 		print "</td>";
 		$weekDay++;
