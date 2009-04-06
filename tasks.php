@@ -84,7 +84,7 @@ function toggle(id)
 <div id="content">
 <?php
 	//List tasks (choose: My tasks, my tasks + my subgroups, all group tasks)
-	echo "<form method=\"get\"><fieldset><legend>Filter Tasks</legend><select name=\"viewTasks\">\n";
+	echo "<form method=\"get\" action=\"tasks.php\"><fieldset><legend>Filter Tasks</legend><select name=\"viewTasks\">\n";
 	echo "<option value=\"1\"{$taskSelect[1]}>My uncompleted tasks</option>\n";
 	echo "<option value=\"2\"{$taskSelect[2]}>My uncompleted tasks (plus my subgroups)</option>\n";
 	echo "<option value=\"3\"{$taskSelect[3]}>All uncompleted tasks</option>\n";
@@ -148,7 +148,7 @@ function toggle(id)
 		echo "\n</table>\n";
 	}
 	//Add a task
-	echo "<form method=\"post\"><fieldset><legend>Add Task</legend>\n";
+	echo "<form method=\"post\" action=\"tasks.php\"><fieldset><legend>Add Task</legend>\n";
 	echo "<label>Name: <input type=\"text\" name=\"name\" /></label><br />\n";
 	echo "<label>Due: <input type=\"text\" name=\"due\" /></label><br />\n";
 	echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\"></textarea></label><br />\n";
