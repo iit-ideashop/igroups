@@ -35,20 +35,45 @@
 		if($_POST['form'] == 'edit')
 		{
 			$ids = explode(',', $_POST['ids']);
+			$message = '';
 			foreach($ids as $id)
 			{
-				if(!is_numeric($id)) //A non-numeric $id means someone's trying to trick us; skip it
+				if(!is_numeric($id))
+				{
+					$message .= "<li>ID value <b>$id</b> encountered; not numeric. Skipping.</li>\n";
 					continue;
+				}
 				$query = $db->igroupsQuery("select * from Hours where iID=$id");
 				$hour = mysql_fetch_array($query);
-				if(!$hour || $hour['iTaskID'] != $task['iID'] || $hour['iPersonID'] != $currentUser->getID() || !is_numeric($_POST["D$id"])) //Verifying that: The hours entry exists, it matches the current task, it matches the current user, and the entered value is numeric
+				if(!$hour)
+				{
+					$message .= "<li>ID value <b>$id</b> does not exist in the database. Skipping.</li>\n";
 					continue;
+				}
+				else if($hour['iTaskID'] != $task['iID'])
+				{
+					$message .= "<li>ID value <b>$id</b> belongs to task {$hour['iTaskID']} in the database, yet we are editing hours for task {$task['iID']}. Skipping.</li>\n";
+					continue;
+				}
+				else if($hour['iPersonID'] != $currentUser->getID())
+				{
+					$message .= "<li>ID value <b>$id</b> belongs to person {$hour['iPersonID']}, yet the logged in user has ID {$currentUser->getID()}. Skipping.</li>\n";
+					continue;
+				}
+				else if(!is_numeric($_POST["D$id"]) || $_POST["D$id"] < 0)
+				{
+					$message .= "<li>Invalid input <b>{$_POST["D$id"]}</b>entered for ID value <b>$id</b></li>\n";
+					continue;
+				}
 				if($_POST["D$id"] > 0)
 					$db->igroupsQuery("update Hours set fHours={$_POST["D$id"]} where iID=$id");
 				else if($_POST["D$id"] == 0)
 					$db->igroupsQuery("delete from Hours where iID=$id");
 			}
-			header('Location: tasks.php');
+			if($message == '')
+				$message = 'All values successfully updated.';
+			else
+				$message = "The following problems occurred when processing your request:<ul>$message</ul>";
 		}
 		else if($_POST['form'] == 'new')
 		{
