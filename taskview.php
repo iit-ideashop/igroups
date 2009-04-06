@@ -143,7 +143,7 @@ function toggle(id)
 		echo "<li><a href=\"taskcomplete.php?taskid={$task->getID()}\">Mark this task as completed</a></li>\n";
 		echo "<li><a href=\"tasks.php?del={$task->getID()}\">Delete this task</a> (This action cannot be undone!)</li>\n";
 		echo "</ul>\n";
-		echo "<form method=\"post\" action=\"taskview.php\"><fieldset><legend id=\"taskedit\">Edit this Task</legend>\n";
+		echo "<form method=\"post\" action=\"taskview.php?taskid={$task->getID()}\"><fieldset><legend id=\"taskedit\">Edit this Task</legend>\n";
 		echo "<label>Name: <input type=\"text\" name=\"name\" value=\"{$task->getName()}\" /></label><br />\n";
 		echo "<label>Due: <input name=\"due\" type=\"text\" value=\"{$task->getDue()}\" /></label><br />\n";
 		echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\">{$task->getDesc()}</textarea></label><br />\n";
