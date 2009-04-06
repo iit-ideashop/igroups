@@ -139,7 +139,7 @@ foreach($altskins as $altskin)
 			$d = date( "j", mktime( 0,0,0,$month,$day+$i,$year ) );
 			if ( isset( $eventArray[ $d ] ) )
 				foreach ( $eventArray[ $d ] as $event ) {
-					print "<a href=\"#\" onmouseover=\"showEvent(".$event->getID().", event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent(".$event->getID().");\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($event->getName())."', '".htmlspecialchars($event->getDescAlmostJava())."', '".$event->getDate()."');\">".$event->getName()."</a><br />";
+					print "Due: <a href=\"#\" onmouseover=\"showEvent(".$event->getID().", event.clientX+document.documentElement.scrollLeft, event.clientY+document.documentElement.scrollTop);\" onmouseout=\"hideEvent(".$event->getID().");\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Event', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($event->getName())."', '".htmlspecialchars($event->getDescAlmostJava())."', '".$event->getDate()."');\">".$event->getName()."</a><br />";
 					print "<div class=\"event\" id=\"".$event->getID()."\">".$event->getName()."<br />".$event->getDate()."<br />".$event->getDescHTML()."</div>";
 				}
 			if(isset($taskArray[$d]))
