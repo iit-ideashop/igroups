@@ -8,7 +8,7 @@
 		$task = new Task($_GET['taskid'], $currentGroup->getType(), $currentGroup->getSemester(), $db);
 		if($task->isValid())
 		{
-			if($task->getGroup()->getID() != $currentGroup->getID())
+			if($task->getTeam()->getID() != $currentGroup->getID())
 				errorPage('Cannot Access Task', 'This task is not assigned to the selected group.', 403);
 		}
 		else
