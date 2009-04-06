@@ -13,14 +13,10 @@
 		function errorPage($title, $desc, $response)
 		{
 			global $appname, $appurl, $contactemail, $db;
-			if($response == 400)
-				header('HTTP/1.1 400 Bad Request');
-			else if($response == 401)
-				header('HTTP/1.1 401 Authorization Required');
-			else if($response == 403)
-				header('HTTP/1.1 403 Forbidden');
-			else
-				header('HTTP/1.1 500 Internal Server Error');
+			$responses = array(400 => 'Bad Request', 401 => 'Authorization Required', 403 => 'Forbidden', 500 => 'Internal Server Error');
+			if(!$responses[$response])
+				$response = 500;
+			header("HTTP/1.1 $response {$responses[$response]}");
 			echo<<<EOF
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <!-- This web-based application is Copyrighted &copy; 2009 Interprofessional Projects Program, Illinois Institute of Technology -->
@@ -35,7 +31,7 @@ EOF;
 			require('sidebar.php');
 			echo "<div id=\"content\">\n";
 			echo "<h1>Fatal Error</h1>\n";
-			echo "<h2>$title</h2>\n";
+			echo "<h2>$title - $response {$responses[$response]}</h2>\n";
 			echo "<p>$appname cannot perform the operation you requested, for the following reason: $desc</p>\n";
 			echo "<p>If you wish to receive support for this problem, please email <a href=\"mailto:$contactemail\">$contactemail</a> with the information below, along with any additional information that you feel is relevant.</p>\n";
 			echo "<ul>\n";
