@@ -3,7 +3,7 @@
 	include_once("checklogin.php");
 
 	if ( !$currentUser->isGroupModerator( $currentGroup ) )
-		die("You must be a group moderator to access this page.");
+		errorPage('Group Credentials Required', 'You must be a group moderator to access this page', 403);
 
 	function alpha($person1, $person2) {
 		if ($person1->getLastName() < $person2->getLastName())
