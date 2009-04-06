@@ -55,7 +55,7 @@ if(!class_exists('Task'))
 		
 		function getCalDesc()
 		{
-			return $this->desc."<br /><br /><a href=\"taskview?taskid={$this->id}\">View this task</a>;
+			return $this->desc."<br /><br /><a href=\"taskview?taskid={$this->id}\">View this task</a>";
 		}
 		
 		function getTeam()
