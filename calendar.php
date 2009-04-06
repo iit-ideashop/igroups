@@ -436,6 +436,13 @@ function ds_onclick(d, m, y) {
 		$temp = explode( "/", $event->getDate() );
 		$eventArray[ intval( $temp[1] ) ][]=$event;
 	}
+	
+	$taskArray = array();
+	$tasks = $currentGroup->getMonthTasks($currentMonth, $currentYear);
+	foreach($tasks as $task) {
+		$temp = explode('-', $task->getDue());
+		$taskArray[intval($temp[2])][] = $task;
+	}
 	print "<table width=\"100%\" style=\"border-collapse: collapse\">" ;
 	print "<tr><td id=\"columnbanner\" align=\"center\" colspan=\"7\" class=\"calbord\"><a href=\"calendar.php?month=".date( "n", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."&amp;year=".date( "Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."\">&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href=\"calendar.php?month=".date( "n", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."&amp;year=".date( "Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."\">&raquo;</a></td></tr>";
 	print "<tr><td class=\"calbord\">Sunday</td><td class=\"calbord\">Monday</td><td class=\"calbord\">Tuesday</td><td class=\"calbord\">Wednesday</td><td class=\"calbord\">Thursday</td><td class=\"calbord\">Friday</td><td class=\"calbord\">Saturday</td></tr>";
@@ -463,6 +470,13 @@ function ds_onclick(d, m, y) {
 			}
 			print ">".$event->getName()."</a><br />";
 			print "<div class=\"event\" id=\"E".$event->getID()."\">".htmlspecialchars($event->getName())."<br />".$event->getDate()."<br />".htmlspecialchars($event->getDesc())."</div>";
+		}
+		if ( isset( $taskArray[$i] ) )
+		foreach ( $taskArray[$i] as $task ) {
+			$class = 'tasklink';
+			print "<a href=\"#\" class=\"$class\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'event-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\"";
+			}
+			print ">".$task->getName()."</a><br />";
 		}
 		print "</td>";
 		$weekDay++;

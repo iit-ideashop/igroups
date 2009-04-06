@@ -61,7 +61,7 @@ li.size0 {
 	display:block;
 }
 
-a.iproeventlink {
+a.iproeventlink, .tasklink {
 	font-size:10px;
 	display:block;
 	color:#000;

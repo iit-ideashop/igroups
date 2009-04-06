@@ -390,6 +390,18 @@ if ( !class_exists( "Group" ) ) {
 			return $returnArray;
 		}
 		
+		function getWeekTasks() {
+			$returnArray = array();
+			
+			$events = $this->db->igroupsQuery("SELECT iID FROM Tasks WHERE iTeamID=".$this->getID()." AND dDue>='".date( "Y-m-d" )."' AND dDue<='".date( "Y-m-d", mktime( 0, 0 ,0, date( "n" ), date( "j" )+7, date( "Y" ) ) )."'" );
+			
+			while ( $row = mysql_fetch_row( $events ) ) {
+				$returnArray[] = new Task( $row[0], $this->type, $this->semester, $this->db );
+			}
+			
+			return $returnArray;
+		}
+		
 		function getMonthEvents( $month, $year ) {
 			$returnArray = array();
 			
@@ -400,6 +412,18 @@ if ( !class_exists( "Group" ) ) {
 			
 			while ( $row = mysql_fetch_row( $events ) ) {
 				$returnArray[] = new Event( $row[0], $this->db );
+			}
+			
+			return $returnArray;
+		}
+		
+		function getMonthTasks( $month, $year ) {
+			$returnArray = array();
+			
+				$events = $this->db->igroupsQuery( "SELECT iID FROM Tasks WHERE iTeamID=".$this->getID()." AND dDue>='".date( "Y-m-d", mktime( 0, 0 ,0, $month, 1, $year ) )."' AND dDue<='".date( "Y-m-d", mktime( 0, 0 ,0, $month+1, 0, $year ) )."'" );
+			
+			while ( $row = mysql_fetch_row( $events ) ) {
+				$returnArray[] = new Task( $row[0], $this->type, $this->semester, $this->db );
 			}
 			
 			return $returnArray;

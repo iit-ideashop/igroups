@@ -3,6 +3,7 @@ require_once('person.php');
 require_once('group.php');
 require_once('subgroup.php');
 require_once('hour.php');
+include_once('superstring.php');
 
 if(!class_exists('Task'))
 {
@@ -52,7 +53,17 @@ if(!class_exists('Task'))
 			return $this->desc;
 		}
 		
+		function getCalDesc()
+		{
+			return $this->desc."<br /><br /><a href=\"taskview?taskid={$this->id}\">View this task</a>;
+		}
+		
 		function getTeam()
+		{
+			return $this->team;
+		}
+		
+		function getGroup()
 		{
 			return $this->team;
 		}
@@ -68,6 +79,11 @@ if(!class_exists('Task'))
 		}
 		
 		function getDue()
+		{
+			return $this->due;
+		}
+		
+		function getDate()
 		{
 			return $this->due;
 		}
