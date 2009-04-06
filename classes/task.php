@@ -202,13 +202,13 @@ if(!class_exists('Task'))
 		function getTotalHours()
 		{
 			$query = mysql_fetch_row($this->db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$this->id}"));
-			return $query[0];
+			return ($query[0] ? $query[0] : 0);
 		}
 		
 		function getTotalHoursFor($person)
 		{
 			$query = mysql_fetch_row($this->db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$this->id} and iPersonID={$person->getID()}"));
-			return $query[0];
+			return ($query[0] ? $query[0] : 0);
 		}
 		
 		function setHours($date, $person, $hours)
