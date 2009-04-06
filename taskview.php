@@ -117,8 +117,10 @@ function toggle(id)
 	echo "<ul id=\"notices\">\n";
 	if($overdue)
 		echo "\t<li id=\"overdue\">This task is overdue. It was due on {$task['dDue']}.</li>\n";
-	else
+	else if(!$task['dClosed'])
 		echo "\t<li>This task is due on {$task['dDue']}.</li>\n";
+	else
+		echo "\t<li>This task was closed on {$task['dClosed'}</li>\n";
 	if($creator)
 		echo "\t<li>You are the creator of this task.</li>\n";
 	if($assigned)
