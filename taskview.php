@@ -178,5 +178,6 @@ function toggle(id)
 		echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\">{$task['sDescription']}</textarea></label><br />\n";
 		echo "<input value=\"Edit Task\" type=\"submit\" /><input type=\"reset\" /><input name=\"form\" value=\"edittask\" type=\"hidden\" /></fieldset></form>\n";
 	}
+	echo "<p><a href=\"tasks.php\">Return to main tasks listing</a></p>\n";
 ?>
 </div></body></html>
