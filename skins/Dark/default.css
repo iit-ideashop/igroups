@@ -198,3 +198,7 @@ input, textarea {
 	background-color: #333333;
 	color: white;
 }
+
+#topSpacer {
+	height: 10px;
+}

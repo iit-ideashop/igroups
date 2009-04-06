@@ -189,3 +189,7 @@ ul.folderlist ul {
 #groupSelect {
 	margin-bottom:10px;
 }
+
+#topSpacer {
+	height: 10px;
+}
