@@ -217,7 +217,7 @@ if(!class_exists('Task'))
 			if(!is_numeric($hours) || $hours < 0)
 				return false;
 			$date = mysql_real_escape_string(stripslashes($date));
-			$query = $this->db->igroupsQuery("select * from Hours where iTaskID={$this->id} and iPersonID={$person->getID()} and dDate=\"$sqldate\"")
+			$query = $this->db->igroupsQuery("select * from Hours where iTaskID={$this->id} and iPersonID={$person->getID()} and dDate=\"$sqldate\"");
 			$result = mysql_fetch_array($query);
 			if($result && $hours > 0)
 				return $this->db->igroupsQuery("update Hours set fHours=$hours where iID={$result['iID']}");
