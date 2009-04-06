@@ -103,6 +103,7 @@ foreach($altskins as $altskin)
 	{
 		echo "<tr><td><label for=\"D$id\">$date</label></td><td><input type=\"text\" name=\"D$id\" id=\"D$id\" value=\"{$hours[$id]}\" /></td></tr>\n";
 	}
+	echo "</table>\n";
 	echo "<input type=\"submit\" value=\"Edit Hours\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"edit\" /></fieldset></form>\n";
 	
 	echo "<form method=\"post\" action=\"taskhours.php?taskid={$_GET['taskid']}\"><fieldset><legend>Add Hours</legend>\n";
