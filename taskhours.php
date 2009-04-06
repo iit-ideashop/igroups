@@ -144,9 +144,9 @@ foreach($altskins as $altskin)
 		}
 		echo "</table>\n";
 		$ids = '';
-		foreach($dates as $id => $date)
+		foreach($hours as $id => $thehour)
 			$ids .= "$id,";
-		$ids = trim($str, ',');
+		$ids = trim($ids, ',');
 		echo "<input type=\"hidden\" name=\"ids\" value=\"$str\" />\n";
 		echo "<input type=\"submit\" value=\"Edit Hours\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"edit\" /></fieldset></form>\n";
 	}
