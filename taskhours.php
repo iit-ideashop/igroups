@@ -97,14 +97,17 @@ foreach($altskins as $altskin)
 <div id="content">
 <?php
 	echo '<p>We are assigning hours for <b>'.$task['sName']."</b>. Thus far, you have spent <b>$totalhours</b> hours on this task.</p>\n";
-	echo "<form method=\"post\" action=\"taskhours.php?taskid={$_GET['taskid']}\"><fieldset><legend>Edit Hours</legend>\n";
-	echo "<table><tr><th>Date</th><th>Hours</th></tr>\n";
-	foreach($dates as $id => $date)
+	if(count($dates) > 0)
 	{
-		echo "<tr><td><label for=\"D$id\">$date</label></td><td><input type=\"text\" name=\"D$id\" id=\"D$id\" value=\"{$hours[$id]}\" /></td></tr>\n";
+		echo "<form method=\"post\" action=\"taskhours.php?taskid={$_GET['taskid']}\"><fieldset><legend>Edit Hours</legend>\n";
+		echo "<table><tr><th>Date</th><th>Hours</th></tr>\n";
+		foreach($dates as $id => $date)
+		{
+			echo "<tr><td><label for=\"D$id\">$date</label></td><td><input type=\"text\" name=\"D$id\" id=\"D$id\" value=\"{$hours[$id]}\" /></td></tr>\n";
+		}
+		echo "</table>\n";
+		echo "<input type=\"submit\" value=\"Edit Hours\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"edit\" /></fieldset></form>\n";
 	}
-	echo "</table>\n";
-	echo "<input type=\"submit\" value=\"Edit Hours\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"edit\" /></fieldset></form>\n";
 	
 	echo "<form method=\"post\" action=\"taskhours.php?taskid={$_GET['taskid']}\"><fieldset><legend>Add Hours</legend>\n";
 	echo "<label>Date: <input type=\"text\" name=\"date\" /></label><br />\n";
