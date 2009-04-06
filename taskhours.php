@@ -19,7 +19,7 @@
 				$query2 = $db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$_GET['taskid']);
 				while($row = mysql_fetch_array($query2))
 				{
-					$sg = new SubGroup($query2['iSubgroupID'], $db);
+					$sg = new SubGroup($row['iSubgroupID'], $db);
 					if($sg->isSubGroupMember($currentUser))
 					{
 						$ok = true;
