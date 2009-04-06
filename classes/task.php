@@ -180,7 +180,7 @@ if(!class_exists('Task'))
 		{
 			if($this->isAssignedPerson($p))
 				return true;
-			$query = $db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$this->id);
+			$query = $this->db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$this->id);
 			while($row = mysql_fetch_array($query))
 			{
 				$sg = new SubGroup($row['iSubgroupID'], $this->db);
@@ -195,7 +195,7 @@ if(!class_exists('Task'))
 			$hours = array();
 			$query = $this->db->igroupsQuery("select * from Hours where iTaskID={$this->id} and iPersonID={$person->getID()} order by dDate asc");
 			while($result = mysql_fetch_array($query))
-				$hours[$result['iID']] = new Hour($result['iID'], $db);
+				$hours[$result['iID']] = new Hour($result['iID'], $this->db);
 			return $hours;
 		}
 		
