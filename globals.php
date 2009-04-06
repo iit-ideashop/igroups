@@ -12,7 +12,7 @@
 	{
 		function errorPage($title, $desc, $response)
 		{
-			global $appname, $appurl, $contactemail, $db;
+			global $appname, $appurl, $contactemail, $db, $currentUser, $currentGroup;
 			$responses = array(400 => 'Bad Request', 401 => 'Authorization Required', 403 => 'Forbidden', 500 => 'Internal Server Error');
 			if(!$responses[$response])
 				$response = 500;
