@@ -40,7 +40,7 @@
 		$desc = mysql_real_escape_string($_POST['desc']);
 		if($hurdle == 2)
 		{
-			$ok = $db->igroupsQuery("update Tasks set sName=\"$name\", sDescription=\"$desc\", dDue=\"$date\"");
+			$ok = $db->igroupsQuery("update Tasks set sName=\"$name\", sDescription=\"$desc\", dDue=\"$date\" where iID={$task->getID()}");
 			if($ok)
 				$message = 'Task successfully edited';
 			else
