@@ -119,5 +119,6 @@ foreach($altskins as $altskin)
 		echo "</table></fieldset>\n";
 	}
 	echo "<input type=\"submit\" value=\"Submit Assignments\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"submit\" /></fieldset></form>\n";
+	echo "<p><a href=\"tasks.php\">Cancel and return to tasks listing</a></p>\n";
 ?>
 </div></body></html>

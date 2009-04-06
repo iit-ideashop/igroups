@@ -155,6 +155,6 @@ foreach($altskins as $altskin)
 	echo "<label>Date: <input type=\"text\" name=\"date\" /></label><br />\n";
 	echo "<label>Hours: <input type=\"text\" name=\"hours\" /></label><br />\n";
 	echo "<input type=\"submit\" value=\"Add Hours\" /><input type=\"hidden\" name=\"form\" value=\"new\" /></fieldset></form>\n";
-	echo "<p><a href=\"tasks.php\">Back to tasks listing</a></p>\n";
+	echo "<p><a href=\"tasks.php\">Cancel and return to tasks listing</a></p>\n";
 ?>
 </div></body></html>

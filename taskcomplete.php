@@ -56,5 +56,6 @@ foreach($altskins as $altskin)
 	echo "<form method=\"post\" action=\"taskcomplete.php?taskid={$_GET['taskid']}\"><fieldset><legend>Complete Task</legend>\n";
 	echo "<label>Date completed: <input type=\"text\" name=\"date\" value=\"$thedate\" /></label>\n";
 	echo "<input type=\"submit\" value=\"Complete Task\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"submit\" /></fieldset></form>\n";
+	echo "<p><a href=\"tasks.php\">Cancel and return to tasks listing</a></p>\n";
 ?>
 </div></body></html>
