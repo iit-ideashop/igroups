@@ -87,7 +87,7 @@ require("sidebar.php");
 <p>Welcome to the <?php echo $appname; ?> Knowledge Management System. Here you can browse the deliverables of IIT's IPRO teams of the past and present. All deliverables and non-deliverables are organized into "nuggets". Nuggets contain downloadable files that make up the deliverable, plus metadata that contains information about the files' author(s) and their description. If you know the name of the team you wish to browse, use the "Browse IPROs" feature to locate it. If you don't know the name of the team, you can search through all of the nuggets by name, author or description.</p>
 <form id="searchForm" method = "post" action="main.php"><fieldset>
 	<div id="searchBar">
-	<table cellspacing="0" cellpadding="6" style="border: thin solid black"><tr><td style="background:#EEEEEE">
+	<table cellspacing="0" cellpadding="6" style="border: thin solid black"><tr><td>
 	<b>Search Nuggets</b><br />
 		<input type="text" name="search" />
 		Search Within: <select name="criteria">
@@ -106,7 +106,7 @@ require("sidebar.php");
 <form method="get" action="viewIproNuggets.php"><fieldset>
 	<div id="sortBar">
 	<br />
-	<table cellspacing="0" cellpadding="6" style="border: thin solid black"><tr><td style="background:#EEEEEE"><b>Browse IPROs</b><br />
+	<table cellspacing="0" cellpadding="6" style="border: thin solid black"><tr><td><b>Browse IPROs</b><br />
 		<table cellspacing="4" cellpadding="0" style="border-style: none">
 				<tr>
 					<td>
