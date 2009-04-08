@@ -26,7 +26,7 @@ init:function(t){
 	domwindowdata+='DHTML Window <div class="drag-controls"><img src="'+this.imagefiles[0]+'" title="Minimize" alt="_" /><img src="'+this.imagefiles[1]+'" title="Close" alt="X" /></div>'
 	domwindowdata+='</div>'
 	domwindowdata+='<div class="drag-contentarea"></div>'
-	domwindowdata+='<div class="drag-statusarea"><div class="drag-resizearea" style="background: transparent url('+this.imagefiles[3]+') top right no-repeat;">&nbsp;</div></div>'
+	domwindowdata+='<div class="drag-statusarea"><div class="drag-handle"><div class="drag-resizearea" style="background: transparent url('+this.imagefiles[3]+') top right no-repeat;">&nbsp;</div></div></div>'
 	domwindowdata+='</div>'
 	domwindow.innerHTML=domwindowdata
 	document.getElementById("dhtmlwindowholder").appendChild(domwindow)
