@@ -436,7 +436,7 @@ require("sidebar.php");
 			<?php if (!$currentCat || $currentCat->getID() != 1) { ?>
 				<ul class="folderlist">
 					<?php if(!$currentUser->isGroupGuest($currentGroup)) { ?>
-					<li><a href="#" onclick="sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
+					<li><a href="sendemail.php" onclick="sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false">Send Email</a></li>
 					<?php } ?>
 					<li><a href="#" onclick="searchwin=dhtmlwindow.open('searchbox', 'div', 'searchFrame', 'Search Group Emails', 'width=300px,height=200px,left=300px,top=100px,resize=1,scrolling=1'); return false">Search Email</a></li>
 <?php
