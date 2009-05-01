@@ -3,7 +3,7 @@ if ( !class_exists( "Quota" ) ) {
 	class Quota {
 		var $group, $type, $semester, $used, $limit;
 		var $db;
-		var $limitDefault=104857600;
+		var $limitDefault=2147483648;
 		
 		function Quota( $group, $db ) {
 			$this->group = $group->getID();
