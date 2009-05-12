@@ -148,6 +148,7 @@ cal.showNavigationDropdowns();
 	echo "<label>Due: <input type=\"text\" name=\"due\" onfocus=\"cal.select(document.forms[0].date1xx,'anchor1xx','yyyy-MM-dd'); return false;\" /></label><br />\n";
 	echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\"></textarea></label><br />\n";
 	echo "<input type=\"submit\" value=\"Add\" /><input type=\"hidden\" name=\"form\" value=\"addtask\" /></fieldset></form>\n";
+	echo "<div id=\"caldiv\"></div>\n";
 ?>
 </div></body>
 </html>
