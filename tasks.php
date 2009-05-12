@@ -65,11 +65,14 @@ foreach($altskins as $altskin)
 	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <title><?php echo $appname; ?> - Tasks</title>
+<script type="text/javascript" src="Calendar.js"></script>
 <script type="text/javascript">
 function toggle(id)
 {
 	document.getElementById(id).style.display = (document.getElementById(id).style.display == 'none') ? 'block' : 'none';
 }
+var cal = new CalendarPopup("caldiv");
+cal.showNavigationDropdowns();
 </script>
 </head>
 <body>
@@ -142,7 +145,7 @@ function toggle(id)
 	//Add a task
 	echo "<form method=\"post\" action=\"tasks.php\"><fieldset><legend>Add Task</legend>\n";
 	echo "<label>Name: <input type=\"text\" name=\"name\" /></label><br />\n";
-	echo "<label>Due: <input type=\"text\" name=\"due\" /></label><br />\n";
+	echo "<label>Due: <input type=\"text\" name=\"due\" onfocus=\"cal.select(document.forms[0].date1xx,'anchor1xx','yyyy-MM-dd'); return false;\" /></label><br />\n";
 	echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\"></textarea></label><br />\n";
 	echo "<input type=\"submit\" value=\"Add\" /><input type=\"hidden\" name=\"form\" value=\"addtask\" /></fieldset></form>\n";
 ?>
