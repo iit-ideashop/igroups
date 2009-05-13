@@ -215,7 +215,7 @@ function addAnnouncement() {
 		</div>
 		<div id="left">
 <?php
-			$random=rand(1,264);
+			$random=rand(1,347);
 			print( "<img src=\"http://ipro.iit.edu/home/images/students1/photos/$random.jpg\" alt=\"Random photo\" />" );
 			print( "<img src=\"http://ipro.iit.edu/home/images/students1/pull_quotes/$random.jpg\" alt=\"Random quote\" />" );
 ?>
