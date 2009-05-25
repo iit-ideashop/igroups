@@ -7,11 +7,10 @@
 	//If we have an "on-the-fly" login
 	if(isset($_POST['username1']) && isset($_POST['password1']))
 	{
-		if(strpos($_POST['username1'], "@") === FALSE)
-			$userName = $_POST['username1']."@iit.edu";
-		else
-			$userName = $_POST['username1'];
-		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
+		$userName = mysql_real_escape_string(stripslashes($_POST['username1']));
+		if(strpos($_POST['username1'], '@') === FALSE)
+			$userName .= '@iit.edu';
+		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='$userName'");
 		if(($row = mysql_fetch_row($user)) && (md5($_POST['password1']) == $row[1])) //Success! Set session variables.
 		{
 			$_SESSION['userID'] = $row[0];
@@ -40,11 +39,10 @@
 		$currentUser = new Person($_SESSION['userID'], $db);
 	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']) && isset($_COOKIE['selectedGroup'])) //If not, look for a remember me cookie
 	{
-		if(strpos($_COOKIE['userID'], "@") === FALSE)
-			$userName = $_COOKIE['userID']."@iit.edu";
-		else
-			$userName = $_COOKIE['userID'];
-		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
+		$userName = mysql_real_escape_string(stripslashes($_COOKIE['userID']));
+		if(strpos($_POST['username1'], '@') === FALSE)
+			$userName .= '@iit.edu';
+		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='$userName'");
 		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
 		{
 			$_SESSION['userID'] = $row[0];

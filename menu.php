@@ -19,9 +19,10 @@ ob_start();
 	}
 
 	if ( isset( $_POST['logform'] ) ) {
-		if ( strpos( $_POST['username'], "@" ) === FALSE ) 
-			$_POST['username'] .= "@iit.edu";
-		$user = $db->iknowQuery( "SELECT iID,sPassword FROM People WHERE sEmail='".$_POST['username']."'" );
+		$username = mysql_real_escape_string(stripslashes($_POST['username']));
+		if ( strpos( $username, '@' ) === FALSE ) 
+			$username .= '@iit.edu';
+		$user = $db->iknowQuery( "SELECT iID,sPassword FROM People WHERE sEmail='$username'" );
 		if ( ( $row = mysql_fetch_row( $user ) ) && ( md5($_POST['password']) == $row[1] ) ) {
 			$_SESSION['userID'] = $row[0];
 			if(isset($_GET['loggingin'])) {
