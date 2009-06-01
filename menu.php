@@ -121,8 +121,8 @@ ob_start();
 		if ( $group->getType() == 0 )
 			echo "<li><a href=\"viewtimesheets.php\">Time Reporting</a></li>";
 		echo "<li><a href=\"dboard/dboard.php?a=0\">Discussion Board</a></li>";
-		if ( $group->getType() == 0 && !$user->isGroupGuest($group))
-			echo "<li><a href=\"budget.php\">Budget</a></li>";
+		//if ( $group->getType() == 0 && !$user->isGroupGuest($group))
+		//	echo "<li><a href=\"budget.php\">Budget</a></li>";
 		echo "<li><a href=\"nuggets.php\">iKnow Nuggets</a></li>";
 		echo "<li><a href=\"bookmarks.php\">Bookmarks</a></li>";
 	}
