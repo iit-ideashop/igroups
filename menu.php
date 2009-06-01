@@ -108,23 +108,23 @@ ob_start();
 	}
 	
 	function printGroupMenu( $user, $group ) {
-		echo "<li><a href=\"files.php\">Files</a></li>";
-		echo "<li><a href=\"email.php\">Email</a></li>";
-		echo "<li><a href=\"calendar.php\">Calendar</a></li>";
-		echo "<li><a href=\"todo.php\">Todo List</a></li>";
-		echo "<li><a href=\"contactlist.php\">Contact List</a></li>";
-		echo "<li><a href=\"grouppictures.php\">Group Pictures</a></li>";
+		echo "<li><a href=\"files.php\">Files</a></li>\n";
+		echo "<li><a href=\"email.php\">Email</a></li>\n";
+		echo "<li><a href=\"calendar.php\">Calendar</a></li>\n";
+		echo "<li><a href=\"todo.php\">Todo List</a></li>\n";
+		echo "<li><a href=\"contactlist.php\">Contact List</a></li>\n";
+		echo "<li><a href=\"grouppictures.php\">Group Pictures</a></li>\n";
 		if ( $group->getType() == 0 && !$user->isGroupGuest($group))
-			echo "<li><a href=\"logtimespent.php\">Your Timesheet</a></li>";
+			echo "<li><a href=\"logtimespent.php\">Your Timesheet</a></li>\n";
 		if ( $user->isGroupModerator( $group ) )
-			echo "<li><a href=\"groupmanagement.php\">Manage Group</a></li>";
+			echo "<li><a href=\"groupmanagement.php\">Manage Group</a></li>\n";
 		if ( $group->getType() == 0 )
-			echo "<li><a href=\"viewtimesheets.php\">Time Reporting</a></li>";
-		echo "<li><a href=\"dboard/dboard.php?a=0\">Discussion Board</a></li>";
+			echo "<li><a href=\"viewtimesheets.php\">Time Reporting</a></li>\n";
+		echo "<li><a href=\"dboard/dboard.php?a=0\">Discussion Board</a></li>\n";
 		//if ( $group->getType() == 0 && !$user->isGroupGuest($group))
-		//	echo "<li><a href=\"budget.php\">Budget</a></li>";
-		echo "<li><a href=\"nuggets.php\">iKnow Nuggets</a></li>";
-		echo "<li><a href=\"bookmarks.php\">Bookmarks</a></li>";
+		//	echo "<li><a href=\"budget.php\">Budget</a></li>\n";
+		echo "<li><a href=\"nuggets.php\">iKnow Nuggets</a></li>\n";
+		echo "<li><a href=\"bookmarks.php\">Bookmarks</a></li>\n";
 	}
 	
 	if ( !isset( $_SESSION['expandSemesters'] ) ) {
@@ -225,20 +225,21 @@ ob_start();
 		if ( in_array( "admin", $_SESSION['expandSemesters'] ) ) {
 			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/minus.png\" style=\"border-style: none\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
 			echo "<ul>";
-			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>";
-			echo "<li><a href=\"admin/email.php\">Email Groups</a></li>";
-			echo "<li><a href=\"admin/nuggets.php\">Manage Nuggets</a></li>";
-			echo "<li><a href=\"admin/event.php\">Manage Calendars</a></li>";
-			echo "<li><a href=\"dboard/dboard.php?adminView=1\">Discussion Board</a></li>";
-			echo "<li><a href=\"admin/budget.php\">Manage Budgets</a></li>";
-			echo "<li><a href=\"admin/iprofiles.php\">IPRO Office Files</a></li>";
-			echo "<li><a href=\"admin/quotas.php\">Group Quotas</a></li>";
-			echo "<li><a href=\"admin/reporting.php\">Group Reporting</a></li>";
-			echo "<li><a href=\"admin/people.php\">View Person</a></li>";
-			echo "<li><a href=\"admin/announcements.php\">Announcements</a></li>";
-			echo "<li><a href=\"admin/bookmarks.php\">Bookmarks</a></li>";
-			echo "<li><a href=\"admin/skins.php\">Skins</a></li>";
-			//echo "<li><a href=\"admin/appearance.php\">Appearance</a></li>";
+			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>\n";
+			echo "<li><a href=\"admin/semesters.php\">Manage Semesters</a></li>\n";
+			echo "<li><a href=\"admin/email.php\">Email Groups</a></li>\n";
+			echo "<li><a href=\"admin/nuggets.php\">Manage Nuggets</a></li>\n";
+			echo "<li><a href=\"admin/event.php\">Manage Calendars</a></li>\n";
+			echo "<li><a href=\"dboard/dboard.php?adminView=1\">Discussion Board</a></li>\n";
+			echo "<li><a href=\"admin/budget.php\">Manage Budgets</a></li>\n";
+			echo "<li><a href=\"admin/iprofiles.php\">IPRO Office Files</a></li>\n";
+			echo "<li><a href=\"admin/quotas.php\">Group Quotas</a></li>\n";
+			echo "<li><a href=\"admin/reporting.php\">Group Reporting</a></li>\n";
+			echo "<li><a href=\"admin/people.php\">View Person</a></li>\n";
+			echo "<li><a href=\"admin/announcements.php\">Announcements</a></li>\n";
+			echo "<li><a href=\"admin/bookmarks.php\">Bookmarks</a></li>\n";
+			echo "<li><a href=\"admin/skins.php\">Skins</a></li>\n";
+			echo "<li><a href=\"admin/appearance.php\">Appearance</a></li>\n";
 			echo "</ul>";
 		}
 		else
