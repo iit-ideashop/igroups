@@ -16,7 +16,7 @@
 	}
 	else if(isset($_POST['new']))
 	{
-		if(createSemester($_POST['newname'], $_POST['newActive'], $db))
+		if(createSemester($_POST['newname'], isset($_POST['newActive']) ? 1 : 0, $db))
 			$message = 'New semester created';
 		else
 			$message = 'ERROR: New semester was not created';
