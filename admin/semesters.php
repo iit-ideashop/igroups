@@ -14,7 +14,7 @@
 		else
 			$message = 'ERROR: Active semester was not updated';
 	}
-	else if(isset($_POST['new'])
+	else if(isset($_POST['new']))
 	{
 		if(createSemester($_POST['newname'], $_POST['newActive'], $db))
 			$message = 'New semester created';
