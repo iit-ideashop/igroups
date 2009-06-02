@@ -22,7 +22,10 @@
 <!-- This web-based application is Copyrighted &copy; 2009 Interprofessional Projects Program, Illinois Institute of Technology -->
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 EOF;
-			require('appearance.php');
+			if(stristr(__FILE__, '/admin/') || stristr(__FILE__, '/iknow/') || stristr(__FILE__, '/dboard/'))
+				require('../appearance.php');
+			else
+				require('appearance.php');
 			echo "<link rel=\"stylesheet\" href=\"skins/$skin/tasks.css\" type=\"text/css\" title=\"$skin\" />\n";
 			foreach($altskins as $altskin)
 				echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
