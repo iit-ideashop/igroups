@@ -18,6 +18,7 @@ thead {
 	font-size:10pt;
 	font-weight:bold;
 	background-color:#CCCCCC;
+	color:#000000;
 	text-align:center;
 }
 
@@ -25,6 +26,7 @@ tfoot {
 	font-size:10pt;
 	font-weight:bold;
 	background-color:#CCCCCC;
+	color:#000000;
 	text-align:center;
 }
 
@@ -78,6 +80,7 @@ legend {
 
 .shade {
 	background-color:#EEEEEE;
+	color:#000000;
 }
 
 #messageBox {
@@ -130,6 +133,7 @@ ul.noindent {
 
 div.box {
 	background-color: #EEEEEE;
+	color:#000000;
 	text-align:left;
 	padding:15px;
 	position:relative;

@@ -23,6 +23,7 @@ thead {
 	font-size:10pt;
 	font-weight:bold;
 	background-color:#333333;
+	color:#ffffff;
 	text-align:center;
 }
 
@@ -30,6 +31,7 @@ tfoot {
 	font-size:10pt;
 	font-weight:bold;
 	background-color:#333333;
+	color:#ffffff;
 	text-align:center;
 }
 
@@ -83,6 +85,7 @@ legend {
 
 .shade {
 	background-color:#222222;
+	color:#ffffff;
 }
 
 #messageBox {
@@ -97,6 +100,7 @@ legend {
 	font-size:10pt;
 	width: 200px;
 	background-color:#111111;
+	color:#ffffff;
 	padding-left:5px;
 	float: left;
 	border-right: 1px solid #999;
@@ -130,6 +134,7 @@ ul.noindent {
 
 div.box {
 	background-color: #222222;
+	color:#ffffff;
 	text-align:left;
 	padding:15px;
 	position:relative;
