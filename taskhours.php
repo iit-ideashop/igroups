@@ -50,7 +50,7 @@
 					$message .= "<li>Unknown error setting hours for $id</li>\n";
 			}
 			if($message == '')
-				$message = 'All values successfully updated.';
+				header('Location: taskview.php?taskid='.$task->getID());
 			else
 				$message = "The following problems occurred when processing your request:<ul>$message</ul>";
 		}
@@ -94,7 +94,21 @@ foreach($altskins as $altskin)
 ?>
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
-	echo '<p>We are assigning hours for <b>'.$task->getName()."</b>. Thus far, you have spent <b>{$task->getTotalHoursFor($currentUser)}</b> hours on this task.</p>\n";
+	echo '<p>We are assigning hours for <b>'.$task->getName()."</b>. A complete list of your entered hours is below.</p>\n";
+	$hours = $task->getHours($currentUser);
+	echo "<table class=\"taskhours\">\n";
+	echo "\t<thead>\n";
+	echo "\t\t<tr><th colspan=\"2\">Hours Summary for {$currentUser->getFullName()}</th></tr>\n";
+	echo "\t\t<tr><th>Date</th><th>Hours Spent</th></tr>\n";
+	echo "\t</thead>\n";
+	echo "\t<tfoot>\n";
+	echo "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td></tr>\n";
+	echo "\t</tfoot>\n";
+	echo "\t<tbody>\n";
+	foreach($hours as $hour)
+		echo "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
+	echo "\t</tbody>\n";
+	echo "</table>\n";
 	if(count($dates) > 0)
 	{
 		echo "<form method=\"post\" action=\"taskhours.php?taskid={$_GET['taskid']}\"><fieldset><legend>Edit Hours</legend>\n";

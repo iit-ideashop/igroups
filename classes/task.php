@@ -156,6 +156,20 @@ if(!class_exists('Task'))
 			return $sgs;
 		}
 		
+		function getAllAssigned()
+		{
+			$assigned = $this->getAssignedPeople();
+			$sgs = $this->getAssignedPeople();
+			foreach($sgs as $sg)
+			{
+				$members = $sg->getSubGroupMembers();
+				foreach($members as $member)
+					if(!array_key_exists($member->getID(), $assigned))
+						$assigned[$member->getID()] = $member;
+			}
+			return $assigned;
+		}
+		
 		function assignPerson($p)
 		{
 			if(!$this->isAssignedPerson($p))
@@ -209,9 +223,24 @@ if(!class_exists('Task'))
 		function getHours($person)
 		{
 			$hours = array();
-			$query = $this->db->igroupsQuery("select * from Hours where iTaskID={$this->id} and iPersonID={$person->getID()} order by dDate asc");
+			$query = $this->db->igroupsQuery("select * from Hours where iTaskID={$this->id}".(is_object($person) ? " and iPersonID={$person->getID()}" : '')." order by dDate asc");
 			while($result = mysql_fetch_array($query))
 				$hours[$result['iID']] = new Hour($result['iID'], $this->db);
+			return $hours;
+		}
+
+		function getHoursByWeek($person)
+		{
+			$hours = array();
+			$query = $this->db->igroupsQuery("select * from Hours where iTaskID={$this->id}".(is_object($person) ? " and iPersonID={$person->getID()}" : '')." order by dDate asc");
+			while($result = mysql_fetch_array($query))
+			{
+				$hour = new Hour($result['iID'], $this->db);
+				$week = (int)(date('W', strtotime($hour->getDate())));
+				if(!isset($hours[$week]))
+					$hours[$week] = array();
+				$hours[$week][$hour->getID()] = $hour;
+			}
 			return $hours;
 		}
 		

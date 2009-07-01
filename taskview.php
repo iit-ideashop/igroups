@@ -19,40 +19,14 @@
 	else
 		errorPage('Missing Task ID', 'No task ID was provided.', 400);
 
-	if($_POST['form'] == 'edittask')
-	{
-		$name = mysql_real_escape_string($_POST['name']);
-		$hurdle = 0;
-		if(!strlen($name))
-			$message = 'ERROR: Could not edit task: You must enter a name for the task.';
-		else if(mysql_num_rows($db->igroupsQuery('select iID from Tasks where iTeamID='.$currentGroup->getID()." and sName=\"$name\" and iID<>{$task->getID()}")))
-			$message = 'Your group already has a task with that name.';
-		else
-			$hurdle++;
-		$date = strtotime($_POST['due']);
-		if(!$date)
-			$message = 'ERROR: Could not edit task: Invalid due date';
-		else
-		{
-			$date = strftime('%Y-%m-%d', $date);
-			$hurdle++;
-		}
-		$desc = mysql_real_escape_string($_POST['desc']);
-		if($hurdle == 2)
-		{
-			$ok = $db->igroupsQuery("update Tasks set sName=\"$name\", sDescription=\"$desc\", dDue=\"$date\" where iID={$task->getID()}");
-			if($ok)
-			{
-				$message = 'Task successfully edited';
-				$task = new Task($_GET['taskid'], $currentGroup->getType(), $currentGroup->getSemester(), $db); //Resync
-			}
-			else
-				$message = 'Task editing failed: '.mysql_error();
-		}
-	}
-
 	//Create variables we'll use later
 	$overdue = (!$task->getClosed() && strtotime($task->getDue()) <= time());
+	if($overdue)
+		$status = '<b>OVERDUE</b>';
+	else if($task->getClosed())
+		$status = 'Closed';
+	else
+		$status = 'Open';
 	$creator = ($task->getCreator()->getID() == $currentUser->getID());
 	$assigned = $task->isAssignedPerson($currentUser);
 	$sgassigned = $task->isAssigned($currentUser);
@@ -86,6 +60,32 @@ function toggle(id)
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	echo "<h1>{$task->getName()}</h1>\n";
+	echo "<div style=\"float:right;border:thin solid black\">\n";
+	echo "\t<h2>Task Essentials</h2>\n";
+	echo "\t<ul style=\"list-style-type:none\">\n";
+	echo "\t\t<li><b>Status</b>: $status</li>\n";
+	if(!$task->getClosed())
+		echo "\t\t<li><b>Due</b>: {$task->getDue()}</li>\n";
+	echo "\t\t<li><b>Creator</b>: {$task->getCreator()->getFullName()} (<a href=\"sendemail.php?to={$task->getCreator()->getID()}\">email</a>)</li>\n";
+	echo "\t</ul>\n";
+	if($task->isAssigned($currentUser))
+	{
+		echo "\t<h2>Assignee Actions</h2>\n";
+		echo "\t<ul style=\"list-style-type:none\">\n";
+		echo "\t\t<a href=\"taskhours.php?taskid={$task->getID()}\">Add/View Hours</a>\n";
+		echo "\t</ul>\n";
+	}
+	if($currentUser->isGroupModerator($currentGroup) || $task->getCreator()->getID() == $currentUser->getID())
+	{
+		echo "\t<h2>Moderator Actions</h2>\n";
+		echo "\t<ul style=\"list-style-type:none\">\n";
+		echo "\t\t<li><a href=\"taskassign.php?taskid={$task->getID()}\">Change Assignments</a></li>\n";
+		echo "\t\t<li><a href=\"taskedit.php?taskid={$task->getID()}\">Edit Task</a></li>\n";
+		echo "\t\t<li><a href=\"taskcomplete.php?taskid={$task->getID()}\">Close Task</a></li>\n";
+		echo "\t\t<li><a href=\"tasks.php?del={$task->getID()}\">Delete Task</a></li>\n";
+		echo "\t</ul>\n";
+	}
+	echo "</div>\n";
 	echo "<ul id=\"notices\">\n";
 	if($overdue)
 		echo "\t<li id=\"overdue\">This task is overdue. It was due on {$task->getDue()}.</li>\n";
@@ -95,6 +95,8 @@ function toggle(id)
 		echo "\t<li>This task was closed on {$task->getClosed()}</li>\n";
 	if($creator)
 		echo "\t<li>You are the creator of this task.</li>\n";
+	else
+		echo "\t<li>The creator of this task is {$task->getCreator()->getFullName()} (<a href=\"sendemail.php?to={$task->getCreator()->getID()}\">email</a>).</li>\n";
 	if($assigned)
 		echo "\t<li>You are currently assigned to this task. You may <a href=\"taskhours.php?taskid={$task->getID()}\">add hours</a> to this task.</li>\n";
 	else if($sgassigned)
@@ -103,7 +105,9 @@ function toggle(id)
 		echo "\t<li>You are not assigned to this task.</li>\n";
 	if($assigned || $sgassigned || $hours > 0)
 		echo "\t<li>You have contributed <b>$hours</b> hours of work to this task, out of <b>$tothours</b> hours overall (<b>$percenthours</b>)</li>\n";
-	echo "</ul>\n<h2>Description</h2>\n<div id=\"taskdesc\"><p>{$task->getDesc()}</p></div>\n";
+	echo "</ul>\n";
+	
+	echo "<h2>Description</h2>\n<div id=\"taskdesc\"><p>{$task->getDesc()}</p></div>\n";
 	echo "<h2>Assignments</h2>\n";
 	if(count($assignments))
 	{
@@ -138,20 +142,6 @@ function toggle(id)
 	}
 	else
 		echo "<p>No subgroups are assigned to this task.</p>\n";
-	if($creator || $currentUser->isGroupModerator($currentGroup))
-	{
-		echo "<h2>Task Moderator Options</h2>\n";
-		echo "<ul id=\"taskmod\">\n";
-		echo "<li><a href=\"taskassign.php?taskid={$task->getID()}\">Change assignments</a></li>\n";
-		echo "<li><a href=\"taskcomplete.php?taskid={$task->getID()}\">Mark this task as completed</a></li>\n";
-		echo "<li><a href=\"tasks.php?del={$task->getID()}\">Delete this task</a> (This action cannot be undone!)</li>\n";
-		echo "</ul>\n";
-		echo "<form method=\"post\" action=\"taskview.php?taskid={$task->getID()}\"><fieldset><legend id=\"taskedit\">Edit this Task</legend>\n";
-		echo "<label>Name: <input type=\"text\" name=\"name\" value=\"{$task->getName()}\" /></label><br />\n";
-		echo "<label>Due: <input name=\"due\" type=\"text\" value=\"{$task->getDue()}\" /></label><br />\n";
-		echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\">{$task->getDesc()}</textarea></label><br />\n";
-		echo "<input value=\"Edit Task\" type=\"submit\" /><input type=\"reset\" /><input name=\"form\" value=\"edittask\" type=\"hidden\" /></fieldset></form>\n";
-	}
 	echo "<p><a href=\"tasks.php\">Return to main tasks listing</a></p>\n";
 ?>
 </div></body></html>

@@ -5,7 +5,7 @@ include_once('globals.php');
 
 if ( !class_exists( "Person" ) ) {
 	class Person {
-		var $id, $firstname, $lastname, $email, $phone, $address, $password, $usertype;
+		var $id, $firstname, $lastname, $email, $phone, $address, $password, $usertype, $valid;
 		var $db;
 		
 		function Person( $id, $db ) {
@@ -19,9 +19,16 @@ if ( !class_exists( "Person" ) ) {
 					$this->address = $temp['sAddress'];
 					$this->usertype = $temp['iUserTypeID'];
 					$this->password = $temp['sPassword'];
+					$this->valid = true;
 					$this->db = $db;
 				}
+				else
+					$this->valid = false;
 			}
+		}
+		
+		function isValid() {
+			return $this->valid;
 		}
 		
 		function getID() {

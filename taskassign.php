@@ -37,7 +37,7 @@
 				foreach($_POST['subgroup'] as $id => $subgroup)
 					$db->igroupsQuery('insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ('.$task->getID().", $id)");
 			}
-			header('Location: tasks.php');
+			header('Location: taskview.php?taskid='.$task->getID());
 		}
 	}
 	else if($_GET['taskid'])

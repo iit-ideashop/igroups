@@ -21,7 +21,7 @@
 			if($_POST['date'] !== false && $subdate <= time())
 			{
 				$task->setClosed($subdate);
-				header('Location: tasks.php');
+				header('Location: taskview.php?taskid='.$task->getID());
 			}
 			else if($_POST['date'] === false)
 				$message = 'ERROR: The entered date is not in a recognizable format. Please use the ISO 8601 format (YYYY-MM-DD).';

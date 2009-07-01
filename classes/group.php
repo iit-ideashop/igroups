@@ -63,6 +63,8 @@ if ( !class_exists( "Group" ) ) {
 		}
 		
 		function isGroupMember( $person ) {
+			if(!is_object($person) || !$person->isValid())
+				return false;
 			if ( $this->getType() == 0 ) {
 				$people = $this->db->iknowQuery( "SELECT iPersonID FROM PeopleProjectMap WHERE iPersonID=".$person->getID()." AND iProjectID=".$this->getID()." AND iSemesterID=".$this->getSemester() );
 			}

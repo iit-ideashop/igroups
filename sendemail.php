@@ -36,11 +36,22 @@ foreach($altskins as $altskin)
 </head>
 <body onload="sendinit()">
 <?php
-	if (isset($_GET['replyid'])) {
+	$to = array();
+	if (is_numeric($_GET['replyid'])) {
 		$replyEmail = new Email($_GET['replyid'], $db);
 	}
-	else if (isset($_GET['forward'])) {
+	else if (is_numeric($_GET['forward'])) {
 		$forwardEmail = new Email($_GET['forward'], $db);
+	}
+	
+	if(isset($_GET['to']))
+	{
+		$exp = explode(',', $_GET['to']);
+		foreach($exp as $i)
+		{
+			if(is_numeric($i) && $i > 0 && $p = new Person($i, $db) && $currentGroup->isGroupMember($p))
+				$to[$i] = $p;
+		}
 	}
 ?>
 	<form method="post" action="email.php" enctype="multipart/form-data" id="mailform">
@@ -54,7 +65,7 @@ foreach($altskins as $altskin)
 				foreach ( $members as $person ) {
 					if ( $i == 1 ) 
 						print "<tr>";
-					if(isset($_GET['replyid']) && $person->getID() == $replyEmail->getSenderID())
+					if((isset($_GET['replyid']) && $person->getID() == $replyEmail->getSenderID()) || array_key_exists($person->getID(), $to))
 						print "<td><input type=\"checkbox\" name=\"sendto[".$person->getID()."]\" id=\"sendto[".$person->getID()."]\" checked=\"checked\" /></td>";
 					else
 						print "<td><input type=\"checkbox\" name=\"sendto[".$person->getID()."]\" id=\"sendto[".$person->getID()."]\" /></td>";
