@@ -72,7 +72,8 @@ function toggle(id)
 	{
 		echo "\t<h2>Assignee Actions</h2>\n";
 		echo "\t<ul style=\"list-style-type:none\">\n";
-		echo "\t\t<a href=\"taskhours.php?taskid={$task->getID()}\">Add/View Hours</a>\n";
+		echo "\t\t<a href=\"taskhours.php?taskid={$task->getID()}\">Add Hours</a>\n";
+		echo "\t\t<a href=\"hours.php?taskid={$task->getID()}\">View Hours</a>\n";
 		echo "\t</ul>\n";
 	}
 	if($currentUser->isGroupModerator($currentGroup) || $task->getCreator()->getID() == $currentUser->getID())
@@ -80,6 +81,7 @@ function toggle(id)
 		echo "\t<h2>Moderator Actions</h2>\n";
 		echo "\t<ul style=\"list-style-type:none\">\n";
 		echo "\t\t<li><a href=\"taskassign.php?taskid={$task->getID()}\">Change Assignments</a></li>\n";
+		echo "\t\t<a href=\"hours.php?taskid={$task->getID()}\">View Hour Summary</a>\n";
 		echo "\t\t<li><a href=\"taskedit.php?taskid={$task->getID()}\">Edit Task</a></li>\n";
 		echo "\t\t<li><a href=\"taskcomplete.php?taskid={$task->getID()}\">Close Task</a></li>\n";
 		echo "\t\t<li><a href=\"tasks.php?del={$task->getID()}\">Delete Task</a></li>\n";

@@ -63,6 +63,10 @@ echo "<link rel=\"stylesheet\" href=\"skins/$skin/tasks.css\" type=\"text/css\" 
 foreach($altskins as $altskin)
 	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
+<script type="text/javascript" src="Calendar.js">
+var cal = new CalendarPopup("caldiv");
+cal.showNavigationDropdowns();
+</script>
 <title><?php echo $appname; ?> - Edit Task</title>
 </head>
 <body>
@@ -76,7 +80,7 @@ foreach($altskins as $altskin)
 	echo "<h1>$name</h1>\n";
 	echo "<form method=\"post\" action=\"taskedit.php?taskid={$task->getID()}\"><fieldset><legend id=\"taskedit\">Edit this Task</legend>\n";
 	echo "<label>Name: <input type=\"text\" name=\"name\" value=\"$name\" /></label><br />\n";
-	echo "<label>Due: <input name=\"due\" type=\"text\" value=\"{$task->getDue()}\" /></label><br />\n";
+	echo "<label>Due: <input name=\"due\" type=\"text\" value=\"{$task->getDue()}\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[0].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br />\n";
 	echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\">$desc</textarea></label><br />\n";
 	echo "<input value=\"Edit Task\" type=\"submit\" /><input type=\"reset\" /><input name=\"form\" value=\"edittask\" type=\"hidden\" /></fieldset></form>\n";
 	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n";
