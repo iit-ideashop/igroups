@@ -159,7 +159,7 @@ if(!class_exists('Task'))
 		function getAllAssigned()
 		{
 			$assigned = $this->getAssignedPeople();
-			$sgs = $this->getAssignedPeople();
+			$sgs = $this->getAssignedSubgroups();
 			foreach($sgs as $sg)
 			{
 				$members = $sg->getSubGroupMembers();
