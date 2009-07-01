@@ -110,16 +110,12 @@ ob_start();
 	function printGroupMenu( $user, $group ) {
 		echo "<li><a href=\"../files.php\">Files</a></li>\n";
 		echo "<li><a href=\"../email.php\">Email</a></li>\n";
+		echo "<li><a href=\"../tasks.php\">Tasks</a></li>\n";
 		echo "<li><a href=\"../calendar.php\">Calendar</a></li>\n";
-		echo "<li><a href=\"../todo.php\">Todo List</a></li>\n";
 		echo "<li><a href=\"../contactlist.php\">Contact List</a></li>\n";
 		echo "<li><a href=\"../grouppictures.php\">Group Pictures</a></li>\n";
-		if ( $group->getType() == 0 && !$user->isGroupGuest($group))
-			echo "<li><a href=\"../logtimespent.php\">Your Timesheet</a></li>\n";
 		if ( $user->isGroupModerator( $group ) )
 			echo "<li><a href=\"../groupmanagement.php\">Manage Group</a></li>\n";
-		if ( $group->getType() == 0 )
-			echo "<li><a href=\"../viewtimesheets.php\">Time Reporting</a></li>\n";
 		echo "<li><a href=\"../dboard/dboard.php?a=0\">Discussion Board</a></li>\n";
 		//if ( $group->getType() == 0 && !$user->isGroupGuest($group))
 		//	echo "<li><a href=\"../budget.php\">Budget</a></li>\n";
