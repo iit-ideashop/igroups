@@ -107,6 +107,7 @@
 	function printEditableNugget($nugget){
 	
 		global $db;
+		global $currentUser;
 		global $currentGroup;
 		
 		$nugget = new Nugget($nugget, $db, 0);
