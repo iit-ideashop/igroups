@@ -126,7 +126,7 @@
 			print "<div class=\"item\"><label for=\"type\">Nugget Type/Name:</label> "."<input type=\"text\" name=\"type\" id=\"type\" value=\"".$nugget->getType()."\" />"."</div>";
 		}
 		else{
-			print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ".$nugget->getType()."</div>";
+			print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ".$nugget->getType();
 		}
 		
 		if($nugget->getType() == 'Abstract' || $nugget->getType() == 'Poster')
@@ -138,6 +138,8 @@
 			else
 				echo "<p><b>Approved</b> by {$nugget->whoVerified()->getFullName()} at {$nugget->whenVerified()}.</p>\n";
 		}
+		
+		echo "</div>";
 		
 		print "<div class=\"item\"><label for=\"private\">Make Private?:</label>&nbsp;<input type=\"checkbox\" id=\"private\" name=\"private\"$private /><br />(If selected, this nugget will only be viewable by those in your group and IPRO Staff)</div>";
 
