@@ -36,7 +36,7 @@ foreach($altskins as $altskin)
 ?>
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
-	if($currentUser->isModerator() || $task->getCreator()->getID() == $currentUser->getID())
+	if($currentUser->isGroupModerator($currentGroup) || $task->getCreator()->getID() == $currentUser->getID())
 	{
 		$users = $task->getAllAssigned();
 		
