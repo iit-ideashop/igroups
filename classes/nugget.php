@@ -14,7 +14,7 @@ include_once( $path. "../nuggetTypes.php" );
 
 if( !class_exists( "Nugget" ) ) {
 	class Nugget{
-		var $id, $name, $desc, $group, $pub, $date, $semester, $old, $published;
+		var $id, $name, $desc, $group, $pub, $date, $semester, $old, $published, $verified, $vby, $vtime;
 		var $db;
 		
 		//the following is used to create a nugget object based on an existing database entity of the given id
@@ -31,6 +31,13 @@ if( !class_exists( "Nugget" ) ) {
 					$this->group = $nugget['iGroupID'];
 					$this->semester = $nugget['iSemesterID'];
 					$this->published = $nugget['bStatus'];
+					$this->verified = false;
+					if($nugget['iVerified'])
+					{
+						$this->verified = true;
+						$this->vby = new Person($nugget['iVerified'], $db);
+						$this->vtime = $nugget['dVerified'];
+					}
 				}
 			}
 			else{
@@ -51,6 +58,26 @@ if( !class_exists( "Nugget" ) ) {
 		
 		function getID(){
 			return $this->id;
+		}
+		
+		function isVerified() {
+			return $this->verified;
+		}
+		
+		function whoVerified() {
+			return $this->verified ? $this->vby : false;
+		}
+		
+		function whenVerified() {
+			return $this->verified ? $this->vtime : false;
+		}
+		
+		function verify($admin) {
+			$g = new Group($this->group, $this->db);
+			if($admin->isGroupAdministrator($g))
+				return $db->igroupsQuery("update iGroupsNuggets set iVerified={$admin->getID()}, dVerified=NOW() WHERE iNuggetID = {$this->id}");
+			else
+				return false;
 		}
 		
 		function getAuthors(){

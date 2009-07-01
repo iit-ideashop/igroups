@@ -24,6 +24,8 @@
 		print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ";
 		//used to print a nugget that is from a prior semester or for viewing purposes only
 		print $nugget->getType()."</div>";
+		if($nugget->getType() == 'Abstract' || $nugget->getType() == 'Poster')
+			print '<div class="item"><strong>Approved:</strong> '.($nugget->isVerified() ? "{$nugget->whoVerified()->getFullName()} at {$nugget->whenVerified()}" : 'No').'</div>';
 		print '<div class="item"><strong>Description:</strong> '.htmlspecialchars($nugget->getDesc()).'</div>';
 		print '<div class="item"><strong>Date Created:</strong> '.$nugget->getDate().'</div>';
 		print '<div class="item"><strong>Security:</strong> ';

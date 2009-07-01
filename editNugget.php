@@ -14,6 +14,22 @@
 		errorPage('Invalid Semester', 'You cannot edit a nugget from a previous semester.', 403);
 	}
 	
+	if(isset($_GET['nugID']) && (!is_numeric($_GET['nugID']) || $_GET['nugID'] < 1))
+		errorPage('Invalid Nugget ID', 'That nugget ID is not valid', 400);
+	
+	if($_GET['approve'])
+	{
+		if(!$currentUser->isGroupAdministrator($currentGroup))
+			errorPage('Credentials Required', 'Only group administrators may approve nuggets', 403);
+		else if(!isset($_GET['nugID']))
+			errorPage('No Nugget Selected', 'No nugget ID was selected', 400);
+		$nugget = new Nugget($_GET['nugID'], $db, 0);
+		if($nugget->isVerified())
+			errorPage('Nugget Already Approved', 'That nugget has already been approved', 400);
+		if(!$nugget->verify($currentUser))
+			errorPage('Could Not Approve Nugget', "The nugget was not approved. Please contact $contactemail with the information below immediately.", 500);
+	}
+	
 	function printNuggetForm(){
 		global $db;
 		$nugget = new Nugget($_GET['nug'], $db, 0);
@@ -110,6 +126,16 @@
 		}
 		else{
 			print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ".$nugget->getType()."</div>";
+		}
+		
+		if($nugget->getType() == 'Abstract' || $nugget->getType() == 'Poster')
+		{
+			if($currentUser->isGroupAdministrator($currentGroup) && !$nugget->isVerified())
+				echo "<h1>ATTENTION FACULTY MEMBER</h1>\n<p>The IPRO Office will print this nugget free of charge for IPRO Day. You must approve this nugget before the IPRO Office will do so. In the event of an error in the uploaded file, e.g. a typo or a low-quality image, the IPRO Office will NOT re-print. Please check the file(s) for errors before approving this nugget for printing.</p>\n<p>By clicking the link below, you verify that you have checked the file(s) contained in this nugget, and that you agree that the file(s) are, in their present state, ready to be printed by the IPRO office.</p>\n<p><a href=\"editNugget.php?approve=1&amp;edit=true&amp;nugID={$nugget->getID()}\"></a></p>\n";
+			else if(!$nugget->isVerified())
+				echo "<p>This nugget must be approved by your IPRO faculty member before it can be printed by the IPRO office.</p>\n";
+			else
+				echo "<p><b>Approved</b> by {$nugget->whoVerified()->getFullName()} at {$nugget->whenVerified()}.</p>\n";
 		}
 		
 		print "<div class=\"item\"><label for=\"private\">Make Private?:</label>&nbsp;<input type=\"checkbox\" id=\"private\" name=\"private\"$private /><br />(If selected, this nugget will only be viewable by those in your group and IPRO Staff)</div>";
@@ -416,7 +442,6 @@ print "<div id=\"content\"><h1>Edit Nugget</h1>";
 				//-->
 				</script>";
 		}
-															//
 	}
 	
 	if(isset ($_POST['deleteMe']) && $_POST['deleteMe'] == "yes"){

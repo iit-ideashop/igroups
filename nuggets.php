@@ -223,7 +223,7 @@
 				print '<li>';
 				print $author->getFullName();
 				if($toCheck == 'checked'){
-					print '&nbsp&nbsp&nbsp<strong>Primary Author</strong>';
+					print '&nbsp;&nbsp;&nbsp;<strong>Primary Author</strong>';
 				}
 				print '</li>';
 				
@@ -239,7 +239,7 @@
 			print '<ul>';
 			foreach($files as $file){
 				print '<li>';
-				print '<a href="/igroups/download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp';
+				print '<a href="/igroups/download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
 				print '</li>';
 			}
 			print '</ul></div>';
