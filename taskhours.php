@@ -86,7 +86,8 @@ echo "<link rel=\"stylesheet\" href=\"skins/$skin/tasks.css\" type=\"text/css\" 
 foreach($altskins as $altskin)
 	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<script type="text/javascript" src="Calendar.js">
+<script type="text/javascript" src="Calendar.js"></script>
+<script type="text/javascript">
 var cal = new CalendarPopup("caldiv");
 cal.showNavigationDropdowns();
 </script>
