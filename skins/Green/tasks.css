@@ -63,3 +63,8 @@ legend#taskedit
 {
 	font-size: 10pt;
 }
+
+div#caldiv
+{
+	float: right;
+}
