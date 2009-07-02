@@ -73,7 +73,7 @@ if( !class_exists( "Nugget" ) ) {
 		}
 		
 		function verify($admin) {
-			$g = new Group($this->group, $this->db);
+			$g = new Group($this->group, 0, $this->semester, $this->db);
 			if($admin->isGroupAdministrator($g))
 				return $db->igroupsQuery("update iGroupsNuggets set iVerified={$admin->getID()}, dVerified=NOW() WHERE iNuggetID = {$this->id}");
 			else
