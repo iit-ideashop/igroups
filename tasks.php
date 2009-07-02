@@ -145,10 +145,9 @@ cal.showNavigationDropdowns();
 	//Add a task
 	echo "<form method=\"post\" action=\"tasks.php\"><fieldset><legend>Add Task</legend>\n";
 	echo "<label>Name: <input type=\"text\" name=\"name\" /></label><br />\n";
-	echo "<label>Due: <input type=\"text\" name=\"due\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[1].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br />\n";
+	echo "<label>Due: <input type=\"text\" name=\"due\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[1].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><div id=\"caldiv\"></div><br />\n";
 	echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\"></textarea></label><br />\n";
 	echo "<input type=\"submit\" value=\"Add\" /><input type=\"hidden\" name=\"form\" value=\"addtask\" /></fieldset></form>\n";
-	echo "<div id=\"caldiv\"></div>\n";
 ?>
 </div></body>
 </html>

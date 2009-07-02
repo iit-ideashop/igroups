@@ -58,7 +58,7 @@ cal.showNavigationDropdowns();
 <?php
 	echo '<p>We are closing the task <b>'.$task->getName()."</b></p>\n";
 	echo "<form method=\"post\" action=\"taskcomplete.php?taskid={$_GET['taskid']}\"><fieldset><legend>Complete Task</legend>\n";
-	echo "<label>Date completed: <input type=\"text\" name=\"date\" value=\"$thedate\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[0].date,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br />\n";
+	echo "<label>Date completed: <input type=\"text\" name=\"date\" value=\"$thedate\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[0].date,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><div id=\"caldiv\"></div><br />\n";
 	echo "<input type=\"submit\" value=\"Complete Task\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"submit\" /></fieldset></form>\n";
 	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n";
 ?>

@@ -132,7 +132,7 @@ cal.showNavigationDropdowns();
 	}
 	
 	echo "<form method=\"post\" action=\"taskhours.php?taskid={$_GET['taskid']}\"><fieldset><legend>Add Hours</legend>\n";
-	echo "<label>Date: <input type=\"text\" name=\"date\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[0].date,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br />\n";
+	echo "<label>Date: <input type=\"text\" name=\"date\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[0].date,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><div id=\"caldiv\"></div><br />\n";
 	echo "<label>Hours: <input type=\"text\" name=\"hours\" /></label><br />\n";
 	echo "<input type=\"submit\" value=\"Add Hours\" /><input type=\"hidden\" name=\"form\" value=\"new\" /></fieldset></form>\n";
 	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n";
