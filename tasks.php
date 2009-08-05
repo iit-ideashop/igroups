@@ -88,6 +88,7 @@ cal.showNavigationDropdowns();
 	echo "<option value=\"3\"{$taskSelect[3]}>All uncompleted tasks</option>\n";
 	echo "<option value=\"4\"{$taskSelect[4]}>All tasks</option>\n";
 	echo "</select><input type=\"submit\" value=\"View Tasks\" /></fieldset></form>\n";
+	$i = 0;
 	if(mysql_num_rows($tasks))
 	{
 		echo '<table id="tasks"><tr><th>Task</th><th>Due Date</th><th>Assigned to</th><th>Hours</th><th>Completed</th></tr>';
@@ -127,18 +128,17 @@ cal.showNavigationDropdowns();
 					$mytask = true;
 			}
 			$taskassn .= count($sgasns) ? '</ul>' : '<br />';
-			if($currentUser->getID() == $task->getCreator()->getID() || $currentUser->isGroupModerator($currentGroup))
-				$taskassn .= '<a href="taskassign.php?taskid='.$task->getID().'" class="taskassign">Change assignments</a>';
-			$overdue = (!$task->getClosed() && strtotime($task->getDue()) <= time()) ? ' class="overdue"' : '';
+			$overdue = (!$task->getClosed() && strtotime($task->getDue()) <= time()) ? " class=\"overdue$i\"" : " class=\"normal$i\"";
 			if($mytask)
 			{
 				$hours = mysql_fetch_row($db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$task->getID()} and iPersonID={$currentUser->getID()}"));
-				$myhours = "{$hours[0]}<br /><a href=\"taskhours.php?taskid={$task->getID()}\">Add hours</a>";
+				$myhours = ($hours[0] == '') ? '0' : $hours[0];
 			}
 			else
 				$myhours = 'N/A';
-			$taskClosed = $task->getClosed() ? $task->getClosed() : (($currentUser->isGroupModerator($currentGroup) || $task->getCreator()->getID() == $currentUser->getID()) ? '<a href="taskcomplete.php?taskid='.$task->getID().'">Close task</a>' : '');
+			$taskClosed = $task->getClosed() ? $task->getClosed() : 'No';
 			echo "\n<tr$overdue><td><a href=\"taskview.php?taskid={$task->getID()}\">{$task->getName()}</a></td><td>{$task->getDue()}</td><td class=\"assignments\">$taskassn</td><td>$myhours</td><td>$taskClosed</td></tr>";
+			$i = ($i ? 0 : 1);
 		}
 		echo "\n</table>\n";
 	}

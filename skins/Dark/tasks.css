@@ -12,15 +12,28 @@ table#tasks td, table#tasks th
 	border: thin solid black;
 }
 
-tr.overdue td
+tr.normal0 td
 {
-	background-color: maroon;
+	background-color: black;
 	color: white;
 }
 
-tr.overdue a
+tr.normal1 td
 {
-	color: yellow;
+	background-color: #222222;
+	color: white;
+}
+
+tr.overdue0 td
+{
+	background-color: #880000;
+	color: white;
+}
+
+tr.overdue1 td
+{
+	background-color: #660000;
+	color: white;
 }
 
 td.assignments ul
