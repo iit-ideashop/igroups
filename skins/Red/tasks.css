@@ -10,6 +10,8 @@ table#tasks
 table#tasks td, table#tasks th
 {
 	border: thin solid black;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 tr.normal0 td
