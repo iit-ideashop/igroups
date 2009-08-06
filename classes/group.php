@@ -74,7 +74,7 @@ if ( !class_exists( "Group" ) ) {
 			$this->scratch = $news;
 			$this->scratchUpdater = $by;
 			$news = mysql_real_escape_string($news);
-			$now = date('Y-m-d h:i:s');
+			$now = date('Y-m-d H:i:s');
 			$this->scratchUpdated = $now;
 			if($this->type == 0)
 				$this->db->igroupsQuery("update Projects set sScratch=\"$news\", iScratchUpdater=$by, dScratchUpdated=\"$now\" where iID={$this->id}");
