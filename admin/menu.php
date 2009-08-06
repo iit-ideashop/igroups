@@ -247,5 +247,3 @@ ob_start();
 		<li><a href="../needhelp.php" title="Help">Need help?</a></li>
 		<li><a href="../login.php?logout=true" title="Logout">Logout</a></li>
 	</ul>
-	<div id="sidebar-bottom">
-	</div>

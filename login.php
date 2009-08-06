@@ -39,4 +39,3 @@ if ( isset( $_GET['logout'] ) ) {
 <a href="UM_iGROUPS.pdf" title="User manual"><?php echo $appname; ?> User Manual</a><br />
 <a href="needhelp.php" title="Help">Need help?</a>
 </p>
-<div id="sidebar-bottom"></div>
