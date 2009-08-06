@@ -77,7 +77,7 @@ function toggle(id)
 	if(is_numeric($_GET['del']))
 	{
 		echo "<p>Are you sure you want to delete this task? This cannot be undone.</p>\n";
-		echo "<p><a href=\"tasks.php?del={$task->getID()}\" title=\"Delete\">Yes, delete the task.</a> -- <a href=\"taskview?taskid={$task->getID()}\" title=\"Don't Delete\">No, do not delete.</a></p>\n";
+		echo "<p><a href=\"tasks.php?del={$task->getID()}\" title=\"Delete\">Yes, delete the task.</a> -- <a href=\"taskview.php?taskid={$task->getID()}\" title=\"Don't Delete\">No, do not delete.</a></p>\n";
 		die('</div></body></html>');
 	}
 	echo "<div style=\"float:right;border:thin solid black\">\n";
