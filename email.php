@@ -197,7 +197,6 @@ foreach($altskins as $altskin)
 <body>
 <?php
 require("sidebar.php");
-echo "<div id=\"content\">\n";
 	if ( isset( $_POST['send'] ) ) {
 		if ( isset( $_POST['sendto'] )) {
 		foreach ( $_POST['sendto'] as $id => $val ) {
@@ -587,6 +586,5 @@ echo "<div id=\"content\">\n";
 			<input type="submit" name="search" /></fieldset></form>
 			<p style="font-size: smaller"><strong>Note:</strong> Subject and body search terms use <a href="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" onclick="window.open(this.href); return false;">implied boolean logic</a>.</p>
 			</div>
-</div>
 </body>
 </html>
