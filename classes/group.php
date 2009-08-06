@@ -5,7 +5,7 @@ require_once('sort.php');
 if ( !class_exists( "Group" ) ) {
 		
 	class Group {
-		var $id, $type, $semester, $name, $desc, $scratch;
+		var $id, $type, $semester, $name, $desc, $scratch, $scratchUpdated, $scratchUpdater;
 		var $db;
 		
 		function Group( $id, $type, $semester, $db ) {
@@ -14,20 +14,24 @@ if ( !class_exists( "Group" ) ) {
 			$this->db = $db;
 			if ( $type == 0 ) {
 				$this->semester = $semester;
-				$result = $this->db->igroupsQuery( "SELECT sIITID, sName, sScratch FROM Projects WHERE iID=$id" );
+				$result = $this->db->igroupsQuery( "SELECT sIITID, sName, sScratch, dScratchUpdated, iScratchUpdater FROM Projects WHERE iID=$id" );
 				if ( $row = mysql_fetch_row( $result ) ) {
 					$this->name = $row[0];
 					$this->desc = $row[1];
 					$this->scratch = $row[2];
+					$this->scratchUpdated = $row[3];
+					$this->scratchUpdater = $row[4];
 				}
 			}
 			else {
 				$this->semester = 0;
-				$result = $this->db->igroupsQuery( "SELECT sName, sScratch FROM Groups WHERE iID=$id" );
+				$result = $this->db->igroupsQuery( "SELECT sName, sScratch, dScratchUpdated, iScratchUpdater FROM Groups WHERE iID=$id" );
 				if ( $row = mysql_fetch_row( $result ) ) {
 					$this->name = $row[0];
 					$this->desc = '';
 					$this->scratch = $row[1];
+					$this->scratchUpdated = $row[2];
+					$this->scratchUpdater = $row[3];
 				}
 
 			}
@@ -57,14 +61,23 @@ if ( !class_exists( "Group" ) ) {
 			return stripslashes($this->scratch);
 		}
 		
-		function setScratch($news) {
+		function getScratchUpdated() {
+			return $this->scratchUpdated;
+		}
+		
+		function getScratchUpdater() {
+			return $this->scratchUpdater;
+		}
+		
+		function setScratch($news, $by) {
 			$news = stripslashes($news);
 			$this->scratch = $news;
 			$news = mysql_real_escape_string($news);
+			$now = date('Y-m-d h:i:s');
 			if($this->type == 0)
-				$this->db->igroupsQuery("update Projects set sScratch=\"$news\" where iID={$this->id}");
+				$this->db->igroupsQuery("update Projects set sScratch=\"$news\", iScratchUpdater=$by, dScratchUpdated=\"$now\" where iID={$this->id}");
 			else
-				$this->db->igroupsQuery("update Groups set sScratch=\"$news\" where iID={$this->id}");
+				$this->db->igroupsQuery("update Groups set sScratch=\"$news\", iScratchUpdater=$by, dScratchUpdated=\"$now\" where iID={$this->id}");
 		}
 
 		function isActive() {

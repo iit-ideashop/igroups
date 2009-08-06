@@ -121,8 +121,15 @@ foreach($altskins as $altskin)
 	
 	if(isset($_POST['scratch']) && !$currentUser->isGroupGuest($currentGroup))
 	{
-		$currentGroup->setScratch($_POST['scratchpad']);
+		$currentGroup->setScratch($_POST['scratchpad'], $currentUser->getID());
 	}
+	if($currentGroup->getScratchUpdater())
+	{
+		$by = new Person($currentGroup->getScratchUpdater(), $db);
+		$scratchBlurb = "<p style=\"font-size: smaller\">Scratchpad last updated by {$by->getFullName()} at {$currentGroup->getScratchUpdated()}</p>\n";
+	}
+	else
+		$scratchBlurb = '';
 ?>
 
 	<div id="content"><div id="topbanner">
@@ -229,8 +236,9 @@ foreach($altskins as $altskin)
 			<form method="post" action="grouphomepage.php"><fieldset><legend>Group Scratchpad</legend>
 <?php if($currentUser->isGroupGuest($currentGroup)) { ?>
 			<textarea rows="10" cols="80" disabled="disabled"><?php echo htmlspecialchars($currentGroup->getScratch()); ?></textarea>
-<?php } else { ?>
+<?php echo $scratchBlurb; } else { ?>
 			<textarea rows="10" cols="80" name="scratchpad"><?php echo htmlspecialchars($currentGroup->getScratch()); ?></textarea><br />
+			<?php echo $scratchBlurb; ?>
 			<input type="submit" name="scratch" value="Update Scratchpad" /> <input type="reset" />
 <?php } ?>
 			</fieldset></form>
