@@ -216,13 +216,9 @@ foreach($altskins as $altskin)
 		<div id="scratchpad">
 			<form method="post" action="grouphomepage.php"><fieldset><legend>Group Scratchpad</legend>
 <?php if($currentUser->isGroupGuest($currentGroup)) { ?>
-			<textarea rows="10" cols="80" disabled="disabled">
-			<?php echo htmlspecialchars($currentGroup->getScratch()); ?>
-			</textarea>
+			<textarea rows="10" cols="80" disabled="disabled"><?php echo htmlspecialchars($currentGroup->getScratch()); ?></textarea>
 <?php } else { ?>
-			<textarea rows="10" cols="80">
-			<?php echo htmlspecialchars($currentGroup->getScratch()); ?>
-			</textarea>
+			<textarea rows="10" cols="80"><?php echo htmlspecialchars($currentGroup->getScratch()); ?></textarea><br />
 			<input type="submit" name="scratch" value="Update Scratchpad" /> <input type="reset" />
 <?php } ?>
 			</fieldset></form>
