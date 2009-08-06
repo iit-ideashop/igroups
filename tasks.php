@@ -111,7 +111,7 @@ cal.showNavigationDropdowns();
 				$sgasns[$assign['iSubgroupID']] = $nm[0];
 			}*/
 			$people = count($asns) == 1 ? 'person' : 'people';
-			$taskassn = count($asns) ? "<strong>".count($asns)." $people: <a href=\"javascript:toggle('P{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task->getID()}\">" : 'No people';
+			$taskassn = count($asns) ? "<strong>".count($asns)." $people: <a href=\"javascript:toggle('P{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task->getID()}\">" : 'Nobody';
 			$mytask = false;
 			foreach($asns as $personid => $asn)
 			{
