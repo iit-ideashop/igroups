@@ -21,4 +21,5 @@
 	$altskins = array();
 	while($row = mysql_fetch_row($alts))
 		$altskins[] = $row[0];
+	echo "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=utf-8\" />\n";
 ?>
