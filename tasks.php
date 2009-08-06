@@ -69,7 +69,7 @@ foreach($altskins as $altskin)
 <script type="text/javascript">
 function toggle(id)
 {
-	document.getElementById(id).style.display = (document.getElementById(id).style.display == 'none') ? 'block' : 'none';
+	document.getElementById(id).style.display = (document.getElementById(id).style.display == 'block') ? 'none' : 'block';
 }
 var cal = new CalendarPopup("caldiv");
 cal.showNavigationDropdowns();
