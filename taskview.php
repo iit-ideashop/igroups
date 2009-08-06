@@ -14,7 +14,20 @@
 		else
 			errorPage('Invalid Task ID', 'The task ID provided is invalid.', 400);
 	}
-	else if($_GET['taskid'])
+	else if(is_numeric($_GET['del']))
+	{	
+		$task = new Task($_GET['del'], $currentGroup->getType(), $currentGroup->getSemester(), $db);
+		if($task->isValid())
+		{
+			if($task->getTeam()->getID() != $currentGroup->getID())
+				errorPage('Cannot Access Task', 'This task is not assigned to the selected group.', 403);
+			else if($task->getCreator()->getID() != $currentUser->getID() && !$currentUser->isGroupModerator($currentGroup))
+				errorPage('Cannot Delete Task', 'You must be either the task creator or a group moderator to delete a task.', 403);
+		}
+		else
+			errorPage('Invalid Task ID', 'The task ID provided is invalid.', 400);
+	}
+	else if($_GET['taskid'] || $_GET['del'])
 		errorPage('Invalid Task ID', 'The task ID provided is invalid.', 400);
 	else
 		errorPage('Missing Task ID', 'No task ID was provided.', 400);
@@ -44,8 +57,9 @@ require('appearance.php');
 echo "<link rel=\"stylesheet\" href=\"skins/$skin/tasks.css\" type=\"text/css\" title=\"$skin\" />\n";
 foreach($altskins as $altskin)
 	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
+$view = is_numeric($_GET['del']) ? 'Delete Task?' : 'View Task';
+echo "<title>$appname - $view</title>\n";
 ?>
-<title><?php echo $appname; ?> - View Task</title>
 <script type="text/javascript">
 function toggle(id)
 {
@@ -60,6 +74,12 @@ function toggle(id)
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	echo "<h1>{$task->getName()}</h1>\n";
+	if(is_numeric($_GET['del']))
+	{
+		echo "<p>Are you sure you want to delete this task? This cannot be undone.</p>\n";
+		echo "<p><a href=\"tasks.php?del={$task->getID()}\" title=\"Delete\">Yes, delete the task.</a> -- <a href=\"taskview?taskid={$task->getID()}\" title=\"Don't Delete\">No, do not delete.</a></p>\n";
+		die('</div></body></html>');
+	}
 	echo "<div style=\"float:right;border:thin solid black\">\n";
 	echo "\t<h2>Task Essentials</h2>\n";
 	echo "\t<ul style=\"list-style-type:none\">\n";
@@ -84,7 +104,7 @@ function toggle(id)
 		echo "\t\t<li><a href=\"hours.php?taskid={$task->getID()}\">View Hour Summary</a></li>\n";
 		echo "\t\t<li><a href=\"taskedit.php?taskid={$task->getID()}\">Edit Task</a></li>\n";
 		echo "\t\t<li><a href=\"taskcomplete.php?taskid={$task->getID()}\">Close Task</a></li>\n";
-		echo "\t\t<li><a href=\"tasks.php?del={$task->getID()}\">Delete Task</a></li>\n";
+		echo "\t\t<li><a href=\"taskview.php?del={$task->getID()}\">Delete Task</a></li>\n";
 		echo "\t</ul>\n";
 	}
 	echo "</div>\n";
