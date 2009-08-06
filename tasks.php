@@ -84,7 +84,7 @@ cal.showNavigationDropdowns();
 	//List tasks (choose: My tasks, my tasks + my subgroups, all group tasks)
 	echo "<form method=\"get\" action=\"tasks.php\"><fieldset><legend>Filter Tasks</legend><select name=\"viewTasks\">\n";
 	echo "<option value=\"1\"{$taskSelect[1]}>My uncompleted tasks</option>\n";
-	echo "<option value=\"2\"{$taskSelect[2]}>My uncompleted tasks (plus my subgroups)</option>\n";
+	//echo "<option value=\"2\"{$taskSelect[2]}>My uncompleted tasks (plus my subgroups)</option>\n";
 	echo "<option value=\"3\"{$taskSelect[3]}>All uncompleted tasks</option>\n";
 	echo "<option value=\"4\"{$taskSelect[4]}>All tasks</option>\n";
 	echo "</select><input type=\"submit\" value=\"View Tasks\" /></fieldset></form>\n";
@@ -103,14 +103,14 @@ cal.showNavigationDropdowns();
 				$asns[$assign['iPersonID']] = $nm[0].' '.$nm[1];
 				$asns[$assign['iPersonID']] .= strlen($assign['sRole']) ? ': <span class="role">'.$assign['sRole'].'</span>' : '';
 			}
-			$sgassignments = $db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$task->getID());
+			/*$sgassignments = $db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$task->getID());
 			$sgasns = array();
 			while($assign = mysql_fetch_array($sgassignments))
 			{
 				$nm = mysql_fetch_row($db->igroupsQuery('select sName from SubGroups where iID='.$assign['iSubgroupID']));
 				$sgasns[$assign['iSubgroupID']] = $nm[0];
-			}
-			$taskassn = count($asns) ? "<strong>People: <a href=\"javascript:toggle('P{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task->getID()}\">" : 'No people';
+			}*/
+			$taskassn = count($asns) ? "<strong>".count($asns)." people: <a href=\"javascript:toggle('P{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task->getID()}\">" : 'No people';
 			$mytask = false;
 			foreach($asns as $personid => $asn)
 			{
@@ -119,7 +119,7 @@ cal.showNavigationDropdowns();
 					$mytask = true;
 			}
 			$taskassn .= count($asns) ? '</ul>' : '<br />';
-			$taskassn .= count($sgasns) ? "<strong>Subgroups: <a href=\"javascript:toggle('S{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"S{$task->getID()}\">" : 'No subgroups';
+			/*$taskassn .= count($sgasns) ? "<strong>Subgroups: <a href=\"javascript:toggle('S{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"S{$task->getID()}\">" : 'No subgroups';
 			foreach($sgasns as $personid => $asn)
 			{
 				$taskassn .= "<li>$asn</li>";
@@ -127,7 +127,7 @@ cal.showNavigationDropdowns();
 				if($subgr->isSubGroupMember($currentUser))
 					$mytask = true;
 			}
-			$taskassn .= count($sgasns) ? '</ul>' : '<br />';
+			$taskassn .= count($sgasns) ? '</ul>' : '<br />';*/
 			$overdue = (!$task->getClosed() && strtotime($task->getDue()) <= time()) ? " class=\"overdue$i\"" : " class=\"normal$i\"";
 			if($mytask)
 			{

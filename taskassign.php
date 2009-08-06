@@ -26,17 +26,17 @@
 		if($_POST['form'] == 'submit')
 		{
 			$db->igroupsQuery('delete from TaskAssignments where iTaskID='.$task->getID());
-			$db->igroupsQuery('delete from TaskSubgroupAssignments where iTaskID='.$task->getID());
+			//$db->igroupsQuery('delete from TaskSubgroupAssignments where iTaskID='.$task->getID());
 			if(is_array($_POST['person']))
 			{
 				foreach($_POST['person'] as $id => $person)
 					$db->igroupsQuery('insert into TaskAssignments (iTaskID, iPersonID) values ('.$task->getID().", $id)");
 			}
-			if(is_array($_POST['subgroup']))
+			/*if(is_array($_POST['subgroup']))
 			{
 				foreach($_POST['subgroup'] as $id => $subgroup)
 					$db->igroupsQuery('insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ('.$task->getID().", $id)");
-			}
+			}*/
 			header('Location: taskview.php?taskid='.$task->getID());
 		}
 	}
@@ -89,7 +89,7 @@ foreach($altskins as $altskin)
 			$i++;
 	}			
 	echo "</table></fieldset><br />\n";
-	$subgroups = $currentGroup->getSubGroups();
+	/*$subgroups = $currentGroup->getSubGroups();
 	if($subgroups)
 	{
 		$subgr = $task->getAssignedSubgroups();
@@ -113,7 +113,7 @@ foreach($altskins as $altskin)
 		if($i != 1)
 			echo '</tr>';
 		echo "</table></fieldset>\n";
-	}
+	}*/
 	echo "<input type=\"submit\" value=\"Submit Assignments\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"submit\" /></fieldset></form>\n";
 	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n";
 ?>

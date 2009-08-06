@@ -29,7 +29,7 @@
 		$status = 'Open';
 	$creator = ($task->getCreator()->getID() == $currentUser->getID());
 	$assigned = $task->isAssignedPerson($currentUser);
-	$sgassigned = $task->isAssigned($currentUser);
+	//$sgassigned = $task->isAssigned($currentUser);
 	$hours = $task->getTotalHoursFor($currentUser);
 	$tothours = $task->getTotalHours();
 	$percenthours = ($tothours > 0 ? number_format(100*$hours/$tothours, 1).'%' : '0%');
@@ -101,8 +101,8 @@ function toggle(id)
 		echo "\t<li>The creator of this task is {$task->getCreator()->getFullName()} (<a href=\"sendemail.php?to={$task->getCreator()->getID()}\">email</a>).</li>\n";
 	if($assigned)
 		echo "\t<li>You are currently assigned to this task. You may <a href=\"taskhours.php?taskid={$task->getID()}\">add hours</a> to this task.</li>\n";
-	else if($sgassigned)
-		echo "\t<li>One or more of your subgroups are currently assigned to this task. You may <a href=\"taskhours.php?taskid={$task->getID()}\">add hours</a> to this task.</li>\n";
+	//else if($sgassigned)
+	//	echo "\t<li>One or more of your subgroups are currently assigned to this task. You may <a href=\"taskhours.php?taskid={$task->getID()}\">add hours</a> to this task.</li>\n";
 	else
 		echo "\t<li>You are not assigned to this task.</li>\n";
 	if($assigned || $sgassigned || $hours > 0)
@@ -118,11 +118,11 @@ function toggle(id)
 			echo "<li>{$asn->getShortName()}</li>\n";
 		echo "</ul>\n";
 	}
-	else if(count($sgassignments))
-		echo "<p>No one is individually assigned to this task; however, subgroups are.</p>\n";
+	//else if(count($sgassignments))
+	//	echo "<p>No one is individually assigned to this task; however, subgroups are.</p>\n";
 	else
 		echo "<p>No one is assigned to this task.</p>\n";
-	echo "<h3>Subgroup Assignments</h3>\n";
+	/*echo "<h3>Subgroup Assignments</h3>\n";
 	if(count($sgassignments))
 	{
 		echo "<ul id=\"sgassignments\">\n";
@@ -143,7 +143,7 @@ function toggle(id)
 		echo "</ul>\n";
 	}
 	else
-		echo "<p>No subgroups are assigned to this task.</p>\n";
+		echo "<p>No subgroups are assigned to this task.</p>\n";*/
 	echo "<p><a href=\"tasks.php\">Return to main tasks listing</a></p>\n";
 ?>
 </div></body></html>
