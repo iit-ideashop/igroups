@@ -106,6 +106,11 @@ foreach($altskins as $altskin)
 		</script>
 <?php
 	}
+	
+	if(isset($_POST['scratch']) && !$currentUser->isGroupGuest($currentGroup))
+	{
+		$currentGroup->setScratch($_POST['scratch']);
+	}
 ?>
 
 	<div id="content"><div id="topbanner">
@@ -188,20 +193,6 @@ foreach($altskins as $altskin)
 				?>
 				</div>
 		</div>
-		<div id="pictures">
-<?php		
-			$picture = $currentGroup->getRandomGroupPicture();
-			if ( $picture ) {
-				print "<table><tr>";
-				print "<td><a href=\"grouppictures.php\"><img width=\"375\" src=\"$appurl/".$picture->getRelativeName()."\" alt=\"".$picture->getRelativeName()."\" /></a></td></tr>";
-				print "<tr><td><center><b>{$picture->getTitle()}</b></center></td></tr></table>";
-			}
-			else {
-				print "Your group currently does not have any group pictures.";
-				print "<br /><a href=\"grouppictures.php\">Click here to add a picture.</a><br />";
-			}
-?>
-		</div>
 		<div id="announcements">
 <?php
 			$announcements = $currentGroup->getGroupAnnouncements();
@@ -221,6 +212,20 @@ foreach($altskins as $altskin)
 			if ( $currentUser->isGroupModerator( $currentGroup ) )
 				print "<a href=\"#\" onclick=\"addwin=dhtmlwindow.open('addbox', 'div', 'add-announcement', 'Create Announcement', 'width=500px,height=300px,left=300px,top=100px,resize=1,scrolling=1'); return false\">Click here to add an announcement.</a>";
 ?>
+		</div>
+		<div id="scratchpad">
+			<form method="post" action="grouphomepage.php"><fieldset><legend>Group Scratchpad</legend>
+<?php if($currentUser->isGroupGuest($currentGroup)) { ?>
+			<textarea rows="10" cols="80" disabled="disabled">
+			<?php echo htmlspecialchars($currentGroup->getScratch()); ?>
+			</textarea>
+<?php } else { ?>
+			<textarea rows="10" cols="80">
+			<?php echo htmlspecialchars($currentGroup->getScratch()); ?>
+			</textarea>
+			<input type="submit" name="scratch" value="Update Scratchpad" /> <input type="reset" />
+<?php } ?>
+			</fieldset></form>
 		</div>
 	</div>
 <?php if($currentUser->isGroupModerator( $currentGroup )) { ?>

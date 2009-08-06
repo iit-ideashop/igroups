@@ -5,7 +5,7 @@ require_once('sort.php');
 if ( !class_exists( "Group" ) ) {
 		
 	class Group {
-		var $id, $type, $semester, $name, $desc;
+		var $id, $type, $semester, $name, $desc, $scratch;
 		var $db;
 		
 		function Group( $id, $type, $semester, $db ) {
@@ -14,18 +14,20 @@ if ( !class_exists( "Group" ) ) {
 			$this->db = $db;
 			if ( $type == 0 ) {
 				$this->semester = $semester;
-				$result = $this->db->iknowQuery( "SELECT sIITID, sName FROM Projects WHERE iID=$id" );
+				$result = $this->db->igroupsQuery( "SELECT sIITID, sName, sScratch FROM Projects WHERE iID=$id" );
 				if ( $row = mysql_fetch_row( $result ) ) {
 					$this->name = $row[0];
 					$this->desc = $row[1];
+					$this->scratch = $row[2];
 				}
 			}
 			else {
 				$this->semester = 0;
-				$result = $this->db->igroupsQuery( "SELECT sName FROM Groups WHERE iID=$id" );
+				$result = $this->db->igroupsQuery( "SELECT sName, sScratch FROM Groups WHERE iID=$id" );
 				if ( $row = mysql_fetch_row( $result ) ) {
 					$this->name = $row[0];
 					$this->desc = '';
+					$this->scratch = $row[1];
 				}
 
 			}
@@ -49,6 +51,20 @@ if ( !class_exists( "Group" ) ) {
 		
 		function getSemester() {
 			return $this->semester;
+		}
+		
+		function getScratch() {
+			return stripslashes($this->scratch);
+		}
+		
+		function setScratch($news) {
+			$news = stripslashes($news);
+			$this->scratch = $news;
+			$news = mysql_real_escape_string($news);
+			if($this->type == 0)
+				$this->db->igroupsQuery("update Projects set sScratch=\"$news\" where iID={$this->id}");
+			else
+				$this->db->igroupsQuery("update Groups set sScratch=\"$news\" where iID={$this->id}");
 		}
 
 		function isActive() {
