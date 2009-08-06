@@ -197,6 +197,7 @@ foreach($altskins as $altskin)
 <body>
 <?php
 require("sidebar.php");
+echo "<div id=\"content\">\n";
 	if ( isset( $_POST['send'] ) ) {
 		if ( isset( $_POST['sendto'] )) {
 		foreach ( $_POST['sendto'] as $id => $val ) {
