@@ -462,23 +462,23 @@ require("sidebar.php");
 				<tr class="sortbar">
 <?php
 				if($_SESSION['emailSort'] == 1)
-					echo "<td colspan=\"2\"><a href=\"email.php?sort=-1\" title=\"Sort this descendingly\">Subject &#x2193;</a>";
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=-1\" title=\"Sort this descendingly\">Subject &#x2193;</a></td>";
 				else if($_SESSION['emailSort'] == -1)
-					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort this ascendingly\">Subject &#x2191;</a>";
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort this ascendingly\">Subject &#x2191;</a></td>";
 				else
-					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort by subject\">Subject</a>";
+					echo "<td colspan=\"2\"><a href=\"email.php?sort=1\" title=\"Sort by subject\">Subject</a></td>";
 				if($_SESSION['emailSort'] == 2)
-					echo "<td><a href=\"email.php?sort=-2\" title=\"Sort this descendingly\">Author &#x2193;</a>";
+					echo "<td><a href=\"email.php?sort=-2\" title=\"Sort this descendingly\">Author &#x2193;</a></td>";
 				else if($_SESSION['emailSort'] == -2)
-					echo "<td><a href=\"email.php?sort=2\" title=\"Sort this ascendingly\">Author &#x2191;</a>";
+					echo "<td><a href=\"email.php?sort=2\" title=\"Sort this ascendingly\">Author &#x2191;</a></td>";
 				else
-					echo "<td><a href=\"email.php?sort=2\" title=\"Sort by author\">Author</a>";
+					echo "<td><a href=\"email.php?sort=2\" title=\"Sort by author\">Author</a></td>";
 				if($_SESSION['emailSort'] == 3)
-					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort this descendingly\">Date &#x2193;</a>";
+					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort this descendingly\">Date &#x2193;</a></td>";
 				else if($_SESSION['emailSort'] == -3)
-					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date &#x2191;</a>";
+					echo "<td><a href=\"email.php?sort=3\" title=\"Sort this ascendingly\">Date &#x2191;</a></td>";
 				else
-					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort by date\">Date</a>";
+					echo "<td><a href=\"email.php?sort=-3\" title=\"Sort by date\">Date</a></td>";
 ?>
 				<td></td>
 				</tr>

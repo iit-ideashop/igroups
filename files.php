@@ -538,29 +538,29 @@ foreach($altskins as $altskin)
 <?php					if($_SESSION['selectedSpecial'] != 'ipro') {
 						echo "<tr class=\"sortbar\"><td></td>\n";
 						if($_SESSION['fileSort'] == 1)
-							echo "<td><a href=\"files.php?sort=-1$ampsuffix\" title=\"Sort this descendingly\">Filename &#x2193;</a>";
+							echo "<td><a href=\"files.php?sort=-1$ampsuffix\" title=\"Sort this descendingly\">Filename &#x2193;</a></td>";
 						else if($_SESSION['fileSort'] == -1)
-							echo "<td><a href=\"files.php?sort=1$ampsuffix\" title=\"Sort this ascendingly\">Filename &#x2191;</a>";
+							echo "<td><a href=\"files.php?sort=1$ampsuffix\" title=\"Sort this ascendingly\">Filename &#x2191;</a></td>";
 						else
-							echo "<td><a href=\"files.php?sort=1$ampsuffix\" title=\"Sort by filename\">Filename</a>";
+							echo "<td><a href=\"files.php?sort=1$ampsuffix\" title=\"Sort by filename\">Filename</a></td>";
 						if($_SESSION['fileSort'] == 2)
-							echo "<td><a href=\"files.php?sort=-2$ampsuffix\" title=\"Sort this descendingly\">Description &#x2193;</a>";
+							echo "<td><a href=\"files.php?sort=-2$ampsuffix\" title=\"Sort this descendingly\">Description &#x2193;</a></td>";
 						else if($_SESSION['fileSort'] == -2)
-							echo "<td><a href=\"files.php?sort=2$ampsuffix\" title=\"Sort this ascendingly\">Description &#x2191;</a>";
+							echo "<td><a href=\"files.php?sort=2$ampsuffix\" title=\"Sort this ascendingly\">Description &#x2191;</a></td>";
 						else
-							echo "<td><a href=\"files.php?sort=2$ampsuffix\" title=\"Sort by description\">Description</a>";
+							echo "<td><a href=\"files.php?sort=2$ampsuffix\" title=\"Sort by description\">Description</a></td>";
 						if($_SESSION['fileSort'] == 3)
-							echo "<td><a href=\"files.php?sort=-3$ampsuffix\" title=\"Sort this descendingly\">Author &#x2193;</a>";
+							echo "<td><a href=\"files.php?sort=-3$ampsuffix\" title=\"Sort this descendingly\">Author &#x2193;</a></td>";
 						else if($_SESSION['fileSort'] == -3)
-							echo "<td><a href=\"files.php?sort=3$ampsuffix\" title=\"Sort this ascendingly\">Author &#x2191;</a>";
+							echo "<td><a href=\"files.php?sort=3$ampsuffix\" title=\"Sort this ascendingly\">Author &#x2191;</a></td>";
 						else
-							echo "<td><a href=\"files.php?sort=3$ampsuffix\" title=\"Sort by author\">Author</a>";
+							echo "<td><a href=\"files.php?sort=3$ampsuffix\" title=\"Sort by author\">Author</a></td>";
 						if($_SESSION['fileSort'] == 4)
-							echo "<td><a href=\"files.php?sort=-4$ampsuffix\" title=\"Sort this descendingly\">Date &#x2193;</a>";
+							echo "<td><a href=\"files.php?sort=-4$ampsuffix\" title=\"Sort this descendingly\">Date &#x2193;</a></td>";
 						else if($_SESSION['fileSort'] == -4)
-							echo "<td><a href=\"files.php?sort=4$ampsuffix\" title=\"Sort this ascendingly\">Date &#x2191;</a>";
+							echo "<td><a href=\"files.php?sort=4$ampsuffix\" title=\"Sort this ascendingly\">Date &#x2191;</a></td>";
 						else
-							echo "<td><a href=\"files.php?sort=-4$ampsuffix\" title=\"Sort by date\">Date</a>";
+							echo "<td><a href=\"files.php?sort=-4$ampsuffix\" title=\"Sort by date\">Date</a></td>";
 						echo "<td></td><td></td></tr>\n"; 
 					}
 					if ($currentFolder && !$currentFolder->isIPROFolder()) {
