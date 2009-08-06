@@ -144,7 +144,6 @@ cal.showNavigationDropdowns();
 		echo "\n</table>\n";
 	}
 	//Add a task
-	echo "<p><a href=\"javascript:toggle('addtask')\">Add a task</a></p>\n";
 	echo "<form method=\"post\" action=\"tasks.php\" id=\"addtask\" style=\"float: left\"><fieldset><legend>Add Task</legend>\n";
 	echo "<label>Name: <input type=\"text\" name=\"name\" /></label><br />\n";
 	echo "<label>Due: <input type=\"text\" name=\"due\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[1].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br />\n";
