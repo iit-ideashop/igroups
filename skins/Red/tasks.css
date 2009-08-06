@@ -68,6 +68,11 @@ a.toggle
 	vertical-align: super;
 }
 
+.toggleable
+{
+	display: none;
+}
+
 li#overdue
 {
 	color: red;
