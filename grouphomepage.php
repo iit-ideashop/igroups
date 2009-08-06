@@ -47,8 +47,7 @@ foreach($altskins as $altskin)
 			document.getElementById('editbody').value = body;
 		}
 		
-		function viewEvent( name, desc, date ) {
-			document.getElementById('viewname').innerHTML=name;
+		function dehtml(desc) {
 			desc.replace("&lt;a href", "<a onclick=\"window.open(this.href); return false;\" href");
 			desc.replace("&lt;A HREF", "<a onclick=\"window.open(this.href); return false;\" href");
 			desc.replace("<a href", "<a onclick=\"window.open(this.href); return false;\" href");
@@ -57,8 +56,21 @@ foreach($altskins as $altskin)
 			desc.replace("&gt;", ">");
 			desc.replace("&amp;quot;", "\"");
 			desc.replace("&quot;", "\"");
+			return desc;
+		}
+		
+		function viewEvent( name, desc, date ) {
+			document.getElementById('viewname').innerHTML=name;
+			desc = dehtml(desc);
 			document.getElementById('viewdesc').innerHTML=desc;
 			document.getElementById('viewdate').innerHTML=date;
+		}
+		
+		function viewTask( name, desc, date ) {
+			document.getElementById('taskname').innerHTML=name;
+			desc = dehtml(desc);
+			document.getElementById('taskdesc').innerHTML=desc;
+			document.getElementById('taskdate').innerHTML=date;
 		}
 	//]]>
 	</script>
@@ -109,7 +121,7 @@ foreach($altskins as $altskin)
 	
 	if(isset($_POST['scratch']) && !$currentUser->isGroupGuest($currentGroup))
 	{
-		$currentGroup->setScratch($_POST['scratch']);
+		$currentGroup->setScratch($_POST['scratchpad']);
 	}
 ?>
 
@@ -138,7 +150,7 @@ foreach($altskins as $altskin)
 		$year = date( "Y" );
 		print "<table width=\"85%\" style=\"border-collapse: collapse\"><tr valign=\"top\">";
 		for ( $i=0; $i<7; $i++ ) {
-			print "<td width=\"14%\" class=\"calbord\">";
+			print "<td style=\"width: 14%\" class=\"calbord\">";
 			print "<div class=\"prop\">&nbsp;</div>";
 			print "<div class=\"dateHeading\">".date( "D n/d", mktime( 0,0,0,$month,$day+$i,$year ) )."</div>";
 			$d = date( "j", mktime( 0,0,0,$month,$day+$i,$year ) );
@@ -151,7 +163,7 @@ foreach($altskins as $altskin)
 			{
 				echo 'Due:';
 				foreach($taskArray[$d] as $task) {
-					print "<a href=\"#\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'task-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\">".$task->getName()."</a><br />";
+					print "<a href=\"#\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'task-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewTask('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\">".$task->getName()."</a><br />";
 				}
 			}
 			print "</td>";
@@ -196,7 +208,7 @@ foreach($altskins as $altskin)
 		<div id="announcements">
 <?php
 			$announcements = $currentGroup->getGroupAnnouncements();
-			print "<b><u><i>Announcements:</i></u></b><br /><br />";
+			print "<h1>Announcements:</h1>\n";
 			foreach ( $announcements as $announcement ) {
 				print "<div class=\"announcement\">";
 				if ( $currentUser->isGroupModerator( $currentGroup ) )
@@ -218,7 +230,7 @@ foreach($altskins as $altskin)
 <?php if($currentUser->isGroupGuest($currentGroup)) { ?>
 			<textarea rows="10" cols="80" disabled="disabled"><?php echo htmlspecialchars($currentGroup->getScratch()); ?></textarea>
 <?php } else { ?>
-			<textarea rows="10" cols="80"><?php echo htmlspecialchars($currentGroup->getScratch()); ?></textarea><br />
+			<textarea rows="10" cols="80" name="scratchpad"><?php echo htmlspecialchars($currentGroup->getScratch()); ?></textarea><br />
 			<input type="submit" name="scratch" value="Update Scratchpad" /> <input type="reset" />
 <?php } ?>
 			</fieldset></form>
@@ -251,9 +263,9 @@ foreach($altskins as $altskin)
 			<b>Event description</b>:<br /><span id="viewdesc"></span>
 	</div>
 	<div class="window-content" id="task-view" style="display: none">
-			<b>Due Date</b>: <span id="viewdate"></span><br />
-			<b>Task name</b>: <span id="viewname"></span><br />
-			<b>Task description</b>:<br /><span id="viewdesc"></span>
+			<b>Due Date</b>: <span id="taskdate"></span><br />
+			<b>Task name</b>: <span id="taskname"></span><br />
+			<b>Task description</b>:<br /><span id="taskdesc"></span>
 	</div>
 	<div id="calendarmenu" style="display: none">
 		<table>
