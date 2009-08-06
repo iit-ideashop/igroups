@@ -110,7 +110,8 @@ cal.showNavigationDropdowns();
 				$nm = mysql_fetch_row($db->igroupsQuery('select sName from SubGroups where iID='.$assign['iSubgroupID']));
 				$sgasns[$assign['iSubgroupID']] = $nm[0];
 			}*/
-			$taskassn = count($asns) ? "<strong>".count($asns)." people: <a href=\"javascript:toggle('P{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task->getID()}\">" : 'No people';
+			$people = count($asns) == 1 ? 'person' : 'people';
+			$taskassn = count($asns) ? "<strong>".count($asns)." $people: <a href=\"javascript:toggle('P{$task->getID()}')\" class=\"toggle\">Toggle</a></strong><br /><ul id=\"P{$task->getID()}\">" : 'No people';
 			$mytask = false;
 			foreach($asns as $personid => $asn)
 			{
