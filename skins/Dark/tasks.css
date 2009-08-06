@@ -44,11 +44,6 @@ tr.overdue1 td
 	color: white;
 }
 
-td.assignments ul
-{
-	display: block;
-}
-
 td.assignments strong
 {
 	font-size: x-small;
