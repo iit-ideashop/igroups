@@ -52,9 +52,9 @@
 	if($taskabs == 1)
 		$orderby = "order by sName $asc";
 	else if($taskabs == 3)
-		$orderby = "order by $asc";
+		$orderby = "order by dDue $asc";
 	else if($taskabs == 4)
-		$orderby = "order by $asc";
+		$orderby = "order by dDue $asc";
 	else if($taskabs == 5)
 		$orderby = "order by dClosed $asc";
 	else //taskabs == 2
