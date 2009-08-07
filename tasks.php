@@ -61,7 +61,7 @@
 	else if($taskabs == 4)
 	{
 		$select .= ', sum(Hours.fHours) as hours';
-		$join = 'left join Hours on Tasks.iID=Hours.iTaskID';
+		$join = 'left join Hours on Tasks.iID=Hours.iTaskID and Hours.iPersonID='.$currentUser->getID();
 		$orderby = "group by Tasks.iID order by hours $asc";
 	}
 	else if($taskabs == 5)
