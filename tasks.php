@@ -62,13 +62,13 @@
 	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] >= 1 && $_GET['viewTasks'] <= 4) ? $_GET['viewTasks'] : 3;
 	$ampurl = "&amp;viewTasks=$viewTasks";
 	if($viewTasks == 1)
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') and dClosed is null order by dDue');
+		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().") and dClosed is null $orderby");
 	else if($viewTasks == 2)
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and (iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') or iID in (select iTaskID from TaskSubgroupAssignments where iSubgroupID in (select iSubGroupID from PeopleSubGroupMap where iPersonID='.$currentUser->getID().'))) and dClosed is null order by dDue');
+		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and (iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') or iID in (select iTaskID from TaskSubgroupAssignments where iSubgroupID in (select iSubGroupID from PeopleSubGroupMap where iPersonID='.$currentUser->getID()."))) and dClosed is null $orderby");
 	else if($viewTasks == 4)
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' order by dDue');
+		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID()." $orderby");
 	else
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and dClosed is null order by dDue');
+		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID()." and dClosed is null $orderby");
 	$taskSelect = array(1 => '', 2 => '', 3 => '', 4 => '');
 	$taskSelect[$viewTasks] = ' selected="selected"';
 ?>
