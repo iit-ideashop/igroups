@@ -60,7 +60,7 @@
 	else //taskabs == 2
 		$orderby = "order by dDue $asc";
 	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] >= 1 && $_GET['viewTasks'] <= 4) ? $_GET['viewTasks'] : 3;
-	$ampurl = "&amp;viewTasks=$viewtasks";
+	$ampurl = "&amp;viewTasks=$viewTasks";
 	if($viewTasks == 1)
 		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') and dClosed is null order by dDue');
 	else if($viewTasks == 2)
