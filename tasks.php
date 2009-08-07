@@ -134,6 +134,7 @@ cal.showNavigationDropdowns();
 			$i++;
 		}
 		echo "</tr>\n";
+		$i = 0;
 		while($t = mysql_fetch_array($tasks))
 		{
 			$task = new Task($t['iID'], $currentGroup->getType(), $currentGroup->getSemester(), $db);
