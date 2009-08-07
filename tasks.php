@@ -49,12 +49,21 @@
 		$_SESSION['taskSort'] = 2;
 	$taskabs = $_SESSION['taskSort'] > 0 ? $_SESSION['taskSort'] : $_SESSION['taskSort']*-1;
 	$asc = $_SESSION['taskSort'] > 0 ? 'asc' : 'desc';
+	$join = '';
+	$select = 'Tasks.*';
 	if($taskabs == 1)
 		$orderby = "order by sName $asc";
 	else if($taskabs == 3)
+	{
+		$join = '';
 		$orderby = "order by dDue $asc";
+	}
 	else if($taskabs == 4)
-		$orderby = "order by dDue $asc";
+	{
+		$select .= ', sum(Hours.fHours) as hours';
+		$join = 'left join Hours on Tasks.iID=Hours.iTaskID';
+		$orderby = "group by Tasks.iID order by hours $asc";
+	}
 	else if($taskabs == 5)
 		$orderby = "order by dClosed $asc";
 	else //taskabs == 2
@@ -62,13 +71,13 @@
 	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] >= 1 && $_GET['viewTasks'] <= 4) ? $_GET['viewTasks'] : 3;
 	$ampurl = "&amp;viewTasks=$viewTasks";
 	if($viewTasks == 1)
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().") and dClosed is null $orderby");
+		$tasks = $db->igroupsQuery("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} and Tasks.iID in (select iTaskID from TaskAssignments where iPersonID={$currentUser->getID()}) and Tasks.dClosed is null $orderby");
 	else if($viewTasks == 2)
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and (iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') or iID in (select iTaskID from TaskSubgroupAssignments where iSubgroupID in (select iSubGroupID from PeopleSubGroupMap where iPersonID='.$currentUser->getID()."))) and dClosed is null $orderby");
+		$tasks = $db->igroupsQuery("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} and (Tasks.iID in (select iTaskID from TaskAssignments where iPersonID={$currentUser->getID()}) or Tasks.iID in (select iTaskID from TaskSubgroupAssignments where iSubgroupID in (select iSubGroupID from PeopleSubGroupMap where iPersonID={$currentUser->getID()}))) and Tasks.dClosed is null $orderby");
 	else if($viewTasks == 4)
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID()." $orderby");
+		$tasks = $db->igroupsQuery("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} $orderby");
 	else
-		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID()." and dClosed is null $orderby");
+		$tasks = $db->igroupsQuery("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} and Tasks.dClosed is null $orderby");
 	$taskSelect = array(1 => '', 2 => '', 3 => '', 4 => '');
 	$taskSelect[$viewTasks] = ' selected="selected"';
 ?>
