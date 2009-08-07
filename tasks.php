@@ -47,7 +47,7 @@
 		$_SESSION['taskSort'] = $_GET['sort'];
 	else
 		$_SESSION['taskSort'] = 2;
-	$taskabs = $_SESSION['taskSort'] > 0 ? $_SESSION['taskSort'] ? $_SESSION['taskSort']*-1;
+	$taskabs = $_SESSION['taskSort'] > 0 ? $_SESSION['taskSort'] : $_SESSION['taskSort']*-1;
 	$asc = $_SESSION['taskSort'] > 0 ? 'asc' : 'desc';
 	if($taskabs == 1)
 		$orderby = "order by sName $asc";
