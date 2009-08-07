@@ -115,7 +115,7 @@ cal.showNavigationDropdowns();
 		{
 			if($i == $_SESSION['taskSort'] || $i == -1*$_SESSION['taskSort'])
 			{
-				$arrow = ($_SESSION['taskSort'] > 0 ? '&#x2193;' : '&#x2191;';
+				$arrow = $_SESSION['taskSort'] > 0 ? '&#x2193;' : '&#x2191;';
 				$j = $_SESSION['taskSort'] * -1;
 				echo "<th><a href=\"tasks.php?sort=$j$ampurl\">$column $arrow</a></th>";
 			}
