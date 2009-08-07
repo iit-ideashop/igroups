@@ -56,7 +56,7 @@
 	else if($taskabs == 4)
 		$orderby = "order by $asc";
 	else if($taskabs == 5)
-		$orderby = "order by dCompleted $asc";
+		$orderby = "order by dClosed $asc";
 	else //taskabs == 2
 		$orderby = "order by dDue $asc";
 	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] >= 1 && $_GET['viewTasks'] <= 4) ? $_GET['viewTasks'] : 3;
