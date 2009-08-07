@@ -43,7 +43,24 @@
 	else if(is_numeric($_GET['del']))
 		$message = 'ERROR: You do not have the requisite privileges to delete this task.';
 	
+	if(is_numeric($_GET['sort']))
+		$_SESSION['taskSort'] = $_GET['sort'];
+	else
+		$_SESSION['taskSort'] = 2;
+	$taskabs = $_SESSION['taskSort'] > 0 ? $_SESSION['taskSort'] ? $_SESSION['taskSort']*-1;
+	$asc = $_SESSION['taskSort'] > 0 ? 'asc' : 'desc';
+	if($taskabs == 1)
+		$orderby = "order by sName $asc";
+	else if($taskabs == 3)
+		$orderby = "order by $asc";
+	else if($taskabs == 4)
+		$orderby = "order by $asc";
+	else if($taskabs == 5)
+		$orderby = "order by dCompleted $asc";
+	else //taskabs == 2
+		$orderby = "order by dDue $asc";
 	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] >= 1 && $_GET['viewTasks'] <= 4) ? $_GET['viewTasks'] : 3;
+	$ampurl = "&amp;viewTasks=$viewtasks";
 	if($viewTasks == 1)
 		$tasks = $db->igroupsQuery('select * from Tasks where iTeamID='.$currentGroup->getID().' and iID in (select iTaskID from TaskAssignments where iPersonID='.$currentUser->getID().') and dClosed is null order by dDue');
 	else if($viewTasks == 2)
@@ -91,7 +108,22 @@ cal.showNavigationDropdowns();
 	$i = 0;
 	if(mysql_num_rows($tasks))
 	{
-		echo '<table id="tasks"><tr><th>Task</th><th>Due Date</th><th>Assigned to</th><th>Hours</th><th>Completed</th></tr>';
+		echo '<table id="tasks"><tr>';
+		$columns = array('Task', 'Due Date', 'Assigned to', 'Hours', 'Completed');
+		$i = 1;
+		foreach($columns as $column)
+		{
+			if($i == $_SESSION['taskSort'] || $i == -1*$_SESSION['taskSort'])
+			{
+				$arrow = ($_SESSION['taskSort'] > 0 ? '&#x2193;' : '&#x2191;';
+				$j = $_SESSION['taskSort'] * -1;
+				echo "<th><a href=\"tasks.php?sort=$j$ampurl\">$column $arrow</a></th>";
+			}
+			else
+				echo "<th><a href=\"tasks.php?sort=$i$ampurl\">$column</a></th>";
+			$i++;
+		}
+		echo "</tr>\n";
 		while($t = mysql_fetch_array($tasks))
 		{
 			$task = new Task($t['iID'], $currentGroup->getType(), $currentGroup->getSemester(), $db);
