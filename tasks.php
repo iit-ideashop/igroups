@@ -55,7 +55,7 @@
 		$orderby = "order by sName $asc";
 	else if($taskabs == 3)
 	{
-		$select .= ', count(distinct TaskAssignments.iPersonID) as count'
+		$select .= ', count(distinct TaskAssignments.iPersonID) as count';
 		$join = 'left join TaskAssignments on Tasks.iID=TaskAssignments.iTaskID';
 		$orderby = "group by Tasks.iID order by count $asc";
 	}
