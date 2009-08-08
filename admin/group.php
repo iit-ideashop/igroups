@@ -38,7 +38,7 @@
 		$group = new Group($_GET['del'], $_GET['type'], $_GET['sem'], $db);
 		$files = $group->getGroupFiles();
 		$emails = $group->getGroupEmails();
-		$members = $currentGroup->getAllGroupMembers();
+		$members = $group->getAllGroupMembers();
 		if(!count($files) && !count($emails) && !count($members))
 		{
 			$group->delete();
