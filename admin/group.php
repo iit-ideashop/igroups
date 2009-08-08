@@ -33,6 +33,7 @@
 		$i=!$i;
 	}
 	
+	$deleted = false;
 	if(is_numeric($_GET['del']) && is_numeric($_GET['type']) && is_numeric($_GET['sem']))
 	{
 		$group = new Group($_GET['del'], $_GET['type'], $_GET['sem'], $db);
@@ -42,6 +43,7 @@
 		if(!count($files) && !count($emails) && !count($members))
 		{
 			$group->delete();
+			$deleted = true;
 			$message = 'Group deleted';
 		}
 		else
@@ -87,7 +89,7 @@
 	else
 		$currentSemester = 0;
 
-	if ( isset( $_SESSION['selectedIPROGroup'] ) && $_SESSION['selectedIPROGroup'] != '' ) {
+	if ( isset( $_SESSION['selectedIPROGroup'] ) && $_SESSION['selectedIPROGroup'] != '' && !$deleted ) {
 		if ( $currentSemester )
 			$currentGroup = new Group( $_SESSION['selectedIPROGroup'], 0, $currentSemester->getID(), $db );
 		else
