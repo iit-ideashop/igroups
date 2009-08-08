@@ -32,6 +32,21 @@
 			print "<tr>";
 		$i=!$i;
 	}
+	
+	if(is_numeric($_GET['del']) && is_numeric($_GET['type']) && is_numeric($_GET['sem']))
+	{
+		$group = new Group($_GET['del'], $_GET['type'], $_GET['sem'], $db);
+		$files = $group->getGroupFiles();
+		$emails = $group->getGroupEmails();
+		$members = $currentGroup->getAllGroupMembers();
+		if(!count($files) && !count($emails) && !count($members))
+		{
+			$group->delete();
+			$message = 'Group deleted';
+		}
+		else
+			$message = 'Could not delete group.'
+	}
 
 	if ( isset( $_GET['selectSemester'] ) ) {
 		$_SESSION['selectedIPROSemester'] = $_GET['semester'];
@@ -330,6 +345,13 @@ foreach($altskins as $altskin)
 			<input type="submit" value="Update" name="updategroup" />&nbsp;
 		</fieldset></form>
 <?php
+		}
+		else
+		{
+			$files = $currentGroup->getGroupFiles();
+			$emails = $currentGroup->getGroupEmails();
+			if(!count($files) && !count($emails))
+				echo "<p><b>{$currentGroup->getName()}</b> has no data associated with it. You may <a href=\"group.php?del={$currentGroup->getID()}&amp;type={$currentGroup->getType()}&amp;sem={$currentGroup->getSemester()}\">delete this group</a>.</p>\n";
 		}
 ?>
 		<div id="adduser">

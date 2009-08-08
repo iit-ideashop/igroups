@@ -37,6 +37,17 @@ if ( !class_exists( "Group" ) ) {
 			}
 		}
 		
+		function delete()
+		{
+			if($this->type == 0)
+			{
+				$this->db->igroupsQuery("delete from ProjectSemesterMap where iProjectID={$this->id}");
+				$this->db->igroupsQuery("delete from Projects where iID={$this->id}");
+			}
+			else
+				$this->db->igroupsQuery("delete from Groups where iID={$this->id}");
+		}
+		
 		function getDesc() {
 			return $this->desc;
 		}

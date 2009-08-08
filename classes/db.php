@@ -50,6 +50,10 @@ if ( !class_exists( "dbConnection" ) ) {
 		function iknowInsertID() {
 			return mysql_insert_id( $this->igroupsConn );
 		}
+		
+		function affectedRows() {
+			return mysql_affected_rows($this->igroupsConn);
+		}
 	}
 	
 	function anchorTags($str)
