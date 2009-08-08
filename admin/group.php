@@ -45,7 +45,7 @@
 			$message = 'Group deleted';
 		}
 		else
-			$message = 'Could not delete group.'
+			$message = 'Could not delete group.';
 	}
 
 	if ( isset( $_GET['selectSemester'] ) ) {
