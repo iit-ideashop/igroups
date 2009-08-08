@@ -70,6 +70,8 @@
 			$db->iknowQuery("INSERT INTO Projects (sName, sIITID) VALUES (\"$name\", \"$iitid\")");
 			$id = $db->iknowInsertID();
 			$db->iknowQuery("INSERT INTO ProjectSemesterMap VALUES ($id, {$_POST['semester']}, NULL)");
+			$_SESSION['selectedIPROSemester'] = $_POST['semester'];
+			$_SESSION['selectedIPROGroup'] = $id;
 			$message = 'Group Created';
 		}
 		else
@@ -80,6 +82,8 @@
 		$newgroup = mysql_real_escape_string(stripslashes($_POST['newGroup']));
 		$db->igroupsQuery("INSERT INTO Groups (sName) VALUES (\"$newgroup\")");
 		$message = 'Group successfully created.';
+		$_SESSION['selectedIPROSemester'] = 0;
+		$_SESSION['selectedIPROGroup'] = $db->iknowInsertID();
 	}
 	
 	if ( !isset( $_SESSION['selectedIPROSemester'] ) ) {
