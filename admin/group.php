@@ -59,7 +59,9 @@
 
 	if ( isset($_POST['createIPRO'])) {
 		if (isset($_POST['sIITID'])) {
-			$db->iknowQuery("INSERT INTO Projects VALUES (NULL, '{$_POST['sName']}', NULL, '{$_POST['sIITID']}')");
+			$name = mysql_real_escape_string(stripslashes($_POST['sName']));
+			$iitid = mysql_real_escape_string(stripslashes($_POST['sIITID']));
+			$db->iknowQuery("INSERT INTO Projects (sName, sIITID) VALUES (\"$name\", \"$iitid\")");
 			$id = $db->iknowInsertID();
 			$db->iknowQuery("INSERT INTO ProjectSemesterMap VALUES ($id, {$_POST['semester']}, NULL)");
 			$message = 'Group Created';
@@ -69,7 +71,8 @@
 	}	
 
 	if ( isset( $_POST['createGroup'] ) ) {
-		$db->igroupsQuery("INSERT INTO Groups (sName) VALUES (\"{$_POST['newGroup']}\")");
+		$newgroup = mysql_real_escape_string(stripslashes($_POST['newGroup']));
+		$db->igroupsQuery("INSERT INTO Groups (sName) VALUES (\"$newgroup\")");
 		$message = 'Group successfully created.';
 	}
 	
