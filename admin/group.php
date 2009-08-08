@@ -43,11 +43,15 @@
 		if(!count($files) && !count($emails) && !count($members))
 		{
 			$group->delete();
-			$deleted = true;
-			$message = 'Group deleted';
+			header('Location: group.php?deleted=true');
 		}
 		else
 			$message = 'Could not delete group.';
+	}
+	else if($_GET['deleted'])
+	{
+		$message = 'Group deleted.';
+		$deleted = true;
 	}
 
 	if ( isset( $_GET['selectSemester'] ) ) {
