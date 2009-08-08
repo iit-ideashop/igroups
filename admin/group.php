@@ -52,6 +52,7 @@
 	{
 		$message = 'Group deleted.';
 		$deleted = true;
+		unset($_SESSION['selectedIPROGroup']);
 	}
 
 	if ( isset( $_GET['selectSemester'] ) ) {
