@@ -53,15 +53,14 @@
 				$message = 'Task editing failed: '.mysql_error();
 		}
 	}
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2009 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<?php
-require('appearance.php');
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/tasks.css\" type=\"text/css\" title=\"$skin\" />\n";
-foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
+	
+	//------Start XHTML Output--------------------------------------//
+	
+	require('doctype.php');
+	require('appearance.php');
+	echo "<link rel=\"stylesheet\" href=\"skins/$skin/tasks.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <script type="text/javascript" src="Calendar.js"></script>
 <script type="text/javascript">

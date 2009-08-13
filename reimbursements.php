@@ -1,16 +1,13 @@
 <?php
-	include_once("globals.php");
+	include_once('globals.php');
+
+	require('doctype.php');
+	require('appearance.php');
+	echo "<link rel=\"stylesheet\" href=\"skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Reimbursement Instructions</title>
-<?php
-require("appearance.php");
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
-foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
-?>
 </head><body style="font-family: arial, helvetica, verdana, sans-serif; font-size: .8em;">
 <h2>Reimbursement Instructions</h2>
 <p>You will need to submit original copies of receipts for all expenses you incur related to your IPRO project in order to be reimbursed. In addition to receipts, more information is required for some expenses:</p>

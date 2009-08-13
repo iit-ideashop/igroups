@@ -1,33 +1,32 @@
 <?php
-	include_once("globals.php");
-	include_once("checklogin.php");
-	include_once( "classes/nugget.php" );
-	include_once( "classes/semester.php" );
-	include_once( "classes/file.php" );
-	include_once( "classes/quota.php" );
-	include_once( "nuggetTypes.php" );
+	include_once('globals.php');
+	include_once('checklogin.php');
+	include_once('classes/nugget.php');
+	include_once('classes/semester.php');
+	include_once('classes/file.php');
+	include_once('classes/quota.php');
+	include_once('nuggetTypes.php');
 	
 	global $_DEFAULTNUGGETS;
 	$semester = new Semester($_SESSION['selectedSemester'], $db);
 
-	$currentQuota = new Quota( $currentGroup, $db );
-	if(!$semester->isActive()){
+	$currentQuota = new Quota($currentGroup, $db);
+	if(!$semester->isActive())
 		errorPage('Invalid Semester', 'You cannot add a nugget to a previous semester.', 403);
-	}
 
-	function peopleSort( $array ) {
+	function peopleSort($array) 
+	{
 		$newArray = array();
-		foreach ( $array as $person ) {
+		foreach($array as $person)
 			$newArray[$person->getCommaName()] = $person;
-		}
-		ksort( $newArray );
+		ksort($newArray);
 		return $newArray;
 	}
 
-	//begin form processing	
-	//begin creation of new nugget
-	if(isset ($_POST['newName'])){
-		print "<script type=\"text/javascript\">";
+	//------Start of Code for Form Processing-----------------------//
+	if(isset($_POST['newName']))
+	{
+		echo "<script type=\"text/javascript\">";
 		//retrieve user input
 		$name = $_POST['newName'];
 		$description = $_POST['description'];
@@ -43,33 +42,32 @@
 			$nugget->makePrivate();
 
 		//if the user added authors, add them
-		if(isset ($_POST['authorToAdd'])){
-			if(count($_POST['authorToAdd']) > 0){
-				foreach($_POST['authorToAdd'] as $author){
-					$nugget->addAuthor($author);
-				}
-			}
-		}
+		if(isset($_POST['authorToAdd']) && count($_POST['authorToAdd']) > 0)
+			foreach($_POST['authorToAdd'] as $author)
+				$nugget->addAuthor($author);
 		
 		//if the users added a file, add it to the nugget	
-		if(isset ($_POST['filenames']) &&  $_POST['filenames'] != ""){
+		if(isset($_POST['filenames']) && $_POST['filenames'] != '')
+		{
 			//check the group quota
-			if ( !$currentQuota ) {
-				$currentQuota = createQuota( $currentGroup, $db );
-			}
+			if(!$currentQuota)
+				$currentQuota = createQuota($currentGroup, $db);
 
 			//if the quota checks out make sure upload was ok
-			$filenames = explode("///" , $_POST['filenames']);
-			$description = explode("///", $_POST['descriptions']);
+			$filenames = explode('///', $_POST['filenames']);
+			$description = explode('///', $_POST['descriptions']);
 			$loop = 0;
-			foreach($_FILES['thefile']['error'] as $key => $error){
-				if ( $error  == UPLOAD_ERR_OK ) {
-					if ( $currentQuota->checkSpace( filesize( $_FILES['thefile']['tmp_name'][$key] ) ) ) {
-						$currentQuota->increaseUsed( filesize( $_FILES['thefile']['tmp_name'][$key] ) );
+			foreach($_FILES['thefile']['error'] as $key => $error)
+			{
+				if($error == UPLOAD_ERR_OK)
+				{
+					if($currentQuota->checkSpace(filesize($_FILES['thefile']['tmp_name'][$key])))
+					{
+						$currentQuota->increaseUsed(filesize($_FILES['thefile']['tmp_name'][$key]));
 						$currentQuota->updateDB();
 	
 						//create the file
-						$file = createFile( $filenames[$loop], $description[$loop], 0, $currentUser->getID(), $_FILES['thefile']['name'][$key], $currentGroup, $_FILES['thefile']['tmp_name'][$key], $_FILES['thefile']['type'][$key], 0, $db );
+						$file = createFile($filenames[$loop], $description[$loop], 0, $currentUser->getID(), $_FILES['thefile']['name'][$key], $currentGroup, $_FILES['thefile']['tmp_name'][$key], $_FILES['thefile']['type'][$key], 0, $db);
 						if(!$file)
 						{
 							$message="Upload error on ".$filenames[$loop];
@@ -79,113 +77,113 @@
 						//also add information to nugget
 						$db->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$id."', '".$file->getID()."')");
 					}
-					else {
-						//if they ran out of room send a warning
+					else //if they ran out of room send a warning
 						$currentQuota->sendWarning(1);
-					}
 				}
 				$loop++;
 			}
 		}
-		if(isset($_POST['igroupFiles'])){
-			$files = explode(",",$_POST['igroupFiles']);
-			foreach($files as $file){
+		if(isset($_POST['igroupFiles']))
+		{
+			$files = explode(',', $_POST['igroupFiles']);
+			foreach($files as $file)
 				$db->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES('".$id."', '".$file."')");
-			}
 		}	
 		//redirect to view/edit
 		$nugID = $nugget->getID();
-		if(!$_POST['igroupsRedirect']){
-			print "</script>";
-			print 	"<script type=\"text/javascript\">
-						<!--
-						window.location = 'editNugget.php?nug=$nugID'
-						//-->
-						</script>";
-		}else{
-			print "</script>";
-			print "<script type=\"text/javascript\">
-				<!--
-				window.location='addFilesToNugget.php?nugget=$nugID'
-				//-->
-				</script>";
+		if(!$_POST['igroupsRedirect'])
+		{
+			echo "</script>\n";
+			echo "<script type=\"text/javascript\">\n";
+			echo "<!--\n";
+			echo "\twindow.location = 'editNugget.php?nug=$nugID'\n";
+			echo "//-->\n";
+			echo "</script>\n";
 		}
-	
+		else
+		{
+			echo "</script>\n";
+			echo "<script type=\"text/javascript\">\n"
+			echo "<!--\n";
+			echo "\twindow.location='addFilesToNugget.php?nugget=$nugID'\n";
+			echo "//-->\n";
+			echo "</script>\n";
+		}
 	}
-?>	
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title><?php echo $appname; ?> - Group Files</title>
-<?php
-require("appearance.php");
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/nuggets.css\" type=\"text/css\" title=\"$skin\" />\n";
-foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/nuggets.css\" type=\"text/css\" title=\"$altskin\" />\n";
+	//------End of Code for Form Processing-------------------------//
+	//------Start XHTML Output--------------------------------------//
+	
+	require('doctype.php');
+	require('appearance.php');
+	echo "<link rel=\"stylesheet\" href=\"skins/$skin/nuggets.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/nuggets.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-	<script type="text/javascript">
-	//<![CDATA[
-		function submitForm(){
-			var loop = 0;
-			var files = "";
-			var descriptions = "";
-			theform = document.getElementById("myForm");
-			fileNames = document.getElementsByName("fileName");
-			fileDescriptions = document.getElementsByName("fileDescription");
-			while(loop < fileNames.length-1){
-				files = files + fileNames[loop].value+"///";
-				descriptions = descriptions + fileDescriptions[loop].value+"///";
-				loop++;	
+<title><?php echo $appname; ?> - Group Files</title>
+<script type="text/javascript">
+//<![CDATA[
+	function submitForm(){
+		var loop = 0;
+		var files = "";
+		var descriptions = "";
+		theform = document.getElementById("myForm");
+		fileNames = document.getElementsByName("fileName");
+		fileDescriptions = document.getElementsByName("fileDescription");
+		while(loop < fileNames.length-1){
+			files = files + fileNames[loop].value+"///";
+			descriptions = descriptions + fileDescriptions[loop].value+"///";
+			loop++;	
 
-			}
-			theform.filenames.value=files;
-			theform.descriptions.value=descriptions;
-			theform.submit();
 		}
+		theform.filenames.value=files;
+		theform.descriptions.value=descriptions;
+		theform.submit();
+	}
+	
+	function fileAdd(num) {
+			var div = document.createElement('div');
+			div.className = "item";
+			div.id = "file"+num;
+			div.innerHTML = 
+				"<label for=\"thefile"+(num+1)+"\">File "+(num+1)+": </label><input type=\"file\" id=\"thefile"+(num+1)+"\" name='thefile[]' onchange='fileAdd("+(num+1)+");' /><br /><label for=\"filename"+(num+1)+"\">File Name "+(num+1)+":</label><input type='text' id=\"filename"+(num+1)+"\" name='fileName' /><br /><label for=\"filedescription"+(num+1)+"\">File Description "+(num+1)+": </label><input type=\"text\" name=\"fileDescription\" id=\"filedescription"+(num+1)+"\" /><br />";
+			document.getElementById('files').appendChild(div);
 		
-		function fileAdd(num) {
-				var div = document.createElement('div');
-				div.className = "item";
-				div.id = "file"+num;
-				div.innerHTML = 
-					"<label for=\"thefile"+(num+1)+"\">File "+(num+1)+": </label><input type=\"file\" id=\"thefile"+(num+1)+"\" name='thefile[]' onchange='fileAdd("+(num+1)+");' /><br /><label for=\"filename"+(num+1)+"\">File Name "+(num+1)+":</label><input type='text' id=\"filename"+(num+1)+"\" name='fileName' /><br /><label for=\"filedescription"+(num+1)+"\">File Description "+(num+1)+": </label><input type=\"text\" name=\"fileDescription\" id=\"filedescription"+(num+1)+"\" /><br />";
-				document.getElementById('files').appendChild(div);
-			
-		}
+	}
 
-		function addFilesFromNugget(){
-			document.getElementById("myForm").igroupsRedirect.value = true;
-			submitForm();
-		}
-	//]]>	
-	</script>
+	function addFilesFromNugget(){
+		document.getElementById("myForm").igroupsRedirect.value = true;
+		submitForm();
+	}
+//]]>	
+</script>
 </head>
 <body>
 <?php
-require("sidebar.php");
-?>
-<div id="content"><h1>Create new Nugget</h1>	
-<?php
+	require('sidebar.php');
+	echo "<div id=\"content\"><h1>Create new Nugget</h1>\n";
+
 	//only works if the url contained a nugget type
-	if(isset ($_GET['files'])){
+	if(isset($_GET['files']))
+	{
 		$files = explode(',', $_GET['files']);
 		$filesArray = array();
-		foreach($files as $file){
+		foreach($files as $file)
 			$filesArray[] = new File($file, new dbConnection(), 0);
-		}
 	}
-	if(isset ($_GET['type'])){
+	if(isset($_GET['type']))
+	{
 ?>
 		<form method="post" action="addNugget.php" id="myForm" enctype="multipart/form-data"><fieldset>
 
 		<div class="item"><strong>Nugget Type/Name:</strong>
 <?php
-		if(!in_array($_GET['type'], $_DEFAULTNUGGETS)){
-			print "<input type=\"text\" name=\"newName\" value=\"Other\" />";
-		}else{
+		if(!in_array($_GET['type'], $_DEFAULTNUGGETS))
+			echo "<input type=\"text\" name=\"newName\" value=\"Other\" />";
+		else
+		{
 			$type = $_GET['type'];
-			print "<input type=\"hidden\" name=\"newName\" value=\"$type\" />";
-			print "$type";
+			echo "<input type=\"hidden\" name=\"newName\" value=\"$type\" />";
+			echo $type;
 		}
 ?>
 		</div>
@@ -198,32 +196,35 @@ require("sidebar.php");
 		</tr>
 <?php
 		$authors = peopleSort($currentGroup->getAllGroupMembers());
-		if(count($authors) > 0 ){
+		if(count($authors) > 0)
+		{
 			$count = 0;
-			print "<tr>";
-			foreach($authors as $author){
-				if ($count == 2) {
-					print "</tr><tr>";
+			echo '<tr>';
+			foreach($authors as $author)
+			{
+				if($count == 2)
+				{
+					echo "</tr>\n<tr>";
 					$count = 0;
 				}
 				$name = $author->getFullName();
 				$id = $author->getID();
-				print "<td>$name</td><td align=\"center\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" name=\"authorToAdd[]\" value=\"$id\" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>";
+				echo "<td>$name</td><td align=\"center\">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type=\"checkbox\" name=\"authorToAdd[]\" value=\"$id\" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>";
 				$count++;
 			}
-			print "</tr>";
+			echo "</tr>\n";
 		}
 ?>
 		</table>
 		</div>
 <?php
-		if(isset($filesArray)){
-			print "The following files have been marked for addition:<br />";
-			foreach($filesArray as $file){
-				print $file->getName()."<br />";
-			}
+		if(isset($filesArray))
+		{
+			echo "The following files have been marked for addition:<br />\n";
+			foreach($filesArray as $file)
+				echo $file->getName()."<br />\n";
 			$files = $_GET['files'];
-			print "<input type=\"hidden\" name=\"igroupFiles\" value=\"$files\" />";
+			echo "<input type=\"hidden\" name=\"igroupFiles\" value=\"$files\" />";
 		}
 ?>
 		<div id="files">
@@ -244,14 +245,14 @@ require("sidebar.php");
 		<input type="button" value="Create Nugget" onclick="javascript:submitForm();" />
 		</fieldset></form>
 <?php
-	}else{
-		print 	"<script type=\"text/javascript\">
-					<!--
-					window.location = 'index.php'
-					//-->
-					</script>";
 	}
-	
+	else
+	{
+		echo "<script type=\"text/javascript\">\n";
+		echo "<!--\n";
+		echo "\twindow.location = 'index.php';\n";
+		echo "//-->\n";
+		echo "</script>\n";
+	}
 ?>
-</div></body>
-</html>
+</div></body></html>

@@ -1,139 +1,143 @@
 <?php
-	include_once("globals.php");
-	include_once("checklogin.php");
-	include_once( "classes/nugget.php" );
-	include_once( "classes/semester.php" );
-	include_once( "classes/file.php" );
-	include_once( "classes/quota.php" );
+	include_once('globals.php');
+	include_once('checklogin.php');
+	include_once('classes/nugget.php');
+	include_once('classes/semester.php');
+	include_once('classes/file.php');
+	include_once('classes/quota.php');
 	
 	$_SESSION['currentGroup'] = $currentGroup;
-	$currentQuota = new Quota( $currentGroup, $db );
+	$currentQuota = new Quota($currentGroup, $db);
 	
-	function peopleSort( $array ) {
+	function peopleSort($array)
+	{
 		$newArray = array();
-		foreach ( $array as $person ) {
+		foreach($array as $person)
 			$newArray[$person->getCommaName()] = $person;
-		}
-		ksort( $newArray );
+		ksort($newArray);
 		return $newArray;
 	}
 	
-	function printNugget($nugget){
+	function printNugget($nugget)
+	{
 		$authors = $nugget->getAuthors();
 		$files = $nugget->getFiles();
 		$semester = $nugget->getSemester();
 		
-		print "<div class=\"item\"><strong>Nugget Type/Name:</strong> ";
+		echo "<div class=\"item\"><strong>Nugget Type/Name:</strong> ";
 		//used to print a nugget that is from a prior semester or for viewing purposes only
 		$nug = $nugget->getType();
-		if($nug == "Code of Ethics")
-			$nugprint = "Ethics Statement";
-		else if($nug == "Website")
-			$nugprint = "Website (optional)";
-		else if($nug == "Midterm Report")
-			$nugprint = "Midterm Presentation";
-		else if($nug == "Team Minutes")
-			$nugprint = "Team Minutes (optional)";
-		else if($nug == "Final Report")
-			$nugprint = "Final Report or Grant Proposal";
+		if($nug == 'Code of Ethics')
+			$nugprint = 'Ethics Statement';
+		else if($nug == 'Website')
+			$nugprint = 'Website (optional)';
+		else if($nug == 'Midterm Report')
+			$nugprint = 'Midterm Presentation';
+		else if($nug == 'Team Minutes')
+			$nugprint = 'Team Minutes (optional)';
+		else if($nug == 'Final Report')
+			$nugprint = 'Final Report or Grant Proposal';
 		else
 			$nugprint = $nug;
-		print $nugprint."</div>";
-		print '<div class="item"><strong>Description:</strong> '.htmlspecialchars($nugget->getDesc()).'</div>';
-		print '<div class="item"><strong>Date Created:</strong> '.$nugget->getDate().'</div>';
-		print '<div class="item"><strong>Security:</strong> ';
-		if ($nugget->isPrivate())
-			print "Protected (Not publicly viewable)";
+		echo $nugprint.'</div>';
+		echo '<div class="item"><strong>Description:</strong> '.htmlspecialchars($nugget->getDesc()).'</div>';
+		echo '<div class="item"><strong>Date Created:</strong> '.$nugget->getDate().'</div>';
+		echo '<div class="item"><strong>Security:</strong> ';
+		if($nugget->isPrivate())
+			echo 'Protected (Not publicly viewable)';
 		else
-			print "Public";
-		print "</div>";
-		print '<div class="item"><strong>Authors:</strong> <br />';
+			echo 'Public';
+		echo "</div>";
+		echo '<div class="item"><strong>Authors:</strong> <br />';
 		
-		if(count($authors) > 0){
-			print '<ul>';
+		if(count($authors) > 0)
+		{
+			echo '<ul>';
 			
-			foreach($authors as $author){
+			foreach($authors as $author)
+			{
 				//print the author name
-				print '<li>';
-				print $author->getFullName();
-				print '</li>';
+				echo '<li>';
+				echo $author->getFullName();
+				echo '</li>';
 			}
-			print '</ul></div>';
+			echo '</ul></div>';
 		}
-		else{
-			print "There are no authors for this nugget.</div>";
-		}
-		print '<div class="item"><strong>Files:</strong>'.'<br />';
+		else
+			echo "There are no authors for this nugget.</div>";
+		echo '<div class="item"><strong>Files:</strong>'.'<br />';
 		
-		if(count($files)>0){
-			print '<ul>';
-			foreach($files as $file){
-				print '<li>';
-				if ($nugget->isOld())
-					print "<a href=\"downloadOld.php?file={$file[0]}\">{$file[1]}</a>&nbsp;";
+		if(count($files) > 0)
+		{
+			echo '<ul>';
+			foreach($files as $file)
+			{
+				echo '<li>';
+				if($nugget->isOld())
+					echo "<a href=\"downloadOld.php?file={$file[0]}\">{$file[1]}</a>&nbsp;";
 				else
-					print '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
-				print '</li>';
+					echo '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
+				echo '</li>';
 			}
-			print '</ul></div>';
+			echo '</ul></div>';
 		}
-		else{
-			print "There are no files for this nugget.</div>";
-		}
+		else
+			echo 'There are no files for this nugget.</div>';
 	}
+	
+	//----------Start XHTML Output----------------------------------//
+	
+	require('doctype.php');
+	require('appearance.php');
+	echo "<link rel=\"stylesheet\" href=\"skins/$skin/nuggets.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/nuggets.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Nuggets</title>
-<?php
-require("appearance.php");
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/nuggets.css\" type=\"text/css\" title=\"$skin\" />\n";
-foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/nuggets.css\" type=\"text/css\" title=\"$altskin\" />\n";
-?>
-	<script type="text/javascript">
-	//<![CDATA[
-		function nuggetRedirect(nugget){
-			form = document.getElementById("redirectForm");
-			form.nuggetType.value= nugget;
-			form.submit();
-		}
-	//]]>	
-	</script>
+<script type="text/javascript">
+//<![CDATA[
+	function nuggetRedirect(nugget){
+		form = document.getElementById("redirectForm");
+		form.nuggetType.value= nugget;
+		form.submit();
+	}
+//]]>	
+</script>
 </head>
 
 <body>	
 <?php
-require("sidebar.php");
-print "<div id=\"content\">";
+	require('sidebar.php');
+	echo "<div id=\"content\">";
 	
-	if( isset ($_GET['nug'])){
+	if(isset($_GET['nug']))
+	{
 		//proceed with view
 		
 		//check that the nugget belongs to the group before displaying
-		if (isset($_GET['isOld']))
+		if(isset($_GET['isOld']))
 			$nugget = new Nugget($_GET['nug'], $db, 1);
 		else
 			$nugget = new Nugget($_GET['nug'], $db, 0);
 		$nugGroup = $nugget->getGroupID();
-		if($nugGroup != $currentGroup->getID()){
-			print 	"<script type=\"text/javascript\">
+		if($nugGroup != $currentGroup->getID()
+		{
+			echo 	"<script type=\"text/javascript\">
 					<!--
 					window.location = 'index.php'
 					//-->
 					</script>";
-		}else{
-			//proceed
-			printNugget($nugget);
 		}
-	}else{
-	print 	"<script type=\"text/javascript\">
+		else //proceed
+			printNugget($nugget);
+	}
+	else
+	{
+	echo 	"<script type=\"text/javascript\">
 					<!--
 					window.location = 'nuggets.php'
 					//-->
 					</script>";
 	}
 ?>
-</div></body>
-</html>
+</div></body></html>

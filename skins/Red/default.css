@@ -34,6 +34,10 @@ a:link, a:visited {
 	color:#CC0000;
 }
 
+img {
+	border-style: none;
+}
+
 h1 {
 	font-size:14pt;
 	color:#666;
@@ -197,4 +201,12 @@ ul.folderlist ul {
 
 #topSpacer {
 	height: 10px;
+}
+
+#copyright {
+	font-size: 85%;
+	clear: both;
+	color: #666;
+	background-color: white;
+	text-align: center;
 }

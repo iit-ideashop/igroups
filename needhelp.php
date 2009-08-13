@@ -36,24 +36,21 @@
 	if(isset($_POST['help']))
 	{
 		mail($_POST['email'], "Your $appname Help Request", "We have received your inquiry and will respond to it as soon as possible.\n\nThank you for contacting us.\n\n-The $appname Team", "From:$contactemail");
-		$user = $db->iknowQuery("SELECT iID FROM People WHERE sEmail='".$_POST['email']."'");
+		$user = $db->igroupsQuery("SELECT iID FROM People WHERE sEmail='".$_POST['email']."'");
 		$id = (($row = mysql_fetch_row($user)) ? $row[0] : 753);
 		$help = createEmail('', 'Web based help request', $_POST['problem'], $id, 0, 14, 1, 0, 0, $db);
 		$iid = $help->getID();
 		mail($contactemail, "$appname Help Request [ID:$iid]", stripslashes($_POST['problem']), "From:".$_POST['email']);
 		$db->igroupsQuery("UPDATE Emails SET sSubject='$appname Help Request [ID:$iid]' WHERE iID=$iid");
 	}
+	
+	require('doctype.php');
+	require('appearance.php');
+	echo "<link rel=\"stylesheet\" href=\"skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Help</title>
-<?php
-require('appearance.php');
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
-foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
-?>
 </head>
 <body>
 <?php

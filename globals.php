@@ -1,11 +1,12 @@
 <?php
-	include_once("classes/db.php");
+	include_once('classes/db.php');
+	
 	$db = new dbConnection();
-	$row = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='appname'"));
+	$row = mysql_fetch_row($db->igroupsQuery('select sValue from Appearance where sKey="appname"'));
 	$appname = $row[0];
-	$row = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='appurl'"));
+	$row = mysql_fetch_row($db->igroupsQuery('select sValue from Appearance where sKey="appurl"'));
 	$appurl = $row[0];
-	$row = mysql_fetch_row($db->igroupsQuery("select sValue from Appearance where sKey='contactemail'"));
+	$row = mysql_fetch_row($db->igroupsQuery('select sValue from Appearance where sKey="contactemail"'));
 	$contactemail = $row[0];
 
 	if(!function_exists('errorPage'))
@@ -14,14 +15,10 @@
 		{
 			global $appname, $appurl, $contactemail, $db, $currentUser, $currentGroup;
 			$responses = array(400 => 'Bad Request', 401 => 'Authorization Required', 403 => 'Forbidden', 500 => 'Internal Server Error');
-			if(!$responses[$response])
+			if(!array_key_exists($response, $responses))
 				$response = 500;
 			header("HTTP/1.1 $response {$responses[$response]}");
-			echo<<<EOF
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2009 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-EOF;
+			require('doctype.php');
 			require('appearance.php');
 			echo "<link rel=\"stylesheet\" href=\"skins/$skin/tasks.css\" type=\"text/css\" title=\"$skin\" />\n";
 			foreach($altskins as $altskin)
@@ -46,8 +43,17 @@ EOF;
 			echo "<li><b>Error description:</b> $desc</li>\n";
 			echo "<li><b>HTTP response code:</b> $response</li>\n";
 			echo "</ul>\n";
-			echo '</div></body></html>';
-			die();
+			die('</div></body></html>');
+		}
+	}
+	
+	if(!function_exists('printTR'))
+	{
+		function printTR()
+		{
+			static $shade = false;
+			echo '<tr'.($shade ? ' class="shade"' : '').'>';
+			$shade = !$shade;
 		}
 	}
 ?>

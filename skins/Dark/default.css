@@ -35,6 +35,11 @@ tfoot {
 	text-align:center;
 }
 
+img {
+	border-style: none;
+}
+
+
 a:link, a:visited {
 	color:#CC0000;
 }
@@ -206,4 +211,12 @@ input, textarea {
 
 #topSpacer {
 	height: 10px;
+}
+
+#copyright {
+	font-size: 85%;
+	clear: both;
+	color: #666;
+	background-color: black;
+	text-align: center;
 }

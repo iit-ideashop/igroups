@@ -15,6 +15,8 @@
 		errorPage('uID not numeric', 'uID must be a positive integer', 400);
 	
 	$tasks = $user->getAssignedTasks($currentGroup);
+	
+	//------Start XHTML Output--------------------------------------//
 
 	require('doctype.php');
 	require('appearance.php');

@@ -1,10 +1,10 @@
 <?php
-	include_once("globals.php");
-	include_once("checklogin.php");
-	include_once( "classes/email.php" );
-	include_once( "classes/category.php" );
+	include_once('globals.php');
+	include_once('checklogin.php');
+	include_once('classes/email.php');
+	include_once('classes/category.php');
 	
-	$searchParams = "";
+	$searchParams = '';
 	if(isset($_POST['senderSearch']) && is_numeric($_POST['senderSearch']) && $_POST['senderSearch'] > -1)
 		$searchParams .= "and iSenderID=".$_POST['senderSearch']." ";
 	if(isset($_POST['categorySearch']) && is_numeric($_POST['categorySearch']) && $_POST['categorySearch'] > -1)
@@ -18,28 +18,16 @@
 	$emails = array();
 	while($row = mysql_fetch_row($query))
 		$emails[] = new Email($row[0], $db);
+
+	//----------Start XHTML Output----------------------------------//
 	
-	function printTR()
-	{
-		static $i=0;
-		if ( $i )
-			print "<tr class=\"shade\">";
-		else
-			print "<tr>";
-		$i=!$i;
-	}
+	require('doctype.php');
+	require('appearance.php');
+	echo "<link rel=\"stylesheet\" href=\"skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-		
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
 <title><?php echo $appname; ?> - Email Search Results</title>
-<?php
-require("appearance.php");
-echo "<link rel=\"stylesheet\" href=\"skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
-foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
-?>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
@@ -50,35 +38,31 @@ foreach($altskins as $altskin)
 </head>
 <body>
 <?php
-require("sidebar.php");
+	require('sidebar.php');
+	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 ?>
-	<div id="content"><div id="topbanner">
-<?php
-		echo $currentGroup->getName();
-?>
-	</div>
-<form method="post" action="searchemail.php"><fieldset><table>
+	<form method="post" action="searchemail.php"><fieldset><table>
 	<tr><td><label for="subjectSearch">Subject:</label></td><td><input type="text" name="subjectSearch" id="subjectSearch" value="<?php echo htmlspecialchars(stripslashes($_POST['subjectSearch'])); ?>" /></td><td><label for="senderSearch">Sender:</label></td><td>
 	<select name="senderSearch" id="senderSearch"><option value="-1">Any</option>
 <?php
 	$people = $currentGroup->getGroupMembers();
-		$iid = "";
+	$iid = '';
 		$i = 0;
-		foreach($people as $person)
-		{
-			if($i)
-				$iid .= ",";
-			$i++;
-			$iid .= $person->getID();
-		}
-		$query = $db->igroupsQuery("select iID, sLName, sFName from People where iID in ($iid) order by sLName, sFName");
-		while($row = mysql_fetch_row($query))
-		{
-			if($_POST['senderSearch'] == $row[0])
-				echo "<option value=\"".$row[0]."\" selected=\"selected\">".$row[1].", ".$row[2]."</option>\n";
-			else
-				echo "<option value=\"".$row[0]."\">".$row[1].", ".$row[2]."</option>\n";
-		}
+	foreach($people as $person)
+	{
+		if($i)
+			$iid .= ",";
+		$i++;
+		$iid .= $person->getID();
+	}
+	$query = $db->igroupsQuery("select iID, sLName, sFName from People where iID in ($iid) order by sLName, sFName");
+	while($row = mysql_fetch_row($query))
+	{
+		if($_POST['senderSearch'] == $row[0])
+			echo "<option value=\"".$row[0]."\" selected=\"selected\">".$row[1].", ".$row[2]."</option>\n";
+		else
+			echo "<option value=\"".$row[0]."\">".$row[1].", ".$row[2]."</option>\n";
+	}
 ?>			
 	</select></td></tr>
 	<tr><td><label for="bodySearch">Body:</label></td><td><input type="text" name="bodySearch" id="bodySearch" value="<?php echo htmlspecialchars(stripslashes($_POST['bodySearch'])); ?>" /></td><td><label for="categorySearch">Category:</label></td><td><select name="categorySearch" id="categorySearch"><option value="-1">Any</option><option value="0"<?php if($_POST['categorySearch'] == 0) echo ' selected="selected"'; ?>>Uncategorized</option>

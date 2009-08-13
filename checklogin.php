@@ -1,6 +1,6 @@
 <?php	
-	include_once( "checklogingroupless.php" );
-	include_once( "classes/group.php" );
+	include_once('checklogingroupless.php');
+	include_once('classes/group.php');
 
 	if(isset($_GET['selectedGroup']))
 	{
@@ -15,7 +15,7 @@
 		$_SESSION['selectedGroupType'] = $group[1];
 		$_SESSION['selectedSemester'] = $group[2];
 	}
-	elseif(isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']))
+	else if(isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']))
 	{
 		$currentGroup = new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db );
 		if(!$currentGroup->isGroupMember($currentUser))

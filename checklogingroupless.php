@@ -1,7 +1,7 @@
 <?php
 	session_start();
-	include_once("classes/db.php");
-	include_once("classes/person.php");
+	include_once('classes/db.php');
+	include_once('classes/person.php');
 	$db = new dbConnection();
 	
 	//If we have an "on-the-fly" login
@@ -29,7 +29,7 @@
 		}
 		else
 		{
-			include_once("littlelogin.php");
+			include_once('littlelogin.php');
 			die();
 		}
 	}
@@ -54,13 +54,13 @@
 		}
 		else
 		{
-			include_once("littlelogin.php");
+			include_once('littlelogin.php');
 			die();
 		}
 	}
 	else
 	{
-		include_once("littlelogin.php");
+		include_once('littlelogin.php');
 		die();
 	}
 ?>
