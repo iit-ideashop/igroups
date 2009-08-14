@@ -120,7 +120,7 @@
 		else
 			$nugget = new Nugget($_GET['nug'], $db, 0);
 		$nugGroup = $nugget->getGroupID();
-		if($nugGroup != $currentGroup->getID()
+		if($nugGroup != $currentGroup->getID())
 		{
 			echo 	"<script type=\"text/javascript\">
 					<!--
