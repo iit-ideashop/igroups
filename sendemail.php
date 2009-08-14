@@ -15,7 +15,7 @@
 		ksort($newArray);
 		return $newArray;
 	}
-	$query = $db->igroupsQuery('select sSig from Profiles where iPersonID='.$currentUser->getID());
+	$query = $db->query('select sSig from Profiles where iPersonID='.$currentUser->getID());
 	$arr = mysql_fetch_row($query);
 	unset($query);
 	$sig = $arr[0];

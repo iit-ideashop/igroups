@@ -24,7 +24,7 @@
 		$username = mysql_real_escape_string(stripslashes($_POST['username']));
 		if(strpos($username, '@') === false)
 			$username .= '@iit.edu';
-		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='$username'");
+		$user = $db->query("SELECT iID,sPassword FROM People WHERE sEmail='$username'");
 		if(($row = mysql_fetch_row($user)) && md5($_POST['password']) == $row[1])
 		{
 			$_SESSION['userID'] = $row[0];
@@ -45,7 +45,7 @@
 			$userName = $_COOKIE['userID'] . '@iit.edu';
 		else
 			$userName = $_COOKIE['userID'];
-		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
+		$user = $db->query("SELECT iID,sPassword FROM People WHERE sEmail='".$userName."'");
 		if(($row = mysql_fetch_row($user)) && md5($_COOKIE['password']) == $row[1])
 		{
 			$_SESSION['userID'] = $row[0];
@@ -126,7 +126,7 @@
 	
 	if(!isset($_SESSION['expandSemesters']))
 	{
-		$semester = $db->igroupsQuery('SELECT iID FROM Semesters WHERE bActiveFlag=1');
+		$semester = $db->query('SELECT iID FROM Semesters WHERE bActiveFlag=1');
 		$row = mysql_fetch_row($semester);
 		$_SESSION['expandSemesters'] = array($row[0]);
 	}
@@ -157,7 +157,7 @@
 			$sortedIPROs[$group->getSemester()][$group->getName()] = $group;
 			if($group->isActive())
 			{
-				$result = $db->igroupsQuery( "SELECT * FROM ProjectSemesterMap WHERE iProjectID=".$group->getID()." AND iSemesterID!=".$group->getSemester());
+				$result = $db->query( "SELECT * FROM ProjectSemesterMap WHERE iProjectID=".$group->getID()." AND iSemesterID!=".$group->getSemester());
 				while($row = mysql_fetch_array($result))
 				{
 					$newGroup = new Group($row['iProjectID'], 0, $row['iSemesterID'], $db);

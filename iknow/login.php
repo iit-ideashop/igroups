@@ -1,16 +1,15 @@
 <?php
-	include_once("../globals.php");
-	include_once( "../classes/db.php" );
+	include_once('../globals.php');
+	include_once('../classes/db.php');
 
 	$db = new dbConnection();
 
 	//-----Process Login------------------------//
 
-ob_start();
-?>
-<div id="loginform">
-<?php
-	if ( isset( $_GET['logout'] ) ) {
+	ob_start();
+	echo '<div id="loginform">';
+	if(isset($_GET['logout']))
+	{
 		session_destroy();
 		setcookie('username', '', time()-60);
 		setcookie('password', '', time()-60);
@@ -21,12 +20,12 @@ ob_start();
 		//-->
 		</script>
 <?php
-ob_end_flush();
+		ob_end_flush();
 	}
 
-	if ( isset ( $_SESSION['loginError'] ) )
-		print "<strong>Invalid username or password.</strong><br />";
-	unset( $_SESSION['loginError'] );
+	if(isset($_SESSION['loginError']))
+		echo "<strong>Invalid username or password.</strong><br />";
+	unset($_SESSION['loginError']);
 ?>
 	<a href="../index.php"><?php echo $appname; ?> Home</a><br /><br />
 	<a href="../iknow/main.php">iKnow/iGroups Guest Access</a><br /><br />

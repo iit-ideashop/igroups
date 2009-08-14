@@ -9,7 +9,7 @@
 		$hurdle = 0;
 		if(!strlen($name))
 			$message = 'ERROR: Could not create task: You must enter a name for the task.';
-		else if(mysql_num_rows($db->igroupsQuery('select iID from Tasks where iTeamID='.$currentGroup->getID()." and sName=\"$name\"")))
+		else if(mysql_num_rows($db->query('select iID from Tasks where iTeamID='.$currentGroup->getID()." and sName=\"$name\"")))
 			$message = 'Your group already has a task with that name.';
 		else
 			$hurdle++;
@@ -24,9 +24,9 @@
 		$desc = mysql_real_escape_string($_POST['desc']);
 		if($hurdle == 2)
 		{
-			$ok = $db->igroupsQuery('insert into Tasks (iTeamID, iOwnerID, sName, sDescription, dDue) values ('.$currentGroup->getID().', '.$currentUser->getID().", \"$name\", \"$desc\", \"$date\")");
+			$ok = $db->query('insert into Tasks (iTeamID, iOwnerID, sName, sDescription, dDue) values ('.$currentGroup->getID().', '.$currentUser->getID().", \"$name\", \"$desc\", \"$date\")");
 			if($ok)
-				header('Location: taskassign.php?taskid='.$db->igroupsInsertID());
+				header('Location: taskassign.php?taskid='.$db->insertID());
 			else
 				$message = 'Task creation failed: '.mysql_error();
 		}
@@ -72,13 +72,13 @@
 	$viewTasks = is_numeric($_GET['viewTasks']) && ($_GET['viewTasks'] >= 1 && $_GET['viewTasks'] <= 4) ? $_GET['viewTasks'] : 3;
 	$ampurl = "&amp;viewTasks=$viewTasks";
 	if($viewTasks == 1)
-		$tasks = $db->igroupsQuery("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} and Tasks.iID in (select iTaskID from TaskAssignments where iPersonID={$currentUser->getID()}) and Tasks.dClosed is null $orderby");
+		$tasks = $db->query("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} and Tasks.iID in (select iTaskID from TaskAssignments where iPersonID={$currentUser->getID()}) and Tasks.dClosed is null $orderby");
 	else if($viewTasks == 2)
-		$tasks = $db->igroupsQuery("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} and (Tasks.iID in (select iTaskID from TaskAssignments where iPersonID={$currentUser->getID()}) or Tasks.iID in (select iTaskID from TaskSubgroupAssignments where iSubgroupID in (select iSubGroupID from PeopleSubGroupMap where iPersonID={$currentUser->getID()}))) and Tasks.dClosed is null $orderby");
+		$tasks = $db->query("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} and (Tasks.iID in (select iTaskID from TaskAssignments where iPersonID={$currentUser->getID()}) or Tasks.iID in (select iTaskID from TaskSubgroupAssignments where iSubgroupID in (select iSubGroupID from PeopleSubGroupMap where iPersonID={$currentUser->getID()}))) and Tasks.dClosed is null $orderby");
 	else if($viewTasks == 4)
-		$tasks = $db->igroupsQuery("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} $orderby");
+		$tasks = $db->query("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} $orderby");
 	else
-		$tasks = $db->igroupsQuery("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} and Tasks.dClosed is null $orderby");
+		$tasks = $db->query("select $select from Tasks $join where Tasks.iTeamID={$currentGroup->getID()} and Tasks.dClosed is null $orderby");
 	$taskSelect = array(1 => '', 2 => '', 3 => '', 4 => '');
 	$taskSelect[$viewTasks] = ' selected="selected"';
 	
@@ -137,19 +137,19 @@ cal.showNavigationDropdowns();
 		while($t = mysql_fetch_array($tasks))
 		{
 			$task = new Task($t['iID'], $currentGroup->getType(), $currentGroup->getSemester(), $db);
-			$assignments = $db->igroupsQuery('select * from TaskAssignments where iTaskID='.$task->getID());
+			$assignments = $db->query('select * from TaskAssignments where iTaskID='.$task->getID());
 			$asns = array();
 			while($assign = mysql_fetch_array($assignments))
 			{
-				$nm = mysql_fetch_row($db->igroupsQuery('select sFName, sLName from People where iID='.$assign['iPersonID']));
+				$nm = mysql_fetch_row($db->query('select sFName, sLName from People where iID='.$assign['iPersonID']));
 				$asns[$assign['iPersonID']] = $nm[0].' '.$nm[1];
 				$asns[$assign['iPersonID']] .= strlen($assign['sRole']) ? ': <span class="role">'.$assign['sRole'].'</span>' : '';
 			}
-			/*$sgassignments = $db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$task->getID());
+			/*$sgassignments = $db->query('select * from TaskSubgroupAssignments where iTaskID='.$task->getID());
 			$sgasns = array();
 			while($assign = mysql_fetch_array($sgassignments))
 			{
-				$nm = mysql_fetch_row($db->igroupsQuery('select sName from SubGroups where iID='.$assign['iSubgroupID']));
+				$nm = mysql_fetch_row($db->query('select sName from SubGroups where iID='.$assign['iSubgroupID']));
 				$sgasns[$assign['iSubgroupID']] = $nm[0];
 			}*/
 			$people = count($asns) == 1 ? 'person' : 'people';
@@ -174,7 +174,7 @@ cal.showNavigationDropdowns();
 			$overdue = (!$task->getClosed() && strtotime($task->getDue()) <= time()) ? " class=\"overdue$i\"" : " class=\"normal$i\"";
 			if($mytask)
 			{
-				$hours = mysql_fetch_row($db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$task->getID()} and iPersonID={$currentUser->getID()}"));
+				$hours = mysql_fetch_row($db->query("select sum(fHours) from Hours where iTaskID={$task->getID()} and iPersonID={$currentUser->getID()}"));
 				$myhours = ($hours[0] == '') ? '0' : $hours[0];
 			}
 			else

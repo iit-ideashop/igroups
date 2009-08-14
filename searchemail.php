@@ -14,7 +14,7 @@
 	if(isset($_POST['bodySearch']) && trim($_POST['bodySearch']) != "")
 		$searchParams .= "and match(sBody) against('".mysql_real_escape_string(stripslashes($_POST['bodySearch']))."' in boolean mode) ";
 	
-	$query = $db->igroupsQuery("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()."  $searchParams order by iID desc");
+	$query = $db->query("select iID from Emails where iGroupID=".$currentGroup->getID()." and iGroupType=".$currentGroup->getType()." and iSemesterID=".$currentGroup->getSemester()."  $searchParams order by iID desc");
 	$emails = array();
 	while($row = mysql_fetch_row($query))
 		$emails[] = new Email($row[0], $db);
@@ -55,7 +55,7 @@
 		$i++;
 		$iid .= $person->getID();
 	}
-	$query = $db->igroupsQuery("select iID, sLName, sFName from People where iID in ($iid) order by sLName, sFName");
+	$query = $db->query("select iID, sLName, sFName from People where iID in ($iid) order by sLName, sFName");
 	while($row = mysql_fetch_row($query))
 	{
 		if($_POST['senderSearch'] == $row[0])

@@ -17,7 +17,7 @@
 		$userName = mysql_real_escape_string(stripslashes($_COOKIE['userID']));
 		if(strpos($_POST['username1'], '@') === FALSE)
 			$userName .= '@iit.edu';
-		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='$userName'");
+		$user = $db->query("SELECT iID,sPassword FROM People WHERE sEmail='$userName'");
 		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
 		{
 			$_SESSION['userID'] = $row[0];
@@ -36,12 +36,12 @@
 	if(isset($_POST['help']))
 	{
 		mail($_POST['email'], "Your $appname Help Request", "We have received your inquiry and will respond to it as soon as possible.\n\nThank you for contacting us.\n\n-The $appname Team", "From:$contactemail");
-		$user = $db->igroupsQuery("SELECT iID FROM People WHERE sEmail='".$_POST['email']."'");
+		$user = $db->query("SELECT iID FROM People WHERE sEmail='".$_POST['email']."'");
 		$id = (($row = mysql_fetch_row($user)) ? $row[0] : 753);
 		$help = createEmail('', 'Web based help request', $_POST['problem'], $id, 0, 14, 1, 0, 0, $db);
 		$iid = $help->getID();
 		mail($contactemail, "$appname Help Request [ID:$iid]", stripslashes($_POST['problem']), "From:".$_POST['email']);
-		$db->igroupsQuery("UPDATE Emails SET sSubject='$appname Help Request [ID:$iid]' WHERE iID=$iid");
+		$db->query("UPDATE Emails SET sSubject='$appname Help Request [ID:$iid]' WHERE iID=$iid");
 	}
 	
 	require('doctype.php');

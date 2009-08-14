@@ -16,7 +16,7 @@ if(!class_exists('Task'))
 			$this->valid = false;
 			if(is_numeric($id))
 			{
-				$query = $db->igroupsQuery("select * from Tasks where iID=$id");
+				$query = $db->query("select * from Tasks where iID=$id");
 				if($result = mysql_fetch_array($query))
 				{
 					$this->id = $id;
@@ -96,7 +96,7 @@ if(!class_exists('Task'))
 		function setName($n)
 		{
 			$n = mysql_real_escape_string(stripslashes($n));
-			if($this->db->igroupsQuery("update Tasks set sName=\"$n\" where iID={$this->id}"))
+			if($this->db->query("update Tasks set sName=\"$n\" where iID={$this->id}"))
 				$this->name = $n;
 			return ($this->name == $n);
 		}
@@ -104,14 +104,14 @@ if(!class_exists('Task'))
 		function setDesc($n)
 		{
 			$n = mysql_real_escape_string(stripslashes($n));
-			if($this->db->igroupsQuery("update Tasks set sDescription=\"$n\" where iID={$this->id}"))
+			if($this->db->query("update Tasks set sDescription=\"$n\" where iID={$this->id}"))
 				$this->desc = $n;
 			return ($this->desc == $n);
 		}
 		function setDue($n)
 		{
 			$sqldate = date('Y-m-d', $n);
-			if($this->db->igroupsQuery("update Tasks set dDue=\"$sqldate\" where iID={$this->id}"))
+			if($this->db->query("update Tasks set dDue=\"$sqldate\" where iID={$this->id}"))
 				$this->due = $sqldate;
 			return ($this->due == $sqldate);
 		}
@@ -119,7 +119,7 @@ if(!class_exists('Task'))
 		function setClosed($n)
 		{
 			$sqldate = date('Y-m-d', $n);
-			if($this->db->igroupsQuery("update Tasks set dClosed=\"$sqldate\" where iID={$this->id}"))
+			if($this->db->query("update Tasks set dClosed=\"$sqldate\" where iID={$this->id}"))
 				$this->closed = $sqldate;
 			return ($this->closed == $sqldate);
 		}
@@ -131,16 +131,16 @@ if(!class_exists('Task'))
 		
 		function delete()
 		{
-			$this->db->igroupsQuery('delete from TaskAssignments where iTaskID='.$this->id);
-			$this->db->igroupsQuery('delete from TaskSubgroupAssignments where iTaskID='.$this->id);
-			$this->db->igroupsQuery('delete from Milestones where iTaskID='.$this->id);
-			$this->db->igroupsQuery('delete from Hours where iTaskID='.$this->id);
-			$this->db->igroupsQuery('delete from Tasks where iID='.$this->id);
+			$this->db->query('delete from TaskAssignments where iTaskID='.$this->id);
+			$this->db->query('delete from TaskSubgroupAssignments where iTaskID='.$this->id);
+			$this->db->query('delete from Milestones where iTaskID='.$this->id);
+			$this->db->query('delete from Hours where iTaskID='.$this->id);
+			$this->db->query('delete from Tasks where iID='.$this->id);
 		}
 		
 		function getAssignedPeople()
 		{
-			$query = $this->db->igroupsQuery("select * from TaskAssignments where iTaskID={$this->id}");
+			$query = $this->db->query("select * from TaskAssignments where iTaskID={$this->id}");
 			$people = array();
 			while($result = mysql_fetch_array($query))
 				$people[$result['iPersonID']] = new Person($result['iPersonID'], $this->db);
@@ -149,7 +149,7 @@ if(!class_exists('Task'))
 		
 		function getAssignedSubgroups()
 		{
-			$query = $this->db->igroupsQuery("select * from TaskSubgroupAssignments where iTaskID={$this->id}");
+			$query = $this->db->query("select * from TaskSubgroupAssignments where iTaskID={$this->id}");
 			$sgs = array();
 			while($result = mysql_fetch_array($query))
 				$sgs[$result['iSubgroupID']] = new SubGroup($result['iSubgroupID'], $this->db);
@@ -173,36 +173,36 @@ if(!class_exists('Task'))
 		function assignPerson($p)
 		{
 			if(!$this->isAssignedPerson($p))
-				$this->db->igroupsQuery("insert into TaskAssignments (iTaskID, iPersonID) values ({$this->id}, {$p->getID()})");
+				$this->db->query("insert into TaskAssignments (iTaskID, iPersonID) values ({$this->id}, {$p->getID()})");
 		}
 		
 		function assignSubgroup($s)
 		{
 			if(!$this->isAssignedSubgroup($s))
-				$this->db->igroupsQuery("insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ({$this->id}, {$s->getID()})");
+				$this->db->query("insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ({$this->id}, {$s->getID()})");
 		}
 		
 		function deassignPerson($p)
 		{
 			if($this->isAssignedPerson($p))
-				$this->db->igroupsQuery("delete from TaskAssignments where iTaskID={$this->id} and iPersonID={$p->getID()})");
+				$this->db->query("delete from TaskAssignments where iTaskID={$this->id} and iPersonID={$p->getID()})");
 		}
 		
 		function deassignSubgroup($s)
 		{
 			if($this->isAssignedSubgroup($p))
-				$this->db->igroupsQuery("delete from TaskSubgroupAssignments where iTaskID={$this->id} and iSubgroupID={$s->getID()})");
+				$this->db->query("delete from TaskSubgroupAssignments where iTaskID={$this->id} and iSubgroupID={$s->getID()})");
 		}
 		
 		function isAssignedPerson($p)
 		{
-			$query = $this->db->igroupsQuery("select * from TaskAssignments where iTaskID={$this->id} and iPersonID={$p->getID()}");
+			$query = $this->db->query("select * from TaskAssignments where iTaskID={$this->id} and iPersonID={$p->getID()}");
 			return (mysql_num_rows($query) ? true : false);
 		}
 		
 		function isAssignedSubgroup($s)
 		{
-			$query = $this->db->igroupsQuery("select * from TaskSubgroupAssignments where iTaskID={$this->id} and iSubgroupID={$s->getID()}");
+			$query = $this->db->query("select * from TaskSubgroupAssignments where iTaskID={$this->id} and iSubgroupID={$s->getID()}");
 			return (mysql_num_rows($query) ? true : false);
 		}
 		
@@ -210,7 +210,7 @@ if(!class_exists('Task'))
 		{
 			if($this->isAssignedPerson($p))
 				return true;
-			$query = $this->db->igroupsQuery('select * from TaskSubgroupAssignments where iTaskID='.$this->id);
+			$query = $this->db->query('select * from TaskSubgroupAssignments where iTaskID='.$this->id);
 			while($row = mysql_fetch_array($query))
 			{
 				$sg = new SubGroup($row['iSubgroupID'], $this->db);
@@ -223,7 +223,7 @@ if(!class_exists('Task'))
 		function getHours($person)
 		{
 			$hours = array();
-			$query = $this->db->igroupsQuery("select * from Hours where iTaskID={$this->id}".(is_object($person) ? " and iPersonID={$person->getID()}" : '')." order by dDate asc");
+			$query = $this->db->query("select * from Hours where iTaskID={$this->id}".(is_object($person) ? " and iPersonID={$person->getID()}" : '')." order by dDate asc");
 			while($result = mysql_fetch_array($query))
 				$hours[$result['iID']] = new Hour($result['iID'], $this->db);
 			return $hours;
@@ -232,7 +232,7 @@ if(!class_exists('Task'))
 		function getHoursByWeek($person)
 		{
 			$hours = array();
-			$query = $this->db->igroupsQuery("select * from Hours where iTaskID={$this->id}".(is_object($person) ? " and iPersonID={$person->getID()}" : '')." order by dDate asc");
+			$query = $this->db->query("select * from Hours where iTaskID={$this->id}".(is_object($person) ? " and iPersonID={$person->getID()}" : '')." order by dDate asc");
 			while($result = mysql_fetch_array($query))
 			{
 				$hour = new Hour($result['iID'], $this->db);
@@ -246,13 +246,13 @@ if(!class_exists('Task'))
 		
 		function getTotalHours()
 		{
-			$query = mysql_fetch_row($this->db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$this->id}"));
+			$query = mysql_fetch_row($this->db->query("select sum(fHours) from Hours where iTaskID={$this->id}"));
 			return ($query[0] ? $query[0] : 0);
 		}
 		
 		function getTotalHoursFor($person)
 		{
-			$query = mysql_fetch_row($this->db->igroupsQuery("select sum(fHours) from Hours where iTaskID={$this->id} and iPersonID={$person->getID()}"));
+			$query = mysql_fetch_row($this->db->query("select sum(fHours) from Hours where iTaskID={$this->id} and iPersonID={$person->getID()}"));
 			return ($query[0] ? $query[0] : 0);
 		}
 		
@@ -262,14 +262,14 @@ if(!class_exists('Task'))
 			if(!is_numeric($hours) || $hours < 0)
 				return false;
 			$date = mysql_real_escape_string(stripslashes($date));
-			$query = $this->db->igroupsQuery("select * from Hours where iTaskID={$this->id} and iPersonID={$person->getID()} and dDate=\"$sqldate\"");
+			$query = $this->db->query("select * from Hours where iTaskID={$this->id} and iPersonID={$person->getID()} and dDate=\"$sqldate\"");
 			$result = mysql_fetch_array($query);
 			if($result && $hours > 0)
-				return $this->db->igroupsQuery("update Hours set fHours=$hours where iID={$result['iID']}");
+				return $this->db->query("update Hours set fHours=$hours where iID={$result['iID']}");
 			else if($result && $hours == 0)
-				return $this->db->igroupsQuery("delete from Hours where iID={$result['iID']}");
+				return $this->db->query("delete from Hours where iID={$result['iID']}");
 			else
-				return $this->db->igroupsQuery("insert into Hours (iTaskID, iPersonID, dDate, fHours) values ({$this->id}, {$person->getID()}, \"$sqldate\", $hours)");
+				return $this->db->query("insert into Hours (iTaskID, iPersonID, dDate, fHours) values ({$this->id}, {$person->getID()}, \"$sqldate\", $hours)");
 		}
 	}
 }

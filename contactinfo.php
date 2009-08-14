@@ -2,13 +2,13 @@
 	include_once('globals.php');
 	include_once('checklogingroupless.php');
 	
-	$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");
+	$query = $db->query("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");
 	if ($result = mysql_fetch_array($query))
 		$profile = $result;
 	else 
 	{
-		$db->igroupsQuery("INSERT INTO Profiles (iPersonID) VALUES({$currentUser->getID()})");
-		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$db->igroupsInsertID()}");
+		$db->query("INSERT INTO Profiles (iPersonID) VALUES({$currentUser->getID()})");
+		$query = $db->query("SELECT * FROM Profiles WHERE iPersonID={$db->insertID()}");
 		$profile = mysql_fetch_array($query);
 	}
 	
@@ -18,54 +18,54 @@
 		$clean = array();
 		foreach($_POST as $key => $val)
 			$clean[$key] = mysql_real_escape_string(stripslashes($val));
-		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");
+		$query = $db->query("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");
 		$profile = mysql_fetch_array($query);
 
 		if($_POST['pw1'] == $_POST['pw2'])
 			$currentUser->setPassword($_POST['pw1']);
 		$currentUser->updateDB();
 		if(isset($_POST['altEmail']))
-			$db->igroupsQuery("UPDATE Profiles SET sAltEmail='{$clean['altEmail']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sAltEmail='{$clean['altEmail']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['phone']))
-			$db->igroupsQuery("UPDATE Profiles SET sPhone='{$clean['phone']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sPhone='{$clean['phone']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['phone2']))
-			$db->igroupsQuery("UPDATE Profiles SET sPhone2='{$clean['phone2']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sPhone2='{$clean['phone2']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['im']))
-			$db->igroupsQuery("UPDATE Profiles SET sIM='{$clean['im']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sIM='{$clean['im']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['nickname']))
-			$db->igroupsQuery("UPDATE Profiles SET sNickname='{$clean['nickname']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sNickname='{$clean['nickname']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['major']))
-			$db->igroupsQuery("UPDATE Profiles SET sMajor='{$clean['major']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sMajor='{$clean['major']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['year']))
-			$db->igroupsQuery("UPDATE Profiles SET sYear='{$clean['year']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sYear='{$clean['year']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['hometown']))
-			$db->igroupsQuery("UPDATE Profiles SET sHometown='{$clean['hometown']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sHometown='{$clean['hometown']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['isResident']))
-			$db->igroupsQuery("UPDATE Profiles SET isResident={$_POST['isResident']} WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET isResident={$_POST['isResident']} WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['bio']))
-			$db->igroupsQuery("UPDATE Profiles SET sBio='{$clean['bio']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sBio='{$clean['bio']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['skills']))
-			$db->igroupsQuery("UPDATE Profiles SET sSkills='{$clean['skills']}' WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sSkills='{$clean['skills']}' WHERE iPersonID={$currentUser->getID()}");
 		if(isset($_POST['sig']))
-			$db->igroupsQuery("UPDATE Profiles SET sSig='{$clean['sig']}' WHERE iPersonID={$currentUser->getID()}");
-		if(is_numeric($_POST['skin']) && ($_POST['skin'] == 0 || mysql_num_rows($db->igroupsQuery('select * from Skins where iID='.$_POST['skin'].' and bPublic=1'))))
-			$db->igroupsQuery('update People set iSkin='.$_POST['skin'].' where iID='.$currentUser->getID());
+			$db->query("UPDATE Profiles SET sSig='{$clean['sig']}' WHERE iPersonID={$currentUser->getID()}");
+		if(is_numeric($_POST['skin']) && ($_POST['skin'] == 0 || mysql_num_rows($db->query('select * from Skins where iID='.$_POST['skin'].' and bPublic=1'))))
+			$db->query('update People set iSkin='.$_POST['skin'].' where iID='.$currentUser->getID());
 		if(isset($_FILES['picture']))
 		{
 			if($_FILES['picture']['error'] == UPLOAD_ERR_OK && @getimagesize($_FILES['picture']['tmp_name']) && @is_uploaded_file($_FILES['picture']['tmp_name']) && ($_FILES['picture']['type'] == 'image/gif' || $_FILES['picture']['type'] == 'image/jpeg' || $_FILES['picture']['type'] == 'image/bmp' || $_FILES['picture']['type'] == 'image/x-windows-bmp' || $_FILES['picture']['type'] == 'image/png' || $_FILES['picture']['type'] == 'image/pjpeg'))
 			{
 				$newName = $currentUser->getID().substr($_FILES['picture']['name'], strlen($_FILES['picture']['name']) - 4);
 				move_uploaded_file($_FILES['picture']['tmp_name'], "profile-pics/$newName");
-				$db->igroupsQuery("UPDATE Profiles SET sPicture='$newName' WHERE iPersonID={$currentUser->getID()}");
+				$db->query("UPDATE Profiles SET sPicture='$newName' WHERE iPersonID={$currentUser->getID()}");
 			}
 		}
 		if(isset($_POST['delPicture']))
 		{
-			$db->igroupsQuery("UPDATE Profiles SET sPicture=NULL WHERE iPersonID={$currentUser->getID()}");
+			$db->query("UPDATE Profiles SET sPicture=NULL WHERE iPersonID={$currentUser->getID()}");
 			unlink("profile-pics/{$profile['sPicture']}");
 		}
 
-		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");
+		$query = $db->query("SELECT * FROM Profiles WHERE iPersonID={$currentUser->getID()}");
 		$profile = mysql_fetch_array($query);
 
 		if(!$error)
@@ -129,8 +129,8 @@
 		echo "<tr><td>Profile Picture Uploaded<br /><label for=\"delPicture\">Delete?</label>&nbsp;<input type=\"checkbox\" name=\"delPicture\" id=\"delPicture\" value=\"true\" /></td></tr>\n";
 	else
 		echo "<tr><td><label for=\"picture\">Profile Picture:</label></td><td><input type=\"file\" name=\"picture\" id=\"picture\" /></td></tr>";
-	$query = $db->igroupsQuery('select * from Skins where bPublic=1');
-	$userskin = mysql_fetch_row($db->igroupsQuery('select iSkin from People where iID='.$currentUser->getID()));
+	$query = $db->query('select * from Skins where bPublic=1');
+	$userskin = mysql_fetch_row($db->query('select iSkin from People where iID='.$currentUser->getID()));
 	$skins = "<select name=\"skin\" id=\"skin\">\n";
 	$skins .= "<option value=\"0\"".($userskin[0] == 0 ? ' selected="selected"' : '').">Use default</option>\n";
 	while($row = mysql_fetch_array($query))

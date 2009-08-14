@@ -29,7 +29,7 @@ require_once("classes/person.php");
 if(isset($_POST['resetPW']))
 {
 	$db = new dbConnection();
-	$ur = $db->igroupsQuery("SELECT iID FROM People WHERE sEmail='".$_POST['email']."'");
+	$ur = $db->query("SELECT iID FROM People WHERE sEmail='".$_POST['email']."'");
 	if($row = mysql_fetch_row($ur))
 	{
 		for($i = 0; $i < 8; $i++)

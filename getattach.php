@@ -7,7 +7,7 @@
 		$group = $email->getGroup();
 		if(!$group->isGroupMember($currentUser))
 			errorPage('Group Credentials Required', 'You are not authorized to download this file.', 403);
-		$query = $db->igroupsQuery("SELECT * FROM EmailFiles WHERE iID={$_GET['id']}");
+		$query = $db->query("SELECT * FROM EmailFiles WHERE iID={$_GET['id']}");
 		$file = mysql_fetch_array($query);
 		header("Content-Type: {$file['sMimeType']}");
 		header('Content-Length: '.filesize("/files/igroups/emails/{$file['sDiskName']}"));

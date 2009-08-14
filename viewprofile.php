@@ -3,14 +3,14 @@
 	include_once('checklogingroupless.php');
 	if(isset($_GET['uID']) && is_numeric($_GET['uID']))
 	{
-		$query = $db->igroupsQuery("SELECT * FROM Profiles WHERE iPersonID={$_GET['uID']}");
+		$query = $db->query("SELECT * FROM Profiles WHERE iPersonID={$_GET['uID']}");
 		$profile = mysql_fetch_array($query);
 		if($profile)
 		{
 			foreach($profile as $key => $val)
 				$profile[$key] = htmlspecialchars($profile[$key]);
 		}
-		$query = $db->igroupsQuery("SELECT * FROM People WHERE iID={$_GET['uID']}");
+		$query = $db->query("SELECT * FROM People WHERE iID={$_GET['uID']}");
 		$contactInfo = mysql_fetch_array($query);
 	}
 	else

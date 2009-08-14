@@ -165,9 +165,9 @@
 				$msg .= $f_contents."\n"."\n";
 				if(!isset($_POST['confidential']))
 				{
-					$db->igroupsQuery("INSERT INTO EmailFiles (iEmailID, sOrigName, sMimeType) VALUES (0, '$filename', '{$_FILES["attachment$i"]['type']}')");
-					$id = $db->igroupsInsertID();
-					$db->igroupsQuery("UPDATE EmailFiles SET sDiskName='$id.att' WHERE iID=$id");
+					$db->query("INSERT INTO EmailFiles (iEmailID, sOrigName, sMimeType) VALUES (0, '$filename', '{$_FILES["attachment$i"]['type']}')");
+					$id = $db->insertID();
+					$db->query("UPDATE EmailFiles SET sDiskName='$id.att' WHERE iID=$id");
 					move_uploaded_file($_FILES["attachment$i"]['tmp_name'], "/files/igroups/emails/$id.att");
 				}
 			}
@@ -196,7 +196,7 @@
 			if($_POST['subject'] == '')
 				$_POST['subject'] = '(no subject)';
 			$newEmail = createEmail( $toNames, $_POST['subject'], $_POST['body'], $currentUser->getID(), $_POST['category'], $_POST['replyid'], $currentGroup->getID(), $currentGroup->getType(), $currentGroup->getSemester(), $db );
-			$query = $db->igroupsQuery("UPDATE EmailFiles SET iEmailID={$newEmail->getID()} WHERE iEmailID=0");
+			$query = $db->query("UPDATE EmailFiles SET iEmailID={$newEmail->getID()} WHERE iEmailID=0");
 			$msg = str_replace( "abxyqzta10", $newEmail->getID(), $msg );
 			mail($tolist, "[".$currentGroup->getName()."] ".stripslashes($_POST['subject']), $msg, $headers);
 		}
@@ -465,7 +465,7 @@
 		$i++;
 		$iid .= $person->getID();
 	}
-	$query = $db->igroupsQuery("select iID, sLName, sFName from People where iID in ($iid) order by sLName, sFName");
+	$query = $db->query("select iID, sLName, sFName from People where iID in ($iid) order by sLName, sFName");
 	while($row = mysql_fetch_row($query))
 		echo "<option value=\"".$row[0]."\">".$row[1].", ".$row[2]."</option>\n";
 ?>			

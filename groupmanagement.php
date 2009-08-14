@@ -113,7 +113,7 @@
 		$email = str_replace('<', '', $email);
 		$email = str_replace('"', '', $email);
 		$email = str_replace("'", '', $email);
-		$user = $db->igroupsQuery("SELECT iID FROM igroups.People WHERE sEmail='".$email."'");
+		$user = $db->query("SELECT iID FROM igroups.People WHERE sEmail='".$email."'");
 		if($row = mysql_fetch_row($user))
 		{
 			$user = new Person($row[0], $db);
@@ -145,7 +145,7 @@
 	{
 		if($_POST['subGroupName'] != '')
 		{
-			$db->igroupsQuery("INSERT INTO SubGroups (iGroupID, sName) VALUES ({$currentGroup->getID()}, '{$_POST['subGroupName']}')");
+			$db->query("INSERT INTO SubGroups (iGroupID, sName) VALUES ({$currentGroup->getID()}, '{$_POST['subGroupName']}')");
 			$message = 'Subgroup successfully created';
 		}
 	}
@@ -321,7 +321,7 @@
 		$i = 1;
 		foreach($pastGroups as $group)
 		{
-			$query = $db->igroupsQuery("SELECT sSemester FROM Semesters where iID={$group->getSemester()}");
+			$query = $db->query("SELECT sSemester FROM Semesters where iID={$group->getSemester()}");
 			$row = mysql_fetch_row($query);
 			echo "<input type=\"checkbox\" name=\"addGroups[]\" id=\"addGroups$i\" value=\"{$group->getID()}-{$group->getSemester()}\" />&nbsp;<label for=\"addGroups$i\">{$row[0]} -&gt; ".$group->getName().": ".htmlspecialchars($group->getDesc())."</label><br />";
 			$i++;

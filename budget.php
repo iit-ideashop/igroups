@@ -30,7 +30,7 @@
 			if($amount != NULL && is_numeric($amount))
 			{
 				$i++;
-				$query = $db->igroupsQuery("INSERT INTO Budgets(iProjectID, iSemesterID, bCategory, bRequested, bDesc, bRequestedDate, bOrder) VALUES($s_selectedGroup, $s_selectedSemester, '$category', $amount, '$desc', now(), $i)") or die('There was a problem with your submission, please go back and try again');
+				$query = $db->query("INSERT INTO Budgets(iProjectID, iSemesterID, bCategory, bRequested, bDesc, bRequestedDate, bOrder) VALUES($s_selectedGroup, $s_selectedSemester, '$category', $amount, '$desc', now(), $i)") or die('There was a problem with your submission, please go back and try again');
 			}
 		}					
 
@@ -56,14 +56,14 @@
 	if(isset($_POST['new_category_submit']) && !empty($_POST['new_category_amount']) && is_numeric($_POST['new_category_amount'])) 
 	{
 		//Get max order #
-		$query = $db->igroupsQuery("SELECT max(bOrder) as ordernum FROM Budgets WHERE iSemesterID=$s_selectedSemester AND iProjectID=$s_selectedGroup");
+		$query = $db->query("SELECT max(bOrder) as ordernum FROM Budgets WHERE iSemesterID=$s_selectedSemester AND iProjectID=$s_selectedGroup");
 		$ordernum = mysql_fetch_row($query);
 	
 		$new_category=$_POST['new_category'];
 		$new_category_amount=$_POST['new_category_amount'];
 		$new_category_desc=$_POST['new_category_desc'];
 		$ordernum = $ordernum[0]+1;
-		$query_new_category = $db->igroupsQuery("INSERT INTO Budgets(iProjectID, iSemesterID, bCategory, bRequested, bDesc, bRequestedDate, bOrder) VALUES($s_selectedGroup, $s_selectedSemester, '$new_category', $new_category_amount, '$new_category_desc', now(), $ordernum)") or die('There was a problem with your submission, please go back and try again');
+		$query_new_category = $db->query("INSERT INTO Budgets(iProjectID, iSemesterID, bCategory, bRequested, bDesc, bRequestedDate, bOrder) VALUES($s_selectedGroup, $s_selectedSemester, '$new_category', $new_category_amount, '$new_category_desc', now(), $ordernum)") or die('There was a problem with your submission, please go back and try again');
 
 		echo "<div id='info_msg'>New category has been added to your budget.</div>";	
 		
@@ -83,7 +83,7 @@
 		$group = new Group($_GET['proj'], $_GET['type'], $_GET['sem'], $db);
 		if(!$group->isGroupMember($currentUser))
 			errorPage('Credentials Required', 'You are not a member of this group.', 403);
-		$db->igroupsQuery("DELETE FROM Budgets WHERE iProjectID=".$_GET['proj']." AND iSemesterID=".$_GET['sem']." AND bCategory='".mysql_real_escape_string($_GET['cat'])."'");
+		$db->query("DELETE FROM Budgets WHERE iProjectID=".$_GET['proj']." AND iSemesterID=".$_GET['sem']." AND bCategory='".mysql_real_escape_string($_GET['cat'])."'");
 		$message = 'Budget item successfully deleted.';
 	}
 
@@ -347,7 +347,7 @@ function hideEvent(id)
 		}
 	
 		//Total Amount
-		$total_amt = $db->igroupsQuery("SELECT sum(bRequested), sum(bApproved), sum(bReimbursed) from Budgets WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester GROUP BY iProjectID");
+		$total_amt = $db->query("SELECT sum(bRequested), sum(bApproved), sum(bReimbursed) from Budgets WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester GROUP BY iProjectID");
 		$total = mysql_fetch_row($total_amt);
 
 		echo "<tr class=\"budget_col_totals\"><td style=\"font-weight: bold\">TOTAL</td><td class=\"req_budget_total\">$".round($total[0],2)."</td><td class=\"app_budget_total\">$".round($total[1], 2)."</td><td>$".round($total[2], 2)."</td><td colspan=\"4\">&nbsp;</td></tr>";
@@ -396,7 +396,7 @@ function hideEvent(id)
 		<h2>Responses to this budget:</h2>
 
 <?php
-		$sent_msgs = $db->igroupsQuery("SELECT * FROM BudgetEmails WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester");
+		$sent_msgs = $db->query("SELECT * FROM BudgetEmails WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester");
 
 		while ($row = mysql_fetch_assoc($sent_msgs))
 		{

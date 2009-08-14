@@ -383,7 +383,7 @@
 						{
 							$message="File successfully uploaded";
 							//also add information to nugget
-							$db->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$nugget->getID()."', '".$file->getID()."')");
+							$db->query("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$nugget->getID()."', '".$file->getID()."')");
 						}
 					}	
 					else

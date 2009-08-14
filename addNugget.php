@@ -38,7 +38,7 @@
 		$nugget = new Nugget($id, $db, 0);
 
 		//set privacy
-		if (isset($_POST['private']))
+		if(isset($_POST['private']))
 			$nugget->makePrivate();
 
 		//if the user added authors, add them
@@ -75,7 +75,7 @@
 						}
 	
 						//also add information to nugget
-						$db->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$id."', '".$file->getID()."')");
+						$db->query("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES ('".$id."', '".$file->getID()."')");
 					}
 					else //if they ran out of room send a warning
 						$currentQuota->sendWarning(1);
@@ -87,7 +87,7 @@
 		{
 			$files = explode(',', $_POST['igroupFiles']);
 			foreach($files as $file)
-				$db->igroupsQuery("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES('".$id."', '".$file."')");
+				$db->query("INSERT INTO nuggetFileMap (iNuggetID, iFileID) VALUES('".$id."', '".$file."')");
 		}	
 		//redirect to view/edit
 		$nugID = $nugget->getID();

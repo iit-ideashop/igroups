@@ -12,7 +12,7 @@ if(!class_exists('Hour'))
 			$this->valid = false;
 			if(is_numeric($id))
 			{
-				$query = $db->igroupsQuery("select * from Hours where iID=$id");
+				$query = $db->query("select * from Hours where iID=$id");
 				if($result = mysql_fetch_array($query))
 				{
 					$this->id = $id;
@@ -58,14 +58,14 @@ if(!class_exists('Hour'))
 		
 		function setHours($n)
 		{
-			if($this->db->igroupsQuery("update Hours set fHours=$n where iID={$this->id}"))
+			if($this->db->query("update Hours set fHours=$n where iID={$this->id}"))
 				$this->hours = $n;
 			return ($this->hours == $n);
 		}
 		function setDate($n)
 		{
 			$n = mysql_real_escape_string(stripslashes($n));
-			if($this->db->igroupsQuery("update Hours set dDate=\"$n\" where iID={$this->id}"))
+			if($this->db->query("update Hours set dDate=\"$n\" where iID={$this->id}"))
 				$this->date = $n;
 			return ($this->date == $n);
 		}

@@ -10,7 +10,7 @@
 		$userName = mysql_real_escape_string(stripslashes($_POST['username1']));
 		if(strpos($_POST['username1'], '@') === FALSE)
 			$userName .= '@iit.edu';
-		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='$userName'");
+		$user = $db->query("SELECT iID,sPassword FROM People WHERE sEmail='$userName'");
 		if(($row = mysql_fetch_row($user)) && (md5($_POST['password1']) == $row[1])) //Success! Set session variables.
 		{
 			$_SESSION['userID'] = $row[0];
@@ -42,7 +42,7 @@
 		$userName = mysql_real_escape_string(stripslashes($_COOKIE['userID']));
 		if(strpos($_POST['username1'], '@') === FALSE)
 			$userName .= '@iit.edu';
-		$user = $db->igroupsQuery("SELECT iID,sPassword FROM People WHERE sEmail='$userName'");
+		$user = $db->query("SELECT iID,sPassword FROM People WHERE sEmail='$userName'");
 		if(($row = mysql_fetch_row($user)) && (md5($_COOKIE['password']) == $row[1]))
 		{
 			$_SESSION['userID'] = $row[0];

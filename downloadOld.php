@@ -45,7 +45,7 @@
 	if(isset($_GET['file']) && ($_GET['file'] != ''))
 	{
 		$qFindFile = "select iNuggetID, sDiskName, sOrigName from NuggetFiles where iID={$_GET['file']}";
-		$rFindFile = $db->igroupsQuery($qFindFile, $db);
+		$rFindFile = $db->query($qFindFile, $db);
 		if(mysql_num_rows($rFindFile) > 0)
 		{
 			list($nuggID, $diskName, $origName) = mysql_fetch_row($rFindFile);

@@ -1,5 +1,6 @@
 <?php
-	function decodeEmailSort($sort) {
+	function decodeEmailSort($sort)
+	{
 		switch($sort)
 		{
 			case 1:
@@ -19,7 +20,8 @@
 		}
 	}
 	
-	function decodeFileSort($sort) {
+	function decodeFileSort($sort)
+	{
 		switch($sort)
 		{
 			case 1:

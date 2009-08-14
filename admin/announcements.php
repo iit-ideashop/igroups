@@ -1,39 +1,41 @@
 <?php
-	include_once("../globals.php");
-	include_once( "checkadmin.php" );
-	include_once("../classes/announcement.php");
+	include_once('../globals.php');
+	include_once('checkadmin.php');
+	include_once('../classes/announcement.php');
 
-	if ( isset( $_POST['addannouncement'] ) ) {
-		createAnnouncement( $_POST['heading'], $_POST['body'], $_POST['date'], $db );
-		$message = "Announcement successfully added.";
+	if(isset($_POST['addannouncement']))
+	{
+		createAnnouncement($_POST['heading'], $_POST['body'], $_POST['date'], $db);
+		$message = 'Announcement successfully added.';
 	}	
 		
-	if ( isset( $_POST['editannouncement'] ) ) {
-		$ann = new Announcement( $_POST['id'], $db );
-		$ann->setHeading( $_POST['heading'] );
-		$ann->setBody( $_POST['body'] );
-		$ann->setExpirationDate( $_POST['date'] );
+	if(isset($_POST['editannouncement']))
+	{
+		$ann = new Announcement($_POST['id'], $db);
+		$ann->setHeading($_POST['heading']);
+		$ann->setBody($_POST['body']);
+		$ann->setExpirationDate($_POST['date']);
 		$ann->updateDB();
-		$message = "Announcement successfully edited.";
+		$message = 'Announcement successfully edited.';
 	}
 	
-	if ( isset( $_POST['deleteannouncement'] ) ) {
-		$ann = new Announcement( $_POST['id'], $db );
+	if(isset($_POST['deleteannouncement']))
+	{
+		$ann = new Announcement($_POST['id'], $db);
 		$ann->delete();
-		$message = "Announcement successfully deleted.";
+		$message = 'Announcement successfully deleted.';
 	}
-?>
+	
+	//-----------Start XHTML Output---------------------------------//
+	
+	require('../doctype.php');
+	require('../iknow/appearance.php');
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<title><?php echo $appname;?> - Announcement Editor</title>
-<?php
-require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/announce.css\" type=\"text/css\" title=\"$skin\" />\n";
-foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/announce.css\" type=\"text/css\" title=\"$altskin\" />\n";
+	echo "<link rel=\"stylesheet\" href=\"../skins/$skin/announce.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/announce.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
+<title><?php echo $appname;?> - Announcement Editor</title>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
@@ -41,26 +43,27 @@ foreach($altskins as $altskin)
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
 </script>
-<script type="text/javascript" src="speller/spellChecker.js">
-</script>
-
-<!-- Call a function like this to handle the spell check command -->
+<script type="text/javascript" src="speller/spellChecker.js"></script>
 <script type="text/javascript">
-function openSpellChecker() {
+function openSpellChecker()
+{
 	var speller = new spellChecker();
 	speller.spellCheckAll();
 }
-function showCalendar( event ) {
+function showCalendar(event)
+{
 	document.getElementById('calendarmenu').style.top=(event.clientY+document.documentElement.scrollTop+25)+"px";
 	document.getElementById('calendarmenu').style.visibility='visible';
 }
 
-function selectDate( date ) {
+function selectDate(date)
+{
 	document.getElementById('date').value=date;
 	document.getElementById('calendarmenu').style.visibility='hidden';
 }
 
-function loadEditor( id, heading, body, date ) {
+function loadEditor(id, heading, body, date)
+{
 	document.getElementById('id').value=id;
 	document.getElementById('heading').value=heading;
 	document.getElementById('body').value=body;
@@ -70,7 +73,8 @@ function loadEditor( id, heading, body, date ) {
 	document.getElementById('add').style.display='none';
 }
 
-function clearEditor() {
+function clearEditor()
+{
 	document.getElementById('id').value="new";
 	document.getElementById('heading').value="";
 	document.getElementById('body').value="";
@@ -83,8 +87,8 @@ function clearEditor() {
 </head>
 <body>
 <?php
-	require("sidebar.php");
-	print "<div id=\"content\"><div id=\"topbanner\">Announcements</div>";
+	require('sidebar.php');
+	echo "<div id=\"content\"><div id=\"topbanner\">Announcements</div>";
 ?>
 	<div class="box">
 		<span class="box-header">Announcement Editor</span>
@@ -101,54 +105,49 @@ function clearEditor() {
 		</fieldset></form>
 	</div>	
 	<div id="calendarmenu">
-		<table>
-			<tr>
+	<table><tr>
 <?php
-				$currentMonth = date( "n" );
-				$currentYear = date( "Y" );
-				for ( $i=$currentMonth; $i<$currentMonth+4; $i++ ) {
-					print "<td valign=\"top\">";
-					print "<table>";
-					print "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>";
-					print "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>";
-					$startDay = date( "w", mktime( 0, 0, 0, $i, 1, $currentYear ) );
-					$endDay = date( "j", mktime( 0, 0, 0, $i+1, 0, $currentYear ) );
-					if ( $startDay != 0 )
-						print "<tr><td colspan=\"$startDay\"></td>";
-					$weekDay = $startDay;
-					for ( $j=1; $j<=$endDay; $j++ ) {
-						if ( $weekDay == 0 )
-							print "<tr>";
-						print "<td><a href=\"#\" onclick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'); calwin.close();\">$j</a></td>";
-						$weekDay++;
-						if ( $weekDay == 7 ) {
-							print "</tr>";
-							$weekDay = 0;
-						}
-					}
-					if ( $weekDay != 0 ) 
-						print "<td colspan=\"".(7-$weekDay)."\"></td></tr>";
-					print "</table>";
-					print "</td>";
-				}
+	$currentMonth = date('n');
+	$currentYear = date('Y');
+	for($i = $currentMonth; $i < $currentMonth+4; $i++)
+	{
+		echo "<td valign=\"top\">";
+		echo "<table>";
+		echo "<tr><td colspan=\"7\">".date( "F Y", mktime( 0, 0, 0, $i, 1, $currentYear ) )."</td></tr>\n";
+		echo "<tr><td>S</td><td>M</td><td>T</td><td>W</td><td>T</td><td>F</td><td>S</td></tr>\n";
+		$startDay = date('w', mktime(0, 0, 0, $i, 1, $currentYear));
+		$endDay = date('j', mktime(0, 0, 0, $i+1, 0, $currentYear));
+		if($startDay != 0)
+			echo "<tr><td colspan=\"$startDay\"></td>";
+		$weekDay = $startDay;
+		for($j = 1; $j <= $endDay; $j++)
+		{
+			if($weekDay == 0)
+				echo "<tr>";
+			echo "<td><a href=\"#\" onclick=\"selectDate('".date( "m/d/Y", mktime( 0,0,0,$i,$j,$currentYear ) )."'); calwin.close();\">$j</a></td>";
+			$weekDay++;
+			if($weekDay == 7)
+			{
+				echo "</tr>\n";
+				$weekDay = 0;
+			}
+		}
+		if($weekDay != 0)
+			echo "<td colspan=\"".(7-$weekDay)."\"></td></tr>\n";
+		echo '</table></td>';
+	}
 ?>
-			</tr>
-		</table>
-	</div>
-<div id="announcement-list">
-				<h2>Current Announcements</h2>
-<ul>
+	</tr></table></div>
+	<div id="announcement-list">
+	<h2>Current Announcements</h2>
+	<ul>
 <?php
-				$announcementResults = $db->igroupsQuery( "SELECT iID FROM News ORDER BY iID DESC" );
-				while ( $row = mysql_fetch_row( $announcementResults ) ) {
-					$announcement = new Announcement( $row[0], $db );
-					print "<li>";
-					print "<a href=\"#\" onclick=\"loadEditor( ".$announcement->getID().", '".htmlspecialchars($announcement->getHeadingJava())."', '".htmlspecialchars($announcement->getBodyJava())."', '".$announcement->getExpirationDate()."' );\">";
-					print htmlspecialchars($announcement->getHeadingJava())."</a></li>";
-				}
+	$announcementResults = $db->query('SELECT iID FROM News ORDER BY iID DESC');
+	while($row = mysql_fetch_row($announcementResults))
+	{
+		$announcement = new Announcement($row[0], $db);
+		echo "<li><a href=\"#\" onclick=\"loadEditor( ".$announcement->getID().", '".htmlspecialchars($announcement->getHeadingJava())."', '".htmlspecialchars($announcement->getBodyJava())."', '".$announcement->getExpirationDate()."' );\">";
+		echo htmlspecialchars($announcement->getHeadingJava())."</a></li>\n";
+	}
 ?>
-</ul>
-			</div>
-</div>
-</body>
-</html>
+</ul></div></div></body></html>

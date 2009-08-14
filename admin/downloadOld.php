@@ -1,32 +1,36 @@
 <?php
-	include_once( "checkadmin.php" );
+	include_once('checkadmin.php');
 	
 	$sMetaTag = '';
-	$sPageTitle = "iKNOW File Download";
+	$sPageTitle = 'iKNOW File Download';
 	$fileErr = '';
 	#first determine whether the file exists or not, then determine whether the user has the clearance to read that file
 
-	if (isset($_GET['file']) && ($_GET['file'] != '')) {
+	if(isset($_GET['file']) && ($_GET['file'] != ''))
+	{
 		$qFindFile = "select iNuggetID, sDiskName, sOrigName from NuggetFiles where iID = " . $_GET['file'];
-		$rFindFile = $db->igroupsquery($qFindFile, $db);
-		if (mysql_num_rows($rFindFile) > 0) {
+		$rFindFile = $db->query($qFindFile, $db);
+		if(mysql_num_rows($rFindFile) > 0)
+		{
 			list($nuggID, $diskName, $origName) = mysql_fetch_row($rFindFile);
 			printDownloadResponse($diskName, $origName);
-		} else {
-			$fileErr = 'No such file in the repository';
 		}
-	} else {
-		$fileErr = 'There was an error processing your request.  Please report this error to the administrator.';
+		else
+			$fileErr = 'No such file in the repository';
 	}
+	else
+		$fileErr = 'There was an error processing your request.  Please report this error to the administrator.';
 
 
-function printBody() {
+function printBody()
+{
 	global $dbConn;
 	global $fileErr;
 	print $fileErr;
 }
 
-function printDownloadResponse($diskName, $origName) {
+function printDownloadResponse($diskName, $origName)
+{
 	$sFullLocation = '/files/iknow/' . $diskName;
 	header("Content-Type: application/octet-stream");
 	header("Content-Length: " . filesize($sFullLocation));

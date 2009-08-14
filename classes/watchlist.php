@@ -3,56 +3,68 @@ include_once('thread.php');
 include_once('person.php');
 include_once('post.php');
 
-if ( !class_exists( "WatchList" ) ) {
-	class WatchList {
-		var $threadID;
-		var $thread;
-		var $watchers = array();
+if(!class_exists('WatchList'))
+{
+	class WatchList
+	{
+		var $threadID, $thread, $watchers;
 		var $db;
 		
-		function WatchList( $threadID, $db ) {
+		function WatchList($threadID, $db)
+		{
+			if(!is_numeric($threadID))
+				return;
 			$this->threadID = $threadID;
 			$this->db = $db;
-			$query = $this->db->igroupsQuery("SELECT * FROM ThreadWatchList WHERE threadID={$this->threadID}");
-			while ($row = mysql_fetch_row($query)) {
+			$this->watchers = array();
+			$query = $this->db->query("SELECT * FROM ThreadWatchList WHERE threadID={$this->threadID}");
+			while($row = mysql_fetch_row($query))
 				$this->watchers[] = new Person($row[1], $this->db);
-			}
 			$this->thread = new Thread ($this->threadID, $this->db);
 		}
 	
-		function refresh() {
+		function refresh()
+		{
 			$this->watchers = array();
-			$query = $this->db->igroupsQuery("SELECT * FROM ThreadWatchList WHERE threadID={$this->threadID}");
-			while ($row = mysql_fetch_row($query))
+			$query = $this->db->query("SELECT * FROM ThreadWatchList WHERE threadID={$this->threadID}");
+			while($row = mysql_fetch_row($query))
 				$this->watchers[] = new Person($row[1], $this->db);
 		}
 	
-		function getWatchList() {
+		function getWatchList()
+		{
 			return $this->watchers;
 		}
 
-		function isOnWatchList($user) {
-			foreach ($this->watchers as $watcher) {
-				if ($watcher->getID() == $user->getID())
+		function isOnWatchList($user)
+		{
+			foreach($this->watchers as $watcher)
+			{
+				if($watcher->getID() == $user->getID())
 					return true;
 			}
 			return false;
 		}
 
-		function addToWatchList($user) {
-			if (!$this->isOnWatchList($user)) {
-				$this->db->igroupsQuery("INSERT INTO ThreadWatchList VALUES ({$this->threadID}, {$user->getID()})");
+		function addToWatchList($user)
+		{
+			if(!$this->isOnWatchList($user))
+			{
+				$this->db->query("INSERT INTO ThreadWatchList VALUES ({$this->threadID}, {$user->getID()})");
 				$this->refresh();
 			}
 		}
 
-		function removeFromWatchList($user) {
-			$this->db->igroupsQuery("DELETE FROM ThreadWatchList WHERE threadID={$this->threadID} AND userID={$user->getID()}");
+		function removeFromWatchList($user)
+		{
+			$this->db->query("DELETE FROM ThreadWatchList WHERE threadID={$this->threadID} AND userID={$user->getID()}");
 			$this->refresh();
 		}
 
-		function sendNotification($post, $topicName) {
-			foreach ($this->watchers as $watcher) {
+		function sendNotification($post, $topicName)
+		{
+			foreach ($this->watchers as $watcher)
+			{
 				$threadName = $this->thread->getName();
 				$postBody = $post->getBody();
 				$postDate = $post->getDateTime();

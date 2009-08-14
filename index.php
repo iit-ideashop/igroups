@@ -23,7 +23,7 @@
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/index.css\" type=\"text/css\" title=\"$altskin\" />\n";
 
 	echo "<title>$appname 2.3</title>\n";
-	$announcementResults = $db->igroupsQuery('SELECT iID FROM News ORDER BY iID DESC');
+	$announcementResults = $db->query('SELECT iID FROM News ORDER BY iID DESC');
 	$numAnnounce = mysql_num_rows($announcementResults)
 	if($numAnnounce > 1)
 	{

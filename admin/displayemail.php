@@ -1,35 +1,33 @@
 <?php
-	include_once("../globals.php");
-	include_once( "checkadmin.php" );
-	include_once( "../classes/groupemail.php" );
-	include_once( "../classes/group.php" );
-?>
+	include_once('../globals.php');
+	include_once('checkadmin.php');
+	include_once('../classes/groupemail.php');
+	include_once('../classes/group.php');
+	
+	//-----------Start XHTML Output---------------------------------//
+	
+	require('../doctype.php');
+	require("../iknow/appearance.php");
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<?php
-require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
-foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
+	echo "<link rel=\"stylesheet\" href=\"../skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <title><?php echo $appname;?> - Display Email</title>
 </head>
 <body>
 <?php
-	if ( $email = new GroupEmail( $_GET['id'], $db ) ) {
+	if($email = new GroupEmail($_GET['id'], $db))
+	{
 		$author = $email->getSender();
-		print "<p><b>Subject:</b> ".$email->getSubjectHTML()."<br />";
-		print "<b>From:</b> ".$author->getFullName()."<br />";
-		print "<b>Date:</b> ".$email->getDate()."<br />";
-		print "<b>To:</b> ".$email->getTo()."<br />";
+		echo "<p><b>Subject:</b> ".$email->getSubjectHTML()."<br />";
+		echo "<b>From:</b> ".$author->getFullName()."<br />";
+		echo "<b>Date:</b> ".$email->getDate()."<br />";
+		echo "<b>To:</b> ".$email->getTo()."<br />";
 		$files = $email->getAttachments();
-		foreach($files as $file) {
-			print "$file<br />";
-		}
-		print "</p><p>".$email->getBodyHTML()."</p>";
+		foreach($files as $file)
+			echo "$file<br />";
+		echo "</p><p>".$email->getBodyHTML()."</p>";
 	}
 ?>
-</body>
-</html>
+</body></html>

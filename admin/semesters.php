@@ -21,15 +21,13 @@
 		else
 			$message = 'ERROR: New semester was not created';
 	}
-?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<!-- This web-based application is Copyrighted &copy; 2008 Interprofessional Projects Program, Illinois Institute of Technology -->
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en"><head>
-<?php
-require("../iknow/appearance.php");
-echo "<link rel=\"stylesheet\" href=\"../skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
-foreach($altskins as $altskin)
-	echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
+	
+	//---------Start XHTML Output-----------------------------------//
+	require('../doctype.php');
+	require('../iknow/appearance.php');
+	echo "<link rel=\"stylesheet\" href=\"../skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <title><?php echo $appname;?> - Manage Semesters</title>
 </head>
@@ -39,7 +37,7 @@ foreach($altskins as $altskin)
 	echo "<div id=\"content\"><div id=\"topbanner\">Manage Semesters</div>\n";
 	echo "<form action=\"semesters.php\" method=\"post\"><fieldset><legend>Semesters</legend><table>\n";
 	echo "<thead><tr><th>Semester</th><th>Teams</th><th>Make Active</th></tr></thead><tbody>\n";
-	$query = $db->igroupsQuery("select * from Semesters order by iID desc");
+	$query = $db->query("select * from Semesters order by iID desc");
 	while($row = mysql_fetch_array($query))
 	{
 		$semester = new Semester($row['iID'], $db);

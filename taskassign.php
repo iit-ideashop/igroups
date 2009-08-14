@@ -25,17 +25,17 @@
 			errorPage('Invalid Task ID', 'The task ID provided is invalid.', 400);
 		if($_POST['form'] == 'submit')
 		{
-			$db->igroupsQuery('delete from TaskAssignments where iTaskID='.$task->getID());
-			//$db->igroupsQuery('delete from TaskSubgroupAssignments where iTaskID='.$task->getID());
+			$db->query('delete from TaskAssignments where iTaskID='.$task->getID());
+			//$db->query('delete from TaskSubgroupAssignments where iTaskID='.$task->getID());
 			if(is_array($_POST['person']))
 			{
 				foreach($_POST['person'] as $id => $person)
-					$db->igroupsQuery('insert into TaskAssignments (iTaskID, iPersonID) values ('.$task->getID().", $id)");
+					$db->query('insert into TaskAssignments (iTaskID, iPersonID) values ('.$task->getID().", $id)");
 			}
 			/*if(is_array($_POST['subgroup']))
 			{
 				foreach($_POST['subgroup'] as $id => $subgroup)
-					$db->igroupsQuery('insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ('.$task->getID().", $id)");
+					$db->query('insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ('.$task->getID().", $id)");
 			}*/
 			header('Location: taskview.php?taskid='.$task->getID());
 		}

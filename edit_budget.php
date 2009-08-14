@@ -19,10 +19,10 @@
 		$s_selectedCategoryName = $_POST['budget_category_name'];
 	
 		//Insert old record in history
-		$query = $db->igroupsQuery("INSERT INTO BudgetsHistory(iProjectID, iSemesterID, bCategory, bRequested, bApproved, bDesc, bStatus, bOrder, bRequestedDate, bApprovedDate) SELECT iProjectID, iSemesterID, bCategory, bRequested, bApproved, bDesc, bStatus, bOrder, bRequestedDate, bApprovedDate FROM Budgets WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester AND bOrder=$s_selectedCategory AND bStatus='Completed'");
+		$query = $db->query("INSERT INTO BudgetsHistory(iProjectID, iSemesterID, bCategory, bRequested, bApproved, bDesc, bStatus, bOrder, bRequestedDate, bApprovedDate) SELECT iProjectID, iSemesterID, bCategory, bRequested, bApproved, bDesc, bStatus, bOrder, bRequestedDate, bApprovedDate FROM Budgets WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester AND bOrder=$s_selectedCategory AND bStatus='Completed'");
 	
 		//Update record w/ revised info
-		$query = $db->igroupsQuery("UPDATE Budgets SET bDesc='$new_budget_desc', bRequested=$new_budget_amt, bStatus='Pending', bRequestedDate=now() WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester AND bOrder=$s_selectedCategory");
+		$query = $db->query("UPDATE Budgets SET bDesc='$new_budget_desc', bRequested=$new_budget_amt, bStatus='Pending', bRequestedDate=now() WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester AND bOrder=$s_selectedCategory");
 
 	
 		//Send Automatic Email
@@ -54,7 +54,7 @@
 <?php
 	require('sidebar.php');
 	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
-	$query = $db->igroupsQuery("SELECT bDesc, bCategory, bRequested from Budgets WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester AND bOrder=$s_selectedCategory");
+	$query = $db->query("SELECT bDesc, bCategory, bRequested from Budgets WHERE iProjectID=$s_selectedGroup AND iSemesterID=$s_selectedSemester AND bOrder=$s_selectedCategory");
 	$result = mysql_fetch_row($query);
 	
 	echo "Editing budget category: <strong>{$result[1]}</strong>\n";

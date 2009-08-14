@@ -1,159 +1,191 @@
 <?php
-include_once( "superstring.php" );
-include_once("sort.php");
+include_once('superstring.php');
+include_once('sort.php');
 
-if ( !class_exists( "Category" ) ) {
-	class Category {
-		var $id, $name, $desc, $group, $type, $semester;
+if(!class_exists('Category'))
+{
+	class Category
+	{
+		var $id, $name, $desc, $group, $type, $semester, $valid;
 		var $db;
 		
-		function Category( $id, $db ) {
+		function Category($id, $db)
+		{
+			$this->valid = false;
+			if(!is_numeric($id))
+				return;
 			$this->id = $id;
 			$this->db = $db;
-			if ( $category = mysql_fetch_array( $db->igroupsQuery( "SELECT * FROM Categories WHERE iID=$id" ) ) ) {
-				$this->name = new SuperString( $category['sName'] );
-				$this->desc = new SuperString( $category['sDescription'] );
+			if($category = mysql_fetch_array($db->query("SELECT * FROM Categories WHERE iID=$id")))
+			{
+				$this->name = new SuperString($category['sName']);
+				$this->desc = new SuperString($category['sDescription']);
 				$this->group = $category['iGroupID'];
 				$this->type = $category['iGroupType'];
 				$this->semester = $category['iSemesterID'];
+				$this->valid = true;
 			}
 		}
 		
-		function getID() {
+		function isValid()
+		{
+			return $this->valid;
+		}
+		
+		function getID()
+		{
 			return $this->id;
 		}
 		
-		function getName() {
+		function getName()
+		{
 			if($this->name)
 				return $this->name->getString();
 			else
-				return "Uncategorized";
+				return 'Uncategorized';
 		}
 		
-		function getNameDB() {
+		function getNameDB()
+		{
 			return $this->name->getDBString();
 		}
 		
-		function getNameHTML() {
+		function getNameHTML()
+		{
 			return $this->name->getHTMLString();
 		}
 		
-		function getNameJava() {
+		function getNameJava()
+		{
 			return $this->name->getJavaString();
 		}
 		
-		function setName( $string ) {
-			if ( $string != "" && $this->name)
-				$this->name->setString( $string );
+		function setName($string)
+		{
+			if($string != '' && $this->name)
+				$this->name->setString($string);
 		}
 		
-		function getDesc() {
-			if ($this->name)
+		function getDesc()
+		{
+			if($this->name)
 				return $this->desc->getString();
 			else
-				return "Uncategorized E-mails";
+				return 'Uncategorized E-mails';
 		}
 		
-		function getDescDB() {
+		function getDescDB()
+		{
 			return $this->desc->getDBString();
 		}
 		
-		function getDescHTML() {
+		function getDescHTML()
+		{
 			return $this->desc->getHTMLString();
 		}
 		
-		function getDescJava() {
+		function getDescJava()
+		{
 			return $this->desc->getJavaString();
 		}
 		
-		function setDesc( $string ) {
-			if ( $string != "" && $this->name)
-				$this->desc->setString( $string );
+		function setDesc($string)
+		{
+			if($string != '' && $this->name)
+				$this->desc->setString($string);
 		}
 		
-		function getGroupID() {
+		function getGroupID()
+		{
 			return $this->group;
 		}
 		
-		function getGroupType() {
+		function getGroupType()
+		{
 			return $this->type;
 		}
 		
-		function getSemester() {
+		function getSemester()
+		{
 			return $this->semester;
 		}
 		
-		function getGroup() {
-			return new Group( $this->getGroupID(), $this->getGroupType(), $this->getSemester(), $this->db );
+		function getGroup()
+		{
+			return new Group($this->getGroupID(), $this->getGroupType(), $this->getSemester(), $this->db);
 		}
 
-		function setGroup( $gid ) {
+		function setGroup($gid)
+		{
 			$this->group = $gid;
 		}	
 
-		function setSemester ( $sem ) {
+		function setSemester($sem)
+		{
 			$this->semester = $sem;
 		}
 
-		function setType ( $newType ) {
+		function setType($newType)
+		{
 			$this->type = $newType;
 		}
 
-		function getEmails() {
+		function getEmails()
+		{
 			$returnArray = array();
 			
-			if ( $this->getGroupType() == 0 ) {
-				$emails = $this->db->igroupsQuery( "SELECT iID FROM Emails WHERE iCategoryID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." AND iSemesterID=".$this->getSemester()." ORDER BY iID DESC" );
-			}
-			else {
-				$emails = $this->db->igroupsQuery( "SELECT iID FROM Emails WHERE iCategoryID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." ORDER BY iID DESC" );
-			}
-			while ( $row = mysql_fetch_row( $emails ) ) {
+			if($this->getGroupType() == 0)
+				$emails = $this->db->query("SELECT iID FROM Emails WHERE iCategoryID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." AND iSemesterID=".$this->getSemester()." ORDER BY iID DESC");
+			else
+				$emails = $this->db->query("SELECT iID FROM Emails WHERE iCategoryID=".$this->getID()." AND iGroupID=".$this->getGroupID()." AND iGroupType=".$this->getGroupType()." ORDER BY iID DESC");
+			while($row = mysql_fetch_row($emails))
 				$returnArray[] = new Email( $row[0], $this->db );
-			}
 			return $returnArray;
 		}
 		
-		function getEmailsSortedBy($sort) {
+		function getEmailsSortedBy($sort)
+		{
 			$returnArray = array();
 			$add = decodeEmailSort($sort);
 			
-			if ( $this->getGroupType() == 0 )
-				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=".$this->getID()." AND Emails.iGroupID=".$this->getGroupID()." AND Emails.iGroupType=".$this->getGroupType()." AND Emails.iSemesterID=".$this->getSemester().$add );
+			if($this->getGroupType() == 0)
+				$emails = $this->db->query( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=".$this->getID()." AND Emails.iGroupID=".$this->getGroupID()." AND Emails.iGroupType=".$this->getGroupType()." AND Emails.iSemesterID=".$this->getSemester().$add );
 			else 
-				$emails = $this->db->igroupsQuery( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=".$this->getID()." AND Emails.iGroupID=".$this->getGroupID()." AND Emails.iGroupType=".$this->getGroupType().$add );
-			while ( $row = mysql_fetch_row( $emails ) ) {
+				$emails = $this->db->query( "SELECT Emails.iID, People.sFName, People.sLName FROM Emails inner join People on Emails.iSenderID=People.iID WHERE Emails.iCategoryID=".$this->getID()." AND Emails.iGroupID=".$this->getGroupID()." AND Emails.iGroupType=".$this->getGroupType().$add );
+			while($row = mysql_fetch_row($emails))
 				$returnArray[] = new Email( $row[0], $this->db );
-			}
 			return $returnArray;
 		}
 		
-		function delete() {
+		function delete()
+		{
 			$emails = $this->getEmails();
-			foreach ( $emails as $email ) {
-				$email->setCategory( 0 );
+			foreach($emails as $email)
+			{
+				$email->setCategory(0);
 				$email->updateDB();
 			}
-			$this->db->igroupsQuery( "DELETE FROM Categories WHERE iID=".$this->getID() );
+			$this->db->query("DELETE FROM Categories WHERE iID={$this->getID()}");
 		}
 		
-		function updateDB() {
-			$this->db->igroupsQuery( "UPDATE Categories SET sName='".$this->getNameDB()."', sDescription='".$this->getDescDB()."' WHERE iID=".$this->id );
+		function updateDB()
+		{
+			$this->db->query("UPDATE Categories SET sName='{$this->getNameDB()}', sDescription='{$this->getDescDB()}' WHERE iID={$this->id}");
 		}
 	}
 	
-	function createCategory( $name, $desc, $group, $type, $semester, $db ) {
-		if ( $name != "" ) {
-			$namess = new SuperString( $name );
-			$descss = new SuperString( $desc );
-			if ( $type == 0 ) {
+	function createCategory($name, $desc, $group, $type, $semester, $db)
+	{
+		if($name != '')
+		{
+			$namess = new SuperString($name);
+			$descss = new SuperString($desc);
+			if($type == 0)
 				$query = "INSERT INTO Categories ( sName, sDescription, iGroupID, iGroupType, iSemesterID ) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $group, $type, $semester )";
-			}
-			else {
+			else
 				$query = "INSERT INTO Categories ( sName, sDescription, iGroupID, iGroupType ) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $group, $type )";
-			}
-			$db->igroupsQuery( $query );
-			return new Category( $db->igroupsInsertID(), $db );
+			$db->query($query);
+			return new Category($db->insertID(), $db);
 		}
 		return false;
 	}

@@ -10,7 +10,7 @@
 	
 	if(!isset($_SESSION['selectedIPROSemester']))
 	{
-		$semester = $db->igroupsQuery('SELECT iID FROM Semesters WHERE bActiveFlag=1');
+		$semester = $db->query('SELECT iID FROM Semesters WHERE bActiveFlag=1');
 		$row = mysql_fetch_row( $semester );
 		$_SESSION['selectedIPROSemester'] = $row[0];
 	}
@@ -56,7 +56,7 @@
 	<form method="get" action="usernuggets.php"><fieldset>
 	<select name="semester">
 <?php
-	$semesters = $db->igroupsQuery("select distinct iSemesterID from PeopleProjectMap where iPersonID=".$currentUser->getID()." order by iSemesterID desc");
+	$semesters = $db->query("select distinct iSemesterID from PeopleProjectMap where iPersonID=".$currentUser->getID()." order by iSemesterID desc");
 	while($row = mysql_fetch_row($semesters))
 	{
 		$semester = new Semester( $row[0], $db );

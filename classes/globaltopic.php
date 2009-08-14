@@ -1,64 +1,86 @@
 <?php
-
 require_once('topic.php');
 
-if ( !class_exists( "GlobalTopic" ) ) {
-	class GlobalTopic extends Topic {
-		
-		var $id, $db, $name, $desc;
+if(!class_exists('GlobalTopic'))
+{
+	class GlobalTopic extends Topic
+	{
+		var $id, $db, $name, $desc, $valid;
 
-		function GlobalTopic( $id, $db ) {
+		function GlobalTopic($id, $db)
+		{
+			$this->valid = false;
+			if(!is_numeric($id))
+				return;
 			$this->id = $id;
 			$this->db = $db;
-			$query = $db->igroupsQuery("SELECT * FROM GlobalTopics WHERE iID={$this->id}");
+			$query = $db->query("SELECT * FROM GlobalTopics WHERE iID={$this->id}");
 			$result = mysql_fetch_array($query);
-			$this->name = $result['sName'];
-			$this->desc = $result['sDesc'];
+			if($result)
+			{
+				$this->name = $result['sName'];
+				$this->desc = $result['sDesc'];
+				$this->valid = true;	
+			}
 		}
 		
-		function getID() {
+		function isValid()
+		{
+			return $this->valid;
+		}
+		
+		function getID()
+		{
 			return $this->id;
 		}
 
-		function getName() {
+		function getName()
+		{
 			return $this->name;
 		}
 		
-		function getDesc() {
+		function getDesc()
+		{
 			return $this->desc;
 		}
 
-		function setName($name) {
+		function setName($name)
+		{
 			$this->name = $name;
 		}
 
-		function setDesc($desc) {
+		function setDesc($desc)
+		{
 			$this->desc = $desc;
 		}
 
-		function updateDB() {
-			$this->db->igroupsQuery("UPDATE GlobalTopics SET sName='{$this->name}', sDesc='{$this->desc}' WHERE iID={$this->id}");
+		function updateDB()
+		{
+			$this->db->query("UPDATE GlobalTopics SET sName='{$this->name}', sDesc='{$this->desc}' WHERE iID={$this->id}");
 		}
 	
-		function delete() {
-			$this->db->igroupsQuery("DELETE FROM GlobalTopics WHERE iID={$this->id}");
-			$this->db->igroupsQuery("DELETE FROM Threads WHERE iTopicID={$this->id}");
+		function delete()
+		{
+			$this->db->query("DELETE FROM GlobalTopics WHERE iID={$this->id}");
+			$this->db->query("DELETE FROM Threads WHERE iTopicID={$this->id}");
 		}
 	}
 	
-	function createGlobalTopic($name, $desc, $db) {
-		$db->igroupsQuery("INSERT INTO GlobalTopics (sName) VALUES ('New Topic')");
-		$topic = new GlobalTopic($db->igroupsInsertID(), $db);
+	function createGlobalTopic($name, $desc, $db)
+	{
+		$db->query("INSERT INTO GlobalTopics (sName) VALUES ('New Topic')");
+		$topic = new GlobalTopic($db->insertID(), $db);
 		$topic->setName($name);
 		$topic->setDesc($desc);
 		$topic->updateDB();
 		return $topic;
 	}
 
-	function getGlobalTopics($db) {
+	function getGlobalTopics($db)
+	{
 		$topics = array();
-		$query = $db->igroupsQuery("SELECT iID FROM GlobalTopics");
-		while ($result = mysql_fetch_row($query))
+		$query = $db->query("SELECT iID FROM GlobalTopics");
+		while($result = mysql_fetch_row($query))
 			$topics[] = new GlobalTopic($result[0], $db);
 		return $topics;
 	}

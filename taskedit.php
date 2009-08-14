@@ -28,7 +28,7 @@
 		$hurdle = 0;
 		if(!strlen($name))
 			$message = 'ERROR: Could not edit task: You must enter a name for the task.';
-		else if(mysql_num_rows($db->igroupsQuery('select iID from Tasks where iTeamID='.$currentGroup->getID()." and sName=\"$name\" and iID<>{$task->getID()}")))
+		else if(mysql_num_rows($db->query('select iID from Tasks where iTeamID='.$currentGroup->getID()." and sName=\"$name\" and iID<>{$task->getID()}")))
 			$message = 'Your group already has a task with that name.';
 		else
 			$hurdle++;
@@ -43,7 +43,7 @@
 		$desc = mysql_real_escape_string($_POST['desc']);
 		if($hurdle == 2)
 		{
-			$ok = $db->igroupsQuery("update Tasks set sName=\"$name\", sDescription=\"$desc\", dDue=\"$date\" where iID={$task->getID()}");
+			$ok = $db->query("update Tasks set sName=\"$name\", sDescription=\"$desc\", dDue=\"$date\" where iID={$task->getID()}");
 			if($ok)
 			{
 				$message = 'Task successfully edited';

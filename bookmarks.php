@@ -6,11 +6,11 @@
 	
 	if(isset($_POST['delete']))
 	{
-		$query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID());
+		$query = $db->query("select * from Bookmarks where iGroupID=".$currentGroup->getID());
 		while($row = mysql_fetch_array($query))
 		{
 			if(isset($_POST['del'.$row['iID']]) && ($currentUser->getID() == $row['iAuthorID'] || $currentUser->isGroupModerator($currentGroup)))
-				$db->igroupsQuery("delete from Bookmarks where iID=".$row[0]);
+				$db->query("delete from Bookmarks where iID=".$row[0]);
 		}
 		$message = "The selected bookmarks have been deleted.";
 	}
@@ -21,7 +21,7 @@
 		else
 		{
 			$values = "( ".$currentGroup->getID().", ".$currentUser->getID().", '".$_POST['title']."', '".$_POST['url']."', '".$_POST['desc']."', ".(is_numeric($_POST['folder']) && $_POST['folder'] > 1 ? $_POST['folder'] : 'null')." )";
-			$db->igroupsQuery("insert into Bookmarks (iGroupID, iAuthorID, sTitle, sURL, sDesc, iFolder) values $values");
+			$db->query("insert into Bookmarks (iGroupID, iAuthorID, sTitle, sURL, sDesc, iFolder) values $values");
 			$message = "The bookmark has been added.";
 		}
 	}
@@ -32,7 +32,7 @@
 		else
 		{
 			$values = "( ".$currentGroup->getID().", '".$_POST['title']."')";
-			$db->igroupsQuery("insert into BookmarkFolders (iGroupID, sTitle) values $values");
+			$db->query("insert into BookmarkFolders (iGroupID, sTitle) values $values");
 			$message = "The folder has been added.";
 		}
 	}
@@ -41,7 +41,7 @@
 		$okay = false;
 		if(!$currentUser->isGroupModerator($currentGroup))
 		{
-			$row = mysql_fetch_row($db->igroupsQuery("select iAuthorID from Bookmarks where iID=".$_POST['editid']));
+			$row = mysql_fetch_row($db->query("select iAuthorID from Bookmarks where iID=".$_POST['editid']));
 			$okay = ($row[0] == $currentUser->getID());
 		}
 		else
@@ -52,7 +52,7 @@
 
 		if($okay)
 		{
-			$db->igroupsQuery("update Bookmarks set sTitle='".$_POST['title']."', sURL='".$_POST['url']."', sDesc='".$_POST['desc']."', iFolder=".($_POST['folder'] ? $_POST['folder'] : 'null')." where iID=".$_POST['editid']);
+			$db->query("update Bookmarks set sTitle='".$_POST['title']."', sURL='".$_POST['url']."', sDesc='".$_POST['desc']."', iFolder=".($_POST['folder'] ? $_POST['folder'] : 'null')." where iID=".$_POST['editid']);
 			$message = "The bookmark has been edited.";
 		}
 		else
@@ -61,7 +61,7 @@
 	
 	if(isset($_GET['folder']) && is_numeric($_GET['folder']))
 	{
-		$row = mysql_fetch_row($db->igroupsQuery('select iGroupID, sTitle from BookmarkFolders where iID='.$_GET['folder']));
+		$row = mysql_fetch_row($db->query('select iGroupID, sTitle from BookmarkFolders where iID='.$_GET['folder']));
 		if($_GET['folder'] > 1 && ($row && $row[0] == $currentGroup->getID()))
 		{
 			$BF = $_GET['folder'];
@@ -105,10 +105,10 @@
 <h1>Bookmarks</h1>
 <p>Bookmarks in <?php echo $appname; ?> operate much like bookmarks in your web browser. Add URLs for other members in your group to be able to access at a click.</p>
 <?php
-	$query = $db->igroupsQuery("select * from Bookmarks where iGroupID=".$currentGroup->getID()." and iFolder$BFQ order by sTitle");
+	$query = $db->query("select * from Bookmarks where iGroupID=".$currentGroup->getID()." and iFolder$BFQ order by sTitle");
 	if(isset($_GET['edit']) && is_numeric($_GET['edit']))
 	{
-		$query = $db->igroupsQuery("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID());
+		$query = $db->query("select * from Bookmarks where iID=".$_GET['edit']." and iGroupID=".$currentGroup->getID());
 		if(mysql_num_rows($query) > 0)
 		{
 			$row = mysql_fetch_array($query);
@@ -119,7 +119,7 @@
 				echo "<label for=\"url\">URL</label>&nbsp;<input type=\"text\" id=\"url\" name=\"url\" value=\"".htmlspecialchars($row['sURL'])."\" /><br />\n";
 				echo "<label for=\"desc\">Description</label>&nbsp;<input type=\"text\" id=\"desc\" name=\"desc\" value=\"".htmlspecialchars($row['sDesc'])."\" /><br />\n";
 				echo "<label for=\"folder\">Folder</label>&nbsp;<select id=\"folder\" name=\"folder\"><option value=\"0\">Unfiled</option>\n";
-				$query2 = $db->igroupsQuery("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
+				$query2 = $db->query("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
 				while($row2 = mysql_fetch_row($query2))
 					echo '<option value="'.$row2[0].'"'.($row2[0] == $row['iFolder'] ? ' selected="selected"' : '').'>'.$row2[1]."</option>\n";
 				echo "</select><br />\n";
@@ -134,9 +134,9 @@
 	else if(mysql_num_rows($query) > 0 || $BF == 1)
 	{
 		if($BF == 1)
-			$query = $db->igroupsQuery("select * from Bookmarks where iFolder=1 order by sTitle");
+			$query = $db->query("select * from Bookmarks where iFolder=1 order by sTitle");
 		else
-			$quer = $db->igroupsQuery("select * from Bookmarks where iAuthorID=".$currentUser->getID()." and iFolder$BFQ and iGroupID=".$currentGroup->getID());
+			$quer = $db->query("select * from Bookmarks where iAuthorID=".$currentUser->getID()." and iFolder$BFQ and iGroupID=".$currentGroup->getID());
 		if($BF != 1 && ($currentUser->isGroupModerator($currentGroup) || mysql_num_rows($quer) > 0))
 			$hasDel = true;
 		else
@@ -144,7 +144,7 @@
 		echo "<div id=\"bookmarks\">";
 		echo "<form method=\"get\"><fieldset><legend>Select Folder</legend>\n";
 		echo "<select name=\"folder\"><option value=\"0\"".(0 == $BF ? ' selected="selected"' : '').">Unfiled</option>\n<option value=\"1\"".(1 == $BF ? ' selected="selected"' : '').">IPRO Office Bookmarks</option>\n";
-		$query2 = $db->igroupsQuery("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
+		$query2 = $db->query("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
 		while($row = mysql_fetch_row($query2))
 			echo '<option value="'.$row[0].'"'.($row[0] == $BF ? ' selected="selected"' : '').'>'.$row[1]."</option>\n";
 		echo "</select><br /><input type=\"submit\" value=\"Select Folder\" /></fieldset></form>\n";
@@ -179,7 +179,7 @@
 	{
 		echo "<form method=\"get\"><fieldset><legend>Select Folder</legend>\n";
 		echo "<select name=\"folder\"><option value=\"0\"".(0 == $BF ? ' selected="selected"' : '').">Unfiled</option>\n<option value=\"1\"".(1 == $BF ? ' selected="selected"' : '').">IPRO Office Bookmarks</option>\n";
-		$query2 = $db->igroupsQuery("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
+		$query2 = $db->query("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
 		while($row = mysql_fetch_row($query2))
 			echo '<option value="'.$row[0].'"'.($row[0] == $BF ? ' selected="selected"' : '').'>'.$row[1]."</option>\n";
 		echo "</select><br /><input type=\"submit\" value=\"Select Folder\" /></fieldset></form>\n";
@@ -194,7 +194,7 @@
 		<label for="desc">Description</label>&nbsp;<input type="text" id="desc" name="desc" /><br />
 		<label for="folder">Folder</label>&nbsp;<select id="folder" name="folder"><option value="0">Unfiled</option>
 <?php
-		$query = $db->igroupsQuery("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
+		$query = $db->query("select iID, sTitle from BookmarkFolders where iGroupID=".$currentGroup->getID());
 		while($row = mysql_fetch_row($query))
 			echo '<option value="'.$row[0].'">'.$row[1]."</option>\n";
 ?>
