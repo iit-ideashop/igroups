@@ -52,7 +52,7 @@
 			if(is_numeric($file))
 				$nugget->addFile($file);
 		$folderList = $_POST['folders'];
-		$folders = explode( ",", $folderList);
+		$folders = explode(',', $folderList);
 		foreach($folders as $folder)
 		{
 			if(is_numeric($folder))
@@ -77,7 +77,7 @@
 			echo "<li><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a></strong>\n";
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
 			echo "<li><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
-		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
+		else if(in_array($folder->getID(), $_SESSION['expandFolders'])) //The user wants this folder expanded
 			echo "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		else
 			echo "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
@@ -97,7 +97,7 @@
 		foreach($folders as $key => $subfolder)
 		{
 			echo "<option value=".$subfolder->getID().">+ ".$subfolder->getName()."</option>\n";
-			printOptionsRecurse( $subfolder, "&nbsp;&nbsp;&nbsp;+ " );
+			printOptionsRecurse($subfolder, '&nbsp;&nbsp;&nbsp;+ ');
 		}
 	}
 
@@ -107,7 +107,7 @@
 		foreach($folders as $key => $subfolder)
 		{
 			echo "<option value =".$subfolder->getID().">".$indent.$subfolder->getName()."</option>\n";
-			printOptionsRecurse($subfolder, "&nbsp;&nbsp;&nbsp;", $indent);
+			printOptionsRecurse($subfolder, '&nbsp;&nbsp;&nbsp;', $indent);
 		}
 	}
 
@@ -133,7 +133,6 @@
 * Visit http://www.dynamicdrive.com/ for full source code
 ***********************************************/
 </script>
-
 <script type= "text/javascript">
 //<![CDATA[
 	function copyCheckBoxes(){
@@ -238,7 +237,7 @@
 	{
 		if($fileList)
 		{
-			foreach($fileList as $key=>$file)
+			foreach($fileList as $key => $file)
 			{
 				printTR();
 				echo "<td><img src=\"skins/$skin/img/file.png\" alt=\"\" /></td>";
@@ -259,7 +258,7 @@
 				echo "</tr>\n";
 			}
 		}
-		if(count($folderList)+count($fileList)==0)
+		if(count($folderList) + count($fileList) == 0)
 			echo "<tr><td>There are no files or folders in the selected folder</td></tr>\n";
 	}
 	else
