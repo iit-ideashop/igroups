@@ -197,7 +197,7 @@
 				$_POST['subject'] = '(no subject)';
 			$newEmail = createEmail($toNames, $_POST['subject'], $_POST['body'], $currentUser->getID(), $_POST['category'], $_POST['replyid'], $currentGroup->getID(), $currentGroup->getType(), $currentGroup->getSemester(), $db);
 			$query = $db->query("UPDATE EmailFiles SET iEmailID={$newEmail->getID()} WHERE iEmailID=0");
-			$msg = str_replace( "abxyqzta10", $newEmail->getID(), $msg );
+			$msg = str_replace('abxyqzta10', $newEmail->getID(), $msg);
 			mail($tolist, "[".$currentGroup->getName()."] ".stripslashes($_POST['subject']), $msg, $headers);
 		}
 		echo "<script type=\"text/javascript\">var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Your email was sent successfully.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal')</script>";

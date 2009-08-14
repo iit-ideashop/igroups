@@ -43,10 +43,7 @@
 	{
 		$exp = explode(',', $_GET['to']);
 		foreach($exp as $i)
-		{
-			if(is_numeric($i) && $i > 0 && $p = new Person($i, $db) && $currentGroup->isGroupMember($p))
-				$to[$i] = $p;
-		}
+			$to[] = $i;
 	}
 ?>
 	<form method="post" action="email.php" enctype="multipart/form-data" id="mailform">
@@ -61,7 +58,7 @@
 				{
 					if($i == 1) 
 						echo '<tr>';
-					if((isset($_GET['replyid']) && $person->getID() == $replyEmail->getSenderID()) || array_key_exists($person->getID(), $to))
+					if((isset($_GET['replyid']) && $person->getID() == $replyEmail->getSenderID()) || in_array($person->getID(), $to))
 						echo "<td><input type=\"checkbox\" name=\"sendto[".$person->getID()."]\" id=\"sendto[".$person->getID()."]\" checked=\"checked\" /></td>";
 					else
 						echo "<td><input type=\"checkbox\" name=\"sendto[".$person->getID()."]\" id=\"sendto[".$person->getID()."]\" /></td>";
