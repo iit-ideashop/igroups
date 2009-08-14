@@ -206,7 +206,7 @@
 		if($active)
 			echo "<a href=\"editNugget.php?edit=true&amp;nugID=$id\">Edit</a></td>";
 		else
-			echo '</td>'
+			echo '</td>';
 	}
 	
 	function printNuggetNoEdit($nugget)
