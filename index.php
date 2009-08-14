@@ -50,7 +50,7 @@
 	}
 	else if($numAnnounce == 1)
 	{
-		$row = mysql_fetch_row($announcementResults)
+		$row = mysql_fetch_row($announcementResults);
 		$firstAnnouncement = new Announcement($row[0], $db);
 	}
 	echo "</head><body>\n";
