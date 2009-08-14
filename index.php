@@ -24,7 +24,7 @@
 
 	echo "<title>$appname 2.3</title>\n";
 	$announcementResults = $db->query('SELECT iID FROM News ORDER BY iID DESC');
-	$numAnnounce = mysql_num_rows($announcementResults)
+	$numAnnounce = mysql_num_rows($announcementResults);
 	if($numAnnounce > 1)
 	{
 ?>
