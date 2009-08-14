@@ -462,7 +462,7 @@
 	if($_SESSION['selectedSpecial'] == 'obsolete')
 		echo "\t<li><a href=\"files.php?selectSpecial=obsolete\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href=\"files.php?selectSpecial=obsolete\">Past Versions</a></strong></li>\n";
 	else
-		echo "\t<li><a href=\"files.php?selectSpecial=obsolete\"><img src=\"skins/$skin/img/folder.png" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectSpecial=obsolete\">Past Versions</a></li>\n";
+		echo "\t<li><a href=\"files.php?selectSpecial=obsolete\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectSpecial=obsolete\">Past Versions</a></li>\n";
 	if($_SESSION['selectedSpecial'] == 'trash')
 		echo "\t<li><a href=\"files.php?selectSpecial=trash\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href=\"files.php?selectSpecial=trash\">Trash Bin</a></strong</li>\n";
 	else

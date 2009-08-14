@@ -24,10 +24,30 @@ if(!class_exists('dbConnection'))
 				die("Invalid query:\n<br>\n$query<br>\n".mysql_error($this->conn));
 			return $query_db_result;
 		}
+		
+		function iknowQuery($query) //Deprecated
+		{
+			return $this->query($query);
+		}
+		
+		function igroupsQuery($query) //Deprecated
+		{
+			return $this->query($query);
+		}
 	
 		function insertID()
 		{
 			return mysql_insert_id($this->conn);
+		}
+		
+		function igroupsInsertID() //Deprecated
+		{
+			return $this->insertID();
+		}
+		
+		function iknowInsertID() //Deprecated
+		{
+		
 		}
 		
 		function affectedRows()

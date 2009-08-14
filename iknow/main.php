@@ -130,7 +130,7 @@
 		echo  '>'.$sem[$a].'</option>';
 	}
 	echo '</select></td>';
-	if(isset($_GET['iSemesterID']) || isset($_SESSION['iSemesterID'])
+	if(isset($_GET['iSemesterID']) || isset($_SESSION['iSemesterID']))
 	{ 
 		if(isset($_GET['iSemesterID']))
 			$_SESSION['iSemesterID'] = $_GET['iSemesterID'];

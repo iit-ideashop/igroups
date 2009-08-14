@@ -273,14 +273,13 @@ if(!class_exists('File'))
 		function isNuggetFile()
 		{
 			$count = 0;
-			$results = $this->db->query("SELECT * FROM nuggetFileMap WHERE iFileID = $this->id");
+			$results = $this->db->query("SELECT * FROM nuggetFileMap WHERE iFileID=$this->id");
 			while($row = mysql_fetch_array($results))
-				$count ++;
-			}
-			if($count != 0){
+				$count++;
+			if($count != 0)
 				return true;
-		       }
-			else return false;
+			else
+				return false;
 		}
 
 	       function getNugget()

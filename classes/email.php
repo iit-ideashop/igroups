@@ -15,7 +15,7 @@ if(!class_exists('Email'))
 				return;
 			$this->id = $id;
 			$this->db = $db;
-			$query = $db->query("SELECT * FROM Emails WHERE iID=$id")
+			$query = $db->query("SELECT * FROM Emails WHERE iID=$id");
 			if(!mysql_num_rows($query))
 				return;
 			else if($email = mysql_fetch_array($query))
