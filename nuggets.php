@@ -289,7 +289,7 @@
 	require('sidebar.php');
 	echo "<div id=\"content\"><div id=\"topbanner\">";
 	echo $currentGroup->getName()."</div>";
-	echo "<p>For information about the requirements for these deliverables, see <a href=\"http://ipro.iit.edu/deliverables\">the IPRO website</a></p>\n";
+	echo "<p>For information about the requirements for these deliverables, see <a href=\"http://ipro.iit.edu/deliverables\">the IPRO website</a>.</p>\n";
 	displayNuggets($currentGroup);
 	echo "<br />";
 	displayNonDefaultNuggets($currentGroup);
