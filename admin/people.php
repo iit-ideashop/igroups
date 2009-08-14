@@ -25,7 +25,7 @@
 		if(isset($_GET['uid']) && is_numeric($_GET['uid']))
 			$contactInfo = mysql_fetch_array($db->query("SELECT * FROM People WHERE iID={$_GET['uid']}"));
 		else if(isset($_GET['email']))
-			$contactInfo = mysql_fetch_array($db-query("SELECT * FROM People WHERE sEmail='{$_GET['email']}'"));
+			$contactInfo = mysql_fetch_array($db->query("SELECT * FROM People WHERE sEmail='{$_GET['email']}'"));
 		if($contactInfo)
 			$uid = $contactInfo['iID'];
 		else

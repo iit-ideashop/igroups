@@ -223,7 +223,7 @@ function selectAll(name)
 		echo "</div>\n<ul class=\"prof\">";
 
 		printFolder($currentList->getBaseFolder());
-		echo "<li></li></ul>\n</div><div id=\"filebox\">\n'"
+		echo "<li></li></ul>\n</div><div id=\"filebox\">\n'";
 		echo "<div class=\"columnbanner\">";
 		
 		if(isset($_SESSION['selectedIPROFolder'])) 

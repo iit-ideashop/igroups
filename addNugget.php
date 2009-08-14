@@ -103,7 +103,7 @@
 		else
 		{
 			echo "</script>\n";
-			echo "<script type=\"text/javascript\">\n"
+			echo "<script type=\"text/javascript\">\n";
 			echo "<!--\n";
 			echo "\twindow.location='addFilesToNugget.php?nugget=$nugID'\n";
 			echo "//-->\n";
