@@ -32,9 +32,9 @@ function ds_gettop(el) {
 }
 
 // Output Element
-var ds_oe = ds_getel('ds_calclass');
+var ds_oe = 'ds_calclass';
 // Container
-var ds_ce = ds_getel('ds_conclass');
+var ds_ce = 'ds_conclass';
 
 // Output Buffering
 var ds_ob = ''; 
@@ -42,7 +42,7 @@ function ds_ob_clean() {
 	ds_ob = '';
 }
 function ds_ob_flush() {
-	ds_oe.innerHTML = ds_ob;
+	ds_getel(ds_oe).innerHTML = ds_ob;
 	ds_ob_clean();
 }
 function ds_echo(t) {
@@ -150,7 +150,7 @@ function ds_draw_calendar(m, y) {
 	// And let's display..
 	ds_ob_flush();
 	// Scroll it into view.
-	ds_ce.scrollIntoView();
+	ds_getel(ds_ce).scrollIntoView();
 }
 
 // A function to show the calendar.
@@ -165,19 +165,19 @@ function ds_sh(t) {
 	// Draw the calendar
 	ds_draw_calendar(ds_c_month, ds_c_year);
 	// To change the position properly, we must show it first.
-	ds_ce.style.display = '';
+	ds_getel(ds_ce).style.display = '';
 	// Move the calendar container!
 	the_left = ds_getleft(t);
 	the_top = ds_gettop(t) + t.offsetHeight;
-	ds_ce.style.left = the_left + 'px';
-	ds_ce.style.top = the_top + 'px';
+	ds_getel(ds_ce).style.left = the_left + 'px';
+	ds_getel(ds_ce).style.top = the_top + 'px';
 	// Scroll it into view.
-	ds_ce.scrollIntoView();
+	ds_getel(ds_ce).scrollIntoView();
 }
 
 // Hide the calendar.
 function ds_hi() {
-	ds_ce.style.display = 'none';
+	ds_getel(ds_ce).style.display = 'none';
 }
 
 // Moves to the next month...
