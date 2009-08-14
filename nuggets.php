@@ -11,7 +11,7 @@
 
 	function displayNuggets($currentGroup)
 	{
-		global $_DEFAULTNUGGETS, $skin;
+		global $_DEFAULTNUGGETS, $skin, $db;
 		echo "<h1>Current Semester's IPRO Deliverable Nuggets</h1>\n";
 							
 		//Get the list of nuggets
