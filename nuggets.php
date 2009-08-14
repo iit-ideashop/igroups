@@ -16,7 +16,11 @@
 							
 		//Get the list of nuggets
 		if($_SESSION['selectedSemester'] < 32)
+		{
 			$nuggets = getOldNuggetsByGroupAndSemester($currentGroup, $_SESSION['selectedSemester']);
+			$currsem = new Semester($_SESSION['selectedSemester'], $db);
+			$active = $currsem->isActive();
+		}
 		else
 			$nuggets = getNuggetStatus($currentGroup, $_SESSION['selectedSemester']);
 		$nugCount = 0;
@@ -48,10 +52,14 @@
 					$nugCount = 0;
 				}
 			
-				if($nuggets[$nug] != 0)
+				if($nuggets[$nug] != 0 && $active)
 					echo "<td><img src=\"skins/$skin/img/upload.png\" alt=\"Y\" title=\"$nugprint has been uploaded\" />&nbsp;<a href=\"viewNugget.php?nug=".$nuggets[$nug]."\">".$nugprint."</a></td><td><a href=\"editNugget.php?edit=true&amp;nugID=".$nuggets[$nug]."\">Edit</a></td>";
-				else
+				else if($active)
 					echo "<td><img src=\"skins/$skin/img/no_upload.png\" alt=\"N\" title=\"$nugprint not uploaded\" />&nbsp;".$nugprint."</td><td><a href=\"addNugget.php?type=".$nug."\">Add Nugget</a></td>";
+				else if($nuggets[$nug])
+					echo "<td><img src=\"skins/$skin/img/upload.png\" alt=\"Y\" title=\"$nugprint has been uploaded\" />&nbsp;<a href=\"viewNugget.php?nug=".$nuggets[$nug]."\">".$nugprint."</a></td><td><a href=\"viewNugget.php?nug=".$nuggets[$nug]."\">View</a></td>";
+				else
+					echo "<td><img src=\"skins/$skin/img/no_upload.png\" alt=\"N\" title=\"$nugprint not uploaded\" />&nbsp;".$nugprint."</td><td>Not Uploaded</td>";
 				$nugCount++;
 			}
 		}
