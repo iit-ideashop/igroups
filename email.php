@@ -178,7 +178,7 @@
 		$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
 		$msg .= "Content-Transfer-Encoding: 8bit"."\n"."\n";
 		$msg .= anchorTags(htmlspecialchars($body->getString()))."\n"."\n"; 
-		if(!isset( $_POST['confidential']))
+		if(!isset($_POST['confidential']))
 		{
 			$msg .= "--".$mime_boundary."\n";
 			$msg .= "Content-Type: text/html; charset=iso-8859-1"."\n";
@@ -195,13 +195,15 @@
 		{
 			if($_POST['subject'] == '')
 				$_POST['subject'] = '(no subject)';
-			$newEmail = createEmail( $toNames, $_POST['subject'], $_POST['body'], $currentUser->getID(), $_POST['category'], $_POST['replyid'], $currentGroup->getID(), $currentGroup->getType(), $currentGroup->getSemester(), $db );
+			$newEmail = createEmail($toNames, $_POST['subject'], $_POST['body'], $currentUser->getID(), $_POST['category'], $_POST['replyid'], $currentGroup->getID(), $currentGroup->getType(), $currentGroup->getSemester(), $db);
 			$query = $db->query("UPDATE EmailFiles SET iEmailID={$newEmail->getID()} WHERE iEmailID=0");
 			$msg = str_replace( "abxyqzta10", $newEmail->getID(), $msg );
 			mail($tolist, "[".$currentGroup->getName()."] ".stripslashes($_POST['subject']), $msg, $headers);
 		}
 		echo "<script type=\"text/javascript\">var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Your email was sent successfully.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal')</script>";
 	}
+	else if(isset($_GET['to']))
+		echo "<script type=\"text/javascript\">var sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php?to=".$_GET['to']."', 'Send Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1', 'recal')</script>";
 	else if(isset($_GET['replyid']))
 		echo "<script type=\"text/javascript\">var sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php?replyid=".$_GET['replyid']."', 'Send Reply', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1', 'recal')</script>";
 	else if(isset($_GET['forward']))
@@ -303,10 +305,10 @@
 	<div class="columnbanner">Your categories:</div>
 	<div class="menubar"><ul class="folderlist">
 <?php 
-	if (!$currentUser->isGroupGuest($currentGroup))
+	if(!$currentUser->isGroupGuest($currentGroup))
 	{
 		echo "<li><a href=\"#\" onclick=\"ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Create Category</a></li>\n";
-		if($currentUser->isGroupModerator( $currentGroup ) && $currentCat && $currentCat->getID() != 1)
+		if($currentUser->isGroupModerator($currentGroup) && $currentCat && $currentCat->getID() != 1)
 			echo "<li><a href=\"#\" onclick=\"ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Edit/Delete Category</a></li>\n";
 		echo "</ul>\n</div><div id=\"cats\">\n";
 	}

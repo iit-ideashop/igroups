@@ -85,7 +85,7 @@ function toggle(id)
 	echo "\t\t<li><b>Status</b>: $status</li>\n";
 	if(!$task->getClosed())
 		echo "\t\t<li><b>Due</b>: {$task->getDue()}</li>\n";
-	echo "\t\t<li><b>Creator</b>: {$task->getCreator()->getFullName()} (<a href=\"sendemail.php?to={$task->getCreator()->getID()}\">email</a>)</li>\n";
+	echo "\t\t<li><b>Creator</b>: {$task->getCreator()->getFullName()} (<a href=\"email.php?to={$task->getCreator()->getID()}\">email</a>)</li>\n";
 	echo "\t</ul>\n";
 	if($task->isAssigned($currentUser))
 	{
