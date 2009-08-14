@@ -10,7 +10,7 @@ if(!class_exists('Topic'))
 		
 		function Topic($id, $db)
 		{
-			$this->id = (is_numeric($id) ? $id : 0)
+			$this->id = (is_numeric($id) ? $id : 0);
 			$this->db = $db;
 		}
 

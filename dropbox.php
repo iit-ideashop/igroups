@@ -7,7 +7,7 @@
 	
 	//------Begin Special Display Functions-------------------------//
 			
-	function printFolder( $folder )
+	function printFolder($folder)
 	{ // Prints tree structure of folders
 		$subfolder = $folder->getFolders();
 		if($_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
@@ -86,7 +86,7 @@
 					$file->delete();
 			}
 		}
-		$message = (isset($_POST['file']) ? 'Selected items successfully deleted' : 'Please select file(s) or folder(s) to delete first.';
+		$message = (isset($_POST['file']) ? 'Selected items successfully deleted' : 'Please select file(s) or folder(s) to delete first.');
 	}
 	
 	//------End Form Processing Code--------------------------------//
