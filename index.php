@@ -31,7 +31,7 @@
 <script type="text/javascript" src="Announcement.js"></script>
 <script type="text/javascript">
 //<![CDATA[
-	announcements = new announcementsObj();
+	announcements = new announcementObj();
 <?php
 		while($row = mysql_fetch_row($announcementResults))
 		{
