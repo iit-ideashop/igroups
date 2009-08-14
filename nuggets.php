@@ -105,10 +105,12 @@
 	
 	function displayNonDefaultNuggets($currentGroup)
 	{
-		global $_DEFAULTNUGGETS;
+		global $_DEFAULTNUGGETS, $db;
 		echo "<h1>Current Semester's Non-Deliverable Nuggets</h1>\n";
 		if($_SESSION['selectedSemester'] >= 32)
 		{
+			$currsem = new Semester($_SESSION['selectedSemester'], $db);
+			$active = $currsem->isActive();
 			$nuggets = allActiveByTypeandID("Other", $currentGroup->getID(), $_SESSION['selectedSemester']);
 			if(count($nuggets) > 0)
 			{
@@ -117,17 +119,19 @@
 				foreach($nuggets as $nugget)
 				{
 					echo "<tr>";
-					printNugPreview($nugget);
+					printNugPreview($nugget, $active);
 					echo "</tr>";
 				}
 				echo "</table>\n";
 				echo "<br />";
-				echo "<a href=\"addNugget.php?type=Other\">Start a new Non-Deliverable Nugget</a>";		
+				if($active)
+					echo "<a href=\"addNugget.php?type=Other\">Start a new Non-Deliverable Nugget</a>";		
 			}
 			else
 			{
 				echo "There are currently no Non-deliverable Nuggets for this semester<br />";
-				echo "<a href=\"addNugget.php?type=Other\">Start a new Non-Deliverable Nugget</a>";
+				if($active)
+					echo "<a href=\"addNugget.php?type=Other\">Start a new Non-Deliverable Nugget</a>";
 			}
 		}
 		// display iKnow non-default nuggets
@@ -192,14 +196,17 @@
 		echo "To display nuggets prior to 3.0 release date visit <a href='http://iknow.iit.edu'>http://iknow.iit.edu</a>";
 	}
 	
-	function printNugPreview($nugget)
+	function printNugPreview($nugget, $active)
 	{
 		$title = $nugget->getType();
 		$desc = $nugget->getDescShort();
 		$id = $nugget->getID();
 		$status = $nugget->getStatus();
 		echo "<td><a href=\"viewNugget.php?nug=$id\">".$title."</a></td><td>";
-		echo "<a href=\"editNugget.php?edit=true&amp;nugID=$id\">Edit</a></td>";
+		if($active)
+			echo "<a href=\"editNugget.php?edit=true&amp;nugID=$id\">Edit</a></td>";
+		else
+			echo '</td>'
 	}
 	
 	function printNuggetNoEdit($nugget)
