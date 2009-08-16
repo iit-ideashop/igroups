@@ -57,10 +57,10 @@
 			$toecho .= "</table>\n";
 			$total += $task->getTotalHoursFor($currentUser);
 		}
-		echo "<p>{$user->getFullName()} has recorded $total hours for $count tasks, averaging $avg hours per task.</p>\n";
+		echo "<p>{$user->getFirstName()} has recorded $total hours for $count tasks, averaging $avg hours per task.</p>\n";
 		echo $toecho;
 	}
 	else
-		echo "<p>{$user->getFullName()} is not assigned to any tasks, and so can have no hours.</p>\n";
+		echo "<p>{$user->getFirstName()} is not assigned to any tasks, and so can have no hours.</p>\n";
 ?>
 </div></body></html>
