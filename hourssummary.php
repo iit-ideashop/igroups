@@ -51,13 +51,13 @@
 			$toecho .= "\t<tfoot>\n";
 			$toecho .= "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td></tr>\n";
 			$toecho .= "\t</tfoot>\n";
+			$toecho .= "\t<tbody>\n";
 			if(count($hours))
-			{
-				$toecho .= "\t<tbody>\n";
 				foreach($hours as $hour)
 					$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
-				$toecho .= "\t</tbody>\n";
-			}
+			else
+				$toecho .= "<tr><td colspan=\"2\">No hours</td></tr>\n";
+			$toecho .= "\t</tbody>\n";
 			$toecho .= "</table><br />\n";
 			$total += $task->getTotalHoursFor($currentUser);
 			$list[$task->getID()] = $task->getName();
