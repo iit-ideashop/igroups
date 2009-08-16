@@ -33,22 +33,34 @@
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	echo "<h1>Hours Summary for {$user->getFullName()}</h1>\n";
-	foreach($tasks as $task)
+	$count = count($tasks);
+	if($count)
 	{
-		$hours = $task->getHours($currentUser);
-		echo "<table class=\"taskhours\">\n";
-		echo "\t<thead>\n";
-		echo "\t\t<tr><th colspan=\"2\">Hours Summary for {$task->getName()}</th></tr>\n";
-		echo "\t\t<tr><th>Date</th><th>Hours Spent</th></tr>\n";
-		echo "\t</thead>\n";
-		echo "\t<tfoot>\n";
-		echo "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td></tr>\n";
-		echo "\t</tfoot>\n";
-		echo "\t<tbody>\n";
-		foreach($hours as $hour)
-			echo "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
-		echo "\t</tbody>\n";
-		echo "</table>\n";
+		$toecho = '';
+		$total = 0;
+		$avg = number_format($total / $count, 2);
+		foreach($tasks as $task)
+		{
+			$hours = $task->getHours($currentUser);
+			$toecho .= "<table class=\"taskhours\">\n";
+			$toecho .= "\t<thead>\n";
+			$toecho .= "\t\t<tr><th colspan=\"2\">Hours Summary for {$task->getName()}</th></tr>\n";
+			$toecho .= "\t\t<tr><th>Date</th><th>Hours Spent</th></tr>\n";
+			$toecho .= "\t</thead>\n";
+			$toecho .= "\t<tfoot>\n";
+			$toecho .= "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td></tr>\n";
+			$toecho .= "\t</tfoot>\n";
+			$toecho .= "\t<tbody>\n";
+			foreach($hours as $hour)
+				$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
+			$toecho .= "\t</tbody>\n";
+			$toecho .= "</table>\n";
+			$total += $task->getTotalHoursFor($currentUser);
+		}
+		echo "<p>{$user->getFullName()} has recorded $total hours for $count tasks, averaging $avg hours per task.</p>\n";
+		echo $toecho;
 	}
+	else
+		echo "<p>{$user->getFullName()} is not assigned to any tasks, and so can have no hours.</p>\n";
 ?>
 </div></body></html>
