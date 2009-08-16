@@ -122,18 +122,6 @@
 		else
 			echo "<div class=\"item\"><strong>Nugget Type/Name:</strong> ".$nugget->getType();
 		
-		if(($nugget->getType() == 'Abstract' || $nugget->getType() == 'Poster') && count($files) > 0)
-		{
-			$s = ((count($files) > 1) ? 's' : '');
-			$are = ((count($files) > 1) ? 'are' : 'is');
-			$their = ((count($files) > 1) ? 'their' : 'its');
-			if($currentUser->isGroupAdministrator($currentGroup) && !$nugget->isVerified())
-				echo "<h1>ATTENTION FACULTY MEMBER</h1>\n<p>The IPRO Office will print this nugget free of charge for IPRO Day. You must approve this nugget before the IPRO Office will do so. In the event of an error in the uploaded file$s, e.g. a typo or a low-quality image, the IPRO Office will NOT re-print. Please check the file$s for errors before approving this nugget for printing.</p>\n<p>By clicking the link below, you verify that you have checked the file$s contained in this nugget, and that you agree that the file$s $are, in $their present state$s, ready to be printed by the IPRO office.</p>\n<p><a href=\"editNugget.php?approve=1&amp;edit=true&amp;nugID={$nugget->getID()}\">Approve this nugget for printing</a></p>\n";
-			else if(!$nugget->isVerified())
-				echo "<p>This nugget must be approved by your IPRO faculty member before it can be printed by the IPRO office.</p>\n";
-			else
-				echo "<p><b>Approved</b> by {$nugget->whoVerified()->getFullName()} at {$nugget->whenVerified()}.</p>\n";
-		}
 		echo "</div>\n";
 		
 		echo "<div class=\"item\"><label for=\"private\">Make Private?:</label>&nbsp;<input type=\"checkbox\" id=\"private\" name=\"private\"$private /><br />(If selected, this nugget will only be viewable by those in your group and IPRO Staff)</div>";

@@ -76,7 +76,7 @@
 	</fieldset></form>
 	</div>
 	
-	<p style="text-align: center; font-style: italic">* Signifies a protected nugget<br /># signifies an instructor-approved nugget</p>
+	<p style="text-align: center; font-style: italic">* Signifies a protected nugget</p>
 
 	<table cellpadding="4" cellspacing="0" style="border: thin solid black">
 	<thead>
@@ -114,8 +114,6 @@
 					$priv = '*';
 				else
 					$priv = '';
-				if($nug->isVerified())
-					$priv .= '#';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Abstract']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
 			}
 			else
@@ -149,8 +147,6 @@
 					$priv = '*';
 				else
 					$priv = '';
-				if($nug->isVerified())
-					$priv .= '#';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Poster']}&amp;groupID={$group->getID()}\">View$priv</a></td>";			
 			}
 			else
