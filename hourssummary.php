@@ -14,7 +14,7 @@
 	else
 		errorPage('uID not numeric', 'uID must be a positive integer', 400);
 	
-	$tasks = $user->getAssignedTasks($currentGroup);
+	$tasks = $user->getAssignedTasksByName($currentGroup);
 	
 	//------Start XHTML Output--------------------------------------//
 
@@ -54,7 +54,7 @@
 			foreach($hours as $hour)
 				$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
 			$toecho .= "\t</tbody>\n";
-			$toecho .= "</table>\n";
+			$toecho .= "</table><br />\n";
 			$total += $task->getTotalHoursFor($currentUser);
 		}
 		echo "<p>{$user->getFirstName()} has recorded $total hours for $count tasks, averaging $avg hours per task.</p>\n";

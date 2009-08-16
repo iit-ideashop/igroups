@@ -353,6 +353,15 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
 			return $tasks;
 		}
 		
+		function getAssignedTasksByName($group)
+		{
+			$query = $this->db->query("select iTaskID from TaskAssignments join Tasks on Tasks.iID=TaskAssignments.iTaskID where iPersonID={$this->id} and Tasks.iTeamID={$group->getID()} order by Tasks.sName");
+			$tasks = array();
+			while($row = mysql_fetch_row($query))
+				$tasks[] = new Task($row[0], $group->getType(), $group->getSemester(), $this->db);
+			return $tasks;
+		}
+		
 		function updateDB()
 		{
 			$this->db->query("UPDATE People SET sFName='".quickDBString($this->getFirstName())."', sLName='".quickDBString($this->getLastName())."', sPhone='".quickDBString($this->getPhone())."', sAddress='".quickDBString($this->getAddress())."', sPassword='".$this->password."' WHERE iID=".$this->id);
