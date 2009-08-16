@@ -167,27 +167,27 @@
 ?>
 <form method="post" action="groupmanagement.php"><fieldset><legend>Current Users</legend>
 <table><thead>
-<tr><td rowspan="2">User</td><td rowspan="2">Delete?</td>
+<tr><th rowspan="2">User</th><th rowspan="2">Delete?</th><th rowspan="2">Hours Summary</th>
 <?php
-	$admin = $currentUser->isGroupAdministrator( $currentGroup );
+	$admin = $currentUser->isGroupAdministrator($currentGroup);
 	$subgroups = $currentGroup->getSubGroups();
 	$numSubgroups = count($subgroups);
 
 	//if($admin)
 	//	echo "<td colspan=\"4\">Access Level</td>";
 	if($currentUser->isGroupModerator($currentGroup) && count($subgroups) > 0)
-		echo "<td colspan=\"4\">Access Level</td><td colspan=\"$numSubgroups\">Subgroup Membership</td>";
+		echo "<th colspan=\"4\">Access Level</th><th colspan=\"$numSubgroups\">Subgroup Membership</th>";
 	echo "</tr>\n<tr>";
 
 	if($admin || $currentUser->isGroupModerator($currentGroup))
-		echo "<td>Guest</td><td>User</td><td>Moderator</td><td>Administrator</td>";
+		echo "<th>Guest</th><th>User</th><th>Moderator</th><th>Administrator</th>";
 
 	if($currentUser->isGroupModerator($currentGroup))
 	{
 		foreach($subgroups as $subgroup)
-			echo "<td>{$subgroup->getName()}</td>";
+			echo "<th>{$subgroup->getName()}</th>";
 	}
-	echo "</tr></thead>\n";
+	echo "</tr></thead><tbody>\n";
 			
 	$members = $currentGroup->getAllGroupMembers();
 	//$members = peopleSort( $members );
@@ -197,6 +197,7 @@
 		printTR();
 		echo "<td>".$person->getCommaName()." &lt;".$person->getEmail()."&gt;</td>";
 		echo "<td align=\"center\"><input type=\"checkbox\" name=\"delete[".$person->getID()."]\" /></td>";
+		echo "<td align=\"center\"><a href=\"hourssummary.php?uid={$person->getID()}\">Summary</a></td>";
 		if($person->isGroupAdministrator($currentGroup))
 		{
 			if($admin || $currentUser->isGroupModerator($currentGroup))
@@ -269,7 +270,7 @@
 		echo "</tr>\n";
 	}
 ?>
-	</table>
+	</tbody></table>
 	<input type="submit" value="Update" name="updategroup" />
 	</fieldset></form>
 	<br />
