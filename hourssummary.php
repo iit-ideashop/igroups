@@ -39,10 +39,11 @@
 		$toecho = '';
 		$total = 0;
 		$avg = number_format($total / $count, 2);
+		$list = array();
 		foreach($tasks as $task)
 		{
 			$hours = $task->getHours($currentUser);
-			$toecho .= "<table class=\"taskhours\">\n";
+			$toecho .= "<a name=\"T{$task->getID()}\"></a><table class=\"taskhours\">\n";
 			$toecho .= "\t<thead>\n";
 			$toecho .= "\t\t<tr><th colspan=\"2\">Hours Summary for {$task->getName()}</th></tr>\n";
 			$toecho .= "\t\t<tr><th>Date</th><th>Hours Spent</th></tr>\n";
@@ -56,8 +57,14 @@
 			$toecho .= "\t</tbody>\n";
 			$toecho .= "</table><br />\n";
 			$total += $task->getTotalHoursFor($currentUser);
+			$list[$task->getID()] = $task->getName();
 		}
 		echo "<p>{$user->getFirstName()} has recorded $total hours for $count tasks, averaging $avg hours per task.</p>\n";
+		echo "<p>Jump to...</p>\n";
+		echo "<ul>\n";
+		foreach($list as $id => $name)
+			echo "<li><a href=\"#T$id\">$name</a></li>\n";
+		echo "</ul>\n";
 		echo $toecho;
 	}
 	else
