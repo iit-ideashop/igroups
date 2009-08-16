@@ -38,7 +38,6 @@
 	{
 		$toecho = '';
 		$total = 0;
-		$avg = number_format($total / $count, 2);
 		$list = array();
 		foreach($tasks as $task)
 		{
@@ -62,6 +61,7 @@
 			$total += $task->getTotalHoursFor($currentUser);
 			$list[$task->getID()] = $task->getName();
 		}
+		$avg = number_format($total / $count, 2);
 		echo "<p>{$user->getFirstName()} has recorded $total hours for $count tasks, averaging $avg hours per task.</p>\n";
 		echo "<p>Jump to...</p>\n";
 		echo "<ul>\n";
