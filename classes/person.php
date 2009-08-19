@@ -7,7 +7,7 @@ if(!class_exists('Person'))
 {
 	class Person
 	{
-		var $id, $firstname, $lastname, $email, $phone, $address, $password, $usertype, $valid;
+		var $id, $firstname, $lastname, $email, $phone, $address, $password, $usertype, $receives, $valid;
 		var $db;
 		
 		function Person($id, $db)
@@ -24,6 +24,7 @@ if(!class_exists('Person'))
 					$this->address = $temp['sAddress'];
 					$this->usertype = $temp['iUserTypeID'];
 					$this->password = $temp['sPassword'];
+					$this->receives = ($temp['bReceivesNotifications'] ? true : false);
 					$this->valid = true;
 					$this->db = $db;
 				}
@@ -326,6 +327,11 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
 		function isAdministrator()
 		{
 			return ($this->usertype == 1);
+		}
+		
+		function receivesNotifications()
+		{
+			return $this->receives;
 		}
 
 		function getNuggets()

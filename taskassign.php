@@ -25,18 +25,32 @@
 			errorPage('Invalid Task ID', 'The task ID provided is invalid.', 400);
 		if($_POST['form'] == 'submit')
 		{
+			$oldassigned = $task->getAllAssigned();
 			$db->query('delete from TaskAssignments where iTaskID='.$task->getID());
 			//$db->query('delete from TaskSubgroupAssignments where iTaskID='.$task->getID());
 			if(is_array($_POST['person']))
 			{
-				foreach($_POST['person'] as $id => $person)
-					$db->query('insert into TaskAssignments (iTaskID, iPersonID) values ('.$task->getID().", $id)");
+				foreach($_POST['person'] as $person)
+					$task->assignPerson($person);
 			}
 			/*if(is_array($_POST['subgroup']))
 			{
 				foreach($_POST['subgroup'] as $id => $subgroup)
 					$db->query('insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ('.$task->getID().", $id)");
 			}*/
+			
+			//Inform newly-assigned and newly-deassigned people of the change
+			$newassigned = $task->getAllAssigned();
+			foreach($newassigned as $id => $person)
+			{
+				if(!array_key_exists($id, $oldassigned))
+					$task->informAssignedPerson($person);
+			}
+			foreach($oldassigned as $id => $person)
+			{
+				if(!array_key_exists($id, $newassigned))
+					$task->informAssignedPerson($person);
+			}
 			header('Location: taskview.php?taskid='.$task->getID());
 		}
 	}

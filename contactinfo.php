@@ -50,6 +50,8 @@
 			$db->query("UPDATE Profiles SET sSig='{$clean['sig']}' WHERE iPersonID={$currentUser->getID()}");
 		if(is_numeric($_POST['skin']) && ($_POST['skin'] == 0 || mysql_num_rows($db->query('select * from Skins where iID='.$_POST['skin'].' and bPublic=1'))))
 			$db->query('update People set iSkin='.$_POST['skin'].' where iID='.$currentUser->getID());
+		$b = ($_POST['receive'] ? 1 : 0);
+		$db->query("update People set bReceiveNotifications=$b where iID={$currentUser->getID()}");
 		if(isset($_FILES['picture']))
 		{
 			if($_FILES['picture']['error'] == UPLOAD_ERR_OK && @getimagesize($_FILES['picture']['tmp_name']) && @is_uploaded_file($_FILES['picture']['tmp_name']) && ($_FILES['picture']['type'] == 'image/gif' || $_FILES['picture']['type'] == 'image/jpeg' || $_FILES['picture']['type'] == 'image/bmp' || $_FILES['picture']['type'] == 'image/x-windows-bmp' || $_FILES['picture']['type'] == 'image/png' || $_FILES['picture']['type'] == 'image/pjpeg'))
@@ -139,6 +141,8 @@
 	}
 	$skins .= "</select>\n";
 	echo "<tr><td><label for=\"skin\">Skin:</label></td><td>$skins</td></tr>\n";
+	$ischecked = $currentUser->receivesNotifications() ? ' checked="checked"' : '';
+	echo "<tr><td><label for=\"receive\">Receive task notifications by email:</label></td><td><input type=\"checkbox\" name=\"receive\"$ischecked /></td></tr>\n";
 	echo "</table>\n";
 	echo "<input type=\"submit\" name=\"update\" value=\"Update Profile\" /></fieldset>\n";
 

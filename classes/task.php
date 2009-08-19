@@ -55,7 +55,7 @@ if(!class_exists('Task'))
 		
 		function getCalDesc()
 		{
-			return $this->desc."<br /><br /><a href=\"taskview?taskid={$this->id}\">View this task</a>";
+			return $this->desc."<br /><br /><a href=\"taskview.php?taskid={$this->id}\">View this task</a>";
 		}
 		
 		function getTeam()
@@ -180,6 +180,22 @@ if(!class_exists('Task'))
 		{
 			if(!$this->isAssignedSubgroup($s))
 				$this->db->query("insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ({$this->id}, {$s->getID()})");
+		}
+		
+		function informAssignedPerson($p)
+		{
+			if(!$p->receivesNotifications())
+				return;
+			$added = $this->isAssigned($p) ? 'assigned to' : 'unassigned from';
+			$msg = "This is an auto-generated $appname notification to let you know that you have been $added a task. Task information is below.\n\n";
+			$msg .= "Group: {$this->team->getName()}\nTask Name:{$this->name}\nURL: $appurl/taskview.php?taskid={$this->id}\n\n";
+			$msg .= "--- $appname System Auto-Generated Massage\n\n";
+			$msg .= "To stop receiving task assignment notifications, visit $appurl/contactinfo.php";
+					
+			$headers .= "To: {$p->getEmail()}\n";
+			$headers .= "Content-Type: text/plain;\n";
+			$headers .= "Content-Transfer-Encoding: 7bit;\n";
+			mail($p->getEmail(), "[$appname] Task Assignment", $msg, "From: $appname Support <$contactemail>");
 		}
 		
 		function deassignPerson($p)
