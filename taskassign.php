@@ -47,7 +47,7 @@
 				if(!array_key_exists($id, $oldassigned) && $person->receivesNotifications())
 				{
 					$msg = "This is an auto-generated $appname notification to let you know that you have been assigned to a task. Task information is below.\n\n";
-					$msg .= "Group: {$task->team->getName()}\nTask Name:{$task->getName()}\nURL: $appurl/taskview.php?taskid={$task->getID()}\n\n";
+					$msg .= "Group: {$task->team->getName()}\nTask Name: {$task->getName()}\nURL: $appurl/taskview.php?taskid={$task->getID()}\n\n";
 					$msg .= "--- $appname System Auto-Generated Massage\n\n";
 					$msg .= "To stop receiving task assignment notifications, visit $appurl/contactinfo.php";
 			
@@ -59,7 +59,7 @@
 				if(!array_key_exists($id, $newassigned) && $person->receivesNotifications())
 				{
 					$msg = "This is an auto-generated $appname notification to let you know that you have been unassigned from a task. Task information is below.\n\n";
-					$msg .= "Group: {$task->team->getName()}\nTask Name:{$task->getName()}\nURL: $appurl/taskview.php?taskid={$task->getID()}\n\n";
+					$msg .= "Group: {$task->team->getName()}\nTask Name: {$task->getName()}\nURL: $appurl/taskview.php?taskid={$task->getID()}\n\n";
 					$msg .= "--- $appname System Auto-Generated Massage\n\n";
 					$msg .= "To stop receiving task assignment notifications, visit $appurl/contactinfo.php";
 			
