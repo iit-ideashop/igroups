@@ -44,8 +44,16 @@
 			$newassigned = $task->getAllAssigned();
 			foreach($newassigned as $id => $person)
 			{
-				if(!array_key_exists($id, $oldassigned))
-					$task->informAssignedPerson($person);
+				if(!array_key_exists($id, $oldassigned) && $person->receivesNotifications())
+				{
+					$added = $this->isAssigned($person) ? 'assigned to' : 'unassigned from';
+					$msg = "This is an auto-generated $appname notification to let you know that you have been $added a task. Task information is below.\n\n";
+					$msg .= "Group: {$task->team->getName()}\nTask Name:{$task->getName()}\nURL: $appurl/taskview.php?taskid={$task->getID()}\n\n";
+					$msg .= "--- $appname System Auto-Generated Massage\n\n";
+					$msg .= "To stop receiving task assignment notifications, visit $appurl/contactinfo.php";
+			
+					mail($person->getEmail(), "[$appname] Task Assignment", $msg, "From: $appname Support <$contactemail>");
+				}
 			}
 			foreach($oldassigned as $id => $person)
 			{

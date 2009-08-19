@@ -1,5 +1,4 @@
 <?php
-require_once('../globals.php');
 require_once('person.php');
 require_once('group.php');
 require_once('subgroup.php');
@@ -181,19 +180,6 @@ if(!class_exists('Task'))
 		{
 			if(!$this->isAssignedSubgroup($s))
 				$this->db->query("insert into TaskSubgroupAssignments (iTaskID, iSubgroupID) values ({$this->id}, {$s->getID()})");
-		}
-		
-		function informAssignedPerson($p)
-		{
-			if(!$p->receivesNotifications())
-				return;
-			$added = $this->isAssigned($p) ? 'assigned to' : 'unassigned from';
-			$msg = "This is an auto-generated $appname notification to let you know that you have been $added a task. Task information is below.\n\n";
-			$msg .= "Group: {$this->team->getName()}\nTask Name:{$this->name}\nURL: $appurl/taskview.php?taskid={$this->id}\n\n";
-			$msg .= "--- $appname System Auto-Generated Massage\n\n";
-			$msg .= "To stop receiving task assignment notifications, visit $appurl/contactinfo.php";
-			
-			mail($p->getEmail(), "[$appname] Task Assignment", $msg, "From: $appname Support <$contactemail>");
 		}
 		
 		function deassignPerson($p)
