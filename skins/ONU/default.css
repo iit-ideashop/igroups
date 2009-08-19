@@ -98,8 +98,8 @@ legend {
 #sidebar {
 	font-size:10pt;
 	width: 200px;
-	background-color:#03244D;
-	color: white;
+	background-color: white;
+	color: black;
 	padding-left:5px;
 	float: left;
 	border-right: 1px solid #999;
