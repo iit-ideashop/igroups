@@ -31,7 +31,8 @@
 			if(is_array($_POST['person']))
 			{
 				foreach($_POST['person'] as $person)
-					$task->assignPerson($person);
+					if(is_numeric($person))
+						$task->assignPerson(new Person($person, $db));
 			}
 			/*if(is_array($_POST['subgroup']))
 			{
