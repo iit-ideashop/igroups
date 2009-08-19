@@ -191,10 +191,7 @@ if(!class_exists('Task'))
 			$msg .= "Group: {$this->team->getName()}\nTask Name:{$this->name}\nURL: $appurl/taskview.php?taskid={$this->id}\n\n";
 			$msg .= "--- $appname System Auto-Generated Massage\n\n";
 			$msg .= "To stop receiving task assignment notifications, visit $appurl/contactinfo.php";
-					
-			$headers .= "To: {$p->getEmail()}\n";
-			$headers .= "Content-Type: text/plain;\n";
-			$headers .= "Content-Transfer-Encoding: 7bit;\n";
+			
 			mail($p->getEmail(), "[$appname] Task Assignment", $msg, "From: $appname Support <$contactemail>");
 		}
 		
