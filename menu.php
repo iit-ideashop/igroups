@@ -183,7 +183,7 @@
 		foreach($sortedIPROs as $key => $val)
 		{
 			$semester = new Semester($key, $db);
-			if(in_array($semester->getID(), $_SESSION['expandSemesters']))
+			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || in_array($_SESSION['selectedSemester'], $_SESSION['expandSemesters']))
 			{
 				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 				echo "<ul>\n";
