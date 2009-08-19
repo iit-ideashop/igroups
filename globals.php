@@ -4,8 +4,13 @@
 	$db = new dbConnection();
 	$row = mysql_fetch_row($db->query('select sValue from Appearance where sKey="appname"'));
 	$appname = $row[0];
-	$row = mysql_fetch_row($db->query('select sValue from Appearance where sKey="appurl"'));
-	$appurl = $row[0];
+	if(stristr('/home/iproadmin/public_html', __FILE__ !== false))
+		$appurl = 'http://sloth.iit.edu/~iproadmin/igroups';
+	else
+	{
+		$row = mysql_fetch_row($db->query('select sValue from Appearance where sKey="appurl"'));
+		$appurl = $row[0];
+	}
 	$row = mysql_fetch_row($db->query('select sValue from Appearance where sKey="contactemail"'));
 	$contactemail = $row[0];
 
