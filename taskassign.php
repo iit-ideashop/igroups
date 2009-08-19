@@ -30,9 +30,9 @@
 			//$db->query('delete from TaskSubgroupAssignments where iTaskID='.$task->getID());
 			if(is_array($_POST['person']))
 			{
-				foreach($_POST['person'] as $person)
-					if(is_numeric($person))
-						$task->assignPerson(new Person($person, $db));
+				foreach($_POST['person'] as $id => $person)
+					if(is_numeric($id))
+						$task->assignPerson(new Person($id, $db));
 			}
 			/*if(is_array($_POST['subgroup']))
 			{
