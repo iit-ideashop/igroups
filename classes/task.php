@@ -1,4 +1,5 @@
 <?php
+require_once('../globals.php');
 require_once('person.php');
 require_once('group.php');
 require_once('subgroup.php');
