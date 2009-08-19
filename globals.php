@@ -4,7 +4,7 @@
 	$db = new dbConnection();
 	$row = mysql_fetch_row($db->query('select sValue from Appearance where sKey="appname"'));
 	$appname = $row[0];
-	if(stristr('/home/iproadmin/public_html', __FILE__ ) !== false)
+	if(stristr(__FILE__ , '/home/iproadmin/public_html') !== false)
 		$appurl = 'http://sloth.iit.edu/~iproadmin/igroups';
 	else
 	{
