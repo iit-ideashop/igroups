@@ -17,7 +17,7 @@
 	}
 	else if(isset($_SESSION['selectedGroup']) && isset($_SESSION['selectedGroupType']) && isset($_SESSION['selectedSemester']))
 	{
-		$currentGroup = new Group( $_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db );
+		$currentGroup = new Group($_SESSION['selectedGroup'], $_SESSION['selectedGroupType'], $_SESSION['selectedSemester'], $db);
 		if(!$currentGroup->isGroupMember($currentUser))
 		{
 			unset($_SESSION['selectedGroup']);
