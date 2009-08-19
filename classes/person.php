@@ -24,7 +24,7 @@ if(!class_exists('Person'))
 					$this->address = $temp['sAddress'];
 					$this->usertype = $temp['iUserTypeID'];
 					$this->password = $temp['sPassword'];
-					$this->receives = ($temp['bReceivesNotifications'] ? true : false);
+					$this->receives = ($temp['bReceiveNotifications'] ? true : false);
 					$this->valid = true;
 					$this->db = $db;
 				}
