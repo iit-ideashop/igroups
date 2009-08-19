@@ -46,7 +46,6 @@
 			{
 				if(!array_key_exists($id, $oldassigned) && $person->receivesNotifications())
 				{
-					$added = $this->isAssigned($person) ? 'assigned to' : 'unassigned from';
 					$msg = "This is an auto-generated $appname notification to let you know that you have been assigned to a task. Task information is below.\n\n";
 					$msg .= "Group: {$task->team->getName()}\nTask Name:{$task->getName()}\nURL: $appurl/taskview.php?taskid={$task->getID()}\n\n";
 					$msg .= "--- $appname System Auto-Generated Massage\n\n";
