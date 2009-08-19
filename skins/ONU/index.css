@@ -1,0 +1,68 @@
+@import url('default.css');
+
+#container {
+	height: 100%;
+}
+
+#top {
+	margin-bottom:10px;
+}
+
+#top h1 {
+	color:#000000;
+	border-bottom-style:solid;
+	border-bottom-color:#03244D;
+	font-size:20px;
+	font-weight:normal;
+}
+
+#left {
+	float:left;
+	width:380px;
+	text-align:center;
+	margin-top:20px;
+	padding: 1em;
+}
+
+.right {
+	margin-left:400px;
+	margin-top:20px;
+	padding: 1em;
+} 
+
+#bottom {
+	margin-top:10px;
+}
+
+#bottom h1 {
+	color:#000000;
+	border-bottom-style:solid;
+	border-bottom-color:#03244D;
+	font-size:20px;
+	font-weight:normal;
+	margin-left: 2em;
+}
+
+.announcement-heading {
+	color:#03244D;
+	font-weight:bold;
+}
+		
+#calendarmenu {
+	border:solid 1px #000;
+	background-color:#fff;
+	visibility:hidden;
+	position:absolute;
+	left:50px;
+}
+
+div#cycleFlag
+{
+	position: absolute;
+	visibility: hidden;
+	overflow: hidden;
+	top: 0px;
+	left: 0;
+	width: 0;
+	height: 0;
+}

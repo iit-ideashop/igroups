@@ -1,0 +1,55 @@
+@import url('default.css');
+
+#container {
+	padding:0;
+}
+
+#catbox {
+	float:left;
+	width:25%;
+	margin:5px;
+	padding:2px;
+	border:1px solid #000;
+}
+
+#cats {
+	width:100%;
+	text-align:left;
+	background-color: #fff;
+	padding-top:5px;
+}
+
+#emailbox {
+	float:left;
+	margin:5px;
+	padding:2px;
+	width:55%;
+	border:1px solid #000;
+}
+
+#emails {
+	width:100%;
+	text-align:left;
+	background-color:#fff;
+}
+
+#menubar, .menubar {
+	background-color:#eeeeee;
+	margin-bottom:5px;
+	padding:3px;
+}
+
+#menubar li, .menubar li {
+	padding:5px;
+	display:inline;
+}
+
+ul.ema {
+	list-style:none;
+	padding:0;
+	margin:0;
+}
+
+#emailboxheader {
+	font-weight: bold;
+}
