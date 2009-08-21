@@ -127,7 +127,14 @@
 	}
 	
 	if(isset($_POST['scratch']) && !$currentUser->isGroupGuest($currentGroup))
+	{
 		$currentGroup->setScratch($_POST['scratchpad'], $currentUser->getID());
+?>
+		<script type="text/javascript">
+			var successwin=dhtmlwindow.open('successbox', 'inline', '<p>Scratchpad updated.</p>', 'Success', 'width=125px,height=10px,left=300px,top=100px,resize=0,scrolling=0', 'recal');
+		</script>
+<?php
+	}
 	if($currentGroup->getScratchUpdater())
 	{
 		$by = new Person($currentGroup->getScratchUpdater(), $db);
