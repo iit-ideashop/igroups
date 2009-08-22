@@ -306,6 +306,7 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
 		
 		function getGroups()
 		{
+			$returnArray = array();
 			$ipros = $this->db->query("SELECT iProjectID,iSemesterID FROM PeopleProjectMap WHERE iPersonID=".$this->getID());
 			while($row = mysql_fetch_row($ipros))
 				$returnArray[] = new Group($row[0], 0, $row[1], $this->db);
