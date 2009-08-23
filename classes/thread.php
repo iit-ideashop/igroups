@@ -195,7 +195,7 @@ if(!class_exists('Thread'))
 		if(!is_numeric($topicID))
 			return
 		$query = $db->query("SELECT iID FROM Threads WHERE iTopicID={$topicID} ORDER BY iID DESC");
-		if(mysql_num_rows($query))
+		if($query && mysql_num_rows($query))
 		{
 			$last = mysql_fetch_row($query);
 			if($last)
