@@ -195,9 +195,12 @@ if(!class_exists('Thread'))
 		if(!is_numeric($topicID))
 			return
 		$query = $db->query("SELECT iID FROM Threads WHERE iTopicID={$topicID} ORDER BY iID DESC");
-		$last = mysql_fetch_row($query);
-		if($last)
-			$lastThread = new Thread($last[0], $db);
+		if(mysql_num_rows($query))
+		{
+			$last = mysql_fetch_row($query);
+			if($last)
+				$lastThread = new Thread($last[0], $db);
+		}
 		$db->query("INSERT INTO Threads (sName) VALUES ('New Thread')");
 		$thread = new Thread($db->insertID(), $db);
 		$thread->setName($name);
