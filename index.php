@@ -63,9 +63,13 @@
 		echo "<p>To use $appname simply enter your username and password in the login pane to the left. Your initial username is the first part of your IIT email address, or your entire email address if you do not have or use an IIT email. Your initial password is the first part of your email address (text appearing before the @). If you are a first-time user, please change your password upon entry to $appname (from the My Profile page).</p>";
 	echo "</div><div id=\"left\">\n";
 	
-	$random = rand(1, 347);
-	echo "<img src=\"http://ipro.iit.edu/home/images/students1/photos/$random.jpg\" alt=\"Random photo\" />";
-	echo "<img src=\"http://ipro.iit.edu/home/images/students1/pull_quotes/$random.jpg\" alt=\"Random quote\" />";
+	$rand = mysql_fetch_array($db->query("select * from RandomQuotes order by rand() limit 1"));
+	$randid = $rand['iID'];
+	$ext = $rand['sExtension'];
+	$title = htmlspecialchars($rand['sTitle']);
+	$desc = htmlspecialchars($rand['sDesc']);
+	echo "<img src=\"http://ipro.iit.edu/home/images/students1/photos/$randid.$ext\" alt=\"Random photo\" /><br />";
+	echo "<span id=\"randtitle\">$title</span><br /><span id=\"randdesc\">$desc</span>";
 	echo "</div>\n";
 	
 	$heading = $numAnnounce ? $firstAnnouncement->getHeadingHTML() : "Welcome to $appname";

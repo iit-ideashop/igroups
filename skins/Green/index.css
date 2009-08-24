@@ -66,3 +66,15 @@ div#cycleFlag
 	width: 0;
 	height: 0;
 }
+
+#randtitle
+{
+	font-size: larger;
+	font-weight: bold;
+	color: #00cc00;
+}
+
+#randdesc
+{
+	color: #00cc00;
+}
