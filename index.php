@@ -61,15 +61,15 @@
 	echo "<p>$appname is designed to support all communication, scheduling, and collaboration activities of IPRO teams. Through the use of  $appname you can send/receive e-mail messages, store/retrieve files, access/update a team calendar, and view a complete history of a team's activities since the creation of the team in $appname. Welcome to $appname, a team management tool developed by IIT students.</p>\n";
 	if(!$currentUser)
 		echo "<p>To use $appname simply enter your username and password in the login pane to the left. Your initial username is the first part of your IIT email address, or your entire email address if you do not have or use an IIT email. Your initial password is the first part of your email address (text appearing before the @). If you are a first-time user, please change your password upon entry to $appname (from the My Profile page).</p>";
-	echo "</div><div id=\"left\">\n";
+	echo "</div>\n";
 	
 	$rand = mysql_fetch_array($db->query("select * from RandomQuotes order by rand() limit 1"));
 	$randid = $rand['iID'];
 	$ext = $rand['sExtension'];
 	$title = htmlspecialchars($rand['sTitle']);
 	$desc = htmlspecialchars($rand['sDesc']);
-	echo "<img src=\"http://ipro.iit.edu/home/images/students1/photos/$randid.$ext\" alt=\"Random photo\" /><br />";
-	echo "<span id=\"randtitle\">$title</span><br /><span id=\"randdesc\">$desc</span>";
+	echo "<div id=\"left\"><img src=\"http://ipro.iit.edu/home/images/students1/photos/$randid.$ext\" alt=\"Random photo\" id=\"randphoto\" /><br />\n";
+	echo "<span id=\"randtitle\">$title</span><br />\n<span id=\"randdesc\">$desc</span>";
 	echo "</div>\n";
 	
 	$heading = $numAnnounce ? $firstAnnouncement->getHeadingHTML() : "Welcome to $appname";
