@@ -303,15 +303,16 @@
 ?>
 	<div id="container"><div id="catbox">
 	<div class="columnbanner">Your categories:</div>
-	<div class="menubar"><ul class="folderlist">
 <?php 
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
+		echo "<div class=\"menubar\"><ul class=\"folderlist\">\n";
 		echo "<li><a href=\"#\" onclick=\"ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Create Category</a></li>\n";
 		if($currentUser->isGroupModerator($currentGroup) && $currentCat && $currentCat->getID() != 1)
 			echo "<li><a href=\"#\" onclick=\"ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Edit/Delete Category</a></li>\n";
-		echo "</ul>\n</div><div id=\"cats\">\n";
+		echo "</ul>\n</div>\n";
 	}
+	echo "<div id=\"cats\">\n";
 	$categories = $currentGroup->getGroupCategories();
 	if(!$currentCat)
 		echo "<a href=\"email.php?selectCategory=0\"><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br /><a href=\"email.php?selectCategory=1\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\">IPRO Office Notices</a><br />\n";
