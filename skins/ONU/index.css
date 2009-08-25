@@ -68,6 +68,11 @@ div#cycleFlag
 	height: 0;
 }
 
+#randphoto
+{
+	text-align: center;
+}
+
 #randtitle
 {
 	text-align: right;

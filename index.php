@@ -68,7 +68,7 @@
 	$ext = $rand['sExtension'];
 	$title = htmlspecialchars($rand['sTitle']);
 	$desc = htmlspecialchars($rand['sDesc']);
-	echo "<div id=\"left\"><img src=\"http://ipro.iit.edu/home/images/students1/photos/$randid.$ext\" alt=\"Random photo\" id=\"randphoto\" /><br />\n";
+	echo "<div id=\"left\"><div id=\"randphotobox\"><img src=\"http://ipro.iit.edu/home/images/students1/photos/$randid.$ext\" alt=\"Random photo\" id=\"randphoto\" /></div><br />\n";
 	echo "<div id=\"randtitle\">$title</div><br />\n<div id=\"randdesc\">$desc</div>";
 	echo "</div>\n";
 	
