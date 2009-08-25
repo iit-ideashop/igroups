@@ -62,8 +62,10 @@ require('sidebar.php');
 if(isset($_POST['help']))
 	echo "<p>Your request for help has been sent and we will respond to it as soon as possible.</p>\n";
 ?>
-<p>If you are having trouble logging in, try <a href="http://sloth.iit.edu/~iproadmin/userpassword.php?reset=1">resetting your password</a>.</p>
-<p>If this fails to correct your problem, complete the form below including your login e-mail address and your IPRO number.</p>
+<p>If you <b>haven't updated your browser in a while</b>, you may be interested in the <a href="reqs.php">list of supported browsers</a>.</p>
+<p>If you are <b>having trouble logging in</b>, try <a href="http://sloth.iit.edu/~iproadmin/userpassword.php?reset=1">resetting your password</a>.</p>
+<p>If you are experiencing a <b>display bug</b>, your browser may be using a stale stylesheet. Try clearing your cache. If you don't know how to do this, Wikipedia has <a href="http://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache">instructions for commonly used browsers</a>.</p>
+<p>If the above instructions fail to correct your problem, complete the form below. Please try to be as specific as you can. We will get back to you as soon as possible.</p>
 <form method="post" action="needhelp.php"><fieldset><legend>Help Request</legend>
 <?php
 	if($loggedIn)
