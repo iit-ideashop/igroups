@@ -186,11 +186,14 @@ cal.showNavigationDropdowns();
 		echo "\n</table>\n";
 	}
 	//Add a task
-	echo "<form method=\"post\" action=\"tasks.php\" id=\"addtask\" style=\"float: left\"><fieldset><legend>Add Task</legend>\n";
-	echo "<label>Name: <input type=\"text\" name=\"name\" /></label><br />\n";
-	echo "<label>Due: <input type=\"text\" name=\"due\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[1].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br />\n";
-	echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"40\"></textarea></label><br />\n";
-	echo "<input type=\"submit\" value=\"Add\" /><input type=\"hidden\" name=\"form\" value=\"addtask\" /></fieldset></form><div id=\"caldiv\"></div>\n";
+	if(!$currentUser->isGroupGuest($currentGroup))
+	{
+		echo "<form method=\"post\" action=\"tasks.php\" id=\"addtask\" style=\"float: left\"><fieldset><legend>Add Task</legend>\n";
+		echo "<label>Name: <input type=\"text\" name=\"name\" /></label><br />\n";
+		echo "<label>Due: <input type=\"text\" name=\"due\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[1].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br />\n";
+		echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"40\"></textarea></label><br />\n";
+		echo "<input type=\"submit\" value=\"Add\" /><input type=\"hidden\" name=\"form\" value=\"addtask\" /></fieldset></form><div id=\"caldiv\"></div>\n";
+	}
 ?>
 </div></body>
 </html>
