@@ -117,7 +117,7 @@ function toggle(id)
 	if($creator)
 		echo "\t<li>You are the creator of this task.</li>\n";
 	else
-		echo "\t<li>The creator of this task is {$task->getCreator()->getFullName()} (<a href=\"sendemail.php?to={$task->getCreator()->getID()}\">email</a>).</li>\n";
+		echo "\t<li>The creator of this task is {$task->getCreator()->getFullName()} (<a href=\"email.php?to={$task->getCreator()->getID()}\">email</a>).</li>\n";
 	if($assigned)
 		echo "\t<li>You are currently assigned to this task. You may <a href=\"taskhours.php?taskid={$task->getID()}\">add hours</a> to this task.</li>\n";
 	//else if($sgassigned)
