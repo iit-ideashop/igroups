@@ -128,7 +128,7 @@ function toggle(id)
 		echo "\t<li>You have contributed <b>$hours</b> hours of work to this task, out of <b>$tothours</b> hours overall (<b>$percenthours</b>)</li>\n";
 	echo "</ul>\n";
 	
-	echo "<h2>Description</h2>\n<div id=\"taskdesc\"><p>{$task->getDesc()}</p></div>\n";
+	echo "<h2>Description</h2>\n<div id=\"taskdesc\"><p>".str_replace("\n", '<br />', $task->getDesc())."</p></div>\n";
 	echo "<h2>Assignments</h2>\n";
 	if(count($assignments))
 	{
