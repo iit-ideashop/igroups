@@ -69,12 +69,13 @@ div#cycleFlag
 
 #randtitle
 {
-	font-size: larger;
+	font-size: x-large;
 	font-weight: bold;
 	color: #cc0000;
 }
 
 #randdesc
 {
+	font-size: large;
 	color: #cc0000;
 }
