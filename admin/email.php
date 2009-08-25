@@ -181,12 +181,12 @@
 			$subject = $_POST['subject'];
 		$subj = new SuperString($subject);
 		$body = new SuperString($_POST['body']);
-		$msg .= "--$mime_boundary--\n";
+		$msg .= "--$mime_boundary\n";
 		$msg .= "Content-Type: text/html; charset=iso-8859-1\n";
 		$msg .= "Content-Transfer-Encoding: 7bit\n\n";
 		$msg .= anchorTags(htmlspecialchars($body->getString()))."\n\n";
 		$msg .= "--$mime_boundary--\n\n";
-		$err = mail('', '[IPRO Office Notice] '.stripslashes($_POST['subject']), $msg, $headers );
+		$err = mail('', '[IPRO Office Notice] '.stripslashes($_POST['subject']), $msg, $headers);
 		$err = 1;
 		if($err)
 			echo "<p>Your email was successfully sent.</p>";
