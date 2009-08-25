@@ -18,7 +18,7 @@
 
 #left {
 	float:left;
-	text-align:right;
+	text-align:center;
 	max-width: 380px;
 	margin-top:20px;
 	padding: 1em;
@@ -70,6 +70,7 @@ div#cycleFlag
 
 #randtitle
 {
+	text-align: right;
 	font-size: x-large;
 	font-weight: bold;
 	color: #cc0000;
@@ -77,6 +78,7 @@ div#cycleFlag
 
 #randdesc
 {
+	text-align: right;
 	font-size: large;
 	color: #cc0000;
 }

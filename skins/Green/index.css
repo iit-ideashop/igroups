@@ -70,6 +70,7 @@ div#cycleFlag
 
 #randtitle
 {
+	text-align: right;
 	font-size: x-large;
 	font-weight: bold;
 	color: #00cc00;
@@ -77,6 +78,7 @@ div#cycleFlag
 
 #randdesc
 {
+	text-align: right;
 	font-size: large;
 	color: #00cc00;
 }
