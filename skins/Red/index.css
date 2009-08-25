@@ -19,6 +19,7 @@
 #left {
 	float:left;
 	text-align:right;
+	max-width: 380px;
 	margin-top:20px;
 	padding: 1em;
 	border: 1px solid #999;
