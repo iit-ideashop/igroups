@@ -69,7 +69,7 @@
 	$title = htmlspecialchars($rand['sTitle']);
 	$desc = htmlspecialchars($rand['sDesc']);
 	echo "<div id=\"left\"><img src=\"http://ipro.iit.edu/home/images/students1/photos/$randid.$ext\" alt=\"Random photo\" id=\"randphoto\" /><br />\n";
-	echo "<span id=\"randtitle\">$title</span><br />\n<span id=\"randdesc\">$desc</span>";
+	echo "<div id=\"randtitle\">$title</div><br />\n<div id=\"randdesc\">$desc</div>";
 	echo "</div>\n";
 	
 	$heading = $numAnnounce ? $firstAnnouncement->getHeadingHTML() : "Welcome to $appname";
