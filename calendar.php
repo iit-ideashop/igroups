@@ -132,7 +132,7 @@
 			foreach($taskArray[$i] as $task)
 			{
 				$class = 'tasklink';
-				echo "<a href=\"#\" class=\"$class\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'task-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".htmlspecialchars($task->getCalDesc())."', '".$task->getDue()."');\"";
+				echo "<a href=\"#\" class=\"$class\" onclick=\"editwin=dhtmlwindow.open('editbox', 'div', 'task-view', 'View Task', 'width=350px,height=150px,left=300px,top=100px,resize=1,scrolling=1'); viewEvent('".htmlspecialchars($task->getName())."', '".str_replace("\n", '<br />', htmlspecialchars($task->getCalDesc()))."', '".$task->getDue()."');\"";
 				echo ">".$task->getName()."</a><br />";
 			}
 		}
