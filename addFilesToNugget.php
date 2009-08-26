@@ -233,7 +233,7 @@
 	<div id="files">
 	<fieldset><table width="100%">
 <?php
-	if(canViewFiles($currentUser, $currentFolder)
+	if(canViewFiles($currentUser, $currentFolder))
 	{
 		if($fileList)
 		{
