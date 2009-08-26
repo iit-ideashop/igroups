@@ -81,7 +81,7 @@
 			echo "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		else
 			echo "<li><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" style=\"border-style: none\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
-		if(count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID()))
+		if(count($subfolder) > 0 && (in_array($folder->getID(), $_SESSION['expandFolders']) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID()))
 		{
 			echo "<ul class=\"folderlist\">\n";
 			foreach($subfolder as $key => $val)
@@ -139,8 +139,10 @@
 		var folders = new Array();
 		var files = new Array();
 		var inputs = document.getElementsByTagName('input');
-		for(var i = 0; i < inputs.length; i++){
-			if(inputs[i].type == "checkbox" && inputs[i].checked){
+		for(var i = 0; i < inputs.length; i++)
+		{
+			if(inputs[i].type == "checkbox" && inputs[i].checked)
+			{
 				values = inputs[i].name.split(/\x5b|\x5d/);
 				if(values[0] == 'folder')
 					folders.push(values[1]);
@@ -218,9 +220,9 @@
 	}
 ?>
 	</div>
-	<form method="post" action = "addFilesToNugget.php"><div id="menubar">
+	<form method="post" action="addFilesToNugget.php"><div id="menubar">
 <?php
-	if (!$currentUser->isGroupGuest($currentGroup))
+	if(!$currentUser->isGroupGuest($currentGroup))
 	{
 ?>
 		<ul class="folderlist">
