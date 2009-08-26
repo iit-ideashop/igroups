@@ -70,15 +70,15 @@
 			echo "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<strong><a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a></strong>\n";
 		else if(in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs())) //The selected folder is a subfolder of this folder
 			echo "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" title=\"Open folder\" />&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
-		else if(in_array( $folder->getID(), $_SESSION['expandFolders'] )) //The user wants this folder expanded
+		else if(in_array($folder->getID(), $_SESSION['expandFolders'])) //The user wants this folder expanded
 			echo "<li><a href=\"files.php?toggleExpand=".$folder->getID()."$ampsuffix\"><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
 		else
 			echo "<li><a href=\"files.php?toggleExpand=".$folder->getID()."$ampsuffix\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a>\n";
-		if(count($subfolder) > 0 && (in_array( $folder->getID(), $_SESSION['expandFolders'] ) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID()))
+		if(count($subfolder) > 0 && (in_array($folder->getID(), $_SESSION['expandFolders']) || in_array($_SESSION['selectedFolder'], $folder->getAllFolderIDs()) || $_SESSION['selectedFolder'] == $folder->getID()))
 		{
 			echo "<ul class=\"folderlist\">\n";
 			foreach($subfolder as $key => $val)
-				printFolder( $val );
+				printFolder($val);
 			echo "</ul>\n";
 		}
 		echo "</li>\n";

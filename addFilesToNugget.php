@@ -72,6 +72,7 @@
 
 	function printFolder($folder)
 	{	// Prints tree structure of folders
+		global $skin;
 		$subfolder = $folder->getFolders();
 		if($_SESSION['selectedFolder'] == $folder->getID()) //This is the selected folder
 			echo "<li><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"=\" title=\"Open folder\" style=\"border-style: none\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=".$folder->getID()."\">".htmlspecialchars($folder->getName())."</a></strong>\n";
