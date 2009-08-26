@@ -96,7 +96,7 @@
 		$folder = $group->getGroupFolders();
 		foreach($folders as $key => $subfolder)
 		{
-			echo "<option value=".$subfolder->getID().">+ ".$subfolder->getName()."</option>\n";
+			echo "<option value=\"".$subfolder->getID()."\">+ ".$subfolder->getName()."</option>\n";
 			printOptionsRecurse($subfolder, '&nbsp;&nbsp;&nbsp;+ ');
 		}
 	}
@@ -106,7 +106,7 @@
 		$folders = $folder->getFolders();
 		foreach($folders as $key => $subfolder)
 		{
-			echo "<option value =".$subfolder->getID().">".$indent.$subfolder->getName()."</option>\n";
+			echo "<option value=\"".$subfolder->getID()."\">".$indent.$subfolder->getName()."</option>\n";
 			printOptionsRecurse($subfolder, '&nbsp;&nbsp;&nbsp;', $indent);
 		}
 	}
