@@ -136,7 +136,8 @@
 </script>
 <script type= "text/javascript">
 //<![CDATA[
-	function copyCheckBoxes(){
+	function copyCheckBoxes()
+	{
 		var folders = new Array();
 		var files = new Array();
 		var inputs = document.getElementsByTagName('input');
@@ -170,20 +171,18 @@
 	<div id="folders"><ul id="top" class="folderlist">
 <?php
 	if(!isset($_SESSION['selectedSpecial']) && $_SESSION['selectedFolder'] == 0)
-	{
 		echo "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" />&nbsp;<strong><a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0\">Your Files</a></strong>";
-		$topFolders = $currentGroup->getGroupFolders();
-		if(count($topFolders) > 0)
-		{
-			echo "<ul class=\"folderlist\">";
-			foreach($topFolders as $key=> $val)
-				printFolder($val);
-			echo "</ul>";
-		}
-		echo "</li>\n";
-	}
 	else
 		echo "<li><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"=\" /></a>&nbsp;<a href=\"addFilesToNugget.php?nugget={$_GET['nugget']}&amp;selectFolder=0\">Your Files</a></li>\n";
+	$topFolders = $currentGroup->getGroupFolders();
+	if(count($topFolders) > 0)
+	{
+		echo "<ul class=\"folderlist\">";
+		foreach($topFolders as $key => $val)
+			printFolder($val);
+		echo "</ul>";
+	}
+	echo "</li>\n";
 ?>
 	</ul>
 	</div>
