@@ -511,7 +511,7 @@ if(!class_exists('Nugget'))
 		global $_DEFAULTNUGGETS;
 		$db = new dbConnection();
 		$date = date('Y-m-d');
-		$query = "INSERT INTO iGroupsNuggets (sTitle, sDescription, iGroupID, iSemesterID, dCreated) VALUES(\"$newName\", \"$newDescription\", {$group->getID()}, $group->getSemester(), \"$date\")";
+		$query = "INSERT INTO iGroupsNuggets (sTitle, sDescription, iGroupID, iSemesterID, dCreated) VALUES(\"$newName\", \"$newDescription\", {$group->getID()}, {$group->getSemester()}, \"$date\")";
 		$db->query($query);
 		return $db->insertID();
 	}
