@@ -24,7 +24,7 @@
 	echo "<title>$appname Help - Known Issues</title>\n";
 	
 	echo "</head><body>\n";
-	require('../dboard/sidebar.php');
+	require('sidebar.php');
 	echo "<div id=\"content\">\n";
 	echo "<h1>$appname Help Center</h1>\n";
 	echo "<h2>Known Issues</h2>\n";
