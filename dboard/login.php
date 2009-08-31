@@ -5,8 +5,6 @@
 	$db = new dbConnection();
 
 	//-----Process Login------------------------//
-
-	ob_start();
 ?>
 <div id="loginform">
 <?php
