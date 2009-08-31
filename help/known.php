@@ -32,6 +32,5 @@
 	echo "<li>No issues at this time.</li>\n";
 	echo "</ul>\n";
 ?>	
-</div>
 <p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
 </div></body></html>
