@@ -51,22 +51,22 @@
 	foreach($altskins as $altskin)
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<title><?php echo $appname; ?> - Help</title>
+<title><?php echo $appname; ?> - Contact Us</title>
 </head>
 <body>
 <?php
 require('sidebar.php');
 ?>
-<div id="content"><h1>Need help?</h1>
+<div id="content"><h1>Contact iGroups Staff</h1>
 <?php
 if(isset($_POST['help']))
-	echo "<p>Your request for help has been sent and we will respond to it as soon as possible.</p>\n";
+	echo "<p>Your message has been sent and we will respond to it as soon as possible.</p>\n";
 ?>
 <p>If you are <b>having trouble logging in</b>, try <a href="http://sloth.iit.edu/~iproadmin/userpassword.php?reset=1">resetting your password</a>.</p>
 <p>If you are experiencing a <b>display bug</b>, your browser may be using a stale stylesheet. Try clearing your cache. If you don't know how to do this, Wikipedia has <a href="http://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache">instructions for commonly used browsers</a>.</p>
 <p>You may also be interested in the <a href="reqs.php">list of supported browsers</a>.</p>
 <p>If the above instructions fail to correct your problem, complete the form below. Please try to be as specific as you can. We will get back to you as soon as possible.</p>
-<form method="post" action="needhelp.php"><fieldset><legend>Help Request</legend>
+<form method="post" action="needhelp.php"><fieldset><legend>Contact Form</legend>
 <?php
 	if($loggedIn)
 	{
@@ -78,7 +78,7 @@ if(isset($_POST['help']))
 ?>
 <label for="problem">Please describe the problem you are having in as much detail as possible:</label><br />
 <textarea name="problem" id="problem" rows="10" cols="50"></textarea><br /><br />
-<input type="submit" name="help" value="Report Problem" />
+<input type="submit" name="help" value="Send Message" />
 </fieldset></form></div>
 </body>
 </html>
