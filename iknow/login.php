@@ -39,6 +39,6 @@
 </div>
 <p>
 <a href="http://sloth.iit.edu/~iproadmin/userpassword.php?reset=1" title="Forgotten password">Forgot password?</a><br />
-<a href="../UM_iGROUPS.pdf" title="User manual"><?php echo $appname; ?> User Manual</a><br />
-<a href="../needhelp.php" title="Help">Need help?</a>
+<a href="../help/index.php" title="Help Center">Help Center</a><br />
+<a href="../needhelp.php" title="Contact Us">Contact Us</a>
 </p>
