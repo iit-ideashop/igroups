@@ -2,8 +2,6 @@
 	include_once('globals.php');
 	include_once('classes/db.php');
 
-	$db = new dbConnection();
-
 	//-----Process Login------------------------//
 
 	if(isset($_GET['logout']))

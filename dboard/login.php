@@ -2,8 +2,6 @@
 	include_once('../globals.php');
 	include_once('../classes/db.php');
 
-	$db = new dbConnection();
-
 	//-----Process Login------------------------//
 ?>
 <div id="loginform">
@@ -20,7 +18,7 @@
 		//-->
 		</script>
 <?php
-
+	}
 	if(isset($_SESSION['loginError']))
 		print "<strong>Invalid username or password.</strong><br />";
 	unset($_SESSION['loginError']);
