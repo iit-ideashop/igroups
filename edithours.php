@@ -10,7 +10,6 @@
 		{
 			if($task->getTeam()->getID() != $currentGroup->getID())
 				errorPage('Cannot Access Task', 'This task is not assigned to the selected group.', 403);
-			else if
 		}
 		else
 			errorPage('Invalid Task ID', 'The task ID provided is invalid.', 400);
