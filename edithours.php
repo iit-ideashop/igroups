@@ -46,7 +46,7 @@
 			{ //is_numeric check is redundant per above foreach, but better safe than sorry since we use it in a raw SQL query
 				$newhours = $hours[$id];
 				$newdate = date('Y-m-d', strtotime($date));
-				if(is_numeric($newhours))
+				if(strtotime($newdate) <= time() && is_numeric($newhours))
 					$db->query("update Hours set fHours=$newhours, dDate=\"$newdate\" where iID=$id");
 			}
 		}
