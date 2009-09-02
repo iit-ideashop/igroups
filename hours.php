@@ -64,5 +64,6 @@
 		echo "\t</tbody>\n";
 		echo "</table>\n";
 	}
+	echo "<p><a href=\"tasks.php\">Return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n</fieldset></form><div id=\"caldiv\"></div>\n";
 ?>
 </div></body></html>
