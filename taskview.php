@@ -93,6 +93,7 @@ function toggle(id)
 		echo "\t<ul style=\"list-style-type:none\">\n";
 		echo "\t\t<li><a href=\"taskhours.php?taskid={$task->getID()}\">Add Hours</a></li>\n";
 		echo "\t\t<li><a href=\"hours.php?taskid={$task->getID()}\">View Hours</a></li>\n";
+		echo "\t\t<li><a href=\"edithours.php?taskid={$task->getID()}\">Edit Hours</a></li>\n";
 		echo "\t</ul>\n";
 	}
 	if($currentUser->isGroupModerator($currentGroup) || $task->getCreator()->getID() == $currentUser->getID())
