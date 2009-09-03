@@ -152,7 +152,8 @@
 		if(!$currentQuota)
 			$currentQuota = createQuota( $currentGroup, $db );
 		
-		if($_FILES['thefile']['error'] == UPLOAD_ERR_OK)
+		$fileerr = $_FILES['thefile']['error'];
+		if($fileerr == UPLOAD_ERR_OK)
 		{
 			if($currentQuota->checkSpace(filesize($_FILES['thefile']['tmp_name'])))
 			{
@@ -177,8 +178,20 @@
 				$message = 'ERROR: Not enough space for file';
 			}
 		}
-		else 
-			$message = 'Error occured during upload, please try again';
+		else if($fileerr == UPLOAD_ERR_INI_SIZE)
+			$message = 'Error occurred during upload: File too large, exceeded limit specified in php.ini';
+		else if($fileerr == UPLOAD_ERR_FORM_SIZE)
+			$message = 'Error occurred during upload: File too large, exceeded limit specified in form';
+		else if($fileerr == UPLOAD_ERR_PARTIAL)
+			$message = 'Error occurred during upload: File only partially uploaded. Please try again.';
+		else if($fileerr == UPLOAD_ERR_NO_FILE)
+			$message = 'Error occurred during upload: No file uploaded';
+		else if($fileerr == UPLOAD_ERR_NO_TMP_DIR)
+			$message = 'Error occurred during upload: No temporary directory in which to place file. Contact technical support.';
+		else if($fileerr == UPLOAD_ERR_CANT_WRITE)
+			$message = 'Error occurred during upload: Can\'t write to disk. Contact technical support';
+		else
+			$message = 'An unknown error occurred during upload, please try again';
 	}
 	
 	if(isset($_POST['fupdate']))
