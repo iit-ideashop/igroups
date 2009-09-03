@@ -123,8 +123,9 @@
 			if(!$quota)
 				$quota = createQuota($group, $db);
 			printTR();
+			$pix = round($quota->getPercentUsed());
 			echo "<td>{$group->getName()}</td>";
-			echo "<td><div class=\"fullness-bar\" style=\"width:102px; height:15px;\"><div class=\"fullness-indicator\" style=\"height:13px;width:{$quota->getPercentUsed()}px;\"></div></div></td>";
+			echo "<td><div class=\"fullness-bar\" style=\"width:102px; height:15px;\"><div class=\"fullness-indicator\" style=\"height:13px;width:{$pix}px;\"></div></div></td>";
 			echo "<td>".round($quota->getLimit()/1048576, 2)." MiB</td>";
 			echo "<td><input type=\"text\" name='quota[".$group->getID()."]' style=\"height:16px;font-size:8pt;\" /> bytes</td>";
 			echo "</tr>\n";
