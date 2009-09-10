@@ -116,21 +116,7 @@ cal.showNavigationDropdowns();
 	require('sidebar.php');
 ?>
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
-<?php
-	//Personal summaries
-	if($currentUser->isGroupModerator($currentGroup))
-	{
-		echo "<div id=\"indsummaries\">\n";
-		echo "<h1>Individual Summaries</h1>\n";
-		echo "<ul>\n";
-		$members = $currentGroup->getGroupMembers();
-		usort($members, 'alpha');
-		foreach($members as $person)
-			echo "<li><a href=\"hourssummary.php?uid={$person->getID()}\">{$person->getFullName()}</a></li>\n";
-		echo "</ul>\n";
-		echo "</div>\n";
-	}	
-	
+<?php	
 	//List tasks (choose: My tasks, my tasks + my subgroups, all group tasks)
 	echo "<form method=\"get\" action=\"tasks.php\"><fieldset><legend>Filter Tasks</legend><select name=\"viewTasks\">\n";
 	echo "<option value=\"1\"{$taskSelect[1]}>My uncompleted tasks</option>\n";
@@ -208,6 +194,20 @@ cal.showNavigationDropdowns();
 			$i = ($i ? 0 : 1);
 		}
 		echo "\n</table>\n";
+	}
+	
+	//Personal summaries
+	if($currentUser->isGroupModerator($currentGroup))
+	{
+		echo "<div id=\"indsummaries\">\n";
+		echo "<h1>Individual Summaries</h1>\n";
+		echo "<ul>\n";
+		$members = $currentGroup->getGroupMembers();
+		usort($members, 'alpha');
+		foreach($members as $person)
+			echo "<li><a href=\"hourssummary.php?uid={$person->getID()}\">{$person->getFullName()}</a></li>\n";
+		echo "</ul>\n";
+		echo "</div>\n";
 	}
 	
 	//Add a task
