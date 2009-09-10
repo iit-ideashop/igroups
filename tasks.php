@@ -212,7 +212,7 @@ cal.showNavigationDropdowns();
 	if($currentUser->isGroupModerator($currentGroup))
 	{
 		echo "</div><div id=\"indsummaries\">\n";
-		echo "<h1>Individual Summaries</h1>\n";
+		echo "<h1>Individual Hours Summaries</h1>\n";
 		echo "<ul>\n";
 		$members = $currentGroup->getGroupMembers();
 		usort($members, 'alpha');
