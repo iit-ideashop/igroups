@@ -84,6 +84,11 @@ legend#taskedit
 	font-size: 10pt;
 }
 
+#indsummaries
+{
+	float: left;
+}
+
 div#caldiv
 {
 	

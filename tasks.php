@@ -3,6 +3,16 @@
 	include_once('checklogin.php');
 	include_once('classes/task.php');
 	
+	function alpha($person1, $person2)
+	{ //Used in usort below to sort by name
+		if($person1->getLastName() < $person2->getLastName())
+			return -1;
+		else if ($person2->getLastName() < $person1->getLastName())
+			return 1;
+		else
+			return 0;
+	}
+	
 	if($_POST['form'] == 'addtask')
 	{	//We have a new task to process
 		$name = mysql_real_escape_string($_POST['name']);
@@ -185,6 +195,20 @@ cal.showNavigationDropdowns();
 		}
 		echo "\n</table>\n";
 	}
+	//Personal summaries
+	if($currentUser->isGroupModerator($currentGroup))
+	{
+		echo "<div id=\"summarylist\">\n";
+		echo "<h1>Individual Summaries</h1>\n";
+		echo "<ul>\n";
+		$members = $currentGroup->getGroupMembers();
+		usort($members, 'alpha');
+		foreach($members as $person)
+			echo "<li><a href=\"hourssummary.php?uid={$person->getID()}\">{$person->getFullName()}</a></li>\n";
+		echo "</ul>\n";
+		echo "</div>\n";
+	}
+	
 	//Add a task
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
