@@ -93,9 +93,7 @@ legend#taskedit
 #indsummaries
 {
 	float: left;
-	border: thin solid black;
-	padding: 3px;
-	margin-left: 5px;
+	margin-left: 10px;
 }
 
 div#caldiv

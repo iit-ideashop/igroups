@@ -195,7 +195,7 @@ cal.showNavigationDropdowns();
 			echo "\n<tr$overdue><td><a href=\"taskview.php?taskid={$task->getID()}\">{$task->getName()}</a></td><td>{$task->getDue()}</td><td class=\"assignments\">$taskassn</td><td>$myhours</td><td>$taskClosed</td></tr>";
 			$i = ($i ? 0 : 1);
 		}
-		echo "\n</table>\n";
+		echo "\n</table><br />\n";
 	}
 	
 	//Add a task
