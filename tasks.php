@@ -116,7 +116,9 @@ cal.showNavigationDropdowns();
 	require('sidebar.php');
 ?>
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
-<?php	
+<?php
+	if($currentUser->isGroupModerator($currentGroup))
+		echo "<div id=\"tasksstuff\">\n"; //Needed for proper columning of the "individual summaries" list, if it appears
 	//List tasks (choose: My tasks, my tasks + my subgroups, all group tasks)
 	echo "<form method=\"get\" action=\"tasks.php\"><fieldset><legend>Filter Tasks</legend><select name=\"viewTasks\">\n";
 	echo "<option value=\"1\"{$taskSelect[1]}>My uncompleted tasks</option>\n";
@@ -196,20 +198,6 @@ cal.showNavigationDropdowns();
 		echo "\n</table>\n";
 	}
 	
-	//Personal summaries
-	if($currentUser->isGroupModerator($currentGroup))
-	{
-		echo "<div id=\"indsummaries\">\n";
-		echo "<h1>Individual Summaries</h1>\n";
-		echo "<ul>\n";
-		$members = $currentGroup->getGroupMembers();
-		usort($members, 'alpha');
-		foreach($members as $person)
-			echo "<li><a href=\"hourssummary.php?uid={$person->getID()}\">{$person->getFullName()}</a></li>\n";
-		echo "</ul>\n";
-		echo "</div>\n";
-	}
-	
 	//Add a task
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
@@ -219,6 +207,19 @@ cal.showNavigationDropdowns();
 		echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"40\"></textarea></label><br />\n";
 		echo "<input type=\"submit\" value=\"Add\" /><input type=\"hidden\" name=\"form\" value=\"addtask\" /></fieldset></form><div id=\"caldiv\"></div>\n";
 	}
+	
+	//Individual summaries
+	if($currentUser->isGroupModerator($currentGroup))
+	{
+		echo "</div><div id=\"indsummaries\">\n";
+		echo "<h1>Individual Summaries</h1>\n";
+		echo "<ul>\n";
+		$members = $currentGroup->getGroupMembers();
+		usort($members, 'alpha');
+		foreach($members as $person)
+			echo "<li><a href=\"hourssummary.php?uid={$person->getID()}\">{$person->getFullName()}</a></li>\n";
+		echo "</ul>\n";
+		echo "</div>\n";
+	}
 ?>
-</div></body>
-</html>
+</div></body></html>
