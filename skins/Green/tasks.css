@@ -95,6 +95,7 @@ legend#taskedit
 	float: left;
 	border: thin solid black;
 	padding: 3px;
+	margin-left: 5px;
 }
 
 div#caldiv
