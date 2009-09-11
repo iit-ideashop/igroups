@@ -35,8 +35,9 @@ if(!class_exists('SuperString'))
 		
 		function getHTMLString()
 		{
-			$tempString = str_replace( "\r\n", "<br />", $this->str );
-			$tempString = str_replace( "'", "&#39;", $tempString );
+			$tempString = str_replace("\r\n", "<br />", $this->str);
+			$tempString = str_replace("'", "&#39;", $tempString);
+			$tempString = str_replace('"', '$quot;', $tempString);
 			return $tempString;
 		}
 		
