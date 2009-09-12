@@ -67,6 +67,7 @@
 ?>
 <title><?php echo $appname; ?> - Edit Hours</title>
 <script type="text/javascript">
+//<![CDATA[
 function calcTotal()
 {
 	var sum = 0;
@@ -93,6 +94,7 @@ function resetTotal()
 {
 	document.getElementById('totelem').innerHTML = <?php echo $task->getTotalHoursFor($currentUser); ?>;
 }
+//]]>
 </script>
 </head>
 <body>
