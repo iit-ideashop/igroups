@@ -97,7 +97,7 @@ function calcTotal()
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	$hours = $task->getHours($currentUser);
-	echo "<form method=\"post\" action=\"edithours.php?taskid={$task->getID()}\" id=\"edithoursform\"><fieldset><legend>Edit Hours</legend>\n";
+	echo "<form method=\"post\" action=\"edithours.php?taskid={$task->getID()}\" id=\"edithoursform\" onreset=\"calcTotal()\"><fieldset><legend>Edit Hours</legend>\n";
 	echo "<table class=\"taskhours\">\n";
 	echo "\t<thead>\n";
 	echo "\t\t<tr><th colspan=\"3\">Hours Summary for {$currentUser->getFullName()}</th></tr>\n";
