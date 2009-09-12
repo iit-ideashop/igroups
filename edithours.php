@@ -83,6 +83,9 @@ function calcTotal()
 			sum += (isNaN(fval) ? 0 : fval);
 		}
 	}
+	sum *= 100;
+	sum = Math.round(sum);
+	sum /= 100;
 	totelem.innerHTML = sum;
 }
 </script>
