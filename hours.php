@@ -52,15 +52,15 @@
 		$hours = $task->getHours($user);
 		echo "<table class=\"taskhours\">\n";
 		echo "\t<thead>\n";
-		echo "\t\t<tr><th colspan=\"2\">Hours Summary for {$user->getFullName()}</th></tr>\n";
-		echo "\t\t<tr><th>Date</th><th>Hours Spent</th></tr>\n";
+		echo "\t\t<tr><th colspan=\"3\">Hours Summary for {$user->getFullName()}</th></tr>\n";
+		echo "\t\t<tr><th>Date</th><th>Hours Spent</th><th>Description</th></tr>\n";
 		echo "\t</thead>\n";
 		echo "\t<tfoot>\n";
-		echo "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($user)}</td></tr>\n";
+		echo "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($user)}</td><td></td></tr>\n";
 		echo "\t</tfoot>\n";
 		echo "\t<tbody>\n";
 		foreach($hours as $hour)
-			echo "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
+			echo "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td><td>".htmlspecialchars($hour->getDesc())."</td></tr>\n";
 		echo "\t</tbody>\n";
 		echo "</table>\n";
 	}

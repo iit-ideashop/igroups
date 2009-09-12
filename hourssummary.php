@@ -44,16 +44,16 @@
 			$hours = $task->getHours($currentUser);
 			$toecho .= "<a name=\"T{$task->getID()}\"></a><table class=\"taskhours\">\n";
 			$toecho .= "\t<thead>\n";
-			$toecho .= "\t\t<tr><th colspan=\"2\">Hours Summary for {$task->getName()}</th></tr>\n";
-			$toecho .= "\t\t<tr><th>Date</th><th>Hours Spent</th></tr>\n";
+			$toecho .= "\t\t<tr><th colspan=\"3\">Hours Summary for {$task->getName()}</th></tr>\n";
+			$toecho .= "\t\t<tr><th>Date</th><th>Hours Spent</th><th>Description</th></tr>\n";
 			$toecho .= "\t</thead>\n";
 			$toecho .= "\t<tfoot>\n";
-			$toecho .= "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td></tr>\n";
+			$toecho .= "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td><td></td></tr>\n";
 			$toecho .= "\t</tfoot>\n";
 			$toecho .= "\t<tbody>\n";
 			if(count($hours))
 				foreach($hours as $hour)
-					$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
+					$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td><td>".htmlspecialchars($hour->getDesc())."</td></tr>\n";
 			else
 				$toecho .= "<tr><td colspan=\"2\" align=\"center\">No hours</td></tr>\n";
 			$toecho .= "\t</tbody>\n";

@@ -5,7 +5,7 @@ if(!class_exists('Hour'))
 {
 	class Hour
 	{
-		var $id, $db, $task, $person, $hours, $date, $valid;
+		var $id, $db, $task, $person, $hours, $date, $desc, $valid;
 		
 		function Hour($id, $db)
 		{
@@ -21,6 +21,7 @@ if(!class_exists('Hour'))
 					$this->person = new Person($result['iPersonID'], $db);
 					$this->hours = $result['fHours'];
 					$this->date = $result['dDate'];
+					$this->desc = $result['sDesc'];
 					$this->valid = true;
 				}
 			}
@@ -56,6 +57,11 @@ if(!class_exists('Hour'))
 			return $this->date;
 		}
 		
+		function getDesc()
+		{
+			return stripslashes($this->desc);
+		}
+		
 		function setHours($n)
 		{
 			if($this->db->query("update Hours set fHours=$n where iID={$this->id}"))
@@ -68,6 +74,14 @@ if(!class_exists('Hour'))
 			if($this->db->query("update Hours set dDate=\"$n\" where iID={$this->id}"))
 				$this->date = $n;
 			return ($this->date == $n);
+		}
+		
+		function setDesc($n)
+		{
+			$nsql = mysql_real_escape_string(stripslashes($n));
+			if($this->db->query("update Hours set sDesc=\"$nsql\" where iID={$this->id}"))
+				$this->desc = $n;
+			return ($this->desc == $n);
 		}
 	}
 }

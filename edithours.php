@@ -25,6 +25,7 @@
 	{
 		$dates = array();
 		$hours = array();
+		$descs = array();
 		
 		foreach($_POST as $key => $val)
 		{
@@ -36,6 +37,8 @@
 					$dates[$id] = $val;
 				else if($key[0] == 'h')
 					$hours[$id] = $val;
+				else if($key[0] == 's')
+					$descs[$id] = stripslashes($val);
 			}
 		}
 		
@@ -46,8 +49,9 @@
 			{ //is_numeric check is redundant per above foreach, but better safe than sorry since we use it in a raw SQL query
 				$newhours = $hours[$id];
 				$newdate = date('Y-m-d', strtotime($date));
+				$newdesc = mysql_real_escape_string($descs[$id]);
 				if(strtotime($newdate) <= time() && is_numeric($newhours))
-					$db->query("update Hours set fHours=$newhours, dDate=\"$newdate\" where iID=$id");
+					$db->query("update Hours set fHours=$newhours, dDate=\"$newdate\", sDesc=\"$newdesc\" where iID=$id");
 			}
 		}
 		header("Location: hours.php?taskid={$_GET['taskid']}");
@@ -81,7 +85,7 @@
 	echo "\t</tfoot>\n";
 	echo "\t<tbody>\n";
 	foreach($hours as $hour)
-		echo "\t\t<tr><td><input type=\"text\" name=\"d{$hour->getID()}\" value=\"{$hour->getDate()}\" /></td><td><input type=\"text\" name=\"h{$hour->getID()}\" value=\"{$hour->getHours()}\" /></td></tr>\n";
+		echo "\t\t<tr><td><input type=\"text\" name=\"d{$hour->getID()}\" value=\"{$hour->getDate()}\" /></td><td><input type=\"text\" name=\"h{$hour->getID()}\" value=\"{$hour->getHours()}\" /></td><td><input type=\"text\" name=\"s{$hour->getID()}\" value=\"".htmlspecialchars($hour->getDesc())."\" /></td></tr>\n";
 	echo "\t</tbody>\n";
 	echo "</table>\n";
 	echo "<input type=\"submit\" name=\"submitted\" value=\"Submit Hours\" /> <input type=\"reset\" /></fieldset></form>\n";

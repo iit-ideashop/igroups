@@ -256,8 +256,9 @@ if(!class_exists('Task'))
 			return ($query[0] ? $query[0] : 0);
 		}
 		
-		function setHours($date, $person, $hours)
+		function setHours($date, $person, $hours, $desc)
 		{
+			$desc = mysql_real_escape_string(stripslashes($desc));
 			$sqldate = date('Y-m-d', $date);
 			if(!is_numeric($hours) || $hours < 0)
 				return false;
@@ -265,11 +266,11 @@ if(!class_exists('Task'))
 			$query = $this->db->query("select * from Hours where iTaskID={$this->id} and iPersonID={$person->getID()} and dDate=\"$sqldate\"");
 			$result = mysql_fetch_array($query);
 			if($result && $hours > 0)
-				return $this->db->query("update Hours set fHours=$hours where iID={$result['iID']}");
+				return $this->db->query("update Hours set fHours=$hours, sDesc=\"$desc\" where iID={$result['iID']}");
 			else if($result && $hours == 0)
 				return $this->db->query("delete from Hours where iID={$result['iID']}");
 			else
-				return $this->db->query("insert into Hours (iTaskID, iPersonID, dDate, fHours) values ({$this->id}, {$person->getID()}, \"$sqldate\", $hours)");
+				return $this->db->query("insert into Hours (iTaskID, iPersonID, dDate, fHours, sDesc) values ({$this->id}, {$person->getID()}, \"$sqldate\", $hours, \"$desc\")");
 		}
 	}
 }
