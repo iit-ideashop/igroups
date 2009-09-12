@@ -80,7 +80,7 @@ function calcTotal()
 		{
 			var val = currElem.value;
 			var fval = parseFloat(val);
-			sum += (isNaN(fval) ? 0 : fval);
+			sum += ((isNaN(fval) || fval <= 0) ? 0 : fval);
 		}
 	}
 	sum *= 100;
