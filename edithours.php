@@ -66,6 +66,26 @@
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <title><?php echo $appname; ?> - Edit Hours</title>
+<script type="text/javascript">
+function calcTotal()
+{
+	var sum = 0;
+	var form = document.getElementByID('edithoursform');
+	var totelem = document.getElementByID('totelem');
+	
+	for(i = 0; i < form.elements.length; i++)
+	{
+		var currElem = form.elements[i];
+		if(currElem.className == 'hoursformelem')
+		{
+			var val = currElem.value;
+			var fval = parseFloat(val);
+			sum += (isNaN(fval) ? 0 : fval);
+		}
+	}
+	totelem.innerHTML = sum;
+}
+</script>
 </head>
 <body>
 <?php
@@ -74,18 +94,18 @@
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	$hours = $task->getHours($currentUser);
-	echo "<form method=\"post\" action=\"edithours.php?taskid={$task->getID()}\"><fieldset><legend>Edit Hours</legend>\n";
+	echo "<form method=\"post\" action=\"edithours.php?taskid={$task->getID()}\" id=\"edithoursform\"><fieldset><legend>Edit Hours</legend>\n";
 	echo "<table class=\"taskhours\">\n";
 	echo "\t<thead>\n";
 	echo "\t\t<tr><th colspan=\"3\">Hours Summary for {$currentUser->getFullName()}</th></tr>\n";
 	echo "\t\t<tr><th>Date</th><th>Hours Spent</th><th>Description</th></tr>\n";
 	echo "\t</thead>\n";
 	echo "\t<tfoot>\n";
-	echo "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td><td></td></tr>\n";
+	echo "\t\t<tr><td>Total</td><td id=\"totelem\">{$task->getTotalHoursFor($currentUser)}</td><td></td></tr>\n";
 	echo "\t</tfoot>\n";
 	echo "\t<tbody>\n";
 	foreach($hours as $hour)
-		echo "\t\t<tr><td><input type=\"text\" name=\"d{$hour->getID()}\" value=\"{$hour->getDate()}\" /></td><td><input type=\"text\" name=\"h{$hour->getID()}\" value=\"{$hour->getHours()}\" /></td><td><input type=\"text\" name=\"s{$hour->getID()}\" value=\"".htmlspecialchars($hour->getDesc())."\" /></td></tr>\n";
+		echo "\t\t<tr><td><input type=\"text\" name=\"d{$hour->getID()}\" value=\"{$hour->getDate()}\" /></td><td><input type=\"text\" name=\"h{$hour->getID()}\" value=\"{$hour->getHours()}\" onchange=\"calcTotal()\" class=\"hoursformelem\" /></td><td><input type=\"text\" name=\"s{$hour->getID()}\" value=\"".htmlspecialchars($hour->getDesc())."\" /></td></tr>\n";
 	echo "\t</tbody>\n";
 	echo "</table>\n";
 	echo "<input type=\"submit\" name=\"submitted\" value=\"Submit Hours\" /> <input type=\"reset\" /></fieldset></form>\n";
