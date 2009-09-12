@@ -55,7 +55,7 @@
 				foreach($hours as $hour)
 					$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td><td>".htmlspecialchars($hour->getDesc())."</td></tr>\n";
 			else
-				$toecho .= "<tr><td colspan=\"2\" align=\"center\">No hours</td></tr>\n";
+				$toecho .= "<tr><td colspan=\"3\" align=\"center\">No hours</td></tr>\n";
 			$toecho .= "\t</tbody>\n";
 			$toecho .= "</table><br />\n";
 			$total += $task->getTotalHoursFor($currentUser);
