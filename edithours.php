@@ -77,11 +77,11 @@
 	echo "<form method=\"post\" action=\"edithours.php?taskid={$task->getID()}\"><fieldset><legend>Edit Hours</legend>\n";
 	echo "<table class=\"taskhours\">\n";
 	echo "\t<thead>\n";
-	echo "\t\t<tr><th colspan=\"2\">Hours Summary for {$currentUser->getFullName()}</th></tr>\n";
-	echo "\t\t<tr><th>Date</th><th>Hours Spent</th></tr>\n";
+	echo "\t\t<tr><th colspan=\"3\">Hours Summary for {$currentUser->getFullName()}</th></tr>\n";
+	echo "\t\t<tr><th>Date</th><th>Hours Spent</th><th>Description</th></tr>\n";
 	echo "\t</thead>\n";
 	echo "\t<tfoot>\n";
-	echo "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td></tr>\n";
+	echo "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td><td></td></tr>\n";
 	echo "\t</tfoot>\n";
 	echo "\t<tbody>\n";
 	foreach($hours as $hour)
