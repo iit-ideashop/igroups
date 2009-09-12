@@ -70,8 +70,8 @@
 function calcTotal()
 {
 	var sum = 0;
-	var form = document.getElementByID('edithoursform');
-	var totelem = document.getElementByID('totelem');
+	var form = document.getElementById('edithoursform');
+	var totelem = document.getElementById('totelem');
 	
 	for(i = 0; i < form.elements.length; i++)
 	{
