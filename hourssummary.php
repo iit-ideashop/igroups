@@ -64,14 +64,14 @@ if(isset($user) && isset($tasks))
 		$list = array();
 		foreach($tasks as $task)
 		{
-			$hours = $task->getHours($currentUser);
+			$hours = $task->getHours($user);
 			$toecho .= "<a name=\"T{$task->getID()}\"></a><table class=\"taskhours\">\n";
 			$toecho .= "\t<thead>\n";
 			$toecho .= "\t\t<tr><th colspan=\"3\">Hours Summary for {$task->getName()}</th></tr>\n";
 			$toecho .= "\t\t<tr><th>Date</th><th>Hours Spent</th><th>Description</th></tr>\n";
 			$toecho .= "\t</thead>\n";
 			$toecho .= "\t<tfoot>\n";
-			$toecho .= "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($currentUser)}</td><td></td></tr>\n";
+			$toecho .= "\t\t<tr><td>Total</td><td>{$task->getTotalHoursFor($user)}</td><td></td></tr>\n";
 			$toecho .= "\t</tfoot>\n";
 			$toecho .= "\t<tbody>\n";
 			if(count($hours))
