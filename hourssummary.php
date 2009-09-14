@@ -154,7 +154,7 @@ else
 { //Show a groupwide hours summary by week.
 	$totals = array(); //Holds total hours keyed by user ID
 	$allhours = array(); //2D array keyed first on user ID, then contains all hours for that person
-	$users = $currentGroup->getGroupMembers();
+	$users = peopleSort($currentGroup->getGroupMembers());
 	
 	foreach($users as $user)
 	{
@@ -179,6 +179,8 @@ else
 			$totals[$user->getID()] += $task->getTotalHoursFor($user);
 		}
 	}
+	foreach($allhours as $key => $arr)
+		usort($allhours[$key], 'cmpByDate');
 	
 	//$startdate should be a Sunday
 	$startdate = getDate($mindate);
@@ -188,7 +190,6 @@ else
 	//$enddate can be any day
 	$enddate = getDate($maxdate);
 	
-	$users = peopleSort($users);
 	$numusers = count($users);
 	echo "<table class=\"taskhours\"><thead><tr><th rowspan=\"2\">Week Starting</th><th colspan=\"$numusers\">Hours Recorded</th></tr>\n";
 	echo "<tr>";
