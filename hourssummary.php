@@ -188,12 +188,12 @@ else
 	$enddate = getDate($maxdate);
 	
 	$users = peopleSort($users);
-	echo "<table class=\"taskhours\"><thead><tr><th rowspan=\"2\">Week Starting</th><th colspan=\"\">Hours Recorded</th></tr>\n";
+	$numusers = count($users);
+	echo "<table class=\"taskhours\"><thead><tr><th rowspan=\"2\">Week Starting</th><th colspan=\"$numusers\">Hours Recorded</th></tr>\n";
 	echo "<tr>";
 	foreach($users as $user)
 		echo "<th>{$user->getFullName()}</th>\n";
 	echo "</tr></thead>\n";
-	echo "<tfoot><tr><td>Total</td><td>$total</td></tr>\n";
 	$numweeks = 0;
 	$echoqueue2 = '';
 	for($currSunday = $mindate; $currSunday <= $maxdate; $currSunday += 604800)
@@ -222,7 +222,10 @@ else
 		$echoqueue2 .= "</tr>\n";
 		++$numweeks;
 	}
-	echo "<tr><td>Weekly Average</td>";
+	echo "<tfoot><tr><td>Total</td>";
+	foreach($users as $user)
+		echo "<td>{$totals[$user->getID()]}</td>"
+	echo "</tr>\n<tr><td>Weekly Average</td>";
 	foreach($users as $user)
 	{
 		$wkavg = ($numweeks > 0 ? number_format($totals[$user->getID()] / $numweeks, 2) : 0);
