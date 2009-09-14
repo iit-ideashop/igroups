@@ -15,6 +15,15 @@
 			return -1;
 	}
 	
+	function peopleSort($array)
+	{
+		$newArray = array();
+		foreach($array as $person)
+			$newArray[$person->getCommaName()] = $person;
+		ksort($newArray);
+		return $newArray;
+	}
+	
 	if(!$currentUser->isGroupModerator($currentGroup) && $_GET['uid'] != $currentUser->getID())
 		errorPage('Credentials Required', 'You must be a group moderator to view hours summaries', 403);
 	if(is_numeric($_GET['uid']) && $_GET['uid'] > 0)
@@ -22,11 +31,10 @@
 		$user = new Person($_GET['uid'], $db);
 		if(!$user->isValid())
 			errorPage('Cannot find person', 'That person was not found', 400);
+		$tasks = $user->getAssignedTasksByName($currentGroup);
 	}
-	else
-		errorPage('uID not numeric', 'uID must be a positive integer', 400);
-	
-	$tasks = $user->getAssignedTasksByName($currentGroup);
+	//else
+	//	errorPage('uID not numeric', 'uID must be a positive integer', 400);
 	
 	//------Start XHTML Output--------------------------------------//
 
@@ -44,6 +52,8 @@
 ?>
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
+if(isset($user) && isset($tasks))
+{ //Show an individual hours summary
 	echo "<h1>Hours Summary for {$user->getFullName()}</h1>\n";
 	$count = count($tasks);
 	if($count)
@@ -139,5 +149,88 @@
 	}
 	else
 		echo "<p>{$user->getFirstName()} is not assigned to any tasks, and so can have no hours.</p>\n";
+}
+else
+{ //Show a groupwide hours summary by week.
+	$totals = array(); //Holds total hours keyed by user ID
+	$allhours = array(); //2D array keyed first on user ID, then contains all hours for that person
+	$users = $currentGroup->getGroupMembers();
+	
+	foreach($users as $user)
+	{
+		$tasks = $user->getAssignedTasksByName($currentGroup);
+		foreach($tasks as $task)
+		{
+			$hours = $task->getHours($user);
+			if(count($hours))
+			{
+				foreach($hours as $hour)
+				{
+					if(!array_key_exists($user->getID(), $allhours))
+						$allhours[$user->getID()] = array();
+					$allhours[$user->getID()][$hour->getID()] = $hour;
+					if(!isset($mindate) || strtotime($hour->getDate()) < $mindate)
+						$mindate = strtotime($hour->getDate());
+					else if(!isset($maxdate) || strtotime($hour->getDate()) > $maxdate)
+						$maxdate = strtotime($hour->getDate());
+				}
+			}
+			$totals[$user->getID()] += $task->getTotalHoursFor($currentUser);
+		}
+	}
+	
+	//$startdate should be a Sunday
+	$startdate = getDate($mindate);
+	$mindate -= $startdate['wday']*86400;
+	$startdate = getDate($mindate);
+	
+	//$enddate can be any day
+	$enddate = getDate($maxdate);
+	
+	$users = peopleSort($users);
+	echo "<table class=\"taskhours\"><thead><tr><th rowspan=\"2\">Week Starting</th><th colspan=\"\">Hours Recorded</th></tr>\n";
+	echo "<tr>"
+	foreach($users as $user)
+		echo "<th>{$user->getFullName();}</th>\n";
+	echo "</tr></thead>\n";
+	echo "<tfoot><tr><td>Total</td><td>$total</td></tr>\n";
+	$numweeks = 0;
+	$echoqueue2 = '';
+	for($currSunday = $mindate; $currSunday <= $maxdate; $currSunday += 604800)
+	{
+		$currdate = getDate($currSunday);
+		$currdatepretty = $currdate['month'].' '.$currdate['mday'].', '.$currdate['year'];
+	
+		$hoursworked = array();
+		foreach($allhours as $userid => $arr)
+		{
+			$hoursworked[$userid] = 0;
+			foreach($arr as $hourid => $hour)
+			{
+				$thistime = strtotime($hour->getDate());
+				if($thistime >= $currSunday)
+				{
+					if($thistime >= $currSunday + 604800)
+						break;
+					$hoursworked[$userid] += $hour->getHours();
+				}
+			}
+		}
+		$echoqueue2 .= "<tr><td>$currdatepretty</td>";
+		foreach($users as $user)
+			$echoqueue2 .= "<td>{$hoursworked[$user->getID()]}</td>";
+		$echoqueue2 .= "</tr>\n";
+		++$numweeks;
+	}
+	echo "<tr><td>Weekly Average</td>";
+	foreach($users as $user)
+	{
+		$wkavg = ($numweeks > 0 ? number_format($totals[$user->getID()] / $numweeks, 2) : 0);
+		echo "<td>$wkavg</td>";
+	}
+	echo "</tr></tfoot>\n<tbody>\n";
+	echo $echoqueue2;
+	echo "</tbody></table>\n";
+}
 ?>
 </div></body></html>
