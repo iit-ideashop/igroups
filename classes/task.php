@@ -265,9 +265,9 @@ if(!class_exists('Task'))
 			$date = mysql_real_escape_string(stripslashes($date));
 			$query = $this->db->query("select * from Hours where iTaskID={$this->id} and iPersonID={$person->getID()} and dDate=\"$sqldate\"");
 			$result = mysql_fetch_array($query);
-			if($result && $hours > 0)
-				return $this->db->query("update Hours set fHours=$hours, sDesc=\"$desc\" where iID={$result['iID']}");
-			else if($result && $hours == 0)
+			//if($result && $hours > 0)
+			//	return $this->db->query("update Hours set fHours=$hours, sDesc=\"$desc\" where iID={$result['iID']}");
+			if($result && $hours == 0)
 				return $this->db->query("delete from Hours where iID={$result['iID']}");
 			else
 				return $this->db->query("insert into Hours (iTaskID, iPersonID, dDate, fHours, sDesc) values ({$this->id}, {$person->getID()}, \"$sqldate\", $hours, \"$desc\")");

@@ -7,7 +7,7 @@
 	{ //Used in usort below to sort by name
 		if($person1->getLastName() < $person2->getLastName())
 			return -1;
-		else if ($person2->getLastName() < $person1->getLastName())
+		else if($person2->getLastName() < $person1->getLastName())
 			return 1;
 		else
 			return 0;

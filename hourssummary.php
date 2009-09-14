@@ -3,6 +3,18 @@
 	include_once('checklogin.php');
 	include_once('classes/task.php');
 	
+	function cmpByDate($hour1, $hour2) //Used in usort below for sorting hours
+	{
+		$date1 = strtotime($hour1->getDate());
+		$date2 = strtotime($hour2->getDate());
+		if($date1 == $date2)
+			return 0;
+		else if($hour1->getDate() > $hour2->getDate())
+			return 1;
+		else
+			return -1;
+	}
+	
 	if(!$currentUser->isGroupModerator($currentGroup) && $_GET['uid'] != $currentUser->getID())
 		errorPage('Credentials Required', 'You must be a group moderator to view hours summaries', 403);
 	if(is_numeric($_GET['uid']) && $_GET['uid'] > 0)
@@ -36,6 +48,7 @@
 	$count = count($tasks);
 	if($count)
 	{
+		$allhours = array();
 		$toecho = '';
 		$total = 0;
 		$list = array();
@@ -52,8 +65,17 @@
 			$toecho .= "\t</tfoot>\n";
 			$toecho .= "\t<tbody>\n";
 			if(count($hours))
+			{
 				foreach($hours as $hour)
-					$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td><td>".htmlspecialchars($hour->getDesc())."</td></tr>\n";
+				{
+					$allhours[$hour->getID()] = $hour;
+					$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
+					if(!isset($mindate) || strtotime($hour->getDate()) < strtotime($mindate))
+						$mindate = strtotime($hour->getDate());
+					else if(!isset($maxdate) || strtotime($hour->getDate()) > strtotime($maxdate))
+						$maxdate = strtotime($hour->getDate());
+				}
+			}
 			else
 				$toecho .= "<tr><td colspan=\"3\" align=\"center\">No hours</td></tr>\n";
 			$toecho .= "\t</tbody>\n";
@@ -61,6 +83,7 @@
 			$total += $task->getTotalHoursFor($currentUser);
 			$list[$task->getID()] = $task->getName();
 		}
+		usort($allhours, 'cmpByDate');
 		$avg = number_format($total / $count, 2);
 		echo "<p>{$user->getFirstName()} has recorded $total hours for $count tasks, averaging $avg hours per task.</p>\n";
 		echo "<p>Jump to...</p>\n";
@@ -68,6 +91,38 @@
 		foreach($list as $id => $name)
 			echo "<li><a href=\"#T$id\">$name</a></li>\n";
 		echo "</ul>\n";
+		
+		echo "<h2>By Week</h2>\n";
+		//$startdate should be a Sunday
+		$startdate = getDate($mindate);
+		$mindate -= $startdate['wday']*86400;
+		$startdate = getDate($mindate);
+		
+		//$enddate can be any day
+		$enddate = getDate($maxdate);
+		echo "<table><tr><th>Week Starting</th><th>Hours Recorded</th></tr>\n";
+		for($currSunday = $mindate; $currSunday <= $maxdate; $currSunday += 604800)
+		{
+			$currdate = getDate($currSunday);
+			$currdatepretty = $currdate['month'].' '.$currdate['mday'].', '.$currdate['year'];
+			
+			$hoursworked = 0;
+			foreach($allhours as $id => $hour)
+			{
+				$thistime = strtotime($hour->getDate());
+				if($thistime >= $currSunday)
+				{
+					if($thistime >= $currSunday + 604800)
+						break;
+					$hoursworked += $hour->getHours();
+				}
+			}
+			echo "<tr><td>$currdatepretty</td><td>$hoursworked</td></tr>\n";
+		}
+		echo "</table>\n";
+		
+		echo "<h2>By Task</h2>\n";
+		
 		echo $toecho;
 	}
 	else
