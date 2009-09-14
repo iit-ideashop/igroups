@@ -129,7 +129,7 @@
 		else
 			$echoqueue2 .= "<tr><td colspan=\"2\">No hours.</td></tr>\n";
 		$wkavg = ($numweeks > 0 ? number_format($total / $numweeks, 2) : 0);
-		echo "<tr><td>Weekly Average</td><td></td></tr></tfoot>\n<tbody>\n";
+		echo "<tr><td>Weekly Average</td><td>$wkavg</td></tr></tfoot>\n<tbody>\n";
 		echo $echoqueue2;
 		echo "</tbody></table>\n";
 		
