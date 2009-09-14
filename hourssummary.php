@@ -77,7 +77,7 @@
 				}
 			}
 			else
-				$toecho .= "<tr><td colspan=\"3\" align=\"center\">No hours</td></tr>\n";
+				$toecho .= "<tr><td colspan=\"3\">No hours</td></tr>\n";
 			$toecho .= "\t</tbody>\n";
 			$toecho .= "</table><br />\n";
 			$total += $task->getTotalHoursFor($currentUser);
@@ -103,25 +103,30 @@
 		echo "<table class=\"taskhours\"><thead><tr><th>Week Starting</th><th>Hours Recorded</th></tr></thead>\n";
 		echo "<tfoot><tr><td>Total</td><td>$total</td></tr></tfoot>\n<tbody>\n";
 		$numweeks = 0;
-		for($currSunday = $mindate; $currSunday <= $maxdate; $currSunday += 604800)
+		if($total > 0)
 		{
-			$currdate = getDate($currSunday);
-			$currdatepretty = $currdate['month'].' '.$currdate['mday'].', '.$currdate['year'];
-			
-			$hoursworked = 0;
-			foreach($allhours as $id => $hour)
+			for($currSunday = $mindate; $currSunday <= $maxdate; $currSunday += 604800)
 			{
-				$thistime = strtotime($hour->getDate());
-				if($thistime >= $currSunday)
+				$currdate = getDate($currSunday);
+				$currdatepretty = $currdate['month'].' '.$currdate['mday'].', '.$currdate['year'];
+			
+				$hoursworked = 0;
+				foreach($allhours as $id => $hour)
 				{
-					if($thistime >= $currSunday + 604800)
-						break;
-					$hoursworked += $hour->getHours();
+					$thistime = strtotime($hour->getDate());
+					if($thistime >= $currSunday)
+					{
+						if($thistime >= $currSunday + 604800)
+							break;
+						$hoursworked += $hour->getHours();
+					}
 				}
+				echo "<tr><td>$currdatepretty</td><td>$hoursworked</td></tr>\n";
+				++$numweeks;
 			}
-			echo "<tr><td>$currdatepretty</td><td>$hoursworked</td></tr>\n";
-			++$numweeks;
 		}
+		else
+			echo "<tr><td colspan=\"2\">No hours.</td></tr>\n";
 		echo "</tbody></table>\n";
 		
 		echo "<h2>By Task</h2>\n";
