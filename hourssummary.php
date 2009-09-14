@@ -158,6 +158,7 @@ else
 	
 	foreach($users as $user)
 	{
+		$totals[$user->getID()] = 0;
 		$tasks = $user->getAssignedTasksByName($currentGroup);
 		foreach($tasks as $task)
 		{
