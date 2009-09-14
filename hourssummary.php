@@ -224,7 +224,7 @@ else
 	}
 	echo "<tfoot><tr><td>Total</td>";
 	foreach($users as $user)
-		echo "<td>{$totals[$user->getID()]}</td>"
+		echo "<td>{$totals[$user->getID()]}</td>";
 	echo "</tr>\n<tr><td>Weekly Average</td>";
 	foreach($users as $user)
 	{
