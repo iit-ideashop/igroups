@@ -100,7 +100,9 @@
 		
 		//$enddate can be any day
 		$enddate = getDate($maxdate);
-		echo "<table><tr><th>Week Starting</th><th>Hours Recorded</th></tr>\n";
+		echo "<table class=\"taskhours\"><thead><tr><th>Week Starting</th><th>Hours Recorded</th></tr></thead>\n";
+		echo "<tfoot><tr><td>Total</td><td>$total</td></tr></tfoot>\n<tbody>\n";
+		$numweeks = 0;
 		for($currSunday = $mindate; $currSunday <= $maxdate; $currSunday += 604800)
 		{
 			$currdate = getDate($currSunday);
@@ -118,8 +120,9 @@
 				}
 			}
 			echo "<tr><td>$currdatepretty</td><td>$hoursworked</td></tr>\n";
+			++$numweeks;
 		}
-		echo "</table>\n";
+		echo "</tbody></table>\n";
 		
 		echo "<h2>By Task</h2>\n";
 		
