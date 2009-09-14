@@ -101,8 +101,9 @@
 		//$enddate can be any day
 		$enddate = getDate($maxdate);
 		echo "<table class=\"taskhours\"><thead><tr><th>Week Starting</th><th>Hours Recorded</th></tr></thead>\n";
-		echo "<tfoot><tr><td>Total</td><td>$total</td></tr></tfoot>\n<tbody>\n";
+		echo "<tfoot><tr><td>Total</td><td>$total</td></tr>\n";
 		$numweeks = 0;
+		$echoqueue2 = '';
 		if($total > 0)
 		{
 			for($currSunday = $mindate; $currSunday <= $maxdate; $currSunday += 604800)
@@ -121,12 +122,15 @@
 						$hoursworked += $hour->getHours();
 					}
 				}
-				echo "<tr><td>$currdatepretty</td><td>$hoursworked</td></tr>\n";
+				$echoqueue2 .= "<tr><td>$currdatepretty</td><td>$hoursworked</td></tr>\n";
 				++$numweeks;
 			}
 		}
 		else
-			echo "<tr><td colspan=\"2\">No hours.</td></tr>\n";
+			$echoqueue2 .= "<tr><td colspan=\"2\">No hours.</td></tr>\n";
+		$wkavg = ($numweeks > 0 ? number_format($total / $numweeks, 2) : 0);
+		echo "<tr><td>Weekly Average</td><td></td></tr></tfoot>\n<tbody>\n";
+		echo $echoqueue2;
 		echo "</tbody></table>\n";
 		
 		echo "<h2>By Task</h2>\n";
