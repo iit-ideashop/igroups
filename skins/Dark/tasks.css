@@ -20,6 +20,11 @@ table#tasks ul
 	padding-left: 1em;
 }
 
+table.taskhours td
+{
+	text-align: center;
+}
+
 tr.normal0 td
 {
 	background-color: black;
