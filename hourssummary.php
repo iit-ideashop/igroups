@@ -191,7 +191,7 @@ else
 	echo "<table class=\"taskhours\"><thead><tr><th rowspan=\"2\">Week Starting</th><th colspan=\"\">Hours Recorded</th></tr>\n";
 	echo "<tr>";
 	foreach($users as $user)
-		echo "<th>{$user->getFullName();}</th>\n";
+		echo "<th>{$user->getFullName()}</th>\n";
 	echo "</tr></thead>\n";
 	echo "<tfoot><tr><td>Total</td><td>$total</td></tr>\n";
 	$numweeks = 0;
