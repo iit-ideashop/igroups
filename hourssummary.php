@@ -90,7 +90,7 @@ if(isset($user) && isset($tasks))
 				$toecho .= "<tr><td colspan=\"3\">No hours</td></tr>\n";
 			$toecho .= "\t</tbody>\n";
 			$toecho .= "</table><br />\n";
-			$total += $task->getTotalHoursFor($currentUser);
+			$total += $task->getTotalHoursFor($user);
 			$list[$task->getID()] = $task->getName();
 		}
 		usort($allhours, 'cmpByDate');
@@ -176,7 +176,7 @@ else
 						$maxdate = strtotime($hour->getDate());
 				}
 			}
-			$totals[$user->getID()] += $task->getTotalHoursFor($currentUser);
+			$totals[$user->getID()] += $task->getTotalHoursFor($user);
 		}
 	}
 	
