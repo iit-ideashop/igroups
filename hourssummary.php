@@ -70,9 +70,9 @@
 				{
 					$allhours[$hour->getID()] = $hour;
 					$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
-					if(!isset($mindate) || strtotime($hour->getDate()) < strtotime($mindate))
+					if(!isset($mindate) || strtotime($hour->getDate()) < $mindate)
 						$mindate = strtotime($hour->getDate());
-					else if(!isset($maxdate) || strtotime($hour->getDate()) > strtotime($maxdate))
+					else if(!isset($maxdate) || strtotime($hour->getDate()) > $maxdate)
 						$maxdate = strtotime($hour->getDate());
 				}
 			}
