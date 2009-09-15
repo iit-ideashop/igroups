@@ -46,6 +46,7 @@
 	$hours = $task->getTotalHoursFor($currentUser);
 	$tothours = $task->getTotalHours();
 	$esthours = $task->getEstimatedHours();
+	$pesthours = $esthours == 1 ? 'hour' : 'hours';
 	$percenthours = ($tothours > 0 ? number_format(100*$hours/$tothours, 1).'%' : '0%');
 	$assignments = $task->getAssignedPeople();
 	$sgassignments = $task->getAssignedSubgroups();
@@ -129,7 +130,7 @@ function toggle(id)
 	if($assigned || $sgassigned || $hours > 0)
 		echo "\t<li>You have contributed <b>$hours</b> hours of work to this task, out of <b>$tothours</b> hours overall (<b>$percenthours</b>)</li>\n";
 	if($esthours)
-		echo "<li>This task is estimated to require $esthours hours</li>\n";
+		echo "<li>This task is estimated to require $esthours $pesthours of work.</li>\n";
 	echo "</ul>\n";
 	
 	echo "<h2>Description</h2>\n<div id=\"taskdesc\"><p>".str_replace("\n", '<br />', $task->getDesc())."</p></div>\n";
