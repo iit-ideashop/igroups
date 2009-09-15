@@ -211,8 +211,11 @@ cal.showNavigationDropdowns();
 		echo "<tr><td><label for=\"esthours\">Estimated hours required (optional):</label></td><td><input type=\"text\" name=\"esthours\" id=\"esthours\" /></td></tr>\n";
 		echo "<tr><td><label for=\"desc\">Description:</label></td><td><textarea name=\"desc\" id=\"desc\" rows=\"5\" cols=\"40\"></textarea></td></tr>\n";
 		echo "</table>\n";
-		echo "<input type=\"submit\" value=\"Add\" /><input type=\"hidden\" name=\"form\" value=\"addtask\" /></fieldset></form><div id=\"caldiv\"></div>\n";
+		echo "<input type=\"submit\" value=\"Add\" /><input type=\"hidden\" name=\"form\" value=\"addtask\" /></fieldset></form>\n";
+		$printcaldiv = true;
 	}
+	else
+		$printcaldiv = false;
 	
 	//Individual summaries
 	if($currentUser->isGroupModerator($currentGroup))
@@ -230,5 +233,7 @@ cal.showNavigationDropdowns();
 		echo "</ul>\n";
 		echo "</div>\n";
 	}
+	if($printcaldiv)
+		echo "<div id=\"caldiv\"></div>\n";
 ?>
 </div></body></html>
