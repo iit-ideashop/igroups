@@ -32,9 +32,12 @@
 			$hurdle++;
 		}
 		$desc = mysql_real_escape_string($_POST['desc']);
+		$esthours = 0;
+		if(is_numeric($_POST['esthours']) && $_POST['esthours'] > 0)
+			$esthours = intval($_POST['esthours']);
 		if($hurdle == 2)
 		{
-			$ok = $db->query('insert into Tasks (iTeamID, iOwnerID, sName, sDescription, dDue) values ('.$currentGroup->getID().', '.$currentUser->getID().", \"$name\", \"$desc\", \"$date\")");
+			$ok = $db->query('insert into Tasks (iTeamID, iOwnerID, sName, sDescription, dDue, iEstimatedHours) values ('.$currentGroup->getID().', '.$currentUser->getID().", \"$name\", \"$desc\", \"$date\", $esthours)");
 			if($ok)
 				header('Location: taskassign.php?taskid='.$db->insertID());
 			else
@@ -202,9 +205,12 @@ cal.showNavigationDropdowns();
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
 		echo "<form method=\"post\" action=\"tasks.php\" id=\"addtask\" style=\"float: left\"><fieldset><legend>Add Task</legend>\n";
-		echo "<label>Name: <input type=\"text\" name=\"name\" /></label><br />\n";
-		echo "<label>Due: <input type=\"text\" name=\"due\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[1].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br />\n";
-		echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"40\"></textarea></label><br />\n";
+		echo "<table>\n";
+		echo "<tr><td><label for=\"name\">Name:</label></td><td><input type=\"text\" name=\"name\" id=\"name\" /></td></tr>\n";
+		echo "<tr><td><label for=\"due\">Due:</label></td><td><input type=\"text\" name=\"due\" id=\"due\" /> <a href=\"#\" onclick=\"cal.select(document.forms[1].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a></td></tr>\n";
+		echo "<tr><td><label for=\"esthours\">Estimated hours required (optional):</label></td><td><input type=\"text\" name=\"esthours\" id=\"esthours\" /></td></tr>\n";
+		echo "<tr><td><label for=\"desc\">Description:</label></td><td><textarea name=\"desc\" id=\"desc\" rows=\"5\" cols=\"40\"></textarea></td></tr>\n";
+		echo "</table>\n";
 		echo "<input type=\"submit\" value=\"Add\" /><input type=\"hidden\" name=\"form\" value=\"addtask\" /></fieldset></form><div id=\"caldiv\"></div>\n";
 	}
 	

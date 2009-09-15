@@ -41,9 +41,12 @@
 			$hurdle++;
 		}
 		$desc = mysql_real_escape_string($_POST['desc']);
+		$esthours = 0;
+		if(is_numeric($_POST['esthours']) && $_POST['esthours'] > 0)
+			$esthours = intval($_POST['esthours']);
 		if($hurdle == 2)
 		{
-			$ok = $db->query("update Tasks set sName=\"$name\", sDescription=\"$desc\", dDue=\"$date\" where iID={$task->getID()}");
+			$ok = $db->query("update Tasks set sName=\"$name\", sDescription=\"$desc\", dDue=\"$date\", iEstimatedHours=$esthours where iID={$task->getID()}");
 			if($ok)
 			{
 				$message = 'Task successfully edited';
@@ -79,9 +82,12 @@ cal.showNavigationDropdowns();
 	$desc = htmlspecialchars(stripslashes($task->getDesc()));
 	echo "<h1>$name</h1>\n";
 	echo "<form method=\"post\" action=\"taskedit.php?taskid={$task->getID()}\" style=\"float: left\"><fieldset><legend id=\"taskedit\">Edit this Task</legend>\n";
-	echo "<label>Name: <input type=\"text\" name=\"name\" value=\"$name\" /></label><br />\n";
-	echo "<label>Due: <input name=\"due\" type=\"text\" value=\"{$task->getDue()}\" /></label> <a href=\"#\" onclick=\"cal.select(document.forms[0].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br />\n";
-	echo "<label>Description:<br /><textarea name=\"desc\" rows=\"5\" cols=\"80\">$desc</textarea></label><br />\n";
+	echo "<table>\n";
+	echo "<tr><td><label for=\"name\">Name:</label></td><td><input type=\"text\" name=\"name\" id=\"name\" value=\"$name\" /></td></tr>\n";
+	echo "<tr><td><label for=\"due\">Due:</label></td><td><input name=\"due\" id=\"due\" type=\"text\" value=\"{$task->getDue()}\" /> <a href=\"#\" onclick=\"cal.select(document.forms[0].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a></td></tr>\n";
+	echo "<tr><td><label for=\"esthours\">Estimated hours required (optional):</label></td><td><input type=\"text\" name=\"esthours\" id=\"esthours\" value=\"{$task->getEstimatedHours()}\" /></td></tr>\n";
+	echo "<tr><td><label for=\"desc\">Description:</label></td><td><textarea name=\"desc\" id=\"desc\" rows=\"5\" cols=\"80\">$desc</textarea></td></tr>\n";
+	echo "</table>\n";
 	echo "<input value=\"Edit Task\" type=\"submit\" /><input type=\"reset\" /><input name=\"form\" value=\"edittask\" type=\"hidden\" />\n";
 	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n</fieldset></form><div id=\"caldiv\"></div>\n";
 ?>

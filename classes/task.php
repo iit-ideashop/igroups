@@ -9,7 +9,7 @@ if(!class_exists('Task'))
 {
 	class Task
 	{
-		var $id, $db, $name, $desc, $team, $creator, $created, $due, $closed, $valid;
+		var $id, $db, $name, $desc, $team, $creator, $created, $due, $closed, $esthours, $valid;
 		
 		function Task($id, $type, $sem, $db)
 		{
@@ -28,6 +28,7 @@ if(!class_exists('Task'))
 					$this->created = $result['dCreated'];
 					$this->due = $result['dDue'];
 					$this->closed = $result['dClosed'];
+					$this->esthours = $result['iEstimatedHours'];
 					$this->valid = true;
 				}
 			}
@@ -93,6 +94,11 @@ if(!class_exists('Task'))
 			return $this->closed;
 		}
 		
+		function getEstimatedHours()
+		{
+			return $this->esthours;
+		}
+		
 		function setName($n)
 		{
 			$n = mysql_real_escape_string(stripslashes($n));
@@ -122,6 +128,18 @@ if(!class_exists('Task'))
 			if($this->db->query("update Tasks set dClosed=\"$sqldate\" where iID={$this->id}"))
 				$this->closed = $sqldate;
 			return ($this->closed == $sqldate);
+		}
+		
+		function setEstimatedHours($n)
+		{
+			if(is_numeric($n))
+			{
+				$i = intval($n);
+				if($this->db->query("update Tasks set iEstimatedHours=$i where iID={$this->id}"))
+					$this->esthours = $i;
+				return ($this->esthours == $i);
+			}
+			return false;
 		}
 		
 		function isOverdue()
