@@ -83,7 +83,10 @@ if(isset($user) && isset($tasks))
 					if(!isset($mindate) || strtotime($hour->getDate()) < $mindate)
 						$mindate = strtotime($hour->getDate());
 					else if(!isset($maxdate) || strtotime($hour->getDate()) > $maxdate)
+					{
 						$maxdate = strtotime($hour->getDate());
+						echo '<!--'.$hour->getDate().'-->';
+					}
 				}
 			}
 			else
@@ -113,11 +116,6 @@ if(isset($user) && isset($tasks))
 		$echoqueue2 = '';
 		if($total > 0)
 		{
-			if($mindate >= $maxdate)
-			{ //Debug
-				echo "<tr><td>Mindate</td><td>".date('Y-m-d', $mindate)."</td></tr>\n";
-				echo "<tr><td>Maxdate</td><td>".date('Y-m-d', $maxdate)."</td></tr>\n";
-			}
 			for($currSunday = $mindate; $currSunday <= $maxdate; $currSunday += 604800)
 			{
 				$currdate = getDate($currSunday);
