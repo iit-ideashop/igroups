@@ -29,7 +29,16 @@
 	echo "<h1>$appname Help Center</h1>\n";
 	echo "<h2>Known Issues</h2>\n";
 	echo "<ul>\n";
-	echo "<li>No issues at this time.</li>\n";
+	$query = $db->query('select sIssue from KnownIssues where bResolved=0');
+	if(mysql_num_rows($query))
+	{
+		while($row = mysql_fetch_row($query))
+		{
+			echo "<li>{$row[0]}</li>\n";
+		}
+	}
+	else
+		echo "<li>No issues at this time.</li>\n";
 	echo "</ul>\n";
 ?>	
 <p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>

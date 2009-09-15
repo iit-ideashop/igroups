@@ -29,6 +29,8 @@
 	echo "<h1>$appname Help Center</h1>\n";
 	echo "<p>Welcome to the $appname Help Center, where you can find information related to using $appname. If the Help Center does not solve your problem, you may contact us using the <a href=\"../needhelp.php\">Need Help form</a>.</p>\n";
 	echo "<p>Recently reported, known problems will be listed on the <a href=\"known.php\">Known Issues</a> page.</p>\n";
+	
+	//TODO List help topics/categories
 ?>	
 <p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
 </div></body></html>
