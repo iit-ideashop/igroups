@@ -207,7 +207,7 @@ cal.showNavigationDropdowns();
 		echo "<form method=\"post\" action=\"tasks.php\" id=\"addtask\" style=\"float: left\"><fieldset><legend>Add Task</legend>\n";
 		echo "<table>\n";
 		echo "<tr><td><label for=\"name\">Name:</label></td><td><input type=\"text\" name=\"name\" id=\"name\" /></td></tr>\n";
-		echo "<tr><td><label for=\"due\">Due:</label></td><td><input type=\"text\" name=\"due\" id=\"due\" /> <a href=\"#\" onclick=\"cal.select(document.forms[1].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br /><div id=\"caldiv\"></div></td></tr>\n";
+		echo "<tr><td><label for=\"due\">Due:</label></td><td><input type=\"text\" name=\"due\" id=\"due\" /> <a href=\"#\" onclick=\"cal.select(document.forms[1].due,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a><br /></td></tr>\n";
 		echo "<tr><td><label for=\"esthours\">Estimated hours required (optional):</label></td><td><input type=\"text\" name=\"esthours\" id=\"esthours\" /></td></tr>\n";
 		echo "<tr><td><label for=\"desc\">Description:</label></td><td><textarea name=\"desc\" id=\"desc\" rows=\"5\" cols=\"40\"></textarea></td></tr>\n";
 		echo "</table>\n";
@@ -231,9 +231,10 @@ cal.showNavigationDropdowns();
 		foreach($members as $person)
 			echo "<li><a href=\"hourssummary.php?uid={$person->getID()}\">{$person->getFullName()}</a></li>\n";
 		echo "</ul>\n";
-		echo "</div>\n";
+		echo "<div id=\"caldiv\"></div></div>\n";
+		$printcaldiv = false;
 	}
 	if($printcaldiv)
-		echo "\n";
+		echo "<div id=\"caldiv\"></div>\n";
 ?>
 </div></body></html>
