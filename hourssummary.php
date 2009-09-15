@@ -103,19 +103,21 @@ if(isset($user) && isset($tasks))
 		echo "</ul>\n";
 		
 		echo "<h2>By Week</h2>\n";
-		//$startdate should be a Sunday
+		//$mindate should be a Sunday
 		$startdate = getDate($mindate);
 		$mindate -= $startdate['wday']*86400;
-		$startdate = getDate($mindate);
 		
-		//$enddate can be any day
-		$enddate = getDate($maxdate);
 		echo "<table class=\"taskhours\"><thead><tr><th>Week Starting</th><th>Hours Recorded</th></tr></thead>\n";
 		echo "<tfoot><tr><td>Total</td><td>$total</td></tr>\n";
 		$numweeks = 0;
 		$echoqueue2 = '';
 		if($total > 0)
 		{
+			if($mindate >= $maxdate)
+			{ //Debug
+				echo "<tr><td>Mindate</td><td>".date('Y-m-d', $mindate)."</td></tr>\n";
+				echo "<tr><td>Maxdate</td><td>".date('Y-m-d', $maxdate)."</td></tr>\n";
+			}
 			for($currSunday = $mindate; $currSunday <= $maxdate; $currSunday += 604800)
 			{
 				$currdate = getDate($currSunday);
@@ -182,13 +184,9 @@ else
 	foreach($allhours as $key => $arr)
 		usort($allhours[$key], 'cmpByDate');
 	
-	//$startdate should be a Sunday
+	//$mindate should be a Sunday
 	$startdate = getDate($mindate);
 	$mindate -= $startdate['wday']*86400;
-	$startdate = getDate($mindate);
-	
-	//$enddate can be any day
-	$enddate = getDate($maxdate);
 	
 	$numusers = count($users);
 	echo "<table class=\"taskhours\"><thead><tr><th rowspan=\"2\">Week Starting</th><th colspan=\"$numusers\">Hours Recorded</th></tr>\n";
