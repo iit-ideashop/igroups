@@ -82,11 +82,8 @@ if(isset($user) && isset($tasks))
 					$toecho .= "\t\t<tr><td>{$hour->getDate()}</td><td>{$hour->getHours()}</td></tr>\n";
 					if(!isset($mindate) || strtotime($hour->getDate()) < $mindate)
 						$mindate = strtotime($hour->getDate());
-					else if(!isset($maxdate) || strtotime($hour->getDate()) > $maxdate)
-					{
+					if(!isset($maxdate) || strtotime($hour->getDate()) > $maxdate)
 						$maxdate = strtotime($hour->getDate());
-						echo '<!--'.$hour->getDate().'-->';
-					}
 				}
 			}
 			else
@@ -172,7 +169,7 @@ else
 					$allhours[$user->getID()][$hour->getID()] = $hour;
 					if(!isset($mindate) || strtotime($hour->getDate()) < $mindate)
 						$mindate = strtotime($hour->getDate());
-					else if(!isset($maxdate) || strtotime($hour->getDate()) > $maxdate)
+					if(!isset($maxdate) || strtotime($hour->getDate()) > $maxdate)
 						$maxdate = strtotime($hour->getDate());
 				}
 			}
