@@ -78,5 +78,21 @@ if(!class_exists('KnownIssue'))
 		}
 		return false;
 	}
+	
+	function getAllIssues($db)
+	{
+		$issues = array();
+		$query = $db->query('select iID from KnownIssues');
+		while($row = mysql_fetch_row($query))
+			$issues[$row[0]] = new KnownIssue($row[0], $db);
+	}
+	
+	function getAllUnresolvedIssues($db)
+	{
+		$issues = array();
+		$query = $db->query('select iID from KnownIssues where bResolved=0');
+		while($row = mysql_fetch_row($query))
+			$issues[$row[0]] = new KnownIssue($row[0], $db);
+	}
 }
 ?>

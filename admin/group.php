@@ -1,6 +1,7 @@
 <?php
 	include_once('../globals.php');
 	include_once('checkadmin.php');
+	include_once('../classes/file.php');
 	include_once('../classes/group.php');
 	include_once('../classes/quota.php');
 	include_once('../classes/semester.php');

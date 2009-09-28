@@ -3,6 +3,7 @@
 
 	include_once('../globals.php');
 	include_once('../classes/person.php');
+	include_once('../classes/knownissue.php');
 
 	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);
@@ -29,13 +30,11 @@
 	echo "<h1>$appname Help Center</h1>\n";
 	echo "<h2>Known Issues</h2>\n";
 	echo "<ul>\n";
-	$query = $db->query('select sIssue from KnownIssues where bResolved=0');
-	if(mysql_num_rows($query))
+	$issues = getAllUnresolvedIssues($db);
+	if(count($issues))
 	{
-		while($row = mysql_fetch_row($query))
-		{
-			echo "<li>{$row[0]}</li>\n";
-		}
+		foreach($issues as $issue)
+			echo "<li>{$issue->getIssue()}</li>\n";
 	}
 	else
 		echo "<li>No issues at this time.</li>\n";
