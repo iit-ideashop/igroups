@@ -19,5 +19,8 @@
 	echo "<div id=\"content\">";
 	
 	//TODO Manage categories, pages, and known issues
+	echo "<h2>Help Center Management</h2>\n";
+	echo "<p>Here, you can add, remove, and edit topics that appear in the $appname Help Center.</p>\n";
+	
 ?>
 </div></body></html>
