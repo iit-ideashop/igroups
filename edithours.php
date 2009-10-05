@@ -50,7 +50,7 @@
 				$newhours = $hours[$id];
 				$newdate = date('Y-m-d', strtotime($date));
 				$newdesc = mysql_real_escape_string($descs[$id]);
-				if(strtotime($newdate) <= time() && is_numeric($newhours))
+				if(strtotime($newdate) <= time() && $newdate != '1970-01-01' && $newdate != '1969-12-31' && is_numeric($newhours))
 					$db->query("update Hours set fHours=$newhours, dDate=\"$newdate\", sDesc=\"$newdesc\" where iID=$id");
 			}
 		}
