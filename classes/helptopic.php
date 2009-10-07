@@ -97,7 +97,7 @@ if(!class_exists('HelpTopic'))
 		$sqltext = mysql_real_escape_string(stripslashes($text));
 		if($title != '' && $text != '' && is_object($cat))
 		{
-			$db->query("insert into HelpPages (iCategoryID, sTitle, sText) values ({$cat->getID()}, \"$sqltitle\", \"$sqltext\")")
+			$db->query("insert into HelpPages (iCategoryID, sTitle, sText) values ({$cat->getID()}, \"$sqltitle\", \"$sqltext\")");
 			return new HelpTopic($db->insertID(), $db);
 		}
 		return false;
