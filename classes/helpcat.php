@@ -77,5 +77,14 @@ if(!class_exists('HelpCategory'))
 		}
 		return false;
 	}
+	
+	function getAllHelpCategories($db)
+	{
+		$cats = array();
+		$query = $db->query("select * from HelpCategories order by sTitle");
+		while($row = mysql_fetch_array($query))
+			$cats[$row['iID']] = new HelpCategory($row['iID'], $db);
+		return $cats;
+	}
 }
 ?>
