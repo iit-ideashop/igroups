@@ -109,7 +109,7 @@
 			if($key == 'C')
 				echo "var win=dhtmlwindow.open('editbox', 'div', 'whelpcat', 'Edit Category', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0', 'recal');";
 			else if($key == 'T')
-				echo "var win=dhtmlwindow.open('editbox', 'div', 'whelptopic', 'Edit Topic', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0', 'recal');";
+				echo "var win=dhtmlwindow.open('editbox', 'div', 'whelptopic', 'Edit Topic', 'width=700px,height=300px,left=300px,top=100px,resize=0,scrolling=0', 'recal');";
 			else if($key == 'I')
 				echo "var win=dhtmlwindow.open('editbox', 'div', 'wknownissue', 'Edit Issue', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0', 'recal');";
 			break;
@@ -129,7 +129,7 @@
 	echo "<p>Here, you can add, remove, and edit topics that appear in the $appname Help Center.</p>\n";
 	
 	echo "<h2>Create a new...</h2>\n";
-	echo "<p><a href=\"#\" onclick=\"win=dhtmlwindow.open('newcatbox', 'div', 'whelpcat', 'Create Category', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Category</a> - <a href=\"#\" onclick=\"win=dhtmlwindow.open('newtopicbox', 'div', 'whelptopic', 'Create Topic', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Topic</a> - <a href=\"#\" onclick=\"win=dhtmlwindow.open('newissuebox', 'div', 'wknownissue', 'Create Known Issue', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Known Issue</a></p>\n";
+	echo "<p><a href=\"#\" onclick=\"win=dhtmlwindow.open('newcatbox', 'div', 'whelpcat', 'Create Category', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Category</a> - <a href=\"#\" onclick=\"win=dhtmlwindow.open('newtopicbox', 'div', 'whelptopic', 'Create Topic', 'width=700px,height=300px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Topic</a> - <a href=\"#\" onclick=\"win=dhtmlwindow.open('newissuebox', 'div', 'wknownissue', 'Create Known Issue', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Known Issue</a></p>\n";
 	echo "<h2>Help Topics</h2>\n";
 	$categories = getAllHelpCategories($db);
 	if(count($categories)) 
