@@ -9,7 +9,7 @@
 	$editkeys = array('C', 'T', 'I');
 	foreach($editkeys as $key)
 		$edit[$key] = 0;
-	else if(isset($_GET['edit']))
+	if(isset($_GET['edit']))
 	{
 		$fl = substr($_GET['edit'], 0, 1);
 		$id = substr($_GET['edit'], 1);
