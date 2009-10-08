@@ -258,7 +258,7 @@
 			echo "<option value=\"$id\"".($topcatid == $id ? ' selected="selected"' : '').">$title</option>\n";
 		}
 		echo "</select></label><br />\n";
-		echo "<label>Text: <textarea name=\"whelptopictext\" id=\"whelptopictitle\" rows=\"10\" cols=\"80\">$toptext</textarea></label><br />\n";
+		echo "<label>Text: <textarea name=\"whelptopictext\" id=\"whelptopictext\" rows=\"10\" cols=\"80\">$toptext</textarea></label><br />\n";
 		echo "<input type=\"hidden\" name=\"whelptopicid\" id=\"whelptopicid\" value=\"{$edit['T']}\" /><input type=\"submit\" name=\"topic\" value=\"Submit\" /> <input type=\"reset\" /></fieldset></form>\n";
 	echo "</div>\n";
 	$res = false;
