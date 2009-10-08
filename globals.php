@@ -25,9 +25,9 @@
 			header("HTTP/1.1 $response {$responses[$response]}");
 			require('doctype.php');
 			require('appearance.php');
-			echo "<link rel=\"stylesheet\" href=\"$appurl/skins/$skin/tasks.css\" type=\"text/css\" title=\"$skin\" />\n";
+			echo "<link rel=\"stylesheet\" href=\"$appurl/skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
 			foreach($altskins as $altskin)
-				echo "<link rel=\"alternate stylesheet\" href=\"$appurl/skins/$altskin/tasks.css\" type=\"text/css\" title=\"$altskin\" />\n";
+				echo "<link rel=\"alternate stylesheet\" href=\"$appurl/skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 			echo "<title>$appname - Fatal Error</title>\n";
 			echo "</head><body>\n";
 			require('sidebar.php');
