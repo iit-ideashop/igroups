@@ -62,7 +62,7 @@ if(!class_exists('HelpTopic'))
 		function setText($text)
 		{
 			$sqltext = mysql_real_escape_string(stripslashes($text));
-			if($text != '' && $this->db->query("update HelpPages set sTitle=\"$sqltext\" where iID={$this->id}"))
+			if($text != '' && $this->db->query("update HelpPages set sText=\"$sqltext\" where iID={$this->id}"))
 			{
 					$this->text = stripslashes($text);
 					return true;
