@@ -39,6 +39,7 @@
 	echo "<h1>$appname Help Center</h1>\n";
 	echo "<h2>{$currTopic->getTitle()}</h2>\n";
 	echo "<div id=\"helptopicbody\">{$currTopic->getText()}</div>\n";
+	echo "<p><a href=\"index.php\">Back to Help Center index</a></p>\n";
 ?>	
 <p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
 </div></body></html>
