@@ -213,3 +213,7 @@ ul.folderlist ul {
 	background-color: black;
 	text-align: center;
 }
+
+#helpleft {
+	float: left;
+}

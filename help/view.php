@@ -15,6 +15,15 @@
 		$currentUser = false;
 		unset($_SESSION['userID']);
 	}
+
+	if(is_numeric($_GET['id']))
+	{
+		$currTopic = new HelpTopic($_GET['id'], $db);
+		if(!$currTopic->isValid())
+			errorPage('Bad Topic', 'That help topic was not found', 400);
+	}
+	else
+		errorPage('ID required', 'A help topic ID is required for this page', 400);
 	
 	require('../doctype.php');
 	require('../appearance.php');
@@ -28,36 +37,8 @@
 	require('sidebar.php');
 	echo "<div id=\"content\">\n";
 	echo "<h1>$appname Help Center</h1>\n";
-	echo "<p>Welcome to the $appname Help Center, where you can find information related to using $appname. If the Help Center does not solve your problem, you may contact us using the <a href=\"../needhelp.php\">Need Help form</a>.</p>\n";
-	echo "<p>Recently reported, known problems will be listed on the <a href=\"known.php\">Known Issues</a> page.</p>\n";
-	
-	$categories = getAllHelpCategories($db);
-	$numcats = count($categories);
-	if($numcats)
-	{
-		echo "<div id=\"helptopics\">\n";
-		$i = 1;
-		if($numcats > 1)
-			echo "<div id=\"helpleft\">\n";
-		foreach($categories as $cat)
-		{
-			$topics = $cat->getAllTopics();
-			if(count($topics))
-			{
-				echo "<h2>{$cat->getTitle()}</h2>\n";
-				echo "<ul>\n";
-				foreach($topics as $id => $topic)
-					echo "<li><a href=\"view.php?id=$id\">{$topic->getTitle()}</a></li>\n";
-				echo "</ul>\n";
-			}
-			if($numcats > 1 && $i++ == floor($numcats/2))
-				echo "</div><div id=\"helpright\">";
-		}
-		if($numcats > 1)
-			echo "</div></div>\n";
-		else
-			echo "</div>\n";
-	}
+	echo "<h2>{$currTopic->getTitle()}</h2>\n";
+	echo "<div id=\"helptopicbody\">{$currTopic->getText()}</div>\n";
 ?>	
 <p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
 </div></body></html>
