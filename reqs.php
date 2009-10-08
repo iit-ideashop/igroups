@@ -17,11 +17,12 @@
 	echo "<p>$appname supports all modern browsers, \"modern\" being defined as a version released less than three years ago. JavaScript should be enabled (or iit.edu whitelisted in NoScript) for proper operation of $appname.</p>\n";
 	echo "<p>As of this writing (August 24, 2009), \"modern\" includes the following browsers:</p>\n";
 	echo "<ul>\n";
-	echo "<li>Internet Explorer &gt;=7</li>\n";
-	echo "<li>Firefox &gt;=2</li>\n";
-	echo "<li>Safari &gt;=3</li>\n";
+	echo "<li>Internet Explorer &#8805;7</li>\n";
+	echo "<li>Firefox &#8805;2</li>\n";
+	echo "<li>Safari &#8805;3</li>\n";
 	echo "<li>Google Chrome (all)</li>\n";
-	echo "<li>Opera &gt;=9</li>\n";	echo "</ul>\n";
+	echo "<li>Opera &#8805;9</li>\n";
+	echo "</ul>\n";
 	echo "<p>Older versions of these browsers <i>might</i> work fine, but often do not. Notably, the most common not-modern browser, Internet Explorer 6, may perform quirkily and $appname utilizes CSS2 attributes that IE 6 does not know about. Therefore, <b>the use of $appname with Internet Explorer 6 is neither supported nor recommended</b>; users should upgrade to Internet Explorer 7 or 8, or use an alternative browser.</p>\n";
 ?>
 </div></body></html>
