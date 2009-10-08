@@ -149,27 +149,27 @@
 		cssNode.type = 'text/css';
 		cssNode.innerHTML = 'span.helptopic { display: none; }';
 		head.appendChild(cssNode);
-	}
-
-	function toggle(id)
-	{
-		document.getElementById(id).style.display = (document.getElementById(id).style.display == 'inline') ? 'none' : 'inline';
-	}
 <?php
 	foreach($edit as $key => $val)
 	{
 		if($val)
 		{
 			if($key == 'C')
-				echo "var win=dhtmlwindow.open('editbox', 'div', 'whelpcat', 'Edit Category', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0', 'recal');";
+				echo "\t\tvar win=dhtmlwindow.open('editbox', 'div', 'whelpcat', 'Edit Category', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0', 'recal');\n";
 			else if($key == 'T')
-				echo "var win=dhtmlwindow.open('editbox', 'div', 'whelptopic', 'Edit Topic', 'width=700px,height=300px,left=300px,top=100px,resize=0,scrolling=0', 'recal');";
+				echo "\t\tvar win=dhtmlwindow.open('editbox', 'div', 'whelptopic', 'Edit Topic', 'width=700px,height=300px,left=300px,top=100px,resize=0,scrolling=0', 'recal');\n";
 			else if($key == 'I')
-				echo "var win=dhtmlwindow.open('editbox', 'div', 'wknownissue', 'Edit Issue', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0', 'recal');";
+				echo "\t\tvar win=dhtmlwindow.open('editbox', 'div', 'wknownissue', 'Edit Issue', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0', 'recal');\n";
 			break;
 		}
 	}
 ?>
+	}
+
+	function toggle(id)
+	{
+		document.getElementById(id).style.display = (document.getElementById(id).style.display == 'inline') ? 'none' : 'inline';
+	}
 //]]>
 </script>
 <title><?php echo $appname;?> - Help Center Management</title>
