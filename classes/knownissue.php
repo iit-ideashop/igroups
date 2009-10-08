@@ -44,6 +44,7 @@ if(!class_exists('KnownIssue'))
 		{
 			$this->resolved = $res ? true : false;
 			$this->db->query("update KnownIssues set bResolved=".($res ? '1' : '0')." where iID={$this->id}");
+			return true;
 		}
 		
 		function setIssue($issue)
@@ -51,8 +52,8 @@ if(!class_exists('KnownIssue'))
 			$sqlissue = mysql_real_escape_string(stripslashes($issue));
 			if($issue != '' && $this->db->query("update KnownIssues set sIssue=\"$sqlissue\" where iID={$this->id}"))
 			{
-					$this->issue = stripslashes($issue);
-					return true;
+				$this->issue = stripslashes($issue);
+				return true;
 			}
 			return false;
 		}
