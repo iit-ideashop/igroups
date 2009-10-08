@@ -59,15 +59,69 @@
 	}
 	else if(isset($_POST['category']))
 	{
-		// TODO
+		$id = $_POST['whelpcatid'];
+		if($id && is_numeric($id))
+		{ //Edit
+			$cat = new HelpCategory($id, $db);
+			if($cat->isValid())
+				$ok = $cat->setTitle($_POST['whelpcattitle']);
+			else
+				$ok = false;
+			$message = ($ok ? 'Category successfully edited' : 'Failed to edit category');
+		}
+		else
+		{ //New
+			$cat = createHelpCategory($_POST['whelpcattitle'], $db);
+			$message = ($cat ? 'Category successfully created' : 'Failed to create category');
+		}
 	}
 	else if(isset($_POST['topic']))
 	{
-		// TODO
+		$id = $_POST['whelptopicid'];
+		$newcat = new HelpCategory($_POST['whelptopiccat'], $db);
+		if(!$newcat->isValid())
+			$message = 'Category assignment invalid';
+		else if($id && is_numeric($id))
+		{ //Edit
+			$top = new HelpTopic($id, $db);
+			if($top->isValid())
+			{
+				$ok1 = $top->setTitle($_POST['whelptopictitle']);
+				$ok2 = $top->setText($_POST['whelptopictext']);
+				$ok3 = $top->assignTo($newcat);
+				$ok = $ok1 && $ok2 && $ok3;
+			}
+			else
+				$ok = false;
+			$message = ($ok ? 'Topic successfully edited' : 'Failed to edit topic');
+		}
+		else
+		{ //New
+			$top = createHelpTopic($_POST['whelptopicttitle'], $_POST['whelptopictext'], $newcat, $db);
+			$message = ($top ? 'Topic successfully created' : 'Failed to create topic');
+		}
 	}
 	else if(isset($_POST['knownissue']))
 	{
-		// TODO
+		$id = $_POST['wknownissueid'];
+		if($id && is_numeric($id))
+		{ //Edit
+			$ki = new KnownIssue($id, $db);
+			if($ki->isValid())
+			{
+				$ok1 = $ki->setIssue($_POST['wtheissue']);
+				$ok2 = $ki->setResolved($_POST['wresolved']);
+				$ok = $ok1 && $ok2;
+			}
+			else
+				$ok = false;
+			$message = ($ok ? 'Known issue successfully edited' : 'Failed to edit known issue');
+		}
+		else
+		{ //New
+			$iss = createKnownIssue($_POST['wtheissue'], $db);
+			$message = ($iss ? 'Known issue successfully created' : 'Failed to create known issue');
+		}
 	}
 	
 	//---------Start XHTML Output-----------------------------------//
@@ -179,6 +233,8 @@
 		$cattitlevalue = htmlspecialchars(stripslashes($cat->getTitle()));
 	}
 	echo "<div id=\"whelpcat\" class=\"window-content\">\n";
+		if($edit['C'])
+			echo "<p><a href=\"help.php?del=C{$edit['C']}\">Delete this category</a> (cannot be undone!)</p>\n";
 		echo "<form action=\"help.php\" method=\"post\" id=\"whelpcatform\"><fieldset>\n";
 		echo "<label>Title: <input type=\"text\" name=\"whelpcattitle\" id=\"whelpcattitle\" value=\"$cattitlevalue\" /></label><br />\n";
 		echo "<input type=\"hidden\" name=\"whelpcatid\" id=\"whelpcatid\" value=\"{$edit['C']}\" /><input type=\"submit\" name=\"category\" value=\"Submit\" /> <input type=\"reset\" /></fieldset></form>\n";
@@ -191,6 +247,8 @@
 		$topcatid = $top->getCategory()->getID();
 	}
 	echo "<div id=\"whelptopic\" class=\"window-content\">\n";
+		if($edit['T'])
+			echo "<p><a href=\"help.php?del=T{$edit['T']}\">Delete this topic</a> (cannot be undone!)</p>\n";
 		echo "<form action=\"help.php\" method=\"post\" id=\"whelptopicform\"><fieldset>\n";
 		echo "<label>Title: <input type=\"text\" name=\"whelptopictitle\" id=\"whelptopictitle\" value=\"$toptitlevalue\" /></label><br />\n";
 		echo "<label>Category: <select id=\"whelptopiccat\" name=\"whelptopiccat\"><option value=\"0\">Select a category</option>\n";
@@ -201,7 +259,7 @@
 		}
 		echo "</select></label><br />\n";
 		echo "<label>Text: <textarea name=\"whelptopictext\" id=\"whelptopictitle\" rows=\"10\" cols=\"80\">$toptext</textarea></label><br />\n";
-		echo "<input type=\"hidden\" name=\"whelptopicid\" id=\"whelptopicid\" value=\"{$edit['C']}\" /><input type=\"submit\" name=\"topic\" value=\"Submit\" /> <input type=\"reset\" /></fieldset></form>\n";
+		echo "<input type=\"hidden\" name=\"whelptopicid\" id=\"whelptopicid\" value=\"{$edit['T']}\" /><input type=\"submit\" name=\"topic\" value=\"Submit\" /> <input type=\"reset\" /></fieldset></form>\n";
 	echo "</div>\n";
 	$res = false;
 	if($edit['I'])
@@ -211,10 +269,13 @@
 		$res = $iss->isResolved();
 	}
 	echo "<div id=\"wknownissue\" class=\"window-content\">\n";
+		if($edit['I'])
+			echo "<p><a href=\"help.php?del=I{$edit['I']}\">Delete this issue</a> (cannot be undone!)</p>\n";
 		echo "<form action=\"help.php\" method=\"post\" id=\"wknownissue\"><fieldset>\n";
 		echo "<label>Issue: <input type=\"text\" name=\"wtheissue\" id=\"wtheissue\" value=\"$theissue\" /></label><br />\n";
-		echo "<label><input type=\"checkbox\" name=\"wresolved\" id=\"wresolved\"".($res ? ' checked="checked"' : '')." /> Resolved</label><br />\n";
-		echo "<input type=\"hidden\" name=\"wknownissueid\" id=\"wknownissueid\" value=\"{$edit['C']}\" /><input type=\"submit\" name=\"knownissue\" value=\"Submit\" /> <input type=\"reset\" /></fieldset></form>\n";
+		if($edit['I'])
+			echo "<label><input type=\"checkbox\" name=\"wresolved\" id=\"wresolved\"".($res ? ' checked="checked"' : '')." /> Resolved</label><br />\n";
+		echo "<input type=\"hidden\" name=\"wknownissueid\" id=\"wknownissueid\" value=\"{$edit['I']}\" /><input type=\"submit\" name=\"knownissue\" value=\"Submit\" /> <input type=\"reset\" /></fieldset></form>\n";
 	echo "</div>\n";
 ?>
 </div></body></html>
