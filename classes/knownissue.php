@@ -85,6 +85,7 @@ if(!class_exists('KnownIssue'))
 		$query = $db->query('select iID from KnownIssues');
 		while($row = mysql_fetch_row($query))
 			$issues[$row[0]] = new KnownIssue($row[0], $db);
+		return $issues;
 	}
 	
 	function getAllUnresolvedIssues($db)
@@ -93,6 +94,7 @@ if(!class_exists('KnownIssue'))
 		$query = $db->query('select iID from KnownIssues where bResolved=0');
 		while($row = mysql_fetch_row($query))
 			$issues[$row[0]] = new KnownIssue($row[0], $db);
+		return $issues;
 	}
 }
 ?>
