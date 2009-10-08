@@ -80,7 +80,7 @@
 		$id = $_POST['whelptopicid'];
 		$newcat = new HelpCategory($_POST['whelptopiccat'], $db);
 		if(!$newcat->isValid())
-			$message = 'Category assignment invalid';
+			$message = 'Category assignment invalid: You must choose a category.';
 		else if($id && is_numeric($id))
 		{ //Edit
 			$top = new HelpTopic($id, $db);
@@ -97,7 +97,7 @@
 		}
 		else
 		{ //New
-			$top = createHelpTopic($_POST['whelptopicttitle'], $_POST['whelptopictext'], $newcat, $db);
+			$top = createHelpTopic($_POST['whelptopictitle'], $_POST['whelptopictext'], $newcat, $db);
 			$message = ($top ? 'Topic successfully created' : 'Failed to create topic');
 		}
 	}
@@ -271,7 +271,7 @@
 	echo "<div id=\"wknownissue\" class=\"window-content\">\n";
 		if($edit['I'])
 			echo "<p><a href=\"help.php?del=I{$edit['I']}\">Delete this issue</a> (cannot be undone!)</p>\n";
-		echo "<form action=\"help.php\" method=\"post\" id=\"wknownissue\"><fieldset>\n";
+		echo "<form action=\"help.php\" method=\"post\" id=\"wknownissueform\"><fieldset>\n";
 		echo "<label>Issue: <input type=\"text\" name=\"wtheissue\" id=\"wtheissue\" value=\"$theissue\" /></label><br />\n";
 		if($edit['I'])
 			echo "<label><input type=\"checkbox\" name=\"wresolved\" id=\"wresolved\"".($res ? ' checked="checked"' : '')." /> Resolved</label><br />\n";
