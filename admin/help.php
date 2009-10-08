@@ -9,7 +9,7 @@
 	$editkeys = array('C', 'T', 'I');
 	foreach($editkeys as $key)
 		$edit[$key] = 0;
-	if(isset($_GET['edit']))
+	else if(isset($_GET['edit']))
 	{
 		$fl = substr($_GET['edit'], 0, 1);
 		$id = substr($_GET['edit'], 1);
@@ -150,7 +150,16 @@
 		cssNode.innerHTML = 'span.helptopic { display: none; }';
 		head.appendChild(cssNode);
 <?php
-	foreach($edit as $key => $val)
+	if(isset($_GET['new']))
+	{
+		if($_GET['new'] == 'C')
+			echo "\t\tvar win=dhtmlwindow.open('newcatbox', 'div', 'whelpcat', 'Create Category', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0', 'recal');\n";
+		else if($_GET['new'] == 'T')
+			echo "\t\tvar win=dhtmlwindow.open('newtopicbox', 'div', 'whelptopic', 'Create Topic', 'width=700px,height=300px,left=300px,top=100px,resize=0,scrolling=0', 'recal');\n";
+		else if($_GET['new'] == 'I')
+			echo "\t\tvar win=dhtmlwindow.open('newissuebox', 'div', 'wknownissue', 'Create Known Issue', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0', 'recal');\n";
+	}
+	else foreach($edit as $key => $val)
 	{
 		if($val)
 		{
@@ -183,7 +192,18 @@
 	echo "<p>Here, you can add, remove, and edit topics that appear in the $appname Help Center.</p>\n";
 	
 	echo "<h2>Create a new...</h2>\n";
-	echo "<p><a href=\"#\" onclick=\"win=dhtmlwindow.open('newcatbox', 'div', 'whelpcat', 'Create Category', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Category</a> - <a href=\"#\" onclick=\"win=dhtmlwindow.open('newtopicbox', 'div', 'whelptopic', 'Create Topic', 'width=700px,height=300px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Topic</a> - <a href=\"#\" onclick=\"win=dhtmlwindow.open('newissuebox', 'div', 'wknownissue', 'Create Known Issue', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Known Issue</a></p>\n";
+	if($edit['C'])
+		echo "<p><a href=\"help.php?new=C\">Category</a> - ";
+	else
+		echo "<p><a href=\"#\" onclick=\"win=dhtmlwindow.open('newcatbox', 'div', 'whelpcat', 'Create Category', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Category</a> - ";
+	if($edit['T'])
+		echo "<a href=\"help.php?new=T\">Topic</a> - ";
+	else
+		echo "<a href=\"#\" onclick=\"win=dhtmlwindow.open('newtopicbox', 'div', 'whelptopic', 'Create Topic', 'width=700px,height=300px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Topic</a> - ";
+	if($edit['I'])
+		echo "<a href=\"help.php?new=I\">Known Issue</a></p>\n";
+	else
+		echo "<a href=\"#\" onclick=\"win=dhtmlwindow.open('newissuebox', 'div', 'wknownissue', 'Create Known Issue', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Known Issue</a></p>\n";
 	echo "<h2>Help Topics</h2>\n";
 	$categories = getAllHelpCategories($db);
 	if(count($categories)) 
