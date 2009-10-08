@@ -110,7 +110,7 @@
 			if($ki->isValid())
 			{
 				$ok1 = $ki->setIssue($_POST['wtheissue']);
-				$ok2 = $ki->setResolved($_POST['wresolved']);
+				$ok2 = $ki->setResolved($_POST['wresolved'] ? true : false);
 				$ok = $ok1 && $ok2;
 			}
 			else

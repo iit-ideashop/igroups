@@ -212,7 +212,7 @@
 	{
 		if(in_array('igroups', $_SESSION['expandSemesters']))
 		{
-			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
+			echo "<a href=\"?toggleExpand=igroups\"><img src=\"../skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
 			@ksort($igroups);
 			echo "<ul>\n";
 			foreach($igroups as $key => $group)
@@ -229,7 +229,7 @@
 			echo "</ul>\n";
 		}
 		else
-			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
+			echo "<a href=\"?toggleExpand=igroups\"><img src=\"../skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
 	}
 
 	if($currentUser->isAdministrator())
