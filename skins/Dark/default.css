@@ -223,4 +223,5 @@ input, textarea {
 
 #helpleft {
 	float: left;
+	width: 300px;
 }

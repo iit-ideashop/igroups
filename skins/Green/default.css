@@ -214,4 +214,5 @@ ul.folderlist ul {
 
 #helpleft {
 	float: left;
+	width: 300px;
 }
