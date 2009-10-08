@@ -49,7 +49,7 @@ if(!class_exists('KnownIssue'))
 		function setIssue($issue)
 		{
 			$sqlissue = mysql_real_escape_string(stripslashes($issue));
-			if($issue != '' && $this->db->query("update KnwonIssues set sIssue=\"$sqlissue\" where iID={$this->id}"))
+			if($issue != '' && $this->db->query("update KnownIssues set sIssue=\"$sqlissue\" where iID={$this->id}"))
 			{
 					$this->issue = stripslashes($issue);
 					return true;
