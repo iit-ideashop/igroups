@@ -19,7 +19,7 @@
 			//Verify input
 			$subdate = strtotime($_POST['date']);
 			if(!$_POST['date'] || $POST['date'] == '')
-				$message = 'ERROR: You must enter a date';
+				$message = 'ERROR: You must enter a date {$_POST['date']}';
 			else if(!is_numeric($_POST['hours']))
 				$message = 'ERROR: Hours must be numeric';
 			else if($_POST['hours'] <= 0)
