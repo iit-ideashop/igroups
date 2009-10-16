@@ -86,11 +86,13 @@ foreach($altskins as $altskin)
 			alert("Please select Print from the file menu");
 		}
 		//-->
-		</script>
+		</script>
+
 	</head>
 		<body onload="init()">
 <?php
 	require("sidebar.php");
+
 	$log = $currentGroup->getTimeLog();
 	$users = $currentGroup->getGroupUsers();
 	$usersWithTime = array();
