@@ -120,10 +120,10 @@ cal.showNavigationDropdowns();
 ?>
 <div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
-	echo "<p>If your professor has instructed you to use the legacy timesheets to enter your time, use the following links: <a href=\"logtimespent.php\">Legacy Timesheets</a></p>\n";
+	echo "<p style=\"font-size: smaller\">If your professor has instructed you to use the legacy timesheets to enter your time, use the following link: <a href=\"logtimespent.php\">Legacy Timesheets</a></p>\n";
 	if($currentUser->isGroupModerator($currentGroup))
 	{
-		echo "<p>Moderators of groups using the legacy timesheets can also use the following: <a href=\"viewtimesheets.php\">View Timesheets</a> - <a href=\"viewgrouptime.php\">Semester Hours Table</a></p>\n";
+		echo "<p style=\"font-size: smaller\">Moderators of groups using the legacy timesheets can also use the following: <a href=\"viewtimesheets.php\">View Timesheets</a> - <a href=\"viewgrouptime.php\">Semester Hours Table</a></p>\n";
 		echo "<div id=\"tasksstuff\">\n"; //Needed for proper columning of the "individual summaries" list, if it appears
 	}
 	//List tasks (choose: My tasks, my tasks + my subgroups, all group tasks)

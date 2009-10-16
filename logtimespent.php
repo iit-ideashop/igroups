@@ -375,7 +375,7 @@ function ds_onclick(d, m, y) {
 ?>
 	</div>
 	<h3>About Legacy Timesheets</h3>
-	<p>This is the <b>legacy timesheets</b> feature--it has been superseded by the Tasks feature, and is currently deprecated: The IPRO office will not provide support for this feature, and it may be buggy. It is provided for archival purposes (Tasks was introduced in Fall 2009) and for professors who prefer the old feature. <b>DO NOT USE THE LEGACY TIMESHEETS</b> unless your professor has instructed you to do so. Instead, enter your time through the Tasks feature.</p>
+	<p>This is the <b>legacy timesheets</b> feature--it has been superseded by the Tasks feature, and is currently deprecated: The IPRO office will not provide support for this feature, and it may be buggy. It is provided for the Fall 2009 semester for groups whose professors who prefer the old feature. <b style="text-transform: uppercase">Do not use the legacy timesheets unless your professor has instructed you to do so.</b> Instead, enter your time through the Tasks feature.</p>
 	<p>To add a new timesheet entry or projected task, first enter the date in MM/DD/YYYY format or select it from a calendar by clicking 'Select Date'. Then, enter the number of hours worked (use .5 for half hours) and briefly describe the tasks performed. Add the new entry or task by clicking 'Add'. You can edit or delete any entry by clicking on it.</p>
 	<p>To view a report of your recorded timesheets, select the week you wish to view from the drop-down menu and click 'View by Week'. To view a report of all your entries, select 'All Weeks' from the menu. All weeks are shown by default.</p>
 	<hr />
