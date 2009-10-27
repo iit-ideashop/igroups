@@ -228,4 +228,5 @@ input, textarea {
 
 table.bordered, table.bordered th, table.bordered td {
 	border: thin solid white;
+	border-collapse: collapse;
 }

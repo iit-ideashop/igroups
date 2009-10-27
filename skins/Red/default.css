@@ -218,4 +218,5 @@ ul.folderlist ul {
 
 table.bordered, table.bordered th, table.bordered td {
 	border: thin solid black;
+	border-collapse: collapse;
 }
