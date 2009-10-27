@@ -215,3 +215,7 @@ ul.folderlist ul {
 	float: left;
 	width: 300px;
 }
+
+table.bordered, table.bordered td {
+	border: thin solid black;
+}
