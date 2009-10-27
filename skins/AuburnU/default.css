@@ -219,6 +219,6 @@ ul.folderlist ul {
 	width: 300px;
 }
 
-table.bordered, table.bordered td {
+table.bordered, table.bordered th, table.bordered td {
 	border: thin solid black;
 }
