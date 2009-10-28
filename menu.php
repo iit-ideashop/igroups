@@ -261,8 +261,11 @@
 	}
 ?>
 	<ul class="noindent">
-		<li><a href="http://sloth.iit.edu/~iproadmin/peerreview" title="Peer Review">IPRO Peer Review</a></li>
 		<li><a href="help/index.php" title="Help Center">Help Center</a></li>
 		<li><a href="needhelp.php" title="Contact Us">Contact Us</a></li>
 		<li><a href="login.php?logout=true" title="Logout">Logout</a></li>
 	</ul>
+	
+	<hr />
+	
+	<p>Return to <a href="http://sloth.iit.edu/~iproadmin/peerreview/">Peer Review</a> &#183; <a href="http://ipro.iit.edu">IPRO Website</a></p>
