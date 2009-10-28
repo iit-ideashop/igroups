@@ -25,7 +25,7 @@
 	require('sidebar.php');
 ?>
 <div id="content"><div id="topbanner">Appearance</div>
-<form method="post" action="appearance.php"><fieldset>
+<form method="post" action="appear.php"><fieldset>
 <?php
 	$query = mysql_fetch_row($db->query("select sValue from Appearance where sKey='appname' and sCSSAttribute is null"));
 	echo "<label for=\"appname\">Application name:</label><input type=\"text\" name=\"appname\" id=\"appname\" value=\"".$query[0]."\" /><br />\n";

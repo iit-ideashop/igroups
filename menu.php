@@ -252,7 +252,7 @@
 			echo "<li><a href=\"admin/announcements.php\">Announcements</a></li>\n";
 			echo "<li><a href=\"admin/bookmarks.php\">Bookmarks</a></li>\n";
 			echo "<li><a href=\"admin/skins.php\">Skins</a></li>\n";
-			echo "<li><a href=\"admin/appearance.php\">Appearance</a></li>\n";
+			echo "<li><a href=\"admin/appear.php\">Appearance</a></li>\n";
 			echo "<li><a href=\"admin/help.php\">Manage Help Center</a></li>\n";
 			echo "</ul>";
 		}
