@@ -214,7 +214,7 @@ ul.folderlist ul {
 	text-align: center;
 }
 
-#helpleft {
+#helpleft, #helpright {
 	float: left;
 	width: 300px;
 }
