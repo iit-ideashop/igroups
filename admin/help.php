@@ -147,7 +147,7 @@
 		var head = document.getElementsByTagName('head')[0];         
 		var cssNode = document.createElement('style');
 		cssNode.type = 'text/css';
-		cssNode.innerHTML = 'span.helptopic { display: none; }';
+		cssNode.innerHTML = 'div.helptopic { display: none; }';
 		head.appendChild(cssNode);
 <?php
 	if(isset($_GET['new']))
@@ -177,7 +177,7 @@
 
 	function toggle(id)
 	{
-		document.getElementById(id).style.display = (document.getElementById(id).style.display == 'inline') ? 'none' : 'inline';
+		document.getElementById(id).style.display = (document.getElementById(id).style.display == 'block') ? 'none' : 'block';
 	}
 //]]>
 </script>
@@ -221,7 +221,7 @@
 				{
 					$ttitle = htmlspecialchars(stripslashes($topic->getTitle()));
 					$ttext = stripslashes($topic->getText());
-					echo "\t\t<li><a href=\"#\" onclick=\"toggle('HT{$topic->getID()}')\">$ttitle</a> [<a href=\"help.php?edit=T$tid\">Edit</a>]<span id=\"HT{$topic->getID()}\" class=\"helptopic\"><br />$ttext</span></li>\n";
+					echo "\t\t<li><a href=\"#\" onclick=\"toggle('HT{$topic->getID()}')\">$ttitle</a> [<a href=\"help.php?edit=T$tid\">Edit</a>]<div id=\"HT{$topic->getID()}\" class=\"helptopic\"><br />$ttext</div></li>\n";
 				}
 				echo "\t</ul>\n";
 			}
