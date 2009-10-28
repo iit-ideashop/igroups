@@ -50,7 +50,7 @@ if(!class_exists('HelpCategory'))
 		function getAllTopics()
 		{
 			$topics = array();
-			$query = $this->db->query("select * from HelpPages where iCategoryID={$this->id}");
+			$query = $this->db->query("select * from HelpPages where iCategoryID={$this->id} order by sTitle");
 			while($row = mysql_fetch_array($query))
 				$topics[$row['iID']] = new HelpTopic($row['iID'], $this->db);
 			return $topics;
