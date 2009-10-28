@@ -280,6 +280,7 @@
 		echo "</select></label><br />\n";
 		echo "<label>Text: <textarea name=\"whelptopictext\" id=\"whelptopictext\" rows=\"10\" cols=\"80\">$toptext</textarea></label><br />\n";
 		echo "<input type=\"hidden\" name=\"whelptopicid\" id=\"whelptopicid\" value=\"{$edit['T']}\" /><input type=\"submit\" name=\"topic\" value=\"Submit\" /> <input type=\"reset\" /></fieldset></form>\n";
+		echo "<p>Note: The Text field allows XHTML. It does no checking for XML correctness; you must do that yourself. Headings should start at level 3 (&lt;h3&gt;).</p>\n";
 	echo "</div>\n";
 	$res = false;
 	if($edit['I'])
