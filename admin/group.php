@@ -143,7 +143,7 @@
 		</script>
 <?php
 	}
-	
+	$makeNewUser = false;
 	if($currentGroup && isset($_POST['adduser']))
 	{
 		$email = $_POST['email'];
@@ -165,6 +165,8 @@
 			</script>
 <?php
 		}
+		else
+			$makeNewUser = true;
 	}
 
 	//----Start XHTML Output----------------------------------------//
@@ -292,7 +294,7 @@
 <?php
 	if($currentGroup)
 	{	
-		if(!isset($_POST['adduser']))
+		if($makeNewUser)
 		{
 ?>
 			<div id="newuser">
