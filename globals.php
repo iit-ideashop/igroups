@@ -30,7 +30,7 @@
 				echo "<link rel=\"alternate stylesheet\" href=\"$appurl/skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 			echo "<title>$appname - Fatal Error</title>\n";
 			echo "</head><body>\n";
-			require('sidebar.php');
+			include_once('sidebar.php');
 			echo "<div id=\"content\">\n";
 			echo "<h1>Fatal Error - $response {$responses[$response]}</h1>\n";
 			echo "<h2>$title</h2>\n";
