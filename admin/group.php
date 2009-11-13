@@ -123,6 +123,49 @@
 		}
 		$message = "Group successfully updated.";
 	}
+	
+	if($currentGroup && isset($_POST['newuser']))
+	{
+		$email = $_POST['email'];
+		$email = str_replace(' ', '', $email);
+		$email = str_replace('>', '', $email);
+		$email = str_replace('<', '', $email);
+		$email = str_replace('"', '', $email);
+		$email = str_replace("'", '', $email);
+		$user = createPerson($email, $_POST['fname'], $_POST['lname'], $db);
+		$user->addToGroup($currentGroup);
+		$user->updateDB();
+?>
+		<script type="text/javascript">
+		<!--
+			showMessage("User was successfully created");
+		//-->
+		</script>
+<?php
+	}
+	
+	if($currentGroup && isset($_POST['adduser']))
+	{
+		$email = $_POST['email'];
+		$email = str_replace(' ', '', $email);
+		$email = str_replace('>', '', $email);
+		$email = str_replace('<', '', $email);
+		$email = str_replace('"', '', $email);
+		$email = str_replace("'", '', $email);
+		$user = $db->query("SELECT iID FROM People WHERE sEmail='".$email."'");
+		if($row = mysql_fetch_row($user))
+		{
+			$user = new Person($row[0], $db);
+			$user->addToGroup($currentGroup);
+?>
+			<script type="text/javascript">
+			<!--
+				showMessage("User successfully added");
+			//-->
+			</script>
+<?php
+		}
+	}
 
 	//----Start XHTML Output----------------------------------------//
 	
@@ -249,63 +292,21 @@
 <?php
 	if($currentGroup)
 	{	
-		if(isset($_POST['newuser']))
+		if(!isset($_POST['adduser']))
 		{
-			$email = $_POST['email'];
-			$email = str_replace(' ', '', $email);
-			$email = str_replace('>', '', $email);
-			$email = str_replace('<', '', $email);
-			$email = str_replace('"', '', $email);
-			$email = str_replace("'", '', $email);
-			$user = createPerson($email, $_POST['fname'], $_POST['lname'], $db);
-			$user->addToGroup($currentGroup);
-			$user->updateDB();
 ?>
-			<script type="text/javascript">
-			<!--
-				showMessage("User was successfully created");
-			//-->
-			</script>
+			<div id="newuser">
+				No one with e-mail address <b><?php echo "$email"; ?></b> currently exists in our system.<br />
+				Please enter additional data so that they may be added.<br />
+				<form method="post" action="group.php"><fieldset>
+					<label for="fname">First Name:</label><input type="text" name="fname" /><br />
+					<label for="lname">Last Name:</label><input type="text" name="lname" /><br />
+					<input type="hidden" name="email" value="<?php echo($_POST['email']); ?>" />
+					<input type="submit" name="newuser" value="Create New User" />
+				</fieldset></form>
+			</div>
 <?php
-		}
-		
-		if(isset($_POST['adduser']))
-		{
-			$email = $_POST['email'];
-			$email = str_replace(' ', '', $email);
-			$email = str_replace('>', '', $email);
-			$email = str_replace('<', '', $email);
-			$email = str_replace('"', '', $email);
-			$email = str_replace("'", '', $email);
-			$user = $db->query("SELECT iID FROM People WHERE sEmail='".$email."'");
-			if($row = mysql_fetch_row($user))
-			{
-				$user = new Person($row[0], $db);
-				$user->addToGroup($currentGroup);
-?>
-				<script type="text/javascript">
-				<!--
-					showMessage("User successfully added");
-				//-->
-				</script>
-<?php
-			}
-			else
-			{
-?>
-				<div id="newuser">
-					No one with e-mail address <b><?php echo "$email"; ?></b> currently exists in our system.<br />
-					Please enter additional data so that they may be added.<br />
-					<form method="post" action="group.php"><fieldset>
-						<label for="fname">First Name:</label><input type="text" name="fname" /><br />
-						<label for="lname">Last Name:</label><input type="text" name="lname" /><br />
-						<input type="hidden" name="email" value="<?php echo($_POST['email']); ?>" />
-						<input type="submit" name="newuser" value="Create New User" />
-					</fieldset></form>
-				</div>
-<?php
-			}	
-		}
+		}	
 
 		$members = $currentGroup->getAllGroupMembers();
 		if(count($members) > 0)
