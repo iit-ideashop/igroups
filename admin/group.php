@@ -135,13 +135,7 @@
 		$user = createPerson($email, $_POST['fname'], $_POST['lname'], $db);
 		$user->addToGroup($currentGroup);
 		$user->updateDB();
-?>
-		<script type="text/javascript">
-		<!--
-			showMessage("User was successfully created");
-		//-->
-		</script>
-<?php
+		$message = 'User was successfully created';
 	}
 	$makeNewUser = false;
 	if($currentGroup && isset($_POST['adduser']))
@@ -157,13 +151,7 @@
 		{
 			$user = new Person($row[0], $db);
 			$user->addToGroup($currentGroup);
-?>
-			<script type="text/javascript">
-			<!--
-				showMessage("User successfully added");
-			//-->
-			</script>
-<?php
+			$message = 'User successfully added';
 		}
 		else
 			$makeNewUser = true;
