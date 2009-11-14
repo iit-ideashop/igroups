@@ -19,7 +19,7 @@
 	foreach($altskins as $altskin)
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<title><?php echo $appname; ?> - Group Contact Info</title>
+<title><?php echo $appname; ?> - Contact List</title>
 </head>
 <body>	
 <?php

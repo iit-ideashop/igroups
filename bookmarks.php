@@ -97,7 +97,7 @@
 	foreach($altskins as $altskin)
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<title><?php echo $appname; ?> - Group Bookmarks</title>
+<title><?php echo $appname; ?> - Bookmarks</title>
 </head><body>
 <?php require("sidebar.php"); ?>
 <div id="content">
