@@ -31,7 +31,7 @@
 	foreach($altskins as $altskin)
 		echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 
-	echo "<title>$appname Help Center</title>\n";
+	echo "<title>$appname Help - {$currTopic->getTitle()}</title>\n";
 	
 	echo "</head><body>\n";
 	require('sidebar.php');
