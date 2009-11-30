@@ -13,6 +13,8 @@
 	}
 	$row = mysql_fetch_row($db->query('select sValue from Appearance where sKey="contactemail"'));
 	$contactemail = $row[0];
+	
+	$igroupsUploadedFileDir = '/files/igroups/';
 
 	if(!function_exists('errorPage'))
 	{
