@@ -319,6 +319,7 @@ if(!class_exists('File'))
 			{
 				//if(strlen($contactemail))
 					//mail($contactemail, "iGroups Uploaded Files Directory Out Of Space", "A user tried to upload a file to iGroups, and could not because the directory in which to place the file lacks enough free space to complete the transaction. You should fix this.\n\nTimestamp: ".date('Y-m-d H:i:s')."\nAttempt upload (bytes): ".filesize($tmp)."\nFree space (bytes): ".disk_free_space($igroupsUploadedFileDir));
+				echo "$contactemail $igroupsUploadedFileDir\n";
 				return 1; //Disk full
 			}
 			else
