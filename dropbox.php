@@ -69,7 +69,12 @@
 		if($_FILES['thefile']['error'] == UPLOAD_ERR_OK)
 		{
 			$file = createFile( $_POST['filename'], $_POST['filedescription'], $currentUser->getID(), $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], 1, $db );
-			$message = ($file ? 'File successfully uploaded' : 'Upload error');
+			if(is_object($file))
+					$message = 'File successfully uploaded';
+				else if($file == 1)
+					$message = 'Error: The files directory is full. The IPRO Office has been notified of this problem.';
+				else
+					$message = 'Error saving file. Please try again.';
 		}
 		else
 			$message = "Error occured during upload, please try again";

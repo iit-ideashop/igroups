@@ -365,8 +365,14 @@
 						$currentQuota->updateDB();
 						//I need to get the current groups home folder
 						$file = createFile($filenames[$loop], $description[$loop],0,$currentUser->getID(), $_FILES['thefile']['name'][$key],$currentGroup, $_FILES['thefile']['tmp_name'][$key], $_FILES['thefile']['type'][$key], 0, $db);
-						if(!$file)
-							$message = "Upload error";
+						if(!is_object($file))
+						{
+							if($file == 1)
+								$message = 'Error: The files directory is full. The IPRO Office has been notified of this problem.';
+							else
+								$message = 'Error saving file. Please try again.';
+							break;
+						}
 						else
 						{
 							$message="File successfully uploaded";

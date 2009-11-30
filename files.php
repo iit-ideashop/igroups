@@ -166,11 +166,13 @@
 				}
 				else
 					$priv = 0;
-				$file = createFile( $_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], $priv, $db );
-				if(!$file)
-					$message = 'Error saving file. Please try again.';
-				else
+				$file = createFile($_POST['filename'], $_POST['filedescription'], $fid, $currentUser->getID(), $_FILES['thefile']['name'], $currentGroup, $_FILES['thefile']['tmp_name'], $_FILES['thefile']['type'], $priv, $db);
+				if(is_object($file))
 					$message = 'File successfully uploaded';
+				else if($file == 1)
+					$message = 'Error: The files directory is full. The IPRO Office has been notified of this problem.';
+				else
+					$message = 'Error saving file. Please try again.';
 			}
 			else
 			{

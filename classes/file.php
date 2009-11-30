@@ -3,6 +3,8 @@ include_once('superstring.php');
 
 if(!class_exists('File'))
 {
+	define('igroupsUploadedFileDir', '/files/igroups/');
+
 	class File
 	{
 		var $id, $name, $desc, $folder, $author, $deleted, $group, $type, $semester, $origname, $date, $version, $mimeType, $obsolete, $private, $valid;
@@ -256,7 +258,7 @@ if(!class_exists('File'))
 		
 		function getDiskName()
 		{
-			return "/files/igroups/{$this->id}.igroup";
+			return "$igroupsUploadedFileDir{$this->id}.igroup";
 		}
 
 		function setMimeType($type)
@@ -308,12 +310,18 @@ if(!class_exists('File'))
 		$dbdate = date('Y-m-d H:m:s');
 		$db->query("INSERT INTO Files( sTitle, sDescription, iFolderID, iAuthorID, dDate, sOriginalName, iGroupID, iGroupType, iSemesterID, sMetaComments, bPrivate) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $folder, $author, '$dbdate', '$origname', ".$group->getID().", ".$group->getType().", ".$group->getSemester().", '".mysql_real_escape_string($mime)."', $priv)");
 		$file = new File($db->insertID(), $db);
-		if(move_uploaded_file($tmp, $file->getDiskName()))
+		if(disk_free_space($igroupsUploadedFileDir) > filesize($tmp) && move_uploaded_file($tmp, $file->getDiskName()))
 			return $file;
 		else
 		{
 			$db->query("DELETE FROM Files WHERE iID=".$file->getID());
-			return false;
+			if(disk_free_space($igroupsUploadedFileDir) <= filesize($tmp))
+			{
+				mail($contactemail, "iGroups Uploaded Files Directory Out Of Space', 'A user tried to upload a file to iGroups, and could not because the directory in which to place the file lacks enough free space to complete the transaction. You should fix this.\n\nTimestamp: ".date('Y-m-d H:i:s')."\nAttempt upload (bytes): ".filesize($tmp)."\nFree space (bytes): ".disk_free_space($igroupsUploadedFileDir));
+				return 1; //Disk full
+			}
+			else
+				return 2; //Unspecified error (move_uploaded_file returned false)
 		}
 	}
 	
