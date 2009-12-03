@@ -44,6 +44,8 @@
 					$nugprint = 'Team Minutes (optional)';
 				else if($nug == 'Final Report')
 					$nugprint = 'Final Report or Grant Proposal';
+				else if($nug == 'Abstract')
+					$nugprint = 'Abstract/Brochure';
 				else
 					$nugprint = $nug;
 				if($nugCount == 2)
