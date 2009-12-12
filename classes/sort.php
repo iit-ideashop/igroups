@@ -4,19 +4,19 @@
 		switch($sort)
 		{
 			case 1:
-				return " order by Emails.sSubject";
+				return ' order by Emails.sSubject';
 			case -1:
-				return " order by Emails.sSubject desc";
+				return ' order by Emails.sSubject desc';
 			case 2:
-				return " order by People.sLName, People.sFName";
+				return ' order by People.sLName, People.sFName';
 			case -2:
-				return " order by People.sLName desc, People.sFName desc";
+				return ' order by People.sLName desc, People.sFName desc';
 			case 3:
-				return " order by Emails.dDate, Emails.iID";
+				return ' order by Emails.dDate, Emails.iID';
 			case -3:
-				return " order by Emails.dDate desc, Emails.iID desc";
+				return ' order by Emails.dDate desc, Emails.iID desc';
 			default:
-				return " order by Emails.iID desc";
+				return ' order by Emails.iID desc';
 		}
 	}
 	
@@ -25,23 +25,27 @@
 		switch($sort)
 		{
 			case 1:
-				return " order by Files.sTitle";
+				return ' order by Files.sTitle';
 			case -1:
-				return " order by Files.sTitle desc";
+				return ' order by Files.sTitle desc';
 			case 2:
-				return " order by Files.sDescription";
+				return ' order by Files.sDescription';
 			case -2:
-				return " order by Files.sDescription desc";
+				return ' order by Files.sDescription desc';
 			case 3:
-				return " order by People.sLName, People.sFName";
+				return ' order by People.sLName, People.sFName';
 			case -3:
-				return " order by People.sLName desc, People.sFName desc";
+				return ' order by People.sLName desc, People.sFName desc';
 			case 4:
-				return " order by Files.dDate, Files.iID";
+				return ' order by Files.dDate, Files.iID';
 			case -4:
-				return " order by Files.dDate desc, Files.iID desc";
+				return ' order by Files.dDate desc, Files.iID desc';
+			case 5:
+				return ' order by Files.iFileSize, Files.iID desc';
+			case -5:
+				return ' order by Files.iFileSize desc, Files.iID desc';
 			default:
-				return " order by Files.iID desc";
+				return ' order by Files.iID desc';
 		}
 	}
 ?>

@@ -45,6 +45,18 @@ if(!class_exists('File'))
 		{
 			return $this->filesize;
 		}
+		
+		function stringFilesize()
+		{
+			if($this->filesize < 1 << 10)
+				return "{$this->filesize} bytes";
+			else if($this->filesize < 1 << 20)
+				return number_format($this->filesize / (1 << 10), 1).' KiB';
+			else if($this->filesize < 1 << 30)
+				return number_format($this->filesize / (1 << 20), 1).' MiB';
+			else
+				return number_format($this->filesize / (1 << 30), 1).' GiB';
+		}
 
 		function getVersion()
 		{

@@ -612,6 +612,12 @@
 			echo "<td><a href=\"files.php?sort=4$ampsuffix\" title=\"Sort this ascendingly\">Date &#x2191;</a></td>";
 		else
 			echo "<td><a href=\"files.php?sort=-4$ampsuffix\" title=\"Sort by date\">Date</a></td>";
+		if($_SESSION['fileSort'] == 5)
+			echo "<td><a href=\"files.php?sort=-5$ampsuffix\" title=\"Sort this descendingly\">Size &#x2193;</a></td>";
+		else if($_SESSION['fileSort'] == -5)
+			echo "<td><a href=\"files.php?sort=5$ampsuffix\" title=\"Sort this ascendingly\">Size &#x2191;</a></td>";
+		else
+			echo "<td><a href=\"files.php?sort=-5$ampsuffix\" title=\"Sort by size\">Size</a></td>";
 		echo "<td></td><td></td></tr>\n"; 
 	}
 	if($currentFolder && !$currentFolder->isIPROFolder())
@@ -653,6 +659,7 @@
 				else
 					echo "<td></td>";
 				echo "<td>".$file->getDate()."</td>";
+				echo "<td>".$file->stringFilesize()."</td>";
 				echo "<td><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";
 				echo "<td><a href=\"#\" onclick=\"renamewin=dhtmlwindow.open('renamebox', 'ajax', 'renamefile.php?fileid=".$file->getID()."', 'Rename File', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Rename</a></td>";
 				echo "</tr>\n";
