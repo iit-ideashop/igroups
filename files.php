@@ -658,7 +658,7 @@
 					echo "<td>".$author->getFullName()."</td>";
 				else
 					echo "<td></td>";
-				echo "<td>".$file->getDate()."</td>";
+				echo "<td>".$file->getDateDB()."</td>";
 				echo "<td>".$file->stringFilesize()."</td>";
 				echo "<td><input type=\"checkbox\" name=\"file[".$file->getID()."]\" /></td>";
 				echo "<td><a href=\"#\" onclick=\"renamewin=dhtmlwindow.open('renamebox', 'ajax', 'renamefile.php?fileid=".$file->getID()."', 'Rename File', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Rename</a></td>";

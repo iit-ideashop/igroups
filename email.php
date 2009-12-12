@@ -392,7 +392,7 @@
 				$img = '&nbsp;<img src="skins/'.$skin.'/img/attach.png" alt="(Attachments)" style="border-style: none" title="Paper clip" />';
 			else
 				$img = '';
-			echo "<td colspan=\"2\"><a href=\"displayemail.php?id={$email->getID()}\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".htmlspecialchars($email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDate()."</td><td><input type=\"checkbox\" name=\"email[".$email->getID()."]\" /></td>";
+			echo "<td colspan=\"2\"><a href=\"displayemail.php?id={$email->getID()}\" onclick=\"viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$email->getID()."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1'); return false\">".htmlspecialchars($email->getShortSubject())."</a>$img</td><td>".$author->getFullName()."</td><td>".$email->getDateDB()."</td><td><input type=\"checkbox\" name=\"email[".$email->getID()."]\" /></td>";
 			echo "</tr>\n";
 		} 
 	}

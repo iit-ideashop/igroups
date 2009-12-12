@@ -168,7 +168,7 @@ if(!class_exists('File'))
 			$date = substr($this->senddate, 0, strpos($this->senddate, ' '));
 			$temp = explode('-', $date);
 			return date('m/d/Y', mktime(0, 0, 0, $temp[1], $temp[2], $temp[0]));
-		}	
+		}
 
 		function getDateTime()
 		{
