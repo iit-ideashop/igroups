@@ -188,11 +188,6 @@ if(!class_exists('File'))
 				$this->senddate = date('Y-m-d', mktime(0, 0, 0, $temp[0], $temp[1], $temp[2]));
 		}
 		
-		function getFilesize()
-		{
-			return filesize($this->getDiskName());
-		}
-		
 		function isPrivate()
 		{
 			return $this->private;
