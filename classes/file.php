@@ -5,7 +5,7 @@ if(!class_exists('File'))
 {
 	class File
 	{
-		var $id, $name, $desc, $folder, $author, $deleted, $group, $type, $semester, $origname, $date, $version, $mimeType, $obsolete, $private, $valid;
+		var $id, $name, $desc, $folder, $author, $deleted, $group, $type, $semester, $origname, $date, $version, $mimeType, $obsolete, $private, $filesize, $valid;
 		var $db;
 		
 		function File($id, $db)
@@ -31,6 +31,7 @@ if(!class_exists('File'))
 				$this->obsolete = $file['bObsolete'];
 				$this->mimeType = $file['sMetaComments'];
 				$this->private = $file['bPrivate'];
+				$this->filesize = $file['iFileSize'];
 				$this->valid = true;
 			}
 		}
@@ -38,6 +39,11 @@ if(!class_exists('File'))
 		function getID()
 		{
 			return $this->id;
+		}
+		
+		function getFilesize()
+		{
+			return $this->filesize;
 		}
 
 		function getVersion()
@@ -308,16 +314,16 @@ if(!class_exists('File'))
 		$namess = new SuperString($name);
 		$descss = new SuperString($desc);
 		$dbdate = date('Y-m-d H:m:s');
-		$db->query("INSERT INTO Files( sTitle, sDescription, iFolderID, iAuthorID, dDate, sOriginalName, iGroupID, iGroupType, iSemesterID, sMetaComments, bPrivate) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $folder, $author, '$dbdate', '$origname', ".$group->getID().", ".$group->getType().", ".$group->getSemester().", '".mysql_real_escape_string($mime)."', $priv)");
+		$db->query("INSERT INTO Files( sTitle, sDescription, iFolderID, iAuthorID, dDate, sOriginalName, iGroupID, iGroupType, iSemesterID, sMetaComments, bPrivate, iFileSize) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $folder, $author, '$dbdate', '$origname', ".$group->getID().", ".$group->getType().", ".$group->getSemester().", '".mysql_real_escape_string($mime)."', $priv, ".filesize($tmp).")");
 		$file = new File($db->insertID(), $db);
-		if(disk_free_space('/files/igroups/') > filesize($tmp) && move_uploaded_file($tmp, $file->getDiskName()))
+		if(disk_free_space('/files/igroups/') > $file->getFilesize() && move_uploaded_file($tmp, $file->getDiskName()))
 			return $file;
 		else
 		{
 			$db->query("DELETE FROM Files WHERE iID=".$file->getID());
-			if(disk_free_space('/files/igroups/') <= filesize($tmp))
+			if(disk_free_space('/files/igroups/') <= $file->getFilesize())
 			{
-				mail($contactemail, "iGroups Uploaded Files Directory Out Of Space", "A user tried to upload a file to iGroups, and could not because the directory in which to place the file lacks enough free space to complete the transaction. You should fix this.\n\nTimestamp: ".date('Y-m-d H:i:s')."\nAttempt upload (bytes): ".filesize($tmp)."\nFree space (bytes): ".disk_free_space('/files/igroups/'));
+				mail($contactemail, "iGroups Uploaded Files Directory Out Of Space", "A user tried to upload a file to iGroups, and could not because the directory in which to place the file lacks enough free space to complete the transaction. You should fix this.\n\nTimestamp: ".date('Y-m-d H:i:s')."\nAttempt upload (bytes): ".$file->getFilesize()."\nFree space (bytes): ".disk_free_space('/files/igroups/'));
 				return 1; //Disk full
 			}
 			else
