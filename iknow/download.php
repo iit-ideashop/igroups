@@ -16,7 +16,7 @@
 	{
 		$query = $db->query("SELECT iNuggetID FROM nuggetFileMap WHERE iFileID={$file->getID()}");
 		$row = mysql_fetch_row($query);
-		if($nugget = new Nugget($row[0], $db, 0) && is_object($nugget))
+		if($row && $nugget = new Nugget($row[0], $db, 0))
 		{
 			if($nugget->isPrivate())
 				die ('You must be logged in to download this file');
