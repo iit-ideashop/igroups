@@ -446,6 +446,17 @@
 	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 ?>
 	<div id="container"><div id="folderbox">
+  <!--Div for quota view goes here -->
+  <div class="quotaview">
+  <p>
+  <?php
+   echo "Your Current Quota: \n <br />";  
+   $tempQuota = round($currentQuota->getPercentUsed());
+   echo "$tempQuota\n";
+  ?>
+  </p>
+  </div>
+  <!-- end Div for quota -->
 	<div class="columnbanner">Your Folders:</div>
 	<div class="menubar">
 	<ul class="folderlist">
