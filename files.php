@@ -450,13 +450,14 @@
   <!-- div for quota view goes here -->
   <?php 
      $quotaUsed = round($currentQuota->getPercentUsed());
+     $quotaPix = ($quotaUsed/100)*500; 
   ?>
   <div class="quotaViewBox">
     <p class="quotaText">
     Current Quota : <?php echo "$quotaUsed"; ?>
     </p>
     <div class="quotaBar">
-    <div class="quotaBarIndicator" style="width: <?php echo "$quotaUsed"; ?>px" ></div>
+    <div class="quotaBarIndicator" style="width: <?php echo "$quotaPix"; ?>px" ></div>
     </div>
   </div>
 <!-- end Div for quota -->
