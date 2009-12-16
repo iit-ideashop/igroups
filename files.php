@@ -445,8 +445,9 @@
 	require("sidebar.php");
 	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 ?>
-	<div id="container"><div id="folderbox">
-  <!--Div for quota view goes here -->
+	<div id="container"> <!-- <div id="folderbox">-->
+  
+  <!-- Div for quota view goes here -->
   <div class="quotaview">
   <p>
   <?php
@@ -454,9 +455,13 @@
    $tempQuota = round($currentQuota->getPercentUsed());
    echo "$tempQuota\n";
   ?>
+  <span class="quotaGraphic" style="background-color: blue; width:<?php echo "$tempQuota"; ?>px" ></span>
+  
   </p>
   </div>
   <!-- end Div for quota -->
+  <div id="folderbox">
+
 	<div class="columnbanner">Your Folders:</div>
 	<div class="menubar">
 	<ul class="folderlist">
