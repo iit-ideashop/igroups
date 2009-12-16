@@ -445,15 +445,18 @@
 	require("sidebar.php");
 	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 ?>
-	<div id="container"> 
+  <div id="container"> 
   
   <!-- div for quota view goes here -->
+  <?php 
+     $quotaUsed = round($currentQuota->getPercentUsed());
+  ?>
   <div class="quotaViewBox">
     <p class="quotaText">
-    Current Quota
+    Current Quota : <?php echo "$quotaUsed"; ?>
     </p>
     <div class="quotaBar">
-    <div class="quotaBarIndicator" ><span class="quotaBarText">42%</span></div>
+    <div class="quotaBarIndicator" style="width: <?php echo "$quotaUsed"; ?>px" ></div>
     </div>
   </div>
 <!-- end Div for quota -->

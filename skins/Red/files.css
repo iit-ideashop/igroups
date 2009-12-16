@@ -76,7 +76,6 @@ ul.prof ul {
   outline: #BABABA solid 1px;
   padding: 4px;
   margin-right: 5px;
-  z-index: 1;
 }
 
 .quotaBarText{
@@ -84,5 +83,5 @@ ul.prof ul {
  color: #fff;
  font-weight: bold;
  font-family: Trebuchet MS;
- z-index: 2;
+
 }
