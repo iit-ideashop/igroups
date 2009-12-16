@@ -66,7 +66,7 @@ ul.prof ul {
 }
 
 .quotaBarIndicator{
- background-color: green;
+ background-color: #12a9ff;
  width: 40% ;
  height: 20px;
 }
@@ -75,10 +75,11 @@ ul.prof ul {
   width: 100%;
   outline: #BABABA solid 1px;
   padding: 4px;
+  margin-right: 5px;
 }
 
 .quotaBarText{
- margin-left: 49%;
+ /* margin-left: 49%;*/
  color: #fff;
  font-weight: bold;
  font-family: Trebuchet MS;
