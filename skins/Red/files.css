@@ -74,7 +74,7 @@ ul.prof ul {
 
 .quotaBar{
   width: 100%;
-  outline: red dashed 1px;
+  outline: #BABABA solid 1px;
 }
 
 .quotaBarText{
