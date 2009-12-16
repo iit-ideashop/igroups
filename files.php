@@ -454,7 +454,7 @@
   ?>
   <div class="quotaViewBox">
     <p class="quotaText">
-    Current Quota : <?php echo "$quotaUsed"; ?>
+    Current Quota Used: <?php echo "$quotaUsed"; ?>%
     </p>
     <div class="quotaBar">
     <div class="quotaBarIndicator" style="width: <?php echo "$quotaPix"; ?>px" ></div>
