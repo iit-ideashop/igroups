@@ -188,15 +188,6 @@
 		else
 			$igroups[$group->getName()] = $group;
 	}
-	
-	echo "<ul class=\"noindent\"><li><a href=\"index.php\">$appname Home</a></li>\n";
-	echo "<li><a href=\"contactinfo.php\">My Profile</a></li>\n";
-	echo "<li><a href=\"iknow/main.php\">Browse Nuggets Library</a>&nbsp;</li>\n";
-	echo "<li><a href=\"usernuggets.php\">Your Groups' Nuggets</a></li>\n";
-	echo "<li><a href=\"help/index.php\" title=\"Help Center\">Help Center</a></li>\n";
-	echo "<li><a href=\"needhelp.php\" title=\"Contact Us\">Contact Us</a></li>\n";
-  echo "<li><a href=\"login.php?logout=true\" title=\"Logout\">Logout</a></li>\n";
-  echo "</ul>";
 
   //Sort IPRO array by key in reverse order
 	@krsort($sortedIPROs);
