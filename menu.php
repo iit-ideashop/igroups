@@ -115,6 +115,7 @@
 		return "menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester();
 	}
 
+
   /* Prints the menu links for a given group */
   /* TODO: It is best to include a <ul> tag here */
 	function printGroupMenu($user, $group)
@@ -238,7 +239,7 @@
 					echo "<li>".getLinkedName($group);
 					
 					/* check if group was the one selected */
-					if( ($semester->isActive() && !isSelected($group)) || isSelected($group))
+					if( ($semester->isActive() && !isset($_GET['toggleExpand'])) || isSelected($group))
 					{
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
