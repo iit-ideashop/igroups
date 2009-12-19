@@ -339,7 +339,7 @@ img #igroupsLogo{
 	padding-top: 20px;
 }
 
-#uniSidebar.userWelcomeMsg{
+#uniSidebar .userWelcomeMsg {
   font-size: 14px;
   font-weight: bold;
 }
