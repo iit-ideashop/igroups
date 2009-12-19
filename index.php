@@ -107,7 +107,7 @@ body{
 	padding-top: 5px;
 }
 
-img #igroupslogo{
+img #igroupsLogo{
 	float: left;
 }
 
@@ -257,7 +257,7 @@ img #igroupslogo{
 			<!-- start main header -->
 			<div id="mainheader">
 					<!-- iGroups logo -->
-					<img id="igroupslogo" src="" alt="iGroups Logo" />
+					<img id="igroupsLogo" src="" alt="iGroups Logo" />
 					<!-- end logo -->
 						
 					<!-- start container for both external and internal links -->
