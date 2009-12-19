@@ -169,7 +169,7 @@
      * is the default menu
      */
      $_SESSION['activateDefaultMenu'] = 1;
-     echo "Default menu active: ".!($_SESSION['activateDefaultMenu']);  
+     echo "Default ".$_SESSION['activateDefaultMenu'];  
 	}
 	else
 		die('You are not logged in.');
@@ -260,6 +260,7 @@
   				 	/* end sub navigation list */
 					}
 					else if(isset($_SESSION['activateDefaultMenu']) && $group->isActive()){
+  						$_SESSION['activateDefaultMenu'] = 0;
 							echo "<ul id=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
 							echo "</ul>\n";
