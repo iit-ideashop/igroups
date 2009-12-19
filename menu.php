@@ -244,8 +244,7 @@
 				
 				foreach($val as $useless => $group)
 				{
-					echo "<li>".getLinkedName($group);
-		
+	
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{
