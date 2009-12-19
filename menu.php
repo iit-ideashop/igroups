@@ -244,11 +244,12 @@
 				
 				foreach($val as $useless => $group)
 				{
-				
+					echo "<li>".getLinkedName($group);
+		
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{
-						echo "<li>".getLinkedName($group);
+							echo "<li>".getLinkedName($group);
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
 						/* start sub navigation list */		
@@ -260,6 +261,7 @@
 					}
 					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
   						$_SESSION['activateDefaultMenu'] = 0 ;
+							echo "<li>".getLinkedName($group);
 							echo "<ul id=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
 							echo "</ul>\n";
