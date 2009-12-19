@@ -168,7 +168,9 @@
 		 *on initial login, there are no selected groups so the active one
      * is the default menu
      */
-     $_SESSION['activateDefaultMenu'] = 1;
+			echo "Not set active menu: ".!isset($_SESSION['activateDefaultMenu']);
+     if(!isset($_SESSION['activateDefaultMenu']))
+				$_SESSION['activateDefaultMenu'] = 1;
      echo "Default ".$_SESSION['activateDefaultMenu'];  
 	}
 	else
