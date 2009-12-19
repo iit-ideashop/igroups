@@ -222,7 +222,7 @@
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
 						/* start sub navigation list */		
-						echo "<ul id="subnavigation">\n";
+						echo "<ul id=\"subnavigation\">\n";
 						printGroupMenu( $currentUser, $group );
 						echo "</ul>\n";
   				 	/* end sub navigation list */
