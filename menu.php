@@ -170,7 +170,7 @@
      */
 			
      if(!isset($_SESSION['activateDefaultMenu'])){
-        echo "session variable not set \n"
+        echo "session variable not set \n";
 				$_SESSION['activateDefaultMenu'] = 1;
 			}
      echo "activate default ".$_SESSION['activateDefaultMenu'];  
