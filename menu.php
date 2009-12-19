@@ -252,7 +252,7 @@
   				 	/* end sub navigation list */
 					}
            
-           if($nonSelected){
+           if(!$nonSelected){
 
 							echo "<ul id=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
