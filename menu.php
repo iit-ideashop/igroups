@@ -159,7 +159,7 @@
 	}
 
 
-	if(isset($_SESSION['userID'])){}
+	if(isset($_SESSION['userID'])){
 		$currentUser = new Person($_SESSION['userID'], $db);
     
 		/*the session variable below is meant to be set at initial login
