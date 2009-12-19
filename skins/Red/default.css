@@ -339,6 +339,11 @@ img #igroupsLogo{
 	padding-top: 20px;
 }
 
+#uniSidebar.userWelcomeMsg{
+  font-size: 14px;
+  font-weight: bold;
+}
+
 #uniSidebar #subnavigation {
 	width: 180px;
 	margin-top: 0px;
