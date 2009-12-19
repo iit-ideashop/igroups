@@ -6,9 +6,10 @@
 	include_once('classes/person.php');
 
 
-  if(!isset($_SESSION['activateDefaultMenu']));
-			echo "session variable not set ";
-  echo basename ( $_SERVER['PHP_SELF'] );
+  if(!isset($_SESSION['activateDefaultMenu']) && (basename ( $_SERVER['PHP_SELF'] ))=="index.php"){
+			echo "session variable not set but on idex page ";
+			$_SESSION['activateDefaultMenu'] = 1;
+  }
 
 	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);

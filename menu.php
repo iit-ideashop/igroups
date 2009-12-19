@@ -257,7 +257,7 @@
 						
   				 	/* end sub navigation list */
 					}
-					else if($_SESSION['activateDefaultMenu'] == 0 && $group->isActive()){
+					else if($_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
   					//	$_SESSION['activateDefaultMenu'] = 1;
 							echo "<ul id=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
