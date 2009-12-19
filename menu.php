@@ -203,31 +203,25 @@
  		/********************* generate semester selection list ********************************/
     echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
     echo "<option value=\"\"> Select Semester </option>\n";
-		foreach($sortedIPROs as $key => $val)
+		
+	foreach($sortedIPROs as $key => $val)
 		{
 			$semester = new Semester($key, $db);
-
-			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() != $_SESSION['selectedSemester'])
-			{
-
-        ksort($val);
+			ksort($val);
 				
-				foreach($val as $useless => $group)
-				{				
-
+			foreach($val as $useless => $group)
+			{				
 				 echo "<option value=\"".getLink($group)."\">".$group->getName().", ".$semester->getName()."</option>\n";
  				}
-     }
-
     }
      echo "</select><br />";
-    /****************** end selection list generation ********************************/
+    /**************************** end selection list generation *****************************/
 
 		echo "Your IPROs:\n";
     // start of list 
 		echo "<ul class=\"noindent\">\n";
 
-		/*************************** generate list of ipros********************/
+		/******************************** generate list of ipros*********************************/
 		foreach($sortedIPROs as $key => $val)
 		{
 			$semester = new Semester($key, $db);
