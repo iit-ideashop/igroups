@@ -171,10 +171,8 @@
 	if(isset($_SESSION['userID'])){
 		$currentUser = new Person($_SESSION['userID'], $db);
     
-     if(!isset($_SESSION['activateDefaultMenu'])){
+     if($_SESSION['activateDefaultMenu'] == 0)
         echo "session variable not set \n";
-			
-			}
 			else 
      		echo "activate default ".$_SESSION['activateDefaultMenu'];  
 	}
