@@ -5,6 +5,9 @@
 	include_once('classes/announcement.php');
 	include_once('classes/person.php');
 
+
+  echo "session variable set ".$_SESSION['activateDefaultMenu'];
+
 	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);
 	else

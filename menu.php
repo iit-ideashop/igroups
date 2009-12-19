@@ -30,13 +30,6 @@
 			$_SESSION['userID'] = $row[0];
 
 			if(isset($_GET['loggingin'])){
-		/*the session variable below is meant to be set at initial login
-     *it is used determine if to toggle the menu of the active group 
-     *so that the menu is not duplicated on subsequent clicks
-		 *on initial login, there are no selected groups so the active one
-     * is the default menu
-     */
-				$_SESSION['activateDefaultMenu'] = 1;
 				header('Location: index.php');
       }
 		}
