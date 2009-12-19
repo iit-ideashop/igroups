@@ -224,7 +224,8 @@
 
 		/******************************** generate list of ipros*********************************/
 		foreach($sortedIPROs as $key => $val)
-		{
+		{  
+      $nonSelected = 0;
 			$semester = new Semester($key, $db);
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
@@ -236,14 +237,11 @@
 				foreach($val as $useless => $group)
 				{
 					echo "<li>".getLinkedName($group);
-					
-					echo "Is set toggle: ".isset($_SESSION['firstLogin']);
+		
 					/* check if group was the one selected */
-					if( ($semester->isActive() && !isset($_SESSION['firstLogin'])) || isSelected($group))
+					if(isSelected($group))
 					{
-							if(!isset($_SESSION['firstLogin']))
-   								$_SESSION['firstLogin'] = 1;
-
+            $nonSelected = 1;
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
 						/* start sub navigation list */		
@@ -252,6 +250,13 @@
 						echo "</ul>\n";
 						
   				 	/* end sub navigation list */
+					}
+           
+           if($nonSelected){
+
+							echo "<ul id=\"subnavigation\">\n";
+							printGroupMenu( $currentUser, $group );
+							echo "</ul>\n";
 					}
 						echo "</li>\n";
 					
