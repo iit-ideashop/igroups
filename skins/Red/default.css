@@ -361,7 +361,7 @@ img #igroupsLogo{
   margin-bottom: 15px;
 }
 
-#uniSidebar li p {
+#uniSidebar li, p {
 	width: 180px;
 }
 
