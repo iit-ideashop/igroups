@@ -5,7 +5,7 @@ function gotoSemesterUrl()
    var selectedSemester = document.getElementById('semesterlist').selectedIndex;
 
    //get value at selected index
-   var url_address = location.href + document.getElementById('semesterlist').options[selectedSemester].value;
+   var url_address = document.getElementById('semesterlist').options[selectedSemester].value;
     
    //got to location at index
    window.location.href = url_address;
