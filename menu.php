@@ -159,8 +159,18 @@
 	}
 
 
-	if(isset($_SESSION['userID']))
+	if(isset($_SESSION['userID'])){}
 		$currentUser = new Person($_SESSION['userID'], $db);
+    
+		/*the session variable below is meant to be set at initial login
+     *it is used determine if to toggle the menu of the active group 
+     *so that the menu is not duplicated on subsequent clicks
+		 *on initial login, there are no selected groups so the active one
+     * is the default menu
+     */
+     $_SESSION['activateDefaultMenu'] = 1;
+     echo "Default menu active: ".!($_SESSION['activateDefaultMenu']);  
+	}
 	else
 		die('You are not logged in.');
 	
@@ -249,7 +259,7 @@
 						
   				 	/* end sub navigation list */
 					}
-					else if(!isset($_GET['toggleExpand']) && $group->isActive()){
+					else if(isset($_SESSION['activateDefaultMenu']) && $group->isActive()){
 							echo "<ul id=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
 							echo "</ul>\n";
