@@ -28,6 +28,7 @@
 	if($numAnnounce > 1)
 	{
 ?>
+<script type="text/javascript" src="changeLocation.js"></script> >
 <script type="text/javascript" src="Announcement.js"></script>
 <script type="text/javascript">
 //<![CDATA[
