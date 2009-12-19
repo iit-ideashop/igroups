@@ -7,6 +7,7 @@
 
 
   echo "session variable set ".$_SESSION['activateDefaultMenu'];
+  echo basename ( $_SERVER['PHP_SELF'] );
 
 	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);
