@@ -115,7 +115,7 @@ require('scripts.php');
 		   	<div id="mainContent" >
 <?php  
   /* start inner content */
-	echo "<div id=\"container\">\n";
+	echo "<div id=\"container\"><div id=\"top\">\n";
 	echo "<h1>Welcome to $appname</h1>\n";
 	echo "<p>$appname is designed to support all communication, scheduling, and collaboration activities of IPRO teams. Through the use of $appname you can send/receive e-mail messages, store/retrieve files, access/update a team calendar, and view a complete history of a team's activities since the creation of the team in $appname. Welcome to $appname, a team management tool developed by IIT students.</p>\n";
 	
