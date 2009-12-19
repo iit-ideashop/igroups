@@ -239,7 +239,7 @@
 		/********************* end generation of ipro list generation ******************/
 
     /********************* generate semester selection list ********************************/
-    echo "<select name=\"semesterlist\"> ";
+    echo "<select name=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
     
 		foreach($sortedIPROs as $key => $val)
 		{
@@ -247,7 +247,7 @@
 
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() != $_SESSION['selectedSemester'])
 			{
-				echo "<option value=\"/?toggleExpand=".$semester->getID()."\" onChange=\"gotoSemesterUrl()\">". $semester->getName()."</option>\n";
+				echo "<option value=\"/?toggleExpand=".$semester->getID()."\">". $semester->getName()."</option>\n";
 
      }
 
