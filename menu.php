@@ -239,7 +239,7 @@
 					echo "<li>".getLinkedName($group);
 					
 					/* check if group was the one selected */
-					if( ($semester->isActive() && !isset($_SESSION['firstLogin']) || isSelected($group))
+					if( ($semester->isActive() && !isset($_SESSION['firstLogin'])) || isSelected($group))
 					{
 							if(!isset($_SESSION['firstLogin']))
    								$_SESSION['firstLogin'] = 1;
