@@ -197,7 +197,6 @@
 	
 	if(count($sortedIPROs) > 0)
 	{
-    echo $_SERVER['PHP_SELF'];
  		/********************* generate semester selection list ********************************/
     echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
     
@@ -207,7 +206,7 @@
 
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() != $_SESSION['selectedSemester'])
 			{
-				echo "<option value=\"?toggleExpand=".$semester->getID()."\">". $semester->getName()."</option>\n";
+				echo "<option value=\"".$_SERVER['PHP_SELF']."?toggleExpand=".$semester->getID()."\">". $semester->getName()."</option>\n";
 
      }
 
