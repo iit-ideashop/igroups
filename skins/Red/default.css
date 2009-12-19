@@ -361,8 +361,11 @@ img #igroupsLogo{
   margin-bottom: 15px;
 }
 
-#uniSidebar #subnavigation {
+#uniSidebar li p {
 	width: 180px;
+}
+
+#uniSidebar #subnavigation {
 	margin-top: 0px;
 	foat: left;
 	border-top: 3px solid #ff6666;/* #ff8585;*/
