@@ -353,8 +353,8 @@ img #igroupsLogo{
       margin-bottom: 10px;
 }
 
-#uniSidebar ul, #uniSidebar p {
-	width: 180px;
+#uniSidebar ul, #uniSidebar p,  #uniSidebar a {
+	      width: 180px;
         padding-bottom: 10px;
 }
 
