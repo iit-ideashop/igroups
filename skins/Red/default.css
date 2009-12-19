@@ -373,6 +373,7 @@ img #igroupsLogo{
 #uniSidebar .menuTitle, #semesterIgroup {
       text-align: center;
       color: #c30000;
+      background-color: #000;
 } 
 #uniSidebar .menuTitle {
       border: 1px solid #ffd3d3;
@@ -383,7 +384,7 @@ img #igroupsLogo{
 } 
 
 #uniSidebar .subnavigation {
-        overflow: hidden;
+  overflow: hidden;
 	margin-top: 0px;
 	foat: left;
 	border-top: 3px solid #ff6666;/* #ff8585;*/
