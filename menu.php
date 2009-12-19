@@ -222,21 +222,19 @@
 		foreach($sortedIPROs as $key => $val)
 		{
 			$semester = new Semester($key, $db);
-       echo "<p>".$semester->getID()." selected: ".$_SESSION['selectedSemester']."</p>";
-			if( in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'] )
-			{
 
+			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
+			{
+				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+				echo "<ul>\n";
 				ksort($val);
 				foreach($val as $useless => $group)
 				{
-					
+					echo "<li>".getLinkedName($group);
 					
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{
-										echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
-				echo "<ul>\n";
-						echo "<li>".getLinkedName($group);
              $selectedGroup = $group; // flag to keep track of selected group
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
@@ -244,17 +242,21 @@
 						echo "<ul id=\"subnavigation\">\n";
 						printGroupMenu( $currentUser, $group );
 						echo "</ul>\n";
-						echo "</li>\n";
+						
   				 	/* end sub navigation list */
 						break;
 					}
+						echo "</li>\n";
 					
 				} // end for 
 				echo "</ul>\n";
 			} // end if 
 			else
-				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+			{
+				//echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+			 }
 			echo "</li>";
+       
 		} // end for loop
 		echo "</ul>\n";
 		/********************* end generation of ipro list generation ******************/
