@@ -249,8 +249,7 @@
 						
   				 	/* end sub navigation list */
 					}
-           
-           if(!isset($_GET['toggleExpand']) && $group->isActive()){
+					else if(!isset($_GET['toggleExpand']) && $group->isActive()){
 							echo "<ul id=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
 							echo "</ul>\n";
