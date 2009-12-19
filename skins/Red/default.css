@@ -335,17 +335,16 @@ img #igroupsLogo{
 
 #mainNavigation li:hover {
 	background-color: #FFF;
-	
 	border-bottom: 1px solid #FFF;
 }
 
 #uniSidebar {
 	foat: left;
 	padding-top: 20px;
-  color: #000;
+        color: #000;
 }
 
-#uniSidebar p{
+#uniSidebar p {
   padding-bottom: 10px;
   font-weight:normal;
 }
@@ -354,6 +353,7 @@ img #igroupsLogo{
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-size: 12px;
   font-weight:bold;
+  border: none;
 }
 
 #uniSidebar #semesterlist {
@@ -361,16 +361,31 @@ img #igroupsLogo{
   margin-bottom: 15px;
 }
 
-#uniSidebar li, p {
+#uniSidebar li, #uniSidebar p {
 	width: 180px;
 }
 
+#uniSidebar p {
+       border-bottom: 1px solid #ffd3d3;
+}
+
+#uniSidebar #semesterTitle, #semesterIgroup {
+      text-align: center;
+      color: #c30000;
+} 
+#uniSidebar #semesterTitle {
+      font-weight: bold;
+      font-size: 14px;
+      text-align: center;
+} 
+
 #uniSidebar #subnavigation {
+        overflow: hidden;
 	margin-top: 0px;
 	foat: left;
 	border-top: 3px solid #ff6666;/* #ff8585;*/
 	border-bottom: 3px solid #ff6666;
-	border-right: 1px solid #CCC;
+
 }
 
 #uniSidebar #subnavigation li {
@@ -431,3 +446,4 @@ img #igroupsLogo{
 	color: #c30000;
 	text-decoration: none;
 }
+
