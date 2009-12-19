@@ -6,7 +6,7 @@
 	include_once('classes/person.php');
 
 
-  echo "session variable set ".$_SESSION['activateDefaultMenu'];
+  echo "session variable set ".var_dump(isset($_SESSION['activateDefaultMenu']));
   echo basename ( $_SERVER['PHP_SELF'] );
 
 	if(isset($_SESSION['userID']))
