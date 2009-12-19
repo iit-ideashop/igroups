@@ -168,10 +168,12 @@
 		 *on initial login, there are no selected groups so the active one
      * is the default menu
      */
-			echo "Not set active menu: ".!isset($_SESSION['activateDefaultMenu']);
-     if(!isset($_SESSION['activateDefaultMenu']))
+			
+     if(!isset($_SESSION['activateDefaultMenu'])){
+        echo "session variable not set \n"
 				$_SESSION['activateDefaultMenu'] = 1;
-     echo "Default ".$_SESSION['activateDefaultMenu'];  
+			}
+     echo "activate default ".$_SESSION['activateDefaultMenu'];  
 	}
 	else
 		die('You are not logged in.');
