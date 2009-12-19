@@ -342,6 +342,7 @@ img #igroupsLogo{
 #uniSidebar .userWelcomeMsg {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-size: 14px;
+  padding-bottom: 5px;
 }
 
 #uniSidebar #subnavigation {
