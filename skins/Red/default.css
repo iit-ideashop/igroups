@@ -285,16 +285,18 @@ img #igroupsLogo{
 #contentWrapper{
 	overflow: hidden;
         border-right: 1px solid #CCC;
+        padding-bottom: 50px;
 }
 
 #mainContent {
+        overflow: hidden;
 	float: right;
-	width: 680px;
+	width: 660px;
 	height: 500px;
 	margin-top: 0px;
 	padding-top: 20px;
-	padding-bottom: 20px;
-}
+        padding-right: 20px;
+}	
 
 #externallinks li {
 	float: left;
@@ -437,5 +439,6 @@ img #igroupsLogo{
 	color: #c30000;
 	text-decoration: none;
 }
+
 
 
