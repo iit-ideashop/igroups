@@ -202,7 +202,7 @@
 	{
  		/********************* generate semester selection list ********************************/
     echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
-    
+    echo "<option value=\"\"> Select Semester </option>\n";
 		foreach($sortedIPROs as $key => $val)
 		{
 			$semester = new Semester($key, $db);
@@ -211,6 +211,7 @@
 			{
 
         ksort($val);
+				
 				foreach($val as $useless => $group)
 				{				
 
