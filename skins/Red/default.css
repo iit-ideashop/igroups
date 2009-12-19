@@ -339,9 +339,10 @@ img #igroupsLogo{
 }
 
 #uniSidebar {
-	foat: left;
-	padding-top: 20px;
-        color: #000;
+	width: 180px;
+	float: left;
+  padding-top: 20px;
+  color: #000;
 }
 
 #uniSidebar p {
@@ -354,8 +355,7 @@ img #igroupsLogo{
 }
 
 #uniSidebar ul, #uniSidebar p,  #uniSidebar a {
-	      width: 180px;
-        padding-bottom: 10px;
+ padding-bottom: 10px;
 }
 
 #uniSidebar #userWelcomeMsg {
