@@ -63,6 +63,7 @@
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <title><?php echo $appname; ?> - Group Management</title>
+<script type="text/javascript" src="ChangeLocation.js"></script>
 </head><body>
 <?php
 	$go = true;

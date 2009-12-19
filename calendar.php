@@ -50,6 +50,7 @@
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/eventcal.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <title><?php echo $appname; ?> - Calendar</title>
+<script type="text/javascript" src="ChangeLocation.js"></script>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)

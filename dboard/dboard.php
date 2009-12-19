@@ -53,6 +53,7 @@
 		echo "<link rel=\"alternate stylesheet\" href=\"../skins/$altskin/dboard.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <title><?php echo $appname; ?> - Discussion Board</title>
+<script type="text/javascript" src="ChangeLocation.js"></script>
 </head>
 <body>
 <?php

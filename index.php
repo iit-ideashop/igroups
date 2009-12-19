@@ -28,8 +28,13 @@
 	if($numAnnounce > 1)
 	{
 ?>
-<?php require('scripts.php'); ?>
-<script type="text/javascript" src="Announcement.js"></script>
+
+<?php 
+/* include all necessary javascript files */
+/* TODO: place all links to scripts in includes file */
+require('scripts.php'); 
+?>
+
 <script type="text/javascript">
 //<![CDATA[
 	announcements = new announcementObj();
