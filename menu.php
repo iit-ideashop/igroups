@@ -213,7 +213,7 @@
 
 		echo "<p>Your IPROs:</p>\n";
     // start of list 
-		echo "<ul class=\"noindent\">\n";
+		//echo "<ul class=\"noindent\">\n";
 
 		/******************************** generate list of ipros*********************************/
 		foreach($sortedIPROs as $key => $val)
@@ -223,7 +223,7 @@
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
 				if(($semester->getID() == $_SESSION['selectedSemester']) || (isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $semester->isActive()))
-				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+				echo "<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 				echo "<ul>\n";
 				
 				ksort($val);
@@ -256,10 +256,10 @@
 				} // end for 
 				echo "</ul>\n";
 			} // end if 
-			echo "</li>";
+			//echo "</li>";
        
 		} // end for loop
-		echo "</ul>\n";
+		//echo "</ul>\n";
 		/********************* end generation of ipro list generation ******************/
 
 	}// end if statement

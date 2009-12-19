@@ -22,6 +22,10 @@ ul {
     margin-left: 0em;
     list-style: none;
 }
+
+p { 
+	padding-top: 5px;
+}
 /****************** end reset css **********************/
 
 body { 
@@ -91,6 +95,7 @@ legend {
 }
 
 #topbanner {
+  background-color: #000;
 	padding: .25em;
 	font-size:14pt;
 	border-bottom-style:solid;
@@ -376,6 +381,12 @@ img #igroupsLogo{
 
 #uniSidebar #subnavigation li:first-child{
 	border: none;
+}
+
+
+#uniSidebar li a {
+      text-decoration: none; 
+      font-size: 11px;
 }
 
 #uniSidebar #subnavigation li a {
