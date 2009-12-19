@@ -292,7 +292,7 @@ img #igroupsLogo{
 		   	<div id="mainContent" >
 <?php  
   /* start inner content */
-	echo "<div id=\"content\"><div id=\"container\"><div id=\"top\">\n";
+	echo "<div id=\"container\"><div id=\"top\">\n";
 	echo "<h1>Welcome to $appname</h1>\n";
 	echo "<p>$appname is designed to support all communication, scheduling, and collaboration activities of IPRO teams. Through the use of $appname you can send/receive e-mail messages, store/retrieve files, access/update a team calendar, and view a complete history of a team's activities since the creation of the team in $appname. Welcome to $appname, a team management tool developed by IIT students.</p>\n";
 	
@@ -331,7 +331,7 @@ if(!$currentUser)
 <!-- start copyright statement -->
 <p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
 <!-- end copyright statement -->
-</div><!-- end content -->
+<!-- end content removed -->
 </div><!-- end mainContent -->
 <?php
 	require('sidebar.php');

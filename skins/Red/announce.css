@@ -1,8 +1,7 @@
 @import url('default.css');
 
 .box {
-	width:30%;
-  background-color: #000;
+	width:40%;
 }
 
 #announcement-list {
