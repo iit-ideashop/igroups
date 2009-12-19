@@ -211,7 +211,7 @@
      echo "</select><br />";
     /**************************** end selection list generation *****************************/
 
-		echo "<p>Your IPROs:</p>\n";
+		echo "<span>Your IPROs:</span>\n";
     // start of list 
 		//echo "<ul class=\"noindent\">\n";
 

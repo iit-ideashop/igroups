@@ -145,14 +145,6 @@ ul.noindent {
 	padding-left:0;
 }
 
-#content {
-	margin-left: 220px;
-	width: 80%;
-	clear: none;
-	position: absolute;
-	left: 0px;
-}
-
 #igroupslogo {
 	margin-top: 10px;
 	width: 180px;
@@ -290,12 +282,18 @@ img #igroupsLogo{
 	float: right;
 }
 
-#content wrapper{
+#contentWrapper{
 	overflow: hidden;
+        border-right: 1px solid #CCC;
 }
+
 #mainContent {
 	float: right;
-	width: 100%;
+	width: 680px;
+	height: 500px;
+	margin-top: 0px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 #externallinks li {
@@ -345,8 +343,17 @@ img #igroupsLogo{
 }
 
 #uniSidebar p {
-  padding-bottom: 10px;
   font-weight:normal;
+  vertical-align: center;
+}
+
+#uniSidebar ul{
+      margin-bottom: 10px;
+}
+
+#uniSidebar ul, #uniSidebar p {
+	width: 180px;
+        padding-bottom: 10px;
 }
 
 #uniSidebar #userWelcomeMsg {
@@ -361,22 +368,16 @@ img #igroupsLogo{
   margin-bottom: 15px;
 }
 
-#uniSidebar li, #uniSidebar p {
-	width: 180px;
-}
-
-#uniSidebar p {
-       border-bottom: 1px solid #ffd3d3;
-}
-
 #uniSidebar .menuTitle, #semesterIgroup {
       text-align: center;
       color: #c30000;
 } 
 #uniSidebar .menuTitle {
+      border: 1px solid #ffd3d3;
+      border-left: none;
+      border-right: none;
       font-weight: bold;
       font-size: 14px;
-      text-align: center;
 } 
 
 #uniSidebar .subnavigation {
@@ -414,16 +415,6 @@ img #igroupsLogo{
 	color: #585858;
 }
 
-#mainContent {
-	float: right;
-	border-right: 1px solid #CCC;
-	width: 686px;
-	height: 500px;
-	margin-top: 0px;
-	padding-top: 20px;
-	padding-bottom: 20px;
-}
-
 #footer {
 	clear: both;
 	border: none;
@@ -446,4 +437,5 @@ img #igroupsLogo{
 	color: #c30000;
 	text-decoration: none;
 }
+
 
