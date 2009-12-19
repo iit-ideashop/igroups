@@ -245,7 +245,7 @@
 		{
 			$semester = new Semester($key, $db);
 
-			if(in_array($semester->getID(), $_SESSION['expandSemesters']) && $semester->getID() != $_SESSION['selectedSemester'])
+			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() != $_SESSION['selectedSemester'])
 			{
 				echo "<option value=\"?toggleExpand=".$semester->getID()."\">". $semester->getName()."</option>";
      }
