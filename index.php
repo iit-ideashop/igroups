@@ -327,11 +327,6 @@ if(!$currentUser)
   /* end content */
 ?>	
 </div>
-
-<!-- start copyright statement -->
-<p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
-<!-- end copyright statement -->
-<!-- end content removed -->
 </div><!-- end mainContent -->
 <?php
 	require('sidebar.php');
