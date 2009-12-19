@@ -197,7 +197,7 @@
 	
 	if(count($sortedIPROs) > 0)
 	{
-
+    echo $_SERVER['PHP_SELF'];
  		/********************* generate semester selection list ********************************/
     echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
     
