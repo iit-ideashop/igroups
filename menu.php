@@ -28,7 +28,6 @@
 		if(($row = mysql_fetch_row($user)) && md5($_POST['password']) == $row[1])
 		{
 			$_SESSION['userID'] = $row[0];
-
 			if(isset($_GET['loggingin'])){
 				header('Location: index.php');
       }
@@ -163,11 +162,6 @@
 
 	if(isset($_SESSION['userID'])){
 		$currentUser = new Person($_SESSION['userID'], $db);
-    
-     if($_SESSION['activateDefaultMenu'] == 0)
-        echo "session variable not set \n";
-			else 
-     		echo "activate default ".$_SESSION['activateDefaultMenu'];  
 	}
 	else
 		die('You are not logged in.');
