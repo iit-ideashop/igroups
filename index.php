@@ -7,7 +7,7 @@
 
 
   if(!isset($_SESSION['activateDefaultMenu']));
-			echo "session variable not set ".
+			echo "session variable not set ";
   echo basename ( $_SERVER['PHP_SELF'] );
 
 	if(isset($_SESSION['userID']))
