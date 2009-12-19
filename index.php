@@ -5,12 +5,12 @@
 	include_once('classes/announcement.php');
 	include_once('classes/person.php');
 
-
+  /************************************* Important ! *************************/
+  /* this if statement here is necessary for the side bar menu to display correctly */
   if(!isset($_SESSION['activateDefaultMenu']) && (basename ( $_SERVER['PHP_SELF'] ))=="index.php"){
-			echo "session variable not set but on idex page ";
 			$_SESSION['activateDefaultMenu'] = 1;
-			echo "variable now set ";
   }
+  /************************************ end important menu code *************/
 
 	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);

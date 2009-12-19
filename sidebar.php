@@ -10,5 +10,5 @@
 	if(isset($message))
 		echo "<div id=\"messageBox\">$message</div>\n";
 	else
-		echo "<div id=\"topSpacer\"></div>\n";
+		//echo "<div id=\"topSpacer\"></div>\n";
 ?>
