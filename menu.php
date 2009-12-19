@@ -225,7 +225,7 @@
 		foreach($sortedIPROs as $key => $val)
 		{
 			$semester = new Semester($key, $db);
-
+			echo "semster is active: ".$semester->isActive();
 			if( $semester->isActive() || in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
 				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
