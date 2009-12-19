@@ -111,6 +111,9 @@
 		return "<a href=\"menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester()."\">".$group->getName()."</a>";
 	}
 	
+	function getLink($group){
+		return "menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester()."\""
+	}
 
   /* Prints the menu links for a given group */
   /* TODO: It is best to include a <ul> tag here */
@@ -206,7 +209,11 @@
 
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() != $_SESSION['selectedSemester'])
 			{
-				echo "<option value=\"".$_SERVER['PHP_SELF']."?toggleExpand=".$semester->getID()."\">". $semester->getName()."</option>\n";
+
+        ksort($val);
+				foreach($val as $useless => $group)
+				{				
+				echo "<option value=\"".getLink($group)."\">".$group->getName().",".$semester->getName()."</option>\n";
 
      }
 
