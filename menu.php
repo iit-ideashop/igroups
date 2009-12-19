@@ -236,6 +236,7 @@
 			$semester = new Semester($key, $db);
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
+
 				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 				echo "<ul>\n";
 				
@@ -243,11 +244,11 @@
 				
 				foreach($val as $useless => $group)
 				{
-					echo "<li>".getLinkedName($group);
-		
+				
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{
+						echo "<li>".getLinkedName($group);
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
 						/* start sub navigation list */		
