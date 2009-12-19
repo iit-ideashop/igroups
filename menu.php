@@ -239,7 +239,7 @@
 		/********************* end generation of ipro list generation ******************/
 
     /********************* generate semester selection list ********************************/
-    echo "<select name=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
+    echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
     
 		foreach($sortedIPROs as $key => $val)
 		{
