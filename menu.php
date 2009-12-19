@@ -233,10 +233,11 @@
 		/******************************** generate list of ipros*********************************/
 		foreach($sortedIPROs as $key => $val)
 		{  
+			echo $val;
 			$semester = new Semester($key, $db);
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
-				if(isSelected($group) || (isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()) )
+				
 				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 				echo "<ul>\n";
 				
