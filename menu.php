@@ -251,7 +251,7 @@
      }
 
     }
-     echo "</select>";
+     echo "</select><br />";
     /****************** end selection list generation ********************************/
 	}// end if statement
 	
