@@ -9,6 +9,7 @@
   if(!isset($_SESSION['activateDefaultMenu']) && (basename ( $_SERVER['PHP_SELF'] ))=="index.php"){
 			echo "session variable not set but on idex page ";
 			$_SESSION['activateDefaultMenu'] = 1;
+			echo "variable now set ";
   }
 
 	if(isset($_SESSION['userID']))
