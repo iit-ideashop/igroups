@@ -54,12 +54,22 @@
 		$row = mysql_fetch_row($announcementResults);
 		$firstAnnouncement = new Announcement($row[0], $db);
 	}
-	echo "</head><body>\n";
-	require('sidebar.php');
+	echo "</head>\n";
+  /* end head */
+  
+  /*start body */
+  echo "<body>\n";
+	
+  /* start sidebar */
+  require('sidebar.php');
+  /* end sidebar */
+  
+  /* start content */
 	echo "<div id=\"content\"><div id=\"container\"><div id=\"top\">\n";
 	echo "<h1>Welcome to $appname</h1>\n";
 	echo "<p>$appname is designed to support all communication, scheduling, and collaboration activities of IPRO teams. Through the use of $appname you can send/receive e-mail messages, store/retrieve files, access/update a team calendar, and view a complete history of a team's activities since the creation of the team in $appname. Welcome to $appname, a team management tool developed by IIT students.</p>\n";
-	if(!$currentUser)
+	
+if(!$currentUser)
 		echo "<p>To use $appname simply enter your username and password in the login pane to the left. Your initial username is the first part of your IIT email address, or your entire email address if you do not have or use an IIT email. Your initial password is the first part of your email address (text appearing before the @). If you are a first-time user, please change your password upon entry to $appname (from the My Profile page).</p>";
 	echo "</div>\n";
 	
@@ -87,7 +97,13 @@
 	echo "<div class=\"announcement-heading\">Guest to $appname</div>\n";
 	echo "<div class=\"announcement-body\">You can <a href=\"iknow/main.php\">search and browse</a> IPRO team deliverables.</div>\n";
 	echo "</div></div>\n";
+  /* end content */
 ?>	
 </div>
+
+<!-- start copyright statement -->
 <p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
-</div></body></html>
+<!-- end copyright statement -->
+</div>
+</body>
+</html>

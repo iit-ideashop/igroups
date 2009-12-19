@@ -308,11 +308,15 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
 		{
 			$returnArray = array();
 			$ipros = $this->db->query("SELECT iProjectID,iSemesterID FROM PeopleProjectMap WHERE iPersonID=".$this->getID());
+
 			while($row = mysql_fetch_row($ipros))
 				$returnArray[] = new Group($row[0], 0, $row[1], $this->db);
+
 			$igroups = $this->db->query("SELECT iGroupID FROM PeopleGroupMap WHERE iPersonID=".$this->getID());
+
 			while($row = mysql_fetch_row($igroups))
 				$returnArray[] = new Group($row[0], 1, 0, $this->db);
+
 			return $returnArray;
 		}
 		
