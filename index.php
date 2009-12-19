@@ -257,7 +257,7 @@ img #igroupsLogo{
 			<!-- start main header -->
 			<div id="mainheader">
 					<!-- iGroups logo -->
-					<img id="igroupsLogo" src="/skins/Red/img/iGroupslogo.png" alt="iGroups Logo" />
+					<img id="igroupsLogo" src="skins/Red/img/iGroupslogo.png" alt="iGroups Logo" />
 					<!-- end logo -->
 						
 					<!-- start container for both external and internal links -->
