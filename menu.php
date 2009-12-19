@@ -197,6 +197,24 @@
 	
 	if(count($sortedIPROs) > 0)
 	{
+
+ 		/********************* generate semester selection list ********************************/
+    echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
+    
+		foreach($sortedIPROs as $key => $val)
+		{
+			$semester = new Semester($key, $db);
+
+			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() != $_SESSION['selectedSemester'])
+			{
+				echo "<option value=\"?toggleExpand=".$semester->getID()."\">". $semester->getName()."</option>\n";
+
+     }
+
+    }
+     echo "</select><br />";
+    /****************** end selection list generation ********************************/
+
 		echo "Your IPROs:\n";
     // start of list 
 		echo "<ul class=\"noindent\">\n";
@@ -206,7 +224,7 @@
 		{
 			$semester = new Semester($key, $db);
 
-			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
+			if($semester->getID() == $_SESSION['selectedSemester'])
 			{
 				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 				echo "<ul>\n";
@@ -225,9 +243,11 @@
 						echo "<ul id=\"subnavigation\">\n";
 						printGroupMenu( $currentUser, $group );
 						echo "</ul>\n";
+						echo "</li>\n";
   				 	/* end sub navigation list */
+						break;
 					}
-					echo "</li>\n";
+					
 				} // end for 
 				echo "</ul>\n";
 			} // end if 
@@ -238,22 +258,6 @@
 		echo "</ul>\n";
 		/********************* end generation of ipro list generation ******************/
 
-    /********************* generate semester selection list ********************************/
-    echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
-    
-		foreach($sortedIPROs as $key => $val)
-		{
-			$semester = new Semester($key, $db);
-
-			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() != $_SESSION['selectedSemester'])
-			{
-				echo "<option value=\"?toggleExpand=".$semester->getID()."\">". $semester->getName()."</option>\n";
-
-     }
-
-    }
-     echo "</select><br />";
-    /****************** end selection list generation ********************************/
 	}// end if statement
 	
 	if(isset($igroups))
