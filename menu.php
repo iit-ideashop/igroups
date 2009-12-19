@@ -223,7 +223,7 @@
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
 				if(($semester->getID() == $_SESSION['selectedSemester']) || (isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $semester->isActive()))
-				echo "<p id=\"semesterTitle\">".$semester->getName()."</p>";
+				echo "<p class=\"menuTitle\">".$semester->getName()."</p>";
 				echo "<ul>\n";
 				
 				ksort($val);
@@ -292,8 +292,8 @@
 	{
 		if(in_array('admin', $_SESSION['expandSemesters']))
 		{
-			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
-			echo "<ul class=\"subnavigation\">";
+			echo "<a href=\"?toggleExpand=admin\"><p class=\"menuTitle\" >Administrative Tools:</p></a>";
+			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">";
 			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>\n";
 			echo "<li><a href=\"admin/semesters.php\">Manage Semesters</a></li>\n";
 			echo "<li><a href=\"admin/email.php\">Email Groups</a></li>\n";

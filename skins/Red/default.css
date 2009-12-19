@@ -369,11 +369,11 @@ img #igroupsLogo{
        border-bottom: 1px solid #ffd3d3;
 }
 
-#uniSidebar #semesterTitle, #semesterIgroup {
+#uniSidebar .menuTitle, #semesterIgroup {
       text-align: center;
       color: #c30000;
 } 
-#uniSidebar #semesterTitle {
+#uniSidebar .menuTitle {
       font-weight: bold;
       font-size: 14px;
       text-align: center;
