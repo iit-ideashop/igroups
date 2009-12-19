@@ -166,7 +166,7 @@
 	else
 		die('You are not logged in.');
 	
-	echo "<span class=\"userWelcomeMsg\">Welcome, {$currentUser->getFirstName()} </span>";
+	echo "<p id=\"userWelcomeMsg\" class=\"sideBarText\">Welcome, {$currentUser->getFirstName()} </p>";
 	
 	$groups = $currentUser->getGroups();
 	

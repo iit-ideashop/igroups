@@ -339,10 +339,13 @@ img #igroupsLogo{
 	padding-top: 20px;
 }
 
-#uniSidebar .userWelcomeMsg {
+#uniSidebar .sideBarText{
+  padding-bottom: 5px;
+}
+
+#uniSidebar #userWelcomeMsg {
   font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
   font-size: 14px;
-  padding-bottom: 5px;
 }
 
 #uniSidebar #semesterlist {
