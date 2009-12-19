@@ -239,10 +239,10 @@
 					
 					echo "Is set toggle: ".isset($_SESSION['firstLogin']);
 					/* check if group was the one selected */
-					if( ($semester->isActive() && isset($_SESSION['firstLogin'])) || isSelected($group))
+					if( ($semester->isActive() && !isset($_SESSION['firstLogin'])) || isSelected($group))
 					{
-							if(isset($_SESSION['firstLogin']))
-   								$_SESSION['firstLogin'] = 0;
+							if(!isset($_SESSION['firstLogin']))
+   								$_SESSION['firstLogin'] = 1;
 
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
