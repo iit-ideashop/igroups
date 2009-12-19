@@ -112,7 +112,7 @@
 	}
 	
 	function getLink($group){
-		return "menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester()."\"";
+		return "menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester()";
 	}
 
   /* Prints the menu links for a given group */
@@ -213,7 +213,8 @@
         ksort($val);
 				foreach($val as $useless => $group)
 				{				
-				 echo "<option value=\"".getLink($group)."\">".$group->getName().",".$semester->getName()."</option>\n";
+
+				 echo "<option value=\"".getLink($group)."\">".$group->getName().", ".$semester->getName()."</option>\n";
  				}
      }
 
