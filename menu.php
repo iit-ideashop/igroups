@@ -238,7 +238,7 @@
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
 						/* start sub navigation list */		
-						echo "<ul id=\"subnavigation\">\n";
+						echo "<ul class=\"subnavigation\">\n";
 						printGroupMenu( $currentUser, $group );
 						echo "</ul>\n";
 						
@@ -293,7 +293,7 @@
 		if(in_array('admin', $_SESSION['expandSemesters']))
 		{
 			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
-			echo "<ul>";
+			echo "<ul class=\"subnavigation\">";
 			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>\n";
 			echo "<li><a href=\"admin/semesters.php\">Manage Semesters</a></li>\n";
 			echo "<li><a href=\"admin/email.php\">Email Groups</a></li>\n";

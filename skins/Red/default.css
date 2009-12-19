@@ -379,7 +379,7 @@ img #igroupsLogo{
       text-align: center;
 } 
 
-#uniSidebar #subnavigation {
+#uniSidebar .subnavigation {
         overflow: hidden;
 	margin-top: 0px;
 	foat: left;
@@ -388,16 +388,16 @@ img #igroupsLogo{
 
 }
 
-#uniSidebar #subnavigation li {
+#uniSidebar .subnavigation li {
 	border-top: 1px dashed #CCC;
 	padding: 8px;
 }
 	
-#uniSidebar #subnavigation li:hover {
+#uniSidebar .subnavigation li:hover {
 	background-color: #e8e8e8;	
 }
 
-#uniSidebar #subnavigation li:first-child{
+#uniSidebar .subnavigation li:first-child{
 	border: none;
 }
 
@@ -407,7 +407,7 @@ img #igroupsLogo{
       font-size: 11px;
 }
 
-#uniSidebar #subnavigation li a {
+#uniSidebar .subnavigation li a {
 	text-decoration: none;
 	font-size: 1.0em;
 	font-weight: 600;
