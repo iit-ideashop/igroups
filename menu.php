@@ -30,6 +30,14 @@
 			$_SESSION['userID'] = $row[0];
 			if(isset($_GET['loggingin']))
 				header('Location: index.php');
+
+		/*the session variable below is meant to be set at initial login
+     *it is used determine if to toggle the menu of the active group 
+     *so that the menu is not duplicated on subsequent clicks
+		 *on initial login, there are no selected groups so the active one
+     * is the default menu
+     */
+			$_SESSION['activateDefaultMenu'] = 1;
 		}
 		else if(!$_SESSION['loginError'])
 		{
@@ -162,18 +170,12 @@
 	if(isset($_SESSION['userID'])){
 		$currentUser = new Person($_SESSION['userID'], $db);
     
-		/*the session variable below is meant to be set at initial login
-     *it is used determine if to toggle the menu of the active group 
-     *so that the menu is not duplicated on subsequent clicks
-		 *on initial login, there are no selected groups so the active one
-     * is the default menu
-     */
-			
      if(!isset($_SESSION['activateDefaultMenu'])){
         echo "session variable not set \n";
-				$_SESSION['activateDefaultMenu'] = 1;
+			
 			}
-     echo "activate default ".$_SESSION['activateDefaultMenu'];  
+			else 
+     		echo "activate default ".$_SESSION['activateDefaultMenu'];  
 	}
 	else
 		die('You are not logged in.');
