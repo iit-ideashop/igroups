@@ -225,8 +225,8 @@
 		foreach($sortedIPROs as $key => $val)
 		{
 			$semester = new Semester($key, $db);
-			echo "semster is active: ".$semester->isActive();
-			if( $semester->isActive() || in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
+
+			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
 				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
 				echo "<ul>\n";
@@ -238,9 +238,8 @@
 					echo "<li>".getLinkedName($group);
 					
 					/* check if group was the one selected */
-					if(isSelected($group))
+					if( $semester->isActive() || isSelected($group))
 					{
-             $selectedGroup = $group; // flag to keep track of selected group
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
 						/* start sub navigation list */		
