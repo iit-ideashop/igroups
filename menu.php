@@ -226,7 +226,6 @@
 		foreach($sortedIPROs as $key => $val)
 		{
 			$semester = new Semester($key, $db);
-			echo "Is set toggle: ". isset($_GET['toggleExpand']);
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
 				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
@@ -238,6 +237,7 @@
 				{
 					echo "<li>".getLinkedName($group);
 					
+					echo "Is set toggle: ".isset($_SESSION['firstLogin']);
 					/* check if group was the one selected */
 					if( ($semester->isActive() && !isset($_SESSION['firstLogin'])) || isSelected($group))
 					{
