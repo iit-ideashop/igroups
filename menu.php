@@ -213,8 +213,8 @@
         ksort($val);
 				foreach($val as $useless => $group)
 				{				
-				echo "<option value=\"".getLink($group)."\">".$group->getName().",".$semester->getName()."</option>\n";
-
+				 echo "<option value=\"".getLink($group)."\">".$group->getName().",".$semester->getName()."</option>\n";
+ 				}
      }
 
     }
@@ -251,7 +251,6 @@
 						echo "</ul>\n";
 						
   				 	/* end sub navigation list */
-						break;
 					}
 						echo "</li>\n";
 					
