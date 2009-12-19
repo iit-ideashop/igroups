@@ -222,7 +222,7 @@
 		foreach($sortedIPROs as $key => $val)
 		{
 			$semester = new Semester($key, $db);
-       echo "<p>".$semester->getID()." selected: ".$_SESSION['selectedSemester']."</p>/";
+       echo "<p>".$semester->getID()." selected: ".$_SESSION['selectedSemester']."</p>";
 			if( in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'] )
 			{
 
