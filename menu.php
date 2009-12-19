@@ -233,7 +233,7 @@
 		/******************************** generate list of ipros*********************************/
 		foreach($sortedIPROs as $key => $val)
 		{  
-			echo print_r($val);
+			echo current($val);
 			$semester = new Semester($key, $db);
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
