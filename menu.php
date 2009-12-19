@@ -238,7 +238,7 @@
 					echo "<li>".getLinkedName($group);
 					
 					/* check if group was the one selected */
-					if( $semester->isActive() || isSelected($group))
+					if( ()$semester->isActive() && !isSelected($group)) || isSelected($group))
 					{
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
