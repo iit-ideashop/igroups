@@ -247,7 +247,8 @@
 
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() != $_SESSION['selectedSemester'])
 			{
-				echo "<option value=\"?toggleExpand=".$semester->getID()."\">". $semester->getName()."</option>";
+				echo "<option value=\"?toggleExpand=".$semester->getID()."\" onChange=\"gotoSemesterUrl()\">". $semester->getName()."</option>\n";
+
      }
 
     }
