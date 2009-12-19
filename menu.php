@@ -223,7 +223,7 @@
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
 				if(($semester->getID() == $_SESSION['selectedSemester']) || (isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $semester->isActive()))
-				echo "<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+				echo "<span id=\"semesterTitle\">".$semester->getName()."</span>";
 				echo "<ul>\n";
 				
 				ksort($val);
@@ -234,7 +234,7 @@
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{
-							echo "<li>".getLinkedName($group);
+							echo "<li id=\"semesterIgroup\">".getLinkedName($group);
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
 						/* start sub navigation list */		
