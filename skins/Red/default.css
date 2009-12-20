@@ -264,7 +264,7 @@ body{
 	width:100%;
 	border: none;
 	border-top: 1px dashed #CCC;
-	border-bottom: 1px solid #ffd3d3;
+	border-bottom: 1px solid #FFAEAE;
 	padding-top: 5px;
 }
 
@@ -318,7 +318,7 @@ img #igroupsLogo{
 	float: left;
 	padding: 5px 10px 5px 10px;
 	margin-left: 4px;
-	border: 1px solid #ffd3d3;
+	border: 1px solid #FFAEAE;
 	background-color: #ffd3d3;
 }
 
@@ -441,4 +441,5 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
