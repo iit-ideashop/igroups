@@ -44,8 +44,10 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">";
+	/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/	
+	echo "<div id=\"topbanner\">";
 	if($currentSemester)
 		echo $currentSemester->getName();
 	else
@@ -216,4 +218,10 @@
 			echo "</tr>\n";
 		}
 ?>
-</tbody></table></div></body></html>
+</tbody></table>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>	
+</body></html>
