@@ -12,8 +12,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><h1>$appname Browser Requirements</h1>\n";
+/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/
+
+	echo "<h1>$appname Browser Requirements</h1>\n";
 	echo "<p>$appname supports all modern browsers, \"modern\" being defined as a version released less than three years ago. JavaScript should be enabled (or iit.edu whitelisted in NoScript) for proper operation of $appname.</p>\n";
 	echo "<p>As of this writing (August 24, 2009), \"modern\" includes the following browsers:</p>\n";
 	echo "<ul>\n";
@@ -25,4 +28,9 @@
 	echo "</ul>\n";
 	echo "<p>Older versions of these browsers <i>might</i> work fine, but often do not. Notably, the most common not-modern browser, Internet Explorer 6, may perform quirkily and $appname utilizes CSS2 attributes that IE 6 does not know about. Therefore, <b>the use of $appname with Internet Explorer 6 is neither supported nor recommended</b>; users should upgrade to Internet Explorer 7 or 8, or use an alternative browser.</p>\n";
 ?>
-</div></body></html>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body></html>
