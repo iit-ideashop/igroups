@@ -37,3 +37,6 @@
 				<div id="contentWrapper">			
 				<!-- begin main content -->
 		   	<div id="mainContent" >
+				<?php
+					require('sidebar.php');
+				?>

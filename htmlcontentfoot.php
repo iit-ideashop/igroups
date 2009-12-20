@@ -1,7 +1,5 @@
 </div><!-- end mainContent -->
-<?php
-	require('sidebar.php');
-?>
+
 </div>
 		<!-- end contentWrapper -->
 		

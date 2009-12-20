@@ -81,7 +81,10 @@
 </script>
 </head>
 <body>
-<?php
+<?php 
+ /**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/	
 
 	if(isset($_POST['addannouncement']))
 	{
@@ -145,11 +148,6 @@
 		$scratchBlurb = '';
 ?>
 
-<?php 
- /**** begin html head *****/
-   require('htmlhead.php'); //starts main container
-  /****end html head content ****/
-?>	
 <div id="topbanner">
 <?php
 		echo $currentGroup->getName();
@@ -346,7 +344,6 @@
 	</tr>
 	</table>
 	</div>
-
 <?php
 //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container
