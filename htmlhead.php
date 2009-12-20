@@ -34,9 +34,13 @@
 	 			</div>
 				<!-- end main header -->
 
-				<div id="contentWrapper">			
-				<!-- begin main content -->
-		   	<div id="mainContent" >
+				<div id="contentWrapper">		
+        <!-- begin sidebar -->
 				<?php
 					require('sidebar.php');
 				?>
+        <!-- end sidebar -->
+	
+				<!-- begin main content -->
+		   	<div id="mainContent" >
+			
