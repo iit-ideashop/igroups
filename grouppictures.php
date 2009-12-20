@@ -44,8 +44,11 @@
 			$message = 'Selected pictures successfully deleted';
 		}
 	}
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>";
+	/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/	
+
+	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>";
 
 	echo "<form method=\"post\" action=\"grouppictures.php\"><fieldset>\n";
 	$pictures = $currentGroup->getGroupPictures();
@@ -121,4 +124,11 @@
 <?php
 	}
 ?>
-</div></body></html>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>	
+
+
+</body></html>
