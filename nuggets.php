@@ -288,8 +288,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">";
+	/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/	
+
+	echo "<div id=\"topbanner\">";
 	echo $currentGroup->getName()."</div>";
 	echo "<p>Submitted nuggets will be considered final versions by the IPRO Office, and will therefore will be reviewed as such and, if applicable, printed. Please be aware that the IPRO Office will only print one version of each poster and abstract/brochure submitted by teams.</p>\n";
 	echo "<p>If your document is still a draft, i.e. it has not been approved by all members of your team and your faculty advisor(s), upload it to <a href=\"files.php\">Files</a> instead of Nuggets.</p>\n";
@@ -301,4 +304,10 @@
 	echo "<br />";
 	//displayOldNuggets($currentGroup);
 ?>
-</div></body></html>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>	
+
+</body></html>
