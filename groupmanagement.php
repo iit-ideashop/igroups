@@ -127,7 +127,7 @@
 			/**** begin html head *****/
    require('htmlhead.php'); //starts main container
 /****end html head content ****/	
-			echo "<div id=\"topbanner\">".$currentGroup->getName()."</div>\n";
+			echo "<div id=\"topbanner\">".$currentGroup->getName()."thuuuggygfifgy</div>\n";
 ?>
 			<div id="newuser">
 			No one with e-mail address <span style="font-weight: bold"><?php echo $email; ?></span> currently exists in our system.<br />
