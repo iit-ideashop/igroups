@@ -237,15 +237,14 @@ cal.showNavigationDropdowns();
 		foreach($members as $person)
 			echo "<li><a href=\"hourssummary.php?uid={$person->getID()}\">{$person->getFullName()}</a></li>\n";
 		echo "</ul>\n";
-		echo "<div id=\"caldiv\"></div><br class=\"clearboth\"></div>\n";
+		echo "<div id=\"caldiv\"></div></div>\n";
 		$printcaldiv = false;
 	}
 	if($printcaldiv)
-		echo "<div id=\"caldiv\"><br class=\"clearboth\"></div>\n";
+		echo "<div id=\"caldiv\"></div>\n";
 ?>
 
 <?php
-
 //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container
 ?>
