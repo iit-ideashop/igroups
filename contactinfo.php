@@ -90,9 +90,11 @@
 </head>
 <body>
 <?php
-	require("sidebar.php");
+	/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/	
 ?>
-	<div id="content"><h1>Update My Profile</h1>
+	<h1>Update My Profile</h1>
 	<p>If you do not want to update or provide a piece of information, simply leave it blank.</p>
 	<form method="post" action="contactinfo.php" enctype="multipart/form-data">
 <?php
@@ -156,4 +158,10 @@
 ?>
 	</form>
 <p><a href="http://sloth.iit.edu/~iproadmin/userpassword.php">Change my password</a></p>
-</div></body></html>
+
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>	
+</body></html>
