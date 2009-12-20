@@ -116,9 +116,11 @@ cal.showNavigationDropdowns();
 </head>
 <body>
 <?php
-	require('sidebar.php');
+/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/
 ?>
-<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
+<div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	echo "<p style=\"font-size: smaller\">If your professor has instructed you to use the legacy timesheets to enter your time, use the following link: <a href=\"logtimespent.php\">Legacy Timesheets</a></p>\n";
 	if($currentUser->isGroupModerator($currentGroup))
@@ -241,4 +243,10 @@ cal.showNavigationDropdowns();
 	if($printcaldiv)
 		echo "<div id=\"caldiv\"></div>\n";
 ?>
-</div></body></html>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body>
+</html>
