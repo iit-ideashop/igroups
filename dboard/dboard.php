@@ -57,8 +57,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">";
+	
+/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/	
+	echo "<div id=\"topbanner\">";
 	if(isset($currentGroup))
 		echo $currentGroup->getName();
 ?>	
@@ -124,4 +127,10 @@
 		echo "<tr><td class=\"subtopic_heading\"><a href=\"viewTopic.php?id={$topic->getID()}&amp;global=true\">{$topic->getName()}</a></td><td align=\"center\">{$topic->getThreadCount()}</td><td align=\"center\">{$topic->getPostCount()}</td><td align=\"center\">{$text}</td></tr>";
 	}
 ?>
-</table></div></body></html>
+</table>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>	
+</body></html>
