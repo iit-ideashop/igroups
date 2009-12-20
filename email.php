@@ -494,8 +494,9 @@
 	</select><br />
 	<input type="submit" name="search" /></fieldset></form>
 	<p style="font-size: smaller"><strong>Note:</strong> Subject and body search terms use <a href="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" onclick="window.open(this.href); return false;">implied boolean logic</a>.</p>
+<br class="clear">
 </div>
-
+<br class="clear">
 <?php
 //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container
