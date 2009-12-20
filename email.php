@@ -100,7 +100,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+	
+/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/	
+
 	if(isset($_POST['send']))
 	{
 		if(isset($_POST['sendto']))
@@ -211,7 +215,7 @@
 		echo "<script type=\"text/javascript\">var sendwin=dhtmlwindow.open('sendbox', 'ajax', 'sendemail.php?forward=".$_GET['forward']."', 'Forward Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1', 'recal')</script>";
 	else if(isset($_GET['display']))
 		echo "<script type=\"text/javascript\">var viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$_GET['display']."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1', 'recal')</script>";
-	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
+	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 	if(isset($_POST['createcat']))
 	{	
 		createCategory($_POST['catname'], $_POST['catdesc'], $currentGroup->getID(), $currentGroup->getType(), $currentGroup->getSemester(), $db);
@@ -483,4 +487,12 @@
 	</select><br />
 	<input type="submit" name="search" /></fieldset></form>
 	<p style="font-size: smaller"><strong>Note:</strong> Subject and body search terms use <a href="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" onclick="window.open(this.href); return false;">implied boolean logic</a>.</p>
-</div></body></html>
+</div>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>	
+
+</body>
+</html>
