@@ -24,8 +24,11 @@
 </head>
 <body>	
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
+	/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/	
+
+	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 ?>
 	<table cellpadding="2">
 	<thead>
@@ -66,5 +69,10 @@
 	}
 ?>
 <p><a href="contactinfo.php">Update your contact information</a></p>
-</div></body>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>	
+</body>
 </html>
