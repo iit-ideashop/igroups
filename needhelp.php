@@ -55,9 +55,11 @@
 </head>
 <body>
 <?php
-require('sidebar.php');
+/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/	
 ?>
-<div id="content"><h1>Contact iGroups Staff</h1>
+<h1>Contact iGroups Staff</h1>
 <?php
 if(isset($_POST['help']))
 	echo "<p>Your message has been sent and we will respond to it as soon as possible.</p>\n";
@@ -79,6 +81,11 @@ if(isset($_POST['help']))
 <label for="problem">Please describe the problem you are having in as much detail as possible:</label><br />
 <textarea name="problem" id="problem" rows="10" cols="50"></textarea><br /><br />
 <input type="submit" name="help" value="Send Message" />
-</fieldset></form></div>
+</fieldset></form>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
 </body>
 </html>
