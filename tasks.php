@@ -243,8 +243,9 @@ cal.showNavigationDropdowns();
 	if($printcaldiv)
 		echo "<div id=\"caldiv\"></div>\n";
 ?>
-
+<br class="clearboth">
 <?php
+
 //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container
 ?>
