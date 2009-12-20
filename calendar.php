@@ -63,9 +63,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+	/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/
 ?>
-<div id="content">
+
 <table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none">
 <tr><td id="ds_calclass">
 </td></tr>
@@ -268,4 +270,8 @@
 ?>
 </tr></table></div>
 <input id="calTarget" type="hidden" />
-</div></body></html>
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>	
+</body></html>
