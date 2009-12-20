@@ -409,8 +409,8 @@
 	else
 		echo "<tr><td>There are no emails in the selected category.</td></tr>\n";
 	echo "</table>\n</div></fieldset></form>\n</div> ";
-
-   echo "</div> contianer ends here \n"; /* div: container ends here */
+  echo "<br class=\"clear\">";
+   echo "</div> container ends here \n"; /* div: container ends here */
 	
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
