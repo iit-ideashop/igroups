@@ -404,13 +404,8 @@ img #igroupsLogo{
 	border: none;
 }
 
-
-#uniSidebar li a {
-      text-decoration: none; 
-      font-size: 11px;
-}
-
 #uniSidebar .subnavigation li a {
+        font-size: 11px;
 	text-decoration: none;
 	font-size: 1.0em;
 	font-weight: 600;
@@ -440,5 +435,8 @@ img #igroupsLogo{
 	text-decoration: none;
 }
 
+.clear {
+	clear: both;
+}
 
 
