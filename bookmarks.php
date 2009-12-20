@@ -99,9 +99,15 @@
 ?>
 <title><?php echo $appname; ?> - Bookmarks</title>
 <script type="text/javascript" src="ChangeLocation.js"></script>
-</head><body>
-<?php require("sidebar.php"); ?>
-<div id="content">
+</head>
+<body>
+
+<?php
+/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/	
+?>
+
 <div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <h1>Bookmarks</h1>
 <p>Bookmarks in <?php echo $appname; ?> operate much like bookmarks in your web browser. Add URLs for other members in your group to be able to access at a click.</p>
