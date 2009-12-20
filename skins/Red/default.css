@@ -148,7 +148,7 @@ ul.noindent {
 #igroupslogo {
 	margin-top: 10px;
 	width: 180px;
-	max-height: 102px;
+	height: 102px;
 	background: url("img/iGroupslogo.png");
 	background-repeat: no-repeat;
 }
