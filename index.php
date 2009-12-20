@@ -67,60 +67,23 @@ require('scripts.php');
 		$row = mysql_fetch_row($announcementResults);
 		$firstAnnouncement = new Announcement($row[0], $db);
 	}
-	echo "</head>\n";
-  /* end head */
+	echo "</head>\n";/* end head */
   
-  /*start body */
-  echo "<body>\n";
-	?>
-		
-  <!-- ****************** new layout code starts here ****************** -->
-	<!-- start main container -->
-  <div id="mainContainer">
-			<!-- start main header -->
-			<div id="mainheader">
-					<!-- iGroups logo -->
-					<img id="igroupsLogo" src="skins/Red/img/iGroupslogo.png" alt="iGroups Logo" />
-					<!-- end logo -->
-						
-					<!-- start container for both external and internal links -->
-					<div class="links">
-			    	
-							<!-- external links -->	
-							<ul id="externallinks">
-								<li><a href="http://sloth.iit.edu/~iproadmin/peerreview/">Peer Review</a></li>
-								<li><a href="http://ipro.iit.edu">IPRO Website</a></li>
-								<li><a href="login.php?logout=true" title="Logout">Logout</a></li>
-							</ul>
-							<!-- end external links -->
-							
-							<!-- internal links/main navigation --> 
-							<ul id="mainNavigation">
-						 		<li><a href="index.php" id="home">Home</a></li>
-								<li><a href="contactinfo.php">My Profile</a></li>
-								<li><a href="iknow/main.php">Browse Nuggets</a>&nbsp;</li>
-								<li><a href="usernuggets.php">Groups' Nuggets</a></li>
-								<li><a href="help/index.php">Help</a></li>
-								<li><a href="needhelp.php">Contact Us</a></li>
-							</ul>
-							<!-- end internal links -->
-						</div>
-						<!-- end internal/external links container -->
-			
-	 			</div>
-				<!-- end main header -->
+  
+  
+  echo "<body>\n";/*start body */
 
-				<div id="contentWrapper">			
-				<!-- begin main content -->
-		   	<div id="mainContent" >
-<?php  
-  /* start inner content */
-	echo "<div id=\"top\">\n";
+  /**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/
+
+  
+	echo "<div id=\"top\">\n";/* start inner content */
 	echo "<h1>Welcome to $appname</h1>\n";
 	echo "<p>$appname is designed to support all communication, scheduling, and collaboration activities of IPRO teams. Through the use of $appname you can send/receive e-mail messages, store/retrieve files, access/update a team calendar, and view a complete history of a team's activities since the creation of the team in $appname. Welcome to $appname, a team management tool developed by IIT students.</p>\n";
 	
-if(!$currentUser)
-		echo "<p>To use $appname simply enter your username and password in the login pane to the left. Your initial username is the first part of your IIT email address, or your entire email address if you do not have or use an IIT email. Your initial password is the first part of your email address (text appearing before the @). If you are a first-time user, please change your password upon entry to $appname (from the My Profile page).</p>";
+	if(!$currentUser)
+		echo "<p>To use $appname simply enter your username and password in the login pane to the left. Your initial 	username is the first part of your IIT email address, or your entire email address if you do not have or use an IIT email. Your initial password is the first part of your email address (text appearing before the @). If you are a first-time user, please change your password upon entry to $appname (from the My Profile page).</p>";
 	echo "</div>\n";
 	
 	$rand = mysql_fetch_array($db->query("select * from RandomQuotes order by rand() limit 1"));
@@ -148,25 +111,10 @@ if(!$currentUser)
 	echo "<div class=\"announcement-body\">You can <a href=\"iknow/main.php\">search and browse</a> IPRO team deliverables.</div>\n";
 	echo "</div></div>\n";
   /* end content */
-  echo "<br class=\"clear\">";
+	echo "<br class=\"clear\">";
+  
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
 ?>	
-</div><!-- end mainContent -->
-<?php
-	require('sidebar.php');
-?>
-</div>
-		<!-- end contentWrapper -->
-		
-		<!--begin footer -->
-		<div id="footer">
-			<!-- start copyright statement -->
-			<p id="copyright">iGroups &copy; 2009 &nbsp;<a href="http://www.ipro.iit.edu">Interprofessional Projects Program</a> </p> <p id="department"> <a href="http://iit.edu">Illinois Institute of Technology</a></p>
-			<!-- end copyright statement -->
-		</div>
-		<!-- end footer -->
-		
-	</div> 
-	<!-- end container -->
-
 </body>
 </html>
