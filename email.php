@@ -308,6 +308,7 @@
 	}	
 ?>
 	<div id="container">
+  this is the container
   <div id="catbox">
 
 	<div class="columnbanner">Your categories:</div> <!-- end  div  columnbanner--->
@@ -409,7 +410,7 @@
 		echo "<tr><td>There are no emails in the selected category.</td></tr>\n";
 	echo "</table>\n</div></fieldset></form>\n</div> ";
 
-   echo "</div> contianer ends here\n"; /* div: container ends here */
+   echo "</div> contianer ends here \n"; /* div: container ends here */
 	
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
@@ -494,8 +495,7 @@
 	<input type="submit" name="search" /></fieldset></form>
 	<p style="font-size: smaller"><strong>Note:</strong> Subject and body search terms use <a href="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" onclick="window.open(this.href); return false;">implied boolean logic</a>.</p>
 </div>
-<br class = "clear">
-</div>
+
 <?php
 //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container
