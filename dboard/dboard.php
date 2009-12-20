@@ -59,7 +59,7 @@
 <?php
 	
 /**** begin html head *****/
-   require('htmlhead.php'); //starts main container
+   require('../htmlhead.php'); //starts main container
 /****end html head content ****/	
 	echo "<div id=\"topbanner\">";
 	if(isset($currentGroup))
@@ -131,6 +131,6 @@
 
 <?php
 //include rest of html layout file
-  require('htmlcontentfoot.php');// ends main container
+  require('../htmlcontentfoot.php');// ends main container
 ?>	
 </body></html>
