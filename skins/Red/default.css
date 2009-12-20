@@ -374,7 +374,7 @@ img #igroupsLogo{
       color: #c30000;
 } 
 #uniSidebar .menuTitle {
-      border: 1px solid #ffd3d3;
+      border: 1px solid #FFAEAE;
       border-left: none;
       border-right: none;
       font-weight: bold;
@@ -385,7 +385,7 @@ img #igroupsLogo{
   overflow: hidden;
 	margin-top: 0px;
 	foat: left;
-	border-top: 3px solid #ff6666;
+	border-top: 3px solid #FF3030;
 	border-bottom: 3px solid #ff6666;
 
 }
@@ -441,5 +441,6 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
