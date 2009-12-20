@@ -111,7 +111,7 @@ require('scripts.php');
 	echo "<div class=\"announcement-body\">You can <a href=\"iknow/main.php\">search and browse</a> IPRO team deliverables.</div>\n";
 	echo "</div></div>\n";
   /* end content */
-	echo "<br class=\"clear\">";
+	echo "<br class=\"clearboth\">";
   
   //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container

@@ -435,8 +435,11 @@ img #igroupsLogo{
 	text-decoration: none;
 }
 
-.clear {
+.clearboth {
 	clear: both;
 }
 
+.clearleft{
+   clear: left;
+}
 

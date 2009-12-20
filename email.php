@@ -307,22 +307,18 @@
 <?php
 	}	
 ?>
-	<div id="container">
-  this is the container
-  <div id="catbox">
-
-	<div class="columnbanner">Your categories:</div> <!-- end  div  columnbanner--->
+	<div id="container"><div id="catbox">
+	<div class="columnbanner">Your categories:</div>
 <?php 
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
-		echo "<div class=\"menubar\">\n";  /* start div menubar */
-    echo "<ul class=\"folderlist\">\n";
+		echo "<div class=\"menubar\"><ul class=\"folderlist\">\n";
 		echo "<li><a href=\"#\" onclick=\"ccatwin=dhtmlwindow.open('ccatbox', 'div', 'createCat', 'Create Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Create Category</a></li>\n";
 		if($currentUser->isGroupModerator($currentGroup) && $currentCat && $currentCat->getID() != 1)
 			echo "<li><a href=\"#\" onclick=\"ecatwin=dhtmlwindow.open('ecatbox', 'div', 'editCat', 'Edit Category', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Edit/Delete Category</a></li>\n";
-		echo "</ul>\n</div>\n"; /* end menu bar */
+		echo "</ul>\n</div>\n";
 	}
-	echo "<div id=\"cats\">\n"; 
+	echo "<div id=\"cats\">\n";
 	$categories = $currentGroup->getGroupCategories();
 	if(!$currentCat)
 		echo "<a href=\"email.php?selectCategory=0\"><img src=\"skins/$skin/img/folder-expanded.png\" style=\"border-style: none\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=0\"><strong>Uncategorized</strong></a><br /><a href=\"email.php?selectCategory=1\"><img src=\"skins/$skin/img/folder.png\" style=\"border-style: none\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"email.php?selectCategory=1\">IPRO Office Notices</a><br />\n";
@@ -408,9 +404,9 @@
 	}
 	else
 		echo "<tr><td>There are no emails in the selected category.</td></tr>\n";
-	echo "</table>\n</div></fieldset></form>\n</div> ";
-  echo "<br class=\"clear\">";
-   echo "</div> container ends here \n"; /* div: container ends here */
+	echo "</table>\n</div></fieldset></form>\n</div>";
+  echo " <br class=\"clearleft\" />";
+  echo "</div>\n";
 	
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
@@ -494,9 +490,7 @@
 	</select><br />
 	<input type="submit" name="search" /></fieldset></form>
 	<p style="font-size: smaller"><strong>Note:</strong> Subject and body search terms use <a href="http://dev.mysql.com/doc/refman/5.0/en/fulltext-boolean.html" onclick="window.open(this.href); return false;">implied boolean logic</a>.</p>
-<br class="clear">
 </div>
-<br class="clear">
 <?php
 //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container
