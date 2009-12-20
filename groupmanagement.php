@@ -124,8 +124,12 @@
 		else
 		{
 			$go = false;
-			require('sidebar.php');
-			echo "<div id=\"content\"><div id=\"topbanner\">".$currentGroup->getName()."</div>\n";
+			
+      /**** begin html head *****/
+      require('htmlhead.php'); //starts main container
+      /****end html head content ****/	
+
+			echo "<div id=\"topbanner\">".$currentGroup->getName()."</div>\n";
 ?>
 			<div id="newuser">
 			No one with e-mail address <span style="font-weight: bold"><?php echo $email; ?></span> currently exists in our system.<br />
@@ -337,4 +341,10 @@
 <?php
 	}
 ?>
-</div></body></html>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body>
+</html>
