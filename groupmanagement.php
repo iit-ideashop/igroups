@@ -124,7 +124,9 @@
 		else
 		{
 			$go = false;
-			require('sidebar.php');
+			/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/	
 			echo "<div id=\"content\"><div id=\"topbanner\">".$currentGroup->getName()."</div>\n";
 ?>
 			<div id="newuser">
@@ -337,4 +339,9 @@
 <?php
 	}
 ?>
-</div></body></html>
+</div>
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body></html>
