@@ -145,7 +145,12 @@
 		$scratchBlurb = '';
 ?>
 
-	<div id="content"><div id="topbanner">
+<?php 
+ /**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/
+?>	
+<div id="topbanner">
 <?php
 		echo $currentGroup->getName();
 ?>
@@ -338,4 +343,12 @@
 		echo "</td>";
 	}
 ?>
-</tr></table></div></div></body></html>
+	</tr>
+	</table>
+	</div>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>	
+</body></html>
