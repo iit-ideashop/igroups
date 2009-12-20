@@ -216,11 +216,6 @@
 	else if(isset($_GET['display']))
 		echo "<script type=\"text/javascript\">var viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$_GET['display']."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1', 'recal')</script>";
 
-/**** begin html head *****/
-   require('htmlhead.php'); //starts main container
-  /****end html head content ****/
-
-
 	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 	if(isset($_POST['createcat']))
 	{	
