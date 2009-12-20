@@ -82,7 +82,7 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+
 	if(isset($_POST['addannouncement']))
 	{
 		if(createGroupAnnouncement($_POST['heading'], $_POST['body'], $_POST['date'], $currentGroup, $db))
