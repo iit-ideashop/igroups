@@ -247,7 +247,6 @@
 		echo "<p>Your group does not have any emails.</p>\n";
 ?>
 	</div>
-	<br /><br />
 	<div class="box" id="files">
 	<span class="box-header">Last 5 Files</span>
 <?php
