@@ -146,11 +146,10 @@ ul.noindent {
 }
 
 div.box {
-	background-color: #EEEEEE;
+	
 	color:#000000;
 	text-align:left;
 	padding:15px;
-	position:relative;
 	border: 1px solid #999;
 }
 
@@ -434,6 +433,7 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
 

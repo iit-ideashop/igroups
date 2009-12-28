@@ -2,7 +2,6 @@
 
 #recent {
 	margin-top:10px;
-	float:right;
 	width:50%;
 }
 
@@ -10,8 +9,37 @@
 	margin:10px;
 }
 
+#scratchpad {
+       width: 100%;
+       padding-top: 10px;
+}
+
+#scratchpad p {
+      padding-bottom: 10px;
+      color: #CC0000;
+}
+
+#scratchpad input {
+      border: 1px #989898 dashed;
+      background-color: #ffd3d3;
+      margin-right: 10px;
+      color: #2C2C2C;
+}
+
+#scratchpad input:hover {
+      border: 1px #000 dashed;
+      background-color: #FFF;
+}
+
+#scratchpad textarea {
+      width: 100%;
+      font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+      font-size: 12px;
+}
 #announcements {
 	margin:10px;
+        margin-left: 0px;
+        width: 100%;
 }
 
 .dateHeading {
@@ -70,4 +98,5 @@
 {
 	font-size: smaller;
 }
+
 
