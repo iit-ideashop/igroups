@@ -108,7 +108,6 @@
 /****end html head content ****/	
 ?>
 
-<div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <h1>Bookmarks</h1>
 <p>Bookmarks in <?php echo $appname; ?> operate much like bookmarks in your web browser. Add URLs for other members in your group to be able to access at a click.</p>
 <?php
