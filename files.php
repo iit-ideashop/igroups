@@ -563,6 +563,7 @@
 	</div>
 	<form method="post" action="files.php<?php echo $suffix; ?>">
 <fieldset>
+<!-- 
 	<div class="menubar">
 <?php
 	if(!$currentUser->isGroupGuest($currentGroup))
@@ -697,7 +698,7 @@
 		echo "<tr><td>You do not have access to view the files in this folder.</td></tr>\n";
 ?>
 	</table>
-</div>
+</div> -->
 	</fieldset></form>
 	
 </div>
