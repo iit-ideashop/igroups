@@ -202,7 +202,6 @@ ul.folderlist ul {
 }
 
 .sortbar a:link, .sortbar a:visited, .sortbar a:active, .sortbar a {
-	color:  #dddddd;
 	text-decoration: none;
 }
 
@@ -354,7 +353,7 @@ img #igroupsLogo{
 
 #uniSidebar p {
   font-weight:normal;
-  vertical-align: center;
+  vertical-align: middle;
 }
 
 #uniSidebar ul{
@@ -392,7 +391,7 @@ img #igroupsLogo{
 #uniSidebar .subnavigation {
   overflow: hidden;
 	margin-top: 0px;
-	foat: left;
+	float: left;
 	border-top: 3px solid #FF3030;
 	border-bottom: 3px solid #ff6666;
 
@@ -449,11 +448,4 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
-
-
-
-
-
-
-
 
