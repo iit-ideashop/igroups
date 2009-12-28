@@ -19,7 +19,7 @@
 #left {
 	float:left;
 	text-align: right;
-	max-width: 380px;
+	width: 60%;
 	margin-top:20px;
 	padding: 1em;
 	border: 1px solid #999;
@@ -71,6 +71,11 @@ div#cycleFlag
 #randphotobox
 {
 	text-align: center;
+        width: 100%;
+}
+
+#randphoto {
+       width: 100%;     
 }
 
 #randtitle
@@ -85,3 +90,4 @@ div#cycleFlag
 	font-size: large;
 	color: #cc0000;
 }
+
