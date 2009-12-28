@@ -233,7 +233,7 @@
 	</fieldset></form>
 	</div>
 <div id="recent">
-	<div class="box"><span class="box-header">Last 5 Emails</span>
+	<div class="box" id="email"><span class="box-header">Last 5 Emails</span>
 <?php
 	$emails = $currentGroup->getRecentEmails();
 	if(count($emails) > 0)
@@ -248,7 +248,7 @@
 ?>
 	</div>
 	<br /><br />
-	<div class="box">
+	<div class="box" id="files">
 	<span class="box-header">Last 5 Files</span>
 <?php
 	$files = $currentGroup->getRecentFiles();
