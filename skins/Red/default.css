@@ -292,7 +292,7 @@ img #igroupsLogo{
 #contentWrapper{
         width: 100%;
 	overflow: hidden;
-        border-right: 1px solid #CCC;
+        /*border-right: 1px solid #CCC;*/
         padding-bottom: 50px;
 }
 
