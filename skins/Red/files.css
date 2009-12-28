@@ -57,34 +57,33 @@ ul.prof ul {
 
 .quotaViewBox {
  width: 100%;
+ max-height: 18px;
  border: 1px solid #CDE6FF;
- padding: 5px;
- padding-top: 0px;
- margin-bottom: 10px
+ padding: 6px;
+ margin-bottom: 10px;
 }
 
 .quotaText {
- font-weight: bold
+ font-weight: bold;
+ font-family: Trebuchet MS;
+ width: 25%;
+ float: left;
 }
 
 .quotaBar{
+  margin: 0px;
   float: right;
   width: 70%;
+  height: 15px;
   outline: #BABABA solid 1px;
-  padding: 4px;
-  margin-right: 5px;
 }
 
 .quotaBarIndicator{
  background-color: #12a9ff;
- width: 250px ;
- height: 20px;
+ height: 100%; 
 }
 
 .quotaBarText{
- margin-left: 50%;
- color: #fff;
- font-weight: bold;
- font-family: Trebuchet MS;
+
 
 }

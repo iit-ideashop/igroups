@@ -459,7 +459,7 @@
     Current Quota Used: <?php echo "$quotaUsed"; ?>%
     </p>
     <div class="quotaBar">
-    <span class="quotaBarIndicator" style="width: <?php echo "$quotaPix"; ?>px" ><?php echo "$quotaUsed"; ?>%</span>
+    <div class="quotaBarIndicator" style="width: <?php echo "$quotaPix"; ?>px" ></div>
     </div>
     <br class="clearboth" />
   </div>
