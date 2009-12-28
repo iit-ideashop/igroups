@@ -606,7 +606,7 @@
 ?>
 	</div>
 	<div id="files">
-	<!-- <table>
+	<table>
 <?php
 	if($_SESSION['selectedSpecial'] != 'ipro')
 	{
@@ -697,7 +697,7 @@
 	else
 		echo "<tr><td>You do not have access to view the files in this folder.</td></tr>\n";
 ?>
-	</table>-->
+	</table>
 </div> 
 	</fieldset></form>
 	
