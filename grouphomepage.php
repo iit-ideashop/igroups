@@ -193,38 +193,8 @@
 		echo "</tr></table>";
 ?>
 	</div>
-	<div id="container"><div id="recent">
-	<div class="box"><span class="box-header">Last 5 Emails</span>
-<?php
-	$emails = $currentGroup->getRecentEmails();
-	if(count($emails) > 0)
-	{
-		echo "<ul>\n";
-		foreach($emails as $email)
-			echo "\t<li><a href=\"email.php?display=".$email->getID()."\">".htmlspecialchars($email->getSubject())."</a> <span class=\"timeago\">".$email->getShortDateTime()." ago</span></li>\n";
-		echo "</ul>\n";
-	}
-	else
-		echo "<p>Your group does not have any emails.</p>\n";
-?>
-	</div>
-	<br /><br />
-	<div class="box">
-	<span class="box-header">Last 5 Files</span>
-<?php
-	$files = $currentGroup->getRecentFiles();
-	if(count($files) > 0)
-	{
-		echo "<ul>\n";
-		foreach($files as $file)
-			echo "\t<li><a href=\"download.php?id=".$file->getID()."\">".htmlspecialchars($file->getName())."</a> <span class=\"timeago\">".$file->getShortDateTime()." ago</span></li>\n";
-		echo "</ul>\n";
-	}
-	else
-		echo "<p>Your group does not have any files.</p>\n";
-?>
-	</div></div>
-	<div id="announcements">
+	<div id="container">
+<div id="announcements">
 <?php
 	$announcements = $currentGroup->getGroupAnnouncements();
 	echo "<h1>Announcements:</h1>\n";
@@ -261,7 +231,39 @@
 	}
 ?>
 	</fieldset></form>
+	</div>
+<div id="recent">
+	<div class="box"><span class="box-header">Last 5 Emails</span>
+<?php
+	$emails = $currentGroup->getRecentEmails();
+	if(count($emails) > 0)
+	{
+		echo "<ul>\n";
+		foreach($emails as $email)
+			echo "\t<li><a href=\"email.php?display=".$email->getID()."\">".htmlspecialchars($email->getSubject())."</a> <span class=\"timeago\">".$email->getShortDateTime()." ago</span></li>\n";
+		echo "</ul>\n";
+	}
+	else
+		echo "<p>Your group does not have any emails.</p>\n";
+?>
+	</div>
+	<br /><br />
+	<div class="box">
+	<span class="box-header">Last 5 Files</span>
+<?php
+	$files = $currentGroup->getRecentFiles();
+	if(count($files) > 0)
+	{
+		echo "<ul>\n";
+		foreach($files as $file)
+			echo "\t<li><a href=\"download.php?id=".$file->getID()."\">".htmlspecialchars($file->getName())."</a> <span class=\"timeago\">".$file->getShortDateTime()." ago</span></li>\n";
+		echo "</ul>\n";
+	}
+	else
+		echo "<p>Your group does not have any files.</p>\n";
+?>
 	</div></div>
+	</div>
 <?php
 	if($currentUser->isGroupModerator($currentGroup))
 	{
