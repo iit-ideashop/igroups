@@ -145,12 +145,27 @@ ul.noindent {
 	background-repeat: no-repeat;
 }
 
+
+#recent {
+	margin-top:30px;
+	width:100%;
+        overflow: hidden;
+}
+
 div.box {
-	
+	width: 40%;
 	color:#000000;
 	text-align:left;
 	padding:15px;
 	border: 1px solid #999;
+}
+
+div #recent #files {
+float: right;
+}
+
+div #recent #email{
+float: left;
 }
 
 div.box .box-header {
@@ -433,6 +448,7 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
 

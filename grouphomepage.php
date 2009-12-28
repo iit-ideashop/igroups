@@ -262,8 +262,9 @@
 	else
 		echo "<p>Your group does not have any files.</p>\n";
 ?>
-	</div></div>
-  <br class="clearboth" />
+	</div>
+<br class="clearboth" />
+</div>  
 	</div>
 <?php
 	if($currentUser->isGroupModerator($currentGroup))
