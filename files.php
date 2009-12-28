@@ -461,6 +461,7 @@
     <div class="quotaBar">
     <div class="quotaBarIndicator" style="width: <?php echo "$quotaPix"; ?>px" ></div>
     </div>
+    <span class="clearboth" />
   </div>
 <!-- end Div for quota -->
 
