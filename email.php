@@ -216,7 +216,7 @@
 	else if(isset($_GET['display']))
 		echo "<script type=\"text/javascript\">var viewwin=dhtmlwindow.open('viewbox', 'ajax', 'displayemail.php?id=".$_GET['display']."', 'Display Email', 'width=650px,height=600px,left=300px,top=100px,resize=1,scrolling=1', 'recal')</script>";
 
-	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
+	echo "<div id=\"content\">\n";
 	if(isset($_POST['createcat']))
 	{	
 		createCategory($_POST['catname'], $_POST['catdesc'], $currentGroup->getID(), $currentGroup->getType(), $currentGroup->getSemester(), $db);
