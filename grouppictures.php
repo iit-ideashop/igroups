@@ -48,8 +48,6 @@
    require('htmlhead.php'); //starts main container
 /****end html head content ****/	
 
-	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>";
-
 	echo "<form method=\"post\" action=\"grouppictures.php\"><fieldset>\n";
 	$pictures = $currentGroup->getGroupPictures();
 	if(count($pictures) > 0)
