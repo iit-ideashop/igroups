@@ -298,7 +298,7 @@ img #igroupsLogo{
 #mainContent {
         overflow: hidden;
 	float: right;
-	width: 70%;
+	width: 75%;
 	margin-top: 0px;
 	padding-top: 20px;
 }
@@ -389,7 +389,7 @@ img #igroupsLogo{
 } 
 
 #uniSidebar .subnavigation {
-  overflow: hidden;
+        width: 100%;
 	margin-top: 0px;
 	float: left;
 	border-top: 3px solid #FF3030;
@@ -448,4 +448,5 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
