@@ -1,20 +1,44 @@
 @import url('default.css');
 @import url('popcal.css');
 
+
+#tasksstuff
+{
+	float: left;
+        width: 75%;
+        min-width: 410px;
+}
+
+#tasksstuff form {
+       padding: 15px;
+       padding-top: 20px;
+       padding-left: 0;
+}
+
 table#tasks
 {
-	border-collapse: collapse;
-	border: thin solid black;
+	border: none;
+        width: 100%;
 }
 
 table#tasks td, table#tasks th
 {
-	border: thin solid black;
 	padding-left: 5px;
 	padding-right: 5px;
+        min-width: 75px;
+        max-width: 150px;
+        height: 30px;
 }
 
-table#tasks ul
+table#tasks th {
+       border: none;
+       }
+
+table#tasks td {
+       border: 1px solid #FFF;    
+}
+
+table #tasks ul
 {
 	margin-left: 0px;
 	padding-left: 1em;
@@ -39,13 +63,13 @@ tr.normal1 td
 
 tr.overdue0 td
 {
-	background-color: #ffcccc;
+	background-color: #FFD1D1;
 	color: black;
 }
 
 tr.overdue1 td
 {
-	background-color: #ffdddd;
+	background-color: #FFDFDF;
 	color: black;
 }
 
@@ -70,37 +94,49 @@ a.toggle
 
 .toggleable
 {
-	display: none;
+    display: none;
 }
 
 li#overdue
 {
-	color: red;
-	background-color: white;
+    color: red;
+    background-color: white;
 }
 
 .sgpersonlist
 {
-	display: none;
+    display: none;
 }
 
 legend#taskedit
 {
-	font-size: 10pt;
+    font-size: 10pt;
 }
 
-#tasksstuff
-{
-	float: left;
-}
 
 #indsummaries
-{
-	float: left;
-	margin-left: 10px;
+{   padding-top: 20px;
+    float: right;
+    margin-left: 30px;
+    width: 20%;
+    min-width: 80px;
 }
 
-div#caldiv
-{
-
+#indsummaries ul {
+    margin-bottom: 10px;
 }
+
+#indsummaries ul li {
+    padding: 2px;
+   
+}
+
+#addtask td:first-child {
+    background-color: #F0F0F0;
+}
+
+#addtask label {
+   float: left;
+   font-weight: bold;
+}
+

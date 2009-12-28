@@ -28,6 +28,19 @@ p {
 }
 /****************** end reset css **********************/
 
+/* New layout css code */
+body{
+	background:#fff;
+	font-family:"lucida grande",Helvetica,"Trebuchet MS",Arial,sans-serif;
+	font-size:11px;
+	color:#333;
+	margin:0;
+	padding:0;
+	text-align:left;
+	direction:ltr;
+	margin-top: 20px;
+}
+
 fieldset {
 	border-style: none;
 	padding-left: 0px;
@@ -62,26 +75,21 @@ img {
 
 h1 {
 	font-size:14pt;
-	color:#666;
-	padding:0;
-	margin-bottom:5px;
-	font-weight: bold;
+	color:#666;	
 }
 
 h2 {
-	font-size:12pt;
-	color:#666;
-	font-weight: bold;
+	font-size:14pt;
+	color:#666;	
 }
 
 h3 {
 	font-size:10pt;
-	color:#666;
-	font-weight:bold;
+	color:#666;	
 }
 
 legend {
-	font-size:14pt;
+	font-size:12pt;
 	color:#666;
 	padding:0;
 	margin-bottom:5px;
@@ -290,13 +298,12 @@ img #igroupsLogo{
 
 #contentWrapper{
         width: 100%;
-	overflow: hidden;
         /*border-right: 1px solid #CCC;*/
         padding-bottom: 50px;
 }
 
 #mainContent {
-        overflow: hidden;
+        padding-left: 1px;
 	float: right;
 	width: 75%;
 	margin-top: 0px;
@@ -448,5 +455,6 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
