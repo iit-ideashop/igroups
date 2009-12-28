@@ -28,12 +28,6 @@ p {
 }
 /****************** end reset css **********************/
 
-body { 
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 10pt;
-	margin:0;
-}
-
 fieldset {
 	border-style: none;
 	padding-left: 0px;
@@ -256,12 +250,16 @@ body{
 }
 
 #mainContainer {
-  	width: 900px;
+        width: 90%;
+  	max-width: 900px;
+        width: 760px;
 	margin: 0 auto;
+      
 }
 
 #mainheader {
 	width:100%;
+        min-height: 105px;
 	border: none;
 	border-top: 1px dashed #CCC;
 	border-bottom: 1px solid #FFAEAE;
@@ -283,18 +281,19 @@ img #igroupsLogo{
 }
 
 #contentWrapper{
+        width: 100%;
 	overflow: hidden;
         border-right: 1px solid #CCC;
         padding-bottom: 50px;
 }
 
 #mainContent {
-  overflow: hidden;
+        overflow: hidden;
 	float: right;
-	width: 660px;
+	width: 70%;
 	margin-top: 0px;
 	padding-top: 20px;
-  padding-right: 20px;
+        padding-right: 20px;
 }	
 
 #externallinks li {
@@ -310,13 +309,13 @@ img #igroupsLogo{
 }
 
 #mainNavigation {
-	margin-top: 77px;
+	margin-top: 15%;
 	margin-right: 0px;
 }
 
 #mainNavigation li {
 	float: left;
-	padding: 5px 10px 5px 10px;
+	padding: 5px 7px 5px 6px;
 	margin-left: 4px;
 	border: 1px solid #FFAEAE;
 	background-color: #ffd3d3;
@@ -325,7 +324,7 @@ img #igroupsLogo{
 
 #mainNavigation li a {
 	text-decoration: none;
-	font-size: 14px;
+	font-size: 100%;
 	font-weight: bold;
 	text-transform: uppercase;
 	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
@@ -338,10 +337,11 @@ img #igroupsLogo{
 }
 
 #uniSidebar {
-	width: 180px;
+	width:25%;
+        max-width:180px;
 	float: left;
-  padding-top: 20px;
-  color: #000;
+        padding-top: 20px;
+        color: #000;
 }
 
 #uniSidebar p {
@@ -441,6 +441,7 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
 
