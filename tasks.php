@@ -122,12 +122,12 @@ cal.showNavigationDropdowns();
 ?>
 
 <div class="notice">
-	<p style=\"font-size: small\">If your professor has instructed you to use the legacy timesheets to enter your time, use the following link: <a href="logtimespent.php">Legacy Timesheets</a></p>
+	<p >If your professor has instructed you to use the legacy timesheets to enter your time, use the following link: <a href="logtimespent.php">Legacy Timesheets</a></p>
 <?php
 	
 if($currentUser->isGroupModerator($currentGroup))
 	{
-		echo "<p style=\"font-size: small\">Moderators of groups using the legacy timesheets can also use the following: <a href=\"viewtimesheets.php\">View Timesheets</a> - <a href=\"viewgrouptime.php\">Semester Hours Table</a></p>\n";
+		echo "<p>Moderators of groups using the legacy timesheets can also use the following: <a href=\"viewtimesheets.php\">View Timesheets</a> - <a href=\"viewgrouptime.php\">Semester Hours Table</a></p>\n";
 ?>
 </div> <!-- end notice -->
 
