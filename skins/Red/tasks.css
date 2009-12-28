@@ -32,10 +32,6 @@ table#tasks td, table#tasks th
 
 table#tasks th {
        border: none;
-       }
-
-table#tasks td {
-       border: 1px solid #FFF;    
 }
 
 table #tasks ul
@@ -139,4 +135,5 @@ legend#taskedit
    float: left;
    font-weight: bold;
 }
+
 
