@@ -147,12 +147,6 @@
 	else
 		$scratchBlurb = '';
 ?>
-
-<div id="topbanner">
-<?php
-		echo $currentGroup->getName();
-?>
-	</div>
 	<div id="calendar">
 <?php
 		$events = $currentGroup->getWeekEvents();
