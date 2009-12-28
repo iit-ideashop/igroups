@@ -263,6 +263,7 @@
 		echo "<p>Your group does not have any files.</p>\n";
 ?>
 	</div></div>
+  <br class="clear" />
 	</div>
 <?php
 	if($currentUser->isGroupModerator($currentGroup))
