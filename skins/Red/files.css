@@ -55,27 +55,30 @@ ul.prof ul {
 	padding-left:20px;
 }
 
-.quotaViewBox{
- border: 4px solid #CDE6FF;
+.quotaViewBox {
+ width: 100%;
+ border: 1px solid #CDE6FF;
  padding: 5px;
+ padding-top: 0px;
  margin-bottom: 10px
 }
 
-.quotaText{
+.quotaText {
  font-weight: bold
+}
+
+.quotaBar{
+  float: right;
+  width: 70%;
+  outline: #BABABA solid 1px;
+  padding: 4px;
+  margin-right: 5px;
 }
 
 .quotaBarIndicator{
  background-color: #12a9ff;
  width: 250px ;
  height: 20px;
-}
-
-.quotaBar{
-  width: 500px;
-  outline: #BABABA solid 1px;
-  padding: 4px;
-  margin-right: 5px;
 }
 
 .quotaBarText{
