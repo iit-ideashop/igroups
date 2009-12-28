@@ -89,13 +89,11 @@ legend {
 }
 
 #topbanner {
-  background-color: #000;
 	padding: .25em;
-	font-size:14pt;
-	border-bottom-style:solid;
-	border-bottom-color:#CC0000;
-	text-align:center;
-	margin-bottom:10px;
+	font-size:18pt;
+	text-align:left;
+	margin: 0px 0px 10px 0px;
+        color: #585858;        
 }
 
 .columnbanner {
@@ -160,11 +158,6 @@ div.box .box-header {
 	font-size:12pt;
 	color:#666;
 	font-weight: bold;
-}
-
-.calbord {
-	border: 1px solid #666;
-	width: 14%;
 }
 
 #boxtitle {
@@ -441,6 +434,7 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
 

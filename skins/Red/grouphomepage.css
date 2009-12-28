@@ -16,7 +16,9 @@
 
 .dateHeading {
 	background:#EEE;
-	border-bottom: 1px solid #666;
+        height: 2em;
+        text-align: center;
+        vertical-align: bottom;
 }
 
 .prop {
@@ -24,6 +26,24 @@
 	height:100px;
 	width:1px;
 	overflow:hidden;
+}
+
+
+#calendar {
+      color: #000;
+      font-weight: bolder;
+      padding-left:1px;
+      margin-bottom: 20px;     
+}
+
+#calendar table { 
+       width: 100%;
+       
+}
+
+.calbord {
+	border: 1px solid #CCC;
+	width: 14%;
 }
 	
 #calendarmenu {
@@ -50,3 +70,4 @@
 {
 	font-size: smaller;
 }
+
