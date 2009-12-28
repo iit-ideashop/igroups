@@ -153,7 +153,7 @@ ul.noindent {
 }
 
 div.box {
-	max-width: 43%;
+	max-width: 100%;
 	color:#000000;
 	text-align:left;
 	padding:15px;
@@ -162,9 +162,11 @@ div.box {
 
 div #recent #files {
 float: right;
+max-width: 43%;
 }
 
 div #recent #email{
+max-width: 43%;
 float: left;
 }
 
@@ -448,6 +450,7 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
 
