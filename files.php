@@ -561,7 +561,8 @@
 	}
 ?>			
 	</div>
-	<form method="post" action="files.php<?php echo $suffix; ?>"><fieldset style="width: 300px;">
+	<form method="post" action="files.php<?php echo $suffix; ?>">
+<fieldset>
 	<div class="menubar">
 <?php
 	if(!$currentUser->isGroupGuest($currentGroup))
