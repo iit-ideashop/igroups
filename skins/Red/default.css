@@ -49,10 +49,14 @@ fieldset {
 	margin-right: 0px;
 }
 
+table { 
+      width: 100%;
+}
+
 thead {
 	font-size:10pt;
 	font-weight:bold;
-	background-color:#CCCCCC;
+        background-color:#EBEBEB;
 	color:#000000;
 	text-align:center;
 }
@@ -60,7 +64,7 @@ thead {
 tfoot {
 	font-size:10pt;
 	font-weight:bold;
-	background-color:#CCCCCC;
+	background-color:#EBEBEB;
 	color:#000000;
 	text-align:center;
 }
@@ -112,7 +116,7 @@ legend {
 }
 
 .shade {
-	background-color:#EEEEEE;
+	background-color: #FFDFDF;
 	color:#000000;
 }
 
@@ -455,6 +459,7 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
 
