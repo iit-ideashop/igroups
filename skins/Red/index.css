@@ -26,9 +26,9 @@
 }
 
 .right {
-	margin-left:65%;
-	margin-top:20px;
-	padding: 1em;
+	margin-left:64%;
+	margin-top:25px;
+	padding: .5em;
         width: 35%;
 } 
 
@@ -91,5 +91,6 @@ div#cycleFlag
 	font-size: large;
 	color: #cc0000;
 }
+
 
 
