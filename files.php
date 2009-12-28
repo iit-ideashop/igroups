@@ -604,7 +604,7 @@
 ?>
 	</div>
 	<div id="files">
-	<table width="100%">
+	<table>
 <?php
 	if($_SESSION['selectedSpecial'] != 'ipro')
 	{
