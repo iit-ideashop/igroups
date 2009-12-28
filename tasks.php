@@ -234,10 +234,10 @@ if($currentUser->isGroupModerator($currentGroup))
 	if($currentUser->isGroupModerator($currentGroup))
 	{
 		echo "</div><div id=\"indsummaries\">\n";
-		echo "<h1>Hours Summaries</h1>\n";
-		echo "<h2>Groupwide</h2>\n";
+		echo "<h2>Hours Summaries</h2>\n";
+		echo "<h3>Groupwide</h3>\n";
 		echo "<ul><li><a href=\"hourssummary.php\">By Week</a></li></ul>\n";
-		echo "<h2>Individual</h2>\n";
+		echo "<h3>Individual</h3>\n";
 		echo "<ul>\n";
 		$members = $currentGroup->getGroupMembers();
 		usort($members, 'alpha');
