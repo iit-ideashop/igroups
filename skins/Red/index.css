@@ -26,9 +26,10 @@
 }
 
 .right {
-	margin-left:400px;
+	margin-left:65%;
 	margin-top:20px;
 	padding: 1em;
+        width: 35%;
 } 
 
 #bottom {
@@ -75,7 +76,7 @@ div#cycleFlag
 }
 
 #randphoto {
-       width: 100%;     
+       max-width: 100%;           
 }
 
 #randtitle
@@ -90,4 +91,5 @@ div#cycleFlag
 	font-size: large;
 	color: #cc0000;
 }
+
 
