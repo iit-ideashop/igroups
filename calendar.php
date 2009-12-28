@@ -72,9 +72,9 @@
 <tr><td id="ds_calclass">
 </td></tr>
 </table>
-<div id="topbanner">
+
 <?php
-	echo $currentGroup->getName()."</div>\n";
+	
 
 	$startDay = date('w', mktime(0, 0, 0, $currentMonth, 1, $currentYear));
 	$endDay = date('j', mktime(0, 0, 0, $currentMonth+1, 0, $currentYear));
