@@ -250,16 +250,16 @@ body{
 }
 
 #mainContainer {
-        width: 90%;
-  	max-width: 900px;
-        width: 760px;
+  width: 90%;
+  max-width: 900px;
+  min-width: 760px;
 	margin: 0 auto;
       
 }
 
 #mainheader {
 	width:100%;
-        min-height: 105px;
+  min-height: 105px;
 	border: none;
 	border-top: 1px dashed #CCC;
 	border-bottom: 1px solid #FFAEAE;
