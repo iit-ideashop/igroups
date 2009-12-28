@@ -446,8 +446,6 @@
 	 /**** begin html head *****/
    require('htmlhead.php'); //starts main container
   /****end html head content ****/	
-
-	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 ?>
   <div id="container"> 
   
