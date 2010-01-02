@@ -24,6 +24,13 @@
 		text-decoration: none;
 }
 
+
+#loginform button {
+     border: 1px solid #FF423C;
+     background: #C30000;
+   color: #FFF;
+}
+
 #top h1 {
 	color:#000000;
 	border-bottom-style:solid;
