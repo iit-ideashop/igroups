@@ -29,7 +29,7 @@
 	foreach($altskins as $altskin)
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/index.css\" type=\"text/css\" title=\"$altskin\" />\n";
 
-	echo "<title>$appname 2.3</title>\n";
+	echo "<title>$appname 2.4</title>\n";
 	$announcementResults = $db->query('SELECT iID FROM News ORDER BY iID DESC');
 	$numAnnounce = mysql_num_rows($announcementResults);
 	if($numAnnounce > 1)

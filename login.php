@@ -20,8 +20,7 @@
 <?php
 	}
 ?>
-    <a href="index.php"><?php echo $appname; ?> Home</a>
-    <a href="iknow/main.php">iKnow/iGroups Guest Access</a>
+   
 <div id="loginform">
 <?php
 	if(isset($_SESSION['loginError']))
@@ -30,6 +29,8 @@
 		unset($_SESSION['loginError']);
 	}
 ?>
+  <a href="index.php"><?php echo $appname; ?> Home</a>
+  <a href="iknow/main.php">iKnow/iGroups Guest Access</a>
 	<form method="post" action="menu.php?loggingin=true"><fieldset>
 		<label for="username">User name:</label><input name="username" id="username" type="text" /><br />
 		<label for="password">Password:</label><input name="password" id="password" type="password" /><br />
