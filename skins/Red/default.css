@@ -283,7 +283,7 @@ body{
   min-height: 105px;
 	border: none;
 	border-top: 1px dashed #CCC;
-	border-bottom: 1px solid #FFAEAE;
+	border-bottom: 1px solid #FF6969;
 	padding-top: 5px;
 }
 
@@ -336,7 +336,7 @@ img #igroupsLogo{
 	float: left;
 	padding: 5px 7px 5px 6px;
 	margin-left: 4px;
-	border: 1px solid #FFAEAE;
+	border: 1px solid #FF6969;
 	background-color: #ffd3d3;
 }
 
@@ -460,6 +460,7 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
 
