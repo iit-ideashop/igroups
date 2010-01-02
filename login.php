@@ -21,7 +21,7 @@
 	}
 ?>
    <a href="index.php"><?php echo $appname; ?> Home</a>
-   <br /><br />>
+   <br /><br />
   <a href="iknow/main.php">iKnow/iGroups Guest Access</a>
 <div id="loginform">
 <?php
