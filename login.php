@@ -37,7 +37,7 @@
 		<label for="password">Password:</label><input name="password" id="password" type="password" /><br />
 		<input type="hidden" name="logform" value="true" />
 		<input type="checkbox" name="remember" id="remember" value="true" />&nbsp;<label for="remember">Remember Me</label><br />
-		<input type="submit" name="login" value="Login" />
+		<button type="submit" name="login"> Login </button>
 	</fieldset>
 </form>
 <p>
