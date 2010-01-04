@@ -184,11 +184,6 @@
   /****end html head content ****/
 ?>
 
-<?php
-	echo $topicName;
-?>	
-</div>
-
 <table class="noborder" width="85%"><tr><td colspan="3" style="font-size: larger; font-weight: bold; text-decoration: underline"><?php echo "{$currentThread->getName()}"; ?></td></tr>
 <tr><td align="left" colspan="3">
 <?php
