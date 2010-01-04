@@ -28,7 +28,7 @@
 	
 
   /**** begin html head *****/
-   require('htmlhead.php'); 
+   require('../htmlhead.php'); 
   //starts main container
   /****end html head content ****/
 
@@ -69,7 +69,7 @@
 <?php
  	/**** begin html footer*****/
   //include rest of html layout file
-  require('htmlcontentfoot.php');
+  require('../htmlcontentfoot.php');
   // ends main container
   /****** end html footer*****/
 ?>
