@@ -69,7 +69,7 @@
 <?php
  	/**** begin html footer*****/
   //include rest of html layout file
-  require('htmlcontentfoot.php');
+  require('htmlfoot.php');
   // ends main container
   /****** end html footer*****/
 ?>
