@@ -28,8 +28,9 @@
 		if(($row = mysql_fetch_row($user)) && md5($_POST['password']) == $row[1])
 		{
 			$_SESSION['userID'] = $row[0];
-			if(isset($_GET['loggingin']))
+			if(isset($_GET['loggingin'])){
 				header('Location: ../index.php');
+      }
 		}
 		else if(!$_SESSION['loginError'])
 		{
@@ -54,7 +55,7 @@
 ?>
 				<script type="text/javascript">
 				<!--
-					window.location.href="../index.php";
+					window.location.href="index.php";
 				//-->
 				</script>
 <?php
@@ -73,6 +74,8 @@
 		}
 	}
 
+  // takes a particlular groups parameters and goes to that gropus page
+  // this function is called from ???
 	function selectGroup($string)
 	{
 		$temp = explode(',', $string);
@@ -87,13 +90,15 @@
 		unset($_SESSION['selectedSpecial']);
 		unset($_SESSION['expandFolders']);
 		unset($_SESSION['selectedCategory']);
-		header('Location: ../grouphomepage.php');
+		header('Location: grouphomepage.php');
 	}
 	
+  //calls the function above depending on whether the group is known or not
 	if(isset($_GET['selectGroup']))
 		selectGroup($_GET['selectGroup']);
 	ob_end_flush();
 	
+  
 	function isSelected($group)
 	{
 		if(!isset($_SESSION['selectedGroup']))
@@ -104,9 +109,16 @@
 	
 	function getLinkedName($group)
 	{
-		return "<a href=\"../menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester()."\">".$group->getName()."</a>";
+		return "<a href=\"menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester()."\">".$group->getName()."</a>";
 	}
 	
+	function getLink($group){
+		return "menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester();
+	}
+
+
+  /* Prints the menu links for a given group */
+  /* TODO: It is best to include a <ul> tag here */
 	function printGroupMenu($user, $group)
 	{
 		echo "<li><a href=\"../files.php\">Files</a></li>\n";
@@ -115,21 +127,26 @@
 		echo "<li><a href=\"../calendar.php\">Calendar</a></li>\n";
 		echo "<li><a href=\"../contactlist.php\">Contact List</a></li>\n";
 		echo "<li><a href=\"../grouppictures.php\">Group Pictures</a></li>\n";
-		if($user->isGroupModerator($group))
-			echo "<li><a href=\"../groupmanagement.php\">Manage Group</a></li>\n";
 		echo "<li><a href=\"../dboard/dboard.php?a=0\">Discussion Board</a></li>\n";
-		//if($group->getType() == 0 && !$user->isGroupGuest($group))
-		//	echo "<li><a href=\"../budget.php\">Budget</a></li>\n";
+		
+    //if($group->getType() == 0 && !$user->isGroupGuest($group))
+		//	echo "<li><a href=\"budget.php\">Budget</a></li>\n";
 		echo "<li><a href=\"../nuggets.php\">iKnow Nuggets</a></li>\n";
 		echo "<li><a href=\"../bookmarks.php\">Bookmarks</a></li>\n";
+
+    /* If user is a moderator, add a link to the group management page */
+    if($user->isGroupModerator($group))
+			echo "<li><a href=\"../groupmanagement.php\">Manage Group</a></li>\n";
 	}
 	
+
 	if(!isset($_SESSION['expandSemesters']))
 	{
 		$semester = $db->query('SELECT iID FROM Semesters WHERE bActiveFlag=1');
 		$row = mysql_fetch_row($semester);
 		$_SESSION['expandSemesters'] = array($row[0]);
 	}
+
 	
 	if(isset($_GET['toggleExpand']))
 	{
@@ -141,12 +158,15 @@
 		else
 			$_SESSION['expandSemesters'][] = $_GET['toggleExpand'];	
 	}
-	if(isset($_SESSION['userID']))
+
+
+	if(isset($_SESSION['userID'])){
 		$currentUser = new Person($_SESSION['userID'], $db);
+	}
 	else
 		die('You are not logged in.');
 	
-	echo "Welcome, {$currentUser->getFirstName()}";
+	echo "<p id=\"userWelcomeMsg\" class=\"sideBarText\">Welcome, {$currentUser->getFirstName()} </p>";
 	
 	$groups = $currentUser->getGroups();
 	
@@ -169,11 +189,12 @@
 			$igroups[$group->getName()] = $group;
 	}
 
+  //Sort IPRO array by key in reverse order
 	@krsort($sortedIPROs);
 	
 	if(count($sortedIPROs) > 0)
 	{
-/********************* generate semester selection list ********************************/
+ 		/********************* generate semester selection list ********************************/
     echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
     echo "<option value=\"\"> Select Semester </option>\n";
 		
@@ -190,36 +211,58 @@
      echo "</select><br />";
     /**************************** end selection list generation *****************************/
 
+		echo "<span>Your IPROs:</span>\n";
+    // start of list 
+		//echo "<ul class=\"noindent\">\n";
 
-		echo "Your IPROs:\n";
-		echo "<ul class=\"noindent\">\n";
+		/******************************** generate list of ipros*********************************/
 		foreach($sortedIPROs as $key => $val)
-		{
+		{  
+			
 			$semester = new Semester($key, $db);
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
-				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
+				if(($semester->getID() == $_SESSION['selectedSemester']) || (isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $semester->isActive()))
+				echo "<p class=\"menuTitle\">".$semester->getName()."</p>";
 				echo "<ul>\n";
+				
 				ksort($val);
+				
 				foreach($val as $useless => $group)
 				{
-					echo "<li>".getLinkedName($group);
+	
+					/* check if group was the one selected */
 					if(isSelected($group))
 					{
-						echo "<ul>\n";
-						printGroupMenu($currentUser, $group);
+							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
+            /* print the groups sub navigation menu */
+    				/* TODO: move this so that it can be separated into a sub navigation menu */ 
+						/* start sub navigation list */		
+						echo "<ul class=\"subnavigation\">\n";
+						printGroupMenu( $currentUser, $group );
 						echo "</ul>\n";
+						
+  				 	/* end sub navigation list */
 					}
-					echo "</li>\n";
-				}
+					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
+  						$_SESSION['activateDefaultMenu'] = 0 ;
+							echo "<li>".getLinkedName($group);
+							echo "<ul id=\"subnavigation\">\n";
+							printGroupMenu( $currentUser, $group );
+							echo "</ul>\n";
+					}
+						echo "</li>\n";
+					
+				} // end for 
 				echo "</ul>\n";
-			}
-			else
-				echo "<li><a href=\"?toggleExpand=".$semester->getID()."\"><img src=\"../skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=".$semester->getID()."\">".$semester->getName()."</a>";
-			echo "</li>";
-		}
-		echo "</ul>\n";
-	}
+			} // end if 
+			//echo "</li>";
+       
+		} // end for loop
+		//echo "</ul>\n";
+		/********************* end generation of ipro list generation ******************/
+
+	}// end if statement
 	
 	if(isset($igroups))
 	{
@@ -242,43 +285,36 @@
 			echo "</ul>\n";
 		}
 		else
-			echo "<a href=\"?toggleExpand=igroups\"><img src=\"../skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
+			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
 	}
 
 	if($currentUser->isAdministrator())
 	{
 		if(in_array('admin', $_SESSION['expandSemesters']))
 		{
-			echo "<a href=\"?toggleExpand=admin\"><img src=\"../skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative Tools:</a>";
-			echo "<ul>";
-			echo "<li><a href=\"../admin/group.php\">Manage Groups</a></li>\n";
-			echo "<li><a href=\"../admin/semesters.php\">Manage Semesters</a></li>\n";
-			echo "<li><a href=\"../admin/email.php\">Email Groups</a></li>\n";
-			echo "<li><a href=\"../admin/nuggets.php\">Manage Nuggets</a></li>\n";
-			echo "<li><a href=\"../admin/event.php\">Manage Calendars</a></li>\n";
-			echo "<li><a href=\"../dboard/dboard.php?adminView=1\">Discussion Board</a></li>\n";
-			echo "<li><a href=\"../admin/budget.php\">Manage Budgets</a></li>\n";
-			echo "<li><a href=\"../admin/iprofiles.php\">IPRO Office Files</a></li>\n";
-			echo "<li><a href=\"../admin/quotas.php\">Group Quotas</a></li>\n";
-			echo "<li><a href=\"../admin/reporting.php\">Group Reporting</a></li>\n";
-			echo "<li><a href=\"../admin/people.php\">View Person</a></li>\n";
-			echo "<li><a href=\"../admin/announcements.php\">Announcements</a></li>\n";
-			echo "<li><a href=\"../admin/bookmarks.php\">Bookmarks</a></li>\n";
-			echo "<li><a href=\"../admin/skins.php\">Skins</a></li>\n";
-			echo "<li><a href=\"../admin/appear.php\">Appearance</a></li>\n";
-			echo "<li><a href=\"../admin/help.php\">Manage Help Center</a></li>\n";
+			echo "<a href=\"?toggleExpand=admin\"><p class=\"menuTitle\" >Administrative Tools:</p></a>";
+			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">";
+			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>\n";
+			echo "<li><a href=\"admin/semesters.php\">Manage Semesters</a></li>\n";
+			echo "<li><a href=\"admin/email.php\">Email Groups</a></li>\n";
+			echo "<li><a href=\"admin/nuggets.php\">Manage Nuggets</a></li>\n";
+			echo "<li><a href=\"admin/event.php\">Manage Calendars</a></li>\n";
+			echo "<li><a href=\"dboard/dboard.php?adminView=1\">Discussion Board</a></li>\n";
+			echo "<li><a href=\"admin/budget.php\">Manage Budgets</a></li>\n";
+			echo "<li><a href=\"admin/iprofiles.php\">IPRO Office Files</a></li>\n";
+			echo "<li><a href=\"admin/quotas.php\">Group Quotas</a></li>\n";
+			echo "<li><a href=\"admin/reporting.php\">Group Reporting</a></li>\n";
+			echo "<li><a href=\"admin/people.php\">View Person</a></li>\n";
+			echo "<li><a href=\"admin/announcements.php\">Announcements</a></li>\n";
+			echo "<li><a href=\"admin/bookmarks.php\">Bookmarks</a></li>\n";
+			echo "<li><a href=\"admin/skins.php\">Skins</a></li>\n";
+			echo "<li><a href=\"admin/appear.php\">Appearance</a></li>\n";
+			echo "<li><a href=\"admin/help.php\">Manage Help Center</a></li>\n";
 			echo "</ul>";
 		}
 		else
-			echo "<a href=\"?toggleExpand=admin\"><img src=\"../skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
+			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
 	}
 ?>
-	<ul class="noindent">
-		<li><a href="../help/index.php" title="Help Center">Help Center</a></li>
-		<li><a href="../needhelp.php" title="Contact Us">Contact Us</a></li>
-		<li><a href="../login.php?logout=true" title="Logout">Logout</a></li>
-	</ul>
+
 	
-	<hr />
-	
-	<p>Return to <a href="http://sloth.iit.edu/~iproadmin/peerreview/">Peer Review</a> &#183; <a href="http://ipro.iit.edu">IPRO Website</a></p>
