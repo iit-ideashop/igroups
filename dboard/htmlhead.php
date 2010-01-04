@@ -14,17 +14,17 @@
 							<ul id="externallinks">
 								<li><a href="http://sloth.iit.edu/~iproadmin/peerreview/">Peer Review</a></li>
 								<li><a href="http://ipro.iit.edu">IPRO Website</a></li>
-								<li><a href="login.php?logout=true" title="Logout">Logout</a></li>
+								<li><a href="../login.php?logout=true" title="Logout">Logout</a></li>
 							</ul>
 							<!-- end external links -->
 							
 							<!-- internal links/main navigation --> 
 							<ul id="mainNavigation">
-						 		<li><a href="index.php" id="home">Home</a></li>
-								<li><a href="contactinfo.php">My Profile</a></li>
-								<li><a href="iknow/main.php">Browse Nuggets</a>&nbsp;</li>
-								<li><a href="usernuggets.php">Groups' Nuggets</a></li>
-								<li><a href="help/index.php">Help</a></li>
+						 		<li><a href="../index.php" id="home">Home</a></li>
+								<li><a href="../contactinfo.php">My Profile</a></li>
+								<li><a href="../iknow/main.php">Browse Nuggets</a>&nbsp;</li>
+								<li><a href="../usernuggets.php">Groups' Nuggets</a></li>
+								<li><a href="../help/index.php">Help</a></li>
 								<li><a href="../needhelp.php">Contact Us</a></li>
 							</ul>
 							<!-- end internal links -->
