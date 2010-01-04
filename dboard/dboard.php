@@ -130,6 +130,6 @@
 </table>
 <?php
   //include rest of html layout file
-  require('htmlcontentfoot.php');// ends main container
+  require('../htmlcontentfoot.php');// ends main container
 ?>
 </body></html>
