@@ -61,11 +61,7 @@
   /**** begin html head *****/
    require('../htmlhead.php'); //starts main container
   /****end html head content ****/
-	echo "<div id=\"topbanner\">";
-	if(isset($currentGroup))
-		echo $currentGroup->getName();
-?>	
-	</div>
+	
 	<h1>About Discussion Board</h1>
 	<p>Welcome to the new <?php echo $appname; ?> Discussion Board. Listed below are the discussion board topics you have access to: one for every group you are a member of in the selected semester, and some additional global topics. In global topics, you can communicate with people outside of your IPRO, including IPRO support staff. Each topic is then organized into threads, which consist of a list of posts. You can contribute to an existing thread by posting a reply, or starting a new thread.</p>
 	<p>The Discussion Board is currently in beta version, so please bear with us as we work out the bugs. We plan on expanding its features in the future, and we welcome your thoughts and suggestions.</p>
