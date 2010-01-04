@@ -147,15 +147,14 @@
 <title><?php echo $appname; ?> - Discussion Board - View Topic</title>
 </head>
 <body>
-<?php
 
+<?php
   /**** begin html head *****/
    require('htmlhead.php'); 
   //starts main container
   /****end html head content ****/
-
-	echo "<div id=\"topbanner\">$topicName</div>\n";
-?>	
+?>
+	
 	<table class="noborder" width="85%">
 	<tr><td style="text-align: left; font-size: smaller; font-weight: bold">Goto Page: 
 <?php
