@@ -126,7 +126,7 @@
 			$go = false;
 			/**** begin html head *****/
    require('htmlhead.php'); //starts main container
-/****end html head content ****/	
+     /****end html head content ****/	
 			echo "<div id=\"topbanner\">".$currentGroup->getName()."thuuuggygfifgy</div>\n";
 ?>
 			<div id="newuser">
@@ -164,8 +164,10 @@
 	}
 	if($go)
 	{
-		require('sidebar.php');
-		echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
+				/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+     /****end html head content ****/	
+		echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
  	}
 ?>
 <form method="post" action="groupmanagement.php"><fieldset><legend>Current Users</legend>
