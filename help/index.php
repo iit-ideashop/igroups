@@ -25,8 +25,14 @@
 	echo "<title>$appname Help Center</title>\n";
 	
 	echo "</head><body>\n";
-	require('sidebar.php');
-	echo "<div id=\"content\">\n";
+	
+<?php
+  /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+?>
+
 	echo "<h1>$appname Help Center</h1>\n";
 	echo "<p>Welcome to the $appname Help Center, where you can find information related to using $appname. If the Help Center does not solve your problem, you may contact us using the <a href=\"../needhelp.php\">Need Help form</a>.</p>\n";
 	echo "<p>Recently reported, known problems will be listed on the <a href=\"known.php\">Known Issues</a> page.</p>\n";
@@ -59,5 +65,12 @@
 			echo "</div>\n";
 	}
 ?>	
-<p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
-</div></body></html>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlcontentfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>
