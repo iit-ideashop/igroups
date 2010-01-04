@@ -52,5 +52,5 @@
   require('htmlfoot.php');
   // ends main container
   /****** end html footer*****/
-
+?>
 </body></html>
