@@ -90,7 +90,7 @@
 		unset($_SESSION['selectedSpecial']);
 		unset($_SESSION['expandFolders']);
 		unset($_SESSION['selectedCategory']);
-		header('Location: grouphomepage.php');
+		header('Location: ../grouphomepage.php');
 	}
 	
   //calls the function above depending on whether the group is known or not
@@ -285,7 +285,7 @@
 			echo "</ul>\n";
 		}
 		else
-			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
+			echo "<a href=\"?toggleExpand=igroups\"><img src=\"../skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
 	}
 
 	if($currentUser->isAdministrator())
