@@ -63,8 +63,10 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">$topicName</div>\n";
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 ?>
 <table class="noborder" width="85%"><tr><td><a href="dboard.php"><?php echo $appname; ?> Discussion Board</a> -&gt; <a href="<?php echo $topicLink; ?>"><?php echo $topicName; ?></a> -&gt; <a href="viewThread.php?id=<?php echo "{$currentThread->getID()}&amp;topic={$_GET['topic']}$glob"; ?>"><?php echo "{$currentThread->getName()}"; ?></a></td></tr></table>
 <form action="edit.php?post=<?php echo $_GET['post']."&amp;topic=".$_GET['topic']."&amp;thread=".$_GET['thread'].$glob; ?>" method="post" id="postForm"><fieldset><legend>Edit Post</legend>
@@ -72,4 +74,13 @@
 <tr><td valign="top"><label for="body">Message Body</label></td><td><textarea cols="60" rows="20" name="body" id="body"><?php echo $post->getBody(); ?></textarea></td></tr>
 <tr><td align="center" colspan="2"><input type="submit" name="editPost" value="Edit Post" /></td></tr>
 </table>
-</fieldset></form></div></body></html>
+</fieldset></form>
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body>
+</html>
