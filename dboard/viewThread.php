@@ -273,9 +273,11 @@ foreach($pages as $page)
 </td><td><?php echo "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; <a href=\"$topicLink\">$topicName</a>"; ?></td><td class="post_options"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../skins/<?php echo $skin; ?>/img/newthread.png" alt="New Thread" title="New Thread" style="border-style: none" /></a>&nbsp;<?php echo "<a href=\"create.php?mode=post$topicID$glob$threadtext\">"; ?><img src="../skins/<?php echo $skin; ?>/img/newpost.png" style="border-style: none" alt="Post Reply" title="Post Reply" /></a></td></tr></table>
 
 <?php
-  /**** begin html head *****/
-   require('htmlhead.php'); 
-  //starts main container
-  /****end html head content ****/
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
 ?>
+
 </body></html>
