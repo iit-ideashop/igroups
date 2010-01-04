@@ -59,7 +59,8 @@
 <?php
 	
   /**** begin html head *****/
-   require('../htmlhead.php'); //starts main container
+   require('htmlhead.php'); 
+  //starts main container
   /****end html head content ****/
 ?>
 	<h1>About Discussion Board</h1>
@@ -125,7 +126,12 @@
 ?>
 </table>
 <?php
+ 	/**** begin html footer*****/
   //include rest of html layout file
-  require('../htmlcontentfoot.php');// ends main container
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
 ?>
-</body></html>
+
+</body>
+</html>
