@@ -25,7 +25,7 @@
 								<li><a href="iknow/main.php">Browse Nuggets</a>&nbsp;</li>
 								<li><a href="usernuggets.php">Groups' Nuggets</a></li>
 								<li><a href="help/index.php">Help</a></li>
-								<li><a href="needhelp.php">Contact Us</a></li>
+								<li><a href="../needhelp.php">Contact Us</a></li>
 							</ul>
 							<!-- end internal links -->
 						</div>
