@@ -1,6 +1,6 @@
 <?php
 	include_once('../globals.php');
-	echo "<div id=\"unisidebar\">\n";
+	echo "<div id=\"uniSidebar\">\n";
 	if (isset($_SESSION['userID']) && !$_GET['logout'])
 		require('../menu.php');
 	else
