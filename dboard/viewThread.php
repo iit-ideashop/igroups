@@ -282,5 +282,5 @@ foreach($pages as $page)
    require('htmlhead.php'); 
   //starts main container
   /****end html head content ****/
->
+?>
 </body></html>
