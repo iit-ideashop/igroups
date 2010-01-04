@@ -81,7 +81,7 @@
 <?php
  	/**** begin html footer*****/
   //include rest of html layout file
-  require('htmlfoot.php');
+  require('htmlcontentfoot.php');
   // ends main container
   /****** end html footer*****/
 ?>
