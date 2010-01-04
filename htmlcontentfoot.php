@@ -1,5 +1,5 @@
 </div><!-- end mainContent -->
-
+<br class="clearboth" />
 </div>
 		<!-- end contentWrapper -->
 		
