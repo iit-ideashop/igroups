@@ -37,7 +37,7 @@
 				<div id="contentWrapper">		
         <!-- begin sidebar -->
 				<?php
-					require('../sidebar.php');
+					require('sidebar.php');
 				?>
         <!-- end sidebar -->
 	
