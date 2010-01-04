@@ -168,16 +168,29 @@
 		else
 			$igroups[$group->getName()] = $group;
 	}
-	
-	echo "<ul class=\"noindent\"><li><a href=\"../index.php\">$appname Home</a></li>\n";
-	echo "<li><a href=\"../contactinfo.php\">My Profile</a></li>\n";
-	echo "<li><a href=\"../iknow/main.php\">Browse Nuggets Library</a>&nbsp;</li>\n";
-	echo "<li><a href=\"../usernuggets.php\">Your Groups' Nuggets</a></li></ul>\n";
 
 	@krsort($sortedIPROs);
 	
 	if(count($sortedIPROs) > 0)
 	{
+/********************* generate semester selection list ********************************/
+    echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
+    echo "<option value=\"\"> Select Semester </option>\n";
+		
+	foreach($sortedIPROs as $key => $val)
+		{
+			$semester = new Semester($key, $db);
+			ksort($val);
+				
+			foreach($val as $useless => $group)
+			{				
+				 echo "<option value=\"".getLink($group)."\">".$group->getName().", ".$semester->getName()."</option>\n";
+ 				}
+    }
+     echo "</select><br />";
+    /**************************** end selection list generation *****************************/
+
+
 		echo "Your IPROs:\n";
 		echo "<ul class=\"noindent\">\n";
 		foreach($sortedIPROs as $key => $val)
