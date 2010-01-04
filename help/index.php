@@ -26,12 +26,12 @@
 	
 	echo "</head><body>\n";
 	
-<?php
+
   /**** begin html head *****/
    require('htmlhead.php'); 
   //starts main container
   /****end html head content ****/
-?>
+
 
 	echo "<h1>$appname Help Center</h1>\n";
 	echo "<p>Welcome to the $appname Help Center, where you can find information related to using $appname. If the Help Center does not solve your problem, you may contact us using the <a href=\"../needhelp.php\">Need Help form</a>.</p>\n";
