@@ -28,7 +28,7 @@
 	
 
   /**** begin html head *****/
-   require('../dboard/htmlhead.php'); 
+   require('../htmlhead.php'); 
   //starts main container
   /****end html head content ****/
 
