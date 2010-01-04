@@ -25,8 +25,12 @@
 	echo "<title>$appname Help - Known Issues</title>\n";
 	
 	echo "</head><body>\n";
-	require('sidebar.php');
-	echo "<div id=\"content\">\n";
+	
+ /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+
 	echo "<h1>$appname Help Center</h1>\n";
 	echo "<h2>Known Issues</h2>\n";
 	echo "<ul>\n";
@@ -39,6 +43,13 @@
 	else
 		echo "<li>No issues at this time.</li>\n";
 	echo "</ul>\n";
+
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+
+
 ?>	
-<p id="copyright">Copyright &copy; 2009 Illinois Institute of Technology Interprofessional Projects Program. All Rights Reserved.</p>
-</div></body></html>
+</body></html>
