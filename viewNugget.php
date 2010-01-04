@@ -107,8 +107,10 @@
 
 <body>	
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\">";
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 	
 	if(isset($_GET['nug']))
 	{
@@ -140,4 +142,13 @@
 					</script>";
 	}
 ?>
-</div></body></html>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlcontentfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+
+</body></html>
