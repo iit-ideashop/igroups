@@ -148,8 +148,13 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">$topicName</div>\n";
+
+  /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+
+	echo "<div id=\"topbanner\">$topicName</div>\n";
 ?>	
 	<table class="noborder" width="85%">
 	<tr><td style="text-align: left; font-size: smaller; font-weight: bold">Goto Page: 
@@ -190,4 +195,14 @@
 		echo "$page&nbsp;";
 ?>
 </td><td style="text-align: center"><?php echo "<a href=\"dboard.php\">$appname Discussion Board</a> -&gt; $topicName"; ?></td><td style="text-align: right" class="post_options"><?php echo "<a href=\"create.php?mode=thread$topicID$glob\">"; ?><img src="../skins/<?php echo $skin; ?>/img/newthread.png" style="border-style: none" alt="New Thread" title="New Thread" /></a></td></tr><tr style="font-size: smaller; font-weight: bold"><td>Page # <?php echo "$currentPage"; ?></td></tr></table>
-</div></body></html>
+
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body>
+</html>
