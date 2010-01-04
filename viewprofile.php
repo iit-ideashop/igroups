@@ -28,9 +28,12 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+/**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 ?>
-<div id="content"><h1>View User Profile</h1>
+<h1>View User Profile</h1>
 <h2><?php echo "{$contactInfo['sFName']} {$contactInfo['sLName']}"; ?></h2>
 <?php
 	if($profile['sPicture'])
@@ -75,4 +78,11 @@
 </table>
 <br />
 <a href="contactlist.php">&lt;&lt;&lt; Back</a>
-</div></body></html>
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>
