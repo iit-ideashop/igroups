@@ -227,6 +227,29 @@ ul.folderlist ul {
 	padding: 5px;
 }
 
+#bookmarks {
+  width: 400px;
+  float: right;
+}
+
+.bookmarkform {
+   width: 200px;
+   margin-bottom: 20px;
+   padding: 10px;
+   border: 1px solid #CCC; 
+}
+
+.bookmarkform label{
+padding: 4px;
+padding-left: 0px;
+}
+
+.bookmarkform input{
+   width: 100%;
+  border: 1px solid #CCC;
+  margin-bottom: 10px;
+}
+
 #semesterSelect {
 	margin-bottom:10px;
 }
@@ -313,6 +336,10 @@ img #igroupsLogo{
 	width: 75%;
 	margin-top: 0px;
 	padding-top: 20px;
+}
+
+#mainContent p{ 
+   margin-bottom: 20px; 
 }
 
 #externallinks li {
@@ -462,6 +489,7 @@ img #igroupsLogo{
 .clearleft{
    clear: left;
 }
+
 
 
 
