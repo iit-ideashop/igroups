@@ -26,7 +26,7 @@
 	margin:5px;
         margin-right: 0px;
 	padding:2px;
-        width: 27%;
+        width: 500px;
 	min-width: 440px;
 	border:1px solid #000;
 }
@@ -36,7 +36,7 @@
 }
 
 #filebox  table tbody td {
-     max-width: 20px;
+     max-width: 40px;
 }
 
 #filebox table a {
