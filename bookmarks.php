@@ -205,11 +205,11 @@
 			echo '<option value="'.$row[0].'">'.$row[1]."</option>\n";
 ?>
 		</select><br />
-		<input type="submit" name="add" id="add" value="Add Bookmark" />
+		<button type="submit" name="add" id="add">Add Bookmark</button>
 		</fieldset></form>
 		<form class="bookmarkform" id="folderadd" method="post" action="bookmarks.php"><fieldset><legend>Add Folder</legend>
 		<label for="title">Title</label>&nbsp;<input type="text" id="title" name="title" /><br />
-		<input type="submit" name="addf" id="addf" value="Add Folder" />
+		<button type="submit" name="addf" id="addf">Add Folder</button>
 		</fieldset></form>
 <?php
 	}
