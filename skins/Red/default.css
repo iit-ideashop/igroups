@@ -235,8 +235,10 @@ ul.folderlist ul {
 .bookmarkform {
    width: 200px;
    margin-bottom: 20px;
-   padding: 10px;
-   border: 1px solid #CCC; 
+   padding: 10px; 
+border: none;   
+border-top: 2px solid #FF3030;
+   
 }
 
 .bookmarkform label{
@@ -246,8 +248,14 @@ padding-left: 0px;
 
 .bookmarkform input{
    width: 100%;
-  border: 1px solid #CCC;
+  border: 1px solid #FFAEAE;
   margin-bottom: 10px;
+}
+
+.bookmarkform button{
+  margin-top: 10px;
+  border: 2px dashed #999;
+  
 }
 
 #semesterSelect {
