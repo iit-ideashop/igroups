@@ -194,7 +194,7 @@
 	if(!isset($_GET['edit']) || !is_numeric($_GET['edit']))
 	{
 ?>
-		<form method="post" action="bookmarks.php"><fieldset><legend>Add Bookmark</legend>
+		<form id="bookmarkadd" method="post" action="bookmarks.php"><fieldset><legend>Add Bookmark</legend>
 		<label for="title">Title</label>&nbsp;<input type="text" id="title" name="title" /><br />
 		<label for="url">URL</label>&nbsp;<input type="text" id="url" name="url" value="http://" /><br />
 		<label for="desc">Description</label>&nbsp;<input type="text" id="desc" name="desc" /><br />
@@ -207,7 +207,7 @@
 		</select><br />
 		<input type="submit" name="add" id="add" value="Add Bookmark" />
 		</fieldset></form>
-		<form method="post" action="bookmarks.php"><fieldset><legend>Add Folder</legend>
+		<form id="folderadd" method="post" action="bookmarks.php"><fieldset><legend>Add Folder</legend>
 		<label for="title">Title</label>&nbsp;<input type="text" id="title" name="title" /><br />
 		<input type="submit" name="addf" id="addf" value="Add Folder" />
 		</fieldset></form>
