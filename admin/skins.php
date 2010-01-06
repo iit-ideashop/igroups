@@ -53,8 +53,12 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo '<div id="content"><p>Warning: Do not add or edit a skin using this interface unless the requisite CSS files have been placed in the skins folder.</p>';
+		 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+
+	echo '<p>Warning: Do not add or edit a skin using this interface unless the requisite CSS files have been placed in the skins folder.</p>';
 	$query = $db->query('select * from Skins');
 	echo "<form method=\"post\"><fieldset><legend>Edit Skins</legend>\n";
 	echo "<table><tr><th>Skin</th><th>Private</th><th>Default</th><th>Delete</th></tr>\n";
@@ -82,5 +86,14 @@
 <label><input type="checkbox" name="private" /> Private</label><br />
 <input type="submit" value="Create skin" />
 </fieldset></form>
-</div></body>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+
+</body>
 </html>

@@ -196,8 +196,13 @@ function selectAll(name)
 </head>
 <body>
 <?php
-	require("sidebar.php");
-	echo "<div id=\"content\"><div id=\"topbanner\">IPRO Office Files</div>";
+	
+		 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+
+	echo "<div id=\"topbanner\">IPRO Office Files</div>";
 	echo "<form method=\"post\" action=\"iprofiles.php\"><fieldset><ul class=\"prof\">";
 	$lists = $db->query("SELECT iID FROM FileLists");
 	while($row = mysql_fetch_row($lists))
