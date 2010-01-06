@@ -13,5 +13,19 @@
 		
 	</div> 
 	<!-- end main container -->
-<script type="text/javascript" src="../ChangeLocation.js"></script>
-<script type="text/javascript" src="../Announcement.js"></script>
+<script type="text/javascript" >
+// The following function is placed in the HTML head
+function gotoSemesterUrl()
+   {
+   //get sleected index
+   var selectedSemester = document.getElementById('semesterlist').selectedIndex;
+
+   //get value at selected index
+   var url_address = "../".value;
+    
+   //got to location at index
+   window.location.href = url_address;
+
+   }
+</script>
+
