@@ -31,9 +31,13 @@
 			else
 				$message = 'ERROR: Update failed: '.mysql_error();
 		}
-	require('sidebar.php');
+
+ /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 ?>
-		<div id="content">
+		
 		<form method="post" action="editperson.php?id=<?php echo $uid; ?>"><fieldset><legend>Edit Person</legend>
 		<p><b>Primary email:</b> <?php echo $contactInfo['sEmail']; ?></p>
 		<label><b>First name:</b> <input type="text" name="fname" value="<?php echo $contactInfo['sFName']; ?>" /></label><br />
@@ -53,4 +57,12 @@
 <?php
 	}
 ?>
-</div></body></html>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>

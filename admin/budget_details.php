@@ -162,9 +162,12 @@ function hideEvent( id ) {
 </head>
 <body>
 <?php
-	require('sidebar.php');
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 ?>
-	<div id="content"><div id="topbanner">Manage Budgets</div>
+	<div id="topbanner">Manage Budgets</div>
 	<h3><a href="budget.php?">&laquo; Back to Budgets List</a></h3>
 	
 <?php
@@ -306,4 +309,14 @@ function hideEvent( id ) {
 <input type="submit" name="actual_budget_submit" value="Submit" /> <br />
 <div style="margin-top: 5px; color: #666; font-size: 85%;">* If the actual amount is $0, you have to type it in the format of $0.00</div>
 </fieldset></form>
-</div></body></html>
+
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+
+</body></html>
