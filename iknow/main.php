@@ -78,10 +78,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 ?>
-<div id="content">
-<hr />
 <h2><?php echo $appname; ?> Nugget Library</h2>
 <p>Welcome to the <?php echo $appname; ?> Knowledge Management System. Here you can browse the deliverables of IIT's IPRO teams of the past and present. All deliverables and non-deliverables are organized into "nuggets". Nuggets contain downloadable files that make up the deliverable, plus metadata that contains information about the files' author(s) and their description. If you know the name of the team you wish to browse, use the "Browse IPROs" feature to locate it. If you don't know the name of the team, you can search through all of the nuggets by name, author or description.</p>
 <form id="searchForm" method = "post" action="main.php"><fieldset>
@@ -585,4 +586,13 @@
 		echo "<input type=\"hidden\" name=\"search\" value=\"$search\" />";
 		echo "<input type=\"hidden\" name=\"criteria\" value=\"$criteria\" />";
 ?>
-</div></fieldset></form></div></body></html>
+</div></fieldset></form>
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body>
+</html>
