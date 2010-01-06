@@ -38,9 +38,12 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 ?>
-	<div id="content"><div id="topbanner">Manage Budgets</div>
+	<div id="topbanner">Manage Budgets</div>
 	<form method="post" action="budget.php"><fieldset><legend>Select Semester:</legend>
 			<select name="semester">
 <?php
@@ -100,4 +103,12 @@
 <?php
 	}
 ?>	
-</div></body></html>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>

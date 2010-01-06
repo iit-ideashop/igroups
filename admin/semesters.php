@@ -33,8 +33,8 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">Manage Semesters</div>\n";
+
+	echo "<div id=\"topbanner\">Manage Semesters</div>\n";
 	echo "<form action=\"semesters.php\" method=\"post\"><fieldset><legend>Semesters</legend><table>\n";
 	echo "<thead><tr><th>Semester</th><th>Teams</th><th>Make Active</th></tr></thead><tbody>\n";
 	$query = $db->query("select * from Semesters order by iID desc");
@@ -57,4 +57,12 @@
 	echo "<label><input type=\"checkbox\" name=\"newActive\" /> Make Active</label>\n";
 	echo "<input type=\"submit\" name=\"new\" value=\"Create Semester\" /></fieldset></form>\n";
 ?>
-</div></body></html>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>

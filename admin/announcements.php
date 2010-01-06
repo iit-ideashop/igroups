@@ -87,8 +87,11 @@ function clearEditor()
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">Announcements</div>";
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+	echo "<div id=\"topbanner\">Announcements</div>";
 ?>
 	<div class="box">
 		<span class="box-header">Announcement Editor</span>
@@ -150,4 +153,13 @@ function clearEditor()
 		echo htmlspecialchars($announcement->getHeadingJava())."</a></li>\n";
 	}
 ?>
-</ul></div></div></body></html>
+</ul></div>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>

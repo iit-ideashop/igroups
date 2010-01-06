@@ -47,9 +47,12 @@
 </style>
 </head><body>
 <?php
-	require('sidebar.php');
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 ?>
-<div id="content">
+
 <div id="topbanner">Global Bookmarks</div>
 <?php
 	$query = $db->query("select * from Bookmarks where iFolder=1 order by sTitle");
@@ -100,4 +103,12 @@
 <?php
 	}
 ?>
-</div></body></html>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>

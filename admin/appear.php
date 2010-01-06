@@ -22,9 +22,12 @@
 <title><?php echo $appname;?> - Appearance</title>
 </head><body>
 <?php
-	require('sidebar.php');
+		 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 ?>
-<div id="content"><div id="topbanner">Appearance</div>
+<div id="topbanner">Appearance</div>
 <form method="post" action="appear.php"><fieldset>
 <?php
 	$query = mysql_fetch_row($db->query("select sValue from Appearance where sKey='appname' and sCSSAttribute is null"));
@@ -36,4 +39,12 @@
 ?>
 <input type="submit" name="sub" /><input type="reset" />
 </fieldset></form>	
-</div></body></html>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>
