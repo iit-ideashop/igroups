@@ -1,11 +1,11 @@
 <?php
 	session_start();
 
-	include_once('../globals.php');
-	include_once('../classes/db.php');
-	include_once('../classes/person.php');
-	include_once('../classes/group.php');
-	include_once('../classes/semester.php');
+	include_once('globals.php');
+	include_once('classes/db.php');
+	include_once('classes/person.php');
+	include_once('classes/group.php');
+	include_once('classes/semester.php');
 	
 	$db = new dbConnection();
 	
@@ -29,13 +29,13 @@
 		{
 			$_SESSION['userID'] = $row[0];
 			if(isset($_GET['loggingin'])){
-				header('Location: ../index.php');
+				header('Location: index.php');
       }
 		}
 		else if(!$_SESSION['loginError'])
 		{
 			$_SESSION['loginError'] = true;
-			header('Location: ../index.php');
+			header('Location: index.php');
 		}
 	}
 	else if(isset($_SESSION['userID']))
@@ -55,7 +55,7 @@
 ?>
 				<script type="text/javascript">
 				<!--
-					window.location.href="../index.php";
+					window.location.href="index.php";
 				//-->
 				</script>
 <?php
@@ -67,7 +67,7 @@
 ?>
 			<script type="text/javascript">
 			<!--
-				window.location.href="../index.php";
+				window.location.href="index.php";
 			//-->
 			</script>
 <?php
@@ -121,22 +121,22 @@
   /* TODO: It is best to include a <ul> tag here */
 	function printGroupMenu($user, $group)
 	{
-		echo "<li><a href=\"../files.php\">Files</a></li>\n";
-		echo "<li><a href=\"../email.php\">Email</a></li>\n";
-		echo "<li><a href=\"../tasks.php\">Tasks</a></li>\n";
-		echo "<li><a href=\"../calendar.php\">Calendar</a></li>\n";
-		echo "<li><a href=\"../contactlist.php\">Contact List</a></li>\n";
-		echo "<li><a href=\"../grouppictures.php\">Group Pictures</a></li>\n";
-		echo "<li><a href=\"../dboard/dboard.php?a=0\">Discussion Board</a></li>\n";
+		echo "<li><a href=\"files.php\">Files</a></li>\n";
+		echo "<li><a href=\"email.php\">Email</a></li>\n";
+		echo "<li><a href=\"tasks.php\">Tasks</a></li>\n";
+		echo "<li><a href=\"calendar.php\">Calendar</a></li>\n";
+		echo "<li><a href=\"contactlist.php\">Contact List</a></li>\n";
+		echo "<li><a href=\"grouppictures.php\">Group Pictures</a></li>\n";
+		echo "<li><a href=\"dboard/dboard.php?a=0\">Discussion Board</a></li>\n";
 		
     //if($group->getType() == 0 && !$user->isGroupGuest($group))
 		//	echo "<li><a href=\"budget.php\">Budget</a></li>\n";
-		echo "<li><a href=\"../nuggets.php\">iKnow Nuggets</a></li>\n";
-		echo "<li><a href=\"../bookmarks.php\">Bookmarks</a></li>\n";
+		echo "<li><a href=\"nuggets.php\">iKnow Nuggets</a></li>\n";
+		echo "<li><a href=\"bookmarks.php\">Bookmarks</a></li>\n";
 
     /* If user is a moderator, add a link to the group management page */
     if($user->isGroupModerator($group))
-			echo "<li><a href=\"../groupmanagement.php\">Manage Group</a></li>\n";
+			echo "<li><a href=\"groupmanagement.php\">Manage Group</a></li>\n";
 	}
 	
 
@@ -294,22 +294,22 @@
 		{
 			echo "<a href=\"?toggleExpand=admin\"><p class=\"menuTitle\" >Administrative Tools:</p></a>";
 			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">";
-			echo "<li><a href=\"group.php\">Manage Groups</a></li>\n";
-			echo "<li><a href=\"semesters.php\">Manage Semesters</a></li>\n";
-			echo "<li><a href=\"email.php\">Email Groups</a></li>\n";
-			echo "<li><a href=\"nuggets.php\">Manage Nuggets</a></li>\n";
-			echo "<li><a href=\"event.php\">Manage Calendars</a></li>\n";
-			echo "<li><a href=\"../dboard/dboard.php?adminView=1\">Discussion Board</a></li>\n";
-			echo "<li><a href=\"../budget.php\">Manage Budgets</a></li>\n";
-			echo "<li><a href=\"iprofiles.php\">IPRO Office Files</a></li>\n";
-			echo "<li><a href=\"quotas.php\">Group Quotas</a></li>\n";
-			echo "<li><a href=\"reporting.php\">Group Reporting</a></li>\n";
-			echo "<li><a href=\"people.php\">View Person</a></li>\n";
-			echo "<li><a href=\"announcements.php\">Announcements</a></li>\n";
-			echo "<li><a href=\"bookmarks.php\">Bookmarks</a></li>\n";
-			echo "<li><a href=\"skins.php\">Skins</a></li>\n";
-			echo "<li><a href=\"appear.php\">Appearance</a></li>\n";
-			echo "<li><a href=\"help.php\">Manage Help Center</a></li>\n";
+			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>\n";
+			echo "<li><a href=\"admin/semesters.php\">Manage Semesters</a></li>\n";
+			echo "<li><a href=\"admin/email.php\">Email Groups</a></li>\n";
+			echo "<li><a href=\"admin/nuggets.php\">Manage Nuggets</a></li>\n";
+			echo "<li><a href=\"admin/event.php\">Manage Calendars</a></li>\n";
+			echo "<li><a href=\"dboard/dboard.php?adminView=1\">Discussion Board</a></li>\n";
+			echo "<li><a href=\"admin/budget.php\">Manage Budgets</a></li>\n";
+			echo "<li><a href=\"admin/iprofiles.php\">IPRO Office Files</a></li>\n";
+			echo "<li><a href=\"admin/quotas.php\">Group Quotas</a></li>\n";
+			echo "<li><a href=\"admin/reporting.php\">Group Reporting</a></li>\n";
+			echo "<li><a href=\"admin/people.php\">View Person</a></li>\n";
+			echo "<li><a href=\"admin/announcements.php\">Announcements</a></li>\n";
+			echo "<li><a href=\"admin/bookmarks.php\">Bookmarks</a></li>\n";
+			echo "<li><a href=\"admin/skins.php\">Skins</a></li>\n";
+			echo "<li><a href=\"admin/appear.php\">Appearance</a></li>\n";
+			echo "<li><a href=\"admin/help.php\">Manage Help Center</a></li>\n";
 			echo "</ul>";
 		}
 		else
