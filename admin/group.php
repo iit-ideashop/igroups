@@ -181,16 +181,9 @@
   //starts main container
   /****end html head content ****/
 
-	echo '<div id="topbanner">';
-	if($currentSemester)
-		echo $currentSemester->getName();
-	else
-		echo 'All groups';
-	
-	if($currentGroup)
-		echo " - ".$currentGroup->getName();
+
 ?>
-	</div>
+	
 	<table width="85%">
 	<tr>
 	<td style="width:40%">
