@@ -12,4 +12,9 @@
 		<!-- end footer -->
 		
 	</div> 
+<?php 
+/* include all necessary javascript files */
+/* TODO: place all links to scripts in includes file */
+require('scripts.php'); 
+?>
 	<!-- end main container -->
