@@ -87,9 +87,16 @@
 </script>
 </head>
 <body>
+
+
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\">";
+
+
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+
 	if(isset($_GET['nuggetID']))
 	{
 		//proceed with view
@@ -109,4 +116,12 @@
 ?>
 <br />
 <a href="viewIproNuggets.php?id=<?php echo $nugGroup; ?>">Back</a> 
-</div></body></html>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>
