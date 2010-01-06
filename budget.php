@@ -135,8 +135,12 @@ function hideEvent(id)
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">";
+	
+/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/	
+
+	echo "<div id=\"topbanner\">";
 	echo $currentGroup->getName();
 ?>
 </div>
@@ -408,4 +412,7 @@ function hideEvent(id)
 		}	
 	}
 ?>
-</div></body></html>
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?></body></html>
