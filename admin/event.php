@@ -153,9 +153,12 @@ function editEvent(id, name, desc, date)
 </script>
 </head><body>
 <?php
-	require('sidebar.php');
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 ?>
-<div id="content">
+
 <table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
 <tr><td id="ds_calclass">
 </td></tr>
@@ -376,4 +379,13 @@ function editEvent(id, name, desc, date)
 <?php
 	}
 ?>
-<input id="calTarget" type="hidden" /></div></body></html>
+<input id="calTarget" type="hidden" />
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>

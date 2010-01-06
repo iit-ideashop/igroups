@@ -185,8 +185,11 @@
 </head>
 <body onload="hideAllTopics()">
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\">";
+	
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
 	
 	echo "<h1>Help Center Management</h1>\n";
 	echo "<p>Here, you can add, remove, and edit topics that appear in the $appname Help Center.</p>\n";
@@ -299,4 +302,13 @@
 		echo "<input type=\"hidden\" name=\"wknownissueid\" id=\"wknownissueid\" value=\"{$edit['I']}\" /><input type=\"submit\" name=\"knownissue\" value=\"Submit\" /> <input type=\"reset\" /></fieldset></form>\n";
 	echo "</div>\n";
 ?>
-</div></body></html>
+
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>

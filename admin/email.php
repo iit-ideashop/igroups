@@ -111,8 +111,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">E-mail Groups</div>\n";
+		 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+	echo "<div id=\"topbanner\">E-mail Groups</div>\n";
 	
 	if(isset($_POST['delete']) && $_POST['delete'] == 1 && isset($_POST['email']))
 	{
@@ -321,4 +324,14 @@
 <tr><td colspan="2"><label for="body">Body:</label></td></tr>
 <tr><td colspan="2"><textarea name="body" id="body" cols="54" rows="10"></textarea></td></tr>
 <tr><td colspan="2" align="center"><input type="button" value="Spell Check" onclick="openSpellChecker();" />&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" name="send" value="Send Email" /></td></tr>
-</table></fieldset></form></div></div></body></html>
+</table></fieldset></form></div>
+
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+
+</body></html>

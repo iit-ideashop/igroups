@@ -14,8 +14,13 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\">";
+
+	 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+
+
 	if(is_numeric($_POST['gid']) && $_POST['hurdle'] == 1)
 	{
 		echo "<h1>Group Semester Mover Thingy Step 2</h1>\n";
@@ -83,4 +88,11 @@
 		echo "<input type=\"hidden\" name=\"hurdle\" value=\"1\" /><input type=\"submit\" /></fieldset></form>\n";
 	}
 ?>
-</div></body></html>
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>
