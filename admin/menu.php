@@ -300,7 +300,7 @@
 			echo "<li><a href=\"nuggets.php\">Manage Nuggets</a></li>\n";
 			echo "<li><a href=\"event.php\">Manage Calendars</a></li>\n";
 			echo "<li><a href=\"../dboard/dboard.php?adminView=1\">Discussion Board</a></li>\n";
-			echo "<li><a href=\"budget.php\">Manage Budgets</a></li>\n";
+			echo "<li><a href=\"../budget.php\">Manage Budgets</a></li>\n";
 			echo "<li><a href=\"iprofiles.php\">IPRO Office Files</a></li>\n";
 			echo "<li><a href=\"quotas.php\">Group Quotas</a></li>\n";
 			echo "<li><a href=\"reporting.php\">Group Reporting</a></li>\n";
