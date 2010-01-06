@@ -330,4 +330,12 @@ function selectAll(name)
 		</div>
 <?php
 	}
-?></div></body></html>
+?>
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+ ?>
+</body></html>

@@ -95,8 +95,11 @@ function nuggetRedirect(nugget)
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\">";
+		 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+
 	if(isset($_GET['nuggetID']))
 	{
 		//proceed with view

@@ -18,8 +18,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\">";
+		 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+
 	if(isset($_GET['email']) || (isset($_GET['uid']) && is_numeric($_GET['uid'])))
 	{
 		if(isset($_GET['uid']) && is_numeric($_GET['uid']))
@@ -150,4 +153,11 @@ if($profile['sPicture'])
 <?php
 	}
 ?>
-</div></body></html>
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>

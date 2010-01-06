@@ -181,8 +181,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\">";
+		 /**** begin html head *****/
+   require('htmlhead.php'); 
+  //starts main container
+  /****end html head content ****/
+	
 	//Prints all notifications
 	$id = $_GET['id'];
 	$sem = $db->query("Select iSemesterID FROM ProjectSemesterMap WHERE iProjectID = $id ORDER BY iSemesterID DESC");
@@ -196,4 +199,11 @@
 	displayNonDefaultNuggets($currentGroup, $semID, $db);
 	echo "<br /><a href=\"nuggets.php\">Back</a>";
 ?>
-</div></body></html>
+<?php
+ 	/**** begin html footer*****/
+  //include rest of html layout file
+  require('htmlfoot.php');
+  // ends main container
+  /****** end html footer*****/
+?>
+</body></html>
