@@ -91,7 +91,9 @@ foreach($altskins as $altskin)
 	</head>
 		<body onload="init()">
 <?php
-	require("sidebar.php");
+ /**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/
 
 	$log = $currentGroup->getTimeLog();
 	$users = $currentGroup->getGroupUsers();
@@ -188,6 +190,9 @@ foreach($altskins as $altskin)
 <?php
 	} 
 	}
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+
 		print "</body></html>";
 		die();
 	}	
@@ -205,9 +210,11 @@ foreach($altskins as $altskin)
 </head>
 <body>
 <?php
-require("sidebar.php");
+  /**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/
 ?>
-	<div id="content"><div id="topbanner">
+<div id="topbanner">
 <?php
 		print $currentGroup->getName();
 ?>
@@ -372,5 +379,10 @@ require("sidebar.php");
 <?php
 	}
 ?>
-</div></body>
+
+<?php
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body>
 </html>
