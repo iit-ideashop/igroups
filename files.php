@@ -695,7 +695,13 @@
 ?>
 	</table></div>
 	</fieldset></form>
-	</div></div>
+	</div>
+
+<br class="clearboth" />
+</div>
+
+
+
 	<div class="window-content" id="upload" style="display: none">
 		<form method="post" action="files.php<?php echo $suffix; ?>" enctype="multipart/form-data"><fieldset>
 			<label for="thefile1">File:</label><input type="file" name="thefile" id="thefile1" /><br />
