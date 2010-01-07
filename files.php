@@ -463,66 +463,8 @@
   </div>
 <!-- end Div for quota -->
 <div id="container"> 
-  <div id="folderbox">
-
-	<div class="columnbanner">Your Folders:</div>
-	<div class="menubar">
-	<ul class="folderlist">
-<?php
-	if(!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial']))
-	{
-		echo "<li><a href=\"#\" onclick=\"newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Create Folder</a></li>\n";
-		if($currentUser->isGroupModerator($currentGroup) && !isset($_SESSION['selectedSpecial']) && $_SESSION['selectedFolder'] != 0)
-			echo "<li><a href=\"#\" onclick=\"editfolderwin=dhtmlwindow.open('editfolderbox', 'div', 'editfolder', 'Edit Folder', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Edit/Delete Folder</a></li>\n";
-		echo "</ul>\n";
-	}
-	echo "</div>\n<div id=\"folders\"><ul id=\"top\" class=\"folderlist\">\n";
-	if(!isset($_SESSION['selectedSpecial']) && $_SESSION['selectedFolder'] == 0)
-		echo '<li><img src="skins/'.$skin.'/img/folder-expanded.png" alt="=" title="Open folder" />&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
-	else
-		echo '<li><img src="skins/'.$skin.'/img/folder-expanded.png" alt="=" title="Open folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
-					
-	$topFolders = $currentGroup->getGroupFolders();
-	if(count($topFolders) > 0)
-	{
-		echo "<ul class=\"folderlist\">";
-							
-		foreach($topFolders as $key => $val)
-			printFolder( $val );
-		echo "</ul>\n";
-	}
-	echo "</li>\n";
-
-	if($_SESSION['selectedSpecial'] == 'obsolete')
-		echo "\t<li><a href=\"files.php?selectSpecial=obsolete\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href=\"files.php?selectSpecial=obsolete\">Past Versions</a></strong></li>\n";
-	else
-		echo "\t<li><a href=\"files.php?selectSpecial=obsolete\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectSpecial=obsolete\">Past Versions</a></li>\n";
-	if($_SESSION['selectedSpecial'] == 'trash')
-		echo "\t<li><a href=\"files.php?selectSpecial=trash\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href=\"files.php?selectSpecial=trash\">Trash Bin</a></strong</li>\n";
-	else
-		echo "<li><a href=\"files.php?selectSpecial=trash\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectSpecial=trash\">Trash Bin</a></li>\n";
-
-	if($currentGroup->getType() == 0)
-	{
-		if($_SESSION['selectedSpecial'] == 'ipro')
-			echo "\t<li><a href=\"files.php?toggleExpand=iprofiles\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href=\"files.php?selectSpecial=ipro\">IPRO Office Files</a></strong>";
-		else
-			echo "\t<li><a href=\"files.php?toggleExpand=iprofiles\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectSpecial=ipro\">IPRO Office Files</a>";
-
-		if(in_array('iprofiles', $_SESSION['expandFolders']))
-		{
-			echo "<ul class=\"folderlist\">\n";
-			$topFolders = $currentGroup->getIPROOfficeFolders();
-			foreach($topFolders as $key => $val)
-				printFolder($val);
-			echo "</ul>\n";
-		}
-		echo "</li>\n";
-	}
-?>
-	<li><img src="skins/<?php echo $skin; ?>/img/folder.png" style="border-style: none" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
-	</ul></div></div>
-	<div id="filebox"><div class="columnbanner">
+  
+<div id="filebox"><div class="columnbanner">
 <?php
 	if($currentFolder)
 	{
@@ -696,6 +638,68 @@
 	</table></div>
 	</fieldset></form>
 	</div>
+
+<div id="folderbox">
+
+	<div class="columnbanner">Your Folders:</div>
+	<div class="menubar">
+	<ul class="folderlist">
+<?php
+	if(!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial']))
+	{
+		echo "<li><a href=\"#\" onclick=\"newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Create Folder</a></li>\n";
+		if($currentUser->isGroupModerator($currentGroup) && !isset($_SESSION['selectedSpecial']) && $_SESSION['selectedFolder'] != 0)
+			echo "<li><a href=\"#\" onclick=\"editfolderwin=dhtmlwindow.open('editfolderbox', 'div', 'editfolder', 'Edit Folder', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Edit/Delete Folder</a></li>\n";
+		echo "</ul>\n";
+	}
+	echo "</div>\n<div id=\"folders\"><ul id=\"top\" class=\"folderlist\">\n";
+	if(!isset($_SESSION['selectedSpecial']) && $_SESSION['selectedFolder'] == 0)
+		echo '<li><img src="skins/'.$skin.'/img/folder-expanded.png" alt="=" title="Open folder" />&nbsp;<strong><a href="files.php?selectFolder=0">Your Files</a></strong>';
+	else
+		echo '<li><img src="skins/'.$skin.'/img/folder-expanded.png" alt="=" title="Open folder" />&nbsp;<a href="files.php?selectFolder=0">Your Files</a>';
+					
+	$topFolders = $currentGroup->getGroupFolders();
+	if(count($topFolders) > 0)
+	{
+		echo "<ul class=\"folderlist\">";
+							
+		foreach($topFolders as $key => $val)
+			printFolder( $val );
+		echo "</ul>\n";
+	}
+	echo "</li>\n";
+
+	if($_SESSION['selectedSpecial'] == 'obsolete')
+		echo "\t<li><a href=\"files.php?selectSpecial=obsolete\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href=\"files.php?selectSpecial=obsolete\">Past Versions</a></strong></li>\n";
+	else
+		echo "\t<li><a href=\"files.php?selectSpecial=obsolete\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectSpecial=obsolete\">Past Versions</a></li>\n";
+	if($_SESSION['selectedSpecial'] == 'trash')
+		echo "\t<li><a href=\"files.php?selectSpecial=trash\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href=\"files.php?selectSpecial=trash\">Trash Bin</a></strong</li>\n";
+	else
+		echo "<li><a href=\"files.php?selectSpecial=trash\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectSpecial=trash\">Trash Bin</a></li>\n";
+
+	if($currentGroup->getType() == 0)
+	{
+		if($_SESSION['selectedSpecial'] == 'ipro')
+			echo "\t<li><a href=\"files.php?toggleExpand=iprofiles\"><img src=\"skins/$skin/img/folder-expanded.png\" alt=\"-\" title=\"Open folder\" /></a>&nbsp;<strong><a href=\"files.php?selectSpecial=ipro\">IPRO Office Files</a></strong>";
+		else
+			echo "\t<li><a href=\"files.php?toggleExpand=iprofiles\"><img src=\"skins/$skin/img/folder.png\" alt=\"+\" title=\"Folder\" /></a>&nbsp;<a href=\"files.php?selectSpecial=ipro\">IPRO Office Files</a>";
+
+		if(in_array('iprofiles', $_SESSION['expandFolders']))
+		{
+			echo "<ul class=\"folderlist\">\n";
+			$topFolders = $currentGroup->getIPROOfficeFolders();
+			foreach($topFolders as $key => $val)
+				printFolder($val);
+			echo "</ul>\n";
+		}
+		echo "</li>\n";
+	}
+?>
+	<li><img src="skins/<?php echo $skin; ?>/img/folder.png" style="border-style: none" alt="+" title="Folder" />&nbsp;<a href="dropbox.php">Secure Dropbox</a></li>
+	</ul>
+</div>
+</div>
 
 <br class="clearboth" />
 </div>
