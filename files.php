@@ -458,7 +458,7 @@
     Current Quota Used: <?php echo "$quotaUsed"; ?>%
     </p>
     <div class="quotaBar">
-    <div class="quotaBarIndicator" style="width: <?php echo "$quotaPix"; ?>px" ></div>
+    <div class="quotaBarIndicator" style="width:<?php echo $quotaPix; ?>px;" ></div>
     </div>
   </div>
 <!-- end Div for quota -->
