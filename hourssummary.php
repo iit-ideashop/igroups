@@ -48,9 +48,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+	 /**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/
 ?>
-<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
+<div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 if(isset($user) && isset($tasks))
 { //Show an individual hours summary
@@ -231,4 +233,9 @@ else
 	echo "</tbody></table>\n";
 }
 ?>
-</div></body></html>
+<?php
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body>
+</html>
