@@ -100,9 +100,13 @@ foreach($altskins as $altskin)
 	}
 	if($empty == 1)
 		$message = "Error: Description cannot be blank";
-	require("sidebar.php");
+	
 ?>
-<div id="content">
+<?php
+/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/
+>
 <table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
 <tr><td id="ds_calclass">
 </td></tr>
@@ -601,5 +605,9 @@ function ds_onclick(d, m, y) {
 </div>
 <input id="calTarget" type="hidden" value="date" />
 <input id="calTaskTarget" type="hidden" value="taskDate" />
-</div></body>
+<?php
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body>
 </html>
