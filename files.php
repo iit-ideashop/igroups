@@ -446,7 +446,7 @@
    require('htmlhead.php'); //starts main container
   /****end html head content ****/
 ?>
-  <div id="container"> 
+  
   
   <!-- div for quota view goes here -->
   <?php 
@@ -462,7 +462,7 @@
     </div>
   </div>
 <!-- end Div for quota -->
-
+<div id="container"> 
   <div id="folderbox">
 
 	<div class="columnbanner">Your Folders:</div>
