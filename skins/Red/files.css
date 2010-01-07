@@ -1,7 +1,6 @@
 @import url('default.css');
 
 #container{
-	margin:auto;
 	padding:0;
 }
 
@@ -22,11 +21,10 @@
 }
 
 #filebox{
-	float:left;
-	margin:5px;
-        margin-right: 0px;
+	float:right;
+	margin-left:5px;
 	padding:2px;
-  width: 470px;
+        width: 470px;
 	min-width: 440px;
 	border:1px solid #000;
 }
@@ -104,4 +102,5 @@ ul.prof ul {
 
 
 }
+
 
