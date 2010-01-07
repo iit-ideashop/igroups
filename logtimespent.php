@@ -106,7 +106,7 @@ foreach($altskins as $altskin)
 /**** begin html head *****/
    require('htmlhead.php'); //starts main container
   /****end html head content ****/
->
+?>
 <table class="ds_box" cellpadding="0" cellspacing="0" id="ds_conclass" style="display: none;">
 <tr><td id="ds_calclass">
 </td></tr>
