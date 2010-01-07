@@ -405,7 +405,6 @@
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/files.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
 <title><?php echo $appname; ?> - Files</title>
-<script type="text/javascript" src="ChangeLocation.js"></script>
 <script type="text/javascript" src="windowfiles/dhtmlwindow.js">
 /***********************************************
 * DHTML Window Widget- © Dynamic Drive (www.dynamicdrive.com)
@@ -443,10 +442,13 @@
 <body>
 <?php
 	
-	 /**** begin html head *****/
+	/**** begin html head *****/
    require('htmlhead.php'); //starts main container
-  /****end html head content ****/	
+  /****end html head content ****/
+
+	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 ?>
+  <div id="container"> 
   
   <!-- div for quota view goes here -->
   <?php 
@@ -460,7 +462,6 @@
     <div class="quotaBar">
     <div class="quotaBarIndicator" style="width: <?php echo "$quotaPix"; ?>px" ></div>
     </div>
-    <br class="clearboth" />
   </div>
 <!-- end Div for quota -->
 
@@ -560,9 +561,7 @@
 	}
 ?>			
 	</div>
-	<form method="post" action="files.php<?php echo $suffix; ?>">
-<fieldset>
-
+	<form method="post" action="files.php<?php echo $suffix; ?>"><fieldset>
 	<div class="menubar">
 <?php
 	if(!$currentUser->isGroupGuest($currentGroup))
@@ -605,7 +604,7 @@
 ?>
 	</div>
 	<div id="files">
-	<table>
+	<table width="100%">
 <?php
 	if($_SESSION['selectedSpecial'] != 'ipro')
 	{
@@ -696,14 +695,9 @@
 	else
 		echo "<tr><td>You do not have access to view the files in this folder.</td></tr>\n";
 ?>
-	</table>
-</div> 
+	</table></div>
 	</fieldset></form>
-</div>
-
-<br class="clearboth" />
-</div>
-
+	</div></div>
 	<div class="window-content" id="upload" style="display: none">
 		<form method="post" action="files.php<?php echo $suffix; ?>" enctype="multipart/form-data"><fieldset>
 			<label for="thefile1">File:</label><input type="file" name="thefile" id="thefile1" /><br />
@@ -818,11 +812,9 @@
 <?php
 	}
 ?>
-
 <?php
 //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container
-?>
 
-</body>
-</html>
+?>
+</body></html>
