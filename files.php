@@ -447,7 +447,6 @@
    require('htmlhead.php'); //starts main container
   /****end html head content ****/	
 ?>
-  <div id="container"> 
   
   <!-- div for quota view goes here -->
   <?php 
@@ -700,8 +699,8 @@
 	</table>
 </div> 
 	</fieldset></form>
-	
 </div>
+
 <br class="clearboth" />
 </div>
 
