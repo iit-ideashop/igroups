@@ -1,13 +1,20 @@
 @import url('default.css');
 
 .box {
-	width:40%;
+  width:50%;
+}
+
+form {
+width : 100%;
+}
+
+.box form input, textarea{
+max-width: 320px;
 }
 
 #announcement-list {
-	position:absolute;
-	left:70%;
-	top:0%;
+ float: right;
+ width: 40%;
 }
 		
 #calendarmenu {
@@ -31,3 +38,4 @@ h2 {
 	color:#CC0000;
 	margin-bottom:5px;
 }
+
