@@ -70,9 +70,13 @@ function toggle(id)
 </head>
 <body>
 <?php
-	require('sidebar.php');
+	
+  /**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/
+
 ?>
-<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
+<div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	echo "<h1>{$task->getName()}</h1>\n";
 	if(is_numeric($_GET['del']))
@@ -169,5 +173,10 @@ function toggle(id)
 	else
 		echo "<p>No subgroups are assigned to this task.</p>\n";*/
 	echo "<p><a href=\"tasks.php\">Return to main tasks listing</a></p>\n";
+
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+
 ?>
-</div></body></html>
+
+</body></html>
