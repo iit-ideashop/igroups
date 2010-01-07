@@ -106,7 +106,20 @@ function clearEditor()
 			<input type="submit" id="edit2" name="deleteannouncement" value="Delete Announcement" />
 			<input type="button" onclick="clearEditor()" value="Reset Editor" />
 		</fieldset></form>
-	</div>	
+	</div>
+<div id="announcement-list">
+	<h2>Current Announcements</h2>
+	<ul>
+<?php
+	$announcementResults = $db->query('SELECT iID FROM News ORDER BY iID DESC');
+	while($row = mysql_fetch_row($announcementResults))
+	{
+		$announcement = new Announcement($row[0], $db);
+		echo "<li><a href=\"#\" onclick=\"loadEditor( ".$announcement->getID().", '".htmlspecialchars($announcement->getHeadingJava())."', '".htmlspecialchars($announcement->getBodyJava())."', '".$announcement->getExpirationDate()."' );\">";
+		echo htmlspecialchars($announcement->getHeadingJava())."</a></li>\n";
+	}
+?>
+</ul></div>
 	<div id="calendarmenu">
 	<table><tr>
 <?php
@@ -141,19 +154,7 @@ function clearEditor()
 	}
 ?>
 	</tr></table></div>
-	<div id="announcement-list">
-	<h2>Current Announcements</h2>
-	<ul>
-<?php
-	$announcementResults = $db->query('SELECT iID FROM News ORDER BY iID DESC');
-	while($row = mysql_fetch_row($announcementResults))
-	{
-		$announcement = new Announcement($row[0], $db);
-		echo "<li><a href=\"#\" onclick=\"loadEditor( ".$announcement->getID().", '".htmlspecialchars($announcement->getHeadingJava())."', '".htmlspecialchars($announcement->getBodyJava())."', '".$announcement->getExpirationDate()."' );\">";
-		echo htmlspecialchars($announcement->getHeadingJava())."</a></li>\n";
-	}
-?>
-</ul></div>
+	
 
 <?php
  	/**** begin html footer*****/
