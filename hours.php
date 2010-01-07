@@ -31,9 +31,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+	/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/
 ?>
-<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
+<div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	if($currentUser->isGroupModerator($currentGroup) || $task->getCreator()->getID() == $currentUser->getID())
 	{
@@ -66,4 +68,9 @@
 	}
 	echo "<p><a href=\"tasks.php\">Return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n</fieldset></form><div id=\"caldiv\"></div>\n";
 ?>
-</div></body></html>
+
+<?php
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body></html>
