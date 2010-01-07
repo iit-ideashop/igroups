@@ -59,9 +59,12 @@ foreach($altskins as $altskin)
 </head>
 <body>
 <?php
-require("sidebar.php");
+
+  /**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/
 ?>
-	<div id="content"><div id="topbanner">
+<div id="topbanner">
 <?php
 		print $currentGroup->getName();
 ?>
@@ -113,5 +116,10 @@ require("sidebar.php");
 
 ?>
 	</table><br />
-</div></body>
+
+<?php
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body>
 </html>
