@@ -349,10 +349,10 @@
 			else {
 				$usercount = count($users);
 			}
-				$emailsAvg = round($emailsAll / usercount, 1);
-				$filesAvg = round($filesAll / usercount, 1);
-				$eventsAvg = round($eventsAll / usercount, 1);
-				$picsAvg = round($picsAll / usercount, 1);
+				$emailsAvg = round($emailsAll / $usercount, 1);
+				$filesAvg = round($filesAll / $usercount, 1);
+				$eventsAvg = round($eventsAll / $usercount, 1);
+				$picsAvg = round($picsAll / $usercount, 1);
      
 ?>
 			<br />
