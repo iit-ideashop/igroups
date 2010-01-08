@@ -344,15 +344,15 @@
       
 			if( count($users) < 1)
 			{    
-				count = 1;
+				$usercount = 1;
 			}
 			else {
-				count = count($users);
+				$usercount = count($users);
 			}
-				$emailsAvg = round($emailsAll / count, 1);
-				$filesAvg = round($filesAll / count, 1);
-				$eventsAvg = round($eventsAll / count, 1);
-				$picsAvg = round($picsAll / count, 1);
+				$emailsAvg = round($emailsAll / usercount, 1);
+				$filesAvg = round($filesAll / usercount, 1);
+				$eventsAvg = round($eventsAll / usercount, 1);
+				$picsAvg = round($picsAll / usercount, 1);
      
 ?>
 			<br />
