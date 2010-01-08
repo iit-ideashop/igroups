@@ -344,10 +344,10 @@
       
 			if( count($users) < 1)
 			{    
-				count = 1
+				count = 1;
 			}
 			else {
-				count = count($users)
+				count = count($users);
 			}
 				$emailsAvg = round($emailsAll / count, 1);
 				$filesAvg = round($filesAll / count, 1);
