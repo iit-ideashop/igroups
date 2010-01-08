@@ -341,11 +341,19 @@
 
 			$users = $group->getGroupMembers();
 			$users = peopleSort($users);
-
-			$emailsAvg = round($emailsAll / count($users), 1);
-			$filesAvg = round($filesAll / count($users), 1);
-			$eventsAvg = round($eventsAll / count($users), 1);
-			$picsAvg = round($picsAll / count($users), 1);
+      
+			if( count($users) < 1)
+			{    
+				count = 1
+			}
+			else {
+				count = count($users)
+			}
+				$emailsAvg = round($emailsAll / count, 1);
+				$filesAvg = round($filesAll / count, 1);
+				$eventsAvg = round($eventsAll / count, 1);
+				$picsAvg = round($picsAll / count, 1);
+     
 ?>
 			<br />
 			<a name="<?php echo "{$group->getID()}"; ?>"></a>
