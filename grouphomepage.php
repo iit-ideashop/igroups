@@ -229,6 +229,7 @@
 		echo $scratchBlurb;
 	?>
 	</span>
+	<button id="scratchpadedit">Edit</button>
 	</div>
 	<form method="post" id="scratchpadform" action="grouphomepage.php"><fieldset><legend>Update Scratchpad</legend>
 <?php
