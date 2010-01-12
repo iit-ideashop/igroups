@@ -94,4 +94,16 @@
 	font-size: smaller;
 }
 
+#scratchpad {
+  height: 280px;
+  overflow: hidden;
+}
 
+#scratchpadtext{
+  margin-bottom: 10px;
+}
+
+#scratchpadtext p {
+ color: #333; 
+ margin: 0px;
+}
