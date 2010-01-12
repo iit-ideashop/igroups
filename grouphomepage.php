@@ -354,4 +354,11 @@
 //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container
 ?>	
-</body></html>
+</body>
+<script type="text/javascript">
+$(document).ready(function(){
+	$("#scratchpadedit").click(
+		$("#scratchpadtext").slideUp("slow"); 
+	);
+});
+</script></html>
