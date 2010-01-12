@@ -357,8 +357,8 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
-	$("#scratchpadedit").click(
+	$("#scratchpadedit").click(function(){
 		$("#scratchpadtext").slideUp("slow"); 
-	);
+	});
 });
 </script></html>
