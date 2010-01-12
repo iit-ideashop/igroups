@@ -218,6 +218,7 @@
 	<div id="scratchpad">
 	<p>
 	<?php
+	    echo htmlspecialchars($currentGroup->getScratch());
 		echo $scratchBlurb;
 	?>
 	</p>
