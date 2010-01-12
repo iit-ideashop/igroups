@@ -108,7 +108,13 @@
   margin-bottom: 10px;
 }
 
+#scratchpadtext button {
+	border: 1px solid #999;
+}
+
 #scratchpadtext p {
  color: #333; 
  margin: 0px;
 }
+
+
