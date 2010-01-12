@@ -216,20 +216,19 @@
 ?>
 	</div>
 	<div id="scratchpad">
-	<p>
+	<p id="scratchpadtext">
 	<?php
 	    echo htmlspecialchars($currentGroup->getScratch());
-		echo $scratchBlurb;
 	?>
 	</p>
+	<span id="scratchpadinfo">
+	<?php 
+		echo $scratchBlurb;
+	?>
+	</span>
 	<form method="post" action="grouphomepage.php"><fieldset><legend>Group Scratchpad</legend>
 <?php
-	if($currentUser->isGroupGuest($currentGroup))
-	{
-		echo "<textarea rows=\"10\" cols=\"40\" disabled=\"disabled\">".htmlspecialchars($currentGroup->getScratch())."</textarea>\n";
-		echo $scratchBlurb;
-	}
-	else
+	if(!$currentUser->isGroupGuest($currentGroup))
 	{
 		echo "<textarea rows=\"10\" cols=\"40\" name=\"scratchpad\">".htmlspecialchars($currentGroup->getScratch())."</textarea><br />\n";
 		echo $scratchBlurb;
