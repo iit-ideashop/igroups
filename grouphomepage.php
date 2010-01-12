@@ -224,11 +224,9 @@
 	    echo htmlspecialchars($currentGroup->getScratch());
 	?>
 	</p>
-	<span id="scratchpadinfo">
 	<?php 
 		echo $scratchBlurb;
 	?>
-	</span>
 	<button id="scratchpadedit">Edit</button>
 	</div>
 	<form method="post" id="scratchpadform" action="grouphomepage.php"><fieldset>
