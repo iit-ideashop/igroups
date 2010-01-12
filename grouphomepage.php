@@ -231,7 +231,7 @@
 	</span>
 	<button id="scratchpadedit">Edit</button>
 	</div>
-	<form method="post" id="scratchpadform" action="grouphomepage.php"><fieldset><legend>Update Scratchpad</legend>
+	<form method="post" id="scratchpadform" action="grouphomepage.php"><fieldset>
 <?php
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
