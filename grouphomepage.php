@@ -231,7 +231,6 @@
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
 		echo "<textarea rows=\"10\" cols=\"40\" name=\"scratchpad\">".htmlspecialchars($currentGroup->getScratch())."</textarea><br />\n";
-		echo $scratchBlurb;
 		echo "<input type=\"submit\" name=\"scratch\" value=\"Update Scratchpad\" /> <input type=\"reset\" />\n";
 	}
 ?>
