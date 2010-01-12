@@ -356,7 +356,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
 	$("#scratchpadedit").click(function(){
-		$("#scratchpadtext").slideUp("slow"); 
+		$("#scratchpadtext").slideUp("slow");
+		$("#scratchpadtext").css('display' : 'none');
 	});
 });
 </script></html>
