@@ -216,6 +216,7 @@
 ?>
 	</div>
 	<div id="scratchpad">
+	<h1>Group Scratchpad</h1>
 	<p id="scratchpadtext">
 	<?php
 	    echo htmlspecialchars($currentGroup->getScratch());
@@ -226,7 +227,7 @@
 		echo $scratchBlurb;
 	?>
 	</span>
-	<form method="post" action="grouphomepage.php"><fieldset><legend>Group Scratchpad</legend>
+	<form method="post" id="scratchpadform" action="grouphomepage.php"><fieldset><legend>Update Scratchpad</legend>
 <?php
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
