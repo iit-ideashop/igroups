@@ -342,6 +342,7 @@
 			$users = $group->getGroupMembers();
 			$users = peopleSort($users);
       
+      // added if statement below to fix a divide by zero bug
 			if( count($users) < 1)
 			{    
 				$usercount = 1;

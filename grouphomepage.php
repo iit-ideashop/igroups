@@ -216,6 +216,11 @@
 ?>
 	</div>
 	<div id="scratchpad">
+	<p>
+	<?php
+		echo $scratchBlurb;
+	?>
+	</p>
 	<form method="post" action="grouphomepage.php"><fieldset><legend>Group Scratchpad</legend>
 <?php
 	if($currentUser->isGroupGuest($currentGroup))
