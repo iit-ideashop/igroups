@@ -97,7 +97,11 @@
 #scratchpad {
   height: 240px;
   overflow: hidden;
-  padding-top: 20px;
+  padding-top: 10px;
+}
+
+#scratchpadform textarea {
+	margin-bottom: 5px;
 }
 
 #scratchpadtext{
