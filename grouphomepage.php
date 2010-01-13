@@ -360,10 +360,10 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
-	$
+	
 	$("#scratchpadedit").click(function(){
+		$("#scratchpadtext").css({'display' : 'block'});
 		$("#scratchpadtext").slideUp("slow");
-		/*$("#scratchpadtext").css({'display' : 'none'});*/
 	});
 });
 </script></html>
