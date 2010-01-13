@@ -10,6 +10,7 @@
 		$("#datepick").datepicker({ dateFormat: 'yy-mm-dd', showOn: 'focus' });
 		
 	});
-	</script>
-<!--<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js></script>-->
+</script>
+<script type="text/javascript" src="scripts/js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="scripts/js/jquery-ui-1.7.2.custom.min.js"></script>
+<link type="text/css" href="skins/default/custom-theme/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
