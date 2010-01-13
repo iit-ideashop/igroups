@@ -246,7 +246,7 @@ min-height:105px;
 border:none;
 border-top:1px dashed #CCC;
 border-bottom:1px solid #FFAEAE;
-padding-top:5px;
+padding-top:4px;
 }
 
 img #igroupsLogo {
@@ -288,7 +288,7 @@ border-bottom:1px dashed #CCC;
 }
 
 #mainNavigation {
-margin-top:15%;
+margin-top:14%;
 margin-right:0;
 }
 
@@ -297,7 +297,7 @@ float:left;
 margin-left:4px;
 border:1px solid #FFAEAE;
 background-color:#FFEDED;
-padding:5px 6px;
+padding:6px 6px;
 }
 
 #mainNavigation li a {
@@ -440,4 +440,5 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
 
