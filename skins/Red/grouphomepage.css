@@ -7,6 +7,38 @@
 #scratchpad {
        width: 99%;
        padding-top: 10px;
+         height: 240px;
+  overflow: hidden;
+  padding-top: 10px;
+}
+
+#scratchpadform {
+      display: none;
+   
+}
+
+#scratchpad form {
+      width: 98%;
+}
+
+#scratchpadform textarea {
+	margin-bottom: 10px;
+      width: 100%;
+      font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+   font-size: 12px;
+}
+
+#scratchpadtext{
+  margin-bottom: 10px;
+}
+
+#scratchpadtext button {
+	border: 1px dashed #999;
+}
+
+#scratchpadtext p {
+ color: #333; 
+ margin: 0px;
 }
 
 #scratchpad p {
@@ -26,11 +58,7 @@
       background-color: #FFF;
 }
 
-#scratchpad textarea {
-      width: 100%;
-      font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
-      font-size: 12px;
-}
+
 #announcements {
 	margin:10px;
         margin-left: 0px;
@@ -92,29 +120,6 @@
 .timeago
 {
 	font-size: smaller;
-}
-
-#scratchpad {
-  height: 240px;
-  overflow: hidden;
-  padding-top: 10px;
-}
-
-#scratchpadform textarea {
-	margin-bottom: 10px;
-}
-
-#scratchpadtext{
-  margin-bottom: 10px;
-}
-
-#scratchpadtext button {
-	border: 1px dashed #999;
-}
-
-#scratchpadtext p {
- color: #333; 
- margin: 0px;
 }
 
 
