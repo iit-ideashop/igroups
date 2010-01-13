@@ -33,7 +33,7 @@ body{
 	background:#fff;
 	font-family:"lucida grande",Helvetica,"Trebuchet MS",Arial,sans-serif;
 	font-size:11px;
-	color:#333;
+	color:#000;
 	margin:0;
 	padding:0;
 	text-align:left;
@@ -286,19 +286,6 @@ table.bordered, table.bordered th, table.bordered td {
 	border-collapse: collapse;
 }
 
-/* New layout css code */
-body{
-	background:#fff;
-	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
-	font-size:11px;
-	color:#333;
-	margin:0;
-	padding:0;
-	text-align:left;
-	direction:ltr;
-	margin-top: 20px;
-}
-
 #mainContainer {
   width: 90%;
   max-width: 900px;
@@ -367,10 +354,10 @@ img #igroupsLogo{
 
 #mainNavigation li {
 	float: left;
-	padding: 5px 7px 5px 6px;
+	padding: 5px 6px 5px 6px;
 	margin-left: 4px;
 	border: 1px solid #FFAEAE;
-	background-color: #ffd3d3;
+	background-color: #FFEDED;
 }
 
 
@@ -379,13 +366,14 @@ img #igroupsLogo{
 	font-size: 100%;
 	font-weight: bold;
 	text-transform: uppercase;
-	font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
-	color: #c30000;
+	font-family: Tahoma,Verdana,Arial,Sans-serif;
+	color: #222;
 }
 
 #mainNavigation li:hover {
 	background-color: #FFF;
 	border-bottom: 1px solid #FFF;
+        color: #000;
 }
 
 #uniSidebar {
@@ -428,9 +416,7 @@ img #igroupsLogo{
       color: #c30000;
 } 
 #uniSidebar .menuTitle {
-      border: 1px solid #FFAEAE;
-      border-left: none;
-      border-right: none;
+      border-top: none;
       font-weight: bold;
       font-size: 14px;
 } 
@@ -440,8 +426,7 @@ img #igroupsLogo{
 	margin-top: 0px;
 	float: left;
 	border-top: 3px solid #FF3030;
-	border-bottom: 3px solid #ff6666;
-
+	border-bottom: none;
 }
 
 #uniSidebar .subnavigation li {
@@ -499,3 +484,4 @@ img #igroupsLogo{
 #timesheet textarea {
 width : 300px;
 }
+
