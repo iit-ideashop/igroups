@@ -383,7 +383,7 @@ function ds_onclick(d, m, y) {
 	<p>To add a new timesheet entry or projected task, first enter the date in MM/DD/YYYY format or select it from a calendar by clicking 'Select Date'. Then, enter the number of hours worked (use .5 for half hours) and briefly describe the tasks performed. Add the new entry or task by clicking 'Add'. You can edit or delete any entry by clicking on it.</p>
 	<p>To view a report of your recorded timesheets, select the week you wish to view from the drop-down menu and click 'View by Week'. To view a report of all your entries, select 'All Weeks' from the menu. All weeks are shown by default.</p>
 	<hr />
-<table style="border-style: none">
+<table id="timesheet" style="border-style: none">
 <tr valign="top"><td>
 	<form method="post" action="logtimespent.php"><fieldset>
 <?php 
