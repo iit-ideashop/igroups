@@ -239,7 +239,7 @@
 	if(!$currentUser->isGroupGuest($currentGroup))
 	{
 		echo "<textarea rows=\"10\" cols=\"40\" name=\"scratchpad\">".htmlspecialchars($currentGroup->getScratch())."</textarea><br />\n";
-		echo "<input type=\"submit\" name=\"scratch\" value=\"Update Scratchpad\" /> <input type=\"reset\" /><input id=\"canceledit\" type=\"cancel edit\" /> \n";
+		echo "<input type=\"submit\" name=\"scratch\" value=\"Update Scratchpad\" /> <input type=\"reset\" /><input id=\"canceledit\" value=\"Cancel\" /> \n";
 	}
 ?>
 	</fieldset></form>
@@ -363,7 +363,7 @@ $(document).ready(function(){
 	
 	$("#scratchpadedit").click(function(){
 		$("#scratchpadtext").hide("slow",function(){
-		$("#scratchpadform").show("slow");
+			$("#scratchpadform").show("slow");
 		});
 	});
 
