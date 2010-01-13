@@ -8,7 +8,7 @@
 <script> 
     $(document).ready(function () {
 		$("#datepick").datepicker({ dateFormat: 'yy-mm-dd', showOn: 'focus' });
-		
+		$("#datepickalt").datepicker({ dateFormat: 'mm/yy/dd', showOn: 'focus' });
 	});
 </script>
 <script type="text/javascript" src="scripts/js/jquery-1.3.2.min.js"></script>

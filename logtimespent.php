@@ -392,7 +392,7 @@ function ds_onclick(d, m, y) {
 	else
 		print "<legend>Edit Timesheet Entry</legend>";
 ?>
-		<label for="date">Date (MM/DD/YYYY):</label><input type="text" id="date" name="date" onclick="ds_sh(this);" style="cursor: text" value='<?php if (isset($editTime)) print "{$editTime->getDate()}"; ?>' /><br />
+		<label for="date">Date (MM/DD/YYYY):</label><input type="text" id="datepickalt" name="date" style="cursor: text" value='<?php if (isset($editTime)) print "{$editTime->getDate()}"; ?>' /><br />
 		<label for="hours">Hours Spent:</label><input type="text" name="hours" id="hours" value='<?php if (isset($editTime)) print "{$editTime->getHoursSpent()}"; ?>' /><br />
 		<label for="description">Tasks Worked On:</label><br />
 		<textarea name="description" id="description" cols="50" rows="5"><?php if (isset($editTime)) print(str_replace("&lt;br /&gt;", "\r\n", htmlspecialchars($editTime->getTaskDescription()))); ?></textarea><br />
@@ -411,7 +411,7 @@ function ds_onclick(d, m, y) {
 	else
 		print "<legend>Edit Projected Task</legend>";
 ?>
-		<label for="taskDate">Date (MM/DD/YYYY):</label><input type="text" id="taskDate" name="taskDate" onclick="ds_sh(this);" style="cursor: text" value="<?php if (isset($editTask)) print "{$editTask->getDate()}"; ?>" /><br />
+		<label for="taskDate">Date (MM/DD/YYYY):</label><input type="text" id="datepickalt" name="taskDate" style="cursor: text" value="<?php if (isset($editTask)) print "{$editTask->getDate()}"; ?>" /><br />
 		<label for="taskHours">Estimated Hours:</label><input type="text" name="taskHours" id="taskHours" value="<?php if (isset($editTask)) print "{$editTask->getHoursSpent()}"; ?>" /><br />
 		<label for="taskDescription">Tasks:</label><br />
 		<textarea name="taskDescription" id="taskDescription" cols="50" rows="5"><?php if (isset($editTask)) print(str_replace("&lt;br /&gt;", "\r\n", htmlspecialchars($editTask->getTaskDescription()))); ?></textarea><br />
