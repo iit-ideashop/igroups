@@ -370,7 +370,9 @@ $(document).ready(function(){
 	});
 
 	$("#canceledit").click(function(){
-	    	$("#scratchpadform").hide("slow");
+	    	$("#scratchpadform").hide("slow",function(){
+			$("#scratchpadtext").show("slow");
+			});
 		
 	});
 });
