@@ -368,7 +368,7 @@ $(document).ready(function(){
 
 	$("#canceledit").click(function(){
 	    $("#scratchpadtext").slideDown("slow");
-	    $("#scratchpadform").css({'display' : 'none'});
+	    /*$("#scratchpadform").css({'display' : 'none'});*/
 	});
 });
 </script></html>
