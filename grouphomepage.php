@@ -363,10 +363,7 @@ $(document).ready(function(){
 	
 	$("#scratchpadedit").click(function(){
 		$("#scratchpadtext").hide("slow",function(){
-		$("#scratchpadform").show("fast",function(){
-		/*$("#scratchpadtext").slideUp("slow");*/
-		});
-		});
+		$("#scratchpadform").show("slow");
 	});
 
 	$("#canceledit").click(function(){
