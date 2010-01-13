@@ -362,7 +362,7 @@
 $(document).ready(function(){
 	
 	$("#scratchpadedit").click(function(){
-		$("#scratchpadform").css({'display' : 'block'});
+		$("#scratchpadform").show(function(){
 		$("#scratchpadtext").slideUp("slow");
 	});
 
