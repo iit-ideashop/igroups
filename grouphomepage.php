@@ -367,8 +367,9 @@ $(document).ready(function(){
 	});
 
 	$("#canceledit").click(function(){
-	    $("#scratchpadtext").slideDown("slow");
-	    $("#scratchpadform").css({'display' : 'none'});
+	    $("#scratchpadtext").slideDown("slow", function(){
+	    	$("#scratchpadform").css({'display' : 'none'});
+			});
 	});
 });
 </script></html>
