@@ -362,9 +362,11 @@
 $(document).ready(function(){
 	
 	$("#scratchpadedit").click(function(){
+		$("#scratchpadtext").hide("slow",function(){
 		$("#scratchpadform").show("fast",function(){
-		$("#scratchpadtext").slideUp("slow");
-	});
+		/*$("#scratchpadtext").slideUp("slow");*/
+		});
+		});
 	});
 
 	$("#canceledit").click(function(){
