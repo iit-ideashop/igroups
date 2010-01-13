@@ -221,7 +221,12 @@
 	<div id="scratchpadtext">
 	<p>
 	<?php
-	    echo htmlspecialchars($currentGroup->getScratch());
+	    if($currentGroup->getScratch()){
+	    	echo htmlspecialchars($currentGroup->getScratch());
+		}
+		else
+			echo "No scratchpad entry present"
+
 	?>
 	</p>
 	<?php 
@@ -355,6 +360,7 @@
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
+	$
 	$("#scratchpadedit").click(function(){
 		$("#scratchpadtext").slideUp("slow");
 		/*$("#scratchpadtext").css({'display' : 'none'});*/
