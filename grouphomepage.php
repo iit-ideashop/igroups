@@ -365,6 +365,7 @@ $(document).ready(function(){
 		$("#scratchpadform").show("fast",function(){
 		$("#scratchpadtext").slideUp("slow");
 	});
+	});
 
 	$("#canceledit").click(function(){
 	    	$("#scratchpadform").hide("slow");
