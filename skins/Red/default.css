@@ -1,4 +1,4 @@
-
+  
 @import url('dhtmlwindow.css');
 
 /**************** start reset css *********************/
@@ -496,10 +496,6 @@ img #igroupsLogo{
    clear: left;
 }
 
-
-
-
-
-
-
-
+#timesheet textarea {
+width : 300px;
+}
