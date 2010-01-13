@@ -366,7 +366,9 @@ border-bottom:none;
 }
 
 #uniSidebar .subnavigation li {
-max-height:20px;
+height:35px;
+border-bottom: 1px solid #DDD;
+padding-left: 5px;
 }
 
 #uniSidebar .subnavigation li:hover {
@@ -375,10 +377,10 @@ border-bottom:1px solid #B9B9B9;
 }
 
 #uniSidebar .subnavigation li a {
+padding-top: 8px;
 display:block;
 text-decoration:none;
-font-size:1em;
-font-weight:600;
+font-weight:bold;
 color:#222;
 }
 
@@ -438,3 +440,4 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
