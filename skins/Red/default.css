@@ -1,487 +1,440 @@
-  
 @import url('dhtmlwindow.css');
-
-/**************** start reset css *********************/
-html, body, h1, h2, h3, h4, h5, h6, p, ol, ul, li, pre, code, address, variable, form, fieldset, blockquote {
-    padding: 0;
-    margin: 0;
-    font-size: 100%;
-    font-weight: normal;
-}
-
-img, fieldset {
-    border: 0;
+html,body,h1,h2,h3,h4,h5,h6,p,ol,ul,li,pre,code,address,variable,form,fieldset,blockquote {
+font-size:100%;
+font-weight:400;
+margin:0;
+padding:0;
 }
 
 ol {
-    margin-left: 0em;
-    list-style: decimal;
+margin-left:0;
+list-style:decimal;
 }
 
 ul {
-    margin-left: 0em;
-    list-style: none;
+margin-left:0;
+list-style:none;
 }
 
-p { 
-	padding-top: 5px;
+p {
+padding-top:5px;
 }
-/****************** end reset css **********************/
 
-/* New layout css code */
-body{
-	background:#fff;
-	font-family:"lucida grande",Helvetica,"Trebuchet MS",Arial,sans-serif;
-	font-size:11px;
-	color:#000;
-	margin:0;
-	padding:0;
-	text-align:left;
-	direction:ltr;
-	margin-top: 20px;
+body {
+background:#fff;
+font-family:"lucida grande",Helvetica,"Trebuchet MS",Arial,sans-serif;
+font-size:11px;
+color:#000;
+text-align:left;
+direction:ltr;
+margin:20px 0 0;
+padding:0;
 }
 
 fieldset {
-	border-style: none;
-	padding-left: 0px;
-	padding-right: 0px;
-	margin-left: 0px;
-	margin-right: 0px;
+padding-left:0;
+padding-right:0;
+margin-left:0;
+margin-right:0;
+border-style:none;
 }
 
-table { 
-      width: 100%;
-      margin-top: 40px;
+table {
+width:100%;
+margin-top:40px;
 }
 
-thead {
-	font-size:10pt;
-	font-weight:bold;
-        background-color:#EBEBEB;
-	color:#000000;
-	text-align:center;
-}
-
-tfoot {
-	font-size:10pt;
-	font-weight:bold;
-	background-color:#EBEBEB;
-	color:#000000;
-	text-align:center;
-}
-
-a:link, a:visited {
-	color:#CC0000;
+a:link,a:visited {
+color:#C00;
 }
 
 img {
-	border-style: none;
-}
-
-h1 {
-	font-size:14pt;
-	color:#666;	
-}
-
-h2 {
-	font-size:14pt;
-	color:#666;	
+border-style:none;
 }
 
 h3 {
-	font-size:10pt;
-	color:#666;	
+font-size:10pt;
+color:#666;
 }
 
 legend {
-	font-size:12pt;
-	color:#666;
-	padding:0;
-	margin-bottom:5px;
-	font-weight: bold;
+font-size:12pt;
+color:#666;
+margin-bottom:5px;
+font-weight:700;
+padding:0;
 }
 
 #topbanner {
-	padding: .25em;
-	font-size:18pt;
-	text-align:left;
-	margin: 0px 0px 10px 0px;
-        color: #585858;        
+font-size:18pt;
+text-align:left;
+color:#585858;
+margin:0 0 10px;
+padding:.25em;
 }
 
 .columnbanner {
-	padding: .25em;
-	margin-bottom:0;
-	border-bottom: 1px solid #CC0000;
-	text-align:center;
+margin-bottom:0;
+border-bottom:1px solid #C00;
+text-align:center;
+padding:.25em;
 }
 
 .shade {
-	background-color: #FFDFDF;
-	color:#000000;
+background-color:#FFDFDF;
+color:#000;
 }
 
 #messageBox {
-	background-color:#CCCCCC;
-	color:#000;
-	font-size:12pt;
-	padding:5px;
-	border-bottom:1px solid #000;
+background-color:#CCC;
+color:#000;
+font-size:12pt;
+border-bottom:1px solid #000;
+padding:5px;
 }
 
 #sidebar {
-	font-size:10pt;
-	width: 200px;
-	background-color:#EEEEEE;
-	color:#000000;
-	padding-left:5px;
-	float: left;
-	border-right: 1px solid #999;
-	border-bottom: 1px solid #999;
+font-size:10pt;
+width:200px;
+background-color:#EEE;
+color:#000;
+padding-left:5px;
+float:left;
+border-right:1px solid #999;
+border-bottom:1px solid #999;
 }
 
-
 #loginform {
-	margin-top:10px;
+margin-top:10px;
 }
 
 ul.noindent {
-	margin-left:0;
-	padding-left:0;
+margin-left:0;
+padding-left:0;
 }
 
 #igroupslogo {
-	margin-top: 10px;
-	width: 180px;
-	height: 102px;
-	background: url("img/iGroupslogo.png");
-	background-repeat: no-repeat;
+margin-top:10px;
+width:180px;
+height:102px;
+background:url("img/iGroupslogo.png");
+background-repeat:no-repeat;
 }
 
-
 #recent {
-	margin-top:30px;
-	width:100%;
-        overflow: hidden;
+margin-top:30px;
+width:100%;
+overflow:hidden;
 }
 
 div.box {
-	max-width: 100%;
-	color:#000000;
-	text-align:left;
-	padding:15px;
-	border: 1px solid #999;
+max-width:100%;
+color:#000;
+text-align:left;
+border:1px solid #999;
+padding:15px;
 }
 
 div #recent #files {
-float: right;
-max-width: 43%;
+float:right;
+max-width:43%;
 }
 
-div #recent #email{
-max-width: 43%;
-float: left;
+div #recent #email {
+max-width:43%;
+float:left;
 }
 
 div.box .box-header {
-	font-size:12pt;
-	color:#666;
-	font-weight: bold;
+font-size:12pt;
+color:#666;
+font-weight:700;
 }
 
 #boxtitle {
-	font-weight: bold;
-	font-size: larger;
+font-weight:700;
+font-size:larger;
 }
 
 #boxdesc {
-	font-style: italic;
+font-style:italic;
 }
 
 ul.folderlist {
-	list-style:none;
-	padding:0;
-	margin:0;
+list-style:none;
+margin:0;
+padding:0;
 }
 
 ul.folderlist ul {
-	padding-left:20px;
+padding-left:20px;
 }
 
 .sortbar {
-	background-color: #cc0000;
-	color: #dddddd;
-	font-weight: bold;
+background-color:#c00;
+color:#ddd;
+font-weight:700;
 }
 
-.sortbar a:link, .sortbar a:visited, .sortbar a:active, .sortbar a {
-	text-decoration: none;
+.sortbar a:link,.sortbar a:visited,.sortbar a:active,.sortbar a {
+text-decoration:none;
 }
 
-.sortbar img {
-	border: 0;
-}
-
-#bookmarks td
-{
-	padding: 5px;
+#bookmarks td {
+padding:5px;
 }
 
 #bookmarks {
-  width: 400px;
-  float: right;
+width:400px;
+float:right;
 }
 
 .bookmarkform {
-   width: 200px;
-   margin-bottom: 20px;
-   padding: 10px; 
-border: none;   
+width:200px;
+margin-bottom:20px;
+border:none;
+padding:10px;
 }
 
-.bookmarkform label{
-padding: 4px;
-padding-left: 0px;
+.bookmarkform label {
+padding:4px 4px 4px 0;
 }
 
-.bookmarkform input{
-   width: 100%;
-  border: 1px solid #FFAEAE;
-  margin-bottom: 10px;
+.bookmarkform input {
+width:100%;
+border:1px solid #FFAEAE;
+margin-bottom:10px;
 }
 
-.bookmarkform button{
-  margin-top: 10px;
-  border: 2px dashed #999;
-  
-}
-
-#semesterSelect {
-	margin-bottom:10px;
-}
-
-#groupSelect {
-	margin-bottom:10px;
+.bookmarkform button {
+margin-top:10px;
+border:2px dashed #999;
 }
 
 #topSpacer {
-	height: 10px;
+height:10px;
 }
 
 #copyright {
-	font-size: 85%;
-	clear: both;
-	color: #666;
-	background-color: white;
-	text-align: center;
+font-size:85%;
+clear:both;
+color:#666;
+background-color:#FFF;
+text-align:center;
 }
 
-#helpleft, #helpright {
-	float: left;
-	width: 300px;
+#helpleft,#helpright {
+float:left;
+width:300px;
 }
 
-table.bordered, table.bordered th, table.bordered td {
-	border: thin solid black;
-	border-collapse: collapse;
+table.bordered,table.bordered th,table.bordered td {
+border:thin solid #000;
+border-collapse:collapse;
 }
 
 #mainContainer {
-  width: 90%;
-  max-width: 900px;
-  min-width: 760px;
-	margin: 0 auto;
-      
+width:90%;
+max-width:900px;
+min-width:760px;
+margin:0 auto;
 }
 
 #mainheader {
-	width:100%;
-  min-height: 105px;
-	border: none;
-	border-top: 1px dashed #CCC;
-	border-bottom: 1px solid #FFAEAE;
-	padding-top: 5px;
+width:100%;
+min-height:105px;
+border:none;
+border-top:1px dashed #CCC;
+border-bottom:1px solid #FFAEAE;
+padding-top:5px;
 }
 
-img #igroupsLogo{
-	float: left;
+img #igroupsLogo {
+float:left;
 }
 
 .links {
-	float:right;
-	display: inline-block;
-	vertical-align: top;
+float:right;
+display:inline-block;
+vertical-align:top;
 }
 
-#externallinks {
-	float: right;
-}
-
-#contentWrapper{
-        width: 100%;
-        /*border-right: 1px solid #CCC;*/
-        padding-bottom: 50px;
+#contentWrapper {
+width:100%;
+padding-bottom:50px;
 }
 
 #mainContent {
-        padding-left: 1px;
-	float: right;
-	width: 75%;
-	margin-top: 0px;
-	padding-top: 20px;
+padding-left:1px;
+float:right;
+width:75%;
+margin-top:0;
+padding-top:20px;
 }
 
-#mainContent p{ 
-   margin-bottom: 20px; 
+#mainContent p {
+margin-bottom:20px;
 }
 
 #externallinks li {
-	float: left;
-	padding: 10px 10px 0 0;
+float:left;
+padding:10px 10px 0 0;
 }
 
-#externallinks li a{
-	color: #616161;
-	text-decoration: none;
-	border-bottom: 1px dashed #CCC ;
-	
+#externallinks li a {
+color:#616161;
+text-decoration:none;
+border-bottom:1px dashed #CCC;
 }
 
 #mainNavigation {
-	margin-top: 15%;
-	margin-right: 0px;
+margin-top:15%;
+margin-right:0;
 }
 
 #mainNavigation li {
-	float: left;
-	padding: 5px 6px 5px 6px;
-	margin-left: 4px;
-	border: 1px solid #FFAEAE;
-	background-color: #FFEDED;
+float:left;
+margin-left:4px;
+border:1px solid #FFAEAE;
+background-color:#FFEDED;
+padding:5px 6px;
 }
 
-
 #mainNavigation li a {
-	text-decoration: none;
-	font-size: 100%;
-	font-weight: bold;
-	text-transform: uppercase;
-	font-family: Tahoma,Verdana,Arial,Sans-serif;
-	color: #222;
+text-decoration:none;
+font-size:100%;
+font-weight:700;
+text-transform:uppercase;
+font-family:Tahoma,Verdana,Arial,Sans-serif;
+color:#222;
 }
 
 #mainNavigation li:hover {
-	background-color: #FFF;
-	border-bottom: 1px solid #FFF;
-        color: #000;
+background-color:#FFF;
+border-bottom:1px solid #FFF;
+color:#000;
 }
 
 #uniSidebar {
-	width:25%;
-        max-width:180px;
-	float: left;
-        padding-top: 20px;
-        color: #000;
+width:25%;
+max-width:180px;
+float:left;
+padding-top:20px;
+color:#000;
 }
 
 #uniSidebar p {
-  font-weight:normal;
-  vertical-align: middle;
+font-weight:400;
+vertical-align:middle;
 }
 
-#uniSidebar ul{
- margin-bottom: 10px;
-}
-
-#uniSidebar ul, #uniSidebar p,  #uniSidebar a {
- padding-bottom: 10px;
+#uniSidebar ul,#uniSidebar p,#uniSidebar a {
+padding-bottom:10px;
 }
 
 #uniSidebar #userWelcomeMsg {
-  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
-  font-size: 12px;
-  font-weight:bold;
-  border: none;
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+font-size:12px;
+font-weight:700;
+border:none;
 }
 
 #uniSidebar #semesterlist {
-  margin-top: 15px;
-  margin-bottom: 15px;
-  width: 100%;
-  max-width:180px;
+margin-top:15px;
+margin-bottom:15px;
+width:100%;
+max-width:180px;
 }
 
-#uniSidebar .menuTitle, #semesterIgroup {
-      text-align: center;
-      color: #c30000;
-} 
+#uniSidebar .menuTitle,#semesterIgroup {
+text-align:center;
+color:#c30000;
+}
+
 #uniSidebar .menuTitle {
-      border-top: none;
-      font-weight: bold;
-      font-size: 14px;
-} 
+border-top:none;
+font-weight:700;
+font-size:14px;
+}
 
 #uniSidebar .subnavigation {
-        width: 100%;
-	margin-top: 0px;
-	float: left;
-	border-top: 3px solid #FF3030;
-	border-bottom: none;
+width:100%;
+margin-top:0;
+float:left;
+border-top:3px solid #FF3030;
+border-bottom:none;
 }
 
 #uniSidebar .subnavigation li {
-	border-top: 1px dashed #CCC;
-	padding: 8px;
-}
-	
-#uniSidebar .subnavigation li:hover {
-	background-color: #e8e8e8;	
+max-height:20px;
 }
 
-#uniSidebar .subnavigation li:first-child{
-	border: none;
+#uniSidebar .subnavigation li:hover {
+background-color:#e8e8e8;
+border-bottom:1px solid #B9B9B9;
 }
 
 #uniSidebar .subnavigation li a {
-        font-size: 11px;
-	text-decoration: none;
-	font-size: 1.0em;
-	font-weight: 600;
-	color: #222;
+display:block;
+text-decoration:none;
+font-size:1em;
+font-weight:600;
+color:#222;
 }
 
 #footer {
-	clear: both;
-	border: none;
-	border-top: 1px solid #CCC;
-	padding-top: 10px;
-	height: 50px;
+clear:both;
+border:none;
+border-top:1px solid #CCC;
+padding-top:10px;
+height:50px;
 }
 
 #footer #copyright {
-	float: left;
-	font-weight: 600;
-	color:#585858;
-}
-
-#footer #department {
-	float: right;
+float:left;
+font-weight:600;
+color:#585858;
 }
 
 #footer a {
-	color: #c30000;
-	text-decoration: none;
+color:#c30000;
+text-decoration:none;
 }
 
 .clearboth {
-	clear: both;
+clear:both;
 }
 
-.clearleft{
-   clear: left;
+.clearleft {
+clear:left;
 }
 
 #timesheet textarea {
-width : 300px;
+width:300px;
 }
 
+img,fieldset,.sortbar img {
+border:0;
+}
+
+thead,tfoot {
+font-size:10pt;
+font-weight:700;
+background-color:#EBEBEB;
+color:#000;
+text-align:center;
+}
+
+h1,h2 {
+font-size:14pt;
+color:#777;
+font-weight: bold;
+}
+
+#semesterSelect,#groupSelect,#uniSidebar ul {
+margin-bottom:10px;
+}
+
+#externallinks,#footer #department {
+float:right;
+}
