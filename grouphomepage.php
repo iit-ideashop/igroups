@@ -367,7 +367,7 @@ $(document).ready(function(){
 	});
 
 	$("#canceledit").click(function(){
-	    	$("#scratchpadform").hide();
+	    	$("#scratchpadform").hide("slow");
 		
 	});
 });
