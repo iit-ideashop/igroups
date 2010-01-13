@@ -362,7 +362,7 @@
 $(document).ready(function(){
 	
 	$("#scratchpadedit").click(function(){
-		$("#scratchpadtext").css({'display' : 'block'});
+		$("#scratchpadform").css({'display' : 'block'});
 		$("#scratchpadtext").slideUp("slow");
 	});
 });
