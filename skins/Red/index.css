@@ -7,6 +7,12 @@ height:100%;
 margin-bottom:10px;
 }
 
+#top h1 {
+color:#000;
+font-size:20px;
+font-weight:400;
+}
+
 #loginform {
 border:1px solid #FF6969;
 padding:5px;
@@ -32,11 +38,6 @@ border:2px solid #FF8383;
 background:#C30000;
 color:#FFF;
 float:right;
-}
-
-#top h1 {
-font-size:20px;
-font-weight:400;
 }
 
 #left {
