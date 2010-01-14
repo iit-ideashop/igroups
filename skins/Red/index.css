@@ -1,123 +1,112 @@
 @import url('default.css');
-
 #container {
-	height: 100%;
+height:100%;
 }
 
 #top {
-	margin-bottom:10px;
+margin-bottom:10px;
 }
 
 #loginform {
-border: 1px solid #FF6969;
-padding: 5px;
+border:1px solid #FF6969;
+padding:5px;
 }
 
 #loginform form {
-		background-color: #FFE9E9;
-padding: 5px;
+background-color:#FFE9E9;
+padding:5px;
 }
 
 #loginform input {
-width: 155px;
-border: 1px solid #999;
-		margin-bottom: 5px;
+width:155px;
+border:1px solid #999;
+margin-bottom:5px;
 }
 
 #loginform a {
-		text-decoration: none;
+text-decoration:none;
 }
 
 #loginform button {
-border: 2px solid #FF8383;
-background: #C30000;
-color: #FFF;
-float: right;
+border:2px solid #FF8383;
+background:#C30000;
+color:#FFF;
+float:right;
 }
 
 #top h1 {
-	color:#000000;
-	border-bottom-style:solid;
-	border-bottom-color:#CC0000;
-	font-size:20px;
-	font-weight:normal;
+font-size:20px;
+font-weight:400;
 }
 
 #left {
-	float:left;
-	text-align: right;
-	width: 60%;
-	margin-top:20px;
-	padding: 1em;
-	border: 1px solid #999;
+float:left;
+text-align:right;
+width:60%;
+margin-top:20px;
+border:1px solid #999;
+padding:1em;
 }
 
 .right {
-	margin-left:64%;
-	margin-top:25px;
-	padding: .5em;
-        width: 35%;
-} 
+margin-left:64%;
+margin-top:25px;
+width:35%;
+padding:.5em;
+}
 
 #bottom {
-	margin-top:10px;
+margin-top:10px;
 }
 
 #bottom h1 {
-	color:#000000;
-	border-bottom-style:solid;
-	border-bottom-color:#CC0000;
-	font-size:20px;
-	font-weight:normal;
-	margin-left: 2em;
+color:#000;
+border-bottom-style:solid;
+border-bottom-color:#C00;
+font-size:20px;
+font-weight:400;
+margin-left:2em;
 }
 
 .announcement-heading {
-	color:#cc0000;
-	font-weight:bold;
+color:#c00;
+font-weight:700;
 }
-		
+
 #calendarmenu {
-	border:solid 1px #000;
-	background-color:#fff;
-	visibility:hidden;
-	position:absolute;
-	left:50px;
+border:solid 1px #000;
+background-color:#fff;
+visibility:hidden;
+position:absolute;
+left:50px;
 }
 
-div#cycleFlag
-{
-	position: absolute;
-	visibility: hidden;
-	overflow: hidden;
-	top: 0px;
-	left: 0;
-	width: 0;
-	height: 0;
+div#cycleFlag {
+position:absolute;
+visibility:hidden;
+overflow:hidden;
+top:0;
+left:0;
+width:0;
+height:0;
 }
 
-#randphotobox
-{
-	text-align: center;
-        width: 100%;
+#randphotobox {
+text-align:center;
+width:100%;
 }
 
 #randphoto {
-       max-width: 100%;           
+max-width:100%;
 }
 
-#randtitle
-{
-	font-size: x-large;
-	font-weight: bold;
-	color: #cc0000;
+#randtitle {
+font-size:x-large;
+font-weight:700;
+color:#c00;
 }
 
-#randdesc
-{
-	font-size: large;
-	color: #cc0000;
+#randdesc {
+font-size:large;
+color:#c00;
 }
-
-
-
