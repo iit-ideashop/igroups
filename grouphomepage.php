@@ -143,7 +143,7 @@
 	if($currentGroup->getScratchUpdater())
 	{
 		$by = new Person($currentGroup->getScratchUpdater(), $db);
-		$scratchBlurb = "<p style=\"font-size: smaller\">Scratchpad last updated by {$by->getFullName()} at {$currentGroup->getScratchUpdated()}</p>\n";
+		$scratchBlurb = "<p id=\"scratchblurb\">Scratchpad last updated by {$by->getFullName()} at {$currentGroup->getScratchUpdated()}</p>\n";
 	}
 	else
 		$scratchBlurb = '';
@@ -225,8 +225,7 @@
 	    	echo htmlspecialchars($currentGroup->getScratch());
 		}
 		else
-			echo "No scratchpad entry present"
-
+			echo "No scratchpad entry present";
 	?>
 	</p>
 	<?php 
