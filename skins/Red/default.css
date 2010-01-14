@@ -6,6 +6,17 @@ margin:0;
 padding:0;
 }
 
+body {
+background:#fff;
+font-family:"lucida grande",Helvetica,"Trebuchet MS",Arial,sans-serif;
+font-size:12px;
+color:#000;
+text-align:left;
+direction:ltr;
+margin:20px 0 0;
+padding:0;
+}
+
 ol {
 margin-left:0;
 list-style:decimal;
@@ -18,17 +29,28 @@ list-style:none;
 
 p {
 padding-top:5px;
+line-height: 1.5em;
 }
 
-body {
-background:#fff;
-font-family:"lucida grande",Helvetica,"Trebuchet MS",Arial,sans-serif;
-font-size:12px;
-color:#000;
-text-align:left;
-direction:ltr;
-margin:20px 0 0;
-padding:0;
+h1,h2,h3,h4 {
+margin-bottom: 5px;
+}
+
+h1 {
+font-size:14pt;
+color:#777;
+font-weight: bold;
+}
+
+h2 {
+font-size:12pt;
+color:#777;
+font-weight: bold;
+}
+
+h3 {
+font-size:10pt;
+color:#666;
 }
 
 fieldset {
@@ -50,11 +72,6 @@ color:#C00;
 
 img {
 border-style:none;
-}
-
-h3 {
-font-size:10pt;
-color:#666;
 }
 
 legend {
@@ -427,12 +444,6 @@ color:#000;
 text-align:center;
 }
 
-h1,h2 {
-font-size:14pt;
-color:#777;
-font-weight: bold;
-}
-
 #semesterSelect,#groupSelect,#uniSidebar ul {
 margin-bottom:10px;
 }
@@ -440,5 +451,6 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
 
 
