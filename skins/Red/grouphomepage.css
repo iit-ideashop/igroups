@@ -1,124 +1,116 @@
 @import url('default.css');
-
 #pictures {
-	margin:10px;
+margin:10px;
 }
 
 #scratchpad {
-  width: 99%;
-  padding-top: 10px;
-  overflow: hidden;
-  padding-top: 10px;
+width:99%;
+overflow:hidden;
+padding-top:10px;
 }
 
 #scratchpadform {
-      display: none;
-   
+display:none;
 }
 
 #scratchpad form {
-      width: 98%;
+width:98%;
 }
 
 #scratchpadform textarea {
-	margin-bottom: 10px;
-      width: 100%;
-      font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
-   font-size: 12px;
+margin-bottom:10px;
+width:100%;
+font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+font-size:12px;
 }
 
-#scratchpadtext{
-  margin-bottom: 10px;
+#scratchpadtext {
+margin-bottom:10px;
 }
 
 #scratchpadtext button {
-	border: 1px dashed #999;
+border:1px dashed #999;
 }
 
 #scratchpadtext p {
- color: #333; 
- margin: 0px;
-}
-
-#scratchpad p {
-      padding-bottom: 10px;
+color:#333;
+margin:0;
 }
 
 #scratchpad input {
-      border: 1px #989898 dashed;
-      background-color: #ffd3d3;
-      margin-right: 10px;
-      color: #2C2C2C;
+border:1px #989898 dashed;
+background-color:#ffd3d3;
+margin-right:10px;
+color:#2C2C2C;
 }
 
 #scratchpad input:hover {
-      border: 1px #000 dashed;
-      background-color: #FFF;
+border:1px #000 dashed;
+background-color:#FFF;
 }
 
+p#scratchblurb {
+font-size:smaller;
+color:red;
+margin:0;
+padding:0;
+}
 
 #announcements {
-	margin:10px;
-        margin-left: 0px;
-        width: 100%;
+width:100%;
+margin:10px 10px 10px 0;
 }
 
 .dateHeading {
-	background:#EEE;
-        height: 2em;
-        text-align: center;
-        vertical-align: bottom;
+background:#EEE;
+height:2em;
+text-align:center;
+vertical-align:bottom;
 }
 
 .prop {
-	float:right;
-	height:100px;
-	width:1px;
-	overflow:hidden;
+float:right;
+height:100px;
+width:1px;
+overflow:hidden;
 }
-
 
 #calendar {
-      color: #000;
-      font-weight: bolder;
-      padding-left:1px;
-      margin-bottom: 20px;     
+color:#000;
+font-weight:bolder;
+padding-left:1px;
+margin-bottom:20px;
 }
 
-#calendar table { 
-       width: 100%;
-       
+#calendar table {
+width:100%;
 }
 
 .calbord {
-	border: 1px solid #CCC;
-	width: 14%;
+border:1px solid #CCC;
+width:14%;
 }
-	
+
 #calendarmenu {
-	border:solid 1px #000;
-	background-color:#fff;
-	visibility:hidden;
-	position:absolute;
-	left:50px;
+border:solid 1px #000;
+background-color:#fff;
+visibility:hidden;
+position:absolute;
+left:50px;
 }
 
 .event {
-	border:solid 1px #000;
-	background-color:#fff;
-	position:absolute;
-	visibility:hidden;
-	width:200px;
-	padding:5px;
-	top:0;
-	left:0;
-	overflow:hidden;
+border:solid 1px #000;
+background-color:#fff;
+position:absolute;
+visibility:hidden;
+width:200px;
+top:0;
+left:0;
+overflow:hidden;
+padding:5px;
 }
 
-.timeago
-{
-	font-size: smaller;
+.timeago {
+font-size:smaller;
 }
-
-
-
