@@ -97,6 +97,7 @@
 	if(isset($_GET['selectGroup']))
 	{
 		selectGroup($_GET['selectGroup']);
+		ob_end_flush();
   }
 	else 
 	{
@@ -107,7 +108,7 @@
 					selectGroup($defaultgroup);
 			}
 	}
-	ob_end_flush();
+	
 
 	
   
