@@ -105,8 +105,8 @@
 			if(!empty($activegroup))
 			{
 					$_SESSION['selectedGroup'] = $activegroup[0];
-					$_SESSION['selectedGroupType'] = $activegroup[0];
-					$_SESSION['selectedSemester'] = $activegroup[0];
+					$_SESSION['selectedGroupType'] = 0;
+					$_SESSION['selectedSemester'] = $activegroup[1];
 			}
 	}
 	
