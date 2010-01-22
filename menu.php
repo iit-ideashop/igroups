@@ -260,7 +260,7 @@
 					}
 					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
   						$_SESSION['activateDefaultMenu'] = 0 ;
-							echo "<li>".getLinkedName($group);
+							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
 							echo "<ul id=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
 							echo "</ul>\n";
