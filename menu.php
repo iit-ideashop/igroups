@@ -29,7 +29,7 @@
 		{
 			$_SESSION['userID'] = $row[0];
 			if(isset($_GET['loggingin'])){
-				header('Location: index.php');
+				header('Location: grouphomepage.php');
       }
 		}
 		else if(!$_SESSION['loginError'])
