@@ -104,6 +104,7 @@
 			$activegroup = $currentUser->getActiveGroup();
 			if(!empty($activegroup))
 			{
+					$_SESSION['activateDefaultMenu'] = 1;
 					$_SESSION['selectedGroup'] = $activegroup[0];
 					$_SESSION['selectedGroupType'] = 0;
 					$_SESSION['selectedSemester'] = $activegroup[1];
