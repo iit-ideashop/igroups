@@ -97,15 +97,16 @@
 	if(isset($_GET['selectGroup']))
 	{
 		selectGroup($_GET['selectGroup']);
-		ob_end_flush();
   }
 	else 
 	{
+			ob_end_flush();			
 			$activegroup = $currentUser->getActiveGroup();
 			if(!empty($activegroup))
 			{
-					$defaultgroup = $activegroup[0].",0,".$activegroup[0];
-					selectGroup($defaultgroup);
+					$_SESSION['selectedGroup'] = $activegroup[0];
+					$_SESSION['selectedGroupType'] = $activegroup[0];
+					$_SESSION['selectedSemester'] = $activegroup[0];
 			}
 	}
 	
