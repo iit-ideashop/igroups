@@ -33,6 +33,27 @@
 	background-color:#fff;
 }
 
+#emailbox table {
+       margin-top: 0;
+}
+
+#emailbox tbody tr.sortbar {
+ background-color: #FFF;
+ 
+}
+
+#emailbox tbody tr.sortbar td{
+ border: 1px dashed #CCC;
+}
+
+.sortbar a {
+   color : #000;
+}
+
+#filebox table a {
+   width:10px;
+}
+
 #menubar, .menubar {
 	background-color:#eeeeee;
 	margin-bottom:5px;
@@ -53,4 +74,5 @@ ul.ema {
 #emailboxheader {
 	font-weight: bold;
 }
+
 
