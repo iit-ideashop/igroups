@@ -98,10 +98,14 @@
 	{
 		selectGroup($_GET['selectGroup']);
   }
-	else if(!empty($activegroup = $currentUser->getActiveGroup()))
-  {
-			$defaultgroup = $activegroup[0].",0,".$activegroup[0];
-			selectGroup($defaultgroup);
+	else 
+	{
+			$activegroup = $currentUser->getActiveGroup();
+			if(!empty($activegroup))
+			{
+					$defaultgroup = $activegroup[0].",0,".$activegroup[0];
+					selectGroup($defaultgroup);
+			}
 	}
 	ob_end_flush();
 
