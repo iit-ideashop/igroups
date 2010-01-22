@@ -20,7 +20,7 @@
 							
 							<!-- internal links/main navigation --> 
 							<ul id="mainNavigation">
-						 		<li><a href="../index.php" id="home">Home</a></li>
+						 		<li><a href="../grouphomepage.php" id="home">Home</a></li>
 								<li><a href="../contactinfo.php">My Profile</a></li>
 								<li><a href="../iknow/main.php">Browse Nuggets</a>&nbsp;</li>
 								<li><a href="../usernuggets.php">Groups' Nuggets</a></li>
