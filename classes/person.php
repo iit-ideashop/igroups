@@ -320,7 +320,8 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
 			return $returnArray;
 		}
 		
-    function getActiveGroup() {
+    function getActiveGroup() 
+		{
       $activeIpros = $this->db->query("SELECT iProjectID,iSemesterID FROM PeopleProjectMap JOIN Semesters WHERE iPersonID=".$this->id." AND PeopleProjectMap.iSemesterID=Semesters.iID and Semesters.bActiveFlag=1 LIMIT 1");
 			$returnArray = array();
 			while($row = mysql_fetch_row($activeIPros))
