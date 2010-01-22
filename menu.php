@@ -80,7 +80,8 @@
 	{
 		$temp = explode(',', $string);
 		if(count($temp) == 3)
-		{
+		{ 
+			$_SESSION['selectionMade'] = 1
 			$_SESSION['selectedGroup'] = $temp[0];
 			$_SESSION['selectedGroupType'] = $temp[1];
 			$_SESSION['selectedSemester'] = $temp[2];
@@ -100,14 +101,18 @@
   }
 	else 
 	{
-			ob_end_flush();			
-			$activegroup = $currentUser->getActiveGroup();
-			if(!empty($activegroup))
-			{
-					$_SESSION['activateDefaultMenu'] = 1;
-					$_SESSION['selectedGroup'] = $activegroup[0];
-					$_SESSION['selectedGroupType'] = 0;
-					$_SESSION['selectedSemester'] = $activegroup[1];
+			ob_end_flush();
+			
+			if (!isset($_SESSION['selectionMade']))
+			{	
+					$activegroup = $currentUser->getActiveGroup();
+					if(!empty($activegroup))
+					{
+						$_SESSION['activateDefaultMenu'] = 1;
+						$_SESSION['selectedGroup'] = $activegroup[0];
+						$_SESSION['selectedGroupType'] = 0;
+						$_SESSION['selectedSemester'] = $activegroup[1];
+					}
 			}
 	}
 	
@@ -262,7 +267,7 @@
 					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
   						$_SESSION['activateDefaultMenu'] = 0 ;
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
-							echo "<ul id=\"subnavigation\">\n";
+							echo "<ul class=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
 							echo "</ul>\n";
 					}
