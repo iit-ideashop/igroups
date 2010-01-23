@@ -1,113 +1,462 @@
-@import url('default.css');
-#container {
+@import url('dhtmlwindow.css');
+html,body,h1,h2,h3,h4,h5,h6,p,ol,ul,li,pre,code,address,variable,form,fieldset,blockquote {
+font-size:100%;
+font-weight:400;
+margin:0;
 padding:0;
 }
 
-#folderbox {
-float:left;
-width:27%;
-border:1px solid #000;
-overflow:hidden;
-padding:2px;
-}
-
-#folders {
-width:100%;
+body {
+background:#fff;
+font-family:"lucida grande",Helvetica,"Trebuchet MS",Arial,sans-serif;
+font-size:12px;
+color:#000;
 text-align:left;
-background-color:#fff;
+direction:ltr;
+margin:20px 0 0;
+padding:0;
+}
+
+ol {
+margin-left:0;
+list-style:decimal;
+}
+
+ul {
+margin-left:0;
+list-style:none;
+}
+
+p {
 padding-top:5px;
+line-height: 1.5em;
 }
 
-#filebox {
-float:right;
-margin-left:5px;
-width:470px;
-min-width:440px;
-border:1px solid #000;
-padding:2px;
+h1,h2,h3,h4 {
+margin-bottom: 5px;
 }
 
-#filebox form {
+h1 {
+font-size:14pt;
+color:#777;
+font-weight: bold;
+}
+
+h2 {
+font-size:12pt;
+color:#777;
+font-weight: bold;
+}
+
+h3 {
+font-size:10pt;
+color:#666;
+}
+
+fieldset {
+padding-left:0;
+padding-right:0;
+margin-left:0;
+margin-right:0;
+border-style:none;
+}
+
+table {
 width:100%;
+margin-top:40px;
 }
 
-#filebox table {
-margin-top:0;
+a:link,a:visited {
+color:#3C3C3C;
 }
 
-#filebox tbody tr.sortbar {
-background-color:#FFF;
+a:hover {
+text-decoration: none;
 }
 
-#filebox tbody tr.sortbar td {
-border:1px dashed #CCC;
+img {
+border-style:none;
 }
 
-.sortbar a {
+legend {
+font-size:12pt;
+color:#666;
+margin-bottom:5px;
+font-weight:700;
+padding:0;
+}
+
+#topbanner {
+font-size:18pt;
+text-align:left;
+color:#585858;
+margin:0 0 10px;
+padding:.25em;
+}
+
+.columnbanner {
+margin-bottom:0;
+border-bottom:1px solid #C00;
+text-align:center;
+padding:.25em;
+}
+
+.shade {
+background-color:#FFDFDF;
 color:#000;
 }
 
-#filebox table a {
-width:10px;
-}
-
-#files {
-width:100%;
-text-align:left;
-background-color:#fff;
-}
-
-#menubar,.menubar {
-width:100%;
-background-color:#eee;
-margin-bottom:5px;
-padding:3px;
-}
-
-#menubar li,.menubar li {
-display:inline;
+#messageBox {
+background-color:#CCC;
+color:#000;
+font-size:12pt;
+border-bottom:1px solid #000;
 padding:5px;
 }
 
-ul.prof {
+#sidebar {
+font-size:10pt;
+width:200px;
+background-color:#EEE;
+color:#000;
+padding-left:5px;
+float:left;
+border-right:1px solid #999;
+border-bottom:1px solid #999;
+}
+
+#loginform {
+margin-top:10px;
+}
+
+ul.noindent {
+margin-left:0;
+padding-left:0;
+}
+
+#igroupslogo {
+margin-top:10px;
+width:180px;
+height:102px;
+background:url("img/iGroupslogo.png");
+background-repeat:no-repeat;
+}
+
+#recent {
+margin-top:30px;
+width:100%;
+overflow:hidden;
+}
+
+div.box {
+max-width:100%;
+color:#000;
+text-align:left;
+border:1px solid #999;
+padding:15px;
+}
+
+div #recent #files {
+float:right;
+max-width:43%;
+}
+
+div #recent #email {
+max-width:43%;
+float:left;
+}
+
+div.box .box-header {
+font-size:12pt;
+color:#666;
+font-weight:700;
+}
+
+#boxtitle {
+font-weight:700;
+font-size:larger;
+}
+
+#boxdesc {
+font-style:italic;
+}
+
+ul.folderlist {
 list-style:none;
 margin:0;
 padding:0;
 }
 
-ul.prof ul {
+ul.folderlist ul {
 padding-left:20px;
 }
 
-.quotaViewBox {
-width:98%;
-max-height:18px;
-border:1px solid #CDE6FF;
-margin-bottom:10px;
-padding:6px;
-overflow:hidden;
-}
-
-.quotaText {
-color: #474747;
+.sortbar {
+background-color:#c00;
+color:#ddd;
 font-weight:700;
-font-family:Trebuchet MS;
-width:25%;
-float:left;
-margin: 0 ; /* overrides default paragraph margin */
 }
 
-.quotaBar {
+.sortbar a:link,.sortbar a:visited,.sortbar a:active,.sortbar a {
+text-decoration:none;
+}
+
+#bookmarks td {
+padding:5px;
+}
+
+#bookmarks {
+width:400px;
 float:right;
-width:70%;
-height:15px;
-outline:#BABABA solid 1px;
-margin:0;
 }
 
-.quotaBarIndicator {
-background-color:#FF6060;
-height:100%;
+.bookmarkform {
+width:200px;
+margin-bottom:20px;
+border:none;
+padding:10px;
 }
+
+.bookmarkform label {
+padding:4px 4px 4px 0;
+}
+
+.bookmarkform input {
+width:100%;
+border:1px solid #FFAEAE;
+margin-bottom:10px;
+}
+
+.bookmarkform button {
+margin-top:10px;
+border:2px dashed #999;
+}
+
+#topSpacer {
+height:10px;
+}
+
+#copyright {
+font-size:85%;
+clear:both;
+color:#666;
+background-color:#FFF;
+text-align:center;
+}
+
+#helpleft,#helpright {
+float:left;
+width:300px;
+}
+
+table.bordered,table.bordered th,table.bordered td {
+border:thin solid #000;
+border-collapse:collapse;
+}
+
+#mainContainer {
+width:90%;
+max-width:900px;
+min-width:800px;
+margin:0 auto;
+}
+
+#mainheader {
+width:100%;
+min-height:105px;
+border:none;
+border-top:1px dashed #CCC;
+border-bottom:1px solid #FFAEAE;
+padding-top:4px;
+}
+
+img #igroupsLogo {
+float:left;
+}
+
+.links {
+float:right;
+display:inline-block;
+vertical-align:top;
+}
+
+#contentWrapper {
+width:100%;
+min-width: 780px;
+padding-bottom:50px;
+}
+
+#mainContent {
+padding-left:1px;
+float:right;
+width:75%;
+margin-top:0;
+padding-top:20px;
+}
+
+#mainContent p {
+margin-bottom:20px;
+}
+
+#externallinks li {
+float:left;
+padding:10px 10px 0 0;
+}
+
+#externallinks li a {
+color:#616161;
+text-decoration:none;
+border-bottom:1px dashed #CCC;
+}
+
+#mainNavigation {
+margin-top:14%;
+margin-right:0;
+}
+
+#mainNavigation li {
+float:left;
+margin-left:4px;
+border:1px solid #FFAEAE;
+background-color:#FFEDED;
+padding:6px 6px;
+}
+
+#mainNavigation li a {
+text-decoration:none;
+font-size:100%;
+font-weight:700;
+text-transform:uppercase;
+font-family:Tahoma,Verdana,Arial,Sans-serif;
+color:#222;
+}
+
+#mainNavigation li:hover {
+background-color:#FFF;
+border-bottom:1px solid #FFF;
+color:#000;
+}
+
+#uniSidebar {
+width:25%;
+max-width:180px;
+float:left;
+padding-top:20px;
+color:#000;
+}
+
+#uniSidebar p {
+font-weight:400;
+vertical-align:middle;
+}
+
+#uniSidebar ul,#uniSidebar p,#uniSidebar a {
+padding-bottom:10px;
+}
+
+#uniSidebar #userWelcomeMsg {
+font-family:"Trebuchet MS", Arial, Helvetica, sans-serif;
+font-size:12px;
+font-weight:700;
+border:none;
+}
+
+#uniSidebar #semesterlist {
+margin-top:15px;
+margin-bottom:15px;
+width:100%;
+max-width:180px;
+}
+
+#uniSidebar .menuTitle,#semesterIgroup {
+text-align:center;
+color:#c30000;
+}
+
+#uniSidebar .menuTitle {
+border-top:none;
+font-weight:700;
+font-size:14px;
+}
+
+#uniSidebar .subnavigation {
+width:100%;
+margin-top:0;
+float:left;
+border-top:3px solid #FF3030;
+border-bottom:none;
+}
+
+#uniSidebar .subnavigation li {
+height:35px;
+border-bottom: 1px solid #DDD;
+padding-left: 5px;
+}
+
+#uniSidebar .subnavigation li:hover {
+background-color:#e8e8e8;
+border-bottom:1px solid #B9B9B9;
+}
+
+#uniSidebar .subnavigation li a {
+padding-top: 8px;
+display:block;
+text-decoration:none;
+font-weight:bold;
+color:#222;
+}
+
+#footer {
+clear:both;
+border:none;
+border-top:1px solid #CCC;
+padding-top:10px;
+height:50px;
+}
+
+#footer #copyright {
+float:left;
+font-weight:600;
+color:#585858;
+}
+
+#footer a {
+color:#c30000;
+text-decoration:none;
+}
+
+.clearboth {
+clear:both;
+}
+
+.clearleft {
+clear:left;
+}
+
+#timesheet textarea {
+width:300px;
+}
+
+img,fieldset,.sortbar img {
+border:0;
+}
+
+thead,tfoot {
+font-size:10pt;
+font-weight:700;
+background-color:#EBEBEB;
+color:#000;
+text-align:center;
+}
+
+#semesterSelect,#groupSelect,#uniSidebar ul {
+margin-bottom:10px;
+}
+
+#externallinks,#footer #department {
+float:right;
+}
+
+
 
 
