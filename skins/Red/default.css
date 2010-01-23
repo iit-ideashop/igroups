@@ -278,6 +278,7 @@ vertical-align:top;
 
 #contentWrapper {
 width:100%;
+min-width: 780px;
 padding-bottom:50px;
 }
 
