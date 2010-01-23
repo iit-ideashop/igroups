@@ -86,6 +86,7 @@ max-height:18px;
 border:1px solid #CDE6FF;
 margin-bottom:10px;
 padding:6px;
+overflow:hidden;
 }
 
 .quotaText {
@@ -93,6 +94,7 @@ font-weight:700;
 font-family:Trebuchet MS;
 width:25%;
 float:left;
+margin: 0 ; /* overrides default paragraph margin */
 }
 
 .quotaBar {
@@ -107,3 +109,4 @@ margin:0;
 background-color:#FF6060;
 height:100%;
 }
+

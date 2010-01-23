@@ -454,9 +454,9 @@
      $quotaPix = ($quotaUsed/100)*500; 
   ?>
   <div class="quotaViewBox">
-    <p class="quotaText">
+    <span class="quotaText">
     Current Quota Used: <?php echo "$quotaUsed"; ?>%
-    </p>
+    </span>
     <div class="quotaBar">
     <div class="quotaBarIndicator" style="width:<?php echo $quotaPix; ?>px;" ></div>
     </div>
