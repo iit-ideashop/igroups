@@ -96,7 +96,7 @@ padding:.25em;
 
 .columnbanner {
 margin-bottom:0;
-border-bottom:1px solid #C00;
+border-bottom:1px solid #999;
 text-align:center;
 padding:.25em;
 }
@@ -459,3 +459,4 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
