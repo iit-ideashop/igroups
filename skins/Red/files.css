@@ -89,6 +89,7 @@ overflow:hidden;
 }
 
 .quotaText {
+color: #474747;
 font-weight:700;
 font-family:Trebuchet MS;
 width:25%;
@@ -108,4 +109,5 @@ margin:0;
 background-color:#FF6060;
 height:100%;
 }
+
 
