@@ -67,7 +67,11 @@ margin-top:40px;
 }
 
 a:link,a:visited {
-color:#C00;
+color:#3C3C3C;
+}
+
+a:hover {
+text-decoration: none;
 }
 
 img {
@@ -278,7 +282,7 @@ vertical-align:top;
 
 #contentWrapper {
 width:100%;
-min-width: 800px;
+min-width: 780px;
 padding-bottom:50px;
 }
 
@@ -362,6 +366,9 @@ margin-top:15px;
 margin-bottom:15px;
 width:100%;
 max-width:180px;
+border: 4px solid #CCC;
+-moz-border-radius: 5px;
+-webkit-border-radius: 5px;
 }
 
 #uniSidebar .menuTitle,#semesterIgroup {
@@ -452,6 +459,7 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
 
 
 
