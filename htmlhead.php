@@ -19,8 +19,11 @@
 							<!-- end external links -->
 							
 							<!-- internal links/main navigation --> 
-							<?php if (isset($_SESSION['userID']) && !$_GET['logout']){
-								require('main_navigation.html');
+							<?php
+								if (isset($_SESSION['userID']) && !$_GET['logout'])
+								{
+									require('main_navigation.html');
+								}
 							?>
 							<!-- end internal links -->
 						</div>
