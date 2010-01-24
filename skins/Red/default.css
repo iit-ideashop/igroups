@@ -379,7 +379,7 @@ border: 4px solid #ABABAB;
 -webkit-border-radius: 5px;
 }
 
-#uniSidebar .menuTitle,#semesterIgroup,ul a p {
+#uniSidebar .menuTitle,#semesterIgroup,#adminTools {
 text-align:center;
 color:#c30000;
 }
