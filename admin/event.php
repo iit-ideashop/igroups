@@ -250,7 +250,7 @@ function editEvent(id, name, desc, date)
 		}
 
 		echo "<p>Calendar events can now accept links. Use standard HTML: '&lt;a href=\"$appurl\"&gt;Click here for $appname&lt;/a&gt;' as an example.</p>\n";
-		echo "<table width=\"100%\" style=\"border-collapse: collapse\">" ;
+		echo "<table width=\"100%\" >" ;
 		echo "<tr><td id=\"columnbanner\" align=\"center\" colspan=\"7\" class=\"calbord\"><a href=\"event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth-1, 1, $currentYear ) )."\">&laquo;</a> ".date( "F Y", mktime( 0, 0, 0, $currentMonth, 1, $currentYear ) )." <a href=\"event.php?monthyear=".date( "n/Y", mktime( 0, 0, 0, $currentMonth+1, 1, $currentYear ) )."\">&raquo;</a></td></tr>";
 		echo "<tr><td class=\"calbord\">Sunday</td><td class=\"calbord\">Monday</td><td class=\"calbord\">Tuesday</td><td class=\"calbord\">Wednesday</td><td class=\"calbord\">Thursday</td><td class=\"calbord\">Friday</td><td class=\"calbord\">Saturday</td></tr>";
 		if ( $startDay != 0 )
