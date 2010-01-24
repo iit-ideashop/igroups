@@ -14,7 +14,12 @@
 							<ul id="externallinks">
 								<li><a href="http://sloth.iit.edu/~iproadmin/peerreview/">Peer Review</a></li>
 								<li><a href="http://ipro.iit.edu">IPRO Website</a></li>
-								<li><a href="login.php?logout=true" title="Logout">Logout</a></li>
+								<?php
+								if (isset($_SESSION['userID']) && !$_GET['logout'])
+								{
+									echo "<li><a href=\"login.php?logout=true\" title=\"Logout\">Logout</a></li>";
+								}
+								?>
 							</ul>
 							<!-- end external links -->
 							
