@@ -379,7 +379,7 @@ border: 4px solid #ABABAB;
 -webkit-border-radius: 5px;
 }
 
-#uniSidebar .menuTitle,#semesterIgroup {
+#uniSidebar .menuTitle,#semesterIgroup, p {
 text-align:center;
 color:#c30000;
 }
@@ -388,6 +388,7 @@ color:#c30000;
 border-top:none;
 font-weight:700;
 font-size:14px;
+padding-bottom: 10px;
 }
 
 #uniSidebar .subnavigation {
@@ -467,4 +468,5 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
 
