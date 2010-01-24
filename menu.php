@@ -228,6 +228,17 @@
 				 echo "<option value=\"".getLink($group)."\">".$group->getName().", ".$semester->getName()."</option>\n";
  				}
     }
+
+		if(isset($igroups))
+		{
+			if(in_array('igroups', $_SESSION['expandSemesters']))
+			{
+			@ksort($igroups);
+			foreach($igroups as $key => $group)
+			{
+        echo "<option value=\"".getLink($group)."\">".$group->getName().", ".$semester->getName()."</option>\n";
+			}
+
      echo "</select><br />";
     /**************************** end selection list generation *****************************/
 
