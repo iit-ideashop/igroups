@@ -93,14 +93,6 @@ table.list {
 	text-align:left;
 }
 
-table {
-border-collapse: collapse;
-}
-
-table td {
-   border: 1px solid #CCC;
-{
-
 thead {
 	background-color:#DDD;
 }
