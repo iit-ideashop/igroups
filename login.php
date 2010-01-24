@@ -43,4 +43,3 @@
 <a href="needhelp.php" title="Contact Us">Contact Us</a>
 </p>
 <hr />
-<p>Return to <a href="http://sloth.iit.edu/~iproadmin/peerreview/">Peer Review</a> &#183; <a href="http://ipro.iit.edu">IPRO Website</a></p>
