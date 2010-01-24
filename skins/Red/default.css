@@ -374,9 +374,9 @@ margin-top:15px;
 margin-bottom:15px;
 width:100%;
 max-width:180px;
-border: 4px solid #ABABAB;
--moz-border-radius: 5px;
--webkit-border-radius: 5px;
+border: 4px solid #616161;
+-moz-border-radius: 3px;
+-webkit-border-radius: 3px;
 }
 
 #uniSidebar .menuTitle,#semesterIgroup,#adminTools {
@@ -468,5 +468,6 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
 
 
