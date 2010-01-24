@@ -100,6 +100,7 @@ margin: 0 ; /* overrides default paragraph margin */
 }
 
 .quotaBar {
+float: right;
 width:30%;
 height:15px;
 outline:#BABABA solid 1px;
