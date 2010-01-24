@@ -216,7 +216,7 @@
 	{
  		/********************* generate semester selection list ********************************/
     echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
-    echo "<option value=\"\"> Select Semester </option>\n";
+    echo "<option value=\"\"> Select IPRO </option>\n";
 		
 	foreach($sortedIPROs as $key => $val)
 		{
@@ -296,31 +296,6 @@
 		/********************* end generation of ipro list generation ******************/
 
 	}// end if statement
-	
-  
-	if(isset($igroups))
-	{
-		if(in_array('igroups', $_SESSION['expandSemesters']))
-		{
-			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a class=\"menuTitle\" href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
-			@ksort($igroups);
-			echo "<ul class=\"subnavigation\">\n";
-			foreach($igroups as $key => $group)
-			{
-				echo "<li>".getLinkedName($group);
-				if(isSelected($group))
-				{
-					echo "<ul>\n";
-					printGroupMenu($currentUser, $group);
-					echo "</ul>\n";
-				}
-				echo "</li>\n";
-			}
-			echo "</ul>\n";
-		}
-		else
-			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
-	}
 
 	if($currentUser->isAdministrator())
 	{
