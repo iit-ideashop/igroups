@@ -148,7 +148,7 @@
 	else
 		$scratchBlurb = '';
 ?>
-	<div id="calendar">
+	<div class="calendar">
 <?php
 		$events = $currentGroup->getWeekEvents();
 		$eventArray = array();
