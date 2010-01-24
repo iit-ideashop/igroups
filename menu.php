@@ -284,11 +284,12 @@
 
 	}// end if statement
 	
+  
 	if(isset($igroups))
 	{
 		if(in_array('igroups', $_SESSION['expandSemesters']))
 		{
-			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
+			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a class=\"menuTitle\" href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
 			@ksort($igroups);
 			echo "<ul class=\"subnavigation\">\n";
 			foreach($igroups as $key => $group)
