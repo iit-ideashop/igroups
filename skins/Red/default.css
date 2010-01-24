@@ -94,11 +94,11 @@ margin:0 0 10px;
 padding:.25em;
 }
 
-.calendarTable table {
+.calendarTable {
 border-collapse: collapse;
 }
 
-.calendarTable table td {
+.calendarTable td {
    border: 1px solid #CCC;
 }
 
