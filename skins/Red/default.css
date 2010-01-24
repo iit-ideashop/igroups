@@ -276,6 +276,7 @@ border:none;
 border-top:1px dashed #CCC;
 border-bottom:1px solid #FFAEAE;
 padding-top:4px;
+overflow: hidden;
 }
 
 img #igroupsLogo {
@@ -468,6 +469,7 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
 
 
 
