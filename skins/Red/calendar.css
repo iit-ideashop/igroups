@@ -93,6 +93,14 @@ table.list {
 	text-align:left;
 }
 
+table {
+border-collapse: collapse;
+}
+
+table td {
+   border: 1px solid #CCC;
+{
+
 thead {
 	background-color:#DDD;
 }
@@ -146,4 +154,5 @@ tfoot {
 .ds_cell:hover {
 	background-color: #F3F3F3;
 } /* This hover code won't work for IE */
+
 
