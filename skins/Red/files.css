@@ -103,15 +103,16 @@ margin: 0 ; /* overrides default paragraph margin */
 float: right;
 width:30%;
 height:15px;
-outline:#BABABA solid 1px;
+outline:#C9C9C9 solid 1px;
 margin-right:10px;
 overflow: hidden;
 }
 
 .quotaBarIndicator {
-background-color:#838383;
+background-color:#9A9A9A;
 height:100%;
 }
+
 
 
 
