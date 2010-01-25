@@ -141,10 +141,6 @@
   /* TODO: It is best to include a <ul> tag here */
 	function printGroupMenu($user, $group)
 	{
-    /* print the groups sub navigation menu */
-    /* TODO: move this so that it can be separated into a sub navigation menu */ 
-		/* start sub navigation list */		
-		echo "<ul id=\"userMenu\" class=\"subnavigation\">\n";
 		echo "<li><a href=\"files.php\">Files</a></li>\n";
 		echo "<li><a href=\"email.php\">Email</a></li>\n";
 		echo "<li><a href=\"tasks.php\">Tasks</a></li>\n";
@@ -161,9 +157,6 @@
     /* If user is a moderator, add a link to the group management page */
     if($user->isGroupModerator($group))
 			echo "<li><a href=\"groupmanagement.php\">Manage Group</a></li>\n";
-		
-		echo "</ul>\n";
-	 /* end sub navigation list */
 	}
 	
 
@@ -275,13 +268,21 @@
 					if(isSelected($group))
 					{
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
-								printGroupMenu( $currentUser, $group );
+            /* print the groups sub navigation menu */
+    				/* TODO: move this so that it can be separated into a sub navigation menu */ 
+						/* start sub navigation list */		
+						echo "<ul class=\"subnavigation\">\n";
+						printGroupMenu( $currentUser, $group );
+						echo "</ul>\n";
+						
+  				 	/* end sub navigation list */
 					}
 					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
   						$_SESSION['activateDefaultMenu'] = 0 ;
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
-						
+							echo "<ul class=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
+							echo "</ul>\n";
 					}
 						echo "</li>\n";
 					
@@ -298,9 +299,9 @@
 
 	if($currentUser->isAdministrator())
 	{
-				if(in_array('admin', $_SESSION['expandSemesters']))
-		{ 
-      echo "<ul><li><a id=\"adminTools\" href=\"?toggleExpand=admin\"><p>Admin Tools</p></a>";
+		if(in_array('admin', $_SESSION['expandSemesters']))
+		{
+			echo "<a href=\"?toggleExpand=admin\"><p id=\"adminTools\">Admin Tools:</p></a>";
 			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">";
 			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>\n";
 			echo "<li><a href=\"admin/semesters.php\">Manage Semesters</a></li>\n";
@@ -319,11 +320,9 @@
 			echo "<li><a href=\"admin/appear.php\">Appearance</a></li>\n";
 			echo "<li><a href=\"admin/help.php\">Manage Help Center</a></li>\n";
 			echo "</ul>";
-      echo "</li></ul>";
 		}
 		else
 			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
-	
 	}
 ?>
 
