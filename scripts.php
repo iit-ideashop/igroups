@@ -9,6 +9,9 @@
     $(document).ready(function () {
 		$("#datepick").datepicker({ dateFormat: 'yy-mm-dd', showOn: 'focus' });
 		$(".datepickalt").datepicker({ dateFormat: 'mm/dd/yy', showOn: 'focus' });
+    $("#adminnavigation").click (function () {
+					$("#userMenu").slideUp("fast");
+		});
 	});
 </script>
 <script type="text/javascript" src="scripts/js/jquery-1.3.2.min.js"></script>

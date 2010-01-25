@@ -271,7 +271,7 @@
             /* print the groups sub navigation menu */
     				/* TODO: move this so that it can be separated into a sub navigation menu */ 
 						/* start sub navigation list */		
-						echo "<ul class=\"subnavigation\">\n";
+						echo "<ul id=\"userMenu\" class=\"subnavigation\">\n";
 						printGroupMenu( $currentUser, $group );
 						echo "</ul>\n";
 						
@@ -280,7 +280,7 @@
 					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
   						$_SESSION['activateDefaultMenu'] = 0 ;
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
-							echo "<ul class=\"subnavigation\">\n";
+							echo "<ul id=\"userMenu\" class=\"subnavigation\">\n";
 							printGroupMenu( $currentUser, $group );
 							echo "</ul>\n";
 					}
