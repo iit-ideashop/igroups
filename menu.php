@@ -141,6 +141,10 @@
   /* TODO: It is best to include a <ul> tag here */
 	function printGroupMenu($user, $group)
 	{
+    /* print the groups sub navigation menu */
+    /* TODO: move this so that it can be separated into a sub navigation menu */ 
+		/* start sub navigation list */		
+		echo "<ul id=\"userMenu\" class=\"subnavigation\">\n";
 		echo "<li><a href=\"files.php\">Files</a></li>\n";
 		echo "<li><a href=\"email.php\">Email</a></li>\n";
 		echo "<li><a href=\"tasks.php\">Tasks</a></li>\n";
@@ -157,6 +161,9 @@
     /* If user is a moderator, add a link to the group management page */
     if($user->isGroupModerator($group))
 			echo "<li><a href=\"groupmanagement.php\">Manage Group</a></li>\n";
+		
+		echo "</ul>\n";
+	 /* end sub navigation list */
 	}
 	
 
@@ -244,10 +251,7 @@
      echo "</select><br />";
     /**************************** end selection list generation *****************************/
 
-		//echo "<span>Your IPROs:</span>\n";
     // start of list 
-		//echo "<ul class=\"noindent\">\n";
-
 		/******************************** generate list of ipros*********************************/
 		foreach($sortedIPROs as $key => $val)
 		{  
@@ -263,36 +267,15 @@
 				
 				foreach($val as $useless => $group)
 				{
-	
-					/* check if group was the one selected */
-					if(isSelected($group))
-					{
-							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
-            /* print the groups sub navigation menu */
-    				/* TODO: move this so that it can be separated into a sub navigation menu */ 
-						/* start sub navigation list */		
-						echo "<ul id=\"userMenu\" class=\"subnavigation\">\n";
-						printGroupMenu( $currentUser, $group );
-						echo "</ul>\n";
-						
-  				 	/* end sub navigation list */
-					}
-					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
-  						$_SESSION['activateDefaultMenu'] = 0 ;
-							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
-							echo "<ul id=\"userMenu\" class=\"subnavigation\">\n";
-							printGroupMenu( $currentUser, $group );
-							echo "</ul>\n";
-					}
-						echo "</li>\n";
-					
+					echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
+					printGroupMenu( $currentUser, $group );
+					echo "</li>\n";
 				} // end for 
 				echo "</ul>\n";
 			} // end if 
-			//echo "</li>";
        
 		} // end for loop
-		//echo "</ul>\n";
+
 		/********************* end generation of ipro list generation ******************/
 
 	}// end if statement
