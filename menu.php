@@ -320,7 +320,7 @@
 			echo "<li><a href=\"admin/appear.php\">Appearance</a></li>\n";
 			echo "<li><a href=\"admin/help.php\">Manage Help Center</a></li>\n";
 			echo "</ul>";
-      echo "</li></ul>"
+      echo "</li></ul>";
 		}
 		else
 			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
