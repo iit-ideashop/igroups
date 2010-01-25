@@ -9,7 +9,9 @@
 	include_once('../classes/semester.php');
 	include_once('../classes/file.php');
 	include_once('../classes/quota.php');
-	
+	include_once('../checklogin.php');
+
+
 	//Globals:
 	$_NUGPERPAGE = 10;
 	$_COUNT = 0;
