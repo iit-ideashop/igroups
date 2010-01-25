@@ -34,7 +34,7 @@
 								echo "<li><a href=\"usernuggets.php\">Groups' Nuggets</a></li>";
 								echo "<li><a href=\"help/index.php\">Help</a></li>";
 								echo "<li><a href=\"needhelp.php\">Contact Us</a></li>";	
-				</ul>
+								echo "</ul>";
 								}
 							?>
 							<!-- end internal links -->
