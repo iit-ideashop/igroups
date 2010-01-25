@@ -9,7 +9,7 @@
     $(document).ready(function () {
 		$("#datepick").datepicker({ dateFormat: 'yy-mm-dd', showOn: 'focus' });
 		$(".datepickalt").datepicker({ dateFormat: 'mm/dd/yy', showOn: 'focus' });
-    $("#adminnavigation").click (function () {
+    $("#adminTools").click (function () {
 					$("#userMenu").slideUp("fast");
 		});
 	});
