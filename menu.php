@@ -251,7 +251,10 @@
      echo "</select><br />";
     /**************************** end selection list generation *****************************/
 
+		//echo "<span>Your IPROs:</span>\n";
     // start of list 
+		//echo "<ul class=\"noindent\">\n";
+
 		/******************************** generate list of ipros*********************************/
 		foreach($sortedIPROs as $key => $val)
 		{  
@@ -267,15 +270,28 @@
 				
 				foreach($val as $useless => $group)
 				{
-					echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
-					printGroupMenu( $currentUser, $group );
-					echo "</li>\n";
+	
+					/* check if group was the one selected */
+					if(isSelected($group))
+					{
+							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
+								printGroupMenu( $currentUser, $group );
+					}
+					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
+  						$_SESSION['activateDefaultMenu'] = 0 ;
+							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
+						
+							printGroupMenu( $currentUser, $group );
+					}
+						echo "</li>\n";
+					
 				} // end for 
 				echo "</ul>\n";
 			} // end if 
+			//echo "</li>";
        
 		} // end for loop
-
+		//echo "</ul>\n";
 		/********************* end generation of ipro list generation ******************/
 
 	}// end if statement
