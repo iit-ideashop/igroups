@@ -418,6 +418,12 @@ font-weight:bold;
 color:#222;
 }
 
+#uniSidebar #adminTools:hover{
+display: block;
+background-color: #FF2323;
+color: #FFF;
+}
+
 #footer {
 clear:both;
 border:none;
@@ -468,6 +474,7 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
 
 
 
