@@ -81,6 +81,7 @@
 		$temp = explode(',', $string);
 		if(count($temp) == 3)
 		{
+			$_SESSION['selectionMade'] = 1;
 			$_SESSION['selectedGroup'] = $temp[0];
 			$_SESSION['selectedGroupType'] = $temp[1];
 			$_SESSION['selectedSemester'] = $temp[2];
@@ -95,8 +96,25 @@
 	
   //calls the function above depending on whether the group is known or not
 	if(isset($_GET['selectGroup']))
+	{
 		selectGroup($_GET['selectGroup']);
-	ob_end_flush();
+  }
+	else 
+	{
+			ob_end_flush();
+			
+			if (!isset($_SESSION['selectionMade']))
+			{	
+					$activegroup = $currentUser->getActiveGroup();
+					if(!empty($activegroup))
+					{
+						$_SESSION['activateDefaultMenu'] = 1;
+						$_SESSION['selectedGroup'] = $activegroup[0];
+						$_SESSION['selectedGroupType'] = 0;
+						$_SESSION['selectedSemester'] = $activegroup[1];
+					}
+			}
+	}
 	
   
 	function isSelected($group)
@@ -116,7 +134,7 @@
 		return "menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester();
 	}
 
-/* Prints the menu links for a given group */
+  /* Prints the menu links for a given group */
   /* TODO: It is best to include a <ul> tag here */
 	function printGroupMenu($user, $group)
 	{
@@ -296,11 +314,10 @@
 			echo "<li><a href=\"skins.php\">Skins</a></li>\n";
 			echo "<li><a href=\"appear.php\">Appearance</a></li>\n";
 			echo "<li><a href=\"help.php\">Manage Help Center</a></li>\n";
-			echo "</ul>";
+			echo "</ul>\n";
+      echo "</li>\n</ul>\n";
 		}
 		else
 			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
 	}
-?>
-
-	
+?>	

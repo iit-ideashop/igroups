@@ -116,8 +116,6 @@
 			}
 	}
 	
-
-	
   
 	function isSelected($group)
 	{
@@ -135,7 +133,6 @@
 	function getLink($group){
 		return "menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester();
 	}
-
 
   /* Prints the menu links for a given group */
   /* TODO: It is best to include a <ul> tag here */
@@ -166,7 +163,6 @@
 	 /* end sub navigation list */
 	}
 	
-
 	if(!isset($_SESSION['expandSemesters']))
 	{
 		$semester = $db->query('SELECT iID FROM Semesters WHERE bActiveFlag=1');
@@ -323,8 +319,5 @@
 		}
 		else
 			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
-	
 	}
-?>
-
-	
+?>	
