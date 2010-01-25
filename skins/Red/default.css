@@ -417,10 +417,13 @@ font-weight:bold;
 color:#222;
 }
 
-#uniSidebar #adminTools:hover{
+#uniSidebar #adminTools{
 display: block;
-background-color: #FF2323;
-color: #FFF;
+text-decoration: none;
+}
+
+#uniSidebar #adminTools:hover{
+background-color: #DCDCDC;
 }
 
 #footer {
