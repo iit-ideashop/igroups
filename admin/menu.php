@@ -116,11 +116,14 @@
 		return "menu.php?selectGroup=".$group->getID().",".$group->getType().",".$group->getSemester();
 	}
 
-
-  /* Prints the menu links for a given group */
+/* Prints the menu links for a given group */
   /* TODO: It is best to include a <ul> tag here */
 	function printGroupMenu($user, $group)
 	{
+    /* print the groups sub navigation menu */
+    /* TODO: move this so that it can be separated into a sub navigation menu */ 
+		/* start sub navigation list */		
+		echo "<ul id=\"userMenu\" class=\"subnavigation\">\n";
 		echo "<li><a href=\"../files.php\">Files</a></li>\n";
 		echo "<li><a href=\"../email.php\">Email</a></li>\n";
 		echo "<li><a href=\"../tasks.php\">Tasks</a></li>\n";
@@ -137,8 +140,10 @@
     /* If user is a moderator, add a link to the group management page */
     if($user->isGroupModerator($group))
 			echo "<li><a href=\"../groupmanagement.php\">Manage Group</a></li>\n";
+		
+		echo "</ul>\n";
+	 /* end sub navigation list */
 	}
-	
 
 	if(!isset($_SESSION['expandSemesters']))
 	{
@@ -196,7 +201,7 @@
 	{
  		/********************* generate semester selection list ********************************/
     echo "<select id=\"semesterlist\" onChange=\"gotoSemesterUrl()\">";
-    echo "<option value=\"\"> Select Semester </option>\n";
+    echo "<option value=\"\"> Select IPRO </option>\n";
 		
 	foreach($sortedIPROs as $key => $val)
 		{
@@ -208,6 +213,19 @@
 				 echo "<option value=\"".getLink($group)."\">".$group->getName().", ".$semester->getName()."</option>\n";
  				}
     }
+
+		if(isset($igroups))
+		{
+			if(in_array('igroups', $_SESSION['expandSemesters']))
+			{
+				@ksort($igroups);
+				foreach($igroups as $key => $group)
+				{
+        	echo "<option value=\"".getLink($group)."\">".$group->getName().", ".$semester->getName()."</option>\n";
+				}
+			}
+		}
+
      echo "</select><br />";
     /**************************** end selection list generation *****************************/
 
@@ -224,76 +242,44 @@
 			{
 				if(($semester->getID() == $_SESSION['selectedSemester']) || (isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $semester->isActive()))
 				echo "<p class=\"menuTitle\">".$semester->getName()."</p>";
-				echo "<ul>\n";
+				echo "\n<ul>\n";
 				
 				ksort($val);
 				
 				foreach($val as $useless => $group)
 				{
-	
+		
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{
-							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
-            /* print the groups sub navigation menu */
-    				/* TODO: move this so that it can be separated into a sub navigation menu */ 
-						/* start sub navigation list */		
-						echo "<ul class=\"subnavigation\">\n";
-						printGroupMenu( $currentUser, $group );
-						echo "</ul>\n";
-						
-  				 	/* end sub navigation list */
-					}
-					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
-  						$_SESSION['activateDefaultMenu'] = 0 ;
-							echo "<li>".getLinkedName($group);
-							echo "<ul id=\"subnavigation\">\n";
+							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
 							printGroupMenu( $currentUser, $group );
-							echo "</ul>\n";
+							echo "</li>\n";
 					}
-						echo "</li>\n";
+					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive())
+					{
+  						$_SESSION['activateDefaultMenu'] = 0 ;
+							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
+							printGroupMenu( $currentUser, $group );
+							echo "</li>\n";
+					}
+						
 					
 				} // end for 
 				echo "</ul>\n";
-			} // end if 
-			//echo "</li>";
+			} // end if
        
 		} // end for loop
-		//echo "</ul>\n";
 		/********************* end generation of ipro list generation ******************/
 
 	}// end if statement
-	
-	if(isset($igroups))
-	{
-		if(in_array('igroups', $_SESSION['expandSemesters']))
-		{
-			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/minus.png\" alt=\"-\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a>\n";
-			@ksort($igroups);
-			echo "<ul>\n";
-			foreach($igroups as $key => $group)
-			{
-				echo "<li>".getLinkedName($group);
-				if(isSelected($group))
-				{
-					echo "<ul>\n";
-					printGroupMenu($currentUser, $group);
-					echo "</ul>\n";
-				}
-				echo "</li>\n";
-			}
-			echo "</ul>\n";
-		}
-		else
-			echo "<a href=\"?toggleExpand=igroups\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=igroups\">Your Other Groups:</a><br /><br />\n";
-	}
 
 	if($currentUser->isAdministrator())
 	{
-		if(in_array('admin', $_SESSION['expandSemesters']))
-		{
-			echo "<a href=\"?toggleExpand=admin\"><p class=\"menuTitle\" >Administrative Tools:</p></a>";
-			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">";
+				if(in_array('admin', $_SESSION['expandSemesters']))
+		{ 
+      echo "<ul><li><a id=\"adminTools\" href=\"?toggleExpand=admin\"><p>Admin Tools</p></a>\n";
+			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">\n";
 			echo "<li><a href=\"group.php\">Manage Groups</a></li>\n";
 			echo "<li><a href=\"semesters.php\">Manage Semesters</a></li>\n";
 			echo "<li><a href=\"email.php\">Email Groups</a></li>\n";
