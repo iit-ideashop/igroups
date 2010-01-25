@@ -27,7 +27,14 @@
 							<?php
 								if (isset($_SESSION['userID']) && !$_GET['logout'])
 								{
-									require('../main_navigation.html');
+								echo "<ul id=\"mainNavigation\">";
+								echo "<li><a href=\"grouphomepage.php\">Home</a></li>";
+								echo "<li><a href=\"contactinfo.php\">My Profile</a></li>";
+								echo "<li><a href=\"iknow/main.php\">Browse Nuggets</a>&nbsp;</li>";
+								echo "<li><a href=\"usernuggets.php\">Groups' Nuggets</a></li>";
+								echo "<li><a href=\"help/index.php\">Help</a></li>";
+								echo "<li><a href=\"needhelp.php\">Contact Us</a></li>";	
+				</ul>
 								}
 							?>
 							<!-- end internal links -->
