@@ -270,11 +270,11 @@
 				
 				foreach($val as $useless => $group)
 				{
-					echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
+		
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{
-								printGroupMenu( $currentUser, $group );
+						  printGroupMenu( $currentUser, $group );
 					}
 					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
   						$_SESSION['activateDefaultMenu'] = 0 ;
