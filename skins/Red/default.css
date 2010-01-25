@@ -423,7 +423,8 @@ text-decoration: none;
 }
 
 #uniSidebar #adminTools:hover{
-background-color: #DCDCDC;
+background-color: #BFBFBF;
+color: #000;
 }
 
 #footer {
