@@ -285,8 +285,7 @@ float:left;
 
 .links {
 float:right;
-display:inline-block;
-vertical-align:top;
+overflow: hidden;
 }
 
 #contentWrapper {
@@ -469,6 +468,7 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
 
 
 

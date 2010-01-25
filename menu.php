@@ -299,9 +299,7 @@
 
 	if($currentUser->isAdministrator())
 	{
-		if(in_array('admin', $_SESSION['expandSemesters']))
-		{
-			echo "<a href=\"?toggleExpand=admin\"><p id=\"adminTools\">Admin Tools:</p></a>";
+			echo "<span id=\"adminTools\">Admin Tools</span>";
 			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">";
 			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>\n";
 			echo "<li><a href=\"admin/semesters.php\">Manage Semesters</a></li>\n";
@@ -320,9 +318,6 @@
 			echo "<li><a href=\"admin/appear.php\">Appearance</a></li>\n";
 			echo "<li><a href=\"admin/help.php\">Manage Help Center</a></li>\n";
 			echo "</ul>";
-		}
-		else
-			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
 	}
 ?>
 
