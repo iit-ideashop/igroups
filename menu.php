@@ -264,7 +264,7 @@
 			{
 				if(($semester->getID() == $_SESSION['selectedSemester']) || (isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $semester->isActive()))
 				echo "<p class=\"menuTitle\">".$semester->getName()."</p>";
-				echo "<ul>\n";
+				echo "\n<ul>\n";
 				
 				ksort($val);
 				
@@ -276,20 +276,17 @@
 					{
 						  printGroupMenu( $currentUser, $group );
 					}
-					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive()){
+					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive())
+					{
   						$_SESSION['activateDefaultMenu'] = 0 ;
-							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>";
 							printGroupMenu( $currentUser, $group );
 					}
-						echo "</li>\n";
-					
+						
 				} // end for 
 				echo "</ul>\n";
-			} // end if 
-			//echo "</li>";
+			} // end if
        
 		} // end for loop
-		//echo "</ul>\n";
 		/********************* end generation of ipro list generation ******************/
 
 	}// end if statement
