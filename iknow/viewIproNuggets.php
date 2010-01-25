@@ -6,6 +6,7 @@
 	include_once('../classes/group.php');
 	include_once('../classes/db.php');
 	include_once('../nuggetTypes.php');
+	include_once('../checklogin.php');
 
 	if(is_numeric($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);

@@ -9,6 +9,7 @@
 	include_once('../classes/semester.php');
 	include_once('../classes/file.php');
 	include_once('../classes/quota.php');
+	include_once('../checklogin.php');
 
 	if(is_numeric($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);
