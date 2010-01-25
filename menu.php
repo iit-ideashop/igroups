@@ -300,8 +300,8 @@
 	{
 				if(in_array('admin', $_SESSION['expandSemesters']))
 		{ 
-      echo "<ul><li><a id=\"adminTools\" href=\"?toggleExpand=admin\"><p>Admin Tools</p></a>";
-			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">";
+      echo "<ul><li><a id=\"adminTools\" href=\"?toggleExpand=admin\"><p>Admin Tools</p></a>\n";
+			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">\n";
 			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>\n";
 			echo "<li><a href=\"admin/semesters.php\">Manage Semesters</a></li>\n";
 			echo "<li><a href=\"admin/email.php\">Email Groups</a></li>\n";
@@ -318,8 +318,8 @@
 			echo "<li><a href=\"admin/skins.php\">Skins</a></li>\n";
 			echo "<li><a href=\"admin/appear.php\">Appearance</a></li>\n";
 			echo "<li><a href=\"admin/help.php\">Manage Help Center</a></li>\n";
-			echo "</ul>";
-      echo "</li></ul>";
+			echo "</ul>\n";
+      echo "</li>\n</ul>\n";
 		}
 		else
 			echo "<a href=\"?toggleExpand=admin\"><img src=\"skins/$skin/img/plus.png\" alt=\"+\" /></a>&nbsp;<a href=\"?toggleExpand=admin\">Administrative tools:</a>";
