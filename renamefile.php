@@ -1,11 +1,30 @@
 <?php
 	include_once('globals.php');
-	include_once('checklogin.php');
-	include_once('classes/folder.php');
-	include_once('classes/file.php');
+	include_once('checklogin.php');	
+	include_once('classes/grouppicture.php');
+	
+	//----------Start XHTML Output----------------------------------//
+	
+	require('doctype.php');
+	require('appearance.php');
+	echo "<link rel=\"stylesheet\" href=\"skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
+	foreach($altskins as $altskin)
+		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/default.css\" type=\"text/css\" title=\"$altskin\" />\n";
 ?>
-<div class="window-content" id="rename">
+<title><?php echo $appname; ?> - Rename File</title>
+<style type="text/css"></style>
+</head>
+<body>
 <?php
+
+	/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/	
+	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>";
+?>
+	<div>
+<?php
+
 	if(isset($_GET['fileid']) || isset($_GET['folderid']))
 	{
 		if(isset($_GET['fileid']))
@@ -33,3 +52,9 @@
 		echo "<p>No file or folder selected.</p>";
 ?>
 </div>
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body>
+</html>
