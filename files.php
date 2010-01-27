@@ -648,7 +648,7 @@
 	if(!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial']))
 	{
 		echo "<li><a href=\"#\" onclick=\"newfolderwin=dhtmlwindow.open('newfolderbox', 'div', 'newfolder', 'Create Folder', 'width=350px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Create Folder</a></li>\n";
-		if(($currentUser->isGroupModerator($currentGroup) || $currentUser->isGroupAdministrator($currentGroup)) && !isset($_SESSION['selectedSpecial']) && $_SESSION['selectedFolder'] != 0)
+		if((!$currentUser->isGroupGuest($currentGroup) && !isset($_SESSION['selectedSpecial']) && $_SESSION['selectedFolder'] != 0)
 			echo "<li><a href=\"#\" onclick=\"editfolderwin=dhtmlwindow.open('editfolderbox', 'div', 'editfolder', 'Edit Folder', 'width=250px,height=150px,left=300px,top=100px,resize=0,scrolling=0'); return false\">Edit/Delete Folder</a></li>\n";
 		echo "</ul>\n";
 	}
