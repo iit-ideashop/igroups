@@ -1,8 +1,8 @@
 <?php
 	include_once('globals.php');
-	include_once('checklogin.php');	
-	include_once('classes/grouppicture.php');
-	
+	include_once('checklogin.php');
+	include_once('classes/folder.php');
+	include_once('classes/file.php');
 	//----------Start XHTML Output----------------------------------//
 	
 	require('doctype.php');
