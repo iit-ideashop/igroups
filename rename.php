@@ -3,9 +3,8 @@
 	include_once('checklogin.php');
 	include_once('classes/folder.php');
 	include_once('classes/file.php');
-	
+
 	//----------Start XHTML Output----------------------------------//
-	
 	require('doctype.php');
 	require('appearance.php');
 	echo "<link rel=\"stylesheet\" href=\"skins/$skin/default.css\" type=\"text/css\" title=\"$skin\" />\n";
