@@ -17,10 +17,12 @@
 <body>
 <?php
 
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>";
+	/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+  /****end html head content ****/	
+	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>";
 ?>
-	<div class="window-content" id="rename">
+	<div>
 <?php
 
 	if(isset($_GET['fileid']) || isset($_GET['folderid']))
@@ -50,5 +52,9 @@
 		echo "<p>No file or folder selected.</p>";
 ?>
 </div>
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
 </body>
 </html>
