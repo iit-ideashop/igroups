@@ -17,7 +17,7 @@
 								<?php
 								if (isset($_SESSION['userID']) && !$_GET['logout'])
 								{
-									echo "<li><a href=\"login.php?logout=true\" title=\"Logout\">Logout</a></li>";
+									echo "<li><a href=\"../login.php?logout=true\" title=\"Logout\">Logout</a></li>";
 								}
 								?>
 							</ul>
