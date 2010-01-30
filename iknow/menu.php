@@ -73,8 +73,6 @@
 		}
 	}
 
-	// takes a particlular groups parameters and goes to that gropus page
-	// this function is called from ???
 	function selectGroup($string)
 	{
 		$temp = explode(',', $string);
@@ -143,10 +141,8 @@
 		else
 			$_SESSION['expandSemesters'][] = $_GET['toggleExpand'];	
 	}
-
-	if(isset($_SESSION['userID'])){
+	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);
-	}
 	else
 		die('You are not logged in.');
 	
