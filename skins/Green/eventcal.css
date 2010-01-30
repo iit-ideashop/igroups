@@ -1,10 +1,10 @@
 @import url('default.css');
 
 li.ev {
-			display:inline;
-			padding:5px;
-			border:solid 1px #000;
-		}
+	display:inline;
+	padding:5px;
+	border:solid 1px #000;
+}
 
 li.calli {
 	display:inline;
@@ -124,3 +124,19 @@ a.iproeventlink, .tasklink {
 .ds_cell:hover {
 	background-color: #F3F3F3;
 } /* This hover code won't work for IE */
+
+
+#calendartable {
+width: 90%;
+max-width: 600px;
+height: 300px;
+margin: 0 auto;
+border-collapse: collapse;
+margin-top: 40px;
+margin-bottom: 20px;
+}
+
+#calendartable td{
+    border: 1px solid #CCC;
+}
+
