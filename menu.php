@@ -102,7 +102,7 @@
   }
 	else 
 	{
-			ob_end_flush();
+			
 
 			if (!isset($_SESSION['selectionMade']))
 			{	
@@ -117,12 +117,9 @@
 						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
 						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
 
-						unset($_SESSION['selectedFolder']);
-						unset($_SESSION['selectedSpecial']);
-						unset($_SESSION['expandFolders']);
-						unset($_SESSION['selectedCategory']);
 					}
 			}
+     ob_end_flush();
 		
 	}
 	
