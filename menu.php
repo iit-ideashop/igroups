@@ -106,11 +106,11 @@
 			if (!isset($_SESSION['selectionMade']))
 			{	
 					$activegroup = $currentUser->getActiveGroup();
-          echo "active groups is: ".$activegroup[0];
+          echo "active groups is: ".$activegroup[0][0];
 					if(!empty($activegroup))
 					{
 						$_SESSION['activateDefaultMenu'] = 1;
-						$_SESSION['selectedGroup'] = $activegroup[0][0];
+						$_SESSION['selectedGroup'] = $activegroup[0];
 						$_SESSION['selectedGroupType'] = 0;
 						$_SESSION['selectedSemester'] = $activegroup[1];
 					}
