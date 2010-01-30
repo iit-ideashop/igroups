@@ -97,7 +97,8 @@
   //calls the function above depending on whether the group is known or not
 	if(isset($_GET['selectGroup']))
 	{
-		selectGroup($_GET['selectGroup']);
+    echo " trying things out";
+		//selectGroup($_GET['selectGroup']);
   }
 	else 
 	{
