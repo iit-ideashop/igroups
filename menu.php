@@ -102,21 +102,8 @@
   }
 	else 
 	{
-			if (!isset($_SESSION['selectionMade']))
-			{	
-					$activegroups = $currentUser->getActiveGroups();
-					if(!empty($activegroups))
-					{
-						$defaultactivegroup = $activegroups[0];
-?>
-						<script type="text/javascript">
-				   <!--
-					 window.location.href=\'menu.php?selectGroup=<?php echo "{$defaultactivegroup->getID()},{$defaultactivegroup->getType()},{$defaultactivegroup->getSemester()}"?>';
-						//-->
-				  </script>
-<?php				
-	}
-			}
+			$defaultGroup = $defaultactivegroup->getID()}.",".{$defaultactivegroup->getType()}.",".{$defaultactivegroup->getSemester()};
+			selectGroup($defaultGroup);
 	}
 	ob_end_flush();
   
