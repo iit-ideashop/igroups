@@ -281,7 +281,16 @@
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
-										
+					else if(!isset($_SESSION['selectedGroup']) && isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive())
+					{
+							
+  						$_SESSION['activateDefaultMenu'] = 0 ;
+							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
+					
+							printGroupMenu( $currentUser, $group );
+							echo "</li>\n";
+					}
+						
 					
 				} // end for 
 				echo "</ul>\n";
