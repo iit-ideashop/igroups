@@ -1,11 +1,6 @@
 <?php
 	session_start();
-
-	include_once('globals.php');
-	include_once('classes/db.php');
-	include_once('classes/person.php');
-	include_once('classes/group.php');
-	include_once('classes/semester.php');
+	
 	
 	$db = new dbConnection();
 	
@@ -100,6 +95,12 @@
 	}
 	ob_end_flush();
   
+include_once('globals.php');
+	include_once('classes/db.php');
+	include_once('classes/person.php');
+	include_once('classes/group.php');
+	include_once('classes/semester.php');
+
 	function isSelected($group)
 	{
 		if(!isset($_SESSION['selectedGroup']))
