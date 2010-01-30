@@ -274,7 +274,7 @@
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{
-	
+							$_SESSION['activateDefaultMenu'] = 0 ;
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
 							echo "this is not supposed to happen no !!!!!!";
 							printGroupMenu( $currentUser, $group );
