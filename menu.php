@@ -29,7 +29,7 @@
 		{
 			$_SESSION['userID'] = $row[0];
 			if(isset($_GET['loggingin'])){
-				header('Location: grouphomepage.php');
+				header('Location: index.php');
       }
 		}
 		else if(!$_SESSION['loginError'])
@@ -55,7 +55,7 @@
 ?>
 				<script type="text/javascript">
 				<!--
-					window.location.href="grouphomepage.php";
+					window.location.href="index.php";
 				//-->
 				</script>
 <?php
@@ -91,7 +91,7 @@
 		unset($_SESSION['selectedSpecial']);
 		unset($_SESSION['expandFolders']);
 		unset($_SESSION['selectedCategory']);
-		header('Location: grouphomepage.php');
+		header('Location: index.php');
 	}
 	
   //calls the function above depending on whether the group is known or not
