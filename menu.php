@@ -81,7 +81,7 @@
 		$temp = explode(',', $string);
 		if(count($temp) == 3)
 		{ 
-			$_SESSION['selectionMade'] = 1;
+			$_SESSION['activateDefaultMenu'] = 0;
 			$_SESSION['selectedGroup'] = $temp[0];
 			$_SESSION['selectedGroupType'] = $temp[1];
 			$_SESSION['selectedSemester'] = $temp[2];
@@ -101,6 +101,7 @@
   }
 	else 
 	{
+			$_SESSION['activateDefaultMenu'] = 1;
 			ob_end_flush();
 	}
 	
