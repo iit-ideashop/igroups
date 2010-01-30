@@ -117,11 +117,11 @@
 						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
 						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
 							setcookie('selectedGroup', $string, time()+60*60*24*365);
-		unset($_SESSION['selectedFolder']);
-		unset($_SESSION['selectedSpecial']);
-		unset($_SESSION['expandFolders']);
-		unset($_SESSION['selectedCategory']);
-		header('Location: index.php');
+		  	unset($_SESSION['selectedFolder']);
+			unset($_SESSION['selectedSpecial']);
+			unset($_SESSION['expandFolders']);
+			unset($_SESSION['selectedCategory']);
+		header('Location: grouphomepage.php');
 					}
 			}
 	}
