@@ -52,25 +52,13 @@
 			$_SESSION['userID'] = $row[0];
 			if(isset($_GET['loggingin']))
 			{
-?>
-				<script type="text/javascript">
-				<!--
-					window.location.href="index.php";
-				//-->
-				</script>
-<?php
+				header('Location: index.php');
 			}
 		}
 		else if(!$_SESSION['loginError'])
 		{
 			$_SESSION['loginError'] = true;
-?>
-			<script type="text/javascript">
-			<!--
-				window.location.href="index.php";
-			//-->
-			</script>
-<?php
+			header('Location: index.php');
 		}
 	}
 
