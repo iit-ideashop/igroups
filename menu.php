@@ -102,8 +102,6 @@
   }
 	else 
 	{
-			
-			
 			if (!isset($_SESSION['selectionMade']))
 			{	
 					$activegroups = $currentUser->getActiveGroups();
@@ -117,8 +115,8 @@
 						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
 						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
 					}
-				ob_end_flush();
 			}
+			ob_end_flush();
 	}
 	
   
