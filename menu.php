@@ -269,7 +269,7 @@
 		
 					/* check if group was the one selected */
 					if(isSelected($group))
-					{   echo "selected group is :".$_SESSION['selectedGroup'];
+					{   
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
