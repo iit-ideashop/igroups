@@ -55,7 +55,7 @@
 ?>
 				<script type="text/javascript">
 				<!--
-					window.location.href="index.php";
+					window.location.href="grouphomepage.php";
 				//-->
 				</script>
 <?php
