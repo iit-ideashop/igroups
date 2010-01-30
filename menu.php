@@ -117,14 +117,10 @@
 	}
   //calls the function above depending on whether the group is known or not
 	if(isset($_GET['selectGroup']))
-	{
 		selectGroup($_GET['selectGroup']);
-  }
 	else 
-	{
-			defaultGroupPage($currentUser);
-	}
-  	ob_end_flush();
+		defaultGroupPage($currentUser);
+  ob_end_flush();
 	
   
 	function isSelected($group)
