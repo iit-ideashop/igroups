@@ -108,11 +108,16 @@
 					if(!empty($activegroups))
 					{
 						$defaultactivegroup = $activegroups[0];
-
+						pri
 						$_SESSION['activateDefaultMenu'] = 1;
 						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
 						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
 						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
+
+						unset($_SESSION['selectedFolder']);
+						unset($_SESSION['selectedSpecial']);
+						unset($_SESSION['expandFolders']);
+						unset($_SESSION['selectedCategory']);
 					}
 			}
 			ob_end_flush();
