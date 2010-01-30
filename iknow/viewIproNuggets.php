@@ -6,7 +6,6 @@
 	include_once('../classes/group.php');
 	include_once('../classes/db.php');
 	include_once('../nuggetTypes.php');
-	include_once('../checklogin.php');
 
 	if(is_numeric($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);
@@ -181,14 +180,10 @@
 </head>
 <body>
 <?php
-
-	 /**** begin html head *****/
-   require('htmlhead.php'); 
-  //starts main container
-  /****end html head content ****/
-
-
+	require('sidebar.php');
+	echo "<div id=\"content\">";
 	//Prints all notifications
+	
 	$id = $_GET['id'];
 	$sem = $db->query("Select iSemesterID FROM ProjectSemesterMap WHERE iProjectID=$id ORDER BY iSemesterID DESC");
 	$row = mysql_fetch_row($sem);
@@ -201,12 +196,4 @@
 	displayNonDefaultNuggets($currentGroup, $semID, $db);
 	echo "<br /><a href=\"main.php\">Back</a>\n";
 ?>
-
-<?php
- 	/**** begin html footer*****/
-  //include rest of html layout file
-  require('htmlfoot.php');
-  // ends main container
-  /****** end html footer*****/
-?>
-</body></html>
+<br /><br /></div></body></html>

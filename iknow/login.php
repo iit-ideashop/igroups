@@ -2,30 +2,30 @@
 	include_once('../globals.php');
 	include_once('../classes/db.php');
 
-	$db = new dbConnection();
-
 	//-----Process Login------------------------//
 
-	ob_start();
-	echo '<div id="loginform">';
 	if(isset($_GET['logout']))
 	{
+		session_start();
 		session_destroy();
-		setcookie('username', '', time()-60);
+		setcookie('userID', '', time()-60);
 		setcookie('password', '', time()-60);
 ?>
-		<script type="text/javascript">
-		<!--
-			window.location.href="../index.php";
-		//-->
-		</script>
+<script type="text/javascript">
+//<![CDATA[
+	window.location.href = "index.php";
+//]]>
+</script>
 <?php
-		ob_end_flush();
 	}
-
+?>
+<div id="loginform">
+<?php
 	if(isset($_SESSION['loginError']))
-		echo "<strong>Invalid username or password.</strong><br />";
-	unset($_SESSION['loginError']);
+	{
+		echo "<strong>Invalid username or password.</strong><br />\n";
+		unset($_SESSION['loginError']);
+	}
 ?>
 	<a href="../index.php"><?php echo $appname; ?> Home</a><br /><br />
 	<a href="../iknow/main.php">iKnow/iGroups Guest Access</a><br /><br />
