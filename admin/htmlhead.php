@@ -4,7 +4,7 @@
 			<!-- start main header -->
 			<div id="mainheader">
 					<!-- iGroups logo -->
-					<img id="igroupsLogo" src="../skins/Red/img/iGroupslogo.png" alt="iGroups Logo" />
+					<div id="igroupsLogo"></div>
 					<!-- end logo -->
 						
 					<!-- start container for both external and internal links -->
