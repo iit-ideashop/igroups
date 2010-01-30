@@ -101,25 +101,6 @@
   }
 	else 
 	{
-			if (!isset($_SESSION['selectionMade']))
-			{	
-					$activegroups = $currentUser->getActiveGroups();
-
-					if(!empty($activegroups))
-					{
-						$defaultactivegroup = $activegroups[0];
-						
-						$_SESSION['activateDefaultMenu'] = 1;
-						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
-						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
-						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
-
-						unset($_SESSION['selectedFolder']);
-						unset($_SESSION['selectedSpecial']);
-						unset($_SESSION['expandFolders']);
-						unset($_SESSION['selectedCategory']);
-					}
-			}
 			ob_end_flush();
 	}
 	
@@ -277,7 +258,7 @@
 					{
 							$printmenu=False;
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
-							echo "this is not supposed to happen no !!!!!!";
+					
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
@@ -286,7 +267,7 @@
 							
   						$_SESSION['activateDefaultMenu'] = 0 ;
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
-							echo "no no no !!!!!!";
+					
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
