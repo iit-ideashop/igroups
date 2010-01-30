@@ -116,7 +116,7 @@
 						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
 						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
 						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
-
+						setcookie('selectedGroup', $string, time()+60*60*24*365);
 					}
 			}
      ob_end_flush();
