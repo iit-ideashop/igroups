@@ -102,7 +102,7 @@
   }
 	else 
 	{
-			$defaultGroup = $defaultactivegroup->getID()}.",".{$defaultactivegroup->getType()}.",".{$defaultactivegroup->getSemester()};
+			$defaultGroup = $defaultactivegroup->getID().",".$defaultactivegroup->getType().",".$defaultactivegroup->getSemester();
 			selectGroup($defaultGroup);
 	}
 	ob_end_flush();
