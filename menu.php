@@ -107,7 +107,7 @@
 			{	
 					$activegroups = $currentUser->getActiveGroups();
 					echo print_r($activegroups[0]);
-					if(!empty($activegroup))
+					if(!empty($activegroups))
 					{
 						$defaultactivegroup = $activegroups[0];
            echo "active groups  name is: ".$defaultactivegroup->getName()."\n id is: ".$defaultactivegroup->getID();
