@@ -282,6 +282,7 @@
 					{
   						$_SESSION['activateDefaultMenu'] = 0 ;
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
+							echo "no no no !!!!!!";
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
