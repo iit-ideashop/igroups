@@ -94,8 +94,8 @@
 		header('Location: grouphomepage.php');
 	}
 	
-  function defaultGroupPage(){
-					$activegroups = $currentUser->getActiveGroups();
+  function defaultGroupPage($user){
+					$activegroups = $user->getActiveGroups();
 
 					if(!empty($activegroups))
 					{
@@ -122,7 +122,7 @@
   }
 	else 
 	{
-			defaultGroupPage();
+			defaultGroupPage($currentUser);
 			ob_end_flush();
 			
 			if (!isset($_SESSION['selectionMade']))
