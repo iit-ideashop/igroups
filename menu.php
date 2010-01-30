@@ -1,6 +1,11 @@
 <?php
 	session_start();
-	
+
+	include_once('globals.php');
+	include_once('classes/db.php');
+	include_once('classes/person.php');
+	include_once('classes/group.php');
+	include_once('classes/semester.php');
 	
 	$db = new dbConnection();
 	
@@ -47,13 +52,25 @@
 			$_SESSION['userID'] = $row[0];
 			if(isset($_GET['loggingin']))
 			{
-				header('Location: index.php');
+?>
+				<script type="text/javascript">
+				<!--
+					window.location.href="index.php";
+				//-->
+				</script>
+<?php
 			}
 		}
 		else if(!$_SESSION['loginError'])
 		{
 			$_SESSION['loginError'] = true;
-			header('Location: index.php');
+?>
+			<script type="text/javascript">
+			<!--
+				window.location.href="index.php";
+			//-->
+			</script>
+<?php
 		}
 	}
 
@@ -85,22 +102,24 @@
   }
 	else 
 	{
-			$activegroups = $currentUser->getActiveGroups();
-			if(!empty($activegroups))
-			{
-			$defaultactivegroup = $activegroups[0];
-			$defaultGroup = $defaultactivegroup->getID().",".$defaultactivegroup->getType().",".$defaultactivegroup->getSemester();
-			selectGroup($defaultGroup);
+
+			if (!isset($_SESSION['selectionMade']))
+			{	
+					$activegroups = $currentUser->getActiveGroups();
+					if(!empty($activegroups))
+					{
+						$defaultactivegroup = $activegroups[0];
+ 						$defaultGroup = $defaultactivegroup->getID().",".$defaultactivegroup->getType().",".$defaultactivegroup->getSemester();
+				 
+					 echo "<script type=\"text/javascript\">";
+					 echo "window.location.href=\"menu.php?selectGroup=".$defaultGroup;
+				   echo "</script>";
+							
+					}
 			}
 	}
 	ob_end_flush();
   
-include_once('globals.php');
-	include_once('classes/db.php');
-	include_once('classes/person.php');
-	include_once('classes/group.php');
-	include_once('classes/semester.php');
-
 	function isSelected($group)
 	{
 		if(!isset($_SESSION['selectedGroup']))
