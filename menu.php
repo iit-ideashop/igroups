@@ -101,6 +101,8 @@
   }
 	else 
 	{
+			ob_end_flush();
+
 			if (!isset($_SESSION['selectionMade']))
 			{	
 					$activegroups = $currentUser->getActiveGroups();
@@ -120,7 +122,7 @@
 						unset($_SESSION['selectedCategory']);
 					}
 			}
-			ob_end_flush();
+		
 	}
 	
   
