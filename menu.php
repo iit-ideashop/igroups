@@ -112,7 +112,7 @@
  						$defaultGroup = $defaultactivegroup->getID().",".$defaultactivegroup->getType().",".$defaultactivegroup->getSemester();
 				 
 					 echo "<script type=\"text/javascript\">";
-					 echo "window.location.href=\"menu.php?selectGroup=".$defaultGroup;
+					 echo "window.location.href=\"menu.php?selectGroup=".$defaultGroup."\";";
 				   echo "</script>";
 							
 					}
