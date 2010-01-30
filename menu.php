@@ -94,8 +94,18 @@
 		header('Location: grouphomepage.php');
 	}
 	
-  function defaultGroupPage($user){
-					$activegroups = $user->getActiveGroups();
+  //calls the function above depending on whether the group is known or not
+	if(isset($_GET['selectGroup']))
+	{
+		selectGroup($_GET['selectGroup']);
+  }
+	else 
+	{
+			ob_end_flush();
+			
+			if (!isset($_SESSION['selectionMade']))
+			{	
+					$activegroups = $currentUser->getActiveGroups();
 
 					if(!empty($activegroups))
 					{
@@ -105,22 +115,9 @@
 						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
 						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
 						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
-						setcookie('selectedGroup', $string, time()+60*60*24*365);
-
-						unset($_SESSION['selectedFolder']);
-						unset($_SESSION['selectedSpecial']);
-						unset($_SESSION['expandFolders']);
-						unset($_SESSION['selectedCategory']);
-						header('Location: grouphomepage.php');
 					}
-
+			}
 	}
-  //calls the function above depending on whether the group is known or not
-	if(isset($_GET['selectGroup']))
-		selectGroup($_GET['selectGroup']);
-	else 
-		defaultGroupPage($currentUser);
-  ob_end_flush();
 	
   
 	function isSelected($group)
@@ -284,7 +281,8 @@
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
-							
+						
+					
 				} // end for 
 				echo "</ul>\n";
 			} // end if
