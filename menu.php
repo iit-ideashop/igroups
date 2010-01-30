@@ -256,7 +256,6 @@
 		//echo "<ul class=\"noindent\">\n";
 
 		/******************************** generate list of ipros*********************************/
-		$printmenu = True;
 		foreach($sortedIPROs as $key => $val)
 		{  
 			
@@ -273,20 +272,16 @@
 				{
 		
 					/* check if group was the one selected */
-					if(isSelected($group) && $printmenu)
+					if(isSelected($group))
 					{
-							$printmenu=False;
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
-					
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
-					else if(!isset($_SESSION['selectedGroup']) && isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive())
+					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive())
 					{
-							
   						$_SESSION['activateDefaultMenu'] = 0 ;
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
-					
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
