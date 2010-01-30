@@ -123,22 +123,6 @@
 	else 
 	{
 			defaultGroupPage($currentUser);
-			ob_end_flush();
-			
-			if (!isset($_SESSION['selectionMade']))
-			{	
-					$activegroups = $currentUser->getActiveGroups();
-
-					if(!empty($activegroups))
-					{
-						$defaultactivegroup = $activegroups[0];
-
-						$_SESSION['activateDefaultMenu'] = 1;
-						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
-						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
-						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
-					}
-			}
 	}
 	
   
