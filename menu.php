@@ -274,7 +274,9 @@
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{
+	
 							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
+							echo "this is not supposed to happen no !!!!!!";
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
