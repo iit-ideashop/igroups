@@ -17,11 +17,11 @@
 // The following function is placed in the HTML head
 function gotoSemesterUrl()
    {
-   //get sleected index
+   //get selected index
    var selectedSemester = document.getElementById('semesterlist').selectedIndex;
 
    //get value at selected index
-   var url_address = "../".value;
+   var url_address = document.getElementById('semesterlist').options[selectedSemester].value;
     
    //got to location at index
    window.location.href = url_address;
