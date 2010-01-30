@@ -106,7 +106,7 @@
 			if (!isset($_SESSION['selectionMade']))
 			{	
 					$activegroup = $currentUser->getActiveGroup();
-          echo "active groups is: {$activegroups}";
+          echo "active groups is: {$activegroup}";
 					if(!empty($activegroup))
 					{
 						$_SESSION['activateDefaultMenu'] = 1;
