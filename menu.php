@@ -107,7 +107,7 @@
 			if (!isset($_SESSION['selectionMade']))
 			{	
 					$activegroups = $currentUser->getActiveGroups();
-
+				  print_r($activegroups);
 					if(!empty($activegroups))
 					{
 						$defaultactivegroup = $activegroups[0];
