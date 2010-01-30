@@ -81,7 +81,8 @@
 		$temp = explode(',', $string);
 		if(count($temp) == 3)
 		{ 
-			$_SESSION['activateDefaultMenu'] = 0;
+		
+			$_SESSION['selectionMade'] = 1;
 			$_SESSION['selectedGroup'] = $temp[0];
 			$_SESSION['selectedGroupType'] = $temp[1];
 			$_SESSION['selectedSemester'] = $temp[2];
@@ -101,8 +102,28 @@
   }
 	else 
 	{
-			$_SESSION['activateDefaultMenu'] = 1;
 			ob_end_flush();
+
+			if (!isset($_SESSION['selectionMade']))
+			{	
+					$activegroups = $currentUser->getActiveGroups();
+
+					if(!empty($activegroups))
+					{
+						$defaultactivegroup = $activegroups[0];
+						
+						$_SESSION['activateDefaultMenu'] = 1;
+						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
+						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
+						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
+
+						unset($_SESSION['selectedFolder']);
+						unset($_SESSION['selectedSpecial']);
+						unset($_SESSION['expandFolders']);
+						unset($_SESSION['selectedCategory']);
+					}
+			}
+		
 	}
 	
   
@@ -260,13 +281,7 @@
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
-					else if(isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $group->isActive())
-					{
-  						$_SESSION['activateDefaultMenu'] = 0 ;
-							echo "<li><p id=\"semesterIgroup\">".$group->getName()."</p>\n";
-							printGroupMenu( $currentUser, $group );
-							echo "</li>\n";
-					}
+					
 						
 					
 				} // end for 
