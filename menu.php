@@ -94,6 +94,27 @@
 		header('Location: grouphomepage.php');
 	}
 	
+  function defaultGroupPage(){
+					$activegroups = $currentUser->getActiveGroups();
+
+					if(!empty($activegroups))
+					{
+						$defaultactivegroup = $activegroups[0];
+
+						$_SESSION['activateDefaultMenu'] = 1;
+						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
+						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
+						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
+						setcookie('selectedGroup', $string, time()+60*60*24*365);
+
+						unset($_SESSION['selectedFolder']);
+						unset($_SESSION['selectedSpecial']);
+						unset($_SESSION['expandFolders']);
+						unset($_SESSION['selectedCategory']);
+						header('Location: grouphomepage.php');
+					}
+
+	}
   //calls the function above depending on whether the group is known or not
 	if(isset($_GET['selectGroup']))
 	{
@@ -101,16 +122,17 @@
   }
 	else 
 	{
+			defaultGroupPage();
 			ob_end_flush();
 			
 			if (!isset($_SESSION['selectionMade']))
 			{	
 					$activegroups = $currentUser->getActiveGroups();
-					echo print_r($activegroups[0]);
+
 					if(!empty($activegroups))
 					{
 						$defaultactivegroup = $activegroups[0];
-           echo "active groups  name is: ".$defaultactivegroup->getName()."\n id is: ".$defaultactivegroup->getSemester();
+
 						$_SESSION['activateDefaultMenu'] = 1;
 						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
 						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
@@ -281,8 +303,7 @@
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
-						
-					
+							
 				} // end for 
 				echo "</ul>\n";
 			} // end if
