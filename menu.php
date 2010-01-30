@@ -110,11 +110,11 @@
 					if(!empty($activegroups))
 					{
 						$defaultactivegroup = $activegroups[0];
-           echo "active groups  name is: ".$defaultactivegroup->getName()."\n id is: ".$defaultactivegroup->getID();
+           echo "active groups  name is: ".$defaultactivegroup->getName()."\n id is: ".$defaultactivegroup->getSemester();
 						$_SESSION['activateDefaultMenu'] = 1;
-						$_SESSION['selectedGroup'] = $activegroup[0];
-						$_SESSION['selectedGroupType'] = 0;
-						$_SESSION['selectedSemester'] = $activegroup[1];
+						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
+						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
+						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
 					}
 			}
 	}
