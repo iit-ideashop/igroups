@@ -325,7 +325,7 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
       $activeIpros = $this->db->query("SELECT iProjectID,iSemesterID FROM PeopleProjectMap JOIN Semesters WHERE iPersonID=".$this->id." AND PeopleProjectMap.iSemesterID=Semesters.iID and Semesters.bActiveFlag=1 LIMIT 1");
 			$returnArray = array();
 			while($row = mysql_fetch_row($activeIpros))
-				  $returnArray[] = new Group($row[0], 0,$row[0] , $this->db);
+				  $returnArray[] = new Group($row[0], 0,$row[1] , $this->db);
 			return $returnArray;
     }
 
