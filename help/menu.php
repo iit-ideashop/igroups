@@ -101,19 +101,21 @@
   }
 	else 
 	{
-			ob_end_flush();
-			
-			if (!isset($_SESSION['selectionMade']))
+					if (!isset($_SESSION['selectionMade']))
 			{	
-					$activegroup = $currentUser->getActiveGroup();
-					if(!empty($activegroup))
+					$activegroups = $currentUser->getActiveGroups();
+
+					if(!empty($activegroups))
 					{
+						$defaultactivegroup = $activegroups[0];
+
 						$_SESSION['activateDefaultMenu'] = 1;
-						$_SESSION['selectedGroup'] = $activegroup[0];
-						$_SESSION['selectedGroupType'] = 0;
-						$_SESSION['selectedSemester'] = $activegroup[1];
+						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
+						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
+						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
 					}
 			}
+			ob_end_flush();
 	}
 	
   
