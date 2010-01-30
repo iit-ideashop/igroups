@@ -124,6 +124,7 @@
 	{
 			defaultGroupPage($currentUser);
 	}
+  	ob_end_flush();
 	
   
 	function isSelected($group)
