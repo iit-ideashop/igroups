@@ -106,10 +106,10 @@
 			if (!isset($_SESSION['selectionMade']))
 			{	
 					$activegroups = $currentUser->getActiveGroups();
-					echo print_r($activegroups);
+					echo print_r($activegroups[0]);
 					if(!empty($activegroup))
 					{
-						$defaultactivegroup = $activegroup[0][0];
+						$defaultactivegroup = $activegroup[0];
            echo "active groups  name is: ".$activegroup[0][0]->getName()."\n id is: ".$activegroup[0][0]->getID();
 						$_SESSION['activateDefaultMenu'] = 1;
 						$_SESSION['selectedGroup'] = $activegroup[0];
