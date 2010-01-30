@@ -102,8 +102,6 @@
   }
 	else 
 	{
-			
-
 			if (!isset($_SESSION['selectionMade']))
 			{	
 					$activegroups = $currentUser->getActiveGroups();
@@ -111,21 +109,11 @@
 					if(!empty($activegroups))
 					{
 						$defaultactivegroup = $activegroups[0];
-						
-						$_SESSION['activateDefaultMenu'] = 1;
-						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
-						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
-						$_SESSION['selectedSemester'] = $defaultactivegroup->getSemester();
-							setcookie('selectedGroup', $string, time()+60*60*24*365);
-		  	unset($_SESSION['selectedFolder']);
-			unset($_SESSION['selectedSpecial']);
-			unset($_SESSION['expandFolders']);
-			unset($_SESSION['selectedCategory']);
-		header('Location: grouphomepage.php');
+						header("Location: menu.php?selectGroup={$defaultactivegroup->getID()},{$defaultactivegroup->getType()},{$defaultactivegroup->getSemester()}");
 					}
 			}
 	}
-	 ob_end_flush();
+	ob_end_flush();
   
 	function isSelected($group)
 	{
