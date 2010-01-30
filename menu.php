@@ -108,7 +108,7 @@
 					if(!empty($activegroups))
 					{
 						$defaultactivegroup = $activegroups[0];
-						pri
+						
 						$_SESSION['activateDefaultMenu'] = 1;
 						$_SESSION['selectedGroup'] = $defaultactivegroup->getID();
 						$_SESSION['selectedGroupType'] = $defaultactivegroup->getType();
