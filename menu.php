@@ -102,8 +102,13 @@
   }
 	else 
 	{
+			$activegroups = $currentUser->getActiveGroups();
+			if(!empty($activegroups))
+			{
+			$defaultactivegroup = $activegroups[0];
 			$defaultGroup = $defaultactivegroup->getID().",".$defaultactivegroup->getType().",".$defaultactivegroup->getSemester();
 			selectGroup($defaultGroup);
+			}
 	}
 	ob_end_flush();
   
