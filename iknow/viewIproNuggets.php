@@ -180,7 +180,7 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+	require('htmlhead.php');
 	echo "<div id=\"content\">";
 	//Prints all notifications
 	
@@ -196,4 +196,8 @@
 	displayNonDefaultNuggets($currentGroup, $semID, $db);
 	echo "<br /><a href=\"main.php\">Back</a>\n";
 ?>
-<br /><br /></div></body></html>
+
+<?php
+require('htmlfoot.php');
+?>
+</body></html>
