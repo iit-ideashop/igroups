@@ -109,7 +109,7 @@
 <br />
 <a href="viewIproNuggets.php?id=<?php echo $nugGroup; ?>">Back</a> 
 <?php
-require('htmlcontentfoot');
+require('htmlcontentfoot.php');
 ?>
 
 </body></html>
