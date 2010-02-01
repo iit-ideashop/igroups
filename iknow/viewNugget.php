@@ -88,8 +88,7 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\">";
+	require('htmlhead.php');
 	if(isset($_GET['nuggetID']))
 	{
 		//proceed with view
@@ -109,4 +108,8 @@
 ?>
 <br />
 <a href="viewIproNuggets.php?id=<?php echo $nugGroup; ?>">Back</a> 
-</div></body></html>
+<?php
+require('htmlcontentfoot');
+?>
+
+</body></html>
