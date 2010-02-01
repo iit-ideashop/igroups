@@ -144,8 +144,7 @@
 ?>
 
 <?php
- 	/**** begin html footer*****/
-  //include rest of html layout file
+  /**** begin html footer*****/
   require('htmlcontentfoot.php');
   // ends main container
   /****** end html footer*****/
