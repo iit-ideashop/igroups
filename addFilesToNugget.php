@@ -284,4 +284,5 @@
 
 <?php
 require('htmlcontentfoot.php');
+?>
 </div></body></html>
