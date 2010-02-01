@@ -162,8 +162,8 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><h1>Create new Nugget</h1>\n";
+	require('htmlhead.php');
+	echo "<h1>Create new Nugget</h1>\n";
 
 	//only works if the url contained a nugget type
 	if(isset($_GET['files']))
@@ -258,4 +258,7 @@
 		echo "</script>\n";
 	}
 ?>
-</div></body></html>
+<?php 
+require('htmlcontentfoot.php');
+?>
+</body></html>
