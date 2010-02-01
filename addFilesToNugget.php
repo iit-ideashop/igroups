@@ -162,8 +162,8 @@
 //]]>
 </script></head><body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
+	require('htmlfoot.php');
+	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 ?>
 	<div id="container">
 	<div id="folderbox">
@@ -280,4 +280,8 @@
 	echo "<input type =\"hidden\" name=\"nugget\" value=\"$nugget\" />";
 ?>
 <input type="submit" value="Yes" onclick="copyCheckBoxes();this.form.submit()" />
-</fieldset></form></div></div></body></html>
+</fieldset></form></div>
+
+<?php
+require('htmlcontentfoot.php');
+</div></body></html>
