@@ -162,7 +162,7 @@
 //]]>
 </script></head><body>
 <?php
-	require('htmlfoot.php');
+	require('htmlhead.php');
 	echo "<div id=\"topbanner\">{$currentGroup->getName()}</div>\n";
 ?>
 	<div id="container">
