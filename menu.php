@@ -251,8 +251,8 @@
 			$semester = new Semester($key, $db);
 			if(in_array($semester->getID(), $_SESSION['expandSemesters']) || $semester->getID() == $_SESSION['selectedSemester'])
 			{
-				if(($semester->getID() == $_SESSION['selectedSemester']) || (isset($_SESSION['activateDefaultMenu']) && $_SESSION['activateDefaultMenu'] == 1 && $semester->isActive()))
-				echo "<p class=\"menuTitle\">".$semester->getName()."</p>";
+				if(($semester->getID() == $_SESSION['selectedSemester']) && $semester->isActive())
+					echo "<p class=\"menuTitle\">".$semester->getName()."</p>";
 				echo "\n<ul>\n";
 				
 				ksort($val);
