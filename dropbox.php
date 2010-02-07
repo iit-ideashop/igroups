@@ -240,6 +240,6 @@
 	
  <?php
   //include rest of html layout file
-  require('htmlcontentfoot.php');// ends main container
+  require('htmlfoot.php');// ends main container
 ?>
 </body></html>
