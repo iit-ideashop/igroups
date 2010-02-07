@@ -68,8 +68,9 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">$topicName</div>\n";
+
+  require('htmlhead.php');
+	echo "<div id=\"topbanner\">$topicName</div>\n";
 
 	if($_GET['mode'] == 'thread')
 	{
@@ -103,5 +104,9 @@
 	<script type="text/javascript"> document.getElementById('postForm').body.focus(); </script>
 <?php
 	}
+
+ 
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
 ?>
-</div></body></html>
+</body></html>

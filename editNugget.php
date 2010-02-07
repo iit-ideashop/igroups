@@ -309,8 +309,8 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><h1>Edit Nugget</h1>";
+	require('htmlhead.php');
+	<h1>Edit Nugget</h1>";
 	if(isset($_POST['published']))
 	{
 		$nugget = new Nugget($_POST['nuggetID'], $db, 0);
@@ -432,4 +432,8 @@
 		}
 	}
 ?>
-</div></body></html>
+<?php
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body></html>
