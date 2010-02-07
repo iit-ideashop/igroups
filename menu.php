@@ -231,7 +231,7 @@
 
 		if(isset($igroups))
 		{
-				echo "<option>Other groups</option>\n";
+			
 				@ksort($igroups);
 				foreach($igroups as $key => $group)
 				{

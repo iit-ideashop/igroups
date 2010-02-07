@@ -197,8 +197,6 @@
 	
 	foreach($groups as $key => $group)
 	{
-		if($group->getType() == 0)
-		{
 			$sortedIPROs[$group->getSemester()][$group->getName()] = $group;
 			if($group->isActive())
 			{
@@ -209,9 +207,6 @@
 					$sortedIPROs[$newGroup->getSemester()][$newGroup->getName()] = $newGroup;
 				}
 			}
-		}
-		else
-			$igroups[$group->getName()] = $group;
 	}
 
   //Sort IPRO array by key in reverse order
