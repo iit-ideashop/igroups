@@ -92,7 +92,7 @@
 		unset($_SESSION['selectedSpecial']);
 		unset($_SESSION['expandFolders']);
 		unset($_SESSION['selectedCategory']);
-		header('Location: index.php');
+		header('Location: grouphomepage.php');
 	}
 	
   //calls the function above depending on whether the group is known or not
