@@ -163,7 +163,7 @@
 ?>
 		<h1>Add Event</h1>
 		<form method="post" action="calendar.php"><fieldset>
-			<label for="date1">Date (MM/DD/YYYY):</label><input type="text" id="date1" name="date" onclick="ds_sh(this);" style="cursor: text" /><br />
+			<label for="date1">Date (MM/DD/YYYY):</label><input type="text" id="date1" name="date" style="cursor: text" /><br />
 			<label for="eventname1">Event name:</label><input type="text" name="name" id="eventname1" /><br />
 			<label for="eventdesc1">Event description:</label><br />
 			<textarea name="description" cols="50" rows="5" id="eventdesc1"></textarea><br />
