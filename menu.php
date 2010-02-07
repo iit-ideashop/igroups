@@ -102,7 +102,6 @@
   }
 	else 
 	{
-
 			if (!isset($_SESSION['selectionMade']))
 			{	
 					$activegroups = $currentUser->getActiveGroups();
@@ -249,8 +248,6 @@
 
 		//echo "<span>Your IPROs:</span>\n";
     // start of list 
-		//echo "<ul class=\"noindent\">\n";
-
 		/******************************** generate list of ipros*********************************/
 		foreach($sortedIPROs as $key => $val)
 		{  
@@ -266,7 +263,7 @@
 				
 				foreach($val as $useless => $group)
 				{
-		
+		      echo $group->getName();
 					/* check if group was the one selected */
 					if(isSelected($group))
 					{   
@@ -274,8 +271,6 @@
 							printGroupMenu( $currentUser, $group );
 							echo "</li>\n";
 					}
-										
-					
 				} // end for 
 				echo "</ul>\n";
 			} // end if
