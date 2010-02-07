@@ -311,7 +311,7 @@
 <?php
 	require('htmlhead.php');
 
-	<h1>Edit Nugget</h1>";
+	echo "<h1>Edit Nugget</h1>";
 	if(isset($_POST['published']))
 	{
 		$nugget = new Nugget($_POST['nuggetID'], $db, 0);
