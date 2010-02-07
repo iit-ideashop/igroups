@@ -70,7 +70,7 @@
 <?php
 
   require('htmlhead.php');
-	echo "<div id=\"topbanner\">$topicName</div>\n";
+
 
 	if($_GET['mode'] == 'thread')
 	{

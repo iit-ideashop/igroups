@@ -147,8 +147,7 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
-	echo "<div id=\"content\"><div id=\"topbanner\">{$currentGroup->getName()}</div>\n";;
+	require('htmlhead.php');
 	echo "<div id=\"container\"><div id=\"folderbox\">\n";
 	echo "<div class=\"columnbanner\">Your Folders:</div>\n";
 	echo "<div id=\"folders\">\n";
@@ -238,5 +237,9 @@
 				<input type="submit" name="upload" value="Upload File" />
 			</fieldset></form>
 		</div>
-	</div>
+	
+ <?php
+  //include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
 </body></html>
