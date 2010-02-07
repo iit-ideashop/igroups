@@ -225,16 +225,17 @@
 				
 			foreach($val as $useless => $group)
 			{				
-				 echo "<option value=\"".getLink($group)."\">".$group->getName().", ".$semester->getName()."</option>\n";
+				 echo "<option value=\"".getLink($group)."\">".$group->getName()." ".$semester->getName()."</option>\n";
  				}
     }
 
 		if(isset($igroups))
 		{
+				echo "<option>Other groups</option>\n";
 				@ksort($igroups);
 				foreach($igroups as $key => $group)
 				{
-        	echo "<option value=\"".getLink($group)."\">".$group->getName().", ".$semester->getName()."</option>\n";
+        	echo "<option value=\"".getLink($group)."\">".$group->getName()." ".$semester->getName()."</option>\n";
 				}
 		}
 
