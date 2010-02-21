@@ -52,7 +52,7 @@ li.size0 {
 	display:block;
 }
 
-a.iproeventlink {
+a.iproeventlink, .tasklink {
 	font-size:10px;
 	display:block;
 	color:#000;
@@ -146,4 +146,5 @@ tfoot {
 .ds_cell:hover {
 	background-color: #F3F3F3;
 } /* This hover code won't work for IE */
+
 

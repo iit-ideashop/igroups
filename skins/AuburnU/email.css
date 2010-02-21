@@ -9,7 +9,7 @@
 	width:25%;
 	margin:5px;
 	padding:2px;
-	border:1px solid #000;
+	border:1px solid #6D6D6D;
 }
 
 #cats {
@@ -23,14 +23,35 @@
 	float:left;
 	margin:5px;
 	padding:2px;
-	width:55%;
-	border:1px solid #000;
+	width:70%;
+	border:1px solid #6D6D6D;
 }
 
 #emails {
 	width:100%;
 	text-align:left;
 	background-color:#fff;
+}
+
+#emailbox table {
+       margin-top: 0;
+}
+
+#emailbox tbody tr.sortbar {
+ background-color: #FFF;
+ 
+}
+
+#emailbox tbody tr.sortbar td{
+ border: 1px dashed #CCC;
+}
+
+.sortbar a {
+   color : #000;
+}
+
+#filebox table a {
+   width:10px;
 }
 
 #menubar, .menubar {
@@ -53,3 +74,5 @@ ul.ema {
 #emailboxheader {
 	font-weight: bold;
 }
+
+

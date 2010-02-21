@@ -2,7 +2,7 @@
 
 h1 {
 	font-size:12pt;
-	color:#eeeeee;
+	color:#007700;
 	padding:0;
 	margin-bottom:5px;
 }
@@ -11,7 +11,7 @@ h1 {
 	padding: .25em;
 	font-size:14pt;
 	border-bottom-style:solid;
-	border-bottom-color:#999;
+	border-bottom-color:#007700;
 	text-align:center;
 	margin-bottom:10px;
 }
@@ -24,41 +24,41 @@ table {
 th {
 	font-size: 14px;
 	color: #FFFFFF;
-	background-color: #222222;
+	background-color: #007700;
 	background-position: center;
 }
 
-td.subtopic_heading a:link {color: #ccc;}
+td.subtopic_heading a:link {color: #000;}
 
 td {
 	border: 1px solid #ccc;
 }
 
 .divide {
-    background-color: #222222;
+    background-color: #EEEEEE;
 	height: 5px;
 }
 
 .topic_heading {
 	font-size: 140%;
 	font-weight: bold;
-	color: #eee;
-	background-color: #222222;
+	color: #333;
+	background-color: #CCCCCC;
 }
 
 /* New Styles */
 .subtopic_heading {
 	font-size: 120%;
 	font-weight: bold;
-	color: #eee;
-	background-color: #222;
+	color: #000000;
+	background-color: #FFF;
 }
 
 .view_options {
 	font-size: 100%;
 	font-weight: bold;
-	color: #eee;
-	background-color: #222;
+	color: #333;
+	background-color: #CCC;
 }
 
 table.noborder {
@@ -73,7 +73,7 @@ table.noborder td {
 hr {
 	border: 0px;
  	color: #ccc;
-	background-color:#222;
+	background-color:#ccc;
 	height: 1px;
 }
 

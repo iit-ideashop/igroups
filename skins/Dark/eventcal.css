@@ -3,40 +3,40 @@
 li.ev {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 }
 
 li.calli {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 }
 
 li.size3 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 	font-size:8pt;
 }
 
 li.size2 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 	font-size:11pt;
 }
 
 li.size1 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 	font-size:14pt;
 }
 
 li.size0 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 	font-size:20pt;
 }
 
@@ -49,7 +49,7 @@ li.size0 {
 
 #calendar {
 	border:solid 1px #000;
-	background-color:#333;
+	background-color:#fff;
 	visibility:hidden;
 	position:absolute;
 	left:50px;
@@ -64,12 +64,12 @@ li.size0 {
 a.iproeventlink, .tasklink {
 	font-size:10px;
 	display:block;
-	color:#fff;
+	color:#000;
 }
 
 .event {
 	border:solid 1px #000;
-	background-color:#333;
+	background-color:#fff;
 	position:absolute;
 	visibility:hidden;
 	width:200px;
@@ -124,3 +124,19 @@ a.iproeventlink, .tasklink {
 .ds_cell:hover {
 	background-color: #F3F3F3;
 } /* This hover code won't work for IE */
+
+
+#calendartable {
+width: 90%;
+max-width: 600px;
+height: 300px;
+margin: 0 auto;
+border-collapse: collapse;
+margin-top: 40px;
+margin-bottom: 20px;
+}
+
+#calendartable td{
+    border: 1px solid #CCC;
+}
+

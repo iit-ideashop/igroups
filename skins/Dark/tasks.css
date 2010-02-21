@@ -10,8 +10,8 @@ table#tasks
 table#tasks td, table#tasks th
 {
 	border: thin solid black;
-	padding-left:5px;
-	padding-right:5px;
+	padding-left: 5px;
+	padding-right: 5px;
 }
 
 table#tasks ul
@@ -27,26 +27,26 @@ table.taskhours td
 
 tr.normal0 td
 {
-	background-color: black;
-	color: white;
+	background-color: white;
+	color: black;
 }
 
 tr.normal1 td
 {
-	background-color: #222222;
-	color: white;
+	background-color: #dddddd;
+	color: black;
 }
 
 tr.overdue0 td
 {
-	background-color: #880000;
-	color: white;
+	background-color: #CCFAC3;
+	color: black;
 }
 
 tr.overdue1 td
 {
-	background-color: #660000;
-	color: white;
+	background-color: #ffdddd;
+	color: black;
 }
 
 td.assignments strong
@@ -75,7 +75,8 @@ a.toggle
 
 li#overdue
 {
-	color: #ff7777;
+	color: red;
+	background-color: white;
 }
 
 .sgpersonlist
@@ -104,3 +105,4 @@ div#caldiv
 {
 
 }
+

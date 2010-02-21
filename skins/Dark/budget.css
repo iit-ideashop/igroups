@@ -5,7 +5,7 @@
 }
 .submit_budget tr td {
 	border-top: 1px solid #cc0000;
-	background: #333;
+	background: #eee;
 	vertical-align:top;
 }
 
@@ -19,8 +19,8 @@
 }
 
 .description {
-	border:solid 1px #fff;
-	background-color:#000;
+	border:solid 1px #000;
+	background-color:#fff;
 	position:absolute;
 	visibility:hidden;
 	width:400px;
@@ -31,7 +31,7 @@
 }
 
 .budget, #budget {
-	background: #333;
+	background: #ddd;
 	border-style: none;
 }
 
@@ -45,7 +45,7 @@
 }
 
 .budget_result {
-	background: #333;
+	background: #eee;
 	padding:5px;
 	border-right: 1px solid #ccc;
 	border-bottom: 1px solid #ccc;
@@ -107,7 +107,7 @@ input.revise_btn {
 }
 
 #info_msg {
-	background: #330; 
+	background: #ffffcc; 
 	border: 1px solid #fcd900;
 	padding: 7px;
 }
@@ -121,7 +121,7 @@ input.revise_btn {
 }
 
 .edit_desc {
-	background: #330;
+	background: #ffffcc;
 	border: 1px solid #ccc;
 	padding: 3px;
 }
@@ -141,7 +141,7 @@ input.revise_btn {
 }	
 
 .notice_msg {
-	background: #330; 
+	background: #ffffcc; 
 	padding: 0px 10px 10px 20px;
 	border: 2px solid #e6db55;
 }
@@ -156,5 +156,4 @@ input.revise_btn {
 
 .highlight {
 	background: #ffffcc;
-	color: black;
 }

@@ -2,7 +2,7 @@
 
 h1 {
 	font-size:12pt;
-	color:#03244D;
+	color:#007700;
 	padding:0;
 	margin-bottom:5px;
 }
@@ -11,7 +11,7 @@ h1 {
 	padding: .25em;
 	font-size:14pt;
 	border-bottom-style:solid;
-	border-bottom-color:#03244D;
+	border-bottom-color:#007700;
 	text-align:center;
 	margin-bottom:10px;
 }
@@ -24,7 +24,7 @@ table {
 th {
 	font-size: 14px;
 	color: #FFFFFF;
-	background-color: #03244D;
+	background-color: #007700;
 	background-position: center;
 }
 

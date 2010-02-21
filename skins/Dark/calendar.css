@@ -1,73 +1,42 @@
 @import url('default.css');
 
-#calendar {
-	border:solid 1px #fff;
-	background-color:#000;
-	visibility:hidden;
-	position:absolute;
-	left:50px;
-	z-index:500;
-}
-	
-#taskCalendar {
-	border:solid 1px #fff;
-	background-color:#000;
-	visibility:hidden;
-	position:absolute;
-	left:50px;
-	z-index:500;
-}
-
-table.list {
-	width:500px;
-	text-align:left;
-}
-
-thead {
-	background-color:#222;
-}
-
-tfoot {
-	background-color:#222;
-}
-
 li.ev {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 }
 
 li.calli {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 }
 
 li.size3 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 	font-size:8pt;
 }
 
 li.size2 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 	font-size:11pt;
 }
 
 li.size1 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 	font-size:14pt;
 }
 
 li.size0 {
 	display:inline;
 	padding:5px;
-	border:solid 1px #666;
+	border:solid 1px #000;
 	font-size:20pt;
 }
 
@@ -86,12 +55,12 @@ li.size0 {
 a.iproeventlink, .tasklink {
 	font-size:10px;
 	display:block;
-	color:#fff;
+	color:#000;
 }
 
 .event {
 	border:solid 1px #000;
-	background-color:#333;
+	background-color:#fff;
 	position:absolute;
 	visibility:hidden;
 	width:200px;
@@ -101,20 +70,51 @@ a.iproeventlink, .tasklink {
 	overflow:hidden;
 }
 
+#calendar {
+	border:solid 1px #000;
+	background-color:#fff;
+	visibility:hidden;
+	position:absolute;
+	left:50px;
+	z-index:500;
+}
+	
+#taskCalendar {
+	border:solid 1px #000;
+	background-color:#fff;
+	visibility:hidden;
+	position:absolute;
+	left:50px;
+	z-index:500;
+}
+
+table.list {
+	width:500px;
+	text-align:left;
+}
+
+thead {
+	background-color:#DDD;
+}
+
+tfoot {
+	background-color:#DDD;
+}
+
 .ds_box {
-	background-color: #000;
-	border: 1px solid #fff;
+	background-color: #FFF;
+	border: 1px solid #000;
 	position: absolute;
 	z-index: 32767;
 }
 
 .ds_tbl {
-	background-color: #000;
+	background-color: #FFF;
 	width: 85%
 }
 
 .ds_head {
-	background-color: #800;
+	background-color: #C00;
 	color: #FFF;
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 13px;
@@ -124,8 +124,8 @@ a.iproeventlink, .tasklink {
 }
 
 .ds_subhead {
-	background-color: #000;
-	color: #CCC;
+	background-color: #CCC;
+	color: #000;
 	font-size: 12px;
 	font-weight: bold;
 	text-align: center;
@@ -134,8 +134,8 @@ a.iproeventlink, .tasklink {
 }
 
 .ds_cell {
-	background-color: #000;
-	color: #EEE;
+	background-color: #EEE;
+	color: #000;
 	font-size: 13px;
 	text-align: center;
 	font-family: Arial, Helvetica, sans-serif;
@@ -144,6 +144,7 @@ a.iproeventlink, .tasklink {
 }
 
 .ds_cell:hover {
-	background-color: #3F3F3F;
+	background-color: #F3F3F3;
 } /* This hover code won't work for IE */
+
 

@@ -9,13 +9,13 @@
 	width:25%;
 	margin:5px;
 	padding:2px;
-	border:1px solid #000;
+	border:1px solid #6D6D6D;
 }
 
 #cats {
 	width:100%;
 	text-align:left;
-	background-color: #000;
+	background-color: #fff;
 	padding-top:5px;
 }
 
@@ -23,18 +23,39 @@
 	float:left;
 	margin:5px;
 	padding:2px;
-	width:55%;
-	border:1px solid #000;
+	width:70%;
+	border:1px solid #6D6D6D;
 }
 
 #emails {
 	width:100%;
 	text-align:left;
-	background-color:#000;
+	background-color:#fff;
+}
+
+#emailbox table {
+       margin-top: 0;
+}
+
+#emailbox tbody tr.sortbar {
+ background-color: #FFF;
+ 
+}
+
+#emailbox tbody tr.sortbar td{
+ border: 1px dashed #CCC;
+}
+
+.sortbar a {
+   color : #000;
+}
+
+#filebox table a {
+   width:10px;
 }
 
 #menubar, .menubar {
-	background-color:#222;
+	background-color:#eeeeee;
 	margin-bottom:5px;
 	padding:3px;
 }
@@ -53,3 +74,5 @@ ul.ema {
 #emailboxheader {
 	font-weight: bold;
 }
+
+
