@@ -282,6 +282,7 @@ overflow: hidden;
 .links {
 float:right;
 overflow: hidden;
+border: 1px solid red;
 }
 
 #contentWrapper {
