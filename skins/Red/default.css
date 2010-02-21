@@ -321,6 +321,7 @@ border-bottom:1px dashed #CCC;
 margin-right:0;
 position: absolute;
 bottom: 0;
+right: 0;
 }
 
 #mainNavigation li {
