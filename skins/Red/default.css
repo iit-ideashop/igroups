@@ -310,7 +310,7 @@ float:left;
 margin-left:4px;
 border:1px solid #FFAEAE;
 background-color:#FFEDED;
-padding:6px 6px;
+padding:6px 0 0 0 ;
 }
 
 #mainNavigation li a {
