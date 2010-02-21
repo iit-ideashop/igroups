@@ -1,52 +1,118 @@
 @import url('default.css');
-
-#recent {
-	margin-top:10px;
-	float:right;
-	width:50%;
+#pictures {
+margin:10px;
 }
 
-#pictures {
-	margin:10px;
+#scratchpad {
+width:99%;
+overflow:hidden;
+padding-top:10px;
+}
+
+#scratchpadform {
+display:none;
+}
+
+#scratchpad form {
+width:98%;
+}
+
+#scratchpadform textarea {
+margin-bottom:10px;
+width:100%;
+font-family:"lucida grande",tahoma,verdana,arial,sans-serif;
+font-size:12px;
+}
+
+#scratchpadtext {
+margin-bottom:10px;
+}
+
+#scratchpadtext button {
+border:1px dashed #999;
+}
+
+#scratchpadtext p {
+color:#333;
+margin:0;
+}
+
+#scratchpad input {
+border:1px #989898 dashed;
+background-color:#ffd3d3;
+margin-right:10px;
+color:#2C2C2C;
+}
+
+#scratchpad input:hover {
+border:1px #000 dashed;
+background-color:#FFF;
+}
+
+p#scratchblurb {
+font-size:smaller;
+color:#0453AE;
+margin:0;
+padding-top:5px;
+padding-bottom:5px;
 }
 
 #announcements {
-	margin:10px;
+width:100%;
+margin:10px 10px 10px 0;
 }
 
 .dateHeading {
-	background:#EEE;
-	border-bottom: 1px solid #666;
+background:#EEE;
+height:2em;
+text-align:center;
+vertical-align:bottom;
 }
 
 .prop {
-	float:right;
-	height:100px;
-	width:1px;
-	overflow:hidden;
+float:right;
+height:100px;
+width:1px;
+overflow:hidden;
 }
-	
+
+#calendar {
+color:#000;
+font-weight:bolder;
+padding-left:1px;
+margin-bottom:20px;
+}
+
+#calendar table {
+width:100%;
+}
+
+.calbord {
+border:1px solid #CCC;
+width:14%;
+}
+
 #calendarmenu {
-	border:solid 1px #000;
-	background-color:#fff;
-	visibility:hidden;
-	position:absolute;
-	left:50px;
+border:solid 1px #000;
+background-color:#fff;
+visibility:hidden;
+position:absolute;
+left:50px;
 }
 
 .event {
-	border:solid 1px #000;
-	background-color:#fff;
-	position:absolute;
-	visibility:hidden;
-	width:200px;
-	padding:5px;
-	top:0;
-	left:0;
-	overflow:hidden;
+border:solid 1px #000;
+background-color:#fff;
+position:absolute;
+visibility:hidden;
+width:200px;
+top:0;
+left:0;
+overflow:hidden;
+padding:5px;
 }
 
-.timeago
-{
-	font-size: smaller;
+.timeago {
+font-size:smaller;
 }
+
