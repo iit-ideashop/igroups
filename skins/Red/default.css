@@ -285,6 +285,7 @@ overflow: hidden;
 border: 1px solid red;
 width:78%;
 height: 102px;
+position: relative;
 }
 
 #contentWrapper {
@@ -317,8 +318,9 @@ border-bottom:1px dashed #CCC;
 }
 
 #mainNavigation {
-margin-top:14%;
 margin-right:0;
+position: absolute;
+bottom: 0;
 }
 
 #mainNavigation li {
