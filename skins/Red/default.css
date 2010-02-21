@@ -283,6 +283,7 @@ overflow: hidden;
 float:right;
 overflow: hidden;
 border: 1px solid red;
+width: 80%
 }
 
 #contentWrapper {
