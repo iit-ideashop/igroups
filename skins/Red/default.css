@@ -275,7 +275,7 @@ min-height:105px;
 border:none;
 border-top:1px dashed #CCC;
 border-bottom:1px solid #FFAEAE;
-padding-top:0 0 4px 0;
+padding-top:4px;
 overflow: hidden;
 }
 
@@ -300,6 +300,8 @@ border-bottom:1px dashed #CCC;
 }
 
 #mainNavigation {
+margin-right:0;	
+}
 position: absolute;
 bottom: 0;
 right: 0;
@@ -326,6 +328,7 @@ color:#222;
 background-color:#FFF;
 border-bottom:1px solid #FFF;
 color:#000;
+
 }
 
 #contentWrapper {
