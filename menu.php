@@ -74,7 +74,7 @@
 		}
 	}
 
-  // takes a particlular groups parameters and goes to that gropus page
+  // takes a particlular groups parameters and goes to that groups page
   // this function is called from ???
 	function selectGroup($string)
 	{
