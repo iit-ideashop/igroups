@@ -25,7 +25,7 @@
 			$hurdle++;
 		$date = strtotime($_POST['due']);
 		if(!$date)
-			$message = "ERROR: Could not create task: Invalid due date ".$_POST['due'];
+			$message = "ERROR: Could not create task: Invalid due date error:".$_POST['due'];
 		else
 		{
 			$date = strftime('%Y-%m-%d', $date);
@@ -220,7 +220,7 @@ if($currentUser->isGroupModerator($currentGroup))
 		echo "<form method=\"post\" action=\"tasks.php\" id=\"addtask\" style=\"float: left\"><fieldset><legend>Add Task</legend>\n";
 		echo "<table>\n";
 		echo "<tr><td><label for=\"name\">Name:</label></td><td><input type=\"text\" name=\"name\" id=\"name\" /></td></tr>\n";
-		echo "<tr><td><label for=\"date\">Due:</label></td><td><input type=\"text\" name=\"date\" id=\"datepick\" /></td></tr>\n";
+		echo "<tr><td><label for=\"date\">Due:</label></td><td><input type=\"text\" name=\"due\" id=\"datepick\" /></td></tr>\n";
 		echo "<tr><td><label for=\"esthours\">Estimated hours required (optional):</label></td><td><input type=\"text\" name=\"esthours\" id=\"esthours\" /></td></tr>\n";
 		echo "<tr><td><label for=\"desc\">Description:</label></td><td><textarea name=\"desc\" id=\"desc\" rows=\"5\" cols=\"40\"></textarea></td></tr>\n";
 		echo "</table>\n";
