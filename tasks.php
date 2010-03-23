@@ -25,7 +25,7 @@
 			$hurdle++;
 		$date = strtotime($_POST['due']);
 		if(!$date)
-			$message = "ERROR: Could not create task: Invalid due date error:".$_POST['due'];
+			$message = 'ERROR: Could not create task: Invalid due date';
 		else
 		{
 			$date = strftime('%Y-%m-%d', $date);
