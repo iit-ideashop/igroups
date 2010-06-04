@@ -6,6 +6,25 @@
 	include_once('../classes/semester.php');
 	include_once('../classes/file.php');
 
+	function printNuggetFiles($nugget)
+	{
+		$files = $nugget->getFiles();
+		if(count($files))
+		{
+			echo '<ul>';
+			foreach($files as $file)
+			{
+				echo '<li>';
+				if($nug->isOld())
+					echo "<a href=\"downloadOld.php?file={$file[0]}\">{$file[1]}</a>&nbsp;";
+				else
+					echo '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
+				echo "</li>\n";
+			}
+			echo '</ul>';
+		}
+	}
+
 	if(isset($_GET['selectSemester']))
 		$_SESSION['selectedIPROSemester'] = $_GET['semester'];
 	
@@ -104,28 +123,13 @@
 			if($nuggets['Project Plan'] != 0)
 			{	
 				$nug = new Nugget($nuggets['Project Plan'], $db, 0);
-				$files = $nug->getFiles();
-				echo "number of files: $files";
+				
 				if($nug->isPrivate())
 					$priv = '*';
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Project Plan']}&amp;groupID={$group->getID()}\">View$priv</a>";
-
-				if(count($files))
-				{
-					echo '<ul>';
-					foreach($files as $file)
-					{
-						echo '<li>';
-						if($nug->isOld())
-							echo "<a href=\"downloadOld.php?file={$file[0]}\">{$file[1]}</a>&nbsp;";
-						else
-							echo '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
-						echo "</li>\n";
-					}
-					echo '</ul>';
-				}
+				printNuggetFiles($nugget);
 				echo "</td>";
 			}
 			else
@@ -137,7 +141,9 @@
 					$priv = '*';
 				else
 					$priv = '';
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Abstract']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Abstract']}&amp;groupID={$group->getID()}\">View$priv</a>";
+				printNuggetFiles($nugget);
+				echo "</td>";
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
@@ -148,7 +154,9 @@
 					$priv = '*';
 				else
 					$priv = '';
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Code of Ethics']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Code of Ethics']}&amp;groupID={$group->getID()}\">View$priv</a>";
+				printNuggetFiles($nugget);
+				echo "</td>";
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
@@ -159,7 +167,9 @@
 					$priv = '*';
 				else
 					$priv = '';
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Midterm Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Midterm Report']}&amp;groupID={$group->getID()}\">View$priv</a>";
+				printNuggetFiles($nugget);
+				echo "</td>";
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
@@ -170,7 +180,9 @@
 					$priv = '*';
 				else
 					$priv = '';
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Poster']}&amp;groupID={$group->getID()}\">View$priv</a></td>";			
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Poster']}&amp;groupID={$group->getID()}\">View$priv</a><";
+				printNuggetFiles($nugget);
+				echo "</td>";			
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
@@ -181,7 +193,9 @@
 					$priv = '*';
 				else
 					$priv = '';
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Website']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Website']}&amp;groupID={$group->getID()}\">View$priv</a>";
+				printNuggetFiles($nugget);
+				echo "</td>";
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
@@ -192,7 +206,9 @@
 					$priv = '*';
 				else
 					$priv = '';
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Presentation']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Presentation']}&amp;groupID={$group->getID()}\">View$priv</a>";
+				printNuggetFiles($nugget);
+				echo "</td>";
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
@@ -203,7 +219,9 @@
 					$priv = '*';
 				else
 					$priv = '';
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Team Minutes']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Team Minutes']}&amp;groupID={$group->getID()}\">View$priv</a>";
+				printNuggetFiles($nugget);
+				echo "</td>";
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
@@ -214,7 +232,9 @@
 					$priv = '*';
 				else
 					$priv = '';
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Report']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Report']}&amp;groupID={$group->getID()}\">View$priv</a>";
+				printNuggetFiles($nugget);
+				echo "</td>";
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
