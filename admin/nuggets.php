@@ -4,6 +4,7 @@
 	include_once('../classes/nugget.php');
 	include_once('../classes/group.php');
 	include_once('../classes/semester.php');
+	include_once('../classes/file.php');
 
 	if(isset($_GET['selectSemester']))
 		$_SESSION['selectedIPROSemester'] = $_GET['semester'];
