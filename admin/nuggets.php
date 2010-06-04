@@ -129,7 +129,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Project Plan']}&amp;groupID={$group->getID()}\">View$priv</a>";
-				printNuggetFiles($nugget);
+				printNuggetFiles($nug);
 				echo "</td>";
 			}
 			else
@@ -142,7 +142,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Abstract']}&amp;groupID={$group->getID()}\">View$priv</a>";
-				printNuggetFiles($nugget);
+				printNuggetFiles($nug);
 				echo "</td>";
 			}
 			else
@@ -155,7 +155,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Code of Ethics']}&amp;groupID={$group->getID()}\">View$priv</a>";
-				printNuggetFiles($nugget);
+				printNuggetFiles($nug);
 				echo "</td>";
 			}
 			else
@@ -168,7 +168,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Midterm Report']}&amp;groupID={$group->getID()}\">View$priv</a>";
-				printNuggetFiles($nugget);
+				printNuggetFiles($nug);
 				echo "</td>";
 			}
 			else
@@ -181,7 +181,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Poster']}&amp;groupID={$group->getID()}\">View$priv</a><";
-				printNuggetFiles($nugget);
+				printNuggetFiles($nug);
 				echo "</td>";			
 			}
 			else
@@ -194,7 +194,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Website']}&amp;groupID={$group->getID()}\">View$priv</a>";
-				printNuggetFiles($nugget);
+				printNuggetFiles($nug);
 				echo "</td>";
 			}
 			else
@@ -207,7 +207,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Presentation']}&amp;groupID={$group->getID()}\">View$priv</a>";
-				printNuggetFiles($nugget);
+				printNuggetFiles($nug);
 				echo "</td>";
 			}
 			else
@@ -220,7 +220,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Team Minutes']}&amp;groupID={$group->getID()}\">View$priv</a>";
-				printNuggetFiles($nugget);
+				printNuggetFiles($nug);
 				echo "</td>";
 			}
 			else
@@ -233,7 +233,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Final Report']}&amp;groupID={$group->getID()}\">View$priv</a>";
-				printNuggetFiles($nugget);
+				printNuggetFiles($nug);
 				echo "</td>";
 			}
 			else
