@@ -220,7 +220,7 @@
 				else
 					$priv = '';
 				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Team Minutes']}&amp;groupID={$group->getID()}\">View$priv</a>";
-				printNuggetFiles($nug);
+// 				printNuggetFiles($nug);
 				echo "</td>";
 			}
 			else
