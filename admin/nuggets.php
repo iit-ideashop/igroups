@@ -102,7 +102,7 @@
 	
 	<p style="text-align: center; font-style: italic">* Signifies a protected nugget</p>
 
-	<table cellpadding="4" cellspacing="0" style="border: thin solid black">
+	<table class="admin-nugget" cellpadding="4" cellspacing="0" style="border: thin solid black">
 	<thead>
 	<tr><td>Group</td><td>Project Plan</td><td>Abstract</td><td>Code of Ethics</td><td>Midterm Report</td><td>Poster</td><td>Website</td><td>Final Presentation</td><td>Meeting Minutes</td><td>Final Report</td></tr>
 	</thead>
