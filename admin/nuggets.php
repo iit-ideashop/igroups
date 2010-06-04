@@ -118,7 +118,7 @@
 					foreach($files as $file)
 					{
 						echo '<li>';
-						if($nugget->isOld())
+						if($nug->isOld())
 							echo "<a href=\"downloadOld.php?file={$file[0]}\">{$file[1]}</a>&nbsp;";
 						else
 							echo '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
