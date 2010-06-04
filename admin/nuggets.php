@@ -101,13 +101,32 @@
 			$_DEFAULTNUGGETS = array('Project Plan', 'Abstract', 'Code of Ethics', 'Midterm Report', 'Poster', 'Website', 'Final Presentation', 'Team Minutes', 'Final Report');
 			$nuggets = getNuggetStatus($group, $currentSemester->getID());
 			if($nuggets['Project Plan'] != 0)
-			{
+			{	
 				$nug = new Nugget($nuggets['Project Plan'], $db, 0);
 				if($nug->isPrivate())
 					$priv = '*';
 				else
 					$priv = '';
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Project Plan']}&amp;groupID={$group->getID()}\">View$priv</a></td>";
+				$files = $nug->getFiles();
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Project Plan']}&amp;groupID={$group->getID()}\">View$priv</a>"
+
+				if(count($files))
+				{
+					echo '<ul>';
+					foreach($files as $file)
+					{
+						echo '<li>';
+						if($nugget->isOld())
+							echo "<a href=\"downloadOld.php?file={$file[0]}\">{$file[1]}</a>&nbsp;";
+						else
+							echo '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
+						echo "</li>\n";
+					}
+					echo '</ul></div>';
+				}
+				else
+					echo "There are no files for this nugget.</div>";
+				."</td>";
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
