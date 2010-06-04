@@ -108,7 +108,7 @@
 				else
 					$priv = '';
 				$files = $nug->getFiles();
-				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Project Plan']}&amp;groupID={$group->getID()}\">View$priv</a>"
+				echo "<td align=\"center\"><a href=\"viewNugget.php?nuggetID={$nuggets['Project Plan']}&amp;groupID={$group->getID()}\">View$priv</a>";
 
 				if(count($files))
 				{
@@ -122,11 +122,9 @@
 							echo '<a href="download.php?id='.$file->getID().'">'.$file->getNameNoVer().'</a>&nbsp;';
 						echo "</li>\n";
 					}
-					echo '</ul></div>';
+					echo '</ul>';
 				}
-				else
-					echo "There are no files for this nugget.</div>";
-				."</td>";
+				echo "</td>";
 			}
 			else
 				echo "<td align=\"center\"><b>N/A</b></td>";
