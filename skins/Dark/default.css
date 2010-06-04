@@ -230,3 +230,9 @@ table.bordered, table.bordered th, table.bordered td {
 	border: thin solid white;
 	border-collapse: collapse;
 }
+
+.admin-nugget td{
+   max-width: 50px;
+  white-space:wrap;
+  word-wrap: break-word;
+}

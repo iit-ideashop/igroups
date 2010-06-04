@@ -514,3 +514,9 @@ margin-bottom:10px;
 #externallinks,#footer #department {
 float:right;
 }
+
+.admin-nugget td{
+   max-width: 50px;
+  white-space:wrap;
+  word-wrap: break-word;
+}
