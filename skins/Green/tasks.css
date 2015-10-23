@@ -12,6 +12,7 @@ table#tasks td, table#tasks th
 	border: thin solid black;
 	padding-left: 5px;
 	padding-right: 5px;
+        height: 25px;
 }
 
 table#tasks ul
@@ -39,13 +40,13 @@ tr.normal1 td
 
 tr.overdue0 td
 {
-	background-color: #CCFAC3;
+	background-color: #6FDA67;
 	color: black;
 }
 
 tr.overdue1 td
 {
-	background-color: #ffdddd;
+	background-color: #A5DAA0;
 	color: black;
 }
 

@@ -271,14 +271,13 @@ margin:0 auto;
 
 #mainheader {
 width:100%;
-min-height:105px;
+height:101px;
 border:none;
 border-top:1px dashed #CCC;
 border-bottom:1px solid #02244D;
 padding-top:0 0 4px 0;
 overflow: hidden;
 }
-
 
 .links {
 float:right;

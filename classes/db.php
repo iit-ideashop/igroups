@@ -1,4 +1,5 @@
 <?php
+require_once('config.php');
 if(!class_exists('dbConnection'))
 {
 	class dbConnection
@@ -7,11 +8,8 @@ if(!class_exists('dbConnection'))
 		
 		function dbConnection()
 		{
-			$db_name = 'igroups';
-			$db_user = 'igr0upsUser';
-			$db_pass = 'mxYwnc36';
-
-			$this->conn = mysql_connect('localhost', $db_user, $db_pass) or
+				global $db_user, $db_pass, $db_name;
+				$this->conn = mysql_connect('localhost', $db_user, $db_pass) or
 				die('Could not connect: '.mysql_error());
 					
 			mysql_select_db($db_name, $this->conn) or

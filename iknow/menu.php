@@ -292,22 +292,22 @@
 		{ 
       echo "<ul><li><a id=\"adminTools\" href=\"?toggleExpand=admin\"><p>Admin Tools</p></a>\n";
 			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">\n";
-	  	echo "<li><a href=\"../group.php\">Manage Groups</a></li>\n";
-			echo "<li><a href=\"../semesters.php\">Manage Semesters</a></li>\n";
-			echo "<li><a href=\"../email.php\">Email Groups</a></li>\n";
-			echo "<li><a href=\"../nuggets.php\">Manage Nuggets</a></li>\n";
-			echo "<li><a href=\"../event.php\">Manage Calendars</a></li>\n";
-			echo "<li><a href=\"../dboard/dboard.php?adminView=1\">Discussion Board</a></li>\n";
-			echo "<li><a href=\"../budget.php\">Manage Budgets</a></li>\n";
-			echo "<li><a href=\"../iprofiles.php\">IPRO Office Files</a></li>\n";
-			echo "<li><a href=\"../quotas.php\">Group Quotas</a></li>\n";
-			echo "<li><a href=\"../reporting.php\">Group Reporting</a></li>\n";
-			echo "<li><a href=\"../people.php\">View Person</a></li>\n";
-			echo "<li><a href=\"../announcements.php\">Announcements</a></li>\n";
-			echo "<li><a href=\"../bookmarks.php\">Bookmarks</a></li>\n";
-			echo "<li><a href=\"../skins.php\">Skins</a></li>\n";
-			echo "<li><a href=\"../appear.php\">Appearance</a></li>\n";
-			echo "<li><a href=\"../help.php\">Manage Help Center</a></li>\n";
+	  	echo "<li><a href=\"../admin/group.php\">Manage Groups</a></li>\n";
+			echo "<li><a href=\"../admin/semesters.php\">Manage Semesters</a></li>\n";
+			echo "<li><a href=\"../admin/email.php\">Email Groups</a></li>\n";
+			echo "<li><a href=\"../admin/nuggets.php\">Manage Nuggets</a></li>\n";
+			echo "<li><a href=\"../admin/event.php\">Manage Calendars</a></li>\n";
+			echo "<li><a href=\"../admin/dboard/dboard.php?adminView=1\">Discussion Board</a></li>\n";
+			echo "<li><a href=\"../admin/budget.php\">Manage Budgets</a></li>\n";
+			echo "<li><a href=\"../admin/iprofiles.php\">IPRO Office Files</a></li>\n";
+			echo "<li><a href=\"../admin/quotas.php\">Group Quotas</a></li>\n";
+			echo "<li><a href=\"../admin/reporting.php\">Group Reporting</a></li>\n";
+			echo "<li><a href=\"../admin/people.php\">View Person</a></li>\n";
+			echo "<li><a href=\"../admin/announcements.php\">Announcements</a></li>\n";
+			echo "<li><a href=\"../admin/bookmarks.php\">Bookmarks</a></li>\n";
+			echo "<li><a href=\"../admin/skins.php\">Skins</a></li>\n";
+			echo "<li><a href=\"../admin/appear.php\">Appearance</a></li>\n";
+			echo "<li><a href=\"../admin/help.php\">Manage Help Center</a></li>\n";
 			echo "</ul>\n";
       echo "</li>\n</ul>\n";
 		}

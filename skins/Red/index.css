@@ -23,7 +23,7 @@ background-color:#FFE9E9;
 padding:5px;
 }
 
-#loginform input {
+#loginform #username, #password{
 width:155px;
 border:1px solid #999;
 margin-bottom:5px;
@@ -40,20 +40,19 @@ color:#FFF;
 float:right;
 }
 
-#left {
-float:left;
-text-align:right;
-width:55%;
+#right {
+float:right;
+width:45%;
 border:1px solid #999;
 padding:1em;
 }
 
-.right {
-float: right;
-width:35%;
+.left {
+float: left;
+width:45%;
 }
 
-.right .box {
+.left .box {
 margin-bottom: 2.8em;
 }
 
@@ -112,3 +111,4 @@ color:#c00;
 font-size:large;
 color:#c00;
 }
+

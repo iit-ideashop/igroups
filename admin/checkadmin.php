@@ -1,5 +1,6 @@
 <?php	
 	session_start();
+	require_once('../globals.php');
 	include_once('../classes/db.php');
 	include_once('../classes/person.php');
 	$db = new dbConnection();

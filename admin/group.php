@@ -385,6 +385,48 @@
 ?>
 
 <?php
+if ($currentGroup){
+	$pastGroups = $currentGroup->findPastIPROs();
+	if($pastGroups)
+	{
+?>
+		<div id="retroadd">
+			<br />
+		<form method="post" action="/groupmanagement.php"><fieldset>
+		<legend>Make Users Guests in Past Groups</legend>
+		<table width="100%">
+		<tr><th>Choose Users</th><th>Choose Groups</th></tr>
+		<tr><td valign="top">
+<?php
+		$i = 1;
+		foreach($currentGroup->getAllGroupMembers() as $member)
+		{
+			echo "<input type=\"checkbox\" name=\"addUsers[]\" id=\"addUsers$i\" value=\"{$member->getID()}\" />&nbsp;<label for=\"addUsers$i\">{$member->getFullName()}</label><br />";
+			$i++;
+		}
+?>
+		</td>
+		<td valign="top">
+<?php
+		$i = 1;
+		foreach($pastGroups as $group)
+		{
+			$query = $db->query("SELECT sSemester FROM Semesters where iID={$group->getSemester()}");
+			$row = mysql_fetch_row($query);
+			echo "<input type=\"checkbox\" name=\"addGroups[]\" id=\"addGroups$i\" value=\"{$group->getID()}-{$group->getSemester()}\" />&nbsp;<label for=\"addGroups$i\">{$row[0]} -&gt; ".$group->getName().": ".htmlspecialchars($group->getDesc())."</label><br />";
+			$i++;
+		}
+?>
+		<br /><input type="submit" name="retroadd" value="Make Guests" />
+		</td></tr>
+		</table>
+		</fieldset></form>
+	</div>
+<?php
+}
+	}
+?>
+<?php
  	/**** begin html footer*****/
   //include rest of html layout file
   require('htmlfoot.php');

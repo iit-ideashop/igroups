@@ -1,6 +1,6 @@
 <?php
-	include_once('../classes/db.php');
-	
+	require_once('../globals.php');
+	include_once('../classes/db.php');	
 	$db = new dbConnection();
 	if(isset($_GET['name']))
 	{
@@ -9,13 +9,13 @@
 		$result = $db->query($query);
 		$row = mysql_fetch_array($result);
 		$diskName = $row['sDiskName'];
-		header('Content-Length: '.filesize("/files/iknow/$diskName"));
+		header('Content-Length: '.filesize("$disk_prefix/iknowfiles/$diskName"));
 		$orgName = $row['sOrigName'];
 		header("Content-Disposition: attachment; filename='$orgName'");
 		header('Cache-Control: must-revalidate,post-check=0,pre-check=0');
 		header('Pragma: public');
 		header('Expires: 0');
 	
-		readfile("/files/iknow/$diskName");
+		readfile("$disk_prefix/iknowfiles/$diskName");
 	}
 ?>

@@ -1,5 +1,6 @@
 <?php
 include_once('superstring.php');
+require_once('config.php');
 
 if(!class_exists('Email'))
 {
@@ -271,6 +272,7 @@ if(!class_exists('Email'))
 		
 		function delete()
 		{
+			global $disk_prefix;
 			if($this->next!=null && $this->prev != null)
 			{
 				$next = new Email($this->next, $this->db);
@@ -296,8 +298,8 @@ if(!class_exists('Email'))
 			$query = $this->db->query( "SELECT * FROM EmailFiles WHERE iEmailID={$this->getID()}");
 			while($file = mysql_fetch_array($query))
 			{
-				if($file['sDiskName'][0] != 'G' && file_exists("/files/igroups/emails/{$file['sDiskName']}"))
-					unlink("/files/igroups/emails/{$file['sDiskName']}");
+				if($file['sDiskName'][0] != 'G' && file_exists("$disk_prefix/emails/{$file['sDiskName']}"))
+					unlink("$disk_prefix/emails/{$file['sDiskName']}");
 			}
 			$this->db->query("DELETE FROM EmailFiles WHERE iEmailID={$this->getID()}");
 		}

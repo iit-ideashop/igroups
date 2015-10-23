@@ -174,7 +174,7 @@
 				$id = $db->insertID();
 				$diskname[$i] = "G$id.att";
 				$db->query("UPDATE GroupEmailFiles SET sDiskName='".$diskname[$i]."' WHERE iID=$id");
-				move_uploaded_file($_FILES["attachment$i"]['tmp_name'], "/files/igroups/emails/G$id.att");
+				move_uploaded_file($_FILES["attachment$i"]['tmp_name'], "$disk_prefix/emails/G$id.att");
 			}
 		}
 		//$tmpstr = wordwrap($_POST['body'], 100);

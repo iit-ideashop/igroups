@@ -1,6 +1,6 @@
 <?php
 include_once('superstring.php');
-
+require_once('config.php');
 if(!class_exists('File'))
 {
 	class File
@@ -269,7 +269,8 @@ if(!class_exists('File'))
 		
 		function getDiskName()
 		{
-			return "/files/igroups/{$this->id}.igroup";
+			global $disk_prefix;
+			return $disk_prefix."/{$this->id}.igroup";
 		}
 
 		function setMimeType($type)
@@ -314,7 +315,7 @@ if(!class_exists('File'))
 	
 	function createFile($name, $desc, $folder, $author, $origname, $group, $tmp, $mime, $priv, $db)
 	{
-		global $contactemail;
+		global $contactemail, $disk_prefix;
 		
 		if($name == '')
 			$name = $origname;
@@ -323,14 +324,14 @@ if(!class_exists('File'))
 		$dbdate = date('Y-m-d H:m:s');
 		$db->query("INSERT INTO Files( sTitle, sDescription, iFolderID, iAuthorID, dDate, sOriginalName, iGroupID, iGroupType, iSemesterID, sMetaComments, bPrivate, iFileSize) VALUES ( '".$namess->getDBString()."', '".$descss->getDBString()."', $folder, $author, '$dbdate', '$origname', ".$group->getID().", ".$group->getType().", ".$group->getSemester().", '".mysql_real_escape_string($mime)."', $priv, ".filesize($tmp).")");
 		$file = new File($db->insertID(), $db);
-		if(disk_free_space('/files/igroups/') > $file->getFilesize() && move_uploaded_file($tmp, $file->getDiskName()))
+		if(disk_free_space($disk_prefix) > $file->getFilesize() && move_uploaded_file($tmp, $file->getDiskName()))
 			return $file;
 		else
 		{
 			$db->query("DELETE FROM Files WHERE iID=".$file->getID());
-			if(disk_free_space('/files/igroups/') <= $file->getFilesize())
+			if(disk_free_space($disk_prefix) <= $file->getFilesize())
 			{
-				mail($contactemail, "iGroups Uploaded Files Directory Out Of Space", "A user tried to upload a file to iGroups, and could not because the directory in which to place the file lacks enough free space to complete the transaction. You should fix this.\n\nTimestamp: ".date('Y-m-d H:i:s')."\nAttempt upload (bytes): ".$file->getFilesize()."\nFree space (bytes): ".disk_free_space('/files/igroups/'));
+				mail($contactemail, "iGroups Uploaded Files Directory Out Of Space", "A user tried to upload a file to iGroups, and could not because the directory in which to place the file lacks enough free space to complete the transaction. You should fix this.\n\nTimestamp: ".date('Y-m-d H:i:s')."\nAttempt upload (bytes): ".$file->getFilesize()."\nFree space (bytes): ".disk_free_space($disk_prefix));
 				return 1; //Disk full
 			}
 			else

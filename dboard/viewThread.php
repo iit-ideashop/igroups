@@ -7,7 +7,7 @@
 	include_once('../classes/thread.php');
 	include_once('../classes/post.php');
 	include_once('../classes/watchlist.php');
-	$POSTS_PER_PAGE = 20;
+	$POSTS_PER_PAGE = 100;
 
 	if(isset($_GET['id']))
 	{
@@ -167,7 +167,8 @@
 	$threadtext = "&amp;thread=".$currentThread->getID();
 	
 	//-------Begin XHTML Output-------------------------------------//
-		require('../doctype.php');
+	
+	require('../doctype.php');
 	require('../iknow/appearance.php');
 
 	echo "<link rel=\"stylesheet\" href=\"../skins/$skin/dboard.css\" type=\"text/css\" title=\"$skin\" />\n";
@@ -215,7 +216,7 @@ foreach($pages as $page)
 		echo "&nbsp;";
 ?>
 </td><td class="view_options" style="text-align: right; font-weight: bold">
-<?
+<?php
 	if($nextThread)
 		echo "<a href=\"viewThread.php?id={$nextThread->getID()}\">Next Thread &gt;</a>";
 	else

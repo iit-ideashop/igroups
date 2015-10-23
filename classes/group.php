@@ -196,7 +196,6 @@ if(!class_exists('Group'))
 		function getAllGroupMembers()
 		{
 			$returnArray = array();
-
 			if($this->getType() == 0)
 				$people = $this->db->query("SELECT iPersonID FROM PeopleProjectMap WHERE iProjectID=".$this->getID()." AND iSemesterID=".$this->getSemester());
 			else

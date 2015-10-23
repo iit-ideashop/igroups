@@ -109,6 +109,14 @@ text-align:center;
 padding:.25em;
 }
 
+.left {
+	float: left;
+}
+
+.right {
+	float: right;
+}
+
 .shade {
 background-color: #CCFAC3;
 color:#000;
@@ -271,11 +279,11 @@ margin:0 auto;
 
 #mainheader {
 width:100%;
-min-height:105px;
+height:101px;
 border:none;
 border-top:1px dashed #CCC;
 border-bottom:1px solid #27BF27;
-padding-top:4px;
+padding-top:0 0 4px 0;
 overflow: hidden;
 }
 

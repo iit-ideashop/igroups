@@ -1,11 +1,11 @@
 <?php
 	session_start();
 
-	include_once('globals.php');
-	include_once('classes/db.php');
-	include_once('classes/person.php');
-	include_once('classes/group.php');
-	include_once('classes/semester.php');
+	include_once('../globals.php');
+	include_once('../classes/db.php');
+	include_once('../classes/person.php');
+	include_once('../classes/group.php');
+	include_once('../classes/semester.php');
 	
 	$db = new dbConnection();
 	

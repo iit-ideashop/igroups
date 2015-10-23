@@ -1,6 +1,7 @@
 <?php
 	session_start();
 	#error_reporting(E_ERROR | E_WARNING | E_PARSE | E_NOTICE);
+	require_once('../globals.php');
 	require_once('../classes/db.php');
 	
 	$sMetaTag = '';
@@ -33,7 +34,8 @@ function printBody()
 
 function printDownloadResponse($diskName, $origName)
 {
-	$sFullLocation = '/files/iknow/'.$diskName;
+	global $disk_prefix;
+	$sFullLocation = $disk_prefix.'/iknowfiles/'.$diskName;
 	header('Content-Type: application/octet-stream');
 	header('Content-Length: '.filesize($sFullLocation));
 	header("Content-Disposition: attachment; filename=\"$origName\"");

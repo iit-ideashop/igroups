@@ -1,6 +1,6 @@
 <?php
-	include_once('checkadmin.php');
-	
+	require_once('../globals.php');
+	require_once('checkadmin.php');
 	$sMetaTag = '';
 	$sPageTitle = 'iKNOW File Download';
 	$fileErr = '';
@@ -31,7 +31,8 @@ function printBody()
 
 function printDownloadResponse($diskName, $origName)
 {
-	$sFullLocation = '/files/iknow/' . $diskName;
+	global $disk_prefix;
+	$sFullLocation = $disk_prefix.'/iknowfiles/'.$diskName;
 	header("Content-Type: application/octet-stream");
 	header("Content-Length: " . filesize($sFullLocation));
 	header("Content-Disposition: attachment; filename=\"$origName\"");

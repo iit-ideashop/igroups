@@ -1,5 +1,4 @@
 <?php
-set_include_path(get_include_path().PATH_SEPARATOR.'/srv/igroups');
 include_once('superstring.php');
 include_once('globals.php');
 
@@ -177,16 +176,18 @@ if(!class_exists('Person'))
 							$username = substr($this->getEmail(),0,strlen($this->getEmail())-8);
 						else
 							$username = $this->getEmail();
-						$msg = "You have been added to {$group->getName()}: {$group->getDesc()} in the $appname system with the following account details:\n\n";
+
+						$msg = "Welcome to {$group->getName()}: {$group->getDesc()}! You have been added to this IPRO team space in the $appname system at http://igroups.iit.edu with the following account details: \n\n";
 						$msg .= "Username: {$username}\n";
-						$msg .= "Password: If you are a new $appname user, your initial password is the 
-same as your username (or the first part of your e-mail address for non-IIT e-mails). Please change your password the first time you log the system.\n\n";
-						$msg .= "You can access the $appname system at $appurl\nContact $contactemail with any problems or questions.\n\n";
-						$msg .= "--- $appname Support";
+						$msg .= "Password: If you are a new $appname user and IIT student, your initial password is the same as the first part of your e-mail address in front of the \"@hawk.iit.edu\" sign. If you are a new iGroups user and not an IIT student, your initial password is the same as the first part of your e-mail address in front of \"@iit.edu\", \"@gmail.com\", etc.\n\n";
+						$msg .= "Please change your password the first time you log into iGroups. If you are a previous iGroups user, you can use your previous password to log in, or request a new password if you no longer remember it. (Note that the iGroups system is separate and distinct from the MyIIT portal login.)\n\n";
+						$msg .= "Please contact ipro@iit.edu if you have any questions, problems or concerns.";
+						$msg .= "Thank you!\n\nYour IPRO Program Staff";
 						$headers = "From: \"$appname Support\" <$contactemail>\n";
 						$headers .= "To: \"{$this->getFullName()}\" <{$this->getEmail()}>\n";
 						$headers .= "Content-Type: text/plain;\n";
 						$headers .= "Content-Transfer-Encoding: 7bit;\n";
+						$headers .= "Reply-to: ipro@iit.edu\n";
 						mail('', "Your $appname Account", $msg, $headers);
 						break;
 					case 1:
@@ -197,16 +198,17 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
 							$username = substr($this->getEmail(),0,strlen($this->getEmail())-8);
 						else
 							$username = $this->getEmail();
-						$msg = "You have been added to {$group->getName()} in the $appname system with the following account details:\n\n";
+						$msg = "Welcome to {$group->getName()}: {$group->getDesc()}! You have been added to this IPRO team space in the $appname system at http://igroups.iit.edu with the following account details: \n\n";
 						$msg .= "Username: {$username}\n";
-						$msg .= "Password: If you are a new $appname user, your initial password is the 
-same as your username (or the first part of your e-mail address for non-IIT e-mails). Please change your password the first time you log the system.\n\n";
-						$msg .= "You can access the $appname system at $appurl\nContact $contactemail with any problems or questions.\n\n";
-						$msg .= "--- $appname Support";
+						$msg .= "Password: If you are a new $appname user and IIT student, your initial password is the same as the first part of your e-mail address in front of the \"@hawk.iit.edu\" sign. If you are a new iGroups user and not an IIT student, your initial password is the same as the first part of your e-mail address in front of \"@iit.edu\", \"@gmail.com\", etc.\n\n";
+						$msg .= "Please change your password the first time you log into iGroups. If you are a previous iGroups user, you can use your previous password to log in, or request a new password if you no longer remember it. (Note that the iGroups system is separate and distinct from the MyIIT portal login.)\n\n";
+						$msg .= "Please contact ipro@iit.edu if you have any questions, problems or concerns.";
+						$msg .= "Thank you!\n\nYour IPRO Program Staff";
 						$headers = "From: \"$appname Support\" <$contactemail>\n";
 						$headers .= "To: \"{$this->getFullName()}\" <{$this->getEmail()}>\n";
 						$headers .= "Content-Type: text/plain;\n";
 						$headers .= "Content-Transfer-Encoding: 7bit;\n";
+						$headers .= "Reply-to: ipro@iit.edu\n";
 						mail('', "Your $appname Account", $msg, $headers);
 						break;
 				}
@@ -273,7 +275,7 @@ same as your username (or the first part of your e-mail address for non-IIT e-ma
 			if(!$group)
 				return false;
 		
-			if($group->getType() == 0) 
+			if($group->getType() == 0)
 				$result = $this->db->query("SELECT iAccessLevel FROM GroupAccessMap WHERE iPersonID=".$this->getID()." AND iGroupID=".$group->getID()." AND iGroupType=0 AND iSemesterID=".$group->getSemester());
 			else
 				$result = $this->db->query("SELECT iAccessLevel FROM GroupAccessMap WHERE iPersonID=".$this->getID()." AND iGroupID=".$group->getID()." AND iGroupType=1");

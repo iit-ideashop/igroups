@@ -152,8 +152,8 @@
 		echo "<li><a href=\"../grouppictures.php\">Group Pictures</a></li>\n";
 		echo "<li><a href=\"../dboard/dboard.php?a=0\">Discussion Board</a></li>\n";
 		
-    //if($group->getType() == 0 && !$user->isGroupGuest($group))
-		//	echo "<li><a href=\"budget.php\">Budget</a></li>\n";
+   if($group->getType() == 0 && !$user->isGroupGuest($group))
+			echo "<li><a href=\"budget.php\">Budget</a></li>\n";
 		echo "<li><a href=\"../nuggets.php\">iKnow Nuggets</a></li>\n";
 		echo "<li><a href=\"../bookmarks.php\">Bookmarks</a></li>\n";
 
