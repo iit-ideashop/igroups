@@ -230,7 +230,7 @@ foreach($pages as $page)
 		echo "<tr><td valign=\"top\" style=\"width:20%\"><span style=\"font-size: smaller; font-weight: bold\">{$post->getAuthorLink()}<br />";
 		$author = $post->getAuthor();
 		$profile = $author->getProfile();
-		if(!$_GET['global'])
+		if(!isset($_GET['global']))
 		{
 			$group = new Group ($currentThread->getGroupID(), $_GET['type'], $_GET['semester'], $db);
 			if ($author->isGroupAdministrator($group))
