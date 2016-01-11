@@ -1,0 +1,7 @@
+<?php
+$GLOBALS['rootdir'] = ''; //DO include trailing slash
+$GLOBALS['systemname'] = '';
+$GLOBALS['adminemail'] = '';
+$db_user = '';
+$db_pass = ''
+?>
