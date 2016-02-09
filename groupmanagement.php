@@ -83,7 +83,6 @@
 	{
 		$addUsers = $_POST['addUsers'];
 		$addGroups = $_POST['addGroups'];
-
 		if($addUsers && $addGroups)
 		{
 			foreach($addUsers as $addUser)

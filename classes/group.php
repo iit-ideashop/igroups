@@ -497,6 +497,8 @@ if(!class_exists('Group'))
 			else{
 				$result1 = array($this->name);
 			}
+			$result1 = array_unique($result1);
+			error_log(implode(',',$result1));
 			foreach ($result1 as $val){
 				$sectNum = $val;
 				if (strchr($sectNum, ' '))
