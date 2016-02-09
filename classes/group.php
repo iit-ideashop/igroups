@@ -484,29 +484,45 @@ if(!class_exists('Group'))
 
 		function findPastIPROs()
 		{
+			$array = array();
 			$sectNum = $this->name;
 			if (strchr($sectNum, ' '))
 				$sectNum2 = str_replace(' ', '', $sectNum);
 			else
-				$sectNum2 = substr($sectNum, 0, 4) . ' ' . substr($sectNum, 5);
-			$query = $this->db->query("SELECT p.iID, m.iSemesterID, s.sSemester from Projects p, ProjectSemesterMap m, Semesters s where s.iID = m.iSemesterID and p.iID=m.iProjectID and (p.sIITID='$sectNum' or p.sIITID='$sectNum2') ORDER BY m.iSemesterID DESC");
-			
-			if ($result = mysql_fetch_array($query))
-			{
-				$array = array();
-				if (($result['iID'] != $this->id) || ($result['iSemesterID'] != $this->semester))
-					$array[] = new Group($result['iID'], 0, $result['iSemesterID'], $this->db);
-				while ($result = mysql_fetch_array($query))
+				$sectNum2 = substr($sectNum, 0, 4) . ' ' . substr($sectNum, 5);	
+			$query = $this->db->query("SELECT sEquivIITID FROM ProjectTrackMap WHERE sIITID = '$sectNum' OR sIITID = '$sectNum2';");
+			if($result1 = mysql_fetch_array($query)){
+				array_push($result1,$this->name);
+			}
+			else{
+				$result1 = array($this->name);
+			}
+			foreach ($result1 as $val){
+				$sectNum = $val;
+				if (strchr($sectNum, ' '))
+					$sectNum2 = str_replace(' ', '', $sectNum);
+				else
+					$sectNum2 = substr($sectNum, 0, 4) . ' ' . substr($sectNum, 5);	
+				$query = $this->db->query("SELECT p.iID, m.iSemesterID, s.sSemester from Projects p, ProjectSemesterMap m, Semesters s where s.iID = m.iSemesterID and p.iID=m.iProjectID and (p.sIITID='$sectNum' or p.sIITID='$sectNum2') ORDER BY m.iSemesterID DESC");
+				if ($result = mysql_fetch_array($query))
 				{
-					if (($result['iID'] != $this->id) || ($result['iSemesterID'] != $this->semester))
-						$array[] = new Group($result['iID'], 0, $result['iSemesterID'], $this->db);
+					while ($result = mysql_fetch_array($query))
+					{
+						if (($result['iID'] != $this->id) || ($result['iSemesterID'] != $this->semester))
+							$tmp = new Group($result['iID'], 0, $result['iSemesterID'], $this->db);
+							if(strlen($tmp->desc) > 0){
+								$array[] = $tmp;
+						}
+					}
 				}
+			}
+			if(count($array) > 0){
 				return $array;
 			}
-			else
+			else{
 				return false;
+			}
 		}
-		
 		function getMonthIproEvents($month, $year)
 		{
 			$returnArray = array();
