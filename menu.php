@@ -38,10 +38,12 @@
 			header('Location: index.php');
 		}
 	}
-	else if(isset($_SESSION['userID']))
+	else if(isset($_SESSION['userID'])){
 		$currentUser = new Person($_SESSION['userID'], $db);
+	}
 	else if(isset($_COOKIE['userID']) && isset($_COOKIE['password']))
 	{
+		//error_log("Deprecated login method used for user ".$_COOKIE['userID']);
 		if(strpos($_COOKIE['userID'], '@') === false)
 			$userName = $_COOKIE['userID'] . '@iit.edu';
 		else
@@ -72,9 +74,11 @@
 			</script>
 <?php
 		}
+	} else {
+		header('Location: index.php');
 	}
 
-  // takes a particlular groups parameters and goes to that groups page
+  // takes a particlular groups parameters and goes to that gropus page
   // this function is called from ???
 	function selectGroup($string)
 	{
@@ -152,8 +156,9 @@
 		echo "<li><a href=\"grouppictures.php\">Group Pictures</a></li>\n";
 		echo "<li><a href=\"dboard/dboard.php?a=0\">Discussion Board</a></li>\n";
 		
-    //if($group->getType() == 0 && !$user->isGroupGuest($group))
-		//	echo "<li><a href=\"budget.php\">Budget</a></li>\n";
+    	if($group->getType() == 0 && !$user->isGroupGuest($group)) {
+		echo "<li><a href=\"budget.php\">Budget</a></li>\n";
+	}
 		echo "<li><a href=\"nuggets.php\">iKnow Nuggets</a></li>\n";
 		echo "<li><a href=\"bookmarks.php\">Bookmarks</a></li>\n";
 
