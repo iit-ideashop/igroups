@@ -99,9 +99,11 @@ function resetTotal()
 </head>
 <body>
 <?php
-	require('sidebar.php');
+				/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+     /****end html head content ****/
 ?>
-<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
+
 <?php
 	$hours = $task->getHours($currentUser);
 	echo "<form method=\"post\" action=\"edithours.php?taskid={$task->getID()}\" id=\"edithoursform\" onreset=\"resetTotal()\"><fieldset><legend>Edit Hours</legend>\n";
@@ -121,4 +123,9 @@ function resetTotal()
 	echo "<input type=\"submit\" name=\"submitted\" value=\"Submit Hours\" /> <input type=\"reset\" /></fieldset></form>\n";
 	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n<div id=\"caldiv\"></div>\n";
 ?>
-</div></body></html>
+
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body></html>

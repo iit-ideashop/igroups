@@ -1,4 +1,9 @@
 <?php
+//Use unified password reset script
+
+header('Location: https://igroups.iit.edu/userpassword/index.php?reset=1', true, 302);
+exit;
+
 	include_once('globals.php');
 	
 	if(isset($_POST['resetPW']))

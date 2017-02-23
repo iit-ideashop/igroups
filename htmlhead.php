@@ -12,7 +12,7 @@
 			    	
 							<!-- external links -->	
 							<ul id="externallinks">
-								<li><a href="http://sloth.iit.edu/~iproadmin/peerreview/">Peer Review</a></li>
+								<li><a href="/peerreview/">Peer Review</a></li>
 								<li><a href="http://ipro.iit.edu">IPRO Website</a></li>
 								<?php
 								if (isset($_SESSION['userID']) && !$_GET['logout'])

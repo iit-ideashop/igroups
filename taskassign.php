@@ -87,9 +87,11 @@
 </head>
 <body>
 <?php
-	require('sidebar.php');
+/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+/****end html head content ****/
 ?>
-<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
+
 <?php
 	echo '<p>We are assigning tasks for <b>'.$task->getName()."</b></p>\n";
 	echo "<form method=\"post\" action=\"taskassign.php?taskid={$_GET['taskid']}\">\n";
@@ -146,4 +148,9 @@
 	echo "<input type=\"submit\" value=\"Submit Assignments\" /><input type=\"reset\" /><input type=\"hidden\" name=\"form\" value=\"submit\" /></fieldset></form>\n";
 	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n";
 ?>
-</div></body></html>
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+
+</body></html>

@@ -173,7 +173,7 @@
 					$db->query("INSERT INTO EmailFiles (iEmailID, sOrigName, sMimeType) VALUES (0, '$filename', '{$_FILES["attachment$i"]['type']}')");
 					$id = $db->insertID();
 					$db->query("UPDATE EmailFiles SET sDiskName='$id.att' WHERE iID=$id");
-					move_uploaded_file($_FILES["attachment$i"]['tmp_name'], "/files/igroups/emails/$id.att");
+					move_uploaded_file($_FILES["attachment$i"]['tmp_name'], "$disk_prefix/emails/$id.att");
 				}
 			}
 		}

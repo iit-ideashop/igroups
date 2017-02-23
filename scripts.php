@@ -1,4 +1,4 @@
-<script src="http://www.google.com/jsapi"></script>
+<script src="https://www.google.com/jsapi"></script>
 <script src="ChangeLocation.js"></script>
 <script src="Announcement.js"></script>
 <script> 

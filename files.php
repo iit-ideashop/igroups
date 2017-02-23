@@ -798,7 +798,7 @@
 		</div>
 <?php
 	}
-	if(!isset($_SESSION['selectedSpecial']) && $_SESSION['selectedFolder'] != 0)
+	if($currentUser->isGroupMember($currentGroup) && !isset($_SESSION['selectedSpecial']) && $_SESSION['selectedFolder'] != 0)
 	{
 ?>
 		<div class="window-content" id="editfolder" style="display: none">

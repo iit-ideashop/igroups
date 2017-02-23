@@ -54,9 +54,10 @@ cal.showNavigationDropdowns();
 </head>
 <body>
 <?php
-	require('sidebar.php');
+			/**** begin html head *****/
+   require('htmlhead.php'); //starts main container
+     /****end html head content ****/
 ?>
-<div id="content"><div id="topbanner"><?php echo $currentGroup->getName(); ?></div>
 <?php
 	echo '<p>We are assigning hours for <b>'.$task->getName()."</b>. A complete list of your entered hours is below.</p>\n";
 	$hours = $task->getHours($currentUser);
@@ -76,10 +77,14 @@ cal.showNavigationDropdowns();
 	
 	echo "<form method=\"post\" action=\"taskhours.php?taskid={$_GET['taskid']}\" style=\"float: left\"><fieldset><legend>Add Hours</legend>\n";
 	echo "<table>\n";
-	echo "<tr><td><label for=\"date\">Date:</label></td><td><input type=\"text\" name=\"date\" id=\"date\" /> <a href=\"#\" onclick=\"cal.select(document.forms[0].date,'calsel','yyyy-MM-dd'); return false;\" id=\"calsel\">Select</a></td></tr>\n";
+	echo "<tr><td><label for=\"date\">Date:</label></td><td><input type=\"text\" name=\"date\" id=\"datepick\" />";
 	echo "<tr><td><label for=\"hours\">Hours:</label></td><td><input type=\"text\" name=\"hours\" id=\"hours\" /></td></tr>\n";
 	echo "<tr><td><label for=\"desc\">Short description (optional):</label></td><td><input type=\"text\" name=\"desc\" id=\"desc\" /></td></tr></table>\n";
 	echo "<input type=\"submit\" value=\"Add Hours\" /><input type=\"hidden\" name=\"form\" value=\"new\" />\n";
 	echo "<p>Cancel and <a href=\"tasks.php\">return to main tasks listing</a> or <a href=\"taskview.php?taskid={$task->getID()}\">return to task</a></p>\n</fieldset></form><div id=\"caldiv\"></div>\n";
 ?>
-</div></body></html>
+<?php
+//include rest of html layout file
+  require('htmlcontentfoot.php');// ends main container
+?>
+</body></html>

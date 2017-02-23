@@ -1,16 +1,15 @@
 <?php
 	session_start();
 
-	include_once('globals.php');
+	require_once('globals.php');
 	include_once('classes/announcement.php');
 	include_once('classes/person.php');
-
   /************************************* Important ! *************************/
-  /* this if statement here is necessary for the side bar menu to display correctly *
+  /* this if statement here is necessary for the side bar menu to display correctly */
   if(!isset($_SESSION['activateDefaultMenu']) && (basename( $_SERVER['PHP_SELF'] ))=="index.php"){
 			$_SESSION['activateDefaultMenu'] = 1;
   }
-  ************************************ end important menu code *************/
+  /************************************ end important menu code *************/
 
 	if(isset($_SESSION['userID']))
 		$currentUser = new Person($_SESSION['userID'], $db);
@@ -29,8 +28,8 @@
 	foreach($altskins as $altskin)
 		echo "<link rel=\"alternate stylesheet\" href=\"skins/$altskin/index.css\" type=\"text/css\" title=\"$altskin\" />\n";
 
-	echo "<title>$appname 2.4</title>\n";
-	$announcementResults = $db->query('SELECT iID FROM News ORDER BY iID DESC');
+	echo "<title>$appname $appversion</title>\n";
+	$announcementResults = $db->query('SELECT iID FROM News WHERE dExpire >= CURDATE() ORDER BY iID DESC');
 	$numAnnounce = mysql_num_rows($announcementResults);
 	if($numAnnounce > 1)
 	{
@@ -46,9 +45,11 @@ require('scripts.php');
 //<![CDATA[
 	announcements = new announcementObj();
 <?php
+		$firstAnnouncement = null;
 		while($row = mysql_fetch_row($announcementResults))
 		{
 			$announcement = new Announcement($row[0], $db);
+			//echo "console.log('row : ".$row[0]."');\n";
 			if($announcement && !$announcement->isExpired())
 			{
 				echo "\tannouncements.add(".$announcement->getID().", \"".$announcement->getHeadingHTML()."\", \"".$announcement->getBodyHTML()."\");\n";
@@ -66,6 +67,9 @@ require('scripts.php');
 	{
 		$row = mysql_fetch_row($announcementResults);
 		$firstAnnouncement = new Announcement($row[0], $db);
+		if ($firstAnnouncement->isExpired) {
+			$firstAnnouncement = null;
+		}
 	}
 	echo "</head>\n";/* end head */
   
@@ -91,13 +95,13 @@ require('scripts.php');
 	$ext = $rand['sExtension'];
 	$title = htmlspecialchars($rand['sTitle']);
 	$desc = htmlspecialchars($rand['sDesc']);
-	echo "<div id=\"left\"><div id=\"randphotobox\"><img src=\"http://ipro.iit.edu/home/images/students1/photos/$randid.$ext\" alt=\"Random photo\" id=\"randphoto\" /></div><br />\n";
+	echo "<div id=\"right\"><div id=\"randphotobox\"><img src=\"images/students1/photos/$randid.$ext\" alt=\"Random photo\" id=\"randphoto\" /></div><br />\n";
 	echo "<span id=\"randtitle\">$title</span><br />\n<span id=\"randdesc\">$desc</span>";
 	echo "</div>\n";
 	
 	$heading = $numAnnounce ? $firstAnnouncement->getHeadingHTML() : "Welcome to $appname";
 	$body = $numAnnounce ? $firstAnnouncement->getBodyHTML() : 'There are no announcements';
-	echo "<div class=\"right\"><div class=\"box\">\n";
+	echo "<div class=\"left\"><div class=\"box\">\n";
 	echo "<span class=\"box-header\">Announcements</span>\n";
 	echo "<div class=\"announcement-heading\" id=\"announcehead\">$heading</div>\n";
 	echo "<div class=\"announcement-body\" id=\"announcebody\">$body</div>\n";
@@ -105,7 +109,7 @@ require('scripts.php');
 		echo "<a href=\"javascript:announcements.navigation('prev')\">Prev</a> <a href=\"javascript:announcements.navigation('pause')\">Pause</a> <a href=\"javascript:announcements.navigation('next')\">Next</a>\n";
 	echo "</div></div>\n";
 	
-	echo "<div class=\"right\"><div class=\"box\">\n";
+	echo "<div class=\"left\"><div class=\"box\">\n";
 	echo "<span class=\"box-header\">$appname Knowledge Management</span>\n";
 	echo "<div class=\"announcement-heading\">Guest to $appname</div>\n";
 	echo "<div class=\"announcement-body\">You can <a href=\"iknow/main.php\">search and browse</a> IPRO team deliverables.</div>\n";

@@ -1,0 +1,7 @@
+classes/config.php
+userpassword/config.php
+peerreview/classes/customize.php
+.DS_Store
+.svn
+.svnignore
+.well-known

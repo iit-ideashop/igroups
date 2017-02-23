@@ -33,7 +33,7 @@
 	else
 		$loggedIn = false;
 	
-	if(isset($_POST['help']))
+	/*if(isset($_POST['help']))
 	{
 		mail($_POST['email'], "Your $appname Help Request", "We have received your inquiry and will respond to it as soon as possible.\n\nThank you for contacting us.\n\n-The $appname Team", "From:$contactemail");
 		$user = $db->query("SELECT iID FROM People WHERE sEmail='".$_POST['email']."'");
@@ -43,7 +43,7 @@
 		$iid = $help->getID();
 		mail($contactemail, "$appname Help Request [ID:$iid]", stripslashes($_POST['problem']), "From:".$_POST['email']);
 		$db->query("UPDATE Emails SET sSubject='$appname Help Request [ID:$iid]' WHERE iID=$iid");
-	}
+	}*/
 	
 	require('doctype.php');
 	require('appearance.php');
@@ -64,25 +64,25 @@
 if(isset($_POST['help']))
 	echo "<p>Your message has been sent and we will respond to it as soon as possible.</p>\n";
 ?>
-<p>If you are <b>having trouble logging in</b>, try <a href="http://sloth.iit.edu/~iproadmin/userpassword.php?reset=1">resetting your password</a>.</p>
+<p>If you are <b>having trouble logging in</b>, try <a href="forgotpassword.php">resetting your password</a>.</p>
 <p>If you are experiencing a <b>display bug</b>, your browser may be using a stale stylesheet. Try clearing your cache. If you don't know how to do this, Wikipedia has <a href="http://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache">instructions for commonly used browsers</a>.</p>
 <p>You may also be interested in the <a href="reqs.php">list of supported browsers</a>.</p>
-<p>If the above instructions fail to correct your problem, complete the form below. Please try to be as specific as you can. We will get back to you as soon as possible.</p>
-<form method="post" action="needhelp.php"><fieldset><legend>Contact Form</legend>
 <?php
+/*echo"<p>If the above instructions fail to correct your problem, complete the form below. Please try to be as specific as you can. We will get back to you as soon as possible.</p>";
+echo"<form method="post" action="needhelp.php"><fieldset><legend>Contact Form</legend>";
 	if($loggedIn)
 	{
 		$email = htmlspecialchars(stripslashes($currentUser->getEmail()));
 		echo "<input type=\"hidden\" name=\"email\" value=\"$email\" />\n";
 	}
 	else
-		echo "<label for=\"email\">Email address:</label><input type=\"text\" name=\"email\" id=\"email\" /><br />\n";
+		echo "<label for=\"email\">Email address:</label><input type=\"text\" name=\"email\" id=\"email\" /><br />\n";
+echo"<label for="problem">Please describe the problem you are having in as much detail as possible:</label><br />";
+echo"<textarea name="problem" id="problem" rows="10" cols="50"></textarea><br /><br />";
+echo"<input type="submit" name="help" value="Send Message" />";
+echo"</fieldset></form>";
+*/
 ?>
-<label for="problem">Please describe the problem you are having in as much detail as possible:</label><br />
-<textarea name="problem" id="problem" rows="10" cols="50"></textarea><br /><br />
-<input type="submit" name="help" value="Send Message" />
-</fieldset></form>
-
 <?php
 //include rest of html layout file
   require('htmlcontentfoot.php');// ends main container

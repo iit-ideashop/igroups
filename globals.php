@@ -1,11 +1,13 @@
 <?php
 	include_once('classes/db.php');
-	
+	set_include_path('.'.PATH_SEPARATOR.dirname(__FILE__));	
+	require_once('classes/config.php');	
 	$db = new dbConnection();
 	$row = mysql_fetch_row($db->query('select sValue from Appearance where sKey="appname"'));
 	$appname = $row[0];
+	$appversion = "2.4.1";
 	if(stristr(__FILE__ , '/home/iproadmin/public_html') !== false)
-		$appurl = 'http://sloth.iit.edu/~iproadmin/igroups';
+		$appurl = 'https://igroups.iit.edu';
 	else
 	{
 		$row = mysql_fetch_row($db->query('select sValue from Appearance where sKey="appurl"'));
