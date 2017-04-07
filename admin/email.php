@@ -1,5 +1,6 @@
 <?php
 	include_once('../globals.php');
+	include_once('../classes/config.php');
 	include_once('checkadmin.php');
 	ini_set('memory_limit', '16M');
 
@@ -146,7 +147,9 @@
 		$toString = substr($toString, 0, strlen($toString)-2);
 		$tolist = join(',', $to);
 
-		$headers = "From:".$currentUser->getEmail()."\n"."Bcc: $tolist\n";
+		// per spec, header field separation is \r\n, but sendmail expects native breaks
+ 		// (and mail clients generally don't mind)
+		$headers = "From:".$email_from."\n"."Reply-To:".$currentUser->getEmail()."\n"."Bcc: $tolist\n";
 		if(isset($_POST['cc']))
 			$headers .= "Cc:{$_POST['cc']}\n";
 		$mime_boundary = md5(time());

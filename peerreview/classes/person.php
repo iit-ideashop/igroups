@@ -308,6 +308,7 @@ if(!class_exists('Person'))
 			else
 				$body = "Your {$GLOBALS['systemname']} user account has been created. Your login name is your email address and your password is:\n$generated_pass\nYou should change this password after you log in.";
 			$body .= "\n\nRegards,\n{$GLOBALS['systemname']} Administrator\n{$GLOBALS['rootdir']}";
+			// admin email specific to peer review system
 			$headers = "From: {$GLOBALS['systemname']} <{$GLOBALS['adminemail']}>";
 			mail($email, $subject, $body, $headers);
 		}

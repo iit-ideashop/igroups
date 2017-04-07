@@ -35,13 +35,13 @@
 	
 	/*if(isset($_POST['help']))
 	{
-		mail($_POST['email'], "Your $appname Help Request", "We have received your inquiry and will respond to it as soon as possible.\n\nThank you for contacting us.\n\n-The $appname Team", "From:$contactemail");
+		mail($_POST['email'], "Your $appname Help Request", "We have received your inquiry and will respond to it as soon as possible.\n\nThank you for contacting us.\n\n-The $appname Team", "From: $contactemail");
 		$user = $db->query("SELECT iID FROM People WHERE sEmail='".$_POST['email']."'");
 		$id = (($row = mysql_fetch_row($user)) ? $row[0] : 753);
 		$_POST['problem'] .= "\n\nUser Agent: {$_SERVER['HTTP_USER_AGENT']}";
 		$help = createEmail('', 'Web based help request', $_POST['problem'], $id, 0, 14, 1, 0, 0, $db);
 		$iid = $help->getID();
-		mail($contactemail, "$appname Help Request [ID:$iid]", stripslashes($_POST['problem']), "From:".$_POST['email']);
+		mail($contactemail, "$appname Help Request [ID:$iid]", stripslashes($_POST['problem']), "From: ".$email_from."\n"."Reply-To: ".$_POST['email']);
 		$db->query("UPDATE Emails SET sSubject='$appname Help Request [ID:$iid]' WHERE iID=$iid");
 	}*/
 	

@@ -38,9 +38,8 @@
 		{
 			//Send Automatic Email
 			$msg = "This is an auto-generated $appname notification to let you know that ". $currentGroup->getName() ." team has submitted a budget and is awaiting your review.\n\n";
-			$msg .= "--- $appname System Auto-Generated Massage";
+			$msg .= "--- $appname System Auto-Generated Message";
 			$headers = "From: \"$appname Support\" <$contactemail>\n";
-					
 			$headers .= "To: jacobius@iit.edu";
 			$headers .= "\nContent-Type: text/plain;\n";
 			$headers .= "Content-Transfer-Encoding: 7bit;\n";
@@ -71,7 +70,6 @@
 		$msg = "This is an auto-generated $appname notification to let you know that ". $currentGroup->getName() ." team has submitted a new budget category and is awaiting your review.\n\n";
 		$msg .= "--- $appname Auto-Generated Massage";
 		$headers = "From: \"$appname Support\" <$contactemail>\n";
-					
 		$headers .= "To: jacobius@iit.edu";
 		$headers .= "\nContent-Type: text/plain;\n";
 		$headers .= "Content-Transfer-Encoding: 7bit;\n";

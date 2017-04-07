@@ -146,7 +146,7 @@
 			$toNames = join(', ', $names);
 		}
 		
-		$headers = "From: ".$currentUser->getFullName()." <".$currentUser->getEmail().">\n";
+		$headers = "From: ".$email_from."\n"."Reply-To: ".$currentUser->getFullName()." <".$currentUser->getEmail().">\n";
 		if(isset($_POST['cc']) && ($_POST['cc'] != ''))
 			$headers .= "Cc:".$_POST['cc']."\n";
 		$mime_boundary = md5(time());

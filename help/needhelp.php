@@ -43,7 +43,7 @@
 		$_POST['problem'] .= "\n\nUser Agent: {$_SERVER['HTTP_USER_AGENT']}";
 		$help = createEmail('', 'Web based help request', $_POST['problem'], $id, 0, 14, 1, 0, 0, $db);
 		$iid = $help->getID();
-		mail($contactemail, "$appname Help Request [ID:$iid]", stripslashes($_POST['problem']), "From:".$_POST['email']);
+		mail($contactemail, "$appname Help Request [ID:$iid]", stripslashes($_POST['problem']), "From:".$email_from."\n"."Reply-To:".$_POST['email']);
 		$db->query("UPDATE Emails SET sSubject='$appname Help Request [ID:$iid]' WHERE iID=$iid");
 	}
 	

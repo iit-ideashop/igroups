@@ -644,10 +644,10 @@ else if(isset($_GET['distribute']))
 		fclose($file);
 		$file = fopen('temp/temp.csv', 'rb');
 		$filename = str_replace(' ', '_', $group->getName()) . '_' . str_replace(' ', '_', $member->getLastName()) . '-PeerReview.csv';
-		$headers = 'From: '.$currentUser->getFullName().' <'.$currentUser->getEmail().">\r\n";
+		$headers = 'From: '.$email_from."\n"."Reply-To: ".$currentUser->getFullName().' <'.$currentUser->getEmail().">\n";
 		$mime_boundary = md5(time());
-		$headers .= "MIME-Version: 1.0\r\n";
-		$headers .= "Content-Transfer-Encoding: 7-bit\r\n";
+		$headers .= "MIME-Version: 1.0\n";
+		$headers .= "Content-Transfer-Encoding: 7-bit\n";
 		$headers .= "Content-Type: multipart/mixed; boundary=$mime_boundary\n";
 		$msg = '';
 		$f_contents=fread($file, filesize('temp/temp.csv'));
@@ -661,7 +661,7 @@ else if(isset($_GET['distribute']))
 		$msg .= "--$mime_boundary\n";
 		$msg .= "Content-Type: text/html; charset=iso-8859-1\n";
 		$msg .= "Content-Transfer-Encoding: 7-bit\n\n";
-		$msg .= "Greetings,\r\n\r\nAttached to this e-mail is feedback from the peer review process that you participated in. You should use this data to identify your strengths and weaknesses in working with your team.\r\n\r\nIf you have any questions, please contact your instructor or the admin.\n\n";
+		$msg .= "Greetings,\n\nAttached to this e-mail is feedback from the peer review process that you participated in. You should use this data to identify your strengths and weaknesses in working with your team.\n\nIf you have any questions, please contact your instructor or the admin.\n\n";
 		$msg .= "--$mime_boundary--\n\n";
 		mail($member->getEmail(), "[{$group->getName()}] Your Peer Review Feedback", $msg, $headers);
 
