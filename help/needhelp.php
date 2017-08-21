@@ -66,7 +66,7 @@
 if(isset($_POST['help']))
 	echo "<p>Your message has been sent and we will respond to it as soon as possible.</p>\n";
 ?>
-<p>If you are <b>having trouble logging in</b>, try <a href="http://sloth.iit.edu/~iproadmin/userpassword.php?reset=1">resetting your password</a>.</p>
+<p>If you are <b>having trouble logging in</b>, try <a href="../userpassword/index.php?reset=1">resetting your password</a>.</p>
 <p>If you are experiencing a <b>display bug</b>, your browser may be using a stale stylesheet. Try clearing your cache. If you don't know how to do this, Wikipedia has <a href="http://en.wikipedia.org/wiki/Wikipedia:Bypass_your_cache">instructions for commonly used browsers</a>.</p>
 <p>You may also be interested in the <a href="reqs.php">list of supported browsers</a>.</p>
 <?php

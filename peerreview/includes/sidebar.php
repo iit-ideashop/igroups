@@ -84,7 +84,7 @@ if(!isset($_SESSION['uID']) || (!$currentUser->isStudent() && $_SESSION['uType']
 <hr<?php echo $st; ?>>
 <p>Return to <a href="http://igroups.iit.edu">iGroups</a> &#183; <a href="http://ipro.iit.edu">IPRO Website</a></p>
 <hr<?php echo $st; ?>>
-<p id="copyright">&#169; 2009 IPRO Program, Illinois Institute of Technology</p>
+<p id="copyright">&#169; <?php echo(date('Y')); ?> IPRO Program, Illinois Institute of Technology</p>
 </div>
 <?php
 	if(isset($message))

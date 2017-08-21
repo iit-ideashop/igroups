@@ -149,7 +149,6 @@
 	echo "</table>\n";
 	echo "<input type=\"submit\" name=\"update\" value=\"Update Profile\" /></fieldset>\n";
 
-//Password change form now at http://sloth.iit.edu/~iproadmin/userpassword.php
 	echo "<fieldset><legend>Change Password</legend>\n";
 	echo "<label for=\"pw1\">New password:</label><input type=\"password\" name=\"pw1\" id=\"pw1\" /><br />\n";
 	echo "<label for=\"pw2\">Confirm password:</label><input type=\"password\" name=\"pw2\" id=\"pw2\" /><br />";
