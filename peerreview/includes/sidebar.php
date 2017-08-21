@@ -15,7 +15,7 @@ if(!isset($_SESSION['uID']))
 ?>
 
 <form method="post" action="<?php echo $GLOBALS['rootdir']; ?>status.php"><fieldset><legend>Login</legend>
-<label>Username:<br<?php echo $st; ?>><input type="text" name="username" size="20" maxlength="50"<?php echo $st; ?>></label><br<?php echo $st; ?>>
+<label>Email Address:<br<?php echo $st; ?>><input type="text" name="username" size="20" maxlength="50"<?php echo $st; ?>></label><br<?php echo $st; ?>>
 <label>Password:<br<?php echo $st; ?>><input type="password" name="password" size="20" maxlength="50"<?php echo $st; ?>></label><br<?php echo $st; ?>>
 <label><input type="checkbox" name="remember" value="true"<?php echo $st; ?>> Remember Me</label><br<?php echo $st; ?>>
 <input type="submit" name="login" value="Login"<?php echo $st; ?>>
@@ -84,7 +84,7 @@ if(!isset($_SESSION['uID']) || (!$currentUser->isStudent() && $_SESSION['uType']
 <hr<?php echo $st; ?>>
 <p>Return to <a href="http://igroups.iit.edu">iGroups</a> &#183; <a href="http://ipro.iit.edu">IPRO Website</a></p>
 <hr<?php echo $st; ?>>
-<p id="copyright">&#169; 2009 IPRO Program, Illinois Institute of Technology</p>
+<p id="copyright">&#169; <?php echo(date('Y')); ?> IPRO Program, Illinois Institute of Technology</p>
 </div>
 <?php
 	if(isset($message))

@@ -288,6 +288,7 @@
 			echo "<ul id=\"adminnavigation\"class=\"subnavigation\">\n";
 			echo "<li><a href=\"admin/group.php\">Manage Groups</a></li>\n";
 			echo "<li><a href=\"admin/semesters.php\">Manage Semesters</a></li>\n";
+			echo "<li><a href=\"admin/ods_update.php\">Load Cognos/ODS File</a></li>\n";
 			echo "<li><a href=\"admin/email.php\">Email Groups</a></li>\n";
 			echo "<li><a href=\"admin/nuggets.php\">Manage Nuggets</a></li>\n";
 			echo "<li><a href=\"admin/event.php\">Manage Calendars</a></li>\n";
